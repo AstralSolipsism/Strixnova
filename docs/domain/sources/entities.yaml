@@ -1,0 +1,324 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-342E6FDFEA9747FB
+scope_fact_ids: []
+facts:
+- fact_id: FACT-AD3A3604E30A4387
+  status: draft
+  title: 项目
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  content:
+    identity: 一个需要持续建设和治理、由稳定项目身份区分的产品与工程范围。
+    responsibilities:
+    - 关联当前项目负责人和一条当前采用的长期目标权威链。
+    - 分别保存产品、领域、目标架构、实现对齐和工程政策的精确状态。
+    - 提供建设事项之上的当前阶段、待复核状态和追溯范围。
+    - 声明负责修改与交付的成员仓库和精确归属；仓库数量、分支及本机检出位置不决定项目身份。
+    - 发现或只读调查阶段可以没有可实施仓库；正式修改必须具备对应成员仓库与实施条件。
+    lifecycle_fact_id: null
+- fact_id: FACT-01E58C1E2F3C4D9C
+  status: draft
+  title: 长期权威修订
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  content:
+    identity: 由权威种类、稳定权威身份和不可复用的修订身份共同区分的一份精确长期目标版本。
+    responsibilities:
+    - 保存草案、待确认、已确认、已取代等独立状态。
+    - 记录上游精确修订、演进关系、确认负责人和确认日期。
+    - 防止实质变化沿用旧确认或静默改写历史含义。
+    lifecycle_fact_id: FACT-1A4920CC49584349
+- fact_id: FACT-B3D14DA096B94DD9
+  status: draft
+  title: WorkItem（建设事项）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-04A78FF5E02A48CF
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-AD3A3604E30A4387
+  - FACT-12A47E948AC94AF2
+  content:
+    identity: 由稳定事项身份区分、以整数版本发现并发写入的一次受管建设目标。
+    responsibilities:
+    - 贯穿方向、工程方案、实施、验证、实际结果、提交、本地合入和安全收尾。
+    - 引用而不复制项目产品、领域、目标架构、实现对齐和工程政策正文。
+    - 保存方向形成时使用的精确产品决定上下文绑定、智能编码代理逐项形成的适用理由和重新考虑项。
+    - 保存确定性状态、历史事件、描述性关系和当前唯一下一步。
+    - 通过实际结果保存明确延期承诺，通过后续事项的精确关系与被接受结果记录处置，查询时派生当前跟进情况，不建立另一套持久任务状态。
+    - 归属一个项目，按可独立接受目标组织一个或多个成员仓库的实施与交付；只读依赖不取得对方仓库修改授权。
+    - 保存一份整体方向、方案与当前实际结果，各仓库交付从属于同一事项；需要提前独立交付的目标按原规则拆为独立事项。
+    lifecycle_fact_id: FACT-89383788CD9D4BB0
+- fact_id: FACT-B79387477E254534
+  status: draft
+  title: EngineeringAssessment（工程评估）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-DF782F3974E94BCF
+  content:
+    identity: 由建设事项身份和不可复用的评估版本区分的一份工程语义候选。
+    responsibilities:
+    - 引用已确认方向和精确项目长期权威。
+    - 保存调查事实、影响、风险、方法选择、候选设计、权威变更集、跨产物语义复核、操作、实施切片、验证和限制。
+    - 接受确定性校验但不取得产品、领域或目标架构权威。
+    lifecycle_fact_id: null
+- fact_id: FACT-47B266640F1840DA
+  status: draft
+  title: EngineeringPlan（工程方案）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B79387477E254534
+  - FACT-B3D14DA096B94DD9
+  - FACT-EECFC91CAB03476E
+  - FACT-ADDCB3B236194270
+  content:
+    identity: 由事项身份和方案版本区分、从一份已校验工程评估投影的实施增量。
+    responsibilities:
+    - 精确绑定方向、长期目标、实现对齐、代码基线和工程评估版本。
+    - 保存本事项允许的操作、有依赖关系的实施切片、完成条件和验证安排。
+    - 从当前方向派生行为例子目录、内容绑定及逐例核验安排；自动验证关联框架原生用例，不维护第二份例子正文。
+    - 由项目负责人确认后才授权实施。
+    - 明确各操作的仓库归属，区分修改与依赖范围，绑定必要契约、内容组合、联合验证及逐仓库交付顺序。
+    lifecycle_fact_id: null
+- fact_id: FACT-A1C2E3F405162738
+  status: draft
+  title: AuthorityChangeSet（权威变更集）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-01E58C1E2F3C4D9C
+  - FACT-B79387477E254534
+  content:
+    identity: 由建设事项身份、工程评估版本和不可复用的变更集身份共同区分的一次长期权威变更说明。
+    responsibilities:
+    - 精确绑定当前采用的产品定义、领域模型、目标架构和实现对齐四类核心权威基线。
+    - 逐项说明新增、修改、退役或更名内容，以及所有下游权威和事项方案如何处置。
+    - 只组织独立权威修订候选，不复制权威正文，也不成为第五类或第六类长期权威。
+    lifecycle_fact_id: FACT-C94A0B6C7D8E9FA0
+- fact_id: FACT-C3E4A5061728395A
+  status: draft
+  title: SemanticReview（语义复核）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B79387477E254534
+  - FACT-DF782F3974E94BCF
+  content:
+    identity: 由建设事项身份、工程评估版本和不可复用的复核身份区分的一份跨产物检查结论。
+    responsibilities:
+    - 由智能编码代理逐项检查产品、领域、架构、方案、风险、场景和证据边界是否互相对齐。
+    - 保存发现、严重程度、处置状态、依据和真正需要项目负责人决定的问题。
+    - 明确区分代理作出的语义判断与程序能够证明的结构事实。
+    lifecycle_fact_id: null
+- fact_id: FACT-B2D3F40516273849
+  status: draft
+  title: ImplementationSlice（实施切片）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-47B266640F1840DA
+  - FACT-C33E74EC824D4AE0
+  - FACT-ADDCB3B236194270
+  content:
+    identity: 由工程方案版本和切片身份区分的一组可独立推进、可独立验证的实施操作。
+    responsibilities:
+    - 把每项计划操作和验证命令恰好归入一个切片。
+    - 显式保存前置切片、允许并行关系、写入范围、完成条件、验证安排和完成时的精确文件快照。
+    - 有验证命令时以真实回执和事后判断证明完成；无验证命令时要求显式完成记录，不把“没有命令”当成“已经完成”。
+    - 记录导致本轮诚实终止的失败切片和因依赖未执行的后续切片；不自行启动或调度智能编码代理。
+    - 以仓库身份和精确内容限定操作、依赖、完成快照与重叠写入；跨仓库验证仍属于一个明确切片。
+    lifecycle_fact_id: FACT-DA5B1C7D8E9FA0B1
+- fact_id: FACT-C33E74EC824D4AE0
+  status: draft
+  title: VerificationRun（验证运行）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-47B266640F1840DA
+  - FACT-2D3C638B3E92417A
+  - FACT-E793FB9BC65A4ED0
+  content:
+    identity: 由事项身份、方案中的验证选择和一次不可复用运行身份区分的外部命令执行。
+    responsibilities:
+    - 只执行已选择且符合项目政策的验证请求。
+    - 记录真实环境、输入、输出、退出状态、时间、限制和取消事实。
+    - 带用例报告的运行同时绑定当前方案、例子内容、报告器和声明受测文件的实际字节，保存原生用例阶段及未运行、跳过、失败等事实；记录本身不证明断言充分。
+    - 不解释产品含义，也不允许作为智能编码代理启动器。
+    - 绑定验证实际涉及的仓库内容、必要外部依赖的可核验版本和环境，分别报告已捕获、已核验与未知输入。
+    lifecycle_fact_id: FACT-8FF8B1444DD741AC
+- fact_id: FACT-B8155BDA282E4527
+  status: draft
+  title: DeliveryActivity（交付运行活动）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-2D3C638B3E92417A
+  content:
+    identity: 由项目、活动种类、目标环境和不可复用活动身份区分的一次交付、发布、部署、观测或运行维护活动。
+    responsibilities:
+    - 绑定已确认计划、责任、前置关口、成功判断、回退和外部工具。
+    - 保存外部执行事实、部分完成、失败、取消、限制和后续责任。
+    - 不把计划或程序记录冒充外部状态已经改变。
+    lifecycle_fact_id: FACT-9FE2D628A8D8483D
+- fact_id: FACT-C81DA4F98DBF40FB
+  status: draft
+  title: ActualResult（实际结果）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-04A78FF5E02A48CF
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-E793FB9BC65A4ED0
+  content:
+    identity: 由事项身份和结果版本区分的一份用户可见结果候选。
+    responsibilities:
+    - 分别说明已实施效果、真实验证、未运行项、计划偏差、方法落实和限制。
+    - 引用真实回执和长期产物，不伪造执行或审查。
+    - 逐项交代非命令核验及自动行为例子的断言审阅，保留未核验限制，区分命令结果、原生用例执行和 Agent 判断；父验收由所属例子派生，不能以整体命令通过掩盖子例子缺口。明确延期条目和后续处置随本结果接受，不自动改写原事项。
+    - 同时绑定负责人实际看到的长期权威候选快照和普通交付文件快照，确认后不得偷换正文。
+    - 项目负责人接受精确版本后才能授权提交和后续交付。
+    - 把各修改仓库与必要依赖纳入同一结果版本，整体说明效果、证据和限制；按仓库分批接受不能替代整体接受。
+    - 区分用户结果接受与后续各仓库实际交付；取消、部分合入和对端证据缺口不能被总状态掩盖。
+    lifecycle_fact_id: null
+- fact_id: FACT-ED05BCEB08B94F1E
+  status: draft
+  title: DirectionItem（方向条目）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-66B7EEC7A5D44062
+  content:
+    identity: 由所属 WorkItem（建设事项）、条目种类以及相应 DIRREQ-*、DIRCON-*、DIRACC-* 或 DIREX-* 组合区分；不跨 WorkItem 宣称同一。
+    responsibilities:
+    - 保存方向需求、方向约束、验收条件或其行为例子的条目种类、稳定身份和当前陈述；例子保存前提、触发、期望结果及所属验收内需求或当前约束依据。
+    - 每项验收由 Agent 明确例子适用性；可观察行为变化提供具体例子，不适用须说明原因，未决定只能留在阻断草稿；沿用完整方向确认，不增加 BDD 模式或单独关口。
+    - 为工程操作、验证与追溯提供不依赖数组顺序的目标；验收条件同时保存对方向需求的显式覆盖引用。
+    - 通过历次完整 DirectionDecision 保留连续性和退出事实，但不转移方向确认，也不让旧工程方案继续有效。
+    lifecycle_fact_id: FACT-57EEA3D1D18E40B4
+- fact_id: FACT-D0828206E1A6C60E
+  status: draft
+  title: UpgradeAttempt（升级尝试）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  dependency_fact_ids:
+  - FACT-A6AEAAD06C24D8F8
+  - FACT-C9C5B5C016D75999
+  - FACT-7E2C917D0C47DA5B
+  content:
+    identity: 由指定项目和一次预检绑定的独立升级身份区分；重复调用引用同一尝试。
+    responsibilities:
+    - 保存源与目标版本组合、预检依据、保护范围及恢复材料。
+    - 持久记录维护、核验、切换与恢复进度，禁止普通入口使用混合版本。
+    - 核对新增事实，保留失败原因和可执行恢复路径。
+    lifecycle_fact_id: FACT-7E2C917D0C47DA5B
+- fact_id: FACT-12A47E948AC94AF2
+  status: draft
+  title: Repository（仓库）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AD3A3604E30A4387
+  - FACT-8C6CC8AD9DCD4310
+  content:
+    identity: 由稳定仓库身份区分、拥有独立版本历史的工程内容载体；本机目录、当前分支或一次提交不代替其身份。
+    responsibilities:
+    - 承载源码、契约、长期工程材料或验证材料，并由外部版本系统提供真实版本内容。
+    - 通过项目仓库归属明确负责其修改与交付的唯一受管项目，消费依赖不自动取得该归属。
+    - 检出位置变化、分支切换及同仓库链接工作树不产生新的逻辑仓库；归属不明时不伪造唯一性证明。
+    lifecycle_fact_id: null
+- fact_id: FACT-B66A3271FAD74C65
+  status: draft
+  title: RepositoryDelivery（仓库交付）
+  kind: domain_entity
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-12A47E948AC94AF2
+  - FACT-47B266640F1840DA
+  - FACT-C81DA4F98DBF40FB
+  content:
+    identity: 由同一个建设事项身份和仓库身份区分的一项实施与本地落地责任。
+    responsibilities:
+    - 关联事项的当前工程方案和整体实际结果，保存本仓库修改范围、目标版本、实施空间、结果内容、实际合入与收尾事实。
+    - 由该仓库的实施切片共同履行；只读或验证依赖不因此产生仓库交付或分支。
+    - 全部状态与事件从属于原建设事项权威，没有独立方向、工程方案或用户结果接受流程。
+    - 分别保留已知成功、失败、未知和停止后续交付后的残留，供整体进度与恢复判断使用。
+    lifecycle_fact_id: null

@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.follow-up-records.v1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/item"
+    },
+    {
+      "$ref": "#/$defs/result"
+    }
+  ],
+  "$defs": {
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "work_item_id",
+        "result_version",
+        "follow_up_id"
+      ],
+      "properties": {
+        "work_item_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "follow_up_id": {
+          "type": "string",
+          "pattern": "^FOLLOWUP-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "follow_up_id",
+        "limitation_refs",
+        "disposition",
+        "reason",
+        "responsible_party",
+        "due_on",
+        "review_condition",
+        "completion_criteria"
+      ],
+      "properties": {
+        "follow_up_id": {
+          "type": "string",
+          "pattern": "^FOLLOWUP-[0-9A-F]{16}$"
+        },
+        "limitation_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "disposition": {
+          "enum": [
+            "deferred",
+            "accepted_limitation"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "responsible_party": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "due_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "review_condition": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "completion_criteria": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "follow_up_ref",
+        "expected_version",
+        "outcome",
+        "rationale",
+        "evidence_refs",
+        "limitation_refs"
+      ],
+      "properties": {
+        "follow_up_ref": {
+          "$ref": "#/$defs/reference"
+        },
+        "expected_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "outcome": {
+          "enum": [
+            "resolved",
+            "partially_resolved",
+            "still_open",
+            "accepted_limitation"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "limitation_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,82 @@
+schema_version: strixnova.architecture-modules.v1
+architecture_id: ARCH-1111111111111111
+architecture_revision_id: ARCHREV-3333333333333333
+modules:
+  - module_id: MODULE-A000000000000001
+    title: 申请域
+    layer: domain
+    responsibility: >-
+      承载预约申请实体、生命周期状态转换、区间校验、领域规则、
+      不变量和审计条目的完整领域逻辑。
+    not_responsible_for:
+      - 不负责终端展示。
+      - 不负责统计报表生成。
+      - 不负责宿主会话管理。
+    public_interface:
+      interface_id: INTERFACE-A000000000000001
+      title: 申请域接口
+      operations:
+        - name: 校验区间
+          meaning: 校验整数分钟区间的顺序并返回时长或拒绝。
+        - name: 创建申请
+          meaning: 从合法区间创建一份待审核预约申请。
+        - name: 撤回申请
+          meaning: 尝试将待审核申请状态转为已撤回。
+        - name: 审批申请
+          meaning: 尝试将待审核申请状态转为已批准或已拒绝。
+        - name: 查询申请状态
+          meaning: 返回指定申请的当前状态。
+
+  - module_id: MODULE-A000000000000002
+    title: 成员服务
+    layer: application
+    responsibility: >-
+      协调成员的撤回操作，执行身份校验和归属校验，
+      调用申请域完成状态转换。
+    not_responsible_for:
+      - 不负责定义申请生命周期规则。
+      - 不负责终端展示。
+      - 不负责周报统计。
+    public_interface:
+      interface_id: INTERFACE-A000000000000002
+      title: 成员服务接口
+      operations:
+        - name: 撤回本人申请
+          meaning: 接收可信身份和申请标识，协调撤回流程并返回结果。
+        - name: 查询本人申请
+          meaning: 接收可信身份和申请标识，返回该申请的当前状态。
+
+  - module_id: MODULE-A000000000000003
+    title: 运营汇总
+    layer: query
+    responsibility: >-
+      按自然周统计预约申请的当前状态分布，
+      生成不含成员私人联系方式的周报。
+    not_responsible_for:
+      - 不负责修改申请状态。
+      - 不负责定义申请身份或状态含义。
+      - 不负责终端展示。
+    public_interface:
+      interface_id: INTERFACE-A000000000000003
+      title: 运营汇总接口
+      operations:
+        - name: 读取周报
+          meaning: >-
+            接收可信身份和自然周参数，返回该周申请状态分布统计。
+
+  - module_id: MODULE-A000000000000004
+    title: 终端适配
+    layer: adapter
+    responsibility: >-
+      提供本地终端命令行交互界面，将用户输入转化为
+      成员服务或运营汇总调用，将结果格式化输出。
+    not_responsible_for:
+      - 不负责领域规则。
+      - 不负责网页或网络服务。
+      - 不负责持久化决策。
+    public_interface:
+      interface_id: INTERFACE-A000000000000004
+      title: 终端适配接口
+      operations:
+        - name: 处理终端命令
+          meaning: 解析命令行输入，路由到对应的应用服务。

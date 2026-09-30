@@ -1,0 +1,170 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.verification-targets.v1",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/target"
+  },
+  "$defs": {
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_ref",
+        "method",
+        "reason",
+        "evidence_refs",
+        "command_ids"
+      ],
+      "properties": {
+        "target_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "enum": [
+            "command",
+            "agent_review",
+            "existing_evidence",
+            "not_verified",
+            "examples"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "command_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "example": {
+          "$ref": "behavior-example-v1.schema.json#/$defs/catalog_entry"
+        },
+        "case_bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "command_id",
+              "test_ids"
+            ],
+            "properties": {
+              "command_id": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 16000
+              },
+              "test_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 16000
+                },
+                "minItems": 1,
+                "maxItems": 256
+              }
+            }
+          },
+          "minItems": 1
+        },
+        "child_example_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^direction\\.example:DIREX-[0-9A-F]{16}$"
+          },
+          "minItems": 1,
+          "maxItems": 256
+        },
+        "assertion_review_required": {
+          "const": true
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_ref",
+        "method",
+        "reason",
+        "evidence_refs"
+      ],
+      "properties": {
+        "target_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "method": {
+          "enum": [
+            "agent_review",
+            "existing_evidence",
+            "not_verified"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "review_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_ref",
+        "outcome",
+        "rationale",
+        "evidence_refs"
+      ],
+      "properties": {
+        "target_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outcome": {
+          "enum": [
+            "supported",
+            "not_supported",
+            "not_verified"
+          ]
+        },
+        "rationale": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

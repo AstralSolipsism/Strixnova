@@ -1,0 +1,24 @@
+schema_version: strixnova.project-domain-collection.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+collection_id: COLL-A2D07DAA96EA4495
+title: 有身份对象、值、生命周期与事件
+routing_summary: 需要判断对象身份、状态变化、值约束和发生事实时读取。
+child_collection_paths: []
+sources:
+- source_id: SRC-342E6FDFEA9747FB
+  title: 有身份对象
+  routing_summary: 项目、仓库、仓库交付、长期权威、建设事项、方向条目、权威变更集、语义复核、实施切片、验证运行和交付活动。
+  path: docs/domain/sources/entities.yaml
+- source_id: SRC-5D85F77D3CF44B2E
+  title: 值对象
+  routing_summary: 仓库归属、仓库内容引用、项目内容快照、精确权威引用、确认绑定、影响范围、保障等级、负责人视图、验证状态和证据回执。
+  path: docs/domain/sources/value-objects.yaml
+- source_id: SRC-8820BD863C12458F
+  title: 生命周期
+  routing_summary: 长期权威、建设事项、方向条目、权威变更集、实施切片、验证运行和对齐复核的合法状态变化。
+  path: docs/domain/sources/lifecycles.yaml
+- source_id: SRC-7844833BF0DB4087
+  title: 领域事件
+  routing_summary: 目标定档、事项确认、单仓库与整体结果合入、验证记录、漂移发现和外部事实记录。
+  path: docs/domain/sources/events.yaml

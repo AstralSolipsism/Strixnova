@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.implementation-alignment-preparation-request.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "alignment_revision_id",
+    "supersedes_revision_id"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.implementation-alignment-preparation-request.v1"
+    },
+    "alignment_revision_id": {
+      "$ref": "project-implementation-alignment-v1.schema.json#/$defs/alignment_revision_id"
+    },
+    "supersedes_revision_id": {
+      "oneOf": [
+        {
+          "$ref": "project-implementation-alignment-v1.schema.json#/$defs/alignment_revision_id"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observation_scopes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "project-implementation-alignment-v1.schema.json#/$defs/observation_scope_input"
+      }
+    },
+    "governed_source_scopes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "project-implementation-alignment-v1.schema.json#/$defs/governed_source_scope_input"
+      }
+    },
+    "artifact_paths": {
+      "$ref": "project-implementation-alignment-v1.schema.json#/$defs/artifact_paths"
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "observation_scopes",
+        "governed_source_scopes",
+        "artifact_paths"
+      ]
+    },
+    {
+      "required": [
+        "observation_scopes",
+        "governed_source_scopes"
+      ],
+      "not": {
+        "required": [
+          "artifact_paths"
+        ]
+      }
+    },
+    {
+      "not": {
+        "anyOf": [
+          {
+            "required": [
+              "observation_scopes"
+            ]
+          },
+          {
+            "required": [
+              "governed_source_scopes"
+            ]
+          },
+          {
+            "required": [
+              "artifact_paths"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

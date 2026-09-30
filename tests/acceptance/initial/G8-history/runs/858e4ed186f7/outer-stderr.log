@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "D:\AboutDEV\Strixnova\.artifacts\acceptance\initial\prepare_g8_history.py", line 60, in <module>
+    second=adapter.coordinator.verify(item['work_item_id'],{'command_id':commands[1]['command_id'],'mode':'not_run','reason':'本次固定诊断明确不执行此命令；不是环境故障，也不是通过。'},expected_version=item['version'])
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\application_coordinator.py", line 254, in wrapped
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\application_coordinator.py", line 2517, in verify
+    raise ApplicationCoordinatorError(
+strixnova.application_coordinator.ApplicationCoordinatorError: verify 输入包含未知字段：reason

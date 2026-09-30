@@ -1,0 +1,181 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.behavior-example.v1",
+  "$defs": {
+    "example": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "example_id",
+        "title",
+        "given",
+        "when",
+        "then",
+        "basis_refs"
+      ],
+      "properties": {
+        "example_id": {
+          "type": "string",
+          "pattern": "^DIREX-[0-9A-F]{16}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        },
+        "given": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        },
+        "then": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^direction\\.(requirement:DIRREQ|constraint:DIRCON)-[0-9A-F]{16}$"
+          },
+          "minItems": 1,
+          "maxItems": 64
+        }
+      }
+    },
+    "behavior": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "applicability",
+            "examples"
+          ],
+          "properties": {
+            "applicability": {
+              "const": "required"
+            },
+            "examples": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/example"
+              },
+              "minItems": 1,
+              "maxItems": 256
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "applicability",
+            "reason"
+          ],
+          "properties": {
+            "applicability": {
+              "enum": [
+                "not_applicable",
+                "undetermined"
+              ]
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 16000
+            }
+          }
+        }
+      ]
+    },
+    "catalog_entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "example_id",
+        "title",
+        "given",
+        "when",
+        "then",
+        "basis_refs",
+        "target_ref",
+        "parent_acceptance_ref",
+        "example_sha256"
+      ],
+      "properties": {
+        "example_id": {
+          "type": "string",
+          "pattern": "^DIREX-[0-9A-F]{16}$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        },
+        "given": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "when": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        },
+        "then": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "basis_refs": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^direction\\.(requirement:DIRREQ|constraint:DIRCON)-[0-9A-F]{16}$"
+          },
+          "minItems": 1,
+          "maxItems": 64
+        },
+        "target_ref": {
+          "type": "string",
+          "pattern": "^direction\\.example:DIREX-[0-9A-F]{16}$"
+        },
+        "parent_acceptance_ref": {
+          "type": "string",
+          "pattern": "^direction\\.acceptance:DIRACC-[0-9A-F]{16}$"
+        },
+        "example_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

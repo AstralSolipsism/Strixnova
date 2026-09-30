@@ -1,0 +1,3075 @@
+{
+  "group": "known-agent-guard",
+  "material_root": "inputs/files",
+  "targets": [
+    {
+      "target_id": "MODULE-6DEF61048B394531",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-6DEF61048B394531",
+        "title": "受限进程监督",
+        "layer": "infrastructure",
+        "responsibility": "为明确的版本读取、授权实现观察、本地交付和验证用例提供统一子进程生命周期、取消、超时、编码和输出捕获机制，并要求调用方提供用途专属允许策略。",
+        "not_responsible_for": [
+          "不暴露不受用途政策约束的任意命令执行入口。",
+          "不决定实现观察、验证、版本或交付命令是否具有业务授权。",
+          "不启动或管理智能编码代理。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-4618450D34F24CB0",
+          "title": "受限进程监督接口",
+          "operations": [
+            {
+              "name": "运行受限进程",
+              "meaning": "在调用方已提供允许策略、工作目录以及输入、输出和时间资源限制后运行一个外部进程。"
+            },
+            {
+              "name": "取消受限进程",
+              "meaning": "按明确运行身份停止进程树并记录取消、清理和剩余限制。"
+            },
+            {
+              "name": "返回过程回执",
+              "meaning": "返回命令身份、时间、输出、退出、超时和取消事实，不解释业务含义。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/18",
+        "start_line": 377,
+        "end_line": 394
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/process_supervisor.py"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/process_supervisor.py",
+          "sha256": "00b5b41f935844c2b8761426ece225061a33af7a2f333fb082fbdffd5d9e3b96",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-6DEF61048B394531",
+          "implementation_stage_id": "ARCHSTAGE-3A40145E290D4B62",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "本次已知 Agent 入口拒绝修复改变了文件字节，原评价和原摘要保留于 tests/acceptance/initial/known-agent-guard-change/changed-inputs.json；当前职责评价待针对变更复核，不仅刷新摘要继承通过。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_process_supervisor.py::test_reused_parent_pid_does_not_make_an_older_agent_a_child",
+        "tests/unit/test_process_supervisor.py::test_creation_time_check_retains_real_forbidden_descendants",
+        "tests/unit/test_process_supervisor.py::test_exited_intermediate_does_not_silently_clear_supervision",
+        "tests/unit/test_process_supervisor.py::test_unverifiable_supervision_stops_own_command",
+        "tests/unit/test_implementation_observation.py::test_authorized_external_provider_extends_language_support",
+        "tests/unit/test_implementation_observation.py::test_capability_matrix_does_not_claim_complete_project_semantics",
+        "tests/unit/test_implementation_observation.py::test_cmake_targets_on_one_file_keep_distinct_node_identity",
+        "tests/unit/test_implementation_observation.py::test_content_snapshot_is_stable_when_unchanged_working_tree_is_committed",
+        "tests/unit/test_implementation_observation.py::test_dynamic_or_unresolved_relationships_remain_visible",
+        "tests/unit/test_implementation_observation.py::test_external_provider_contract_is_valid_and_shipped_without_drift",
+        "tests/unit/test_implementation_observation.py::test_external_provider_failures_never_become_empty_success",
+        "tests/unit/test_implementation_observation.py::test_external_provider_is_not_run_after_a_confirmed_material_changes",
+        "tests/unit/test_implementation_observation.py::test_external_provider_is_not_run_without_call_authorization",
+        "tests/unit/test_implementation_observation.py::test_external_provider_node_keys_distinguish_logical_nodes_on_one_path",
+        "tests/unit/test_implementation_observation.py::test_external_provider_output_must_cover_exact_declared_sources",
+        "tests/unit/test_implementation_observation.py::test_external_provider_request_limit_is_a_typed_failed_observation",
+        "tests/unit/test_process_supervisor.py::test_known_antigravity_entry_is_rejected_before_process_start"
+      ]
+    },
+    {
+      "target_id": "MODULE-71687954FB1E4DFD",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-71687954FB1E4DFD",
+        "title": "引导查询与追溯投影",
+        "layer": "query",
+        "responsibility": "从事项、当前产品决定、项目基线、跨权威状态、工程方案、实施切片、实现对齐、验证和外部活动中按需重建只读聚焦事实、决定上下文、当前阶段、真实差距、供智能编码代理解释的候选资料、下一步和审计追溯。历史查询独立于当前动作和当前权威，按存储层有界分页读取原记录及精确证据，报告候选处分与内容可用性。逐项核验区分命令证据与 Agent 结论；延期跟进从已接受原结果及后续接受事件派生，按快照有界查询，不初始化项目或形成第二套持久状态。 使用同一解析上下文展示整体事项、各仓库交付及必要依赖的不同状态，精确读取原内容组合和原版本规则；取消后的已合入与未交付事实同时保留，不生成实施指令。",
+        "not_responsible_for": [
+          "不拥有写权威或缓存第二份规范事实。",
+          "不生成用户意图、规划路线、工程语义或确认，也不把 PRD、SPEC、Story 等阅读形式变成可编辑事实。",
+          "不隐瞒失败、未知、未运行项或未来阶段限制。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-FF86C624D5D94D61",
+          "title": "引导查询接口",
+          "operations": [
+            {
+              "name": "读取当前聚焦视图",
+              "meaning": "返回当前阶段、唯一行动、首个依赖已满足实施切片、必要输入、阻断，以及形成负责人说明所需的精确候选事实。实施、恢复及纠偏材料从同一事项与方案版本组合原始方向、约束、核验安排和未闭合发现，按明确操作归属复用项目规则与事实闭包；不拼入未绑定评估，不生成或评价最终自然语言说明，也不把取得材料当作语义复核或授权。"
+            },
+            {
+              "name": "读取方向决定上下文",
+              "meaning": "返回当前产品修订、目的、能力目录以及全部非目标和约束的紧凑只读投影；不筛选相关能力、不生成护栏处置或理由，也不保存第二份产品事实。"
+            },
+            {
+              "name": "读取项目状态视图",
+              "meaning": "分开呈现产品、领域、架构、对齐、门禁、安装验收和发布状态。"
+            },
+            {
+              "name": "读取工程追溯",
+              "meaning": "按稳定方向条目身份连接长期权威、事项确认、工程操作、验证回执和外部活动，并同时保留所属 WorkItem 与完整 direction_version；不缓存第二份方向事实。"
+            },
+            {
+              "name": "读取审阅上下文",
+              "meaning": "按明确变化范围或目标模块复用版本读取、权威校验、源码归属和显式事实闭包，生成通用审阅资料与来源、版本、选择原因和缺口；无需事项，不启动观察或审阅工具，不初始化状态。JSON 与 Markdown 来自同一结果，不形成第二份规范或审阅结论。"
+            },
+            {
+              "name": "读取标准锚定与内部符合性矩阵",
+              "meaning": "分层返回逐项治理规则状态、证据、缺口、纠偏和外部认证或合规回执状态，不生成第二份规范事实。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/12",
+        "start_line": 245,
+        "end_line": 270
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/__init__.py",
+        "strixnova/src/strixnova/engineering_trace_projection.py",
+        "strixnova/src/strixnova/execution_context.py",
+        "strixnova/src/strixnova/public_input_contract.py",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/agents/openai.yaml",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/architecture-artifact-contracts.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-documentation.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-formation.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-contracts.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/code-review.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/confirmation-and-cancel.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/cross-artifact-review.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/delivery.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/direction.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-documentation.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-fact-contracts.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-modeling-and-alignment.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-assessment.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-methods.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/follow-ups.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/history-and-upgrade.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-artifact-contracts.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-workflow.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-practices.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/prd-authoring.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/product-discovery.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/replanning.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/spec-authoring.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/ux-design.md",
+        "strixnova/src/strixnova/resources/agent-skill/strixnova/references/verification.md",
+        "strixnova/src/strixnova/resources/input-contract-v1.schema.json",
+        "strixnova/src/strixnova/resources/project-direction-context-v1.schema.json",
+        "strixnova/src/strixnova/resources/review-context-v1.schema.json",
+        "strixnova/src/strixnova/review_context_projection.py",
+        "strixnova/src/strixnova/work_item_history.py",
+        "strixnova/src/strixnova/work_item_read_model.py"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md",
+          "sha256": "322df678e6a8e8f241f3551f6342baa6f80282e2ed4faaded3fca12fbd6f6ddb",
+          "language_id": "markdown",
+          "node_kind": "agent_guidance",
+          "disposition": "owned",
+          "target_module_id": "MODULE-71687954FB1E4DFD",
+          "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "本次已知 Agent 入口拒绝修复改变了文件字节，原评价和原摘要保留于 tests/acceptance/initial/known-agent-guard-change/changed-inputs.json；当前职责评价待针对变更复核，不仅刷新摘要继承通过。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md",
+          "sha256": "ff3f10c5419d7e804f5472c1285247690cee0cf0a2512ad05ff16743fed0218d",
+          "language_id": "markdown",
+          "node_kind": "agent_guidance",
+          "disposition": "owned",
+          "target_module_id": "MODULE-71687954FB1E4DFD",
+          "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "本次已知 Agent 入口拒绝修复改变了文件字节，原评价和原摘要保留于 tests/acceptance/initial/known-agent-guard-change/changed-inputs.json；当前职责评价待针对变更复核，不仅刷新摘要继承通过。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_engineering_trace_projection.py::test_projection_resolves_a_moving_integration_ref_for_every_query",
+        "tests/unit/test_engineering_trace_projection.py::test_trace_separates_current_records_audit_history_and_adoption_claims",
+        "tests/unit/test_engineering_trace_projection.py::test_trace_rejects_unknown_mode_and_missing_version_binding",
+        "tests/unit/test_execution_context.py::test_execution_material_preserves_source_text_and_unresolved_findings",
+        "tests/unit/test_execution_context.py::test_another_assessment_revision_is_not_presented_as_the_plan_basis",
+        "tests/unit/test_execution_context.py::test_recorded_plan_change_changes_the_execution_source_identity",
+        "tests/unit/test_execution_context.py::test_current_action_exposes_execution_material_for_start_resume_and_replan",
+        "tests/unit/test_public_input_contract.py::test_every_current_input_kind_has_one_direct_guidance_route",
+        "tests/unit/test_public_input_contract.py::test_every_public_current_action_has_a_valid_progressive_input_contract",
+        "tests/unit/test_public_input_contract.py::test_confirmation_contract_requires_a_later_user_message_after_presentation",
+        "tests/unit/test_public_input_contract.py::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields",
+        "tests/unit/test_review_context_projection.py::test_basis_identity_mismatch_is_not_downgraded_to_partial_success",
+        "tests/unit/test_review_context_projection.py::test_changes_collect_rules_and_stale_sources_without_creating_state",
+        "tests/unit/test_review_context_projection.py::test_changes_leave_copied_repository_index_bytes_unchanged",
+        "tests/unit/test_review_context_projection.py::test_content_budget_is_visible_and_keeps_guardrails",
+        "tests/unit/test_review_context_projection.py::test_copied_repository_keeps_real_changes_without_refreshing_index",
+        "tests/unit/test_review_context_projection.py::test_cross_repository_same_paths_are_not_assigned_another_repository_owner",
+        "tests/unit/test_review_context_projection.py::test_domain_source_changes_route_through_canonical_authority_paths",
+        "tests/unit/test_review_context_projection.py::test_global_architecture_constraints_are_always_present",
+        "tests/unit/test_review_context_projection.py::test_invalid_scopes_are_rejected",
+        "tests/unit/test_review_context_projection.py::test_missing_baseline_still_supplies_explicit_changed_code",
+        "tests/unit/test_review_context_projection.py::test_missing_policy_keeps_other_usable_materials",
+        "tests/unit/test_review_context_projection.py::test_module_query_does_not_require_changes_and_has_stable_identity"
+      ]
+    },
+    {
+      "target_id": "MODULE-8205A05A6F5E48A8",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-8205A05A6F5E48A8",
+        "title": "项目工程政策权威",
+        "layer": "policy",
+        "responsibility": "校验并提供跨建设事项长期有效的工程方法采用、保障规则、验证命令政策、交付关口和证据要求。 明确多仓库执行目录、内容组合证据、逐仓库落地和恢复目标的确定性约束；验证政策仍由调用方按精确版本提供。",
+        "not_responsible_for": [
+          "不为具体事项选择方法、风险或验证方案，也不因使用内置产物形成指引而推定项目采用了对应工程方法。",
+          "不执行验证命令或读取验证结果作语义结论。",
+          "不保存产品、领域或架构正文。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-E8EE364725234550",
+          "title": "工程政策接口",
+          "operations": [
+            {
+              "name": "读取精确工程政策",
+              "meaning": "返回指定修订的确定性方法、保障、验证和交付规则。"
+            },
+            {
+              "name": "校验工程政策候选",
+              "meaning": "检查结构、引用、规则冲突和生命周期，不生成政策内容。"
+            },
+            {
+              "name": "评估确定性义务",
+              "meaning": "根据已提供影响分类和保障等级返回规则明确要求的工程义务。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/5",
+        "start_line": 106,
+        "end_line": 123
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/project_engineering_policy.py",
+        "strixnova/src/strixnova/resources/governance-profile-v1.json",
+        "strixnova/src/strixnova/resources/project-engineering-policy-v1.schema.json"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/project_engineering_policy.py",
+          "sha256": "827909708c13e2d65d9939e07084c17b737a3f366350f4a1360c61a7e018673d",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-8205A05A6F5E48A8",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "本次已知 Agent 入口拒绝修复改变了文件字节，原评价和原摘要保留于 tests/acceptance/initial/known-agent-guard-change/changed-inputs.json；当前职责评价待针对变更复核，不仅刷新摘要继承通过。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_project_engineering_policy.py::test_repository_policy_is_the_current_independent_candidate",
+        "tests/unit/test_project_engineering_policy.py::test_policy_profile_applies_method_adoption_and_owner_tailoring",
+        "tests/unit/test_project_engineering_policy.py::test_policy_projects_only_deterministic_obligations_from_supplied_impacts",
+        "tests/unit/test_project_engineering_policy.py::test_policy_rejects_unknown_method_and_weakened_strengthening",
+        "tests/unit/test_behavior_verification.py::test_claiming_command_coverage_cannot_replace_a_case_binding",
+        "tests/unit/test_behavior_verification.py::test_new_example_must_have_its_own_arrangement",
+        "tests/unit/test_behavior_verification.py::test_parent_acceptance_cannot_hide_a_skipped_example",
+        "tests/unit/test_behavior_verification.py::test_plan_derives_example_targets_and_keeps_report_configuration_bound",
+        "tests/unit/test_behavior_verification.py::test_running_a_case_does_not_complete_the_agent_assertion_review",
+        "tests/unit/test_engineering_assessment_contract.py::test_a0_assessment_has_no_repository_operation_or_fake_verification",
+        "tests/unit/test_engineering_assessment_contract.py::test_a0_can_omit_empty_engineering_sections_without_fake_semantics",
+        "tests/unit/test_engineering_assessment_contract.py::test_adopted_authorities_must_match_the_project_baseline_references",
+        "tests/unit/test_engineering_assessment_contract.py::test_adopted_ddd_requires_explicit_coding_agent_choice_when_impact_is_relevant",
+        "tests/unit/test_engineering_assessment_contract.py::test_all_twelve_impact_dimensions_are_required",
+        "tests/unit/test_engineering_assessment_contract.py::test_architecture_impact_activates_rule_and_requires_real_decisions",
+        "tests/unit/test_engineering_assessment_contract.py::test_assessment_binds_current_direction_and_rejects_coerced_semantics",
+        "tests/unit/test_project_engineering_policy.py::test_policy_requires_known_antigravity_entry_in_agent_denials"
+      ]
+    }
+  ],
+  "test_definitions": {
+    "tests/unit/test_process_supervisor.py::test_reused_parent_pid_does_not_make_an_older_agent_a_child": {
+      "path": "tests/unit/test_process_supervisor.py",
+      "qualified_name": "test_reused_parent_pid_does_not_make_an_older_agent_a_child",
+      "start_line": 17,
+      "end_line": 23,
+      "current_file_sha256": "2e718e9983a260620f82024d606143633d51597a468ac57f7256dc3fc94afbaf",
+      "original_locator": "tests/unit/test_process_supervisor.py::test_reused_parent_pid_does_not_make_an_older_agent_a_child",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 557,
+          "node": "tests.unit.test_process_supervisor::test_reused_parent_pid_does_not_make_an_older_agent_a_child",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 551,
+          "node": "tests.unit.test_process_supervisor::test_reused_parent_pid_does_not_make_an_older_agent_a_child",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 2,
+          "node": "tests.unit.test_process_supervisor::test_reused_parent_pid_does_not_make_an_older_agent_a_child",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_process_supervisor.py::test_creation_time_check_retains_real_forbidden_descendants": {
+      "path": "tests/unit/test_process_supervisor.py",
+      "qualified_name": "test_creation_time_check_retains_real_forbidden_descendants",
+      "start_line": 26,
+      "end_line": 32,
+      "current_file_sha256": "2e718e9983a260620f82024d606143633d51597a468ac57f7256dc3fc94afbaf",
+      "original_locator": "tests/unit/test_process_supervisor.py::test_creation_time_check_retains_real_forbidden_descendants",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 617,
+          "node": "tests.unit.test_process_supervisor::test_creation_time_check_retains_real_forbidden_descendants",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 552,
+          "node": "tests.unit.test_process_supervisor::test_creation_time_check_retains_real_forbidden_descendants",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 0,
+          "node": "tests.unit.test_process_supervisor::test_creation_time_check_retains_real_forbidden_descendants",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_process_supervisor.py::test_exited_intermediate_does_not_silently_clear_supervision": {
+      "path": "tests/unit/test_process_supervisor.py",
+      "qualified_name": "test_exited_intermediate_does_not_silently_clear_supervision",
+      "start_line": 35,
+      "end_line": 43,
+      "current_file_sha256": "2e718e9983a260620f82024d606143633d51597a468ac57f7256dc3fc94afbaf",
+      "original_locator": "tests/unit/test_process_supervisor.py::test_exited_intermediate_does_not_silently_clear_supervision",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 578,
+          "node": "tests.unit.test_process_supervisor::test_exited_intermediate_does_not_silently_clear_supervision",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 553,
+          "node": "tests.unit.test_process_supervisor::test_exited_intermediate_does_not_silently_clear_supervision",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 1,
+          "node": "tests.unit.test_process_supervisor::test_exited_intermediate_does_not_silently_clear_supervision",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_process_supervisor.py::test_unverifiable_supervision_stops_own_command": {
+      "path": "tests/unit/test_process_supervisor.py",
+      "qualified_name": "test_unverifiable_supervision_stops_own_command",
+      "start_line": 46,
+      "end_line": 56,
+      "current_file_sha256": "2e718e9983a260620f82024d606143633d51597a468ac57f7256dc3fc94afbaf",
+      "original_locator": "tests/unit/test_process_supervisor.py::test_unverifiable_supervision_stops_own_command",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 558,
+          "node": "tests.unit.test_process_supervisor::test_unverifiable_supervision_stops_own_command",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 554,
+          "node": "tests.unit.test_process_supervisor::test_unverifiable_supervision_stops_own_command",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 5,
+          "node": "tests.unit.test_process_supervisor::test_unverifiable_supervision_stops_own_command",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_authorized_external_provider_extends_language_support": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_authorized_external_provider_extends_language_support",
+      "start_line": 613,
+      "end_line": 644,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_authorized_external_provider_extends_language_support",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 429,
+          "node": "tests.unit.test_implementation_observation::test_authorized_external_provider_extends_language_support",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 426,
+          "node": "tests.unit.test_implementation_observation::test_authorized_external_provider_extends_language_support",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_capability_matrix_does_not_claim_complete_project_semantics": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_capability_matrix_does_not_claim_complete_project_semantics",
+      "start_line": 595,
+      "end_line": 610,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_capability_matrix_does_not_claim_complete_project_semantics",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 430,
+          "node": "tests.unit.test_implementation_observation::test_capability_matrix_does_not_claim_complete_project_semantics",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 425,
+          "node": "tests.unit.test_implementation_observation::test_capability_matrix_does_not_claim_complete_project_semantics",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_cmake_targets_on_one_file_keep_distinct_node_identity": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_cmake_targets_on_one_file_keep_distinct_node_identity",
+      "start_line": 488,
+      "end_line": 524,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_cmake_targets_on_one_file_keep_distinct_node_identity",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 441,
+          "node": "tests.unit.test_implementation_observation::test_cmake_targets_on_one_file_keep_distinct_node_identity",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 421,
+          "node": "tests.unit.test_implementation_observation::test_cmake_targets_on_one_file_keep_distinct_node_identity",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_content_snapshot_is_stable_when_unchanged_working_tree_is_committed": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_content_snapshot_is_stable_when_unchanged_working_tree_is_committed",
+      "start_line": 166,
+      "end_line": 193,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_content_snapshot_is_stable_when_unchanged_working_tree_is_committed",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 417,
+          "node": "tests.unit.test_implementation_observation::test_content_snapshot_is_stable_when_unchanged_working_tree_is_committed",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 414,
+          "node": "tests.unit.test_implementation_observation::test_content_snapshot_is_stable_when_unchanged_working_tree_is_committed",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_dynamic_or_unresolved_relationships_remain_visible": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_dynamic_or_unresolved_relationships_remain_visible",
+      "start_line": 558,
+      "end_line": 592,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_dynamic_or_unresolved_relationships_remain_visible",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 427,
+          "node": "tests.unit.test_implementation_observation::test_dynamic_or_unresolved_relationships_remain_visible",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 424,
+          "node": "tests.unit.test_implementation_observation::test_dynamic_or_unresolved_relationships_remain_visible",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_external_provider_contract_is_valid_and_shipped_without_drift": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_external_provider_contract_is_valid_and_shipped_without_drift",
+      "start_line": 144,
+      "end_line": 163,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_external_provider_contract_is_valid_and_shipped_without_drift",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 418,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_contract_is_valid_and_shipped_without_drift",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 413,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_contract_is_valid_and_shipped_without_drift",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_external_provider_failures_never_become_empty_success": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_external_provider_failures_never_become_empty_success",
+      "start_line": 839,
+      "end_line": 863,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_external_provider_failures_never_become_empty_success",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 434,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_failures_never_become_empty_success[raise SystemExit(7)\\n-None-provider_process_nonzero_exit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 431,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_failures_never_become_empty_success[raise SystemExit(7)\\n-None-provider_process_nonzero_exit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 436,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_failures_never_become_empty_success[print('not json')\\n-None-provider_output_invalid_json]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 435,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_failures_never_become_empty_success[print('not json')\\n-None-provider_output_invalid_json]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 437,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_failures_never_become_empty_success[import time\\ntime.sleep(5)\\n-limits2-provider_process_timeout]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 434,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_failures_never_become_empty_success[import time\\ntime.sleep(5)\\n-limits2-provider_process_timeout]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_external_provider_is_not_run_after_a_confirmed_material_changes": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_external_provider_is_not_run_after_a_confirmed_material_changes",
+      "start_line": 753,
+      "end_line": 788,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_external_provider_is_not_run_after_a_confirmed_material_changes",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 432,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_is_not_run_after_a_confirmed_material_changes",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 432,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_is_not_run_after_a_confirmed_material_changes",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_external_provider_is_not_run_without_call_authorization": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_external_provider_is_not_run_without_call_authorization",
+      "start_line": 722,
+      "end_line": 750,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_external_provider_is_not_run_without_call_authorization",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 431,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_is_not_run_without_call_authorization",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 429,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_is_not_run_without_call_authorization",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_external_provider_node_keys_distinguish_logical_nodes_on_one_path": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_external_provider_node_keys_distinguish_logical_nodes_on_one_path",
+      "start_line": 647,
+      "end_line": 719,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_external_provider_node_keys_distinguish_logical_nodes_on_one_path",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 435,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_node_keys_distinguish_logical_nodes_on_one_path",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 427,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_node_keys_distinguish_logical_nodes_on_one_path",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_external_provider_output_must_cover_exact_declared_sources": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_external_provider_output_must_cover_exact_declared_sources",
+      "start_line": 866,
+      "end_line": 892,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_external_provider_output_must_cover_exact_declared_sources",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 438,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_output_must_cover_exact_declared_sources",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 439,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_output_must_cover_exact_declared_sources",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation.py::test_external_provider_request_limit_is_a_typed_failed_observation": {
+      "path": "tests/unit/test_implementation_observation.py",
+      "qualified_name": "test_external_provider_request_limit_is_a_typed_failed_observation",
+      "start_line": 791,
+      "end_line": 824,
+      "current_file_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "original_locator": "tests/unit/test_implementation_observation.py::test_external_provider_request_limit_is_a_typed_failed_observation",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 433,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_request_limit_is_a_typed_failed_observation",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 430,
+          "node": "tests.unit.test_implementation_observation::test_external_provider_request_limit_is_a_typed_failed_observation",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_trace_projection.py::test_projection_resolves_a_moving_integration_ref_for_every_query": {
+      "path": "tests/unit/test_engineering_trace_projection.py",
+      "qualified_name": "test_projection_resolves_a_moving_integration_ref_for_every_query",
+      "start_line": 197,
+      "end_line": 219,
+      "current_file_sha256": "b27c08503d5d799c1b040c0ce73efb6ea71f40a0b786405bb8e4d59836f1fbdd",
+      "original_locator": "tests/unit/test_engineering_trace_projection.py::test_projection_resolves_a_moving_integration_ref_for_every_query",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 260,
+          "node": "tests.unit.test_engineering_trace_projection::test_projection_resolves_a_moving_integration_ref_for_every_query",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 260,
+          "node": "tests.unit.test_engineering_trace_projection::test_projection_resolves_a_moving_integration_ref_for_every_query",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_trace_projection.py::test_trace_separates_current_records_audit_history_and_adoption_claims": {
+      "path": "tests/unit/test_engineering_trace_projection.py",
+      "qualified_name": "test_trace_separates_current_records_audit_history_and_adoption_claims",
+      "start_line": 222,
+      "end_line": 283,
+      "current_file_sha256": "b27c08503d5d799c1b040c0ce73efb6ea71f40a0b786405bb8e4d59836f1fbdd",
+      "original_locator": "tests/unit/test_engineering_trace_projection.py::test_trace_separates_current_records_audit_history_and_adoption_claims",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 261,
+          "node": "tests.unit.test_engineering_trace_projection::test_trace_separates_current_records_audit_history_and_adoption_claims",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 331,
+          "node": "tests.unit.test_engineering_trace_projection::test_trace_separates_current_records_audit_history_and_adoption_claims",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_trace_projection.py::test_trace_rejects_unknown_mode_and_missing_version_binding": {
+      "path": "tests/unit/test_engineering_trace_projection.py",
+      "qualified_name": "test_trace_rejects_unknown_mode_and_missing_version_binding",
+      "start_line": 286,
+      "end_line": 298,
+      "current_file_sha256": "b27c08503d5d799c1b040c0ce73efb6ea71f40a0b786405bb8e4d59836f1fbdd",
+      "original_locator": "tests/unit/test_engineering_trace_projection.py::test_trace_rejects_unknown_mode_and_missing_version_binding",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 314,
+          "node": "tests.unit.test_engineering_trace_projection::test_trace_rejects_unknown_mode_and_missing_version_binding",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 261,
+          "node": "tests.unit.test_engineering_trace_projection::test_trace_rejects_unknown_mode_and_missing_version_binding",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_execution_context.py::test_execution_material_preserves_source_text_and_unresolved_findings": {
+      "path": "tests/unit/test_execution_context.py",
+      "qualified_name": "test_execution_material_preserves_source_text_and_unresolved_findings",
+      "start_line": 56,
+      "end_line": 66,
+      "current_file_sha256": "c5896ff518a5e4eefee03e6bf1ffb91a9d16f3190a273790890b5591c449f307",
+      "original_locator": "tests/unit/test_execution_context.py::test_execution_material_preserves_source_text_and_unresolved_findings",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 338,
+          "node": "tests.unit.test_execution_context::test_execution_material_preserves_source_text_and_unresolved_findings",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 262,
+          "node": "tests.unit.test_execution_context::test_execution_material_preserves_source_text_and_unresolved_findings",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_execution_context.py::test_another_assessment_revision_is_not_presented_as_the_plan_basis": {
+      "path": "tests/unit/test_execution_context.py",
+      "qualified_name": "test_another_assessment_revision_is_not_presented_as_the_plan_basis",
+      "start_line": 69,
+      "end_line": 75,
+      "current_file_sha256": "c5896ff518a5e4eefee03e6bf1ffb91a9d16f3190a273790890b5591c449f307",
+      "original_locator": "tests/unit/test_execution_context.py::test_another_assessment_revision_is_not_presented_as_the_plan_basis",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 263,
+          "node": "tests.unit.test_execution_context::test_another_assessment_revision_is_not_presented_as_the_plan_basis",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 263,
+          "node": "tests.unit.test_execution_context::test_another_assessment_revision_is_not_presented_as_the_plan_basis",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_execution_context.py::test_recorded_plan_change_changes_the_execution_source_identity": {
+      "path": "tests/unit/test_execution_context.py",
+      "qualified_name": "test_recorded_plan_change_changes_the_execution_source_identity",
+      "start_line": 78,
+      "end_line": 85,
+      "current_file_sha256": "c5896ff518a5e4eefee03e6bf1ffb91a9d16f3190a273790890b5591c449f307",
+      "original_locator": "tests/unit/test_execution_context.py::test_recorded_plan_change_changes_the_execution_source_identity",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 264,
+          "node": "tests.unit.test_execution_context::test_recorded_plan_change_changes_the_execution_source_identity",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 264,
+          "node": "tests.unit.test_execution_context::test_recorded_plan_change_changes_the_execution_source_identity",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_execution_context.py::test_current_action_exposes_execution_material_for_start_resume_and_replan": {
+      "path": "tests/unit/test_execution_context.py",
+      "qualified_name": "test_current_action_exposes_execution_material_for_start_resume_and_replan",
+      "start_line": 89,
+      "end_line": 93,
+      "current_file_sha256": "c5896ff518a5e4eefee03e6bf1ffb91a9d16f3190a273790890b5591c449f307",
+      "original_locator": "tests/unit/test_execution_context.py::test_current_action_exposes_execution_material_for_start_resume_and_replan",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 265,
+          "node": "tests.unit.test_execution_context::test_current_action_exposes_execution_material_for_start_resume_and_replan[implementation_ready]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 265,
+          "node": "tests.unit.test_execution_context::test_current_action_exposes_execution_material_for_start_resume_and_replan[implementation_ready]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 266,
+          "node": "tests.unit.test_execution_context::test_current_action_exposes_execution_material_for_start_resume_and_replan[implementing]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 266,
+          "node": "tests.unit.test_execution_context::test_current_action_exposes_execution_material_for_start_resume_and_replan[implementing]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 267,
+          "node": "tests.unit.test_execution_context::test_current_action_exposes_execution_material_for_start_resume_and_replan[replanning_required]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 267,
+          "node": "tests.unit.test_execution_context::test_current_action_exposes_execution_material_for_start_resume_and_replan[replanning_required]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_public_input_contract.py::test_every_current_input_kind_has_one_direct_guidance_route": {
+      "path": "tests/unit/test_public_input_contract.py",
+      "qualified_name": "test_every_current_input_kind_has_one_direct_guidance_route",
+      "start_line": 162,
+      "end_line": 183,
+      "current_file_sha256": "c8f15295e1b7b4812a8d8a462ea49b4bfea414f1bbd70c039ba6c2b436fef575",
+      "original_locator": "tests/unit/test_public_input_contract.py::test_every_current_input_kind_has_one_direct_guidance_route",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 733,
+          "node": "tests.unit.test_public_input_contract::test_every_current_input_kind_has_one_direct_guidance_route",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 729,
+          "node": "tests.unit.test_public_input_contract::test_every_current_input_kind_has_one_direct_guidance_route",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_public_input_contract.py::test_every_public_current_action_has_a_valid_progressive_input_contract": {
+      "path": "tests/unit/test_public_input_contract.py",
+      "qualified_name": "test_every_public_current_action_has_a_valid_progressive_input_contract",
+      "start_line": 193,
+      "end_line": 217,
+      "current_file_sha256": "c8f15295e1b7b4812a8d8a462ea49b4bfea414f1bbd70c039ba6c2b436fef575",
+      "original_locator": "tests/unit/test_public_input_contract.py::test_every_public_current_action_has_a_valid_progressive_input_contract",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 721,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[submit_direction-direction-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 759,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[submit_direction-direction-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 722,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[revise_direction-direction-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 778,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[revise_direction-direction-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 723,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[confirm_direction-direction_confirmation-confirm]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 719,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[confirm_direction-direction_confirmation-confirm]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 724,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[submit_engineering_assessment-engineering_assessment-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 720,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[submit_engineering_assessment-engineering_assessment-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 727,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[confirm_engineering_plan-engineering_plan_confirmation-confirm]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 733,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[confirm_engineering_plan-engineering_plan_confirmation-confirm]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 728,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[confirm_project_authority_candidates-project_authority_confirmation_bundle-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 724,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[confirm_project_authority_candidates-project_authority_confirmation_bundle-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 729,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[investigate_and_report-actual_result-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 725,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[investigate_and_report-actual_result-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 730,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[implement_and_verify-verification-verify]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 726,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[implement_and_verify-verification-verify]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 731,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[assess_verification_change-verification_assessment-verify]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 727,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[assess_verification_change-verification_assessment-verify]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 732,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[present_actual_result-actual_result-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 728,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[present_actual_result-actual_result-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 734,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[create_atomic_commits-commit_and_integrate-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 730,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[create_atomic_commits-commit_and_integrate-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 735,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[integrate_target-integrate-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 732,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[integrate_target-integrate-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 736,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resolve_git_conflict-conflict_resolution-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 735,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resolve_git_conflict-conflict_resolution-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 737,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[verify_after_git_conflict-conflict_retest-verify]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 734,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[verify_after_git_conflict-conflict_retest-verify]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 738,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[complete_git_merge-complete_merge-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 736,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[complete_git_merge-complete_merge-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 739,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[cleanup_work_area-cleanup-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 739,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[cleanup_work_area-cleanup-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 740,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[confirm_actual_result-actual_result_confirmation-confirm]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 731,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[confirm_actual_result-actual_result_confirmation-confirm]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 741,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[revise_engineering_plan-replan-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 737,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[revise_engineering_plan-replan-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 742,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[decide_cancelled_work-cancellation_decision-cancel]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 738,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[decide_cancelled_work-cancellation_decision-cancel]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 743,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resume_integrate-resume_external_effect-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 740,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resume_integrate-resume_external_effect-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 744,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[assess_target_advance-target_advance_assessment-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 749,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[assess_target_advance-target_advance_assessment-submit]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 745,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resume_cancel_cleanup-resume_external_effect-cancel]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 742,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resume_cancel_cleanup-resume_external_effect-cancel]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 746,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resume_cleanup-resume_external_effect-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 741,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resume_cleanup-resume_external_effect-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 747,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resume_cancel_discard-resume_external_effect-cancel]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 743,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[resume_cancel_discard-resume_external_effect-cancel]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 760,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[author_project_authority_candidate-project_authority_candidate-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 723,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[author_project_authority_candidate-project_authority_candidate-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 762,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[begin_implementation-begin_implementation-delivery]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 722,
+          "node": "tests.unit.test_public_input_contract::test_every_public_current_action_has_a_valid_progressive_input_contract[begin_implementation-begin_implementation-delivery]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_public_input_contract.py::test_confirmation_contract_requires_a_later_user_message_after_presentation": {
+      "path": "tests/unit/test_public_input_contract.py",
+      "qualified_name": "test_confirmation_contract_requires_a_later_user_message_after_presentation",
+      "start_line": 228,
+      "end_line": 253,
+      "current_file_sha256": "c8f15295e1b7b4812a8d8a462ea49b4bfea414f1bbd70c039ba6c2b436fef575",
+      "original_locator": "tests/unit/test_public_input_contract.py::test_confirmation_contract_requires_a_later_user_message_after_presentation",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 748,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_requires_a_later_user_message_after_presentation[confirm_direction-direction_confirmation]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 744,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_requires_a_later_user_message_after_presentation[confirm_direction-direction_confirmation]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 749,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_requires_a_later_user_message_after_presentation[confirm_actual_result-actual_result_confirmation]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 745,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_requires_a_later_user_message_after_presentation[confirm_actual_result-actual_result_confirmation]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 751,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_requires_a_later_user_message_after_presentation[confirm_engineering_plan-engineering_plan_confirmation]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 746,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_requires_a_later_user_message_after_presentation[confirm_engineering_plan-engineering_plan_confirmation]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_public_input_contract.py::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields": {
+      "path": "tests/unit/test_public_input_contract.py",
+      "qualified_name": "test_confirmation_contract_guides_decision_ready_explanation_without_system_fields",
+      "start_line": 272,
+      "end_line": 288,
+      "current_file_sha256": "c8f15295e1b7b4812a8d8a462ea49b4bfea414f1bbd70c039ba6c2b436fef575",
+      "original_locator": "tests/unit/test_public_input_contract.py::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 750,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields[confirm_direction-direction_confirmation-\\u4e0d\\u6388\\u6743\\u4fee\\u6539\\u6e90\\u7801]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 747,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields[confirm_direction-direction_confirmation-\\u4e0d\\u6388\\u6743\\u4fee\\u6539\\u6e90\\u7801]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 752,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields[confirm_engineering_plan-engineering_plan_confirmation-\\u672c\\u5730\\u5b9e\\u65bd\\u5e76\\u9a8c\\u8bc1]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 748,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields[confirm_engineering_plan-engineering_plan_confirmation-\\u672c\\u5730\\u5b9e\\u65bd\\u5e76\\u9a8c\\u8bc1]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 753,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields[confirm_actual_result-actual_result_confirmation-\\u7ec4\\u7ec7\\u672c\\u5730 Git \\u63d0\\u4ea4\\u3001\\u5408\\u5165\\u548c\\u6e05\\u7406]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 751,
+          "node": "tests.unit.test_public_input_contract::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields[confirm_actual_result-actual_result_confirmation-\\u7ec4\\u7ec7\\u672c\\u5730 Git \\u63d0\\u4ea4\\u3001\\u5408\\u5165\\u548c\\u6e05\\u7406]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_basis_identity_mismatch_is_not_downgraded_to_partial_success": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_basis_identity_mismatch_is_not_downgraded_to_partial_success",
+      "start_line": 194,
+      "end_line": 203,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_basis_identity_mismatch_is_not_downgraded_to_partial_success",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 784,
+          "node": "tests.unit.test_review_context_projection::test_basis_identity_mismatch_is_not_downgraded_to_partial_success",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 780,
+          "node": "tests.unit.test_review_context_projection::test_basis_identity_mismatch_is_not_downgraded_to_partial_success",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_changes_collect_rules_and_stale_sources_without_creating_state": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_changes_collect_rules_and_stale_sources_without_creating_state",
+      "start_line": 21,
+      "end_line": 47,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_changes_collect_rules_and_stale_sources_without_creating_state",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 780,
+          "node": "tests.unit.test_review_context_projection::test_changes_collect_rules_and_stale_sources_without_creating_state",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 775,
+          "node": "tests.unit.test_review_context_projection::test_changes_collect_rules_and_stale_sources_without_creating_state",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_changes_leave_copied_repository_index_bytes_unchanged": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_changes_leave_copied_repository_index_bytes_unchanged",
+      "start_line": 78,
+      "end_line": 90,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_changes_leave_copied_repository_index_bytes_unchanged",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 773,
+          "node": "tests.unit.test_review_context_projection::test_changes_leave_copied_repository_index_bytes_unchanged",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 771,
+          "node": "tests.unit.test_review_context_projection::test_changes_leave_copied_repository_index_bytes_unchanged",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_content_budget_is_visible_and_keeps_guardrails": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_content_budget_is_visible_and_keeps_guardrails",
+      "start_line": 220,
+      "end_line": 229,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_content_budget_is_visible_and_keeps_guardrails",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 794,
+          "node": "tests.unit.test_review_context_projection::test_content_budget_is_visible_and_keeps_guardrails",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 795,
+          "node": "tests.unit.test_review_context_projection::test_content_budget_is_visible_and_keeps_guardrails",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_copied_repository_keeps_real_changes_without_refreshing_index": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_copied_repository_keeps_real_changes_without_refreshing_index",
+      "start_line": 94,
+      "end_line": 125,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_copied_repository_keeps_real_changes_without_refreshing_index",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 775,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[mode]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 783,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[mode]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 777,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[delete]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 773,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[delete]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 782,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[binary]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 785,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[binary]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 785,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[empty_add]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 782,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[empty_add]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 786,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[content]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 770,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[content]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 788,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[rename]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 784,
+          "node": "tests.unit.test_review_context_projection::test_copied_repository_keeps_real_changes_without_refreshing_index[rename]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_cross_repository_same_paths_are_not_assigned_another_repository_owner": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_cross_repository_same_paths_are_not_assigned_another_repository_owner",
+      "start_line": 247,
+      "end_line": 265,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_cross_repository_same_paths_are_not_assigned_another_repository_owner",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 801,
+          "node": "tests.unit.test_review_context_projection::test_cross_repository_same_paths_are_not_assigned_another_repository_owner",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 796,
+          "node": "tests.unit.test_review_context_projection::test_cross_repository_same_paths_are_not_assigned_another_repository_owner",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_domain_source_changes_route_through_canonical_authority_paths": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_domain_source_changes_route_through_canonical_authority_paths",
+      "start_line": 295,
+      "end_line": 307,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_domain_source_changes_route_through_canonical_authority_paths",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 797,
+          "node": "tests.unit.test_review_context_projection::test_domain_source_changes_route_through_canonical_authority_paths",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 791,
+          "node": "tests.unit.test_review_context_projection::test_domain_source_changes_route_through_canonical_authority_paths",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_global_architecture_constraints_are_always_present": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_global_architecture_constraints_are_always_present",
+      "start_line": 281,
+      "end_line": 292,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_global_architecture_constraints_are_always_present",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 803,
+          "node": "tests.unit.test_review_context_projection::test_global_architecture_constraints_are_always_present",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 797,
+          "node": "tests.unit.test_review_context_projection::test_global_architecture_constraints_are_always_present",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_invalid_scopes_are_rejected": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_invalid_scopes_are_rejected",
+      "start_line": 211,
+      "end_line": 217,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_invalid_scopes_are_rejected",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 790,
+          "node": "tests.unit.test_review_context_projection::test_invalid_scopes_are_rejected[<lambda>0]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 786,
+          "node": "tests.unit.test_review_context_projection::test_invalid_scopes_are_rejected[<lambda>0]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 796,
+          "node": "tests.unit.test_review_context_projection::test_invalid_scopes_are_rejected[<lambda>1]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 790,
+          "node": "tests.unit.test_review_context_projection::test_invalid_scopes_are_rejected[<lambda>1]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 799,
+          "node": "tests.unit.test_review_context_projection::test_invalid_scopes_are_rejected[<lambda>2]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 793,
+          "node": "tests.unit.test_review_context_projection::test_invalid_scopes_are_rejected[<lambda>2]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_missing_baseline_still_supplies_explicit_changed_code": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_missing_baseline_still_supplies_explicit_changed_code",
+      "start_line": 142,
+      "end_line": 154,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_missing_baseline_still_supplies_explicit_changed_code",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 791,
+          "node": "tests.unit.test_review_context_projection::test_missing_baseline_still_supplies_explicit_changed_code",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 777,
+          "node": "tests.unit.test_review_context_projection::test_missing_baseline_still_supplies_explicit_changed_code",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_missing_policy_keeps_other_usable_materials": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_missing_policy_keeps_other_usable_materials",
+      "start_line": 128,
+      "end_line": 139,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_missing_policy_keeps_other_usable_materials",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 781,
+          "node": "tests.unit.test_review_context_projection::test_missing_policy_keeps_other_usable_materials",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 789,
+          "node": "tests.unit.test_review_context_projection::test_missing_policy_keeps_other_usable_materials",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_review_context_projection.py::test_module_query_does_not_require_changes_and_has_stable_identity": {
+      "path": "tests/unit/test_review_context_projection.py",
+      "qualified_name": "test_module_query_does_not_require_changes_and_has_stable_identity",
+      "start_line": 50,
+      "end_line": 60,
+      "current_file_sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "original_locator": "tests/unit/test_review_context_projection.py::test_module_query_does_not_require_changes_and_has_stable_identity",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 771,
+          "node": "tests.unit.test_review_context_projection::test_module_query_does_not_require_changes_and_has_stable_identity",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 767,
+          "node": "tests.unit.test_review_context_projection::test_module_query_does_not_require_changes_and_has_stable_identity",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_engineering_policy.py::test_repository_policy_is_the_current_independent_candidate": {
+      "path": "tests/unit/test_project_engineering_policy.py",
+      "qualified_name": "test_repository_policy_is_the_current_independent_candidate",
+      "start_line": 32,
+      "end_line": 41,
+      "current_file_sha256": "781ad6813ecbf617695595268ba5af35f903f71a9f513eec1ed890d39b54ba19",
+      "original_locator": "tests/unit/test_project_engineering_policy.py::test_repository_policy_is_the_current_independent_candidate",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 776,
+          "node": "tests.unit.test_project_engineering_policy::test_repository_policy_is_the_current_independent_candidate",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 718,
+          "node": "tests.unit.test_project_engineering_policy::test_repository_policy_is_the_current_independent_candidate",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 24,
+          "node": "tests.unit.test_project_engineering_policy::test_repository_policy_is_the_current_independent_candidate",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_engineering_policy.py::test_policy_profile_applies_method_adoption_and_owner_tailoring": {
+      "path": "tests/unit/test_project_engineering_policy.py",
+      "qualified_name": "test_policy_profile_applies_method_adoption_and_owner_tailoring",
+      "start_line": 44,
+      "end_line": 58,
+      "current_file_sha256": "781ad6813ecbf617695595268ba5af35f903f71a9f513eec1ed890d39b54ba19",
+      "original_locator": "tests/unit/test_project_engineering_policy.py::test_policy_profile_applies_method_adoption_and_owner_tailoring",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 695,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_profile_applies_method_adoption_and_owner_tailoring",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 690,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_profile_applies_method_adoption_and_owner_tailoring",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 13,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_profile_applies_method_adoption_and_owner_tailoring",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_engineering_policy.py::test_policy_projects_only_deterministic_obligations_from_supplied_impacts": {
+      "path": "tests/unit/test_project_engineering_policy.py",
+      "qualified_name": "test_policy_projects_only_deterministic_obligations_from_supplied_impacts",
+      "start_line": 61,
+      "end_line": 74,
+      "current_file_sha256": "781ad6813ecbf617695595268ba5af35f903f71a9f513eec1ed890d39b54ba19",
+      "original_locator": "tests/unit/test_project_engineering_policy.py::test_policy_projects_only_deterministic_obligations_from_supplied_impacts",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 698,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_projects_only_deterministic_obligations_from_supplied_impacts",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 696,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_projects_only_deterministic_obligations_from_supplied_impacts",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 34,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_projects_only_deterministic_obligations_from_supplied_impacts",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_engineering_policy.py::test_policy_rejects_unknown_method_and_weakened_strengthening": {
+      "path": "tests/unit/test_project_engineering_policy.py",
+      "qualified_name": "test_policy_rejects_unknown_method_and_weakened_strengthening",
+      "start_line": 77,
+      "end_line": 92,
+      "current_file_sha256": "781ad6813ecbf617695595268ba5af35f903f71a9f513eec1ed890d39b54ba19",
+      "original_locator": "tests/unit/test_project_engineering_policy.py::test_policy_rejects_unknown_method_and_weakened_strengthening",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 706,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_rejects_unknown_method_and_weakened_strengthening",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 691,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_rejects_unknown_method_and_weakened_strengthening",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 14,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_rejects_unknown_method_and_weakened_strengthening",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_behavior_verification.py::test_claiming_command_coverage_cannot_replace_a_case_binding": {
+      "path": "tests/unit/test_behavior_verification.py",
+      "qualified_name": "test_claiming_command_coverage_cannot_replace_a_case_binding",
+      "start_line": 35,
+      "end_line": 47,
+      "current_file_sha256": "8f7308a0da35bede2d5996ccd1455b5418711bb0c49fb05c7dcc18d77657e2cb",
+      "original_locator": "tests/unit/test_behavior_verification.py::test_claiming_command_coverage_cannot_replace_a_case_binding",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 115,
+          "node": "tests.unit.test_behavior_verification::test_claiming_command_coverage_cannot_replace_a_case_binding",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 187,
+          "node": "tests.unit.test_behavior_verification::test_claiming_command_coverage_cannot_replace_a_case_binding",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_behavior_verification.py::test_new_example_must_have_its_own_arrangement": {
+      "path": "tests/unit/test_behavior_verification.py",
+      "qualified_name": "test_new_example_must_have_its_own_arrangement",
+      "start_line": 99,
+      "end_line": 102,
+      "current_file_sha256": "8f7308a0da35bede2d5996ccd1455b5418711bb0c49fb05c7dcc18d77657e2cb",
+      "original_locator": "tests/unit/test_behavior_verification.py::test_new_example_must_have_its_own_arrangement",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 108,
+          "node": "tests.unit.test_behavior_verification::test_new_example_must_have_its_own_arrangement",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 108,
+          "node": "tests.unit.test_behavior_verification::test_new_example_must_have_its_own_arrangement",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_behavior_verification.py::test_parent_acceptance_cannot_hide_a_skipped_example": {
+      "path": "tests/unit/test_behavior_verification.py",
+      "qualified_name": "test_parent_acceptance_cannot_hide_a_skipped_example",
+      "start_line": 78,
+      "end_line": 87,
+      "current_file_sha256": "8f7308a0da35bede2d5996ccd1455b5418711bb0c49fb05c7dcc18d77657e2cb",
+      "original_locator": "tests/unit/test_behavior_verification.py::test_parent_acceptance_cannot_hide_a_skipped_example",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 106,
+          "node": "tests.unit.test_behavior_verification::test_parent_acceptance_cannot_hide_a_skipped_example",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 180,
+          "node": "tests.unit.test_behavior_verification::test_parent_acceptance_cannot_hide_a_skipped_example",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_behavior_verification.py::test_plan_derives_example_targets_and_keeps_report_configuration_bound": {
+      "path": "tests/unit/test_behavior_verification.py",
+      "qualified_name": "test_plan_derives_example_targets_and_keeps_report_configuration_bound",
+      "start_line": 14,
+      "end_line": 32,
+      "current_file_sha256": "8f7308a0da35bede2d5996ccd1455b5418711bb0c49fb05c7dcc18d77657e2cb",
+      "original_locator": "tests/unit/test_behavior_verification.py::test_plan_derives_example_targets_and_keeps_report_configuration_bound",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 112,
+          "node": "tests.unit.test_behavior_verification::test_plan_derives_example_targets_and_keeps_report_configuration_bound",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 112,
+          "node": "tests.unit.test_behavior_verification::test_plan_derives_example_targets_and_keeps_report_configuration_bound",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_behavior_verification.py::test_running_a_case_does_not_complete_the_agent_assertion_review": {
+      "path": "tests/unit/test_behavior_verification.py",
+      "qualified_name": "test_running_a_case_does_not_complete_the_agent_assertion_review",
+      "start_line": 90,
+      "end_line": 96,
+      "current_file_sha256": "8f7308a0da35bede2d5996ccd1455b5418711bb0c49fb05c7dcc18d77657e2cb",
+      "original_locator": "tests/unit/test_behavior_verification.py::test_running_a_case_does_not_complete_the_agent_assertion_review",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 107,
+          "node": "tests.unit.test_behavior_verification::test_running_a_case_does_not_complete_the_agent_assertion_review",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 107,
+          "node": "tests.unit.test_behavior_verification::test_running_a_case_does_not_complete_the_agent_assertion_review",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_assessment_contract.py::test_a0_assessment_has_no_repository_operation_or_fake_verification": {
+      "path": "tests/unit/test_engineering_assessment_contract.py",
+      "qualified_name": "test_a0_assessment_has_no_repository_operation_or_fake_verification",
+      "start_line": 1485,
+      "end_line": 1505,
+      "current_file_sha256": "1b5b76204b538770f726eedcefb58de378d7a2bec858fb1f9e0b93205a110542",
+      "original_locator": "tests/unit/test_engineering_assessment_contract.py::test_a0_assessment_has_no_repository_operation_or_fake_verification",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 229,
+          "node": "tests.unit.test_engineering_assessment_contract::test_a0_assessment_has_no_repository_operation_or_fake_verification",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 230,
+          "node": "tests.unit.test_engineering_assessment_contract::test_a0_assessment_has_no_repository_operation_or_fake_verification",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_assessment_contract.py::test_a0_can_omit_empty_engineering_sections_without_fake_semantics": {
+      "path": "tests/unit/test_engineering_assessment_contract.py",
+      "qualified_name": "test_a0_can_omit_empty_engineering_sections_without_fake_semantics",
+      "start_line": 1528,
+      "end_line": 1544,
+      "current_file_sha256": "1b5b76204b538770f726eedcefb58de378d7a2bec858fb1f9e0b93205a110542",
+      "original_locator": "tests/unit/test_engineering_assessment_contract.py::test_a0_can_omit_empty_engineering_sections_without_fake_semantics",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 232,
+          "node": "tests.unit.test_engineering_assessment_contract::test_a0_can_omit_empty_engineering_sections_without_fake_semantics",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 232,
+          "node": "tests.unit.test_engineering_assessment_contract::test_a0_can_omit_empty_engineering_sections_without_fake_semantics",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_assessment_contract.py::test_adopted_authorities_must_match_the_project_baseline_references": {
+      "path": "tests/unit/test_engineering_assessment_contract.py",
+      "qualified_name": "test_adopted_authorities_must_match_the_project_baseline_references",
+      "start_line": 1138,
+      "end_line": 1238,
+      "current_file_sha256": "1b5b76204b538770f726eedcefb58de378d7a2bec858fb1f9e0b93205a110542",
+      "original_locator": "tests/unit/test_engineering_assessment_contract.py::test_adopted_authorities_must_match_the_project_baseline_references",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 270,
+          "node": "tests.unit.test_engineering_assessment_contract::test_adopted_authorities_must_match_the_project_baseline_references",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 216,
+          "node": "tests.unit.test_engineering_assessment_contract::test_adopted_authorities_must_match_the_project_baseline_references",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_assessment_contract.py::test_adopted_ddd_requires_explicit_coding_agent_choice_when_impact_is_relevant": {
+      "path": "tests/unit/test_engineering_assessment_contract.py",
+      "qualified_name": "test_adopted_ddd_requires_explicit_coding_agent_choice_when_impact_is_relevant",
+      "start_line": 554,
+      "end_line": 683,
+      "current_file_sha256": "1b5b76204b538770f726eedcefb58de378d7a2bec858fb1f9e0b93205a110542",
+      "original_locator": "tests/unit/test_engineering_assessment_contract.py::test_adopted_ddd_requires_explicit_coding_agent_choice_when_impact_is_relevant",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 216,
+          "node": "tests.unit.test_engineering_assessment_contract::test_adopted_ddd_requires_explicit_coding_agent_choice_when_impact_is_relevant",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 200,
+          "node": "tests.unit.test_engineering_assessment_contract::test_adopted_ddd_requires_explicit_coding_agent_choice_when_impact_is_relevant",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_assessment_contract.py::test_all_twelve_impact_dimensions_are_required": {
+      "path": "tests/unit/test_engineering_assessment_contract.py",
+      "qualified_name": "test_all_twelve_impact_dimensions_are_required",
+      "start_line": 986,
+      "end_line": 1002,
+      "current_file_sha256": "1b5b76204b538770f726eedcefb58de378d7a2bec858fb1f9e0b93205a110542",
+      "original_locator": "tests/unit/test_engineering_assessment_contract.py::test_all_twelve_impact_dimensions_are_required",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 213,
+          "node": "tests.unit.test_engineering_assessment_contract::test_all_twelve_impact_dimensions_are_required",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 213,
+          "node": "tests.unit.test_engineering_assessment_contract::test_all_twelve_impact_dimensions_are_required",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_assessment_contract.py::test_architecture_impact_activates_rule_and_requires_real_decisions": {
+      "path": "tests/unit/test_engineering_assessment_contract.py",
+      "qualified_name": "test_architecture_impact_activates_rule_and_requires_real_decisions",
+      "start_line": 1005,
+      "end_line": 1067,
+      "current_file_sha256": "1b5b76204b538770f726eedcefb58de378d7a2bec858fb1f9e0b93205a110542",
+      "original_locator": "tests/unit/test_engineering_assessment_contract.py::test_architecture_impact_activates_rule_and_requires_real_decisions",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 212,
+          "node": "tests.unit.test_engineering_assessment_contract::test_architecture_impact_activates_rule_and_requires_real_decisions",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 214,
+          "node": "tests.unit.test_engineering_assessment_contract::test_architecture_impact_activates_rule_and_requires_real_decisions",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_engineering_assessment_contract.py::test_assessment_binds_current_direction_and_rejects_coerced_semantics": {
+      "path": "tests/unit/test_engineering_assessment_contract.py",
+      "qualified_name": "test_assessment_binds_current_direction_and_rejects_coerced_semantics",
+      "start_line": 1599,
+      "end_line": 1615,
+      "current_file_sha256": "1b5b76204b538770f726eedcefb58de378d7a2bec858fb1f9e0b93205a110542",
+      "original_locator": "tests/unit/test_engineering_assessment_contract.py::test_assessment_binds_current_direction_and_rejects_coerced_semantics",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 233,
+          "node": "tests.unit.test_engineering_assessment_contract::test_assessment_binds_current_direction_and_rejects_coerced_semantics",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 234,
+          "node": "tests.unit.test_engineering_assessment_contract::test_assessment_binds_current_direction_and_rejects_coerced_semantics",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_process_supervisor.py::test_known_antigravity_entry_is_rejected_before_process_start": {
+      "path": "tests/unit/test_process_supervisor.py",
+      "qualified_name": "test_known_antigravity_entry_is_rejected_before_process_start",
+      "start_line": 236,
+      "end_line": 248,
+      "current_file_sha256": "2e718e9983a260620f82024d606143633d51597a468ac57f7256dc3fc94afbaf",
+      "recorded_executions": [
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 11,
+          "node": "tests.unit.test_process_supervisor::test_known_antigravity_entry_is_rejected_before_process_start[command2-forbidden_agent_wrapper]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 16,
+          "node": "tests.unit.test_process_supervisor::test_known_antigravity_entry_is_rejected_before_process_start[command0-forbidden_agent_program]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 25,
+          "node": "tests.unit.test_process_supervisor::test_known_antigravity_entry_is_rejected_before_process_start[command1-forbidden_agent_program]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 52,
+          "node": "tests.unit.test_process_supervisor::test_known_antigravity_entry_is_rejected_before_process_start[command3-forbidden_agent_wrapper]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/unit/test_project_engineering_policy.py::test_policy_requires_known_antigravity_entry_in_agent_denials": {
+      "path": "tests/unit/test_project_engineering_policy.py",
+      "qualified_name": "test_policy_requires_known_antigravity_entry_in_agent_denials",
+      "start_line": 152,
+      "end_line": 160,
+      "current_file_sha256": "781ad6813ecbf617695595268ba5af35f903f71a9f513eec1ed890d39b54ba19",
+      "recorded_executions": [
+        {
+          "run_id": "30b2d951c8f4",
+          "junit_testcase_index": 23,
+          "node": "tests.unit.test_project_engineering_policy::test_policy_requires_known_antigravity_entry_in_agent_denials",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    }
+  },
+  "files": [
+    {
+      "path": "docs/architecture/modules.yaml",
+      "read_path": "inputs/files/docs/architecture/modules.yaml",
+      "sha256": "f6c3efe6120580193a5a1b9dafa0897dbfd3fe55145cf270248ed60c640c2b74",
+      "line_count": 442,
+      "bytes": 38835
+    },
+    {
+      "path": "docs/engineering/policy.yaml",
+      "read_path": "inputs/files/docs/engineering/policy.yaml",
+      "sha256": "1c232deaccb31ac2a75cd40830a4fb01b17edd1746af98422d1d274f8dff9183",
+      "line_count": 193,
+      "bytes": 19808
+    },
+    {
+      "path": "docs/engineering/repository-conventions.md",
+      "read_path": "inputs/files/docs/engineering/repository-conventions.md",
+      "sha256": "c274b0a95a7e2ef4ecca55298fd77be5d0d69a56761e434a8794b900394e017a",
+      "line_count": 45,
+      "bytes": 6024
+    },
+    {
+      "path": "scripts/local_validation.py",
+      "read_path": "inputs/files/scripts/local_validation.py",
+      "sha256": "2f851de44aebc289f970f8eac31aa558b62cc433eed21a44fee2119bf76038a2",
+      "line_count": 355,
+      "bytes": 18664
+    },
+    {
+      "path": "skills-cn/strixnova/references/authority-authoring.zh-CN.md",
+      "read_path": "inputs/files/skills-cn/strixnova/references/authority-authoring.zh-CN.md",
+      "sha256": "e7f166d9f32d313396e411084475f96403a93972a792449216671807ffbfca25",
+      "line_count": 606,
+      "bytes": 34884
+    },
+    {
+      "path": "skills-cn/strixnova/references/engineering-policy-contracts.zh-CN.md",
+      "read_path": "inputs/files/skills-cn/strixnova/references/engineering-policy-contracts.zh-CN.md",
+      "sha256": "ff3f10c5419d7e804f5472c1285247690cee0cf0a2512ad05ff16743fed0218d",
+      "line_count": 193,
+      "bytes": 9993
+    },
+    {
+      "path": "strixnova/src/strixnova/__init__.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/__init__.py",
+      "sha256": "962be616ecfb296bdb43c87e071a6afa65b95d6f5d2f98505e823c4dbcbba78d",
+      "line_count": 3,
+      "bytes": 133
+    },
+    {
+      "path": "strixnova/src/strixnova/actual_result.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/actual_result.py",
+      "sha256": "b8a274149766dd93904e0b1b35b0801758b9d7107e26687073b1ec1a68e7c8d5",
+      "line_count": 953,
+      "bytes": 38271
+    },
+    {
+      "path": "strixnova/src/strixnova/agent_setup.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/agent_setup.py",
+      "sha256": "96da7c81ff16369ca06dbad9e77be87f7bc7973c44c7cafc4d65d8f9d7e127fc",
+      "line_count": 128,
+      "bytes": 4119
+    },
+    {
+      "path": "strixnova/src/strixnova/application_coordinator.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/application_coordinator.py",
+      "sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+      "line_count": 5586,
+      "bytes": 248645
+    },
+    {
+      "path": "strixnova/src/strixnova/behavior_examples.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/behavior_examples.py",
+      "sha256": "f9b64c20ff9bdaebfde373faa3fd9d65c3e08c1c4725be37d08fea1614375600",
+      "line_count": 139,
+      "bytes": 6677
+    },
+    {
+      "path": "strixnova/src/strixnova/cli.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/cli.py",
+      "sha256": "4590c3f3599049252c68699c4c2d31754425d4a9729c02037754493aeea43dc8",
+      "line_count": 1179,
+      "bytes": 39865
+    },
+    {
+      "path": "strixnova/src/strixnova/confirmation_protocol.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/confirmation_protocol.py",
+      "sha256": "8608c5ba58248a5d490f66c3078207d561ce27f4eefafaac239038f2084abbbe",
+      "line_count": 239,
+      "bytes": 8649
+    },
+    {
+      "path": "strixnova/src/strixnova/current_action.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/current_action.py",
+      "sha256": "7acc77fad25b00702f6122e879bb28db342d108ecfaadbfefb9db0e169e51863",
+      "line_count": 778,
+      "bytes": 28266
+    },
+    {
+      "path": "strixnova/src/strixnova/delivery_activity.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/delivery_activity.py",
+      "sha256": "2cfd848a03a962ca201ab106ee9a8ad085f743449bf835b7cf46ef5a2b9adde4",
+      "line_count": 756,
+      "bytes": 27555
+    },
+    {
+      "path": "strixnova/src/strixnova/engineering_change_planning.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/engineering_change_planning.py",
+      "sha256": "01a4d2efa7328af25b5896af818953e407d0e0ec5c801fb1343992e449b2111d",
+      "line_count": 2343,
+      "bytes": 89611
+    },
+    {
+      "path": "strixnova/src/strixnova/engineering_governance.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/engineering_governance.py",
+      "sha256": "862e5820eaef41a56e544ac98fe7c2b2468e095a8b8ba84b24fb997c06e49730",
+      "line_count": 3598,
+      "bytes": 138068
+    },
+    {
+      "path": "strixnova/src/strixnova/engineering_trace_projection.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/engineering_trace_projection.py",
+      "sha256": "31930ca70cc027d784013da07409d58b4256a0d23072488c3c03d37be2d78060",
+      "line_count": 680,
+      "bytes": 25152
+    },
+    {
+      "path": "strixnova/src/strixnova/execution_context.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/execution_context.py",
+      "sha256": "397b4eb62e0260d5f58ac498d1ba23b1de220b31ad552b45e78ab2ee506aa15c",
+      "line_count": 120,
+      "bytes": 6454
+    },
+    {
+      "path": "strixnova/src/strixnova/execution_stop_evidence.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/execution_stop_evidence.py",
+      "sha256": "2a8cbf8ccb7bedfd8172032f8f336e6c3e4f6fa9bb39d8ec18ba43b65edc197e",
+      "line_count": 70,
+      "bytes": 3359
+    },
+    {
+      "path": "strixnova/src/strixnova/follow_ups.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/follow_ups.py",
+      "sha256": "dd39636a242dd71ed213003ccafeda3d3623c3948d6c879a13d5e101bb435f89",
+      "line_count": 181,
+      "bytes": 10200
+    },
+    {
+      "path": "strixnova/src/strixnova/git_project_reader.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/git_project_reader.py",
+      "sha256": "83e73350c3c2be53e8b28964d0cb33d9004eb6fce63b628c13813d3502c62433",
+      "line_count": 1564,
+      "bytes": 63387
+    },
+    {
+      "path": "strixnova/src/strixnova/git_workspace.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/git_workspace.py",
+      "sha256": "cca6947ef9de561f4f2f83edf1077402f12a0959ebe14759a515b0bc1bb3ad80",
+      "line_count": 1505,
+      "bytes": 57467
+    },
+    {
+      "path": "strixnova/src/strixnova/host_adapter.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/host_adapter.py",
+      "sha256": "ee4098490b2c81c4ef399ed4e26a861fd2b06de53c7b3042912bd0ab5dc5ccb7",
+      "line_count": 688,
+      "bytes": 25345
+    },
+    {
+      "path": "strixnova/src/strixnova/implementation_alignment_artifacts.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/implementation_alignment_artifacts.py",
+      "sha256": "b24ad4bcf2d1602d253369690d901998bebec6d71e2c278c0f87a85ca88952bc",
+      "line_count": 681,
+      "bytes": 27939
+    },
+    {
+      "path": "strixnova/src/strixnova/implementation_alignment_preparation.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/implementation_alignment_preparation.py",
+      "sha256": "54ecb583e0b36574988aac584657662b650ca44ebd9d7ef7287eb1fce299a54e",
+      "line_count": 2361,
+      "bytes": 99019
+    },
+    {
+      "path": "strixnova/src/strixnova/implementation_candidate_evidence.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/implementation_candidate_evidence.py",
+      "sha256": "0363fceb76a2b5a65fee7ea525e950bef2aff999e7ca2276a728b68dcdeb94e9",
+      "line_count": 715,
+      "bytes": 31462
+    },
+    {
+      "path": "strixnova/src/strixnova/implementation_observation.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/implementation_observation.py",
+      "sha256": "122cd07e8273ceb36689c3c6d4881b02a7815a929827dc6d50fa502af43b4e65",
+      "line_count": 2937,
+      "bytes": 124544
+    },
+    {
+      "path": "strixnova/src/strixnova/initial_installation.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/initial_installation.py",
+      "sha256": "2d95c14df97fd9e490e82dfb90dd1a4a6b5b802a622def3fe084a4d7958144e1",
+      "line_count": 77,
+      "bytes": 3455
+    },
+    {
+      "path": "strixnova/src/strixnova/managed_installation.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/managed_installation.py",
+      "sha256": "5a469911f1bcd2e99aba85e923b365a45da0f5b857eb61d24f3b49374dacc2d5",
+      "line_count": 414,
+      "bytes": 28085
+    },
+    {
+      "path": "strixnova/src/strixnova/persistent_evidence.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/persistent_evidence.py",
+      "sha256": "1a5648287b6d40f58d5b2abf9f0278fcf3d0849b640c9c472032fcbcbac138d9",
+      "line_count": 74,
+      "bytes": 3820
+    },
+    {
+      "path": "strixnova/src/strixnova/process_supervisor.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/process_supervisor.py",
+      "sha256": "00b5b41f935844c2b8761426ece225061a33af7a2f333fb082fbdffd5d9e3b96",
+      "line_count": 671,
+      "bytes": 23916
+    },
+    {
+      "path": "strixnova/src/strixnova/project_architecture_description.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_architecture_description.py",
+      "sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+      "line_count": 518,
+      "bytes": 21711
+    },
+    {
+      "path": "strixnova/src/strixnova/project_authority_consistency.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py",
+      "sha256": "47137c2a183e60cbf633c42a6633540e4394c5589cc84bc3390dc41565442b51",
+      "line_count": 2534,
+      "bytes": 112716
+    },
+    {
+      "path": "strixnova/src/strixnova/project_authority_decision.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_authority_decision.py",
+      "sha256": "decf507d0fb2b61817bf6fbc39b31c7466777760927505649414cbf319ba2714",
+      "line_count": 1191,
+      "bytes": 46069
+    },
+    {
+      "path": "strixnova/src/strixnova/project_authority_progress.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_authority_progress.py",
+      "sha256": "2f4b10a50325989c0efd54185f9348567412f7eb0e18ebda1a90109df06ae691",
+      "line_count": 850,
+      "bytes": 30323
+    },
+    {
+      "path": "strixnova/src/strixnova/project_content_snapshot.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_content_snapshot.py",
+      "sha256": "6c5eb471db146905393601d6b3077ccb97863da5e690e206d2fa26533a4c204f",
+      "line_count": 213,
+      "bytes": 11532
+    },
+    {
+      "path": "strixnova/src/strixnova/project_context.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_context.py",
+      "sha256": "8bf3cc68533dfbe26cda638e9a434dc5c743f20b2810a4aa8d365cdd3df43766",
+      "line_count": 587,
+      "bytes": 29805
+    },
+    {
+      "path": "strixnova/src/strixnova/project_domain_model.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_domain_model.py",
+      "sha256": "0650e9123db55ee3b104d421d6235d9c077f28cf37b1effffe079e1905755251",
+      "line_count": 900,
+      "bytes": 36509
+    },
+    {
+      "path": "strixnova/src/strixnova/project_engineering_assurance.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_engineering_assurance.py",
+      "sha256": "fbe8aa8939d3f997acaad76cb773d43937443a207126c7ca1925680e781a0c03",
+      "line_count": 423,
+      "bytes": 18150
+    },
+    {
+      "path": "strixnova/src/strixnova/project_engineering_baseline.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_engineering_baseline.py",
+      "sha256": "421f5184fe7b1f9cbee30bf685c1e2f7f20d248584c76208a5908f0ab71ad485",
+      "line_count": 369,
+      "bytes": 15715
+    },
+    {
+      "path": "strixnova/src/strixnova/project_engineering_policy.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_engineering_policy.py",
+      "sha256": "827909708c13e2d65d9939e07084c17b737a3f366350f4a1360c61a7e018673d",
+      "line_count": 535,
+      "bytes": 21597
+    },
+    {
+      "path": "strixnova/src/strixnova/project_implementation_alignment.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_implementation_alignment.py",
+      "sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+      "line_count": 1548,
+      "bytes": 65890
+    },
+    {
+      "path": "strixnova/src/strixnova/project_maintenance.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_maintenance.py",
+      "sha256": "65fa490170379f9c2bcd32feea3b5bbeb5a4d1a1fb78be089adeff65d1d959b1",
+      "line_count": 626,
+      "bytes": 31922
+    },
+    {
+      "path": "strixnova/src/strixnova/project_product_definition.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_product_definition.py",
+      "sha256": "23f4e499092417c1447769ea39ba7a194f81dc2c3ea86a3c059b59a2d595f09b",
+      "line_count": 798,
+      "bytes": 28013
+    },
+    {
+      "path": "strixnova/src/strixnova/project_repository_scope.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_repository_scope.py",
+      "sha256": "cf5c40d028e0fa30c9b78ccd88269b8696e91d706e53bcc2b01b3cba039ea6d2",
+      "line_count": 202,
+      "bytes": 10069
+    },
+    {
+      "path": "strixnova/src/strixnova/public_input_contract.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/public_input_contract.py",
+      "sha256": "54efca30ac3bfba78d6344c19067c0936ed728964d9b4de87010921df6c680a1",
+      "line_count": 676,
+      "bytes": 40487
+    },
+    {
+      "path": "strixnova/src/strixnova/record_reading.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/record_reading.py",
+      "sha256": "ed3f8441a8f63d2cc0952b165de015c4dd15f4627e29721e93fec67e9ae97e64",
+      "line_count": 196,
+      "bytes": 9150
+    },
+    {
+      "path": "strixnova/src/strixnova/recoverable_document_transaction.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/recoverable_document_transaction.py",
+      "sha256": "a825bfd48fb8c77274f291bfc590db36b762da02e8451de5fe5a4f06040ecd9e",
+      "line_count": 474,
+      "bytes": 18393
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/__init__.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/__init__.py",
+      "sha256": "550c4d812086fc6649ff31fe46fcec5282409348d033d9d5b7b5aa83015ef7f6",
+      "line_count": 1,
+      "bytes": 73
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md",
+      "sha256": "a8f939fd74ccf886ca9e4ed282468196b49e44e7e395ec5c905a2bb628fc0574",
+      "line_count": 316,
+      "bytes": 22075
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/agents/openai.yaml",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/agents/openai.yaml",
+      "sha256": "73c1e72b77e4991dc581803cf97b90a579ef2c81c301d345cea2eb78c34e883c",
+      "line_count": 4,
+      "bytes": 263
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/architecture-artifact-contracts.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/architecture-artifact-contracts.md",
+      "sha256": "b55b0844776eacc262c68f9def1a5223280232e6284dc9e4b438ad2e43b993cc",
+      "line_count": 205,
+      "bytes": 11138
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-documentation.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-documentation.md",
+      "sha256": "8c79fe7e34f1ba3353480a75116223f7f741f7f358d29e901e8b34e3ef396aec",
+      "line_count": 142,
+      "bytes": 8741
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-formation.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-formation.md",
+      "sha256": "adfa5c80f01c628531a746f09d7a7bfcdb11f1c73b6131a1f2ad0897d79af0f8",
+      "line_count": 155,
+      "bytes": 10337
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md",
+      "sha256": "322df678e6a8e8f241f3551f6342baa6f80282e2ed4faaded3fca12fbd6f6ddb",
+      "line_count": 606,
+      "bytes": 34836
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-contracts.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-contracts.md",
+      "sha256": "82d9ea535aa7065ad69084506826f2a7c7e3634ad070a2036796dc1fabea233e",
+      "line_count": 74,
+      "bytes": 5528
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/code-review.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/code-review.md",
+      "sha256": "8c8ca86dc5bf2a2bc732d3c45b4f5b01c30faff7cd38e8d6158bc72749c05450",
+      "line_count": 118,
+      "bytes": 7588
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/confirmation-and-cancel.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/confirmation-and-cancel.md",
+      "sha256": "0a202ce100972026f39fd2c817e85b8ec2bff6f9d4c32b9ef1d7855c033e8505",
+      "line_count": 149,
+      "bytes": 7382
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/cross-artifact-review.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/cross-artifact-review.md",
+      "sha256": "2f9adfe1af8fd58e19f1ed867f02b93a6779c61d10e927008663c7c3e2a55c57",
+      "line_count": 173,
+      "bytes": 12991
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/delivery.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/delivery.md",
+      "sha256": "2a7de28ee2f2846f0f4f09ead1c3454ccb4065b2dcca09b80f6c46784d4e4ba6",
+      "line_count": 379,
+      "bytes": 20589
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/direction.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/direction.md",
+      "sha256": "21286fd083dc1a2e8fb09998032923e942aa210c4eb1e50083c03f708c76ed50",
+      "line_count": 191,
+      "bytes": 9482
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-documentation.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-documentation.md",
+      "sha256": "fde6ad334447d03028fde3b48f573841014a99018c6c270594415f67be0a63d2",
+      "line_count": 51,
+      "bytes": 3004
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-fact-contracts.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-fact-contracts.md",
+      "sha256": "35eecf2b2aa24323ac20eb14d1cb619b320174a1726ca6cd40d0fb5114fd2a55",
+      "line_count": 159,
+      "bytes": 10468
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-modeling-and-alignment.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-modeling-and-alignment.md",
+      "sha256": "3fd03b1751ef067519e58722818961eb1429a8e930d9d34aade11f91102e4c30",
+      "line_count": 114,
+      "bytes": 14013
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-assessment.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-assessment.md",
+      "sha256": "8334ad7d1b5de6711925e178a50c40059fe95b478d0d3f1bccf944e4ec4314a0",
+      "line_count": 569,
+      "bytes": 29844
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-methods.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-methods.md",
+      "sha256": "23de9aaa563e6fb8a38a3ddce10e0c42e85aceeac2113868f055b0bf9b602337",
+      "line_count": 115,
+      "bytes": 6162
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md",
+      "sha256": "ff3f10c5419d7e804f5472c1285247690cee0cf0a2512ad05ff16743fed0218d",
+      "line_count": 193,
+      "bytes": 9993
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/follow-ups.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/follow-ups.md",
+      "sha256": "fafad83649ba48ed22dc47bbc47681bbb046b1eff5918401546165aa6255ff1d",
+      "line_count": 108,
+      "bytes": 4949
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/history-and-upgrade.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/history-and-upgrade.md",
+      "sha256": "e93178d699689e6454096851d8a606550fc59a2363b827cd5d5ad96c3c306ed0",
+      "line_count": 151,
+      "bytes": 9159
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-artifact-contracts.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-artifact-contracts.md",
+      "sha256": "909b7267bae561234c86c87c9661c2f3ad1a0681c81b8633e99b920007824f3b",
+      "line_count": 182,
+      "bytes": 10915
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-workflow.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-workflow.md",
+      "sha256": "67fd4a9ede32238f099fe865f20dc07fa2ce2de7420742b20af44d7842847154",
+      "line_count": 282,
+      "bytes": 11938
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-practices.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-practices.md",
+      "sha256": "ff0c9245973f39570f38d1b96f76fe217069c9f9328dc54e4670551315b28c58",
+      "line_count": 92,
+      "bytes": 5735
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/prd-authoring.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/prd-authoring.md",
+      "sha256": "e4a73d36897ade6b85100461561fe5a83031fe4683ba9de07bc86665d2c82f6d",
+      "line_count": 133,
+      "bytes": 8091
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/product-discovery.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/product-discovery.md",
+      "sha256": "806118c810f5ee4d74e3da416e6d29f86b24d1ec25962e8744185aae4796a19b",
+      "line_count": 183,
+      "bytes": 8670
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/replanning.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/replanning.md",
+      "sha256": "e00c6fb74d89026f8798fe866718a569fedf8b7ae683e757d7be9ab2a9456ba5",
+      "line_count": 128,
+      "bytes": 6417
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/spec-authoring.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/spec-authoring.md",
+      "sha256": "f9352b9d9732cda51a1544f357edd058ff77ed02592c8e8161dd4512dc9c2b8c",
+      "line_count": 113,
+      "bytes": 6549
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/ux-design.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/ux-design.md",
+      "sha256": "e11781aee4d87aaf1367c86733e48b5bbff6450504dfcf6eddfcf64e377ef643",
+      "line_count": 120,
+      "bytes": 7300
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/verification.md",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/references/verification.md",
+      "sha256": "29e07e783c217172191913a596fb390e3e5551c70d5653791501dd8d5e717da4",
+      "line_count": 162,
+      "bytes": 8072
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+      "sha256": "a5f82c906c183b99da8491af3ad9a9bc4d37d01cea360391fc541fb2f1f0c1d5",
+      "line_count": 113,
+      "bytes": 3525
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/governance-profile-v1.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/governance-profile-v1.json",
+      "sha256": "42c16d05f2a5ac35eac6c691d3677e6e2d3bfd248af4d35468976a83f7067c23",
+      "line_count": 264,
+      "bytes": 15066
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/input-contract-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/input-contract-v1.schema.json",
+      "sha256": "106bbaf8f877316a429a0db27481c0300506e13e5b00a03f46611cbdc36881a2",
+      "line_count": 112,
+      "bytes": 2317
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-direction-context-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/project-direction-context-v1.schema.json",
+      "sha256": "0edd83764c945a83adc0c147ca28a2a74f35e8378cc195ffae2e62034c3c89b4",
+      "line_count": 233,
+      "bytes": 4680
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-engineering-policy-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/project-engineering-policy-v1.schema.json",
+      "sha256": "9bdd4e1c26ef33975aa84415ec669c61f43c3ce4c7e94891b01481d43aa13af7",
+      "line_count": 552,
+      "bytes": 12487
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/review-context-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/review-context-v1.schema.json",
+      "sha256": "4a270bc19f7a4425d868b474bd5d7f374e02fce26ec9d3c4d08ed25a100a5e34",
+      "line_count": 132,
+      "bytes": 2855
+    },
+    {
+      "path": "strixnova/src/strixnova/review_context_projection.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/review_context_projection.py",
+      "sha256": "d6bab3613654e63b43278447344093f55785d82717b484228ec6a6cb6fe90093",
+      "line_count": 393,
+      "bytes": 25917
+    },
+    {
+      "path": "strixnova/src/strixnova/runtime_identity.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/runtime_identity.py",
+      "sha256": "c9f35be4a1df8388d1dfa7bcadde23f1a4f7834d66148040b6cb1f05e2e03aa5",
+      "line_count": 101,
+      "bytes": 5095
+    },
+    {
+      "path": "strixnova/src/strixnova/runtime_upgrade.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/runtime_upgrade.py",
+      "sha256": "bb791e1ee23d4b7aeb43cba9401dcc868996d3ee54e9d472ccb5c33ef1fde9a2",
+      "line_count": 737,
+      "bytes": 49700
+    },
+    {
+      "path": "strixnova/src/strixnova/schema_error_reporting.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/schema_error_reporting.py",
+      "sha256": "e56e7151f1b13640cd8d157c3c6836ff50409b9b832cf8fb4dbebe061184a887",
+      "line_count": 118,
+      "bytes": 4310
+    },
+    {
+      "path": "strixnova/src/strixnova/storage_formats.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/storage_formats.py",
+      "sha256": "a3252838f5289a4f37e574af6a545c6b8814eb65967a82a94b212261d2b56448",
+      "line_count": 75,
+      "bytes": 3653
+    },
+    {
+      "path": "strixnova/src/strixnova/test_case_evidence.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/test_case_evidence.py",
+      "sha256": "5d2ff99b1f63b7499681355494495ce4cd25a7226b5422ddc17544ba34e6115a",
+      "line_count": 367,
+      "bytes": 21272
+    },
+    {
+      "path": "strixnova/src/strixnova/verification_dependencies.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/verification_dependencies.py",
+      "sha256": "aa40ce909ffa55f7a0b9e32ecc69cef8169a5736e09eeeebf1391b83dc5aa1a0",
+      "line_count": 115,
+      "bytes": 7172
+    },
+    {
+      "path": "strixnova/src/strixnova/verification_runner.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/verification_runner.py",
+      "sha256": "fdf89217cd1bf384b3ffdc0c0db066f2fe7c14a370c3787a112306443563cef0",
+      "line_count": 1210,
+      "bytes": 49261
+    },
+    {
+      "path": "strixnova/src/strixnova/verification_targets.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/verification_targets.py",
+      "sha256": "20ff4a75aa83bb06012ed04370727b8a7577e782a774c5372c27cfe953b9dc40",
+      "line_count": 179,
+      "bytes": 10994
+    },
+    {
+      "path": "strixnova/src/strixnova/work_item_history.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/work_item_history.py",
+      "sha256": "67c83a27ca03f35f6eb1bba7b5b26deee683958a04932a94bc64c90a6c2fd001",
+      "line_count": 410,
+      "bytes": 27621
+    },
+    {
+      "path": "strixnova/src/strixnova/work_item_read_model.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/work_item_read_model.py",
+      "sha256": "24379f6f9bbb708a4dbd4537027d0ccad2898d5b12333c4e303b816908ddebd7",
+      "line_count": 2069,
+      "bytes": 90086
+    },
+    {
+      "path": "strixnova/src/strixnova/work_item_relations.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/work_item_relations.py",
+      "sha256": "dbb77f1c3f0366f185201a36e42d05bd67b4c1ac1c1865e89e49aa10ca4b96b2",
+      "line_count": 222,
+      "bytes": 8098
+    },
+    {
+      "path": "strixnova/src/strixnova/work_item_repositories.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/work_item_repositories.py",
+      "sha256": "1d318a6867ee2b7b1022c8aa236e23a9ab62bee7d1cc2904219e8ff618a28d1f",
+      "line_count": 179,
+      "bytes": 7958
+    },
+    {
+      "path": "strixnova/src/strixnova/workflow_authority.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/workflow_authority.py",
+      "sha256": "af17e70b2beb4226e572ae0d433d99b13f9e9cca6cf62e41cdab96f6e3206395",
+      "line_count": 3620,
+      "bytes": 164615
+    },
+    {
+      "path": "strixnova/src/strixnova/yaml_metadata_patch.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/yaml_metadata_patch.py",
+      "sha256": "fcd0ff9335c2a99234878c7d89a049113de632b59f72f6774f81f619a00e88d2",
+      "line_count": 417,
+      "bytes": 16648
+    },
+    {
+      "path": "tests/acceptance/initial/known-agent-guard-change/changed-inputs.json",
+      "read_path": "inputs/files/tests/acceptance/initial/known-agent-guard-change/changed-inputs.json",
+      "sha256": "64ccc46559c89d73dc7f3f3f415145d3b8714ea2661bc8b21eb1613dd3320d3d",
+      "line_count": 282,
+      "bytes": 18470
+    },
+    {
+      "path": "tests/acceptance/initial/known-agent-guard-change/fix.diff",
+      "read_path": "inputs/files/tests/acceptance/initial/known-agent-guard-change/fix.diff",
+      "sha256": "79855afedf7141f82b2e41b05fc2fc80ef86e3237a543ebe5742703baad3d9ea",
+      "line_count": 210,
+      "bytes": 10721
+    },
+    {
+      "path": "tests/acceptance/initial/known-agent-guard-change/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/known-agent-guard-change/index.json",
+      "sha256": "39e05ca58287b396dcbf10b684230baba94d53fbea8e1b8868c67bf1092d4402",
+      "line_count": 273,
+      "bytes": 13963
+    },
+    {
+      "path": "tests/acceptance/initial/known-agent-guard-change/runs/30b2d951c8f4/evidence/pytest.xml",
+      "read_path": "inputs/files/tests/acceptance/initial/known-agent-guard-change/runs/30b2d951c8f4/evidence/pytest.xml",
+      "sha256": "52dff47062d7baeace9782ad463355b667127b3bb2db16ddd52062cf5a9e02f0",
+      "line_count": 1,
+      "bytes": 10202
+    },
+    {
+      "path": "tests/acceptance/initial/known-agent-guard-change/runs/737a1374cf49/evidence/known-agent-policy-probe.json",
+      "read_path": "inputs/files/tests/acceptance/initial/known-agent-guard-change/runs/737a1374cf49/evidence/known-agent-policy-probe.json",
+      "sha256": "86e9834e49ca8a318cb29a651f24901a13fb1a6e19b1802824bb9c82f1adcfb8",
+      "line_count": 54,
+      "bytes": 1358
+    },
+    {
+      "path": "tests/acceptance/initial/known-agent-guard-change/runs/8c6342d8bbab/evidence/offline-installation.json",
+      "read_path": "inputs/files/tests/acceptance/initial/known-agent-guard-change/runs/8c6342d8bbab/evidence/offline-installation.json",
+      "sha256": "50511b09eb3a618a31e756258d1d56a8dabadc4f7e6573131ad1a6f9bcc81971",
+      "line_count": 57,
+      "bytes": 1418
+    },
+    {
+      "path": "tests/acceptance/initial/known-agent-guard-change/runs/f68fa067ebbd/evidence/candidate-content.json",
+      "read_path": "inputs/files/tests/acceptance/initial/known-agent-guard-change/runs/f68fa067ebbd/evidence/candidate-content.json",
+      "sha256": "cc8d7c85b4de79c1c80f34a88f75788e0ff8ed5485113380a89c35cf569ecfa0",
+      "line_count": 18,
+      "bytes": 1577
+    },
+    {
+      "path": "tests/acceptance/initial/policy-admission/known-agent-policy-probe.json",
+      "read_path": "inputs/files/tests/acceptance/initial/policy-admission/known-agent-policy-probe.json",
+      "sha256": "d363eaa0a4327bc915ca1bee9c89126891b2652aa2fdc837eeecfb4077b322c1",
+      "line_count": 53,
+      "bytes": 1302
+    },
+    {
+      "path": "tests/support/__init__.py",
+      "read_path": "inputs/files/tests/support/__init__.py",
+      "sha256": "3de8a4a2d1a7c39a39e659c040ef311e1526af24098a396468f33162bd1b2398",
+      "line_count": 1,
+      "bytes": 46
+    },
+    {
+      "path": "tests/support/behavior_examples.py",
+      "read_path": "inputs/files/tests/support/behavior_examples.py",
+      "sha256": "a17f6373d258fbe5f91dd5814a5abfc200eca5c834077625b20d000a646339b9",
+      "line_count": 42,
+      "bytes": 1815
+    },
+    {
+      "path": "tests/support/governance_assessment.py",
+      "read_path": "inputs/files/tests/support/governance_assessment.py",
+      "sha256": "5c912e2bd629b66bf8df73238d94b2da1e02bcb26541e9e7b64a857bd9407e63",
+      "line_count": 1007,
+      "bytes": 39873
+    },
+    {
+      "path": "tests/support/history_records.py",
+      "read_path": "inputs/files/tests/support/history_records.py",
+      "sha256": "3f9da9a198b32d015bcbbb0c54f548b2472b58084eb95500a870ae82d4c49604",
+      "line_count": 116,
+      "bytes": 7182
+    },
+    {
+      "path": "tests/support/implementation_alignment.py",
+      "read_path": "inputs/files/tests/support/implementation_alignment.py",
+      "sha256": "7711215903965a40507f36b9ba7050a11538d73fd708ecee402ba9c7302814f0",
+      "line_count": 110,
+      "bytes": 5344
+    },
+    {
+      "path": "tests/support/project_baseline.py",
+      "read_path": "inputs/files/tests/support/project_baseline.py",
+      "sha256": "6898cec48d6d0535f2f99330c51ad13f22cdebd871e9ebbe0088d7bc875eef73",
+      "line_count": 831,
+      "bytes": 32565
+    },
+    {
+      "path": "tests/support/project_configuration.py",
+      "read_path": "inputs/files/tests/support/project_configuration.py",
+      "sha256": "f5e31a3976bbddfbb74feccda2a1366205a83cdd031744372f81c1c617ce98ea",
+      "line_count": 51,
+      "bytes": 2373
+    },
+    {
+      "path": "tests/support/project_context.py",
+      "read_path": "inputs/files/tests/support/project_context.py",
+      "sha256": "e3dbd35ee4cdf6bd5d658319ef9b1086a88163a0506cbc6c82c5acd81e6701aa",
+      "line_count": 65,
+      "bytes": 2255
+    },
+    {
+      "path": "tests/support/review_context.py",
+      "read_path": "inputs/files/tests/support/review_context.py",
+      "sha256": "66775f3379adb6470cdae63122c9ac62ab55fa3920fd919e0ec7f86ee9c37be0",
+      "line_count": 60,
+      "bytes": 2644
+    },
+    {
+      "path": "tests/support/review_subject.py",
+      "read_path": "inputs/files/tests/support/review_subject.py",
+      "sha256": "eb5d8f4930524ef3df2cff69c87cb9c76ee944fa8d4e0a9ae0e43f02343096cb",
+      "line_count": 38,
+      "bytes": 1625
+    },
+    {
+      "path": "tests/support/verification_approval.py",
+      "read_path": "inputs/files/tests/support/verification_approval.py",
+      "sha256": "efc7654508783a05a03fa08bd9ce87d61172fd9b4cd51b7e801f81fae21cfc08",
+      "line_count": 67,
+      "bytes": 2095
+    },
+    {
+      "path": "tests/unit/test_behavior_verification.py",
+      "read_path": "inputs/files/tests/unit/test_behavior_verification.py",
+      "sha256": "8f7308a0da35bede2d5996ccd1455b5418711bb0c49fb05c7dcc18d77657e2cb",
+      "line_count": 102,
+      "bytes": 5970
+    },
+    {
+      "path": "tests/unit/test_engineering_assessment_contract.py",
+      "read_path": "inputs/files/tests/unit/test_engineering_assessment_contract.py",
+      "sha256": "1b5b76204b538770f726eedcefb58de378d7a2bec858fb1f9e0b93205a110542",
+      "line_count": 1615,
+      "bytes": 56819
+    },
+    {
+      "path": "tests/unit/test_engineering_trace_projection.py",
+      "read_path": "inputs/files/tests/unit/test_engineering_trace_projection.py",
+      "sha256": "b27c08503d5d799c1b040c0ce73efb6ea71f40a0b786405bb8e4d59836f1fbdd",
+      "line_count": 298,
+      "bytes": 9460
+    },
+    {
+      "path": "tests/unit/test_execution_context.py",
+      "read_path": "inputs/files/tests/unit/test_execution_context.py",
+      "sha256": "c5896ff518a5e4eefee03e6bf1ffb91a9d16f3190a273790890b5591c449f307",
+      "line_count": 164,
+      "bytes": 8963
+    },
+    {
+      "path": "tests/unit/test_implementation_observation.py",
+      "read_path": "inputs/files/tests/unit/test_implementation_observation.py",
+      "sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+      "line_count": 911,
+      "bytes": 27717
+    },
+    {
+      "path": "tests/unit/test_local_validation.py",
+      "read_path": "inputs/files/tests/unit/test_local_validation.py",
+      "sha256": "700fc47be444e722938fb24128730ec8c73be80e280a52fcb250f25767b104b4",
+      "line_count": 284,
+      "bytes": 12839
+    },
+    {
+      "path": "tests/unit/test_process_supervisor.py",
+      "read_path": "inputs/files/tests/unit/test_process_supervisor.py",
+      "sha256": "2e718e9983a260620f82024d606143633d51597a468ac57f7256dc3fc94afbaf",
+      "line_count": 248,
+      "bytes": 9058
+    },
+    {
+      "path": "tests/unit/test_project_engineering_policy.py",
+      "read_path": "inputs/files/tests/unit/test_project_engineering_policy.py",
+      "sha256": "781ad6813ecbf617695595268ba5af35f903f71a9f513eec1ed890d39b54ba19",
+      "line_count": 160,
+      "bytes": 5775
+    },
+    {
+      "path": "tests/unit/test_public_input_contract.py",
+      "read_path": "inputs/files/tests/unit/test_public_input_contract.py",
+      "sha256": "c8f15295e1b7b4812a8d8a462ea49b4bfea414f1bbd70c039ba6c2b436fef575",
+      "line_count": 329,
+      "bytes": 12462
+    },
+    {
+      "path": "tests/unit/test_review_context_projection.py",
+      "read_path": "inputs/files/tests/unit/test_review_context_projection.py",
+      "sha256": "d895142b5975aa974e89465e8748034dcdf27464bee7f1fcde8a8a82d383feb8",
+      "line_count": 355,
+      "bytes": 18046
+    },
+    {
+      "path": "tests/unit/test_verification_runner.py",
+      "read_path": "inputs/files/tests/unit/test_verification_runner.py",
+      "sha256": "ffe8fe66b739127ecaebbaae89927bfbf9532100a108a1c8fa61891f6fd2e771",
+      "line_count": 704,
+      "bytes": 24492
+    }
+  ],
+  "excluded_retired_locators": [],
+  "limitations": [
+    "The old locator index is navigation only. Contracts were compared to current documents; every source/test was re-read and function line locations rebuilt.",
+    "Recorded test results prove their named assertions at the recorded time, not full semantic sufficiency. JUnit does not capture execution-time source hashes.",
+    "All real-project authorities remain draft/unconfirmed; Git baseline fields are not yet bound because the new repo is unborn. Do not fabricate Git or owner acceptance.",
+    "These targets concern current program responsibilities. Agent effectiveness, whole-project maturity and external certification are separate claims."
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false
+}

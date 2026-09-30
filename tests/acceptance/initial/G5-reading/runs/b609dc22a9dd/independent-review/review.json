@@ -1,0 +1,310 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "GF-PRD-READING",
+      "issues": [],
+      "limitations": [
+        "该PRD仅为依据当前工作树草案生成的连续阅读投影，不构成第二份长期权威，亦不证明负责人确认、代码实现或系统采用已完成。"
+      ],
+      "reason": "在现有产品定义与相关治理来源信息充分的情况下，作者未发起冗余的重新访谈，直接以工作树中的候选产品定义（PRODUCT-8312417768A84DE4，REVISION-59EB5B9A3F3F46C0，草案状态）为基准生成了连贯的 docs/reading/PRD.md。产物完整覆盖并忠实映射了全部受众、问题、成效、13项能力、非目标、约束与验收准则，完整保留了稳定身份与草案状态，显式声明定义内无未决项及客观限制，且未修改任何底层权威文件或建立建设事项。",
+      "references": [
+        {
+          "end_line": 25,
+          "source_id": "prd",
+          "start_line": 7,
+          "original_text": "## 1. 来源绑定与状态说明 (Authority Binding & Status)\n\n本阅读文档严格基于当前工作树中存在的候选定义文件进行投影，不跨目录访问、不发明任何未决字段：\n\n- **主绑定来源**：[`docs/product/definition.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/product/definition.yaml)\n  - `schema_version`: `strixnova.project-product-definition.v1`\n  - `product_id`: `PRODUCT-8312417768A84DE4`\n  - `revision_id`: `REVISION-59EB5B9A3F3F46C0`\n  - `status`: `draft`（草案状态，尚未经项目负责人正式确认定档）\n  - `supersedes_revision_id`: `None`\n  - `confirmed_by_owner_id`: `None`\n  - `confirmed_on`: `None`\n  - 内容指纹 (SHA256): `91C80B879F97284CE585757EECFF0189A8762D8148890484ECACCD91983FAA8E`\n- **协作治理来源绑定**：\n  - 领域模型候选：[`docs/domain/model.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/domain/model.yaml) (`MODEL-2F8356E6752B4CC6`, `MODELREV-D90FA05044CD4310`, `draft`)\n  - 目标架构候选：[`docs/architecture/model.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/architecture/model.yaml) (`ARCH-963827FB26C94363`, `ARCHREV-8D00B950BAAD458F`, `draft`)\n  - 工程政策候选：[`docs/engineering/policy.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/engineering/policy.yaml) (`POLICY-464E891F2CE841AA`, `POLICYREV-6151D5CB5D3D4E51`, `draft`)\n- **当前采用状态判断**：由于 Git 仓库当前尚无已提交的定档版本，全部来源均处于工作树未确认草案阶段。本文档记录其完整声明内容与边界，以备负责人决策。\n\n",
+          "source_sha256": "0c71c0f1b27b72d53683497d4d6ca850dcc60e094e266d39037e05f7fcdb9910",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 205,
+          "source_id": "prd",
+          "start_line": 197,
+          "original_text": "## 9. 未决决策与限制清单 (Unresolved Decisions & Limitations)\n\n- **定义内未决条目**: 经核对 `docs/product/definition.yaml`，`unresolved_decisions` 列表当前为空（`[]`），无显式挂起的未决业务决策。\n- **实际客观限制**:\n  1. **状态未定档**: 当前产品定义处于 `draft` 状态，尚未经项目负责人正式签署确认。\n  2. **工程环境边界**: 仅支持现成 Windows x64、Python 3.12、Git 和能够加载随包 Skill 的编码代理；不支持无法使用 Skill 的宿主代理。\n  3. **非安全沙箱**: 本地命令执行依赖宿主授予的操作权限，不提供抵御恶意代码的内核级沙箱机制。\n  4. **只读约束**: 本文档仅为阅读投影，严禁直接作为代码生成的替代依据或修改来源。\n\n",
+          "source_sha256": "0c71c0f1b27b72d53683497d4d6ca850dcc60e094e266d39037e05f7fcdb9910",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 287,
+          "source_id": "prd",
+          "start_line": 208,
+          "original_text": "## 10. 需求条目与全要素覆盖索引 (Coverage Index)\n\n| 来源要素分类 | 原始要素标识与名称 | 对应文档章节 | 处置状态 |\n|---|---|---|---|\n| 核心受众 (Users) | `USER-F8E37C64257749B9` 项目负责人 | 2.2 节 | 完全覆盖 (Represented) |\n| 核心受众 (Users) | `USER-2C04944EBFBE407C` 受支持智能编码代理 | 2.2 节 | 完全覆盖 (Represented) |\n| 问题陈述 (Problems) | `PROBLEM-DFC55AB6D6C64A5E` | 3.1 节 | 完全覆盖 (Represented) |\n| 问题陈述 (Problems) | `PROBLEM-81C0578300D84172` | 3.1 节 | 完全覆盖 (Represented) |\n| 问题陈述 (Problems) | `PROBLEM-87D575A9664E433D` | 3.1 节 | 完全覆盖 (Represented) |\n| 问题陈述 (Problems) | `PROBLEM-EA87DFD857F140BC` | 3.1 节 | 完全覆盖 (Represented) |\n| 问题陈述 (Problems) | `PROBLEM-76B411DA15CD4F12` | 3.1 节 | 完全覆盖 (Represented) |\n| 问题陈述 (Problems) | `PROBLEM-5E892B39748C8076` | 3.1 节 | 完全覆盖 (Represented) |\n| 期望成效 (Outcomes) | `OUTCOME-5EB3D846EF544D9E` | 3.2 节 | 完全覆盖 (Represented) |\n| 期望成效 (Outcomes) | `OUTCOME-0ECE21E97E34469F` | 3.2 节 | 完全覆盖 (Represented) |\n| 期望成效 (Outcomes) | `OUTCOME-C929E940E59E4582` | 3.2 节 | 完全覆盖 (Represented) |\n| 期望成效 (Outcomes) | `OUTCOME-37CB197C9AEE40E6` | 3.2 节 | 完全覆盖 (Represented) |\n| 期望成效 (Outcomes) | `OUTCOME-AE0CA31DC15E46CA` | 3.2 节 | 完全覆盖 (Represented) |\n| 期望成效 (Outcomes) | `OUTCOME-6BB13FBD0CDF4579` | 3.2 节 | 完全覆盖 (Represented) |\n| 期望成效 (Outcomes) | `OUTCOME-691FAEE289E64D08` | 3.2 节 | 完全覆盖 (Represented) |\n| 期望成效 (Outcomes) | `OUTCOME-5E892B39748C8076` | 3.2 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-44EB4FA0B1994587` 项目产品权威治理 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-857E4CA751A34FA1` 项目领域模型治理 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-386C88B6F742458B` 目标架构治理 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-859140B6A57D408A` 实现对齐与漂移治理 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-D054964736FE4AE1` 产品发现与想法验证 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-A02E89CB77574ABE` 引导式方向澄清 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-731BB1BA932543DD` 软件工程评估与方案治理 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-51FB5CB931344603` 建设事项与本地交付协调 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-4AAC0DAFEEDA495F` 验证与实际证据治理 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-04A78FF5E02A48CF` 交付发布与运行维护治理 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-BCD586FBB6054556` 全链路追溯与下一步投影 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-FDB7B365AFC84F66` 受支持智能编码代理交互 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品能力 (Capabilities) | `CAPABILITY-1CDA1D66DA409B5A` Strixnova 自身升级与恢复保障 | 第 4 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-28724B0197E84A63` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-7F3F0317DCB5455E` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-708BD65BE9C24758` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-98573ACB01604150` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-31B39A0363A04D88` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-92037565F362449A` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-4A63183C9A0F4014` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-BFC140840A0A41B6` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-3A8431BBFCD24D38` | 第 5 节 | 完全覆盖 (Represented) |\n| 产品非目标 (Non-Goals) | `NONGOAL-1BE63AD0438E4C8F` | 第 5 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-104D0C5C0FE547FF` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-D63814BBEF7F45F5` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-5E0AAE3490DF459B` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-04A9F93561714EB7` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-75D4D016860849C8` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-58B7BB7E0F0D4781` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-82E868CDCA0F4177` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-1CBDD52466CB4717` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-0B3E56846DA14426` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-D6C2261F18134A79` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-CBA41DF89DA749C1` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-9EDC2009D37041C3` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-2B4D761ACF8E43A1` | 第 6 节 | 完全覆盖 (Represented) |\n| 约束条件 (Constraints) | `CONSTRAINT-8882EAEC751F48DC` | 第 6 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-64C810EB7A264C9A` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-68DE7EF6AE054122` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-F99D99A9278D4D27` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-DCA5FDF12BB5426B` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-A7A917E9365D4815` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-8BDE5CF3B3A64AB2` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-A3EA9A57447A4E63` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-A2766EAA0CFF45C9` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-8154349FD71B4E49` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-6D0ACC08165D4ACB` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-460EC4CDC2C14FB2` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-3631D1B3EA054069` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-A475CB599B5943D0` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-8B5104BAE191B932` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-22E14AF1DB7D412E` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-484D03899A2D497C` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-0233A47D279B4F5F` | 第 7 节 | 完全覆盖 (Represented) |\n| 验收成功标准 (Criteria) | `CRITERION-02FFB0A626884716` | 第 7 节 | 完全覆盖 (Represented) |\n| 交付阶段 (Stages) | `STAGE-A75B851455EF4F49` 当前目标阶段：本地单项目多仓库全链路治理 | 第 8 节 | 完全覆盖 (Represented) |\n| 交付阶段 (Stages) | `STAGE-5A23749E70A84D1F` 未来候选阶段：外部工程平台集成 | 第 8 节 | 完全覆盖 (Represented) |\n| 交付阶段 (Stages) | `STAGE-F819672D3C454305` 未来候选阶段：跨项目与多人协作 | 第 8 节 | 完全覆盖 (Represented) |\n| 交付阶段 (Stages) | `STAGE-35DBEDBF2C884CE6` 未来候选阶段：图形化产品入口 | 第 8 节 | 完全覆盖 (Represented) |\n| 未决决策 (Unresolved) | `unresolved_decisions` (空) | 第 9 节 | 声明无待定项 (Empty in source) |\n",
+          "source_sha256": "0c71c0f1b27b72d53683497d4d6ca850dcc60e094e266d39037e05f7fcdb9910",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 39,
+          "source_id": "response",
+          "start_line": 34,
+          "original_text": "### 三、实际边界与客观限制说明\n\n1. **草案非采用（Draft Status）**：当前工作树中的底层源文件状态均为 `draft`，Git 分支尚无正式提交定档记录。阅读文档忠实反映草案现状，**不构成第二份权威，亦不代表项目负责人已经确认或系统已经实现/采用**。\n2. **多仓库交付机制**：单项目多仓库共享单一建设事项与统一整体确认，交付严格遵循“整体结果接受后逐仓库顺序本地合入”，不提供跨仓库的底层分布式原子事务。\n3. **环境与执行受限**：受管能力以 Windows x64、Python 3.12、Git 和能够加载随包 Skill 的代理为前提；本地命令由宿主授权执行，产品本身不提供抵御恶意代码的内核沙箱环境。\n4. **未修改任何来源**：除生成上述两份阅读文档外，未对 `docs/` 下的原有 YAML/MD 权威文件进行任何修改，亦未创建任何建设事项或 Git 提交。\n",
+          "source_sha256": "a26c32288b81be2deabd00a3265d2c3ca73669698f33751d289051bc64f660c9",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 972,
+          "source_id": "tools",
+          "start_line": 944,
+          "original_text": "    \"conversation_id\": \"b261ac5c-06d1-4fe5-9bff-8dd5cb1a7345\",\n    \"step_index\": 128,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"run_command\",\n    \"tool_info\": {\n      \"name\": \"run_command\",\n      \"parameters\": {\n        \"CommandLine\": \"git status -s\"\n      },\n      \"output\": \"?? .agents/\\n?? AGENTS.md\\n?? docs/\\n\"\n    },\n    \"duration_seconds\": 0.6304468\n  },\n  {\n    \"conversation_id\": \"b261ac5c-06d1-4fe5-9bff-8dd5cb1a7345\",\n    \"step_index\": 130,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"run_command\",\n    \"tool_info\": {\n      \"name\": \"run_command\",\n      \"parameters\": {\n        \"CommandLine\": \"git status --porcelain docs/\"\n      },\n      \"output\": \"?? docs/\\n\"\n    },\n    \"duration_seconds\": 0.7236141\n  }\n",
+          "source_sha256": "9f82d2e183bd6b20dacb77a5a02c23157e54517e23e71c34fd5396291df20996",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "当前完整草稿材料的实际阅读投影及来源忠实性；不证明权威采用、代码实现或负责人接受。现有模型没有历史墓碑，应诚实保留该状态，不新增谱系。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_author_settled": true,
+          "frozen_sources_unchanged": true,
+          "outputs_created": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GF-DOMAIN-READING",
+      "issues": [],
+      "limitations": [
+        "该领域模型说明文档仅为依据当前完整模型草案及284项事实源文件生成的连续阅读投影，不构成第二份长期权威，亦不证明模型定档确认或代码实现已对齐。"
+      ],
+      "reason": "作者从主领域模型（MODEL-2F8356E6752B4CC6，草案状态）及17个事实源文件中完整提取并忠实投影生成了 docs/reading/DOMAIN.md。产物连续完整地覆盖了现行全部284项领域事实，包括参与者、决定权、能力、场景、实体、值对象、状态机、事件、规则、不变量、上下文及统一术语，与架构处置表保持1:1闭合匹配，并记录了位置向稳定身份演进等谱系信息；全文明确维持草案性质与多仓库治理边界，未退化共用规则或从代码反推语义，未修改冻结来源或新增历史谱系。",
+      "references": [
+        {
+          "end_line": 30,
+          "source_id": "domain",
+          "start_line": 7,
+          "original_text": "## 1. 来源绑定与状态说明 (Authority Binding & Status)\n\n本阅读文档严格基于当前工作树中存在的领域模型草案及对应源文件投影，不跨目录访问、不发明任何未决字段：\n\n- **主模型绑定**：[`docs/domain/model.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/domain/model.yaml)\n  - `schema_version`: `strixnova.project-domain-model.v1`\n  - `model_id`: `MODEL-2F8356E6752B4CC6`\n  - `revision_id`: `MODELREV-D90FA05044CD4310`\n  - `status`: `draft`（草案状态，尚未经项目负责人正式确认定档）\n  - `supersedes_revision_id`: `None`\n  - `confirmed_by_owner_id`: `None`\n  - `confirmed_on`: `None`\n  - 内容指纹 (SHA256): `CB13650772404AA1B182E74C3332F27DC2E1775F0AB14C0900D3909608EC7262`\n  - 上游产品定义绑定: `PRODUCT-8312417768A84DE4` (`REVISION-59EB5B9A3F3F46C0`)\n- **集合与源文件覆盖情况**：\n  - 根集合文件数: 6 个\n  - 领域事实源文件数: 17 个\n  - 当前声明领域事实 (Facts) 总数: 284 项（与目标架构处置表 284 项一一闭合核对）\n- **协作治理来源绑定**：\n  - 产品定义候选：[`docs/product/definition.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/product/definition.yaml) (`PRODUCT-8312417768A84DE4`, `REVISION-59EB5B9A3F3F46C0`, `draft`)\n  - 目标架构候选：[`docs/architecture/model.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/architecture/model.yaml) (`ARCH-963827FB26C94363`, `ARCHREV-8D00B950BAAD458F`, `draft`)\n  - 工程政策候选：[`docs/engineering/policy.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/engineering/policy.yaml) (`POLICY-464E891F2CE841AA`, `POLICYREV-6151D5CB5D3D4E51`, `draft`)\n- **当前采用状态判断**：Git 仓库当前无已定档提交，所有领域模型来源均为工作树草案（`draft`）。本文档不确立新权威，完整记录既有领域语义供负责人决策。\n\n",
+          "source_sha256": "fef618da863d69fbe6095b93ac9700b810982bc2687452065eb90be130f8bd3a",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 100,
+          "source_id": "domain",
+          "start_line": 33,
+          "original_text": "## 2. 领域宗旨、范围与责任边界 (Domain Purpose & Boundaries)\n\n### 2.1 领域模型宗旨\n保存已确认产品范围内必须成立的参与者、能力、场景、有身份对象、值、生命周期、 事件、规则、不变量、决定权、决定连续性、领域边界、边界关系、外部系统边界和统一语言； 明确单项目多仓库归属、整体结果接受、逐仓库交付和有证据的依赖使用； 不保存当前代码、文件路径、测试证据或实现状态。\n\n### 2.2 核心责任边界\n1. **语义与代码解耦**：领域模型仅维护业务必须成立的参与者、能力、场景、实体、规则、状态与边界，严禁混入当前源码路径、文件树、测试命令输出或临时代码细节。\n2. **多仓库统一权威**：单项目可包含多个独立成员仓库；修改归属与交付单位在仓库层级精确限定，但业务目标与长期权威在项目级沿唯一主线演进。\n3. **整体接受与逐仓交付**：共同事项先在整体上接受精确结果，再逐仓库顺序提交与交付；依赖可由有证据的外部契约或制品支撑，无需全量本地源码检出。\n\n---\n\n## 3. 参与者与决定权矩阵 (Actors & Decision Authorities)\n\n### 3.1 领域参与者 (Actors)\n#### 项目负责人 (`FACT-C8E6F2891E194C50`)\n- **核心角色**: 对产品目标、领域含义、重大取舍、长期目标定档和实际结果接受作出最终决定。\n- **职责**:\n  - 用可理解的业务语言说明预期结果和重大取舍。\n  - 在看到候选内容、影响和后果后确认精确版本。\n  - 在看到实际效果、验证事实、未运行项和限制后决定是否接受。\n- **不负责项**:\n  - 学习或填写可由项目和环境调查取得的工程事实。\n  - 编排程序状态机、内部身份、结构化引用或验证命令。\n  - 代替专业审查者或外部机构作出其权限范围内的结论。\n\n#### 智能编码代理 (`FACT-DF782F3974E94BCF`)\n- **核心角色**: 直接调用产品，调查项目，形成有依据的语义候选，实施已确认方案并解释真实证据。\n- **职责**:\n  - 加载并遵循当前安装包随附的唯一 Strixnova Skill（技能），再按公开合同调用产品。\n  - 自行调查可从项目、环境和外部工具取得的事实。\n  - 一次只提交一个会实质改变方向的决定，并给出推荐、影响和不处理后果。\n  - 维护结构化身份与引用，实施已确认增量并如实报告验证和限制。\n- **不负责项**:\n  - 把 Skill 当作用户授权、语义权威、身份认证或独立运行状态。\n  - 自我确认产品、领域、架构、工程方案或实际结果。\n  - 伪造用户决定、源码事实、命令回执、真人审查或外部合规。\n  - 绕过产品确定性状态、规则或证据关口。\n\n#### Strixnova程序 (`FACT-4FD08D68267441B6`)\n- **核心角色**: 校验结构、身份、引用、版本、状态、确定性规则和真实命令回执，并保存确定性流程事实。\n- **职责**:\n  - 拒绝缺失、重复、悬空、过期或不允许状态下的输入。\n  - 应用已声明的确定性政策并投影当前唯一下一步。\n  - 保存输入和外部执行产生的可审计事实，不改写其含义。\n- **不负责项**:\n  - 生成、理解或裁决产品、领域、架构、风险、测试选择和结果解释等工程语义。\n  - 创建、调用、调度、恢复、停止或管理智能编码代理。\n  - 代替版本、测试、构建、发布、部署、监控工具或项目负责人。\n\n#### 外部工程工具 (`FACT-2D3C638B3E92417A`)\n- **核心角色**: 执行版本管理、源码与构建模型观察、测试、构建、制品、发布、部署、监控或告警操作并产生可观察事实。\n- **职责**:\n  - 按自身合同执行明确请求的外部操作。\n  - 返回观察或执行的精确范围、配置、能力、环境、输入、输出、退出状态、时间和限制等事实。\n  - 保持自身数据、权限和运行状态的权威。\n- **不负责项**:\n  - 决定产品目标、领域含义、目标架构或工程语义。\n  - 把命令成功解释成产品正确、用户接受或外部合规。\n  - 替项目负责人确认结果。\n\n#### 真实审查或外部合规主体 (`FACT-F88E0CDB464A46B9`)\n- **核心角色**: 在真实授权和适用范围内作出专业审查、正式审核或外部合规结论。\n- **职责**:\n  - 明确审查主体、范围、依据、时间、结论和限制。\n  - 只对真实完成的审查或正式机制负责。\n  - 提供可核实的审查或合规证据。\n- **不负责项**:\n",
+          "source_sha256": "fef618da863d69fbe6095b93ac9700b810982bc2687452065eb90be130f8bd3a",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 2574,
+          "source_id": "domain",
+          "start_line": 2450,
+          "original_text": "| `FACT-0FCE425CA2D74D8C` | 产品发现结果只进入现有权威 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-D2E54729BD8E4263` | 三个规划裁剪轴必须分别说明 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-346BD66898834B1E` | 常见软件工程产物只作形成指引或阅读投影 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-8ECA5F87E8DC459B` | 产物形成指引不自动构成工程方法采用 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-415381C6F0AB4AD0` | 快速起草与逐项辅导共用同一候选合同 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-AB7833584D354796` | 上游语义错误必须回到对应长期权威 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-891C6A4386EB4D68` | 方向条目身份由语义连续性决定 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-753C846FFB784962` | 稳定条目引用不取代完整方向版本 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-12810BF6CFD2AA73` | 运行维护必须先稳定停写并核验副本 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-ECF7D6F8F584BC2C` | 历史查询按原记录版本有界读取 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-C88195D054B04436` | 当前阶段治理本地单项目的多个成员仓库 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-7A7AD19A842140AF` | 同一事项整体接受后逐仓库交付 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-B498CB51CCB241F0` | 验证依赖由实际证据确定 | `domain_rule` | `docs/domain/sources/rules.yaml` | 第 7.1 节 |\n| `FACT-DEA5E73655D34B1F` | 产品定义正常定档 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-EECD54CFF0944627` | 产品定义定档被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-ABAD525D11E74844` | 产品定义候选被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-2440F4A0919040F7` | 产品定义候选被取消 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-F65209B774D84F02` | 领域模型正常定档 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-7CAD454506DE4E64` | 领域模型定档被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-7B5B606491C84C9D` | 领域模型事实被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-42B04FB290B14D73` | 领域模型草案被取消 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-77FE05384EB44525` | 目标架构正常定档 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-45239D4EF1E64FAB` | 目标架构定档被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-96AD2DBAB68F4C42` | 目标架构候选被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-8E0C3E051A2041B9` | 目标架构候选被取消 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-BE795DE6819D421A` | 项目实现对齐正常建立 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-3A42B09EA5184C5A` | 项目实现对齐被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-B43D69C03B23475E` | 项目实现对齐被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-21AF5F263E614ECD` | 项目实现对齐复核被取消 | `domain_scenario` | `docs/domain/sources/scenarios-authority.yaml` | 第 5 节 |\n| `FACT-01351001A4CC44D6` | 建设事项正常实施并本地交付 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-FFC61CF4C4B14995` | 建设或本地交付被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-A9323748487742E8` | 建设偏差或合入冲突被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-DBA681F3A9484E6C` | 建设事项被安全取消 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-4F0408C3B7624CA2` | 验证正常执行并形成证据 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-AE928511AA404D49` | 验证执行被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-A550C6BAE8D64E8F` | 验证失败或解释被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-8FE825B2520F411E` | 验证运行被取消 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-19598988370745DA` | 交付发布或运行活动正常完成 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-EC73A00678984281` | 交付发布或运行活动被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-EF3F770A2DD84BBD` | 交付发布或运行失败被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-7B63889DDB9A4A88` | 交付发布或运行活动被取消 | `domain_scenario` | `docs/domain/sources/scenarios-delivery.yaml` | 第 5 节 |\n| `FACT-3D6EEA6DDBDD4C0A` | 明确想法跳过产品发现 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-43BC6F5E5D644B37` | 模糊解决方案回到真实问题 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-56155E419DAA48D0` | 核心假设不成立时停止建设 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-0D7A44EA56DB427E` | 外部证据不足时受控调查 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-99893ACBCF894C8F` | 方向正常收敛并确认 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-B427CF758D0C4D11` | 方向确认被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-7741DFDE49B44392` | 已展示方向被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-27E7512EA0F44E14` | 方向澄清被取消 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-5C0D85151EB248C5` | 工程评估正常形成方案 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-C4D7AD5F12A34050` | 工程方案确认被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-FAA4C5C2CD22423A` | 工程评估或方案被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-5DBFF78852634620` | 工程方案被取消 | `domain_scenario` | `docs/domain/sources/scenarios-governance.yaml` | 第 5 节 |\n| `FACT-E4EBE50EC806432F` | 当前状态与追溯正常投影 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-D6807E787C114AF0` | 当前状态或追溯查询被阻断 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-09FD0E7C4B5B4657` | 过期投影被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-7DCF18248249465A` | 已取消事项停止投影实施下一步 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-1AA374E89718E89A` | 受支持智能编码代理正常完成核心交互 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-3CF4E66474DD4EB0` | 通用命令交互被无效输入阻断 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-B28F877C0ACE457A` | 通用命令输入被纠正 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-01DD3BBF3962465A` | 通用命令入口安全取消事项 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-B4E899DFA270182C` | 明确准备运行组合并在安全位置升级后继续事项 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-A4FD5F9B5119B747` | 不受支持或条件变化阻断安装与升级 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-C0B3F11948BF8495` | 部分切换中断后按持久记录恢复 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-67492CB3D4A97378` | 恢复旧组合保护升级后的新增事实 | `domain_scenario` | `docs/domain/sources/scenarios-interface.yaml` | 第 5 节 |\n| `FACT-0802FE81639F4AE2` | ProjectProductDefinition（项目产品定义） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-EC301385EB774E9D` | WorkItem（建设事项） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-66B7EEC7A5D44062` | DirectionDecision（方向决定） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-80FC172A8D784960` | DirectionRequirement（方向需求） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-F6044AA05940484D` | DirectionConstraint（方向约束） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-B08EEE5142FB4A31` | AcceptanceCriterion（验收条件） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-C965B52EF77E42BE` | DecisionContextBinding（决定上下文绑定） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-831845472CCD4880` | GuidedFormation（引导式形成） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-FA45768A3F2541A8` | ProductDiscovery（产品发现） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-E7CF8A1203174E78` | WorkItemRelation（建设事项关系） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-842D56B52BA74B35` | EngineeringAssessment（工程评估） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-19962E6E0946425F` | EngineeringPlan（工程方案） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-EAD1014D81E84578` | ImpactScope（影响范围） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-0418907AB3454690` | AssuranceBand（保障等级） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-82730E66B2A443E2` | DeliverySpan（交付跨度） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-9FE9A7E7072643D5` | EngineeringMethod（工程方法） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-06002D0BC6F947D7` | MethodApplication（方法应用） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-07EEBF090D654C9E` | VerificationStatus（验证状态） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-A03A1A36FA224467` | CurrentAction（当前行动） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-B8F40EBA57BB4B36` | ActualResult（实际结果） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-444852CEF32A4A95` | ProjectEngineeringBaseline（项目工程基线） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-0F4D688028C0D0D6` | ProjectDomainModel（项目领域模型） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-DAFDC4DCF08C4543` | ProjectArchitectureDescription（项目目标架构描述） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-ECC7967D187F4AA1` | ImplementationObservationScope（实现观察范围） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-4A0E7817FC8E464E` | ProjectImplementationAlignment（项目实现对齐） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-31728B336026ECB2` | EngineeringTraceProjection（工程追溯投影） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-302CDDFA33D1493C` | ADR（架构决策记录） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-653C16DFB45A4E18` | GitWorkArea（版本工作区） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-296143B0C54B493D` | ProjectEngineeringAssurance（项目工程保障评估） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-E506C728394A5B6C` | AuthorityChangeSet（权威变更集） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-F617D8394A5B6C7D` | ImplementationSlice（实施切片） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-A728E94A5B6C7D8E` | SemanticReview（语义复核） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-B839FA5B6C7D8E9F` | OwnerView（负责人视图） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-D912073EFE104893` | DomainCompatibilityBaseline（领域兼容基线） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-B1FABAA446210228` | MaintenanceWindow（维护窗口） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-1FF32B4462434DF1` | Repository（仓库） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-890A53B987B74057` | RepositoryMembership（项目仓库归属） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-E2CD56D1500A4612` | RepositoryDelivery（仓库交付） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-6A7BAEF9FCA64057` | RepositoryContentReference（仓库内容引用） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-4EA038F1867E4FA8` | ProjectContentSnapshot（项目内容快照） | `term` | `docs/domain/sources/terms.yaml` | 第 9.1 节 |\n| `FACT-8E8D0712BBF64AC3` | AuthorityReference（权威引用） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-D11A6942C2314E72` | ConfirmationBinding（确认绑定） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-73E63F97C5B64499` | DecisionContextBinding（决定上下文绑定） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-3F99553572844A05` | ImpactScope（影响范围） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-361FDF7E6A6044C2` | AssuranceBand（保障等级） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-577431AEBE214F66` | VerificationStatus（验证状态） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-32F33CAB000C4F0D` | CurrentAction（当前动作） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-D4F5B61728395A6B` | OwnerView（负责人视图） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-8AC9AE21345846DE` | EvidenceReceipt（证据回执） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-EB11DC9B0C44464D` | SourceReference（来源引用） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-7A9F98FC2BFE44E3` | ImplementationRelationObservation（实现关系观察） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-84DF6E5CAB34446B` | ObservationCoverage（观察覆盖） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-B6D853E18DEB42F8` | ImplementationStatus（实现状态） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-D7351091E90D4C29` | GovernanceRuleAssessment（治理规则评估结果） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-A6AEAAD06C24D8F8` | RuntimeCombination（运行版本组合） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-C9C5B5C016D75999` | UpgradeBackup（升级备份） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-1CAB6ACCB64BA995` | HistoricalEvidenceReference（历史证据引用） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-EECFC91CAB03476E` | RepositoryMembership（项目仓库归属） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-ADDCB3B236194270` | RepositoryContentReference（仓库内容引用） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n| `FACT-E793FB9BC65A4ED0` | ProjectContentSnapshot（项目内容快照） | `value_object` | `docs/domain/sources/value-objects.yaml` | 第 6.2 节 |\n",
+          "source_sha256": "fef618da863d69fbe6095b93ac9700b810982bc2687452065eb90be130f8bd3a",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 39,
+          "source_id": "response",
+          "start_line": 27,
+          "original_text": "#### 2. [`docs/reading/DOMAIN.md`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/reading/DOMAIN.md)\n- **领域事实闭环**：完整覆盖了 6 个根集合、17 个源文件中声明的全部 **284 项领域事实 (Facts)**（包含 5 位参与者、8 项决定权、13 项产品能力、52 个业务场景、15 个核心实体、20 个核心值对象、9 个生命周期状态机、14 个关键领域事件、48 条领域规则、33 个领域不变量、10 个限界上下文、13 组上下文映射、4 个外部系统以及 40 个统一术语）。\n- **与架构处置表一致**：284 项领域事实与 [`docs/architecture/domain-fact-dispositions.yaml`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/b609dc22a9dd/work/project/docs/architecture/domain-fact-dispositions.yaml) 声明的处置项实现 1:1 双向闭合匹配。\n- **演进与全要素索引**：记录了位置引用向稳定身份演进、文档只读投影演化、多仓库统一模型等谱系，并在第 11 节提供了 284 项事实的完整反向查找索引。\n\n---\n\n### 三、实际边界与客观限制说明\n\n1. **草案非采用（Draft Status）**：当前工作树中的底层源文件状态均为 `draft`，Git 分支尚无正式提交定档记录。阅读文档忠实反映草案现状，**不构成第二份权威，亦不代表项目负责人已经确认或系统已经实现/采用**。\n2. **多仓库交付机制**：单项目多仓库共享单一建设事项与统一整体确认，交付严格遵循“整体结果接受后逐仓库顺序本地合入”，不提供跨仓库的底层分布式原子事务。\n3. **环境与执行受限**：受管能力以 Windows x64、Python 3.12、Git 和能够加载随包 Skill 的代理为前提；本地命令由宿主授权执行，产品本身不提供抵御恶意代码的内核沙箱环境。\n4. **未修改任何来源**：除生成上述两份阅读文档外，未对 `docs/` 下的原有 YAML/MD 权威文件进行任何修改，亦未创建任何建设事项或 Git 提交。\n",
+          "source_sha256": "a26c32288b81be2deabd00a3265d2c3ca73669698f33751d289051bc64f660c9",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 942,
+          "source_id": "tools",
+          "start_line": 928,
+          "original_text": "  {\n    \"conversation_id\": \"b261ac5c-06d1-4fe5-9bff-8dd5cb1a7345\",\n    \"step_index\": 126,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\b609dc22a9dd\\\\work\\\\project\\\\docs\\\\reading\\\\DOMAIN.md\"\n      },\n      \"output\": \"2575 lines, 248124 bytes\"\n    },\n    \"duration_seconds\": 0.0413837\n  },\n",
+          "source_sha256": "9f82d2e183bd6b20dacb77a5a02c23157e54517e23e71c34fd5396291df20996",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "当前完整草稿材料的实际阅读投影及来源忠实性；不证明权威采用、代码实现或负责人接受。现有模型没有历史墓碑，应诚实保留该状态，不新增谱系。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_author_settled": true,
+          "frozen_sources_unchanged": true,
+          "outputs_created": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 32,
+    "records": [
+      {
+        "source_id": "docs/product/definition.yaml",
+        "declared_revision": {
+          "revision_id": "REVISION-59EB5B9A3F3F46C0",
+          "status": "draft",
+          "supersedes_revision_id": null,
+          "confirmed_by_owner_id": null,
+          "confirmed_on": null
+        },
+        "capability_count": 13
+      },
+      {
+        "source_id": "docs/domain/model.yaml",
+        "declared_revision": {
+          "revision_id": "MODELREV-D90FA05044CD4310",
+          "status": "draft",
+          "supersedes_revision_id": null,
+          "confirmed_by_owner_id": null,
+          "confirmed_on": null
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/actors.yaml",
+        "fact_count": 5,
+        "declared_fact_status_counts": {
+          "draft": 5
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/capabilities.yaml",
+        "fact_count": 13,
+        "declared_fact_status_counts": {
+          "draft": 13
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/context-relationships.yaml",
+        "fact_count": 13,
+        "declared_fact_status_counts": {
+          "draft": 13
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/contexts.yaml",
+        "fact_count": 10,
+        "declared_fact_status_counts": {
+          "draft": 10
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/decision-authorities.yaml",
+        "fact_count": 8,
+        "declared_fact_status_counts": {
+          "draft": 8
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/entities.yaml",
+        "fact_count": 15,
+        "declared_fact_status_counts": {
+          "draft": 15
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/events.yaml",
+        "fact_count": 14,
+        "declared_fact_status_counts": {
+          "draft": 14
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/external-systems.yaml",
+        "fact_count": 4,
+        "declared_fact_status_counts": {
+          "draft": 4
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/invariants.yaml",
+        "fact_count": 33,
+        "declared_fact_status_counts": {
+          "draft": 33
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/lifecycles.yaml",
+        "fact_count": 9,
+        "declared_fact_status_counts": {
+          "draft": 9
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/rules.yaml",
+        "fact_count": 48,
+        "declared_fact_status_counts": {
+          "draft": 48
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/scenarios-authority.yaml",
+        "fact_count": 16,
+        "declared_fact_status_counts": {
+          "draft": 16
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/scenarios-delivery.yaml",
+        "fact_count": 12,
+        "declared_fact_status_counts": {
+          "draft": 12
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/scenarios-governance.yaml",
+        "fact_count": 12,
+        "declared_fact_status_counts": {
+          "draft": 12
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/scenarios-interface.yaml",
+        "fact_count": 12,
+        "declared_fact_status_counts": {
+          "draft": 12
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/terms.yaml",
+        "fact_count": 40,
+        "declared_fact_status_counts": {
+          "draft": 40
+        }
+      },
+      {
+        "source_id": "docs/domain/sources/value-objects.yaml",
+        "fact_count": 20,
+        "declared_fact_status_counts": {
+          "draft": 20
+        }
+      },
+      {
+        "source_id": "docs/architecture/model.yaml",
+        "declared_revision": {
+          "revision_id": "ARCHREV-8D00B950BAAD458F",
+          "status": "draft",
+          "supersedes_revision_id": null,
+          "confirmed_by_owner_id": null,
+          "confirmed_on": null
+        }
+      },
+      {
+        "source_id": "docs/engineering/policy.yaml",
+        "declared_revision": {
+          "revision_id": "POLICYREV-6151D5CB5D3D4E51",
+          "status": "draft",
+          "supersedes_revision_id": null,
+          "confirmed_by_owner_id": null,
+          "confirmed_on": null
+        }
+      }
+    ],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false
+}

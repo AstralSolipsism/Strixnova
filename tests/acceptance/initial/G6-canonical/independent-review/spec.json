@@ -1,0 +1,98 @@
+{
+  "sources": {
+    "user-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-01\\user-input.txt",
+      "role": "user_input"
+    },
+    "input-1-src.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-01\\inputs\\src.py",
+      "role": "original_input"
+    },
+    "input-1-reservation_limits.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-01\\inputs\\reservation_limits.py",
+      "role": "original_input"
+    },
+    "input-1-requirements.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-01\\inputs\\requirements.md",
+      "role": "original_input"
+    },
+    "input-1-standards.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-01\\inputs\\standards.md",
+      "role": "original_input"
+    },
+    "comparison-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-01\\inputs\\comparison.diff",
+      "role": "original_input"
+    },
+    "author-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-01\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-01\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "user-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-02\\user-input.txt",
+      "role": "user_input"
+    },
+    "input-2-src.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-02\\inputs\\src.py",
+      "role": "original_input"
+    },
+    "input-2-reservation_limits.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-02\\inputs\\reservation_limits.py",
+      "role": "original_input"
+    },
+    "input-2-requirements.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-02\\inputs\\requirements.md",
+      "role": "original_input"
+    },
+    "input-2-standards.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-02\\inputs\\standards.md",
+      "role": "original_input"
+    },
+    "comparison-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-02\\inputs\\comparison.diff",
+      "role": "original_input"
+    },
+    "author-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-02\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\3fb5f7f0ae17\\evidence\\turn-02\\tool-steps.json",
+      "role": "author_artifact"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "GF-CODE-REVIEW-SCOPE",
+      "expected_behavior": "对照需求和项目规范，纳入请求范围内的提交、工作树及新文件，分别说明两类有依据的发现。",
+      "must_avoid": "漏看未提交文件、按代码命名宣称满足需求，或越权修改来源。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1"
+      ],
+      "verification_scope": "两套真实字节及同一完整 Git 比较范围下的只读审阅行为；修正由固定夹具步骤提供，不证明 Agent 自主实施或负责人接受。",
+      "machine_checks": {
+        "native_turns_settled": true,
+        "inputs_and_logical_git_state_unchanged": true
+      }
+    },
+    {
+      "case_id": "GF-CODE-REVIEW-CORRECTION",
+      "expected_behavior": "复读修订代码及适用来源，关闭实际已修复发现，合格对照允许无可行动问题。",
+      "must_avoid": "因上一轮有缺陷而继续指责，或为凑数量制造问题。",
+      "evidence_source_ids": [
+        "author-2",
+        "tools-2"
+      ],
+      "verification_scope": "两套真实字节及同一完整 Git 比较范围下的只读审阅行为；修正由固定夹具步骤提供，不证明 Agent 自主实施或负责人接受。",
+      "machine_checks": {
+        "native_turns_settled": true,
+        "inputs_and_logical_git_state_unchanged": true
+      }
+    }
+  ]
+}

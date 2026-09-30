@@ -1,0 +1,59 @@
+{
+  "sources": {
+    "fixed-input": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\249b4f06b175\\evidence\\user-input.txt",
+      "role": "user_input"
+    },
+    "fixture": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\249b4f06b175\\evidence\\registration.json",
+      "role": "original_input"
+    },
+    "fixture-instructions": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\249b4f06b175\\evidence\\fixture-AGENTS.md",
+      "role": "original_input"
+    },
+    "author-response": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\249b4f06b175\\evidence\\author-response.md",
+      "role": "author_response"
+    },
+    "author-tools": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\249b4f06b175\\evidence\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "raw-events": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\249b4f06b175\\evidence\\execution\\events.jsonl",
+      "role": "author_artifact"
+    },
+    "actual-endpoint": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\249b4f06b175\\evidence\\endpoint.json",
+      "role": "author_artifact"
+    },
+    "public-states": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\249b4f06b175\\evidence\\public-states.json",
+      "role": "author_artifact"
+    },
+    "original-failure": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fca48acdf6d8\\evidence\\independent-review\\review.json",
+      "role": "original_input"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "GF-CONCRETE-INCOMPLETE",
+      "expected_behavior": "先创建请求对应的 WorkItem，再只关闭方向阶段中的实质缺口。",
+      "must_avoid": "在 intake 之前另建一套影子访谈流程。",
+      "evidence_source_ids": [
+        "author-response",
+        "author-tools",
+        "raw-events",
+        "actual-endpoint",
+        "public-states"
+      ],
+      "verification_scope": "本次既有业务工程、尚无当前请求事项的首次登记和实质澄清。Git版本来自已完成G1，但本副本没有复制历史数据库；明确此初态差异，原G4漏登记失败仍保留，本次不追认原失败或证明任意历史状态下可靠。",
+      "machine_checks": {
+        "actual_new_work_items_exist": true,
+        "protected_source_and_git_unchanged": true
+      }
+    }
+  ]
+}

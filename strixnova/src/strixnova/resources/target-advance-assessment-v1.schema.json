@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.target-advance-assessment.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "semantic_impact",
+    "reason"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.target-advance-assessment.v1"
+    },
+    "semantic_impact": {
+      "enum": [
+        "affected",
+        "unaffected"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

@@ -1,0 +1,214 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-88B8E01D37D14EF7
+scope_fact_ids: []
+facts:
+- fact_id: FACT-6BE665349FD548B2
+  status: draft
+  title: 已确认项目目标进入工程评估
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-159C0FC61FEE4E5D
+  - FACT-07A448FB8DED43A4
+  content:
+    from_context_fact_id: FACT-159C0FC61FEE4E5D
+    to_context_fact_id: FACT-07A448FB8DED43A4
+    relationship_type: 提供已确认目标约束
+    contract: 工程评估必须引用精确产品、领域和目标架构修订；目标变化通过权威变更集组织独立上游修订候选及全部下游处置，不得回写目标正文，也不得把变更集变成新权威。
+- fact_id: FACT-AF048FE53E594287
+  status: draft
+  title: 项目工程政策约束工程评估
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-077782C6BEA34CA1
+  - FACT-07A448FB8DED43A4
+  content:
+    from_context_fact_id: FACT-077782C6BEA34CA1
+    to_context_fact_id: FACT-07A448FB8DED43A4
+    relationship_type: 提供工程政策约束
+    contract: 工程评估按精确政策修订检查方法、保障、验证和交付义务；事项不得修改政策，只能提出修订候选。
+- fact_id: FACT-E58C42CB6F0A4BF2
+  status: draft
+  title: 实现对齐为工程评估提供差距事实
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-766005AF53DF4871
+  - FACT-07A448FB8DED43A4
+  content:
+    from_context_fact_id: FACT-766005AF53DF4871
+    to_context_fact_id: FACT-07A448FB8DED43A4
+    relationship_type: 提供当前实现差距
+    contract: 工程评估使用精确代码与对齐修订的差距、未知和漂移事实，不能把当前实现状态解释为目标语义。
+- fact_id: FACT-EC3651398E1546BE
+  status: draft
+  title: 工程评估进入事项治理
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-07A448FB8DED43A4
+  - FACT-AA4174FFBF99444C
+  content:
+    from_context_fact_id: FACT-07A448FB8DED43A4
+    to_context_fact_id: FACT-AA4174FFBF99444C
+    relationship_type: 提交可确认工程方案
+    contract: 只有结构、引用、覆盖、跨产物语义复核、实施切片依赖和政策门禁闭合的完整工程方案候选才能进入既有方案确认点；程序只验证声明完整与确定性关系，通过门禁不表示语义正确或项目负责人已经确认。
+- fact_id: FACT-3E762C2DD5EF44DA
+  status: draft
+  title: 已确认事项授权本地交付
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AA4174FFBF99444C
+  - FACT-2BF62783DA7F4553
+  content:
+    from_context_fact_id: FACT-AA4174FFBF99444C
+    to_context_fact_id: FACT-2BF62783DA7F4553
+    relationship_type: 授权本地实施与合入
+    contract: 精确工程方案确认后才能建立实施空间；精确实际结果接受后才能形成结果提交和请求本地合入。 多仓库实施与交付始终绑定同一事项，结果接受覆盖整体，各仓库事实分别回报。
+- fact_id: FACT-0FC4C462684B45B2
+  status: draft
+  title: 建设事项请求验证
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AA4174FFBF99444C
+  - FACT-C1F4646AEC0747C0
+  content:
+    from_context_fact_id: FACT-AA4174FFBF99444C
+    to_context_fact_id: FACT-C1F4646AEC0747C0
+    relationship_type: 提供已确认验证计划
+    contract: 验证请求必须绑定已确认方案、首个依赖已满足实施切片、允许的命令边界和预期证明范围；后续切片不得越级验证，未经授权的语义或代理调用不得进入执行。 请求明确执行仓库与必要输入组合，外部服务依赖需有可核验版本和环境，不能以位置替代证据。
+- fact_id: FACT-AEE51BA46DBF4F03
+  status: draft
+  title: 验证证据回报事项治理
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C1F4646AEC0747C0
+  - FACT-AA4174FFBF99444C
+  content:
+    from_context_fact_id: FACT-C1F4646AEC0747C0
+    to_context_fact_id: FACT-AA4174FFBF99444C
+    relationship_type: 回报验证与实际结果候选
+    contract: 真实回执、未运行项、失败、偏差和限制必须原样进入事项结果候选，负面事实不得被隐藏为通过或完成。 联合证据只支持其绑定的内容组合，原回执与后续有效性判断分开保存。
+- fact_id: FACT-D566C3C81CB044FF
+  status: draft
+  title: 建设事项授权交付发布与运行活动
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AA4174FFBF99444C
+  - FACT-A3B069965B724D7D
+  content:
+    from_context_fact_id: FACT-AA4174FFBF99444C
+    to_context_fact_id: FACT-A3B069965B724D7D
+    relationship_type: 提供活动目标与授权边界
+    contract: 只有事项结果和相应活动计划达到既定关口后，外部交付、部署或运行活动才能被授权；事项完成不自动等于活动完成。
+- fact_id: FACT-8A2A6392E50A40AC
+  status: draft
+  title: 外部活动事实进入验证与证据治理
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A3B069965B724D7D
+  - FACT-C1F4646AEC0747C0
+  content:
+    from_context_fact_id: FACT-A3B069965B724D7D
+    to_context_fact_id: FACT-C1F4646AEC0747C0
+    relationship_type: 提供外部执行与运行事实
+    contract: 外部活动只回报真实命令、时间、结果、限制和来源；验证治理限定其证明范围，不得把活动状态扩大为业务成功。
+- fact_id: FACT-EB468CFBBDEF42F1
+  status: draft
+  title: 事项治理投影到引导交互
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AA4174FFBF99444C
+  - FACT-A468C3D0605A3756
+  content:
+    from_context_fact_id: FACT-AA4174FFBF99444C
+    to_context_fact_id: FACT-A468C3D0605A3756
+    relationship_type: 投影当前必要事实
+    contract: 交互边界只读取并压缩呈现唯一当前行动、首个依赖已满足实施切片、阻断和聚焦事实；面向负责人按关注点组织同一方案，不取得流程写权威或语义决定权。 事项状态与各仓库实际交付并列呈现，取消后的部分合入不能被折叠为整体完成。
+- fact_id: FACT-683646B2E82E4024
+  status: draft
+  title: 引导交互向事项治理提交确定性请求
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A468C3D0605A3756
+  - FACT-AA4174FFBF99444C
+  content:
+    from_context_fact_id: FACT-A468C3D0605A3756
+    to_context_fact_id: FACT-AA4174FFBF99444C
+    relationship_type: 提交版本绑定命令请求
+    contract: 受支持智能编码代理依据精确随包 Skill 通过通用命令提交显式意图、精确引用和用户确认事实；交互层不得替其编排完整意图、补写语义或推断代理是否已加载 Skill。
+- fact_id: FACT-555293E4B9730D21
+  status: draft
+  title: 运行维护通过事项权威保全事实
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  - FACT-AA4174FFBF99444C
+  content:
+    from_context_fact_id: FACT-3D2D74227A26E9A6
+    to_context_fact_id: FACT-AA4174FFBF99444C
+    relationship_type: 协调维护并保全原事实
+    contract: 事项权威保有业务写权与原始历史，维护只管理格式、停写和恢复；升级不能替代任何业务确认或重放已执行副作用。
+- fact_id: FACT-AA9765DEDBB8389B
+  status: draft
+  title: 运行维护协调外部活动记录停写
+  kind: context_relationship
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  - FACT-A3B069965B724D7D
+  content:
+    from_context_fact_id: FACT-3D2D74227A26E9A6
+    to_context_fact_id: FACT-A3B069965B724D7D
+    relationship_type: 保全授权与活动回执
+    contract: 维护协调 Strixnova 活动状态的写入及持久格式，不能借此停止、部署或升级业务系统；未解决的外部副作用必须先到稳定位置。

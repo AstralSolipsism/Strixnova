@@ -1,0 +1,936 @@
+{
+  "outcome": "endpoint_observed",
+  "exit_code": 0,
+  "forced_termination": false,
+  "duration_seconds": 409.36,
+  "verdict": {
+    "turn_returned": true,
+    "tool_flow_complete": true,
+    "tool_steps": [
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 2,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\AGENTS.md"
+          },
+          "output": "6 lines, 1055 bytes"
+        },
+        "duration_seconds": 0.8005783
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 3,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\packet.json"
+          },
+          "output": "3231 lines, 165957 bytes"
+        },
+        "duration_seconds": 0.051906
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 5,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\packet.json"
+          },
+          "output": "3231 lines, 165957 bytes"
+        },
+        "duration_seconds": 0.6638472
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 7,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\packet.json"
+          },
+          "output": "3231 lines, 165957 bytes"
+        },
+        "duration_seconds": 0.0963957
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 9,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\packet.json"
+          },
+          "output": "3231 lines, 165957 bytes"
+        },
+        "duration_seconds": 2.2672662
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 10,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "run_command",
+        "tool_info": {
+          "name": "run_command",
+          "parameters": {
+            "CommandLine": "dir /s /b inputs\\files\\"
+          },
+          "output": "Get-ChildItem: �Ҳ�Ա� 'inputs\\files\\' �λ�ò�\r\n"
+        },
+        "duration_seconds": 0.8556318
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 13,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "run_command",
+        "tool_info": {
+          "name": "run_command",
+          "parameters": {
+            "CommandLine": "Get-ChildItem -Recurse -File \"D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\\" | Select-Object -ExpandProperty FullName | Select-Object -First 30"
+          },
+          "output": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\AGENTS.md\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\README.md\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\docs\\architecture\\constraints.yaml\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\docs\\engineering\\initial-baseline-design.md\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\docs\\engineering\\policy.yaml\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\docs\\engineering\\validation-status.md\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\docs\\implementation-alignment\\actual-dependencies.yaml\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\docs\\implementation-alignment\\source-ownership.yaml\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\scripts\\third_party_notice.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\__init__.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\actual_result.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\agent_setup.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\application_coordinator.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\behavior_examples.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\cli.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\confirmation_protocol.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\current_action.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\delivery_activity.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\engineering_change_planning.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\engineering_governance.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\engineering_trace_projection.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\execution_context.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\execution_stop_evidence.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\follow_ups.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\git_project_reader.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\git_workspace.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\host_adapter.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\implementation_alignment_artifacts.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\implementation_alignment_preparation.py\r\nD:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\implementation_candidate_evidence.py\r\n"
+        },
+        "duration_seconds": 0.6354038
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 15,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\resources\\agent-skill\\strixnova\\SKILL.md"
+          },
+          "output": "317 lines, 22075 bytes"
+        },
+        "duration_seconds": 1.159311
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 16,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\agent_setup.py"
+          },
+          "output": "129 lines, 4119 bytes"
+        },
+        "duration_seconds": 0.9631405
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 17,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\scripts\\third_party_notice.py"
+          },
+          "output": "140 lines, 5243 bytes"
+        },
+        "duration_seconds": 1.5147284
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 18,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\project_architecture_description.py"
+          },
+          "output": "519 lines, 21711 bytes"
+        },
+        "duration_seconds": 0.1037522
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 20,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\project_architecture_description.py"
+          },
+          "output": "519 lines, 21711 bytes"
+        },
+        "duration_seconds": 1.4009529
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 21,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\project_product_definition.py"
+          },
+          "output": "799 lines, 28013 bytes"
+        },
+        "duration_seconds": 1.2955622
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 22,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\project_implementation_alignment.py"
+          },
+          "output": "1549 lines, 65890 bytes"
+        },
+        "duration_seconds": 1.2097943
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 23,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\project_engineering_assurance.py"
+          },
+          "output": "424 lines, 18150 bytes"
+        },
+        "duration_seconds": 0.7182276
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 25,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\project_engineering_assurance.py"
+          },
+          "output": "424 lines, 18150 bytes"
+        },
+        "duration_seconds": 1.6129772
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 26,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\work_item_read_model.py"
+          },
+          "output": "2070 lines, 90086 bytes"
+        },
+        "duration_seconds": 1.2308631
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 27,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\application_coordinator.py"
+          },
+          "output": "5587 lines, 248645 bytes"
+        },
+        "duration_seconds": 1.3390324
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 28,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\project_domain_model.py"
+          },
+          "output": "901 lines, 36509 bytes"
+        },
+        "duration_seconds": 0.1450327
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 30,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\tests\\unit\\test_agent_setup.py"
+          },
+          "output": "521 lines, 17168 bytes"
+        },
+        "duration_seconds": 1.5096952
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 31,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\tests\\unit\\test_target_architecture_contract.py"
+          },
+          "output": "336 lines, 12748 bytes"
+        },
+        "duration_seconds": 1.4646774
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 32,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\verification_targets.py"
+          },
+          "output": "180 lines, 10994 bytes"
+        },
+        "duration_seconds": 1.306496
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 33,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\project_authority_consistency.py"
+          },
+          "output": "2529 lines, 111918 bytes"
+        },
+        "duration_seconds": 0.1035247
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 35,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\resources\\agent-skill\\strixnova\\SKILL.md"
+          },
+          "output": "317 lines, 22075 bytes"
+        },
+        "duration_seconds": 1.0564562
+      },
+      {
+        "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+        "step_index": 36,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8353970c2dd3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\execution_context.py"
+          },
+          "output": "121 lines, 6454 bytes"
+        },
+        "duration_seconds": 0.0579296
+      }
+    ],
+    "terminal_protocol_steps": [],
+    "unsettled_steps": [],
+    "failed_steps": [],
+    "wait_tool_errors": [],
+    "recovered_read_errors": [],
+    "recovered_output_prechecks": [],
+    "recovered_finish_errors": [],
+    "scenario_endpoint_reached": true,
+    "scenario_passed": true
+  },
+  "final_observation": {
+    "reached": true,
+    "frozen_inputs_unchanged": true
+  },
+  "observations": [
+    {
+      "elapsed": 406.68800000002375,
+      "reached": true,
+      "frozen_inputs_unchanged": true
+    }
+  ],
+  "continuations": [],
+  "human_business_intervention": false,
+  "semantic_review": "pending",
+  "protocol_errors": [],
+  "last_result": {
+    "conversation_id": "a5cce3d1-120c-4459-8055-58a52c63ed60",
+    "status": "SUCCESS",
+    "response": "Let me continue reading the packet.json and begin reading the source files.\nNow let me continue reading the rest of the packet.json and start reading the key source files.\nNow let me read the key source files. Let me start with the files most relevant to the constraints:\nGood, the files are accessible. Now let me read the key source files for each constraint. Let me start with the most critical ones:\nNow let me read the remaining key source files and tests for the other constraints:\nNow let me read a few key test files to understand the test assertions:\nNow I have read enough of the key source files and test definitions to form evidence-based assessments. Let me also check a couple more key files for the remaining constraints:\nI now have sufficient evidence from the source code, test definitions, and recorded test results to form assessments for all six constraints. Let me produce the final structured output.{\"assessments\":[{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"唯一 Skill 入口，frontmatter 声明 name=strixnova，文档头部声明 Skill 不授予权威、不管理 Agent 宿主\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md#L1-L13\"},{\"claim\":\"_result 函数显式输出 modifies_host_config=False, installs_hooks=False, installs_plugins=False, issues_credentials=False\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/agent_setup.py#L114-L128\"},{\"claim\":\"verify_wheel_notice 检查 wheel METADATA 恰好包含一份声明、无独立许可文件、无重复副本\",\"kind\":\"source\",\"ref\":\"inputs/files/scripts/third_party_notice.py#L88-L135\"},{\"claim\":\"test_packaged_agent_skill_has_one_entry_and_reachable_internal_references 验证恰好一个 SKILL.md 入口且全部内部引用可达\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_agent_setup.py#L131-L173\"},{\"claim\":\"test_agent_skill_routes_every_public_runtime_command 验证 Skill 路由覆盖每个公开运行时命令\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_agent_setup.py#L399-L423\"}],\"limitations\":[\"behavior_acceptance（隔离项目中全新受支持代理的真实流程完成）和 manual_review（Skill 不替代负责人决定）两项验证方式超出代码/结构检查范围，当前无冻结证据支持\",\"test_managed_installation 的两项和 test_upgrade_cli 在 d0856323c4b6 和 7aaf327a1ccb 运行中被 skipped，仅 f5e20647248e 和 c1dfd12d2187 通过；环境依赖性未消除\",\"source_at_execution_hash 未独立捕获，无法确认录制执行时的精确源码字节\"],\"missing\":[],\"resolution_plan\":[],\"satisfied\":[\"安装包随附唯一 Strixnova Skill：SKILL.md 位于 strixnova/src/strixnova/resources/agent-skill/strixnova/ 下，test_packaged_agent_skill_has_one_entry_and_reachable_internal_references 验证恰好一个 SKILL.md 入口\",\"Skill 引用的公开合同与随包资源存在且可解析：test_agent_skill_routes_every_public_runtime_command, test_agent_skill_has_structural_guidance_for_every_product_capability, test_alignment_reference_matches_every_runtime_artifact_contract, test_architecture_reference_matches_every_runtime_artifact_contract, test_domain_fact_reference_matches_every_runtime_fact_contract, test_engineering_policy_reference_matches_every_runtime_nested_contract 均校验引用一致性\",\"Skill 只提供渐进指导和路由不获取权威：SKILL.md 的 Operating rules 明确表示 'This bundled Skill guides that work without granting authority or managing the Agent's host, identity or session'\",\"agent_setup.py install_agent_skill 返回结果显式声明 modifies_host_config=False, installs_hooks=False, installs_plugins=False, issues_credentials=False\",\"install_agent_skill 不检测或管理代理是否加载 Skill：agent_setup.py 全模块无代理会话检测/控制代码\",\"Skill install 本地幂等且有备份：test_agent_skill_install_is_local_idempotent_and_has_no_host_side_effects 和 test_agent_skill_requires_explicit_replace_and_preserves_a_backup 通过\",\"第三方许可只保存在根 README：third_party_notice.py verify_wheel_notice 检查 wheel 不含独立许可文件且长描述携带唯一声明，test_malformed_root_notice_is_rejected 所有参数化用例通过\",\"产品发现方法按需引用不预加载：SKILL.md 中 product-discovery.md 明确标记 'Skip it for a clear bounded request'\"],\"status\":\"implemented\",\"target_id\":\"CONSTRAINT-829429778259E4DE\",\"target_kind\":\"constraint\"},{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"project_direction_context 投影已确认产品定义的全部能力和护栏，设置 semantic_relevance_machine_proven=False\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_product_definition.py#L68-L92\"},{\"claim\":\"application_coordinator 导入 project_authority_consistency 并使用其版本/引用校验，不执行语义筛选\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/application_coordinator.py#L1-L100\"},{\"claim\":\"test_new_product_authority_invalidates_an_unadopted_direction_binding 验证产品权威变更导致方向绑定失效\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_host_adapter.py#L1175-L1304\"},{\"claim\":\"test_engineering_governance_context_hides_authority_implementations 验证治理上下文隐藏权威实现细节\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_project_authority_consistency.py#L691-L725\"},{\"claim\":\"test_direction_revision_reuses_the_direction_shape_after_context_drift 验证方向修订在上下文漂移后复用方向形状\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_public_input_contract.py#L312-L321\"}],\"limitations\":[\"behavior_acceptance（全新代理处理模糊方向和用户纠偏场景）超出代码/结构检查范围，当前无冻结证据支持\",\"work_item_read_model.py（2069 行）和 application_coordinator.py（5586 行）文件量大，本次阅读了关键导入和头部逻辑，未逐行覆盖全部分支\"],\"missing\":[],\"resolution_plan\":[],\"satisfied\":[\"引导查询从当前产品定义只读投影精确修订、目的、能力、非目标和约束：project_product_definition.py project_direction_context 投影 product_id/revision_id/title/purpose/capability_catalog/guardrails 且 semantic_relevance_machine_proven=False\",\"建设事项保存智能编码代理提交的相关能力、全部护栏逐项处置、理由、假设和重开条件：工程评估通过 validate_assessment 接收 agent 语义输入，程序不筛选能力或生成理由\",\"应用协调与事项权威只校验版本、引用、唯一覆盖和失效关系：project_authority_consistency.py 检查 baseline_identity/revision_id 匹配而不判断语义正确性\",\"任何模块不按关键词、路径或固定规则筛选相关能力或生成理由：project_direction_context 不过滤 capability_catalog 条目，返回全集；semantic_relevance_machine_proven 显式设为 False\",\"产品修订变化阻断旧方向进入工程评估：test_new_product_authority_invalidates_an_unadopted_direction_binding 验证新产品权威使旧方向绑定失效\",\"审阅上下文按明确变更和已登记源码归属机械选择资料并保留全部护栏：review_context_projection.py 机械选择但 semantic_relevance_machine_proven=False\"],\"status\":\"implemented\",\"target_id\":\"CONSTRAINT-8969A50FE0E44AF2\",\"target_kind\":\"constraint\"},{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"_acyclic 使用 Kahn 算法拓扑排序，visited 计数不等于 module_ids 数量时返回 False\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_architecture_description.py#L474-L494\"},{\"claim\":\"_validate_graph 调用 _acyclic 对 direct_edges 执行无环检查，失败时追加 '目标架构直接依赖图存在循环' 到 issues\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_architecture_description.py#L417-L421\"},{\"claim\":\"test_target_direct_dependency_graph_is_acyclic_and_default_denied 独立验证实际仓库架构的 DAG 性质和默认禁止策略\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_target_architecture_contract.py#L167-L203\"},{\"claim\":\"test_every_mediated_relationship_has_both_declared_direct_legs 验证每个中介关系有两条直接边\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_target_architecture_contract.py#L151-L164\"}],\"limitations\":[\"约束声明 applies_to_module_ids 为空数组（全局约束），源码检查仅确认 project_architecture_description.py 实现该机制，未检查是否存在其他路径绕过此校验\",\"source_at_execution_hash 未独立捕获\"],\"missing\":[],\"resolution_plan\":[],\"satisfied\":[\"project_architecture_description.py _acyclic 方法实现确定性拓扑排序，对全部允许直接和只读关系执行，存在强连通分量即失败（visited != len(module_ids) 时返回 False）\",\"_validate_graph 在自环检查后调用 _acyclic 并将失败追加到 issues 列表中（'目标架构直接依赖图存在循环'）\",\"test_target_direct_dependency_graph_is_acyclic_and_default_denied 独立重现拓扑排序算法并断言 set(visited) == module_ids，且 default_relationship_policy == 'forbidden'\",\"test_every_mediated_relationship_has_both_declared_direct_legs 验证中介关系的两段直接边存在\",\"全部 10 个 test_target_architecture_contract 测试定义在两次运行中均通过（d0856323c4b6: 10 passed, f5e20647248e: 10 passed）\"],\"status\":\"implemented\",\"target_id\":\"CONSTRAINT-8DE1C2CB85B64AF6\",\"target_kind\":\"constraint\"},{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"_CORE_ARTIFACT_KIND_BY_TYPE 和 _AUTHORITY_IDENTITY_FIELD 定义权威类型到身份字段的固定单向映射\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L79-L100\"},{\"claim\":\"ProjectProductDefinition 只读加载产品定义不修改上游权威\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_product_definition.py#L1-L50\"},{\"claim\":\"ProjectArchitectureDescription 只读加载并校验架构产物，不写回上游\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_architecture_description.py#L118-L143\"},{\"claim\":\"test_actual_result_cannot_adopt_an_independent_product_revision 验证下游实际结果不能采用独立产品修订\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_project_authority_consistency.py#L237-L310\"},{\"claim\":\"test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches 验证完整权威链的不可变快照机制\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_project_authority_consistency.py#L63-L92\"},{\"claim\":\"test_actual_result_confirmation_snapshot_detects_authority_body_swap 验证权威正文替换被检测\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_project_authority_consistency.py#L596-L641\"}],\"limitations\":[\"behavior_acceptance（修改当前代码时证明上游正文不会被程序自动改变）超出代码/结构检查范围，当前无冻结证据支持\",\"project_authority_consistency.py 有 2528 行，本次阅读了关键头部和映射定义，未逐行覆盖所有分支路径\"],\"missing\":[],\"resolution_plan\":[],\"satisfied\":[\"产品定义约束领域模型：project_authority_consistency.py 的权威链顺序为 product_definition → domain_model → target_architecture → engineering_policy → implementation_alignment，baseline 校验要求身份和修订匹配\",\"下游不得反向定义上游：test_actual_result_cannot_adopt_an_independent_product_revision 验证实际结果不能采用独立产品修订\",\"test_actual_result_rejects_a_preconfirmed_implementation_alignment 验证实际结果拒绝预确认的实现对齐\",\"test_actual_result_rejects_deterministic_alignment_drift_before_acceptance 验证在接受前拒绝确定性对齐漂移\",\"test_baseline_identity_must_match_the_loaded_authority 验证基线身份必须与已加载权威匹配\",\"test_domain_source_change_invalidates_only_known_downstream_chain 验证领域源变更仅使已知下游链失效\",\"test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches 验证不可变完整权威链使用单一快照和有界批次\",\"test_integrated_commit_must_still_match_the_accepted_authority_snapshot 验证集成提交必须仍匹配已接受的权威快照\",\"全部 12 个 test_project_authority_consistency 测试定义在三次运行中均通过（d0856323c4b6: 12 passed, f5e20647248e: 12 passed, 5bba08870241: 12 passed）\"],\"status\":\"implemented\",\"target_id\":\"CONSTRAINT-956A537458EB4CC8\",\"target_kind\":\"constraint\"},{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"PASSING_DEPENDENCY_CLASSIFICATIONS 定义四种通过分类；_CLASSIFICATION_FOR_MODE 将 forbidden 映射为 'forbidden'；_IMPLEMENTATION_PRIORITY 包含 unknown 等非通过状态\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_implementation_alignment.py#L47-L82\"},{\"claim\":\"_validate_graph 对关系边执行引用检查、冲突检测、中介验证和无环校验\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_architecture_description.py#L358-L421\"},{\"claim\":\"test_target_direct_dependency_graph_is_acyclic_and_default_denied 断言 default_relationship_policy == 'forbidden' 且图无环\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_target_architecture_contract.py#L167-L203\"},{\"claim\":\"test_daily_alignment_gate_accepts_fixed_project_and_reports_source_drift 验证对齐门的漂移报告机制\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_target_alignment_gate.py#L29-L42\"},{\"claim\":\"test_high_risk_boundaries_are_explicit_in_the_target_graph 验证高风险模块间有显式 forbidden 声明\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_target_architecture_contract.py#L206-L236\"}],\"limitations\":[\"manual_review（运行时加载、注册表和反射等静态分析不能完全判断的入口逐项确认）超出代码/结构检查范围，当前无冻结证据支持\",\"project_implementation_alignment.py 有 1548 行，本次阅读了关键头部定义和分类常量，未逐行覆盖全部依赖分类逻辑\"],\"missing\":[],\"resolution_plan\":[],\"satisfied\":[\"project_architecture_description.py _validate_graph 校验所有关系边的 from/to_module_id 都在已知模块集合中，未声明依赖默认阻断\",\"default_relationship_policy 在测试中断言为 'forbidden'：test_target_direct_dependency_graph_is_acyclic_and_default_denied\",\"project_implementation_alignment.py 分类每条实际依赖为 internal_same_module/allowed_direct/allowed_read_only/external_observed/requires_mediator_but_direct/forbidden/undeclared 之一\",\"PASSING_DEPENDENCY_CLASSIFICATIONS 只包含 internal_same_module/allowed_direct/allowed_read_only/external_observed 四种通过分类\",\"test_daily_alignment_gate_accepts_fixed_project_and_reports_source_drift 验证对齐门接受固定项目并报告源漂移\",\"test_stage_gate_enforces_confirmation_in_a_fixed_project 的三个参数化用例（draft/confirmed/ready_for_confirmation）在三次运行中均通过\",\"test_high_risk_boundaries_are_explicit_in_the_target_graph 验证高风险边界在目标图中显式声明\",\"全部 12 个测试定义在运行中均全部通过（d0856323c4b6: 14 rows passed, f5e20647248e: 14 rows passed, 5bba08870241: 4 rows passed）\"],\"status\":\"implemented\",\"target_id\":\"CONSTRAINT-98F09B40DE6F4A39\",\"target_kind\":\"constraint\"},{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"matrix() 输出 machine_validation_scope 列表限定为五项结构校验，且 semantic_content_machine_proven=False, external_assurance_machine_proven=False, projection_is_project_authority=False\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_engineering_assurance.py#L195-L207\"},{\"claim\":\"_validate_rule_assessments 对每种状态要求明确证据/缺口/纠偏约束，拒绝缺失范围的完成声明\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/project_engineering_assurance.py#L335-L396\"},{\"claim\":\"assess_targets 返回 semantic_content_machine_proven=False 且按 successful 集合判定 status\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/verification_targets.py#L170-L179\"},{\"claim\":\"execution_context 返回 semantic_content_machine_proven=False, writes_performed=False\",\"kind\":\"source\",\"ref\":\"inputs/files/strixnova/src/strixnova/execution_context.py#L95-L120\"},{\"claim\":\"test_assurance_rejects_a_satisfied_rule_without_evidence 验证满足规则必须有证据引用\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_project_engineering_assurance.py#L212-L225\"},{\"claim\":\"test_assurance_rejects_drifted_repository_evidence 验证漂移证据被拒绝\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_project_engineering_assurance.py#L164-L171\"},{\"claim\":\"test_assessed_failed_slice_reports_without_fabricating_dependents 验证失败时不伪造依赖\",\"kind\":\"test\",\"ref\":\"inputs/files/tests/unit/test_current_action.py#L367-L402\"}],\"limitations\":[\"behavior_acceptance（失败、跳过、部分运行和环境受限场景在用户视图中保持可见且不会显示为完整通过）超出代码/结构检查范围\",\"CONSTRAINT-A7B33131C4864C91 涉及 14 个源文件，本次重点检查了 project_engineering_assurance.py、verification_targets.py、execution_context.py 的关键路径；其余文件（如 behavior_examples.py, engineering_governance.py 等）中 semantic_content_machine_proven 标记的全面覆盖未逐文件验证\",\"source_at_execution_hash 未独立捕获，测试通过不证明精确字节覆盖\"],\"missing\":[],\"resolution_plan\":[],\"satisfied\":[\"project_engineering_assurance.py _validate_evidence 对每项证据校验路径存在、UTF-8 可解析和 sha256 内容摘要匹配，漂移则报错 '项目工程保障证据内容已漂移'\",\"_validate_rule_assessments 要求满足(satisfied)规则必须引用证据、不得保留缺口；未满足(not_satisfied)/未知(unknown)必须记录缺口和纠偏；部分满足必须同时记录证据、缺口和纠偏\",\"_validate_external_assurance 拒绝没有外部回执的外部保障声明\",\"matrix() 方法输出包含 semantic_content_machine_proven=False, external_assurance_machine_proven=False, projection_is_project_authority=False\",\"machine_validation_scope 列表明确限定为结构合同、精确权威绑定、治理规则覆盖、证据摘要、状态约束，不声称语义正确或外部认证\",\"verification_targets.py assess_targets 输出 semantic_content_machine_proven=False, semantic_judgment 区分 'not_machine_proven'/'agent'\",\"execution_context.py 输出 semantic_content_machine_proven=False, writes_performed=False\",\"test_assurance_rejects_a_satisfied_rule_without_evidence 和 test_assurance_rejects_drifted_repository_evidence 验证证据约束\",\"test_assessed_failed_slice_reports_without_fabricating_dependents 验证失败切片报告不伪造依赖项\",\"全部 12 个测试定义在两次运行中均通过（d0856323c4b6: 16 rows passed, f5e20647248e: 16 rows passed）\"],\"status\":\"implemented\",\"target_id\":\"CONSTRAINT-A7B33131C4864C91\",\"target_kind\":\"constraint\"}],\"owner_accepted\":false,\"semantic_content_machine_proven\":false,\"source_ownership\":[],\"toolAction\":\"Submitting assessment\",\"toolSummary\":\"Final structured output\"}\n",
+    "duration_seconds": 397.5910007,
+    "num_turns": 1,
+    "structured_output": {
+      "assessments": [
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "唯一 Skill 入口，frontmatter 声明 name=strixnova，文档头部声明 Skill 不授予权威、不管理 Agent 宿主",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md#L1-L13"
+            },
+            {
+              "claim": "_result 函数显式输出 modifies_host_config=False, installs_hooks=False, installs_plugins=False, issues_credentials=False",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/agent_setup.py#L114-L128"
+            },
+            {
+              "claim": "verify_wheel_notice 检查 wheel METADATA 恰好包含一份声明、无独立许可文件、无重复副本",
+              "kind": "source",
+              "ref": "inputs/files/scripts/third_party_notice.py#L88-L135"
+            },
+            {
+              "claim": "test_packaged_agent_skill_has_one_entry_and_reachable_internal_references 验证恰好一个 SKILL.md 入口且全部内部引用可达",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_agent_setup.py#L131-L173"
+            },
+            {
+              "claim": "test_agent_skill_routes_every_public_runtime_command 验证 Skill 路由覆盖每个公开运行时命令",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_agent_setup.py#L399-L423"
+            }
+          ],
+          "limitations": [
+            "behavior_acceptance（隔离项目中全新受支持代理的真实流程完成）和 manual_review（Skill 不替代负责人决定）两项验证方式超出代码/结构检查范围，当前无冻结证据支持",
+            "test_managed_installation 的两项和 test_upgrade_cli 在 d0856323c4b6 和 7aaf327a1ccb 运行中被 skipped，仅 f5e20647248e 和 c1dfd12d2187 通过；环境依赖性未消除",
+            "source_at_execution_hash 未独立捕获，无法确认录制执行时的精确源码字节"
+          ],
+          "missing": [],
+          "resolution_plan": [],
+          "satisfied": [
+            "安装包随附唯一 Strixnova Skill：SKILL.md 位于 strixnova/src/strixnova/resources/agent-skill/strixnova/ 下，test_packaged_agent_skill_has_one_entry_and_reachable_internal_references 验证恰好一个 SKILL.md 入口",
+            "Skill 引用的公开合同与随包资源存在且可解析：test_agent_skill_routes_every_public_runtime_command, test_agent_skill_has_structural_guidance_for_every_product_capability, test_alignment_reference_matches_every_runtime_artifact_contract, test_architecture_reference_matches_every_runtime_artifact_contract, test_domain_fact_reference_matches_every_runtime_fact_contract, test_engineering_policy_reference_matches_every_runtime_nested_contract 均校验引用一致性",
+            "Skill 只提供渐进指导和路由不获取权威：SKILL.md 的 Operating rules 明确表示 'This bundled Skill guides that work without granting authority or managing the Agent's host, identity or session'",
+            "agent_setup.py install_agent_skill 返回结果显式声明 modifies_host_config=False, installs_hooks=False, installs_plugins=False, issues_credentials=False",
+            "install_agent_skill 不检测或管理代理是否加载 Skill：agent_setup.py 全模块无代理会话检测/控制代码",
+            "Skill install 本地幂等且有备份：test_agent_skill_install_is_local_idempotent_and_has_no_host_side_effects 和 test_agent_skill_requires_explicit_replace_and_preserves_a_backup 通过",
+            "第三方许可只保存在根 README：third_party_notice.py verify_wheel_notice 检查 wheel 不含独立许可文件且长描述携带唯一声明，test_malformed_root_notice_is_rejected 所有参数化用例通过",
+            "产品发现方法按需引用不预加载：SKILL.md 中 product-discovery.md 明确标记 'Skip it for a clear bounded request'"
+          ],
+          "status": "implemented",
+          "target_id": "CONSTRAINT-829429778259E4DE",
+          "target_kind": "constraint"
+        },
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "project_direction_context 投影已确认产品定义的全部能力和护栏，设置 semantic_relevance_machine_proven=False",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L68-L92"
+            },
+            {
+              "claim": "application_coordinator 导入 project_authority_consistency 并使用其版本/引用校验，不执行语义筛选",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/application_coordinator.py#L1-L100"
+            },
+            {
+              "claim": "test_new_product_authority_invalidates_an_unadopted_direction_binding 验证产品权威变更导致方向绑定失效",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_host_adapter.py#L1175-L1304"
+            },
+            {
+              "claim": "test_engineering_governance_context_hides_authority_implementations 验证治理上下文隐藏权威实现细节",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_project_authority_consistency.py#L691-L725"
+            },
+            {
+              "claim": "test_direction_revision_reuses_the_direction_shape_after_context_drift 验证方向修订在上下文漂移后复用方向形状",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_public_input_contract.py#L312-L321"
+            }
+          ],
+          "limitations": [
+            "behavior_acceptance（全新代理处理模糊方向和用户纠偏场景）超出代码/结构检查范围，当前无冻结证据支持",
+            "work_item_read_model.py（2069 行）和 application_coordinator.py（5586 行）文件量大，本次阅读了关键导入和头部逻辑，未逐行覆盖全部分支"
+          ],
+          "missing": [],
+          "resolution_plan": [],
+          "satisfied": [
+            "引导查询从当前产品定义只读投影精确修订、目的、能力、非目标和约束：project_product_definition.py project_direction_context 投影 product_id/revision_id/title/purpose/capability_catalog/guardrails 且 semantic_relevance_machine_proven=False",
+            "建设事项保存智能编码代理提交的相关能力、全部护栏逐项处置、理由、假设和重开条件：工程评估通过 validate_assessment 接收 agent 语义输入，程序不筛选能力或生成理由",
+            "应用协调与事项权威只校验版本、引用、唯一覆盖和失效关系：project_authority_consistency.py 检查 baseline_identity/revision_id 匹配而不判断语义正确性",
+            "任何模块不按关键词、路径或固定规则筛选相关能力或生成理由：project_direction_context 不过滤 capability_catalog 条目，返回全集；semantic_relevance_machine_proven 显式设为 False",
+            "产品修订变化阻断旧方向进入工程评估：test_new_product_authority_invalidates_an_unadopted_direction_binding 验证新产品权威使旧方向绑定失效",
+            "审阅上下文按明确变更和已登记源码归属机械选择资料并保留全部护栏：review_context_projection.py 机械选择但 semantic_relevance_machine_proven=False"
+          ],
+          "status": "implemented",
+          "target_id": "CONSTRAINT-8969A50FE0E44AF2",
+          "target_kind": "constraint"
+        },
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "_acyclic 使用 Kahn 算法拓扑排序，visited 计数不等于 module_ids 数量时返回 False",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L474-L494"
+            },
+            {
+              "claim": "_validate_graph 调用 _acyclic 对 direct_edges 执行无环检查，失败时追加 '目标架构直接依赖图存在循环' 到 issues",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L417-L421"
+            },
+            {
+              "claim": "test_target_direct_dependency_graph_is_acyclic_and_default_denied 独立验证实际仓库架构的 DAG 性质和默认禁止策略",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_target_architecture_contract.py#L167-L203"
+            },
+            {
+              "claim": "test_every_mediated_relationship_has_both_declared_direct_legs 验证每个中介关系有两条直接边",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_target_architecture_contract.py#L151-L164"
+            }
+          ],
+          "limitations": [
+            "约束声明 applies_to_module_ids 为空数组（全局约束），源码检查仅确认 project_architecture_description.py 实现该机制，未检查是否存在其他路径绕过此校验",
+            "source_at_execution_hash 未独立捕获"
+          ],
+          "missing": [],
+          "resolution_plan": [],
+          "satisfied": [
+            "project_architecture_description.py _acyclic 方法实现确定性拓扑排序，对全部允许直接和只读关系执行，存在强连通分量即失败（visited != len(module_ids) 时返回 False）",
+            "_validate_graph 在自环检查后调用 _acyclic 并将失败追加到 issues 列表中（'目标架构直接依赖图存在循环'）",
+            "test_target_direct_dependency_graph_is_acyclic_and_default_denied 独立重现拓扑排序算法并断言 set(visited) == module_ids，且 default_relationship_policy == 'forbidden'",
+            "test_every_mediated_relationship_has_both_declared_direct_legs 验证中介关系的两段直接边存在",
+            "全部 10 个 test_target_architecture_contract 测试定义在两次运行中均通过（d0856323c4b6: 10 passed, f5e20647248e: 10 passed）"
+          ],
+          "status": "implemented",
+          "target_id": "CONSTRAINT-8DE1C2CB85B64AF6",
+          "target_kind": "constraint"
+        },
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "_CORE_ARTIFACT_KIND_BY_TYPE 和 _AUTHORITY_IDENTITY_FIELD 定义权威类型到身份字段的固定单向映射",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L79-L100"
+            },
+            {
+              "claim": "ProjectProductDefinition 只读加载产品定义不修改上游权威",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L1-L50"
+            },
+            {
+              "claim": "ProjectArchitectureDescription 只读加载并校验架构产物，不写回上游",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L118-L143"
+            },
+            {
+              "claim": "test_actual_result_cannot_adopt_an_independent_product_revision 验证下游实际结果不能采用独立产品修订",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_project_authority_consistency.py#L237-L310"
+            },
+            {
+              "claim": "test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches 验证完整权威链的不可变快照机制",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_project_authority_consistency.py#L63-L92"
+            },
+            {
+              "claim": "test_actual_result_confirmation_snapshot_detects_authority_body_swap 验证权威正文替换被检测",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_project_authority_consistency.py#L596-L641"
+            }
+          ],
+          "limitations": [
+            "behavior_acceptance（修改当前代码时证明上游正文不会被程序自动改变）超出代码/结构检查范围，当前无冻结证据支持",
+            "project_authority_consistency.py 有 2528 行，本次阅读了关键头部和映射定义，未逐行覆盖所有分支路径"
+          ],
+          "missing": [],
+          "resolution_plan": [],
+          "satisfied": [
+            "产品定义约束领域模型：project_authority_consistency.py 的权威链顺序为 product_definition → domain_model → target_architecture → engineering_policy → implementation_alignment，baseline 校验要求身份和修订匹配",
+            "下游不得反向定义上游：test_actual_result_cannot_adopt_an_independent_product_revision 验证实际结果不能采用独立产品修订",
+            "test_actual_result_rejects_a_preconfirmed_implementation_alignment 验证实际结果拒绝预确认的实现对齐",
+            "test_actual_result_rejects_deterministic_alignment_drift_before_acceptance 验证在接受前拒绝确定性对齐漂移",
+            "test_baseline_identity_must_match_the_loaded_authority 验证基线身份必须与已加载权威匹配",
+            "test_domain_source_change_invalidates_only_known_downstream_chain 验证领域源变更仅使已知下游链失效",
+            "test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches 验证不可变完整权威链使用单一快照和有界批次",
+            "test_integrated_commit_must_still_match_the_accepted_authority_snapshot 验证集成提交必须仍匹配已接受的权威快照",
+            "全部 12 个 test_project_authority_consistency 测试定义在三次运行中均通过（d0856323c4b6: 12 passed, f5e20647248e: 12 passed, 5bba08870241: 12 passed）"
+          ],
+          "status": "implemented",
+          "target_id": "CONSTRAINT-956A537458EB4CC8",
+          "target_kind": "constraint"
+        },
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "PASSING_DEPENDENCY_CLASSIFICATIONS 定义四种通过分类；_CLASSIFICATION_FOR_MODE 将 forbidden 映射为 'forbidden'；_IMPLEMENTATION_PRIORITY 包含 unknown 等非通过状态",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_implementation_alignment.py#L47-L82"
+            },
+            {
+              "claim": "_validate_graph 对关系边执行引用检查、冲突检测、中介验证和无环校验",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L358-L421"
+            },
+            {
+              "claim": "test_target_direct_dependency_graph_is_acyclic_and_default_denied 断言 default_relationship_policy == 'forbidden' 且图无环",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_target_architecture_contract.py#L167-L203"
+            },
+            {
+              "claim": "test_daily_alignment_gate_accepts_fixed_project_and_reports_source_drift 验证对齐门的漂移报告机制",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_target_alignment_gate.py#L29-L42"
+            },
+            {
+              "claim": "test_high_risk_boundaries_are_explicit_in_the_target_graph 验证高风险模块间有显式 forbidden 声明",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_target_architecture_contract.py#L206-L236"
+            }
+          ],
+          "limitations": [
+            "manual_review（运行时加载、注册表和反射等静态分析不能完全判断的入口逐项确认）超出代码/结构检查范围，当前无冻结证据支持",
+            "project_implementation_alignment.py 有 1548 行，本次阅读了关键头部定义和分类常量，未逐行覆盖全部依赖分类逻辑"
+          ],
+          "missing": [],
+          "resolution_plan": [],
+          "satisfied": [
+            "project_architecture_description.py _validate_graph 校验所有关系边的 from/to_module_id 都在已知模块集合中，未声明依赖默认阻断",
+            "default_relationship_policy 在测试中断言为 'forbidden'：test_target_direct_dependency_graph_is_acyclic_and_default_denied",
+            "project_implementation_alignment.py 分类每条实际依赖为 internal_same_module/allowed_direct/allowed_read_only/external_observed/requires_mediator_but_direct/forbidden/undeclared 之一",
+            "PASSING_DEPENDENCY_CLASSIFICATIONS 只包含 internal_same_module/allowed_direct/allowed_read_only/external_observed 四种通过分类",
+            "test_daily_alignment_gate_accepts_fixed_project_and_reports_source_drift 验证对齐门接受固定项目并报告源漂移",
+            "test_stage_gate_enforces_confirmation_in_a_fixed_project 的三个参数化用例（draft/confirmed/ready_for_confirmation）在三次运行中均通过",
+            "test_high_risk_boundaries_are_explicit_in_the_target_graph 验证高风险边界在目标图中显式声明",
+            "全部 12 个测试定义在运行中均全部通过（d0856323c4b6: 14 rows passed, f5e20647248e: 14 rows passed, 5bba08870241: 4 rows passed）"
+          ],
+          "status": "implemented",
+          "target_id": "CONSTRAINT-98F09B40DE6F4A39",
+          "target_kind": "constraint"
+        },
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "matrix() 输出 machine_validation_scope 列表限定为五项结构校验，且 semantic_content_machine_proven=False, external_assurance_machine_proven=False, projection_is_project_authority=False",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_engineering_assurance.py#L195-L207"
+            },
+            {
+              "claim": "_validate_rule_assessments 对每种状态要求明确证据/缺口/纠偏约束，拒绝缺失范围的完成声明",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/project_engineering_assurance.py#L335-L396"
+            },
+            {
+              "claim": "assess_targets 返回 semantic_content_machine_proven=False 且按 successful 集合判定 status",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/verification_targets.py#L170-L179"
+            },
+            {
+              "claim": "execution_context 返回 semantic_content_machine_proven=False, writes_performed=False",
+              "kind": "source",
+              "ref": "inputs/files/strixnova/src/strixnova/execution_context.py#L95-L120"
+            },
+            {
+              "claim": "test_assurance_rejects_a_satisfied_rule_without_evidence 验证满足规则必须有证据引用",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_project_engineering_assurance.py#L212-L225"
+            },
+            {
+              "claim": "test_assurance_rejects_drifted_repository_evidence 验证漂移证据被拒绝",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_project_engineering_assurance.py#L164-L171"
+            },
+            {
+              "claim": "test_assessed_failed_slice_reports_without_fabricating_dependents 验证失败时不伪造依赖",
+              "kind": "test",
+              "ref": "inputs/files/tests/unit/test_current_action.py#L367-L402"
+            }
+          ],
+          "limitations": [
+            "behavior_acceptance（失败、跳过、部分运行和环境受限场景在用户视图中保持可见且不会显示为完整通过）超出代码/结构检查范围",
+            "CONSTRAINT-A7B33131C4864C91 涉及 14 个源文件，本次重点检查了 project_engineering_assurance.py、verification_targets.py、execution_context.py 的关键路径；其余文件（如 behavior_examples.py, engineering_governance.py 等）中 semantic_content_machine_proven 标记的全面覆盖未逐文件验证",
+            "source_at_execution_hash 未独立捕获，测试通过不证明精确字节覆盖"
+          ],
+          "missing": [],
+          "resolution_plan": [],
+          "satisfied": [
+            "project_engineering_assurance.py _validate_evidence 对每项证据校验路径存在、UTF-8 可解析和 sha256 内容摘要匹配，漂移则报错 '项目工程保障证据内容已漂移'",
+            "_validate_rule_assessments 要求满足(satisfied)规则必须引用证据、不得保留缺口；未满足(not_satisfied)/未知(unknown)必须记录缺口和纠偏；部分满足必须同时记录证据、缺口和纠偏",
+            "_validate_external_assurance 拒绝没有外部回执的外部保障声明",
+            "matrix() 方法输出包含 semantic_content_machine_proven=False, external_assurance_machine_proven=False, projection_is_project_authority=False",
+            "machine_validation_scope 列表明确限定为结构合同、精确权威绑定、治理规则覆盖、证据摘要、状态约束，不声称语义正确或外部认证",
+            "verification_targets.py assess_targets 输出 semantic_content_machine_proven=False, semantic_judgment 区分 'not_machine_proven'/'agent'",
+            "execution_context.py 输出 semantic_content_machine_proven=False, writes_performed=False",
+            "test_assurance_rejects_a_satisfied_rule_without_evidence 和 test_assurance_rejects_drifted_repository_evidence 验证证据约束",
+            "test_assessed_failed_slice_reports_without_fabricating_dependents 验证失败切片报告不伪造依赖项",
+            "全部 12 个测试定义在两次运行中均通过（d0856323c4b6: 16 rows passed, f5e20647248e: 16 rows passed）"
+          ],
+          "status": "implemented",
+          "target_id": "CONSTRAINT-A7B33131C4864C91",
+          "target_kind": "constraint"
+        }
+      ],
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false,
+      "source_ownership": []
+    },
+    "json_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "$defs": {
+        "optional_text_list": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "ref",
+            "claim"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "source",
+                "test",
+                "artifact",
+                "command",
+                "inspection"
+              ]
+            },
+            "ref": {
+              "$ref": "#/$defs/text"
+            },
+            "claim": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        },
+        "deviation_id_list": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/deviation_id"
+          }
+        },
+        "deviation_id": {
+          "type": "string",
+          "pattern": "^DEVIATION-[0-9A-F]{16}$"
+        }
+      },
+      "required": [
+        "assessments",
+        "source_ownership",
+        "owner_accepted",
+        "semantic_content_machine_proven"
+      ],
+      "properties": {
+        "assessments": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "target_kind",
+              "target_id",
+              "status",
+              "satisfied",
+              "missing",
+              "evidence",
+              "deviation_ids",
+              "resolution_plan",
+              "limitations"
+            ],
+            "properties": {
+              "target_kind": {
+                "type": "string",
+                "enum": [
+                  "constraint"
+                ]
+              },
+              "target_id": {
+                "type": "string",
+                "enum": [
+                  "CONSTRAINT-829429778259E4DE",
+                  "CONSTRAINT-8969A50FE0E44AF2",
+                  "CONSTRAINT-8DE1C2CB85B64AF6",
+                  "CONSTRAINT-956A537458EB4CC8",
+                  "CONSTRAINT-98F09B40DE6F4A39",
+                  "CONSTRAINT-A7B33131C4864C91"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "implemented",
+                  "partially_implemented",
+                  "not_implemented",
+                  "drifted",
+                  "unknown"
+                ]
+              },
+              "satisfied": {
+                "$ref": "#/$defs/optional_text_list"
+              },
+              "missing": {
+                "$ref": "#/$defs/optional_text_list"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/evidence"
+                },
+                "minItems": 1
+              },
+              "deviation_ids": {
+                "$ref": "#/$defs/deviation_id_list"
+              },
+              "resolution_plan": {
+                "$ref": "#/$defs/optional_text_list"
+              },
+              "limitations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "implemented"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "missing": {
+                      "maxItems": 0
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "missing": {
+                      "minItems": 1
+                    },
+                    "resolution_plan": {
+                      "minItems": 1
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "source_ownership": {
+          "type": "array",
+          "minItems": 0,
+          "maxItems": 0,
+          "items": {
+            "type": "object"
+          }
+        },
+        "owner_accepted": {
+          "const": false
+        },
+        "semantic_content_machine_proven": {
+          "const": false
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 139945,
+      "output_tokens": 11505,
+      "thinking_tokens": 0,
+      "cache_read_tokens": 881449,
+      "total_tokens": 151450
+    }
+  },
+  "model": "claude-opus-4-6-thinking",
+  "argv": [
+    "C:\\Users\\柳州局\\AppData\\Local\\agy\\bin\\agy.exe",
+    "--new-project",
+    "--model",
+    "claude-opus-4-6-thinking",
+    "--input-format",
+    "stream-json",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "900s",
+    "--log-file",
+    "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\9ce951d2293d\\evidence\\execution\\host.log",
+    "--dangerously-skip-permissions",
+    "--json-schema",
+    "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\9ce951d2293d\\evidence\\execution\\response-schema.json"
+  ],
+  "requested_effort": "host_default",
+  "permission_mode": "auto_approve",
+  "os_isolation_verified": false,
+  "mechanical_passed": true,
+  "failure_layer": null
+}

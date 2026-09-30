@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-domain-collection.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model_id",
+    "model_revision_id",
+    "collection_id",
+    "title",
+    "routing_summary",
+    "child_collection_paths",
+    "sources"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-domain-collection.v1"
+    },
+    "model_id": {
+      "$ref": "#/$defs/model_id"
+    },
+    "model_revision_id": {
+      "$ref": "#/$defs/model_revision_id"
+    },
+    "collection_id": {
+      "$ref": "#/$defs/collection_id"
+    },
+    "title": {
+      "$ref": "#/$defs/text"
+    },
+    "routing_summary": {
+      "$ref": "#/$defs/text"
+    },
+    "child_collection_paths": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/yaml_path"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/source_route"
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_id": {
+      "type": "string",
+      "pattern": "^MODEL-[0-9A-F]{16}$"
+    },
+    "model_revision_id": {
+      "type": "string",
+      "pattern": "^MODELREV-[0-9A-F]{16}$"
+    },
+    "collection_id": {
+      "type": "string",
+      "pattern": "^COLL-[0-9A-F]{16}$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^SRC-[0-9A-F]{16}$"
+    },
+    "yaml_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!.*\\\\)(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!\\.git(?:/|$))(?!\\.strixnova(?:/|$)).+\\.ya?ml$"
+    },
+    "source_route": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "title",
+        "routing_summary",
+        "path"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/source_id"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "routing_summary": {
+          "$ref": "#/$defs/text"
+        },
+        "path": {
+          "$ref": "#/$defs/yaml_path"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,438 @@
+{
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "assessments": [
+    {
+      "target_id": "MODULE-992560C2560A4013",
+      "target_kind": "module",
+      "status": "partially_implemented",
+      "satisfied": [
+        "recoverable_document_transaction.py 实现了 replace_documents()：写前散列核对（expected_originals 参数）、逐文件备份、持久日志（journal.json）、原子替换（os.replace / 跨卷 tempfile fallback）、中断后恢复（_recover_one），满足"原子应用或恢复事务"的核心机制",
+        "recover_document_transactions() 实现了"恢复逐项核对仓库限定目标"：allowed_targets 限制范围，rejected 第三方变化时保留现场并拒绝覆盖（CONFLICT 分支）",
+        "yaml_metadata_patch.py 实现了 build_yaml_patch_transaction()（"构建精确元数据事务"）：读取全部目标原始字节，只替换声明的 YAML 值节点（render_yaml_value_patches），绑定 before_sha256 / after_sha256",
+        "apply_yaml_patch_transaction()（"原子应用或恢复事务"的 YAML 变体）：写前核对散列、幂等跳过已写文件、失败时回滚已写文件，并在 restore_yaml_patch_originals() 中拒绝第三方变化",
+        "render_yaml_value_patches()（"预演授权元数据变化"）：纯内存渲染，只修改声明 YAML 节点，回读验证，不写文件",
+        "_transaction_target() 拒绝 .git、.strixnova、符号链接、非规范化路径，满足"不把 .git/.strixnova/符号链接作为权威文档目标"",
+        "test_patch_yaml_values_changes_only_selected_metadata_spans（run_id d0856323c4b6/f5e20647248e，passed）：源码断言仅指定 YAML 值节点被替换，注释/格式/顺序保留",
+        "test_atomic_replacement_preserves_existing_file_mode（两次 passed）：文件模式保留",
+        "test_yaml_patch_transaction_recovers_after_one_file_was_already_written（两次 passed）：幂等恢复",
+        "test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails（两次 passed）：写入失败后回滚",
+        "test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths（两次 passed，多参数化）：路径安全",
+        "test_yaml_patch_transaction_rejects_case_aliases_of_one_target（两次 passed，仅 Windows）：大小写路径去重",
+        "test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal（两次 passed）：恢复时拒绝超范围目标，原日志保留",
+        "test_document_replacement_and_rollback_work_across_real_volumes（两次 passed）：跨卷回滚",
+        "test_separated_document_recovery_requires_the_original_explicit_targets（两次 passed）：分离目标必须提供原精确列表",
+        "test_yaml_transaction_binds_equal_paths_to_exact_repository_roots（两次 passed）：仓库根错换时拒绝恢复"
+      ],
+      "missing": [
+        "test_yaml_patch_transaction_rejects_internal_symlink 和 test_yaml_patch_transaction_rejects_external_symlink 均在两次记录执行中 skipped（宿主不允许符号链接），符号链接拒绝逻辑（_transaction_target 中有代码）未获运行级证据",
+        "contracts 中"替换精确文档组合"操作由 yaml_metadata_patch.apply_yaml_patch_transaction() 承担，但该函数内部使用 atomic_write_bytes 而非 recoverable_document_transaction 的持久日志路径；两个文件共同组成完整合同，但跨两模块的协作语义（YAML 事务失败时是否完全覆盖 recoverable_document_transaction 的崩溃恢复语义）在源码层面未见显式衔接文档或集成测试断言",
+        "模块合同明确说明'恢复材料保存精确原始字节'；recoverable_document_transaction.py 恢复备份前核对 SHA-256，满足字节级要求，但无独立正式回归测试专门针对原始字节完整性比较（集成测试以间接断言覆盖）"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/recoverable_document_transaction.py#L332-L467",
+          "claim": "replace_documents() 实现完整的日志→备份→替换→提交→崩溃恢复流程"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/recoverable_document_transaction.py#L294-L329",
+          "claim": "recover_document_transactions() 按 allowed_targets 范围恢复，拒绝越界目标"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L127-L183",
+          "claim": "render_yaml_value_patches() 纯内存渲染，仅修改声明节点，不写文件"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L222-L278",
+          "claim": "build_yaml_patch_transaction() 绑定 before/after SHA-256，实现"构建精确元数据事务""
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L281-L388",
+          "claim": "apply_yaml_patch_transaction() 实现幂等应用与写入失败回滚"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L186-L219",
+          "claim": "_transaction_target() 拒绝 .git、.strixnova、符号链接、非规范路径"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_yaml_metadata_patch.py#L16-L54",
+          "claim": "test_patch_yaml_values_changes_only_selected_metadata_spans passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_yaml_metadata_patch.py#L57-L69",
+          "claim": "test_atomic_replacement_preserves_existing_file_mode passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_yaml_metadata_patch.py#L72-L101",
+          "claim": "test_yaml_patch_transaction_recovers_after_one_file_was_already_written passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_yaml_metadata_patch.py#L104-L142",
+          "claim": "test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_yaml_metadata_patch.py#L156-L164",
+          "claim": "test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths passed for all 6 parametrized paths (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_yaml_metadata_patch.py#L171-L186",
+          "claim": "test_yaml_patch_transaction_rejects_case_aliases_of_one_target passed (run_id d0856323c4b6, f5e20647248e, Windows-only)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_yaml_metadata_patch.py#L189-L206",
+          "claim": "test_yaml_patch_transaction_rejects_internal_symlink: skipped both runs (宿主不允许符号链接)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_yaml_metadata_patch.py#L209-L228",
+          "claim": "test_yaml_patch_transaction_rejects_external_symlink: skipped both runs (宿主不允许符号链接)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_repository_document_transactions.py#L16-L48",
+          "claim": "test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_repository_document_transactions.py#L102-L121",
+          "claim": "test_document_replacement_and_rollback_work_across_real_volumes passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_repository_document_transactions.py#L67-L99",
+          "claim": "test_separated_document_recovery_requires_the_original_explicit_targets passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_repository_document_transactions.py#L51-L64",
+          "claim": "test_yaml_transaction_binds_equal_paths_to_exact_repository_roots passed (run_id d0856323c4b6, f5e20647248e)"
+        }
+      ],
+      "resolution_plan": [
+        "对符号链接拒绝逻辑提供可在 CI 宿主（支持符号链接创建）上运行的测试断言，确保 _transaction_target 覆盖有运行级证据",
+        "补充集成测试或注释，明确说明 YAML 事务与 recoverable_document_transaction 日志两条路径在同一工作流中的协作边界，消除跨模块语义衔接的文档缺口"
+      ],
+      "limitations": [
+        "recorded_executions 中 source_at_execution_hash 标注为 'not independently captured by the JUnit receipt'，无法独立核实 JUnit 通过结果对应本地文件的精确字节版本",
+        "两个 symlink 测试在两次已记录执行中均为 skipped（宿主权限不足），符号链接拒绝代码路径无运行级覆盖证据",
+        "评价仅基于静态源码检查与已记录 JUnit 摘要；无独立运行证明，所有结论为评价候选待复核",
+        "跨仓库原子 Git 提交/回滚明确不在本模块合同范围（合同已写明），不计入缺口"
+      ]
+    },
+    {
+      "target_id": "MODULE-A94EF8E733E64205",
+      "target_kind": "module",
+      "status": "partially_implemented",
+      "satisfied": [
+        "verification_runner.py VerificationRunner.run() 实现"运行已批准验证"：通过 process_supervisor.run_process() 执行精确命令，记录 started_at/duration_seconds/exit_code/result/output_summary/raw_output_refs",
+        "_approved_command() 实现"校验执行请求"：核对已确认计划（schema_version、work_item_id/version、plan_id、plan_confirmation、policy_decision），检查允许程序、禁止 Agent 程序名，验证 cwd 策略",
+        "coverage_status() 实现"汇总验证回执"：按真实回执形成 verification_status（not_required/pending/passed/completed_with_issues），不扩大为业务正确",
+        "test_case_evidence.py CaseExecution 实现按包框架报告器加载（adapter_environment 注入 PYTEST_PLUGINS）、报告路径隔离、用例身份核对、例子绑定及声明输入文件快照",
+        "verification_dependencies.py 实现声明依赖版本证据采集（collect_dependency_evidence）与核对（validate_dependency_evidence）、时效检查（dependency_evidence_stale）",
+        "verification-summary-v1.schema.json 提供结构化回执 Schema（包含 limitations/result/approval_ref 等约束），allOf 条件约束 not_run/execution_evidence_unavailable",
+        "save_receipt() 确保每次命令仅增加一份原始用例报告（重复写入时比较内容，不允许覆盖）",
+        "test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt（两次 passed）：未关闭进程不得记为 completed blocked receipt",
+        "test_deduplicates_only_by_argv_cwd_and_run_kind（两次 passed）：去重逻辑",
+        "test_verification_timeout_rejects_non_finite_numbers（两次 passed）：非有限超时值被拒绝",
+        "test_code_change_assessment_rejects_unknown_semantic_fields（两次 passed）：代码变化判断字段集严格校验",
+        "integration/test_local_git_lifecycle.py 多项测试（passed）：全生命周期集成验证"
+      ],
+      "missing": [
+        "合同要求'按明确配置在测试子进程加载随包框架报告器'：CaseExecution 通过环境变量 PYTEST_PLUGINS/STRIXNOVA_CASE_REPORT_PATH 注入，但 strixnova_builtin_pytest_cases.py 适配器的行为（实际写入 JSON 报告格式）在本评价的 packet test_definition_ids 中无直接对应的 unit test 断言覆盖该文件的输出正确性；test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits 等测试属于 MODULE-B558AA14F6004AC0 而非本模块",
+        "合同要求"将明确执行仓库、声明内容组合和外部依赖的实际版本依据一并绑定回执"：dependency_evidence 机制已实现，但 project_input_snapshot 字段在 VerificationRunner.run() 中未显式填充（字段在 schema 中为可选，runner 代码注释显示由外部传入），本模块源码层面未见自主采集该快照的实现，依赖调用方传入",
+        "合同要求'核对原生用例、报告身份、例子绑定及声明输入文件快照'：report_results() 和 validate_evidence() 实现了这些核对，但 test_application_delivery_snapshots.py 中的 5 项测试（packet 中列出）在已读取的 test_verification_runner.py 中未见直接对应位置，需确认其覆盖范围是否属于本模块的 snapshot 功能"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_runner.py#L582-L690",
+          "claim": "VerificationRunner.run() 执行命令、记录完整生命周期事实（started_at/exit_code/result/output_summary）"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_runner.py#L955-L1138",
+          "claim": "_approved_command() 校验执行请求：plan_confirmation/policy_decision/forbidden_agent_program/argv 一致性"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_runner.py#L814-L912",
+          "claim": "coverage_status() 汇总验证回执，形成唯一 verification_status，不添加业务正确判断"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_runner.py#L702-L715",
+          "claim": "save_receipt() 确保同一 receipt_id 只允许写入一次，内容不变时幂等"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/test_case_evidence.py#L267-L324",
+          "claim": "CaseExecution.__init__/finish() 实现按包适配器注入、报告路径隔离、用例结果与例子绑定核对"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/test_case_evidence.py#L185-L195",
+          "claim": "adapter_environment() 通过 PYTEST_PLUGINS 注入随包框架报告器"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_dependencies.py#L37-L78",
+          "claim": "collect_dependency_evidence() 从 stdout 解析依赖版本证据"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_dependencies.py#L81-L98",
+          "claim": "validate_dependency_evidence() 核对依赖版本/契约/环境/时效"
+        },
+        {
+          "kind": "artifact",
+          "ref": "strixnova/src/strixnova/resources/verification-summary-v1.schema.json#L1-L292",
+          "claim": "Schema 定义回执结构约束，包含 approval_ref/limitations/result/allOf 条件"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_verification_runner.py#L50-L62",
+          "claim": "test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_verification_runner.py#L65-L89",
+          "claim": "test_deduplicates_only_by_argv_cwd_and_run_kind passed (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_verification_runner.py#L96-L101",
+          "claim": "test_verification_timeout_rejects_non_finite_numbers passed for nan/inf/-inf (run_id d0856323c4b6, f5e20647248e)"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_verification_runner.py#L104-L119",
+          "claim": "test_code_change_assessment_rejects_unknown_semantic_fields passed (run_id d0856323c4b6, f5e20647248e)"
+        }
+      ],
+      "resolution_plan": [
+        "确认或新增针对 strixnova_builtin_pytest_cases.py 适配器实际输出 JSON 报告格式的单元/集成测试，确保'按包框架报告器'功能有运行级证据",
+        "明确 project_input_snapshot 的填充责任：若由调用方传入，在模块文档或代码注释中说明；若需本模块自主采集，补充实现并添加测试",
+        "确认 test_application_delivery_snapshots.py 中 5 项 snapshot 测试的覆盖对象是否属于本模块范围，并在 packet 中标注清楚"
+      ],
+      "limitations": [
+        "recorded_executions 中 source_at_execution_hash 未独立捕获，JUnit 通过结果不能独立证明本地文件精确字节版本",
+        "integration/test_local_git_lifecycle.py 测试属于完整生命周期测试，涵盖多模块协作；无法单独归因于本模块的验证执行职责",
+        "Agent 语义判断（code_change_assessment 由 Agent 填写，code_change_assessment=None 在 run() 输出中预留）在源码层面有明确设计边界，但 Agent 实际填写质量不属于本模块可观察职责，评价不覆盖此项",
+        "评价仅基于静态源码检查与已记录 JUnit 摘要，所有结论为评价候选待复核"
+      ]
+    },
+    {
+      "target_id": "MODULE-B558AA14F6004AC0",
+      "target_kind": "module",
+      "status": "partially_implemented",
+      "satisfied": [
+        "git_project_reader.py GitProjectReader 实现"读取当前项目文件"：tracked_paths()/read_bytes()/read_text()/load_yaml()，绑定单仓库范围，拒绝越界路径和符号链接",
+        "GitProjectReader 实现"读取精确版本文件"：observed_ref 参数绑定不可变 Git 提交，_ReadOnlyGit.read_file_at() 从固定提交读取 blob",
+        "GitProjectReader.prefetch() / _ReadOnlyGit.read_files_at() 实现"批量读取精确版本文件"：bounded one-shot batches，保持逐文件身份",
+        "_ReadOnlyGit.resolve_commit() 实现"解析精确版本"：验证 commit hash 格式，报告不存在/错误",
+        "schema_error_reporting.py 实现"呈现结构校验错误"：将 JSON Schema 验证器错误转为稳定错误类别和中文说明",
+        "project_content_snapshot.py 实现"采集与比对声明内容组合"：capture_repository_content/compose_content_snapshot/verification_snapshot_matches，记录内容指纹，不主动探测服务",
+        "test_case_evidence.py input_snapshot/snapshot_matches 实现"校验声明输入和已记录证据"中的文件字节比较",
+        "verification_dependencies.py 提供外部依赖版本证据核对（validate_dependency_evidence/dependency_evidence_stale）",
+        "resources/ 下 3 个 JSON Schema（test-case-config-v1/test-case-evidence-v1/test-case-report-v1）定义了报告配置、证据和报告结构约束",
+        "GitProjectReader 拒绝 .git/.strixnova 根、符号链接、跨仓库路径，满足"不修改业务文件"约束",
+        "_ReadOnlyGit 通过 GIT_NO_LAZY_FETCH/GIT_OPTIONAL_LOCKS/GIT_TERMINAL_PROMPT 禁用网络访问，对 Git 2.45 以下版本检查 partialClone 安全",
+        "test_git_for_windows_cmd_wrapper_resolves_to_direct_binary（已 passed）：Windows Git CMD 包装器解析",
+        "test_read_only_reader_distinguishes_ancestor_from_descendant（已 passed）",
+        "test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files（已 passed）",
+        "test_unbound_directory_read_does_not_adopt_its_parent_repository（已 passed）",
+        "test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits（已 passed）",
+        "test_skip_xfail_xpass_and_missing_case_never_count_as_passed（已 passed）",
+        "test_selection_and_teardown_errors_are_observed_separately（已 passed）",
+        "test_xdist_controller_owns_one_complete_report（已 passed）",
+        "test_service_evidence_requires_actual_version_contract_and_environment（已 passed）"
+      ],
+      "missing": [
+        "合同要求"仓库定位和成员选择由上层传入，不回调治理、事项或项目解析"：GitProjectReader 的构造函数和 tracked_paths() 中存在 fallback 逻辑（当 git_repository_mismatch 且无 .git 标记时降级为 rglob 遍历，见 L1476-L1514），该 fallback 未经显式合同约束隔离；在 unbound directory 场景下行为是否违反"不自行发现项目"有待说明",
+        "test_composite_implementation_alignment.py 和 test_implementation_observation_drift.py 中多项测试（共 8 项列入 packet），其中 test_implementation_observation_drift.py 的测试可能依赖于本模块未直接暴露的"实现观察漂移"功能，具体对应源文件（如 implementation_observation_drift.py）不在本 packet 的 source_paths 中，评价不能确认覆盖",
+        "test_multi_repository_review_regressions.py 中 5 项测试列入 packet，其中 test_read_dependency_materializes_the_replanned_commit_after_prior_integration 等测试涉及跨仓库和 continuation 逻辑，在 project_content_snapshot.py 中有 continued_verification_paths/verification_snapshot_matches 实现，但 test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift 和 test_source_repository_must_match_its_declared_scope 对应的 composite_implementation_alignment.py 源文件不在 source_paths 列出，无法确认本模块直接承担"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/git_project_reader.py#L1083-L1534",
+          "claim": "GitProjectReader 实现读取当前/精确版本文件、批量读取、路径校验、仓库身份绑定"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/git_project_reader.py#L165-L590",
+          "claim": "_ReadOnlyGit 实现精确版本读取、blob 批量读取、worktree 路径枚举、只读 Git 调用隔离"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/git_project_reader.py#L1044-L1072",
+          "claim": "repository_relative_path() 实现路径规范化和安全校验，拒绝 .git/.strixnova/.. 等"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/schema_error_reporting.py#L51-L115",
+          "claim": "schema_error_message() 将结构校验器错误转为中文说明"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_content_snapshot.py#L186-L213",
+          "claim": "capture_repository_content/compose_content_snapshot 采集内容指纹，不写项目文件"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_content_snapshot.py#L127-L149",
+          "claim": "verification_snapshot_matches 比对快照内容指纹"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/test_case_evidence.py#L137-L167",
+          "claim": "input_snapshot/snapshot_matches 实现声明输入文件字节快照与比对"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_dependencies.py#L101-L115",
+          "claim": "dependency_evidence_stale() 按时效窗口校验外部依赖证据"
+        },
+        {
+          "kind": "artifact",
+          "ref": "strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+          "claim": "定义 case_report 配置结构（adapter/test_root/input_paths/bindings/example_fingerprints）"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/git_project_reader.py#L983-L1042",
+          "claim": "_ReadOnlyGit._run() 设置 GIT_NO_LAZY_FETCH/GIT_OPTIONAL_LOCKS/GIT_TERMINAL_PROMPT，隔离只读 Git 访问"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_git_project_reader.py::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary",
+          "claim": "Windows Git CMD 路径解析通过（run_id d0856323c4b6, f5e20647248e）"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_git_project_reader.py::test_unbound_directory_read_does_not_adopt_its_parent_repository",
+          "claim": "无绑定目录读取不继承父仓库（passed, run_id d0856323c4b6, f5e20647248e）"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_test_case_evidence.py::test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits",
+          "claim": "pytest 报告覆盖参数化用例并检测后续修改（passed）"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_test_case_evidence.py::test_skip_xfail_xpass_and_missing_case_never_count_as_passed",
+          "claim": "skip/xfail/xpass/missing 不计为 passed（passed）"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_verification_dependencies.py::test_service_evidence_requires_actual_version_contract_and_environment",
+          "claim": "服务证据必须包含实际版本、契约和环境（passed）"
+        }
+      ],
+      "resolution_plan": [
+        "明确 GitProjectReader.tracked_paths() 的 fallback（rglob 模式）是否在合同中允许，若不允许则限制或删除该分支",
+        "确认 test_composite_implementation_alignment.py 中对应的 composite_implementation_alignment.py 是否属于本模块，若是则将其加入 source_paths；若属于其他模块则从本模块 test_definition_ids 中移除",
+        "确认 test_implementation_observation_drift.py 的对应源文件归属，明确本模块与相关模块的边界"
+      ],
+      "limitations": [
+        "packet 中 test_definition_ids 包含 test_composite_implementation_alignment.py 和 test_implementation_observation_drift.py，但这些测试对应的源文件（composite_implementation_alignment.py、implementation_observation_drift.py）不在本 packet 的 source_paths 中，无法在本评价中完整审查",
+        "recorded_executions 中 source_at_execution_hash 未独立捕获，JUnit 通过结果不能证明精确字节版本",
+        "评价仅基于静态源码检查与已记录 JUnit 摘要，所有结论为评价候选待复核",
+        "strixnova_builtin_pytest_cases.py 适配器实现未在本次读取范围内完整检查（作为 case-adapter 资源，其测试行为依赖运行时），静态检查不证明适配器语义"
+      ]
+    }
+  ],
+  "source_ownership": [
+    {
+      "path": "strixnova/src/strixnova/recoverable_document_transaction.py",
+      "target_module_id": "MODULE-992560C2560A4013",
+      "current_status": "aligned",
+      "rationale": "文件完整实现了"原子应用或恢复事务"和"替换精确文档组合"的底层崩溃恢复机制（replace_documents/recover_document_transactions），其公开接口、错误类型和散列绑定与模块合同一致；无明显越权或漂移迹象"
+    },
+    {
+      "path": "strixnova/src/strixnova/yaml_metadata_patch.py",
+      "target_module_id": "MODULE-992560C2560A4013",
+      "current_status": "aligned",
+      "rationale": "文件实现了"构建精确元数据事务"、"预演授权元数据变化"和 YAML 层面的"原子应用或恢复事务"；依赖 git_project_reader.repository_relative_path 做路径校验，路径和散列绑定与合同一致；apply_yaml_patch_transaction 使用 atomic_write_bytes 而非 recoverable_document_transaction，是 YAML 事务的独立实现路径，在合同范围内"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/verification-summary-v1.schema.json",
+      "target_module_id": "MODULE-A94EF8E733E64205",
+      "current_status": "aligned",
+      "rationale": "Schema 定义了验证回执的结构约束（approval_ref/limitations/result/code_change_assessment/allOf 条件），与 verification_runner.py 中 _validated_receipt 的验证逻辑一致；属于本模块的证据结构定义"
+    },
+    {
+      "path": "strixnova/src/strixnova/verification_runner.py",
+      "target_module_id": "MODULE-A94EF8E733E64205",
+      "current_status": "aligned",
+      "rationale": "文件完整实现了"校验执行请求"、"运行已批准验证"、"汇总验证回执"三项公开操作；禁止 Agent 程序、仓库范围验证、依赖证据采集均在此文件实现，与模块合同一致"
+    },
+    {
+      "path": "strixnova/src/strixnova/git_project_reader.py",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "aligned",
+      "rationale": "文件实现了"读取当前/精确版本文件"、"批量读取"、"解析精确版本"全部公开操作；_ReadOnlyGit 通过环境变量隔离只读 Git 访问，repository_relative_path 拒绝内部路径，符合合同约束；fallback rglob 模式的边界有待说明，但不构成明显漂移"
+    },
+    {
+      "path": "strixnova/src/strixnova/project_content_snapshot.py",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "aligned",
+      "rationale": "文件实现了"采集与比对声明内容组合"（capture_repository_content/compose_content_snapshot/verification_snapshot_matches）；不写项目文件，只组合已声明依据，与合同一致"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "unknown",
+      "rationale": "文件列为归属候选，属于报告器适配器；静态内容未在本评价中完整检查（需运行时才能观察报告输出格式），current_status 保留 unknown，不做进一步断言"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "aligned",
+      "rationale": "Schema 定义了 case_report 配置和 bound_config 结构，与 test_case_evidence.py 中 normalize_config 使用的字段集一致"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "aligned",
+      "rationale": "Schema 定义了用例证据结构约束，与 validate_evidence 中使用的字段集对应；列为归属候选，结构一致性可观察"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/test-case-report-v1.schema.json",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "aligned",
+      "rationale": "Schema 定义了适配器写出的测试报告结构，与 report_results() 中字段集核对（schema_version/run_id/adapter/collected_test_ids 等）一致"
+    },
+    {
+      "path": "strixnova/src/strixnova/schema_error_reporting.py",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "aligned",
+      "rationale": "文件实现"呈现结构校验错误"：schema_error_message/one_of_branch_errors 将 JSON Schema 验证器错误转为中文说明，不解释项目语义，与合同约束一致"
+    },
+    {
+      "path": "strixnova/src/strixnova/test_case_evidence.py",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "aligned",
+      "rationale": "文件实现了"校验声明输入和已记录证据"（input_snapshot/snapshot_matches/validate_evidence/CaseExecution）；不修改业务文件，不判断断言充分性，与合同约束一致"
+    },
+    {
+      "path": "strixnova/src/strixnova/verification_dependencies.py",
+      "target_module_id": "MODULE-B558AA14F6004AC0",
+      "current_status": "aligned",
+      "rationale": "文件实现外部依赖版本证据采集（collect_dependency_evidence）、核对（validate_dependency_evidence）和时效检查（dependency_evidence_stale），属于"校验声明输入和已记录证据"的外部依赖子集，与合同一致"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "current_action": {
+    "action_type": "confirm_direction",
+    "actor": "user",
+    "blocking_facts": [],
+    "conditional_record_refs": [],
+    "confirmation_challenge": {
+      "candidate_fingerprint": "sha256:658eefb2a200807c7c2ab279da27d64c279ba21168a239236d3995c198fa68f0",
+      "candidate_kind": "direction",
+      "decision_interpreter": "coding_agent",
+      "decision_label": "当前展示的方向",
+      "schema_version": "strixnova.confirmation-challenge.v1"
+    },
+    "input_contract_ref": "input.contract:confirm_direction",
+    "input_kind": "direction_confirmation",
+    "intent": "confirm",
+    "record_refs": [
+      "direction",
+      "project.direction_context"
+    ],
+    "schema_version": "strixnova.current-action.v1",
+    "work_item_id": "WI-20260929-9EC27A08",
+    "work_item_version": 2
+  },
+  "reading": {
+    "complete": false,
+    "max_output_bytes": 4096,
+    "schema_version": "strixnova.record-reading.v1",
+    "unread_refs": []
+  },
+  "record_pages": {
+    "direction": {
+      "entries": [
+        {
+          "key": "acceptance",
+          "ref": "direction#/acceptance",
+          "type": "array",
+          "value": [
+            {
+              "acceptance_id": "DIRACC-D4E5F6A1B2C30A4B",
+              "behavior": {
+                "applicability": "required",
+                "examples": [
+                  {
+                    "basis_refs": [
+                      "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+                    ],
+                    "example_id": "DIREX-E5F6A1B2C3D40B5C",
+                    "given": [
+                      "调用方准备计算区间时长"
+                    ],
+                    "then": [
+                      "抛出 ValueError"
+                    ],
+                    "title": "结束刻度等于开始刻度时抛出 ValueError",
+                    "when": "调用 duration(10, 10)"
+                  },
+                  {
+                    "basis_refs": [
+                      "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+                    ],
+                    "example_id": "DIREX-F6A1B2C3D4E50C6D",
+                    "given": [
+                      "调用方准备计算区间时长"
+                    ],
+                    "then": [
+                      "抛出 ValueError"
+                    ],
+                    "title": "结束刻度小于开始刻度时抛出 ValueError",
+                    "when": "调用 duration(20, 10)"
+                  },
+                  {
+                    "basis_refs": [
+                      "direction.requirement:DIRREQ-B2C3D4E5F6A10829"
+                    ],
+                    "example_id": "DIREX-01A2B3C4D5E60D7E",
+                    "given": [
+                      "调用方准备计算区间时长"
+                    ],
+                    "then": [
+                      "返回 50"
+                    ],
+                    "title": "合法区间保持原有计算结果",
+                    "when": "调用 duration(10, 60)"
+                  }
+                ]
+              },
+              "requirement_refs": [
+                "DIRREQ-A1B2C3D4E5F60718",
+                "DIRREQ-B2C3D4E5F6A10829"
+              ],
+              "statement": "在结束刻度不大于开始刻度时抛出 ValueError，合法区间保持原有返回值。"
+            }
+          ]
+        },
+        {
+          "key": "constraints",
+          "ref": "direction#/constraints",
+          "type": "array",
+          "value": [
+            {
+              "constraint_id": "DIRCON-C3D4E5F6A1B2093A",
+              "statement": "函数签名保持 def duration(start: int, end: int) -> int 不变。"
+            }
+          ]
+        },
+        {
+          "key": "decision_context",
+          "ref": "direction#/decision_context",
+          "type": "object",
+          "value": {
+            "assumptions": [],
+            "capability_refs": [],
+            "context_ref": null,
+            "guardrail_dispositions": []
+          }
+        },
+        {
+          "key": "goal",
+          "ref": "direction#/goal",
+          "type": "string",
+          "value": "修复 duration 函数在结束刻度不大于开始刻度时不进行校验的缺陷，使其抛出 ValueError 并保持原有合法行为。"
+        },
+        {
+          "key": "non_goals",
+          "ref": "direction#/non_goals",
+          "type": "array",
+          "value_omitted": true
+        },
+        {
+          "key": "schema_version",
+          "ref": "direction#/schema_version",
+          "type": "string",
+          "value": "strixnova.direction-decision.v1"
+        }
+      ],
+      "next_cursor": "eyJiaW5kaW5nIjoiZTM5OThlYTkzN2M4YzJlMzZkNmFhZDBiODRlMjE3NDU3NzZmYmU2YmEzNjBjMDFmMzAwZGNmNzQ0YjA2NjIxOSIsIm9mZnNldCI6Nn0",
+      "start": 0,
+      "total_count": 9,
+      "type": "object",
+      "unexpanded_refs": [
+        "direction#/non_goals"
+      ]
+    }
+  },
+  "record_sources": {
+    "direction": {
+      "root_ref": "direction",
+      "source_sha256": "abfd12353559d1d10876ac5de4f0fb8c655d27e872cae95213759b9b68cff714"
+    }
+  },
+  "records": {},
+  "relations": {
+    "declared": [],
+    "referenced_by": []
+  },
+  "schema_version": "strixnova.next-step.v1",
+  "work_item_id": "WI-20260929-9EC27A08",
+  "work_item_status": "awaiting_direction_confirmation",
+  "work_item_version": 2
+}

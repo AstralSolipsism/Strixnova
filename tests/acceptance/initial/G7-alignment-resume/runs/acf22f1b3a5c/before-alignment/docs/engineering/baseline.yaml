@@ -1,0 +1,69 @@
+authority_refs:
+  domain_model:
+    model_id: MODEL-1111111111111111
+    path: docs/domain/model.yaml
+    ref: ab40b463e4a8ccc869e448c5f9518223f0cb88f2
+    repository_id: REPO-2222222222222222
+    revision_id: MODELREV-1111111111111111
+    status:
+      adoption_status: current
+      revision_status: confirmed
+  engineering_policy:
+    path: docs/engineering/policy.yaml
+    policy_id: POLICY-1111111111111111
+    ref: null
+    repository_id: REPO-1111111111111111
+    revision_id: POLICYREV-1111111111111111
+    status:
+      adoption_status: current
+      revision_status: confirmed
+  implementation_alignment:
+    alignment_model_id: ALIGNMODEL-1111111111111111
+    path: docs/engineering/alignment.yaml
+    ref: null
+    repository_id: REPO-1111111111111111
+    revision_id: ALIGNREV-7777777777777777
+    status:
+      revision_status: draft
+      adoption_status: under_review
+  product_definition:
+    path: docs/product/definition.yaml
+    product_id: PRODUCT-1111111111111111
+    ref: ab40b463e4a8ccc869e448c5f9518223f0cb88f2
+    repository_id: REPO-2222222222222222
+    revision_id: REVISION-1111111111111111
+    status:
+      adoption_status: current
+      revision_status: confirmed
+  target_architecture:
+    architecture_id: ARCH-1111111111111111
+    path: docs/architecture/model.yaml
+    ref: ab40b463e4a8ccc869e448c5f9518223f0cb88f2
+    repository_id: REPO-2222222222222222
+    revision_id: ARCHREV-1111111111111111
+    status:
+      adoption_status: current
+      revision_status: confirmed
+baseline_id: BASELINE-30E530DD76F5CA86
+code_version:
+  repositories:
+  - base_commit: 400b3c8788993d737dd13c849e3c8521119e54b5
+    repository_id: REPO-1111111111111111
+    worktree_state: clean
+  - base_commit: ab40b463e4a8ccc869e448c5f9518223f0cb88f2
+    repository_id: REPO-2222222222222222
+    worktree_state: clean
+current_architecture_stage_id: ARCHSTAGE-1111111111111111
+project:
+  owner_id: OWNER-1111111111111111
+  project_id: PROJECT-1111111111111111
+  title: 隔离测试项目
+review_state:
+  required: true
+  reasons:
+  - 隔离测试基线尚未绑定最终提交。
+  - 实现对齐候选已绑定当前代码观察；语义仍需 Agent 复核并由实际结果确认。
+  affected_authority_kinds:
+  - code_version
+  - implementation_alignment
+schema_version: strixnova.project-engineering-baseline.v1

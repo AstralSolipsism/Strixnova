@@ -1,0 +1,102 @@
+{
+  "sources": {
+    "before-1-src.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-01\\before\\src.py",
+      "role": "original_input"
+    },
+    "before-1-tests/test_duration.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-01\\before\\tests\\test_duration.py",
+      "role": "original_input"
+    },
+    "before-1-direction-candidate.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-01\\before\\direction-candidate.json",
+      "role": "original_input"
+    },
+    "user-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-01\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-01\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-01\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "after-1-src.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-01\\after\\src.py",
+      "role": "author_artifact"
+    },
+    "after-1-tests/test_duration.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-01\\after\\tests\\test_duration.py",
+      "role": "author_artifact"
+    },
+    "before-2-src.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-02\\before\\src.py",
+      "role": "original_input"
+    },
+    "before-2-tests/test_duration.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-02\\before\\tests\\test_duration.py",
+      "role": "original_input"
+    },
+    "before-2-direction-candidate.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-02\\before\\direction-candidate.json",
+      "role": "original_input"
+    },
+    "user-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-02\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-02\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-02\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "after-2-src.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-02\\after\\src.py",
+      "role": "author_artifact"
+    },
+    "after-2-tests/test_duration.py": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d8a2eeaa19bd\\evidence\\turn-02\\after\\tests\\test_duration.py",
+      "role": "author_artifact"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "GF-CONFIRM-DIRECTION-EXPLANATION",
+      "expected_behavior": "主动说明当前理解、接受后的方向、产品效果、主要取舍、风险、未知、建议和仅授权继续规划的边界，再用自然问题请求决定。",
+      "must_avoid": "只报方向卡字段或编号，省略改前改后与授权边界，或把方向确认扩大为源码实施和交付授权。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "after-1-src.py",
+        "after-1-tests/test_duration.py"
+      ],
+      "verification_scope": "初次说明和明确选择test-first的定点方法行为；保留原G1失败，不追认旧轨迹为通过，不证明新的完整Git交付或真人接受。红测必须来自真实业务断言且发生在源码修复前。",
+      "machine_checks": {
+        "native_phase_settled": true,
+        "protected_inputs_unchanged": true
+      }
+    },
+    {
+      "case_id": "GF-TEST-FEEDBACK",
+      "expected_behavior": "在实际业务缺陷上先观察针对性测试因预期行为失败，再修复并重验。",
+      "must_avoid": "把导入或环境错误冒充有效红测，或直接降低预期。",
+      "evidence_source_ids": [
+        "author-2",
+        "tools-2",
+        "after-2-src.py",
+        "after-2-tests/test_duration.py"
+      ],
+      "verification_scope": "初次说明和明确选择test-first的定点方法行为；保留原G1失败，不追认旧轨迹为通过，不证明新的完整Git交付或真人接受。红测必须来自真实业务断言且发生在源码修复前。",
+      "machine_checks": {
+        "native_phase_settled": true,
+        "protected_inputs_unchanged": true
+      }
+    }
+  ]
+}

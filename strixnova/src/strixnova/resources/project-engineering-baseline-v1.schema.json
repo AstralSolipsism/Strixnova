@@ -1,0 +1,424 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-engineering-baseline.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "baseline_id",
+    "project",
+    "authority_refs",
+    "current_architecture_stage_id",
+    "code_version",
+    "review_state"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-engineering-baseline.v1"
+    },
+    "baseline_id": {
+      "type": "string",
+      "pattern": "^BASELINE-[0-9A-F]{16}$"
+    },
+    "project": {
+      "$ref": "#/$defs/project"
+    },
+    "authority_refs": {
+      "$ref": "#/$defs/authority_refs"
+    },
+    "current_architecture_stage_id": {
+      "type": "string",
+      "pattern": "^ARCHSTAGE-[0-9A-F]{16}$"
+    },
+    "code_version": {
+      "$ref": "#/$defs/code_version"
+    },
+    "review_state": {
+      "$ref": "#/$defs/review_state"
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "title",
+        "owner_id"
+      ],
+      "properties": {
+        "project_id": {
+          "type": "string",
+          "pattern": "^PROJECT-[0-9A-F]{16}$"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "owner_id": {
+          "type": "string",
+          "pattern": "^OWNER-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "reference_status": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revision_status",
+        "adoption_status"
+      ],
+      "properties": {
+        "revision_status": {
+          "enum": [
+            "draft",
+            "ready_for_confirmation",
+            "confirmed"
+          ]
+        },
+        "adoption_status": {
+          "enum": [
+            "current",
+            "under_review",
+            "superseded",
+            "not_adopted"
+          ]
+        }
+      }
+    },
+    "product_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "path",
+        "product_id",
+        "revision_id",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "product_id": {
+          "type": "string",
+          "pattern": "^PRODUCT-[0-9A-F]{16}$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^REVISION-[0-9A-F]{16}$"
+        },
+        "status": {
+          "$ref": "#/$defs/reference_status"
+        },
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        }
+      }
+    },
+    "domain_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "path",
+        "model_id",
+        "revision_id",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "model_id": {
+          "type": "string",
+          "pattern": "^MODEL-[0-9A-F]{16}$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^MODELREV-[0-9A-F]{16}$"
+        },
+        "status": {
+          "$ref": "#/$defs/reference_status"
+        },
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        }
+      }
+    },
+    "architecture_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "path",
+        "architecture_id",
+        "revision_id",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "architecture_id": {
+          "type": "string",
+          "pattern": "^ARCH-[0-9A-F]{16}$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^ARCHREV-[0-9A-F]{16}$"
+        },
+        "status": {
+          "$ref": "#/$defs/reference_status"
+        },
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        }
+      }
+    },
+    "policy_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "path",
+        "policy_id",
+        "revision_id",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "policy_id": {
+          "type": "string",
+          "pattern": "^POLICY-[0-9A-F]{16}$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^POLICYREV-[0-9A-F]{16}$"
+        },
+        "status": {
+          "$ref": "#/$defs/reference_status"
+        },
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        }
+      }
+    },
+    "alignment_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "path",
+        "alignment_model_id",
+        "revision_id",
+        "status"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "alignment_model_id": {
+          "type": "string",
+          "pattern": "^ALIGNMODEL-[0-9A-F]{16}$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^ALIGNREV-[0-9A-F]{16}$"
+        },
+        "status": {
+          "$ref": "#/$defs/reference_status"
+        },
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        }
+      }
+    },
+    "authority_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_definition",
+        "domain_model",
+        "target_architecture",
+        "engineering_policy",
+        "implementation_alignment"
+      ],
+      "properties": {
+        "product_definition": {
+          "$ref": "#/$defs/product_ref"
+        },
+        "domain_model": {
+          "$ref": "#/$defs/domain_ref"
+        },
+        "target_architecture": {
+          "$ref": "#/$defs/architecture_ref"
+        },
+        "engineering_policy": {
+          "$ref": "#/$defs/policy_ref"
+        },
+        "implementation_alignment": {
+          "$ref": "#/$defs/alignment_ref"
+        }
+      }
+    },
+    "code_version": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repositories"
+      ],
+      "properties": {
+        "repositories": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "repository_id",
+              "base_commit",
+              "worktree_state"
+            ],
+            "properties": {
+              "repository_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^REPO-[0-9A-F]{16}$"
+              },
+              "base_commit": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40,64}$"
+              },
+              "worktree_state": {
+                "enum": [
+                  "clean",
+                  "dirty"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "review_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "required",
+        "reasons",
+        "affected_authority_kinds"
+      ],
+      "properties": {
+        "required": {
+          "type": "boolean"
+        },
+        "reasons": {
+          "$ref": "#/$defs/text_list"
+        },
+        "affected_authority_kinds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "product_definition",
+              "domain_model",
+              "target_architecture",
+              "engineering_policy",
+              "implementation_alignment",
+              "code_version"
+            ]
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "required": {
+                "const": true
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reasons": {
+                "minItems": 1
+              },
+              "affected_authority_kinds": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "reasons": {
+                "maxItems": 0
+              },
+              "affected_authority_kinds": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "repository_id": {
+      "type": "string",
+      "pattern": "^REPO-[0-9A-F]{16}$"
+    }
+  }
+}

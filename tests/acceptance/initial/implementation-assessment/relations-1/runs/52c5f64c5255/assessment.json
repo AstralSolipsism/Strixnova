@@ -1,0 +1,524 @@
+{
+  "assessments": [
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "仅导入 GitProjectReader 和 GitProjectReaderError，无写操作导入",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/runtime_upgrade.py#L25-L26"
+        },
+        {
+          "claim": "_inspect() 调用 GitProjectReader(self.project).pending_operations()，属只读 Git 状态读取",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/runtime_upgrade.py#L239-L245"
+        },
+        {
+          "claim": "runtime_upgrade.py -> git_project_reader.py 记录为 classification=allowed_read_only，target_relationship_id=RELATION-16A5E4BCC740B914",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L27"
+        },
+        {
+          "claim": "test_linked_worktree_git_operation_blocks_precheck 列于 test_definition_ids，recorded_executions 结果为 passed；source_at_execution_hash 未独立捕获",
+          "kind": "test",
+          "ref": "inputs/packet.json#L33-L36"
+        },
+        {
+          "claim": "合同正文要求自身升级通过既有只读 Git 接口核验元数据位置及未完成操作，覆盖链接工作树；源码行为与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L6-L12"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获，无法从字节层面确认运行时覆盖与当前源码完全一致",
+        "GitProjectReader.pending_operations() 内部调用 rev-parse --absolute-git-dir，静态分析无法完全排除极少 Git 活动副作用"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "runtime_upgrade.py 仅通过 GitProjectReader 公开只读接口核验项目 Git 元数据位置及未完成操作",
+        "实际依赖记录分类为 allowed_read_only，与合同 mode=read_only_projection 一致",
+        "_inspect() 调用 pending_operations() 覆盖链接工作树检测",
+        "读取范围由上游上下文绑定，不回调项目解析或扩大范围"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-16A5E4BCC740B914",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 WorkflowAuthority、work_item_repositories、current_action、follow_ups、actual_result 等事项公开接口；未见直接操作事项底层存储的导入",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/application_coordinator.py#L5-L130"
+        },
+        {
+          "claim": "application_coordinator.py 对 MODULE-684D0E7D2345445D（事项模块）的 12 条依赖记录均为 allowed_direct，target_relationship_id=RELATION-0389E61D4802458D",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "test_confirmation_protocol、test_current_action 等相关测试均列于 test_definition_ids，recorded_executions 结果为 passed；source_at_execution_hash 未独立捕获",
+          "kind": "test",
+          "ref": "inputs/packet.json#L85-L113"
+        },
+        {
+          "claim": "合同要求只按建设事项公开接口读取、校验和原子记录合法状态转换；可观察导入模式与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L83-L89"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "代码评价不等同于全部 Agent 执行场景的语义验收"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "application_coordinator.py 仅通过 WorkflowAuthority、work_item_repositories 等事项公开接口读取和写入",
+        "实际依赖 12 条记录均为 allowed_direct，target_relationship_id=RELATION-0389E61D4802458D",
+        "未见绕过事项公开接口直接操作底层存储的导入或调用",
+        "合同要求的原子记录合法状态转换由事项模块公开接口保证"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-0389E61D4802458D",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "全部导入为 verification_dependencies、test_case_evidence、process_supervisor 及标准库；无 project_engineering_policy 导入",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/verification_runner.py#L1-L25"
+        },
+        {
+          "claim": "MODULE-A94EF8E733E64205 的全部 12 条依赖记录目标仅含 MODULE-6DEF61048B394531（process_supervisor）、MODULE-B558AA14F6004AC0（git_project_reader）及外部包；无指向 MODULE-8205A05A6F5E48A8 的记录",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "test_verification_runner 相关测试均列于 test_definition_ids，recorded_executions 结果为 passed；source_at_execution_hash 未独立捕获",
+          "kind": "test",
+          "ref": "inputs/packet.json#L139-L163"
+        },
+        {
+          "claim": "合同要求验证执行模块不得读取工程政策自行解释允许范围；静态观察未发现违反该禁止边界的直接导入或对齐依赖记录",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L413-L419"
+        }
+      ],
+      "limitations": [
+        "静态导入分析无法完全排除通过 importlib 等动态调用访问 project_engineering_policy 的可能性；当前代码中未见此模式",
+        "source_at_execution_hash 未独立捕获",
+        "forbidden 边界验证基于静态分析和 actual-dependencies 记录，不构成真实 Agent 运行时行为的完整证明"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "verification_runner.py 全部导入中不存在任何 project_engineering_policy 导入",
+        "实际依赖记录中 MODULE-A94EF8E733E64205（verification_runner）无指向 MODULE-8205A05A6F5E48A8（project_engineering_policy）的记录",
+        "静态分析确认禁止边界在代码层面未被跨越"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-0B25821AEEBF4F9F",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 ProjectAuthorityConsistency、direction_context_invalidation_issues、direction_context_requires_validation，用于状态变化前取得精确治理上下文",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/application_coordinator.py#L66-L86"
+        },
+        {
+          "claim": "导入 ProjectAuthorityConsistency，形成协调顺序受已确认上游版本约束的调用路径",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_decision.py#L38-L41"
+        },
+        {
+          "claim": "ProjectAuthorityConsistency 内部使用 GitProjectReader 等读取各仓库事实，不回写基线，维持独立权威职责",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L15-L57"
+        },
+        {
+          "claim": "application_coordinator.py 和 project_authority_decision.py 各有一条 allowed_direct 记录指向 project_authority_consistency.py，target_relationship_id=RELATION-0EF98DF7967649B7",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求应用用例在改变状态前取得当前精确治理上下文和失效判断；代码结构与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L41-L47"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "代码评价不等同于全部 Agent 执行场景下顺序约束均已得到测试覆盖的语义验收"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "application_coordinator.py 导入并使用 ProjectAuthorityConsistency 在状态变化前取得当前精确治理上下文",
+        "project_authority_decision.py 同样导入 ProjectAuthorityConsistency，形成协调顺序受已确认上游版本约束的路径",
+        "ProjectAuthorityConsistency 内部使用 GitProjectReader 等读取各仓库事实，不回写基线，维持独立权威职责",
+        "实际依赖记录分类为 allowed_direct，target_relationship_id=RELATION-0EF98DF7967649B7"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-0EF98DF7967649B7",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 engineering_change_planning.implementation_reporting_coverage、execution_context.execution_context、project_engineering_assurance.ProjectEngineeringAssurance；均为只读投影接口",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/work_item_read_model.py#L22-L45"
+        },
+        {
+          "claim": "导入 engineering_change_planning.focused_slice 等只读接口，不写回指定产物",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/execution_context.py#L11-L13"
+        },
+        {
+          "claim": "work_item_read_model.py 对 project_engineering_assurance.py 和 engineering_change_planning.py 的依赖均为 allowed_read_only，target_relationship_id=RELATION-1597DAB805DD4D9A；execution_context.py 对 engineering_change_planning.py 同此",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求只读工程方案中的权威变更集、语义复核声明、实施切片等，不取得写权；导入模式满足此约束",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L301-L307"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "合同涉及'复用无状态的方向合同版本适用性判断'，该语义效果未经运行时证明"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "work_item_read_model.py 通过只读接口读取 engineering_change_planning、project_engineering_assurance，不取得写权",
+        "execution_context.py 通过只读接口读取 engineering_change_planning.focused_slice，不写回指定产物",
+        "实际依赖记录分类为 allowed_read_only，target_relationship_id=RELATION-1597DAB805DD4D9A",
+        "未见对工程方案内容执行写操作的导入或调用"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-1597DAB805DD4D9A",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 ProjectProductDefinition、unadopted_project_direction_context、validate_direction_context_binding，用于按基线精确引用读取产品定义",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L47-L53"
+        },
+        {
+          "claim": "_read_authorities 对 product_definition 实例化 ProjectProductDefinition(source.project, refs[kind]['path'], shared_reader=source)，按基线精确引用读取，不写产品权威",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L382-L390"
+        },
+        {
+          "claim": "模块 docstring '不判断其含义'，仅从 git_project_reader 导入只读接口",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L1-L20"
+        },
+        {
+          "claim": "project_authority_consistency.py 对 project_product_definition.py 的依赖为 allowed_direct，target_relationship_id=RELATION-1C1BD6484A9F40D3",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求按基线精确引用读取产品定义身份、修订和状态，不判断产品语义；代码结构与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L147-L153"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "'不判断产品语义'为语义约束，代码评价仅可证明结构调用形态，不证明语义效果"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_authority_consistency.py 通过基线精确引用路径实例化 ProjectProductDefinition 读取产品定义身份、修订和状态",
+        "不写产品权威，维持只读读取路径",
+        "实际依赖记录分类为 allowed_direct，target_relationship_id=RELATION-1C1BD6484A9F40D3",
+        "project_product_definition.py 仅从 git_project_reader 导入只读接口，模块 docstring 明确'不判断其含义'"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-1C1BD6484A9F40D3",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 ProjectArchitectureDescription、ProjectArchitectureDescriptionError，用于只读目标模块、接口、允许关系、约束、领域处置和当前实施阶段",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_implementation_alignment.py#L31-L34"
+        },
+        {
+          "claim": "ProjectArchitectureDescription.__init__ 接受 shared_reader 参数，通过 project_reader_for_scope 使用传入上下文，不自行重新发现项目",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L118-L142"
+        },
+        {
+          "claim": "project_implementation_alignment.py 对 project_architecture_description.py 的依赖为 allowed_direct，target_relationship_id=RELATION-1C7C6D41D61F4FD8",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求只读目标模块、接口、允许关系、约束、领域处置和当前实施阶段；代码导入和调用结构与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L252-L258"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "代码评价不代替全部测试场景的语义验收"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_implementation_alignment.py 导入 ProjectArchitectureDescription 用于读取目标模块、接口、允许关系、约束等",
+        "ProjectArchitectureDescription 接受 shared_reader 参数，不自行重新发现项目",
+        "实际依赖记录分类为 allowed_direct，target_relationship_id=RELATION-1C7C6D41D61F4FD8",
+        "未见对目标架构执行写操作的导入或调用"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-1C7C6D41D61F4FD8",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 ProjectProductDefinitionError、unadopted_project_direction_context、validate_direction_context_binding；均为只读/结构校验接口，未见产品写操作",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/application_coordinator.py#L106-L110"
+        },
+        {
+          "claim": "导入 ProjectProductDefinition、ProjectProductDefinitionError，用于候选绑定和确认，读取产品修订身份",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_decision.py#L61-L64"
+        },
+        {
+          "claim": "模块 docstring '不判断其含义'，符合合同'不提交程序生成的产品语义或相关性判断'",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L1-L20"
+        },
+        {
+          "claim": "application_coordinator.py 和 project_authority_decision.py 各有一条 allowed_direct 记录指向 project_product_definition.py，target_relationship_id=RELATION-21CC4F7956D247A4",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求只调用产品定义结构校验、读取、能力与护栏目录和生命周期操作，不提交程序生成的产品语义或相关性判断；导入模式与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L48-L54"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "'不提交程序生成的产品语义或相关性判断'为语义约束，静态代码分析不能完全证明 Agent 运行时不会产生此类判断"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "application_coordinator.py 通过 project_authority_decision.py 调用产品定义结构校验、读取和生命周期操作",
+        "project_authority_decision.py 导入 ProjectProductDefinition 用于候选绑定确认",
+        "未见提交程序生成产品语义或相关性判断的调用",
+        "实际依赖记录分类为 allowed_direct，target_relationship_id=RELATION-21CC4F7956D247A4",
+        "传递已解析且仓库限定的读取范围，不让目标权威重复发现项目"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-21CC4F7956D247A4",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 ProjectDomainModel、ProjectDomainModelError、validate_domain_fact_reference，用于按基线精确引用读取领域模型产品绑定、修订和状态",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L29-L34"
+        },
+        {
+          "claim": "_read_authorities 对 domain_model 实例化 ProjectDomainModel(source.project, refs[kind]['path'], shared_reader=source)，按基线精确引用读取，不写领域权威",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L382-L390"
+        },
+        {
+          "claim": "模块 docstring '不判断其含义'，仅从 git_project_reader 导入只读接口，与合同'不判断领域语义'一致",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_domain_model.py#L1-L25"
+        },
+        {
+          "claim": "project_authority_consistency.py 对 project_domain_model.py 的依赖为 allowed_direct，target_relationship_id=RELATION-2489A0CE47D1409D",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求按基线精确引用读取领域模型产品绑定、修订和状态，不判断领域语义；代码结构与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L154-L160"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "'不判断领域语义'为语义约束，代码评价限于结构调用形态"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_authority_consistency.py 通过基线精确引用路径实例化 ProjectDomainModel 读取领域模型产品绑定、修订和状态",
+        "不写领域权威，维持只读读取路径",
+        "实际依赖记录分类为 allowed_direct，target_relationship_id=RELATION-2489A0CE47D1409D",
+        "project_domain_model.py 仅从 git_project_reader 导入只读接口，模块 docstring 明确'不判断其含义'"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-2489A0CE47D1409D",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 GitProjectReader、GitProjectReaderError、project_reader_for_scope、repository_relative_path 及 schema_error_reporting；均为只读接口，无写操作导入",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L15-L24"
+        },
+        {
+          "claim": "__init__ 通过 project_reader_for_scope 使用传入 shared_reader，不自行重新发现项目，满足'不回调项目解析或扩大范围'",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L121-L142"
+        },
+        {
+          "claim": "project_architecture_description.py 对 git_project_reader.py 和 schema_error_reporting.py 的依赖均为 allowed_direct，target_relationship_id=RELATION-31FB4E98BE2448D2",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求只请求仓库内目标架构产物的当前或精确版本内容，仓库与内容范围由上游已解析上下文绑定，读取保留仓库身份和精确版本；代码结构与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L196-L202"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "GitProjectReader 内部 Git 子进程行为在静态分析层面无法完全排除轻微副作用"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_architecture_description.py 仅从 git_project_reader 导入只读接口，通过 project_reader_for_scope 使用传入上下文",
+        "不自行重新发现项目，仓库与内容范围由上游已解析上下文绑定",
+        "读取保留仓库身份和精确版本",
+        "实际依赖记录分类为 allowed_direct，target_relationship_id=RELATION-31FB4E98BE2448D2"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-31FB4E98BE2448D2",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 ProjectArchitectureDescription、ProjectArchitectureDescriptionError，用于架构候选绑定确认；只读操作",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_decision.py#L43-L46"
+        },
+        {
+          "claim": "导入 ProjectArchitectureDescription，用于准备对齐观察；未见修改目标模块的操作",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/implementation_alignment_preparation.py#L28"
+        },
+        {
+          "claim": "load() 返回 deepcopy(dict(model))，不写目标模块；满足合同'不能用当前实现生成目标模块'",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L214-L241"
+        },
+        {
+          "claim": "project_authority_decision.py 和 implementation_alignment_preparation.py 各有一条 allowed_direct 记录指向 project_architecture_description.py，target_relationship_id=RELATION-3368698C069547C6",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求只调用目标架构校验、读取和生命周期操作，不能用当前实现生成目标模块；代码结构与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L62-L68"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "implementation_alignment_preparation 作为 application_coordinator 委托调用的子模块，实际调用路径属于 MODULE-159AE7957218470C 归属范围；actual-dependencies 记录支持此判断"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_authority_decision.py（由 application_coordinator 调用）导入 ProjectArchitectureDescription 用于架构候选绑定确认，为只读操作",
+        "implementation_alignment_preparation.py 导入 ProjectArchitectureDescription 用于准备对齐观察，未见修改目标模块的操作",
+        "ProjectArchitectureDescription.load() 返回深拷贝，不写目标模块",
+        "实际依赖记录分类为 allowed_direct，target_relationship_id=RELATION-3368698C069547C6",
+        "传递已解析且仓库限定的读取范围，不让目标权威重复发现项目"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-3368698C069547C6",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "导入 ProjectDomainModel、ProjectDomainModelError，用于领域模型候选绑定确认；只读操作，不生成领域含义",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_decision.py#L47-L51"
+        },
+        {
+          "claim": "导入 ProjectDomainModel，用于准备对齐观察；未见修改领域正文的操作",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/implementation_alignment_preparation.py#L27"
+        },
+        {
+          "claim": "模块 docstring '不判断其含义'，满足合同'不生成或修改领域含义'",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_domain_model.py#L1-L25"
+        },
+        {
+          "claim": "project_authority_decision.py 和 implementation_alignment_preparation.py 各有一条 allowed_direct 记录指向 project_domain_model.py，target_relationship_id=RELATION-34F18B226D894C2E",
+          "kind": "artifact",
+          "ref": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml#L1-L100"
+        },
+        {
+          "claim": "合同要求只调用领域模型结构校验、读取和生命周期操作，不生成或修改领域含义；导入和调用结构与此一致",
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/relationships.yaml#L55-L61"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获",
+        "'不生成或修改领域含义'为语义约束，代码评价限于结构调用形态，不证明 Agent 运行时语义效果"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_authority_decision.py（由 application_coordinator 调用）导入 ProjectDomainModel 用于领域模型候选绑定确认，为只读操作，不生成领域含义",
+        "implementation_alignment_preparation.py 导入 ProjectDomainModel 用于准备对齐观察，未见修改领域正文的操作",
+        "实际依赖记录分类为 allowed_direct，target_relationship_id=RELATION-34F18B226D894C2E",
+        "传递已解析且仓库限定的读取范围，不让目标权威重复发现项目"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-34F18B226D894C2E",
+      "target_kind": "relationship"
+    }
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "source_ownership": []
+}

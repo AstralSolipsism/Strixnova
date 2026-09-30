@@ -1,0 +1,467 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-engineering-assurance.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "assurance_id",
+    "assurance_revision_id",
+    "supersedes_revision_id",
+    "scope",
+    "authority_refs",
+    "governance_profile_ref",
+    "evidence_base_commit",
+    "evidence",
+    "rule_assessments",
+    "external_assurance",
+    "unresolved_items",
+    "semantic_content_machine_proven"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-engineering-assurance.v1"
+    },
+    "assurance_id": {
+      "type": "string",
+      "pattern": "^ASSURANCE-[0-9A-F]{16}$"
+    },
+    "assurance_revision_id": {
+      "type": "string",
+      "pattern": "^ASSURANCEREV-[0-9A-F]{16}$"
+    },
+    "supersedes_revision_id": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^ASSURANCEREV-[0-9A-F]{16}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_definition",
+        "domain_model",
+        "target_architecture",
+        "engineering_policy",
+        "implementation_alignment"
+      ],
+      "properties": {
+        "product_definition": {
+          "$ref": "#/$defs/product_ref"
+        },
+        "domain_model": {
+          "$ref": "#/$defs/domain_ref"
+        },
+        "target_architecture": {
+          "$ref": "#/$defs/architecture_ref"
+        },
+        "engineering_policy": {
+          "$ref": "#/$defs/policy_ref"
+        },
+        "implementation_alignment": {
+          "$ref": "#/$defs/alignment_ref"
+        }
+      }
+    },
+    "governance_profile_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_version",
+        "policy_id",
+        "policy_revision_id"
+      ],
+      "properties": {
+        "profile_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "profile_version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_id": {
+          "type": "string",
+          "pattern": "^POLICY-[0-9A-F]{16}$"
+        },
+        "policy_revision_id": {
+          "type": "string",
+          "pattern": "^POLICYREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "evidence_base_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40,64}$"
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/evidence"
+      }
+    },
+    "rule_assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule_assessment"
+      }
+    },
+    "external_assurance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "receipt_evidence_ids",
+        "limitations"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "not_claimed",
+            "claimed_with_receipt"
+          ]
+        },
+        "receipt_evidence_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^EVIDENCE-[0-9A-F]{16}$"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "semantic_content_machine_proven": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!.*\\\\)(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!\\.git(?:/|$))(?!\\.strixnova(?:/|$)).+$"
+    },
+    "product_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "product_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "product_id": {
+          "type": "string",
+          "pattern": "^PRODUCT-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^REVISION-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "domain_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "model_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "model_id": {
+          "type": "string",
+          "pattern": "^MODEL-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^MODELREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "architecture_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "architecture_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "architecture_id": {
+          "type": "string",
+          "pattern": "^ARCH-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^ARCHREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "policy_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "policy_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "policy_id": {
+          "type": "string",
+          "pattern": "^POLICY-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^POLICYREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "alignment_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "alignment_model_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "alignment_model_id": {
+          "type": "string",
+          "pattern": "^ALIGNMODEL-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^ALIGNREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_kind",
+        "path",
+        "sha256",
+        "receipt_id",
+        "claim",
+        "limitations"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "pattern": "^EVIDENCE-[0-9A-F]{16}$"
+        },
+        "evidence_kind": {
+          "enum": [
+            "repository_file",
+            "verification_receipt",
+            "external_assurance_receipt"
+          ]
+        },
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "receipt_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "rule_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "source_ids",
+        "applicability",
+        "applicability_reason",
+        "status",
+        "evidence_ids",
+        "gaps",
+        "remediation_actions",
+        "limitations"
+      ],
+      "properties": {
+        "rule_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "applicability": {
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "applicability_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "satisfied",
+            "partially_satisfied",
+            "not_satisfied",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^EVIDENCE-[0-9A-F]{16}$"
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "remediation_actions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

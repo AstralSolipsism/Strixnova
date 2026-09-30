@@ -1,0 +1,1396 @@
+{
+  "group": "authority-readers",
+  "targets": [
+    {
+      "target_id": "MODULE-361DDA9576FF4C16",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-361DDA9576FF4C16",
+        "title": "项目产品定义权威",
+        "layer": "authority",
+        "responsibility": "校验并提供项目产品定义的结构、稳定身份、精确修订、生命周期、产品能力目录、全部产品护栏和项目负责人确认绑定。 接收调用方已经绑定的仓库读取范围，提供精确产品正文与成员治理所依据的产品能力，不自行发现仓库或扩大读取范围。",
+        "not_responsible_for": [
+          "不生成产品目标、范围、非目标或成功判断。",
+          "不读取当前实现来证明产品定义正确。",
+          "不校验领域、架构或实现对齐正文。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-20C05AC2D2964BCE",
+          "title": "产品定义权威接口",
+          "operations": [
+            {
+              "name": "读取精确产品定义",
+              "meaning": "从指定位置和精确版本读取并返回结构有效的产品定义。"
+            },
+            {
+              "name": "校验产品定义候选",
+              "meaning": "检查身份、引用、覆盖、生命周期和确认字段，不判断内容是否正确。"
+            },
+            {
+              "name": "提供产品能力目录",
+              "meaning": "返回供下游精确追溯的能力身份和范围元数据。"
+            },
+            {
+              "name": "提供产品护栏目录",
+              "meaning": "返回当前修订全部非目标和约束的稳定身份与原文，不根据事项判断哪些适用。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/2",
+        "start_line": 48,
+        "end_line": 67
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/project_product_definition.py",
+        "strixnova/src/strixnova/resources/project-product-definition-v1.schema.json"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/project_product_definition.py",
+          "sha256": "23f4e499092417c1447769ea39ba7a194f81dc2c3ea86a3c059b59a2d595f09b",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-361DDA9576FF4C16",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目产品定义权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-product-definition-v1.schema.json",
+          "sha256": "c7d5d0a6bc36ebb9bcdbb4bf3cadebe58fd38a9603bfbfd57e4e9b6d548ac543",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "target_module_id": "MODULE-361DDA9576FF4C16",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目产品定义权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_project_product_definition.py::test_direction_context_projects_every_capability_and_guardrail_without_ranking",
+        "tests/unit/test_project_product_definition.py::test_direction_context_binding_checks_refs_coverage_and_staleness_only",
+        "tests/unit/test_project_product_definition.py::test_unadopted_project_direction_context_is_explicitly_empty",
+        "tests/unit/test_project_product_definition.py::test_ready_definition_loads_as_structure_not_semantic_proof",
+        "tests/unit/test_project_product_definition.py::test_confirmation_requires_no_open_decisions_and_exact_owner",
+        "tests/unit/test_project_product_definition.py::test_definition_can_be_read_at_an_exact_git_revision",
+        "tests/unit/test_project_product_definition.py::test_definition_rejects_duplicate_identities_and_dangling_references",
+        "tests/unit/test_project_product_definition.py::test_definition_rejects_implementation_or_architecture_fields",
+        "tests/unit/test_project_product_definition.py::test_ready_definition_requires_structural_outcome_coverage",
+        "tests/unit/test_target_domain_model_contract.py::test_draft_collection_contract_keeps_routing_separate_from_semantics",
+        "tests/unit/test_target_domain_model_contract.py::test_draft_root_contract_binds_product_revision_and_lifecycle",
+        "tests/unit/test_target_domain_model_contract.py::test_draft_source_contract_accepts_typed_semantics_only"
+      ]
+    },
+    {
+      "target_id": "MODULE-BA5C6A8095B6484E",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-BA5C6A8095B6484E",
+        "title": "项目领域模型权威",
+        "layer": "authority",
+        "responsibility": "校验并按需提供项目领域模型的目录、类型化事实、引用闭包、场景闭环、迁移谱系、精确修订和确认状态。 接收仓库限定的目录与来源读取范围，保持稳定事实、规范正文和谱系唯一，不因一个模型跨仓库存放复制模型权威。",
+        "not_responsible_for": [
+          "不生成或裁决领域语义。",
+          "不保存源码路径、测试证据或实现状态。",
+          "不推导目标模块或修改产品定义。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-FFBC02E23A7140F0",
+          "title": "领域模型权威接口",
+          "operations": [
+            {
+              "name": "读取领域目录",
+              "meaning": "渐进返回集合、来源和事实路由，不默认倾倒全部正文。"
+            },
+            {
+              "name": "读取事实闭包",
+              "meaning": "返回选定事实及其显式依赖的规范正文和谱系。"
+            },
+            {
+              "name": "校验领域模型候选",
+              "meaning": "检查结构、类型、引用、产品追溯、场景闭环和生命周期，不判断语义正确性。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/3",
+        "start_line": 68,
+        "end_line": 85
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/project_domain_model.py",
+        "strixnova/src/strixnova/resources/domain-fact-reference-v1.schema.json",
+        "strixnova/src/strixnova/resources/project-domain-collection-v1.schema.json",
+        "strixnova/src/strixnova/resources/project-domain-model-v1.schema.json",
+        "strixnova/src/strixnova/resources/project-domain-source-v1.schema.json"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/project_domain_model.py",
+          "sha256": "0650e9123db55ee3b104d421d6235d9c077f28cf37b1effffe079e1905755251",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-BA5C6A8095B6484E",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目领域模型权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/domain-fact-reference-v1.schema.json",
+          "sha256": "cdc0566d4df5a2011758019a063aca6dbdfb138442e802442ad7c33a84266dd9",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "target_module_id": "MODULE-BA5C6A8095B6484E",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目领域模型权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-domain-collection-v1.schema.json",
+          "sha256": "2b1b7f22ae898026e5fdb1d864d48f4f0bb6ab6829ca216b815b47788ec0db53",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "target_module_id": "MODULE-BA5C6A8095B6484E",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目领域模型权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-domain-model-v1.schema.json",
+          "sha256": "1d5e7fbd79471184206a630e6bdf2b97e3eda239c15e7f1b601e491efc2eb2c4",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "target_module_id": "MODULE-BA5C6A8095B6484E",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目领域模型权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-domain-source-v1.schema.json",
+          "sha256": "0685dedd5ca5a138729c16c308190101f4cdae5f5464402753ec374296ff3ec7",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "target_module_id": "MODULE-BA5C6A8095B6484E",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目领域模型权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_project_domain_model.py::test_second_version_model_routes_without_dumping_fact_bodies",
+        "tests/unit/test_project_domain_model.py::test_fact_reference_requires_and_resolves_one_immutable_revision",
+        "tests/unit/test_project_domain_model.py::test_fact_reference_contract_rejects_unpinned_or_unknown_fields",
+        "tests/unit/test_project_domain_model.py::test_model_rejects_unknown_internal_fact_references",
+        "tests/unit/test_product_narrative.py::test_current_documents_use_the_same_role_split",
+        "tests/unit/test_product_narrative.py::test_domain_reading_projection_preserves_fact_identity_status_and_indexes",
+        "tests/unit/test_product_narrative.py::test_public_source_identity_describes_a_governance_tool",
+        "tests/unit/test_product_narrative.py::test_supported_agent_reading_table_is_derived_from_current_authorities",
+        "tests/unit/test_product_narrative.py::test_tracked_tree_contains_no_retired_strixnova_identity",
+        "tests/unit/test_project_authority_contracts.py::test_alignment_drift_scans_the_declared_project_package",
+        "tests/unit/test_project_authority_contracts.py::test_alignment_runtime_rejects_empty_sources_claimed_as_complete",
+        "tests/unit/test_project_authority_contracts.py::test_alignment_runtime_reports_exact_subordinate_field_errors",
+        "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_reads_and_validates_the_complete_target",
+        "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_rejects_an_unknown_contract",
+        "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_reports_exact_subordinate_field_errors",
+        "tests/unit/test_project_authority_contracts.py::test_domain_runtime_reads_the_current_formal_authority"
+      ]
+    },
+    {
+      "target_id": "MODULE-525F73C6C189406A",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-525F73C6C189406A",
+        "title": "项目目标架构权威",
+        "layer": "authority",
+        "responsibility": "校验并提供预期建设模块、唯一稳定接口、关系方式、约束验证、领域事实处置、实施阶段、精确修订和确认状态。 在仓库限定读取范围中校验精确架构，完整处置新增事实与已替代事实；术语和值不自动产生独立运行模块。",
+        "not_responsible_for": [
+          "不保存当前源码路径、实际依赖或实现证据。",
+          "不从当前代码反推目标架构。",
+          "不自行决定领域事实应当表示什么。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-3BC25E5BC40F493F",
+          "title": "目标架构权威接口",
+          "operations": [
+            {
+              "name": "读取目标架构",
+              "meaning": "返回选定精确修订的模块、接口、关系、约束、处置和阶段。"
+            },
+            {
+              "name": "校验目标架构候选",
+              "meaning": "检查唯一身份、全量处置、引用、直接依赖无环、验证方法和生命周期。"
+            },
+            {
+              "name": "提供架构判定目录",
+              "meaning": "返回供实现对齐和漂移门禁使用的确定性允许关系、禁止关系和责任身份。"
+            },
+            {
+              "name": "选择显式架构资料",
+              "meaning": "按明确模块身份返回适用约束、默认关系政策、涉及端点或中介的关系及其必要定义和领域事实处置；不从源码推导业务语义，也不无限展开全部关联。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/4",
+        "start_line": 86,
+        "end_line": 105
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/project_architecture_description.py",
+        "strixnova/src/strixnova/resources/project-architecture-description-v1.schema.json"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/project_architecture_description.py",
+          "sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-525F73C6C189406A",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目目标架构权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-architecture-description-v1.schema.json",
+          "sha256": "402592dc9900c703db89e2b14fef4057c64d21791f8590fcde14fe1341c967d5",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "target_module_id": "MODULE-525F73C6C189406A",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目目标架构权威”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_implementation_alignment_preparation.py::test_alignment_cli_group_routes_small_structured_requests",
+        "tests/unit/test_implementation_alignment_preparation.py::test_alignment_cli_writes_a_schema_valid_nonempty_decision",
+        "tests/unit/test_implementation_alignment_preparation.py::test_alignment_gc_requires_exact_preview_and_deletes_only_orphan_components",
+        "tests/unit/test_implementation_alignment_preparation.py::test_alignment_inspection_pages_every_logical_record_without_layout_leak",
+        "tests/unit/test_implementation_alignment_preparation.py::test_alignment_prepare_cli_reads_the_canonical_authority_store",
+        "tests/unit/test_implementation_alignment_preparation.py::test_binding_requires_one_current_alignment_operation",
+        "tests/unit/test_implementation_alignment_preparation.py::test_external_capture_requires_both_authorization_and_a_confirmed_plan",
+        "tests/unit/test_implementation_alignment_preparation.py::test_large_preparation_is_a_small_manifest_with_deduplicated_pages",
+        "tests/unit/test_implementation_alignment_preparation.py::test_planned_external_provider_can_complete_an_unknown_language_scope",
+        "tests/unit/test_implementation_alignment_preparation.py::test_preparation_requires_agent_acknowledgement_for_every_semantic_removal",
+        "tests/unit/test_implementation_alignment_preparation.py::test_preparation_store_is_content_addressed_without_mutable_pointer"
+      ]
+    }
+  ],
+  "test_definitions": {
+    "tests/unit/test_project_product_definition.py::test_direction_context_projects_every_capability_and_guardrail_without_ranking": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_direction_context_projects_every_capability_and_guardrail_without_ranking",
+      "start_line": 126,
+      "end_line": 141,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_direction_context_projects_every_capability_and_guardrail_without_ranking",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 711,
+          "node": "tests.unit.test_project_product_definition::test_direction_context_projects_every_capability_and_guardrail_without_ranking",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 708,
+          "node": "tests.unit.test_project_product_definition::test_direction_context_projects_every_capability_and_guardrail_without_ranking",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_product_definition.py::test_direction_context_binding_checks_refs_coverage_and_staleness_only": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_direction_context_binding_checks_refs_coverage_and_staleness_only",
+      "start_line": 144,
+      "end_line": 186,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_direction_context_binding_checks_refs_coverage_and_staleness_only",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 712,
+          "node": "tests.unit.test_project_product_definition::test_direction_context_binding_checks_refs_coverage_and_staleness_only",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 721,
+          "node": "tests.unit.test_project_product_definition::test_direction_context_binding_checks_refs_coverage_and_staleness_only",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_product_definition.py::test_unadopted_project_direction_context_is_explicitly_empty": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_unadopted_project_direction_context_is_explicitly_empty",
+      "start_line": 189,
+      "end_line": 201,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_unadopted_project_direction_context_is_explicitly_empty",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 713,
+          "node": "tests.unit.test_project_product_definition::test_unadopted_project_direction_context_is_explicitly_empty",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 709,
+          "node": "tests.unit.test_project_product_definition::test_unadopted_project_direction_context_is_explicitly_empty",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_product_definition.py::test_ready_definition_loads_as_structure_not_semantic_proof": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_ready_definition_loads_as_structure_not_semantic_proof",
+      "start_line": 219,
+      "end_line": 233,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_ready_definition_loads_as_structure_not_semantic_proof",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 714,
+          "node": "tests.unit.test_project_product_definition::test_ready_definition_loads_as_structure_not_semantic_proof",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 710,
+          "node": "tests.unit.test_project_product_definition::test_ready_definition_loads_as_structure_not_semantic_proof",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_product_definition.py::test_confirmation_requires_no_open_decisions_and_exact_owner": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_confirmation_requires_no_open_decisions_and_exact_owner",
+      "start_line": 308,
+      "end_line": 346,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_confirmation_requires_no_open_decisions_and_exact_owner",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 718,
+          "node": "tests.unit.test_project_product_definition::test_confirmation_requires_no_open_decisions_and_exact_owner",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 714,
+          "node": "tests.unit.test_project_product_definition::test_confirmation_requires_no_open_decisions_and_exact_owner",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_product_definition.py::test_definition_can_be_read_at_an_exact_git_revision": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_definition_can_be_read_at_an_exact_git_revision",
+      "start_line": 349,
+      "end_line": 371,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_definition_can_be_read_at_an_exact_git_revision",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 719,
+          "node": "tests.unit.test_project_product_definition::test_definition_can_be_read_at_an_exact_git_revision",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 716,
+          "node": "tests.unit.test_project_product_definition::test_definition_can_be_read_at_an_exact_git_revision",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_product_definition.py::test_definition_rejects_duplicate_identities_and_dangling_references": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_definition_rejects_duplicate_identities_and_dangling_references",
+      "start_line": 251,
+      "end_line": 280,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_definition_rejects_duplicate_identities_and_dangling_references",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 716,
+          "node": "tests.unit.test_project_product_definition::test_definition_rejects_duplicate_identities_and_dangling_references",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 712,
+          "node": "tests.unit.test_project_product_definition::test_definition_rejects_duplicate_identities_and_dangling_references",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_product_definition.py::test_definition_rejects_implementation_or_architecture_fields": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_definition_rejects_implementation_or_architecture_fields",
+      "start_line": 236,
+      "end_line": 248,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_definition_rejects_implementation_or_architecture_fields",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 715,
+          "node": "tests.unit.test_project_product_definition::test_definition_rejects_implementation_or_architecture_fields",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 711,
+          "node": "tests.unit.test_project_product_definition::test_definition_rejects_implementation_or_architecture_fields",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_product_definition.py::test_ready_definition_requires_structural_outcome_coverage": {
+      "path": "tests/unit/test_project_product_definition.py",
+      "qualified_name": "test_ready_definition_requires_structural_outcome_coverage",
+      "start_line": 283,
+      "end_line": 305,
+      "current_file_sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "original_locator": "tests/unit/test_project_product_definition.py::test_ready_definition_requires_structural_outcome_coverage",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 717,
+          "node": "tests.unit.test_project_product_definition::test_ready_definition_requires_structural_outcome_coverage",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 713,
+          "node": "tests.unit.test_project_product_definition::test_ready_definition_requires_structural_outcome_coverage",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_target_domain_model_contract.py::test_draft_collection_contract_keeps_routing_separate_from_semantics": {
+      "path": "tests/unit/test_target_domain_model_contract.py",
+      "qualified_name": "test_draft_collection_contract_keeps_routing_separate_from_semantics",
+      "start_line": 213,
+      "end_line": 237,
+      "current_file_sha256": "608165596e80b476ce2d2f51f32d7e1346c9b8d518af74e08d58a3fd51d1f6e1",
+      "original_locator": "tests/unit/test_target_domain_model_contract.py::test_draft_collection_contract_keeps_routing_separate_from_semantics",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 858,
+          "node": "tests.unit.test_target_domain_model_contract::test_draft_collection_contract_keeps_routing_separate_from_semantics",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 855,
+          "node": "tests.unit.test_target_domain_model_contract::test_draft_collection_contract_keeps_routing_separate_from_semantics",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_target_domain_model_contract.py::test_draft_root_contract_binds_product_revision_and_lifecycle": {
+      "path": "tests/unit/test_target_domain_model_contract.py",
+      "qualified_name": "test_draft_root_contract_binds_product_revision_and_lifecycle",
+      "start_line": 176,
+      "end_line": 210,
+      "current_file_sha256": "608165596e80b476ce2d2f51f32d7e1346c9b8d518af74e08d58a3fd51d1f6e1",
+      "original_locator": "tests/unit/test_target_domain_model_contract.py::test_draft_root_contract_binds_product_revision_and_lifecycle",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 856,
+          "node": "tests.unit.test_target_domain_model_contract::test_draft_root_contract_binds_product_revision_and_lifecycle",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 858,
+          "node": "tests.unit.test_target_domain_model_contract::test_draft_root_contract_binds_product_revision_and_lifecycle",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_target_domain_model_contract.py::test_draft_source_contract_accepts_typed_semantics_only": {
+      "path": "tests/unit/test_target_domain_model_contract.py",
+      "qualified_name": "test_draft_source_contract_accepts_typed_semantics_only",
+      "start_line": 155,
+      "end_line": 173,
+      "current_file_sha256": "608165596e80b476ce2d2f51f32d7e1346c9b8d518af74e08d58a3fd51d1f6e1",
+      "original_locator": "tests/unit/test_target_domain_model_contract.py::test_draft_source_contract_accepts_typed_semantics_only",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 862,
+          "node": "tests.unit.test_target_domain_model_contract::test_draft_source_contract_accepts_typed_semantics_only",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 854,
+          "node": "tests.unit.test_target_domain_model_contract::test_draft_source_contract_accepts_typed_semantics_only",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_domain_model.py::test_second_version_model_routes_without_dumping_fact_bodies": {
+      "path": "tests/unit/test_project_domain_model.py",
+      "qualified_name": "test_second_version_model_routes_without_dumping_fact_bodies",
+      "start_line": 155,
+      "end_line": 178,
+      "current_file_sha256": "e3816e3d2ad82b72936af9d61bd73cd725d6ba5583f46a6118f1107ca0ee6d72",
+      "original_locator": "tests/unit/test_project_domain_model.py::test_second_version_model_routes_without_dumping_fact_bodies",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 666,
+          "node": "tests.unit.test_project_domain_model::test_second_version_model_routes_without_dumping_fact_bodies",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 673,
+          "node": "tests.unit.test_project_domain_model::test_second_version_model_routes_without_dumping_fact_bodies",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_domain_model.py::test_fact_reference_requires_and_resolves_one_immutable_revision": {
+      "path": "tests/unit/test_project_domain_model.py",
+      "qualified_name": "test_fact_reference_requires_and_resolves_one_immutable_revision",
+      "start_line": 181,
+      "end_line": 202,
+      "current_file_sha256": "e3816e3d2ad82b72936af9d61bd73cd725d6ba5583f46a6118f1107ca0ee6d72",
+      "original_locator": "tests/unit/test_project_domain_model.py::test_fact_reference_requires_and_resolves_one_immutable_revision",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 665,
+          "node": "tests.unit.test_project_domain_model::test_fact_reference_requires_and_resolves_one_immutable_revision",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 662,
+          "node": "tests.unit.test_project_domain_model::test_fact_reference_requires_and_resolves_one_immutable_revision",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_domain_model.py::test_fact_reference_contract_rejects_unpinned_or_unknown_fields": {
+      "path": "tests/unit/test_project_domain_model.py",
+      "qualified_name": "test_fact_reference_contract_rejects_unpinned_or_unknown_fields",
+      "start_line": 205,
+      "end_line": 216,
+      "current_file_sha256": "e3816e3d2ad82b72936af9d61bd73cd725d6ba5583f46a6118f1107ca0ee6d72",
+      "original_locator": "tests/unit/test_project_domain_model.py::test_fact_reference_contract_rejects_unpinned_or_unknown_fields",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 675,
+          "node": "tests.unit.test_project_domain_model::test_fact_reference_contract_rejects_unpinned_or_unknown_fields",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 666,
+          "node": "tests.unit.test_project_domain_model::test_fact_reference_contract_rejects_unpinned_or_unknown_fields",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_domain_model.py::test_model_rejects_unknown_internal_fact_references": {
+      "path": "tests/unit/test_project_domain_model.py",
+      "qualified_name": "test_model_rejects_unknown_internal_fact_references",
+      "start_line": 219,
+      "end_line": 231,
+      "current_file_sha256": "e3816e3d2ad82b72936af9d61bd73cd725d6ba5583f46a6118f1107ca0ee6d72",
+      "original_locator": "tests/unit/test_project_domain_model.py::test_model_rejects_unknown_internal_fact_references",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 667,
+          "node": "tests.unit.test_project_domain_model::test_model_rejects_unknown_internal_fact_references",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 664,
+          "node": "tests.unit.test_project_domain_model::test_model_rejects_unknown_internal_fact_references",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_product_narrative.py::test_current_documents_use_the_same_role_split": {
+      "path": "tests/unit/test_product_narrative.py",
+      "qualified_name": "test_current_documents_use_the_same_role_split",
+      "start_line": 226,
+      "end_line": 232,
+      "current_file_sha256": "1c2f9e93da643ca9a590673305bafe5875085ae75b7d81513823df847b5aa9dd",
+      "original_locator": "tests/unit/test_product_narrative.py::test_current_documents_use_the_same_role_split",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 571,
+          "node": "tests.unit.test_product_narrative::test_current_documents_use_the_same_role_split",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 568,
+          "node": "tests.unit.test_product_narrative::test_current_documents_use_the_same_role_split",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_product_narrative.py::test_domain_reading_projection_preserves_fact_identity_status_and_indexes": {
+      "path": "tests/unit/test_product_narrative.py",
+      "qualified_name": "test_domain_reading_projection_preserves_fact_identity_status_and_indexes",
+      "start_line": 130,
+      "end_line": 223,
+      "current_file_sha256": "1c2f9e93da643ca9a590673305bafe5875085ae75b7d81513823df847b5aa9dd",
+      "original_locator": "tests/unit/test_product_narrative.py::test_domain_reading_projection_preserves_fact_identity_status_and_indexes",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 569,
+          "node": "tests.unit.test_product_narrative::test_domain_reading_projection_preserves_fact_identity_status_and_indexes",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 565,
+          "node": "tests.unit.test_product_narrative::test_domain_reading_projection_preserves_fact_identity_status_and_indexes",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_product_narrative.py::test_public_source_identity_describes_a_governance_tool": {
+      "path": "tests/unit/test_product_narrative.py",
+      "qualified_name": "test_public_source_identity_describes_a_governance_tool",
+      "start_line": 67,
+      "end_line": 80,
+      "current_file_sha256": "1c2f9e93da643ca9a590673305bafe5875085ae75b7d81513823df847b5aa9dd",
+      "original_locator": "tests/unit/test_product_narrative.py::test_public_source_identity_describes_a_governance_tool",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 567,
+          "node": "tests.unit.test_product_narrative::test_public_source_identity_describes_a_governance_tool",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 562,
+          "node": "tests.unit.test_product_narrative::test_public_source_identity_describes_a_governance_tool",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_product_narrative.py::test_supported_agent_reading_table_is_derived_from_current_authorities": {
+      "path": "tests/unit/test_product_narrative.py",
+      "qualified_name": "test_supported_agent_reading_table_is_derived_from_current_authorities",
+      "start_line": 83,
+      "end_line": 127,
+      "current_file_sha256": "1c2f9e93da643ca9a590673305bafe5875085ae75b7d81513823df847b5aa9dd",
+      "original_locator": "tests/unit/test_product_narrative.py::test_supported_agent_reading_table_is_derived_from_current_authorities",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 568,
+          "node": "tests.unit.test_product_narrative::test_supported_agent_reading_table_is_derived_from_current_authorities",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 563,
+          "node": "tests.unit.test_product_narrative::test_supported_agent_reading_table_is_derived_from_current_authorities",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_product_narrative.py::test_tracked_tree_contains_no_retired_strixnova_identity": {
+      "path": "tests/unit/test_product_narrative.py",
+      "qualified_name": "test_tracked_tree_contains_no_retired_strixnova_identity",
+      "start_line": 235,
+      "end_line": 253,
+      "current_file_sha256": "1c2f9e93da643ca9a590673305bafe5875085ae75b7d81513823df847b5aa9dd",
+      "original_locator": "tests/unit/test_product_narrative.py::test_tracked_tree_contains_no_retired_strixnova_identity",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 588,
+          "node": "tests.unit.test_product_narrative::test_tracked_tree_contains_no_retired_strixnova_identity",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 578,
+          "node": "tests.unit.test_product_narrative::test_tracked_tree_contains_no_retired_strixnova_identity",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_authority_contracts.py::test_alignment_drift_scans_the_declared_project_package": {
+      "path": "tests/unit/test_project_authority_contracts.py",
+      "qualified_name": "test_alignment_drift_scans_the_declared_project_package",
+      "start_line": 326,
+      "end_line": 376,
+      "current_file_sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+      "original_locator": "tests/unit/test_project_authority_contracts.py::test_alignment_drift_scans_the_declared_project_package",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 603,
+          "node": "tests.unit.test_project_authority_contracts::test_alignment_drift_scans_the_declared_project_package",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 596,
+          "node": "tests.unit.test_project_authority_contracts::test_alignment_drift_scans_the_declared_project_package",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_authority_contracts.py::test_alignment_runtime_rejects_empty_sources_claimed_as_complete": {
+      "path": "tests/unit/test_project_authority_contracts.py",
+      "qualified_name": "test_alignment_runtime_rejects_empty_sources_claimed_as_complete",
+      "start_line": 221,
+      "end_line": 281,
+      "current_file_sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+      "original_locator": "tests/unit/test_project_authority_contracts.py::test_alignment_runtime_rejects_empty_sources_claimed_as_complete",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 598,
+          "node": "tests.unit.test_project_authority_contracts::test_alignment_runtime_rejects_empty_sources_claimed_as_complete",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 597,
+          "node": "tests.unit.test_project_authority_contracts::test_alignment_runtime_rejects_empty_sources_claimed_as_complete",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_authority_contracts.py::test_alignment_runtime_reports_exact_subordinate_field_errors": {
+      "path": "tests/unit/test_project_authority_contracts.py",
+      "qualified_name": "test_alignment_runtime_reports_exact_subordinate_field_errors",
+      "start_line": 203,
+      "end_line": 217,
+      "current_file_sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+      "original_locator": "tests/unit/test_project_authority_contracts.py::test_alignment_runtime_reports_exact_subordinate_field_errors",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 597,
+          "node": "tests.unit.test_project_authority_contracts::test_alignment_runtime_reports_exact_subordinate_field_errors",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 598,
+          "node": "tests.unit.test_project_authority_contracts::test_alignment_runtime_reports_exact_subordinate_field_errors",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_reads_and_validates_the_complete_target": {
+      "path": "tests/unit/test_project_authority_contracts.py",
+      "qualified_name": "test_architecture_runtime_reads_and_validates_the_complete_target",
+      "start_line": 116,
+      "end_line": 139,
+      "current_file_sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+      "original_locator": "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_reads_and_validates_the_complete_target",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 633,
+          "node": "tests.unit.test_project_authority_contracts::test_architecture_runtime_reads_and_validates_the_complete_target",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 593,
+          "node": "tests.unit.test_project_authority_contracts::test_architecture_runtime_reads_and_validates_the_complete_target",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_rejects_an_unknown_contract": {
+      "path": "tests/unit/test_project_authority_contracts.py",
+      "qualified_name": "test_architecture_runtime_rejects_an_unknown_contract",
+      "start_line": 142,
+      "end_line": 166,
+      "current_file_sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+      "original_locator": "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_rejects_an_unknown_contract",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 606,
+          "node": "tests.unit.test_project_authority_contracts::test_architecture_runtime_rejects_an_unknown_contract",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 604,
+          "node": "tests.unit.test_project_authority_contracts::test_architecture_runtime_rejects_an_unknown_contract",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_reports_exact_subordinate_field_errors": {
+      "path": "tests/unit/test_project_authority_contracts.py",
+      "qualified_name": "test_architecture_runtime_reports_exact_subordinate_field_errors",
+      "start_line": 169,
+      "end_line": 200,
+      "current_file_sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+      "original_locator": "tests/unit/test_project_authority_contracts.py::test_architecture_runtime_reports_exact_subordinate_field_errors",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 595,
+          "node": "tests.unit.test_project_authority_contracts::test_architecture_runtime_reports_exact_subordinate_field_errors",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 599,
+          "node": "tests.unit.test_project_authority_contracts::test_architecture_runtime_reports_exact_subordinate_field_errors",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_authority_contracts.py::test_domain_runtime_reads_the_current_formal_authority": {
+      "path": "tests/unit/test_project_authority_contracts.py",
+      "qualified_name": "test_domain_runtime_reads_the_current_formal_authority",
+      "start_line": 42,
+      "end_line": 58,
+      "current_file_sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+      "original_locator": "tests/unit/test_project_authority_contracts.py::test_domain_runtime_reads_the_current_formal_authority",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 596,
+          "node": "tests.unit.test_project_authority_contracts::test_domain_runtime_reads_the_current_formal_authority",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 592,
+          "node": "tests.unit.test_project_authority_contracts::test_domain_runtime_reads_the_current_formal_authority",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_alignment_cli_group_routes_small_structured_requests": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_alignment_cli_group_routes_small_structured_requests",
+      "start_line": 418,
+      "end_line": 570,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_alignment_cli_group_routes_small_structured_requests",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 401,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_cli_group_routes_small_structured_requests",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 398,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_cli_group_routes_small_structured_requests",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_alignment_cli_writes_a_schema_valid_nonempty_decision": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_alignment_cli_writes_a_schema_valid_nonempty_decision",
+      "start_line": 763,
+      "end_line": 871,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_alignment_cli_writes_a_schema_valid_nonempty_decision",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 400,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_cli_writes_a_schema_valid_nonempty_decision",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 405,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_cli_writes_a_schema_valid_nonempty_decision",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_alignment_gc_requires_exact_preview_and_deletes_only_orphan_components": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_alignment_gc_requires_exact_preview_and_deletes_only_orphan_components",
+      "start_line": 703,
+      "end_line": 760,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_alignment_gc_requires_exact_preview_and_deletes_only_orphan_components",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 407,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_gc_requires_exact_preview_and_deletes_only_orphan_components",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 401,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_gc_requires_exact_preview_and_deletes_only_orphan_components",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_alignment_inspection_pages_every_logical_record_without_layout_leak": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_alignment_inspection_pages_every_logical_record_without_layout_leak",
+      "start_line": 652,
+      "end_line": 700,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_alignment_inspection_pages_every_logical_record_without_layout_leak",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 403,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_inspection_pages_every_logical_record_without_layout_leak",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 395,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_inspection_pages_every_logical_record_without_layout_leak",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_alignment_prepare_cli_reads_the_canonical_authority_store": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_alignment_prepare_cli_reads_the_canonical_authority_store",
+      "start_line": 573,
+      "end_line": 649,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_alignment_prepare_cli_reads_the_canonical_authority_store",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 397,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_prepare_cli_reads_the_canonical_authority_store",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 396,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_alignment_prepare_cli_reads_the_canonical_authority_store",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_binding_requires_one_current_alignment_operation": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_binding_requires_one_current_alignment_operation",
+      "start_line": 296,
+      "end_line": 311,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_binding_requires_one_current_alignment_operation",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 396,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_binding_requires_one_current_alignment_operation",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 390,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_binding_requires_one_current_alignment_operation",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_external_capture_requires_both_authorization_and_a_confirmed_plan": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_external_capture_requires_both_authorization_and_a_confirmed_plan",
+      "start_line": 1084,
+      "end_line": 1112,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_external_capture_requires_both_authorization_and_a_confirmed_plan",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 411,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_external_capture_requires_both_authorization_and_a_confirmed_plan",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 402,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_external_capture_requires_both_authorization_and_a_confirmed_plan",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_large_preparation_is_a_small_manifest_with_deduplicated_pages": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_large_preparation_is_a_small_manifest_with_deduplicated_pages",
+      "start_line": 353,
+      "end_line": 415,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_large_preparation_is_a_small_manifest_with_deduplicated_pages",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 395,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_large_preparation_is_a_small_manifest_with_deduplicated_pages",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 392,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_large_preparation_is_a_small_manifest_with_deduplicated_pages",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_planned_external_provider_can_complete_an_unknown_language_scope": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_planned_external_provider_can_complete_an_unknown_language_scope",
+      "start_line": 1246,
+      "end_line": 1370,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_planned_external_provider_can_complete_an_unknown_language_scope",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 408,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_planned_external_provider_can_complete_an_unknown_language_scope",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 409,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_planned_external_provider_can_complete_an_unknown_language_scope",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_preparation_requires_agent_acknowledgement_for_every_semantic_removal": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_preparation_requires_agent_acknowledgement_for_every_semantic_removal",
+      "start_line": 1115,
+      "end_line": 1152,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_preparation_requires_agent_acknowledgement_for_every_semantic_removal",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 409,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_preparation_requires_agent_acknowledgement_for_every_semantic_removal",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 403,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_preparation_requires_agent_acknowledgement_for_every_semantic_removal",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_alignment_preparation.py::test_preparation_store_is_content_addressed_without_mutable_pointer": {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "qualified_name": "test_preparation_store_is_content_addressed_without_mutable_pointer",
+      "start_line": 314,
+      "end_line": 350,
+      "current_file_sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "original_locator": "tests/unit/test_implementation_alignment_preparation.py::test_preparation_store_is_content_addressed_without_mutable_pointer",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 394,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_preparation_store_is_content_addressed_without_mutable_pointer",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 391,
+          "node": "tests.unit.test_implementation_alignment_preparation::test_preparation_store_is_content_addressed_without_mutable_pointer",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    }
+  },
+  "files": [
+    {
+      "path": "docs/architecture/modules.yaml",
+      "sha256": "f6c3efe6120580193a5a1b9dafa0897dbfd3fe55145cf270248ed60c640c2b74",
+      "line_count": 442,
+      "bytes": 38835
+    },
+    {
+      "path": "strixnova/src/strixnova/project_architecture_description.py",
+      "sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+      "line_count": 518,
+      "bytes": 21711
+    },
+    {
+      "path": "strixnova/src/strixnova/project_domain_model.py",
+      "sha256": "0650e9123db55ee3b104d421d6235d9c077f28cf37b1effffe079e1905755251",
+      "line_count": 900,
+      "bytes": 36509
+    },
+    {
+      "path": "strixnova/src/strixnova/project_product_definition.py",
+      "sha256": "23f4e499092417c1447769ea39ba7a194f81dc2c3ea86a3c059b59a2d595f09b",
+      "line_count": 798,
+      "bytes": 28013
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/domain-fact-reference-v1.schema.json",
+      "sha256": "cdc0566d4df5a2011758019a063aca6dbdfb138442e802442ad7c33a84266dd9",
+      "line_count": 33,
+      "bytes": 725
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-architecture-description-v1.schema.json",
+      "sha256": "402592dc9900c703db89e2b14fef4057c64d21791f8590fcde14fe1341c967d5",
+      "line_count": 819,
+      "bytes": 18747
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-domain-collection-v1.schema.json",
+      "sha256": "2b1b7f22ae898026e5fdb1d864d48f4f0bb6ab6829ca216b815b47788ec0db53",
+      "line_count": 100,
+      "bytes": 2192
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-domain-model-v1.schema.json",
+      "sha256": "1d5e7fbd79471184206a630e6bdf2b97e3eda239c15e7f1b601e491efc2eb2c4",
+      "line_count": 233,
+      "bytes": 5055
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-domain-source-v1.schema.json",
+      "sha256": "0685dedd5ca5a138729c16c308190101f4cdae5f5464402753ec374296ff3ec7",
+      "line_count": 921,
+      "bytes": 20240
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-product-definition-v1.schema.json",
+      "sha256": "c7d5d0a6bc36ebb9bcdbb4bf3cadebe58fd38a9603bfbfd57e4e9b6d548ac543",
+      "line_count": 493,
+      "bytes": 10364
+    },
+    {
+      "path": "tests/support/__init__.py",
+      "sha256": "3de8a4a2d1a7c39a39e659c040ef311e1526af24098a396468f33162bd1b2398",
+      "line_count": 1,
+      "bytes": 46
+    },
+    {
+      "path": "tests/support/behavior_examples.py",
+      "sha256": "a17f6373d258fbe5f91dd5814a5abfc200eca5c834077625b20d000a646339b9",
+      "line_count": 42,
+      "bytes": 1815
+    },
+    {
+      "path": "tests/support/governance_assessment.py",
+      "sha256": "5c912e2bd629b66bf8df73238d94b2da1e02bcb26541e9e7b64a857bd9407e63",
+      "line_count": 1007,
+      "bytes": 39873
+    },
+    {
+      "path": "tests/support/history_records.py",
+      "sha256": "3f9da9a198b32d015bcbbb0c54f548b2472b58084eb95500a870ae82d4c49604",
+      "line_count": 116,
+      "bytes": 7182
+    },
+    {
+      "path": "tests/support/implementation_alignment.py",
+      "sha256": "7711215903965a40507f36b9ba7050a11538d73fd708ecee402ba9c7302814f0",
+      "line_count": 110,
+      "bytes": 5344
+    },
+    {
+      "path": "tests/support/project_baseline.py",
+      "sha256": "1f729a46cd4775bc3ec64273310b5518bea3c19dec470e803c61fe15705eec97",
+      "line_count": 830,
+      "bytes": 32542
+    },
+    {
+      "path": "tests/support/project_configuration.py",
+      "sha256": "f5e31a3976bbddfbb74feccda2a1366205a83cdd031744372f81c1c617ce98ea",
+      "line_count": 51,
+      "bytes": 2373
+    },
+    {
+      "path": "tests/support/project_context.py",
+      "sha256": "e3dbd35ee4cdf6bd5d658319ef9b1086a88163a0506cbc6c82c5acd81e6701aa",
+      "line_count": 65,
+      "bytes": 2255
+    },
+    {
+      "path": "tests/support/review_context.py",
+      "sha256": "66775f3379adb6470cdae63122c9ac62ab55fa3920fd919e0ec7f86ee9c37be0",
+      "line_count": 60,
+      "bytes": 2644
+    },
+    {
+      "path": "tests/support/review_subject.py",
+      "sha256": "eb5d8f4930524ef3df2cff69c87cb9c76ee944fa8d4e0a9ae0e43f02343096cb",
+      "line_count": 38,
+      "bytes": 1625
+    },
+    {
+      "path": "tests/support/verification_approval.py",
+      "sha256": "52e56793ed7d55b47cfe939d487f775b9d3c166de989cc654f0b8f970d792528",
+      "line_count": 66,
+      "bytes": 2084
+    },
+    {
+      "path": "tests/unit/test_implementation_alignment_preparation.py",
+      "sha256": "a3c631497edeb5fde98a4ac25728498e161cf520eb92a3ab9409e70b5a744f22",
+      "line_count": 1370,
+      "bytes": 46875
+    },
+    {
+      "path": "tests/unit/test_product_narrative.py",
+      "sha256": "1c2f9e93da643ca9a590673305bafe5875085ae75b7d81513823df847b5aa9dd",
+      "line_count": 253,
+      "bytes": 9580
+    },
+    {
+      "path": "tests/unit/test_project_authority_contracts.py",
+      "sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+      "line_count": 377,
+      "bytes": 15241
+    },
+    {
+      "path": "tests/unit/test_project_domain_model.py",
+      "sha256": "e3816e3d2ad82b72936af9d61bd73cd725d6ba5583f46a6118f1107ca0ee6d72",
+      "line_count": 345,
+      "bytes": 11465
+    },
+    {
+      "path": "tests/unit/test_project_product_definition.py",
+      "sha256": "7461a74fe290763ae61db0b8db184da53fc42ef539f992f9772cf4f7c594cf99",
+      "line_count": 371,
+      "bytes": 12557
+    },
+    {
+      "path": "tests/unit/test_target_domain_model_contract.py",
+      "sha256": "608165596e80b476ce2d2f51f32d7e1346c9b8d518af74e08d58a3fd51d1f6e1",
+      "line_count": 506,
+      "bytes": 17187
+    }
+  ],
+  "excluded_retired_locators": [
+    "tests/unit/test_implementation_alignment_preparation.py::test_installed_alignment_module_has_no_legacy_direct_write_entry"
+  ],
+  "limitations": [
+    "The old locator index is navigation only. Contracts were compared to current documents; every source/test was re-read and function line locations rebuilt.",
+    "Recorded test results prove their named assertions at the recorded time, not full semantic sufficiency. JUnit does not capture execution-time source hashes.",
+    "All real-project authorities remain draft/unconfirmed; Git baseline fields are not yet bound because the new repo is unborn. Do not fabricate Git or owner acceptance.",
+    "These targets concern current program responsibilities. Agent effectiveness, whole-project maturity and external certification are separate claims."
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false
+}

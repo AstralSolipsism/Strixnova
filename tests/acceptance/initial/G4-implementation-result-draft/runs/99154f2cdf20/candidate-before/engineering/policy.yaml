@@ -1,0 +1,78 @@
+schema_version: strixnova.project-engineering-policy.v1
+policy_id: POLICY-1111111111111111
+revision:
+  revision_id: POLICYREV-3333333333333333
+  status: "confirmed"
+  supersedes_revision_id: POLICYREV-1111111111111111
+  confirmed_by_owner_id: "OWNER-1111111111111111"
+  confirmed_on: "2026-09-29"
+product_definition_ref:
+  product_id: PRODUCT-1111111111111111
+  revision_id: REVISION-3333333333333333
+base_profile_ref:
+  profile_id: strixnova-general-software-engineering
+  profile_version: '2026-08-23'
+method_adoptions:
+  - method_id: ddd
+    status: conditional
+    reason: >-
+      申请生命周期、状态转换规则、决定权和审计需要显式领域建模；
+      区间校验保持纯函数不需要完整 DDD 仪式。
+    conditions:
+      - 限于预约申请实体及其生命周期和关联规则。
+    adopted_technique_ids:
+      - bounded_context
+      - context_map
+      - domain_invariant_trace
+      - ubiquitous_language
+policy_statements:
+  quality:
+    - 结构、语义和效果证据分开报告。
+    - 审计记录的完整性是质量要求的一部分。
+  testing:
+    - 以真实断言检查函数行为；开发反馈与正式验证记录分别说明。
+    - 并发场景需要明确的验证方案，不能仅靠单线程单元测试。
+  security:
+    - 身份来自可信宿主会话，不信任传入角色或所有者字段。
+    - 周报不含成员私人联系方式。
+  release:
+    - 只验证本地交付。
+    - 界面限定为本地终端交互，不增加网页或网络服务。
+  operations:
+    - 外部操作必须有真实回执。
+  maintenance:
+    - 新接口接管后删除旧机制。
+    - 申请身份和状态含义在所有单元中统一，不各自定义。
+  compatibility:
+    - 保持 duration 函数签名和合法区间的既有返回行为。
+project_sources: []
+rule_extensions: []
+rule_tailoring: []
+verification_command_policy:
+  allowed_programs:
+    - program: D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+      purpose: 在本隔离工程运行已声明的 pytest 验证。
+      argument_policy: exact_plan_only
+  forbidden_agent_program_names:
+    - agy
+    - aider
+    - claude
+    - codex
+    - cursor
+    - gemini
+    - opencode
+    - windsurf
+  wrapper_policy: forbidden_unless_exactly_approved
+  working_directory_policy: project_or_authorized_worktree_only
+  plan_binding_required: true
+delivery_gates:
+  result_acceptance_before_commit: true
+  local_integration_only: true
+  external_execution_requires_external_receipt: true
+  remote_operations_in_scope: false
+evidence_requirements:
+  separate_structure_semantics_confirmation_effect_and_conformance: true
+  unrun_items_visible: true
+  semantic_correctness_machine_proven: false
+  external_conformance_without_external_evidence: false
+unresolved_decisions: []

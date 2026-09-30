@@ -1,0 +1,230 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-6A2C5B892FFB4CE5
+scope_fact_ids: []
+facts:
+- fact_id: FACT-159C0FC61FEE4E5D
+  status: draft
+  title: 项目目标权威治理
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-E5600880C7564373
+  - FACT-F8205962DE474AD7
+  - FACT-189E656540F34461
+  content:
+    responsibility: 保存产品定义、完整领域模型和目标架构的独立精确修订、确认、演进关系与单向依赖，使预期建设目标先于实现定档。 明确成员仓库归属、共同长期材料和精确修订，保持项目的一条当前权威链。
+    decisions:
+    - 哪份候选是当前已确认产品定义、领域模型和目标架构。
+    - 上游实质变化是否需要新修订并使哪些下游判断失效。
+    - 长期权威之间的引用是否精确、完整且方向合法。
+    excluded_responsibilities:
+    - 不保存当前代码符合性、测试证据或文件路径。
+    - 不替项目负责人作语义决定。
+    - 不把当前实现反推为目标。
+- fact_id: FACT-077782C6BEA34CA1
+  status: draft
+  title: 项目工程政策治理
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-CEF1A02972184E23
+  content:
+    responsibility: 保存跨建设事项长期有效的工程方法采用、保障等级规则、验证政策、交付关口和证据要求。
+    decisions:
+    - 项目采用、条件采用或不采用哪些工程方法。
+    - 不同真实影响和保障等级触发哪些确定性工程义务。
+    - 哪些验证、证据和交付关口是项目长期政策。
+    excluded_responsibilities:
+    - 不选择某个具体事项的方法应用结论。
+    - 不保存产品、领域或目标架构正文。
+    - 不把方法标签当作落实证明。
+- fact_id: FACT-766005AF53DF4871
+  status: draft
+  title: 项目实现对齐与漂移治理
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-56355272151F44EF
+  - FACT-1B200CD9D4FC4A3B
+  - FACT-29A948A8B5364EB3
+  - FACT-ECC7967D187F4AA1
+  - FACT-84DF6E5CAB34446B
+  - FACT-643E08A42D944901
+  content:
+    responsibility: 对照已确认领域模型和目标架构，确定受管实现观察范围，完整分类实现文件、接口和关系，记录观察覆盖、责任归属、对齐状态、差距、验证、处置与漂移影响。 实现归属、契约关系和观察范围按仓库区分，并保留对端不可观察造成的未知。
+    decisions:
+    - 哪些源码范围、项目、构建目标、配置和关系粒度必须被观察，哪些范围被明确排除。
+    - 当前观察能力和结果是否完整、部分、不可用、失败或存在未解析与歧义。
+    - 每个实现范围归属哪个目标责任并实现哪些领域事实。
+    - 实现是已对齐、部分对齐、缺失、越界、重复还是未知。
+    - 变化使哪些对齐判断过期、阻断或需要重新复核。
+    excluded_responsibilities:
+    - 不修改产品、领域或目标架构含义。
+    - 不选择或固化特定语言解析器、构建工具或代码图实现。
+    - 不以文件存在、测试通过或方法标签替代完整对齐判断。
+    - 不直接执行代码修改。
+- fact_id: FACT-AA4174FFBF99444C
+  status: draft
+  title: 建设事项治理
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-89383788CD9D4BB0
+  content:
+    responsibility: 保存建设事项、精确方向与方案确认、状态迁移、描述性关系、实际结果接受和唯一当前行动；实施时聚焦首个依赖已满足切片，仍只协调普通事项三次确认闭环。 多仓库交付事实从属于同一事项，方向、方案与结果接受仍整体组织。
+    decisions:
+    - 当前事项处于哪个合法生命周期状态。
+    - 哪一精确候选已由项目负责人确认或接受。
+    - 当前唯一下一行动和真正阻断是什么。
+    excluded_responsibilities:
+    - 不拥有产品、领域、目标架构或工程政策正文。
+    - 不生成工程语义或替代智能编码代理调查。
+    - 不拥有版本历史或执行外部工程工具。
+- fact_id: FACT-07A448FB8DED43A4
+  status: draft
+  title: 工程评估治理
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B79387477E254534
+  - FACT-47B266640F1840DA
+  - FACT-06BA69B23654410F
+  - FACT-A1C2E3F405162738
+  - FACT-C3E4A5061728395A
+  - FACT-B2D3F40516273849
+  - FACT-D4F5B61728395A6B
+  content:
+    responsibility: 接收智能编码代理形成的事项级工程语义候选，校验上游引用、影响覆盖、方法选择、权威变更集、语义复核声明、实施切片依赖、风险、验证和已知限制，并形成可确认方案候选与负责人视图。 按独立验收目标安排跨仓库操作、契约影响、必要依赖证据与逐仓库交付。
+    decisions:
+    - 候选是否满足确定性结构、引用、声明覆盖、切片依赖和项目政策要求。
+    - 哪些真实未知构成阻断，哪些已有明确处置计划。
+    - 哪份完整方案候选可提交项目负责人确认。
+    excluded_responsibilities:
+    - 不生成影响、风险、方法或方案语义。
+    - 不修改长期目标权威或政策。
+    - 不把结构校验通过表述成方案正确。
+- fact_id: FACT-2BF62783DA7F4553
+  status: draft
+  title: 本地变更交付
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8C6CC8AD9DCD4310
+  - FACT-3E762C2DD5EF44DA
+  content:
+    responsibility: 在已确认方案和结果接受边界内，协调外部版本管理系统提供实施空间、原子提交、本地合入、冲突处理和安全清理事实。 各仓库交付分别核对，保留部分完成、取消与中断恢复依据，不宣称跨仓库原子事务。
+    decisions:
+    - 当前事项是否已获得创建或使用本地实施空间的授权。
+    - 结果提交是否只包含已接受事项范围且可安全本地合入。
+    - 合入、冲突处理和清理是否具有真实回执。
+    excluded_responsibilities:
+    - 不拥有版本历史或自行实现版本管理。
+    - 不执行远程代码托管或发布。
+    - 不在实际结果接受前形成交付提交。
+- fact_id: FACT-C1F4646AEC0747C0
+  status: draft
+  title: 验证与实际结果
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C33E74EC824D4AE0
+  - FACT-C81DA4F98DBF40FB
+  - FACT-E006363B710D433B
+  content:
+    responsibility: 校验验证计划和命令边界，协调外部测试构建工具执行，保存真实回执，并校验实际结果候选对效果、未运行项、偏差、限制和方法落实的披露完整性。 对多仓库内容及外部依赖组合报告实际证明范围，缺少对端源码不自动阻断接口验证或伪造实现对齐。
+    decisions:
+    - 验证请求是否符合已确认方案、政策和禁止调用代理边界。
+    - 外部回执能证明何种范围的通过、失败、限制或未运行事实。
+    - 实际结果候选是否具备提交项目负责人接受所需的确定性完整性。
+    excluded_responsibilities:
+    - 不解释测试结果之外的业务正确性。
+    - 不伪造、扩大或隐藏外部验证事实。
+    - 不代替项目负责人接受实际结果。
+- fact_id: FACT-A3B069965B724D7D
+  status: draft
+  title: 交付发布与运行活动治理
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B8155BDA282E4527
+  - FACT-9FE2D628A8D8483D
+  - FACT-0BE164423C8D4C90
+  - FACT-BBEEBE36CB0F40CF
+  content:
+    responsibility: 规划交付、发布、部署、回退和运行监控活动，管理前后置关口、责任和状态，并记录外部系统提供的真实执行与运行事实。
+    decisions:
+    - 活动计划、责任、授权关口和停止条件是否闭合。
+    - 哪些外部事实允许活动开始、完成、失败、取消或回退。
+    - 当前产品阶段只能规划、可以接收回执还是具备真实执行接口。
+    excluded_responsibilities:
+    - 不自行部署、发布或监控软件。
+    - 不伪装尚未接入的外部能力已经可用。
+    - 不以事项完成替代生产运行成功。
+- fact_id: FACT-A468C3D0605A3756
+  status: draft
+  title: 受支持智能编码代理引导交互
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-32F33CAB000C4F0D
+  - FACT-D921CBBA28354A0B
+  - FACT-D4F5B61728395A6B
+  content:
+    responsibility: 通过精确随包唯一 Strixnova Skill（技能）和通用命令接口，向能够使用该 Skill 的受支持智能编码代理渐进投影当前必要事实、唯一下一行动、首个依赖已满足实施切片、纠偏原因和按关注点组织的负责人呈现提示。
+      统一呈现事项整体结果与各仓库不同状态，仓库数量不增加常规确认负担。
+    decisions:
+    - 当前请求应读取或提交哪类确定性事实。
+    - 为完成当前行动最少需要投影哪些内容。
+    - 请求是否越过状态、权限、版本或禁止代理控制边界。
+    excluded_responsibilities:
+    - 不生成或判断工程语义。
+    - 不发起、调用、认证、编排或管理智能编码代理。
+    - 不要求特定宿主、插件、钩子或会话适配；随包唯一 Skill 是必要使用说明，但不是认证、授权、语义权威或第二套运行状态。
+- fact_id: FACT-3D2D74227A26E9A6
+  status: draft
+  title: Strixnova 自身运行维护
+  kind: bounded_context
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-4443210E3D22E700
+  content:
+    responsibility: 协调指定项目的 Strixnova 程序、随包资源、Skill 与持久数据的明确升级和恢复。
+    decisions:
+    - 源与目标版本组合是否受支持。
+    - 已有操作是否已稳定结束，备份与转换是否完整。
+    - 切换可否继续，恢复是否会覆盖新增事实。
+    excluded_responsibilities:
+    - 不停止、发布或升级被管理的业务系统。
+    - 不改变业务目标、用户确认或工程语义。
+    - 不扫描其他项目，不管理宿主会话或自动远程更新。

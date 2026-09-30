@@ -1,0 +1,282 @@
+{
+  "changed_paths": [
+    "strixnova/src/strixnova/process_supervisor.py",
+    "strixnova/src/strixnova/project_engineering_policy.py",
+    "strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md",
+    "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md"
+  ],
+  "affected_target_ids": [
+    "MODULE-6DEF61048B394531",
+    "MODULE-71687954FB1E4DFD",
+    "MODULE-8205A05A6F5E48A8"
+  ],
+  "previous_source_records": [
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/process_supervisor.py",
+      "sha256": "9e2db10c6f77c23d31c7a85c38b6e3ebae769c978ed2b58a29922333e812c03e",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-6DEF61048B394531",
+      "implementation_stage_id": "ARCHSTAGE-3A40145E290D4B62",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "文件是受限进程监督模块唯一源文件，实现 run_process、ProcessPolicy、ProcessLimits、ProcessResult 等全部公开接口，与模块职责完全对应 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/project_engineering_policy.py",
+      "sha256": "1704dff4e85cd8561ed0f5d2211a9407cf0ca1e1b8b4a3232ad0740d772ab3ec",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-8205A05A6F5E48A8",
+      "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "ProjectEngineeringPolicy implements load() with validation, governance_profile(), and obligations() mapping to all 3 contract operations. 536 lines fully read. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md",
+      "sha256": "f7fb8200a203001ae63d30b696d90f589f99a13e8662a723607930816ef10268",
+      "language_id": "markdown",
+      "node_kind": "agent_guidance",
+      "disposition": "owned",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md",
+      "sha256": "e22aad33357ad590c66e2dd3c80c98e3b824c7e502f84dc43f3457d3f2daceb9",
+      "language_id": "markdown",
+      "node_kind": "agent_guidance",
+      "disposition": "owned",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    }
+  ],
+  "previous_target_records": [
+    {
+      "target_kind": "module",
+      "target_id": "MODULE-6DEF61048B394531",
+      "status": "implemented",
+      "satisfied": [
+        "run_process 函数（process_supervisor.py L494）实现运行受限进程：在调用方提供 ProcessPolicy（policy_id、purpose、allowed_commands）、工作目录及 ProcessLimits 后运行外部进程",
+        "ProcessPolicy.validate 拒绝非精确允许列表中的命令（policy_denied），并拒绝启动 FORBIDDEN_AGENT_PROGRAM_NAMES 中的 AI 代理程序",
+        "取消受限进程通过 cancellation_requested 回调机制实现（L562-564），进程树清理通过 _terminate_process_tree 完成（L445-485）",
+        "ProcessResult 数据类返回 command_name、exit_code、stdout、stderr、duration_seconds 等精确事实，不解释业务含义",
+        "超时、输出超限、取消、禁止后代程序均以 ProcessExecutionError 区分 reason 字段返回，含 partial_result",
+        "Windows Job Object（_WindowsJob.create）在 Windows 上建立进程组，Linux/macOS 使用进程组会话（start_new_session=True）实现进程树隔离",
+        "_forbidden_descendant 函数通过进程快照和创建时间识别真实后代，防止 PID 重用攻击，不能核验时抛出 process_identity_unverifiable",
+        "MAX_PROCESS_INPUT_BYTES 和 MAX_PROCESS_OUTPUT_BYTES 与 engineering_governance.py 中相同常量对齐",
+        "shell=False 防止任意命令注入，close_fds=True、CREATE_NO_WINDOW 等细节落实最小特权",
+        "forbids_program 方法检查包装器参数中的代理程序名，防止 bash -c aider 等绕过方式",
+        "ProcessPolicy 要求 policy_id、purpose、allowed_commands 均非空，__post_init__ 验证不变量",
+        "recorded_executions 显示 test_process_supervisor.py 全部四个测试在 d0856323c4b6 和 f5e20647248e 两次运行均 passed"
+      ],
+      "missing": [],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/process_supervisor.py#L188-L264",
+          "claim": "ProcessPolicy 定义精确允许命令列表、forbidden_program_names，validate 方法拒绝不允许命令和代理程序"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/process_supervisor.py#L494-L659",
+          "claim": "run_process 完整实现：policy 校验、工作目录解析、ProcessLimits、stdin/stdout/stderr 捕获、超时轮询、进程树清理、结果返回"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/process_supervisor.py#L395-L442",
+          "claim": "_forbidden_descendant 通过创建时间区分真实后代与 PID 重用，对不可核验状态抛出 ProcessExecutionError"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/process_supervisor.py#L101-L151",
+          "claim": "_WindowsJob 实现 Windows Job Object，KILL_ON_JOB_CLOSE 保证进程树生命周期绑定"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/process_supervisor.py#L267-L279",
+          "claim": "ProcessResult 仅包含 command_name、exit_code、stdout、stderr、duration_seconds，不含业务含义字段"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/process_supervisor.py#L662-L670",
+          "claim": "__all__ 仅导出 ProcessPolicy、ProcessLimits、ProcessResult、ProcessExecutionError、run_process 等，无任意命令执行入口"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_process_supervisor.py::test_reused_parent_pid_does_not_make_an_older_agent_a_child",
+          "claim": "run_id d0856323c4b6 和 f5e20647248e 均 passed，覆盖 PID 重用不认定为子进程的断言"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_process_supervisor.py::test_creation_time_check_retains_real_forbidden_descendants",
+          "claim": "run_id d0856323c4b6 和 f5e20647248e 均 passed，覆盖创建时间核验保留真实禁止后代"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_process_supervisor.py::test_unverifiable_supervision_stops_own_command",
+          "claim": "run_id d0856323c4b6 和 f5e20647248e 均 passed，覆盖不可核验时停止本命令的断言"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_process_supervisor.py::test_exited_intermediate_does_not_silently_clear_supervision",
+          "claim": "run_id d0856323c4b6 和 f5e20647248e 均 passed，覆盖中间进程退出不静默清除监督"
+        },
+        {
+          "kind": "inspection",
+          "ref": "tests/acceptance/initial/implementation-assessment/modules-3/assessment.json",
+          "claim": "本条当前实现评价由真实Antigravity起草并经独立原生复核；完整输入摘要、首次错误、纠正及局限随记录保存。不是整体Agent效果、Git采用或负责人接受。"
+        }
+      ],
+      "deviation_ids": [],
+      "resolution_plan": [
+        "对 cleanup_failed 降级路径（Windows 无 Job Object 时）补充文档说明已知局限及调用方责任",
+        "考虑对深度嵌套或延迟启动的代理程序检测补充说明或局限声明"
+      ]
+    },
+    {
+      "target_kind": "module",
+      "target_id": "MODULE-71687954FB1E4DFD",
+      "status": "implemented",
+      "satisfied": [
+        "读取当前聚焦视图: WorkItemReadModel.overview() (L183-226) and focused_work_item() (L257-268) return schema-versioned focused views including work_item, relations, current_action, project summary, and attention items.",
+        "读取方向决定上下文: WorkItemReadModel.project_direction_context() (L653-665) delegates to ProjectAuthorityConsistency for direction invalidation context; unadopted_project_direction_context() used as fallback.",
+        "读取项目状态视图: WorkItemReadModel.project_status() (L555-620) with _project_status_from_authorities() (L922-1130) returns comprehensive project status including product, domain, architecture, alignment, verification, delivery, and assurance facets.",
+        "读取工程追溯: engineering_trace_for_work_item() (L834-842), engineering_trace_for_fact() (L844-852), engineering_trace_for_artifact() (L854-862) delegate to EngineeringTraceProjection which provides for_work_item(), for_fact(), for_artifact() (engineering_trace_projection.py L46-237).",
+        "读取审阅上下文: ReviewContextProjection.read() (review_context_projection.py L62-247) validates input, assembles basis, selects modules, collects ownership/dependencies/responsibilities/deviations, captures file content with budget constraints, performs consistency re-reads.",
+        "读取标准锚定与内部符合性矩阵: WorkItemReadModel.project_engineering_assurance() (L667-684) delegates to ProjectEngineeringAssurance and returns assurance.matrix(); compliance matrix is provided through delegation."
+      ],
+      "missing": [],
+      "evidence": [
+        {
+          "claim": "overview() and focused_work_item() implement the focused view query operation with schema_version READ_MODEL_SCHEMA",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/work_item_read_model.py#L183-L268"
+        },
+        {
+          "claim": "project_status() dispatches between working_tree candidate, adopted authorities, and unadopted states to produce a project-status-view.v1 result",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/work_item_read_model.py#L555-L620"
+        },
+        {
+          "claim": "project_direction_context() and project_engineering_assurance() delegate to respective authority modules; assurance returns matrix() result",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/work_item_read_model.py#L653-L684"
+        },
+        {
+          "claim": "EngineeringTraceProjection provides for_work_item/for_fact/for_artifact with mode=current|audit, rebuilding edges from work items to domain facts, artifacts, verification receipts, commits, and external activities",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_trace_projection.py#L46-L237"
+        },
+        {
+          "claim": "ReviewContextProjection.read() validates input schema, resolves repositories, basis, authorities, modules, ownership, dependencies, responsibilities, deviations, file content, and performs consistency re-reads; produces review-context.v1 output",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/review_context_projection.py#L56-L371"
+        },
+        {
+          "claim": "execution_context() assembles plan, slice, operations, findings, verification, assessment material, blockers and gaps from a work item record",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/execution_context.py#L49-L120"
+        },
+        {
+          "claim": "input_contract_for() generates exact public payload contracts per action type with referenced schemas, recovery routes and instructions",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/public_input_contract.py#L593-L669"
+        },
+        {
+          "claim": "WorkItemHistory.query() provides bounded, paginated, cursor-based historical projections over work items, events, verifications, candidates, artifacts, deliveries, relations and outputs",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/work_item_history.py#L62-L262"
+        },
+        {
+          "claim": "All 24 test_definition_ids have recorded_executions with outcome passed in both run d0856323c4b6 and f5e20647248e",
+          "kind": "test",
+          "ref": "tests/acceptance/initial/implementation-assessment/modules-4/input-packet.json#/targets/0/test_definition_ids"
+        },
+        {
+          "kind": "inspection",
+          "ref": "tests/acceptance/initial/implementation-assessment/modules-4/assessment.json",
+          "claim": "本条当前实现评价由真实Antigravity起草并经独立原生复核；完整输入摘要、首次错误、纠正及局限随记录保存。不是整体Agent效果、Git采用或负责人接受。"
+        }
+      ],
+      "deviation_ids": [],
+      "resolution_plan": []
+    },
+    {
+      "target_kind": "module",
+      "target_id": "MODULE-8205A05A6F5E48A8",
+      "status": "implemented",
+      "satisfied": [
+        "读取精确工程政策: ProjectEngineeringPolicy.load() (L218-420) loads YAML, validates schema, checks bindings, validates methods, sources, rules, verification command policy; returns deepcopy with metadata. Cached.",
+        "校验工程政策候选: load() performs comprehensive structural validation including schema, base profile binding, method adoption, source reference, rule extension/tailoring, verification command policy, and lifecycle checks. Raises ProjectEngineeringPolicyError. Validation is within load, not requiring a standalone validate method.",
+        "评估确定性义务: obligations() (L481-521) takes impact_dimensions and assurance_band, projects rules from governance_profile, computes minimum_required_assurance_band; returns deterministic obligation projection."
+      ],
+      "missing": [],
+      "evidence": [
+        {
+          "claim": "load() performs schema validation, base profile binding check, method adoption validation, source reference validation, rule extension/tailoring validation, verification command policy validation, and lifecycle status checks",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L218-L420"
+        },
+        {
+          "claim": "governance_profile() merges base governance profile with project sources, rule tailoring, extensions, method adoptions, policy statements, and verification command policy",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L422-L479"
+        },
+        {
+          "claim": "obligations() projects rules from governance_profile based on impact_dimensions and assurance_band, computing minimum_required_assurance_band deterministically",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L481-L521"
+        },
+        {
+          "claim": "load_base_governance_profile() loads shipped governance-profile-v1.json and validates structure including required fields and band ordering",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L113-L188"
+        },
+        {
+          "claim": "ProjectEngineeringPolicyError extends ValueError with issues list for structured validation error reporting",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L63-L68"
+        },
+        {
+          "claim": "All 16 test_definition_ids have recorded_executions with outcome passed in both runs",
+          "kind": "test",
+          "ref": "tests/acceptance/initial/implementation-assessment/modules-4/input-packet.json#/targets/1/test_definition_ids"
+        },
+        {
+          "kind": "inspection",
+          "ref": "tests/acceptance/initial/implementation-assessment/modules-4/assessment.json",
+          "claim": "本条当前实现评价由真实Antigravity起草并经独立原生复核；完整输入摘要、首次错误、纠正及局限随记录保存。不是整体Agent效果、Git采用或负责人接受。"
+        }
+      ],
+      "deviation_ids": [],
+      "resolution_plan": []
+    }
+  ],
+  "current_source_hashes": {
+    "strixnova/src/strixnova/process_supervisor.py": "00b5b41f935844c2b8761426ece225061a33af7a2f333fb082fbdffd5d9e3b96",
+    "strixnova/src/strixnova/project_engineering_policy.py": "827909708c13e2d65d9939e07084c17b737a3f366350f4a1360c61a7e018673d",
+    "strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md": "322df678e6a8e8f241f3551f6342baa6f80282e2ed4faaded3fca12fbd6f6ddb",
+    "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md": "ff3f10c5419d7e804f5472c1285247690cee0cf0a2512ad05ff16743fed0218d"
+  },
+  "scope": "Deterministic changed-input identification only. Unchanged module evaluations retained; changed code/guidance evaluations explicitly pending.",
+  "semantic_content_machine_proven": false,
+  "owner_accepted": false
+}

@@ -1,0 +1,207 @@
+{
+  "current_action": {
+    "action_type": "submit_engineering_assessment",
+    "actor": "coding_agent",
+    "blocking_facts": [],
+    "conditional_record_refs": [],
+    "input_contract_ref": "input.contract:submit_engineering_assessment",
+    "input_kind": "engineering_assessment",
+    "intent": "submit",
+    "record_refs": [
+      "direction",
+      "direction_confirmation",
+      "project.direction_context",
+      "project.follow_ups"
+    ],
+    "schema_version": "strixnova.current-action.v1",
+    "work_item_id": "WI-20260928-9A2A1BC1",
+    "work_item_version": 6
+  },
+  "reading": {
+    "complete": true,
+    "max_output_bytes": 262144,
+    "schema_version": "strixnova.record-reading.v1",
+    "unread_refs": []
+  },
+  "record_pages": {},
+  "record_sources": {
+    "direction": {
+      "root_ref": "direction",
+      "source_sha256": "57249fab9a57c9e4e8f77d0ca738126107e3ea0766bcc976cc2f86b5bc892524"
+    },
+    "direction_confirmation": {
+      "root_ref": "direction_confirmation",
+      "source_sha256": "8c05dd3bcea9cc8a3f7bbb8fcf4466442176aa4024eff97377f03b54a07e691f"
+    }
+  },
+  "records": {
+    "direction": {
+      "acceptance": [
+        {
+          "acceptance_id": "DIRACC-A100000000000001",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A100000000000001"
+                ],
+                "example_id": "DIREX-0000000000000001",
+                "given": [
+                  "可信会话身份为成员 M1",
+                  "存在 M1 发起且状态为待审核的申请 A1"
+                ],
+                "then": [
+                  "申请 A1 状态更新为已撤回",
+                  "生成包含操作者 M1、原状态待审核、新状态已撤回的审计记录"
+                ],
+                "title": "成员正常撤回本人待审核预约申请",
+                "when": "M1 提交撤回申请 A1"
+              },
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A100000000000001"
+                ],
+                "example_id": "DIREX-0000000000000002",
+                "given": [
+                  "可信会话身份为成员 M2",
+                  "存在 M1 发起且状态为待审核的申请 A1"
+                ],
+                "then": [
+                  "操作被拒绝",
+                  "申请 A1 状态保持待审核不变"
+                ],
+                "title": "成员尝试撤回他人申请被拒绝",
+                "when": "M2 提交撤回申请 A1"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A100000000000001",
+            "DIRREQ-A100000000000003"
+          ],
+          "statement": "成员能够成功撤回本人处于待审核状态的申请；非本人申请或非待审核状态的撤回被明确拒绝。"
+        },
+        {
+          "acceptance_id": "DIRACC-A100000000000002",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A100000000000002"
+                ],
+                "example_id": "DIREX-0000000000000003",
+                "given": [
+                  "申请 A1 已被 M1 撤回"
+                ],
+                "then": [
+                  "返回已撤回成功结果",
+                  "不产生重复的审计日志"
+                ],
+                "title": "已撤回申请重复撤回幂等返回",
+                "when": "M1 再次提交撤回 A1"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A100000000000002"
+          ],
+          "statement": "撤回具备幂等性与版本并发一致性；审计记录完整。"
+        }
+      ],
+      "constraints": [
+        {
+          "constraint_id": "DIRCON-A100000000000001",
+          "statement": "只能由可信宿主会话提供操作者身份，严禁信任传入的角色或所有者字段。"
+        },
+        {
+          "constraint_id": "DIRCON-A100000000000002",
+          "statement": "成员撤回与运营审批必须有并发保护，只允许一个状态流转成功。"
+        },
+        {
+          "constraint_id": "DIRCON-A100000000000003",
+          "statement": "界面交互严格限定为本地终端交互，不引入Web或网络服务。"
+        }
+      ],
+      "decision_context": {
+        "assumptions": [
+          {
+            "reconsider_when": "运行环境要求完全匿名或无法提供可信会话身份。",
+            "statement": "可信宿主会话提供经过验证的操作者身份与角色，客户端或传入字段不能伪造。"
+          }
+        ],
+        "capability_refs": [],
+        "context_ref": null,
+        "guardrail_dispositions": []
+      },
+      "goal": "扩展预约申请工具：支持成员撤回本人处于待审核状态的预约申请（先行推进第一成果）",
+      "non_goals": [
+        "本轮不实现已批准预约的取消、变更或重新审批流程。",
+        "周报下载汇总作为独立待办事项（WI-20260928-DB4C76AE）分别交付，不在本事项实施业务代码。",
+        "不增加网页端或网络远程服务，不实现缴费或通知外发。"
+      ],
+      "schema_version": "strixnova.direction-decision.v1",
+      "scope": [
+        {
+          "requirement_id": "DIRREQ-A100000000000001",
+          "statement": "成员可撤回本人发起的处于待审核状态的预约申请，不信任传入角色或所有者字段。"
+        },
+        {
+          "requirement_id": "DIRREQ-A100000000000002",
+          "statement": "撤回操作具备幂等性（重复撤回返回相同结果且不重复记审计），并在与审批并发时通过版本并发控制只允许一个版本成功；响应丢失后可查询实际状态；审计记录操作者、原状态、新状态和操作身份。"
+        },
+        {
+          "requirement_id": "DIRREQ-A100000000000003",
+          "statement": "申请身份、状态含义和决定权作为与周报单元共享的核心规范；界面交互严格限定为本地终端交互。"
+        }
+      ],
+      "tradeoffs": [
+        "优先单点交付高确定性的成员撤回价值成果，周报汇总拆单独立跟进，解耦交付节奏并降低单次变更风险。"
+      ],
+      "work_item_relations": [
+        {
+          "reason": "共用同一预约申请领域上下文与底层时长组件，但作为独立结果分别交付。",
+          "relation_type": "related_to",
+          "target_work_item_id": "WI-20260928-DB4C76AE"
+        }
+      ]
+    },
+    "direction_confirmation": {
+      "accepted": true,
+      "agent_decision": {
+        "decision": "accept",
+        "reason": "负责人明确表示理解并同意当前展示的事项方向，授权继续制定工程方案。"
+      },
+      "candidate_fingerprint": "sha256:c4f73b64d54207b6b8fa25e1615997bab109a2dc56acdce54e2a4200dabb0647",
+      "candidate_kind": "direction",
+      "decision_interpreter": "coding_agent",
+      "decision_label": "当前展示的方向",
+      "direction_version": 6,
+      "schema_version": "strixnova.user-confirmation.v1",
+      "semantic_content_machine_proven": false,
+      "summary": "负责人明确表示理解并同意当前展示的事项方向，授权继续制定工程方案。",
+      "user_confirmation": "现在理解这份方向说明了，同意这个方向，请继续制定工程方案。"
+    }
+  },
+  "relations": {
+    "declared": [
+      {
+        "reason": "共用同一预约申请领域上下文与底层时长组件，但作为独立结果分别交付。",
+        "related_work_item": {
+          "status": "awaiting_direction_confirmation",
+          "title": "负责人下载每周预约汇总",
+          "work_item_id": "WI-20260928-DB4C76AE"
+        },
+        "relation_type": "related_to",
+        "source_work_item_id": "WI-20260928-9A2A1BC1",
+        "target_work_item_id": "WI-20260928-DB4C76AE"
+      }
+    ],
+    "referenced_by": []
+  },
+  "schema_version": "strixnova.next-step.v1",
+  "work_item_id": "WI-20260928-9A2A1BC1",
+  "work_item_status": "needs_engineering_assessment",
+  "work_item_version": 6
+}

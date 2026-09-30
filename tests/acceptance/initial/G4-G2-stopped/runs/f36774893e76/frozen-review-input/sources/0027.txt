@@ -1,0 +1,48 @@
+1: schema_version: strixnova.project-product-definition.v1
+2: product_id: PRODUCT-1111111111111111
+3: revision:
+4:   revision_id: REVISION-1111111111111111
+5:   status: confirmed
+6:   supersedes_revision_id: null
+7:   confirmed_by_owner_id: OWNER-1111111111111111
+8:   confirmed_on: '2026-09-28'
+9: title: 预约区间小组件
+10: purpose: 提供可重复使用的整数分钟区间校验与时长计算。
+11: product_owner:
+12:   owner_id: OWNER-1111111111111111
+13:   display_name: 隔离测试项目负责人
+14: primary_users:
+15: - user_id: USER-1111111111111111
+16:   title: 调用组件的业务开发者
+17:   description: 在登记预约前取得合法的区间时长或明确拒绝。
+18: problems:
+19: - problem_id: PROBLEM-1111111111111111
+20:   user_ids:
+21:   - USER-1111111111111111
+22:   statement: 不合法的时间顺序不能作为有效预约区间继续使用。
+23: desired_outcomes:
+24: - outcome_id: OUTCOME-1111111111111111
+25:   statement: 合法区间返回原有时长，不合法顺序得到 ValueError。
+26: capabilities:
+27: - capability_id: CAPABILITY-1111111111111111
+28:   title: 预约区间校验
+29:   description: 通过 duration(start, end) 校验整数刻度顺序并返回时长。
+30:   outcome_ids:
+31:   - OUTCOME-1111111111111111
+32: non_goals:
+33: - non_goal_id: NONGOAL-1111111111111111
+34:   statement: 不增加日期转换、时区、界面、持久化或远程服务。
+35: constraints:
+36: - constraint_id: CONSTRAINT-AAAAAAAAAAAAAAAA
+37:   statement: 保持函数签名和合法区间的既有返回行为。
+38: success_criteria:
+39: - criterion_id: CRITERION-1111111111111111
+40:   statement: 合法区间仍返回 end-start；结束不晚于开始时稳定拒绝。
+41:   outcome_ids:
+42:   - OUTCOME-1111111111111111
+43: delivery_stages:
+44: - stage_id: STAGE-1111111111111111
+45:   title: 当前隔离测试阶段
+46:   commitment: current_target
+47:   description: 只覆盖当前测试声明的本地行为。
+48: unresolved_decisions: []

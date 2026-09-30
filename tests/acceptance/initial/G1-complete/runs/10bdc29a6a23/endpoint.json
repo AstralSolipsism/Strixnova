@@ -1,0 +1,144 @@
+{
+  "reached": true,
+  "same_candidate_and_version": true,
+  "next": {
+    "current_action": {
+      "action_type": "confirm_direction",
+      "actor": "user",
+      "blocking_facts": [],
+      "conditional_record_refs": [],
+      "confirmation_challenge": {
+        "candidate_fingerprint": "sha256:f5a2afd114a4ad47b16a8406f8e78c0fa1c4fbb5a5d4905bc7317873d3e8b06a",
+        "candidate_kind": "direction",
+        "decision_interpreter": "coding_agent",
+        "decision_label": "当前展示的方向",
+        "schema_version": "strixnova.confirmation-challenge.v1"
+      },
+      "input_contract_ref": "input.contract:confirm_direction",
+      "input_kind": "direction_confirmation",
+      "intent": "confirm",
+      "record_refs": [
+        "direction",
+        "project.direction_context"
+      ],
+      "schema_version": "strixnova.current-action.v1",
+      "work_item_id": "WI-20260928-9CA7291C",
+      "work_item_version": 2
+    },
+    "reading": {
+      "complete": true,
+      "max_output_bytes": 4096,
+      "schema_version": "strixnova.record-reading.v1",
+      "unread_refs": []
+    },
+    "record_pages": {},
+    "record_sources": {
+      "direction": {
+        "root_ref": "direction",
+        "source_sha256": "42275e36a9f567f5b4d1904e1530339cdee486e5a72fcc9de97b35c4eb8ce8d8"
+      }
+    },
+    "records": {
+      "direction": {
+        "acceptance": [
+          {
+            "acceptance_id": "DIRACC-D4E5F60718293A4B",
+            "behavior": {
+              "applicability": "required",
+              "examples": [
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+                  ],
+                  "example_id": "DIREX-E5F60718293A4B5C",
+                  "given": [
+                    "start=10",
+                    "end=60"
+                  ],
+                  "then": [
+                    "返回 50"
+                  ],
+                  "title": "合法区间保持原有时长",
+                  "when": "调用 duration(10, 60)"
+                },
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+                  ],
+                  "example_id": "DIREX-F60718293A4B5C6D",
+                  "given": [
+                    "start=30",
+                    "end=30"
+                  ],
+                  "then": [
+                    "抛出 ValueError"
+                  ],
+                  "title": "结束刻度等于开始刻度时抛出 ValueError",
+                  "when": "调用 duration(30, 30)"
+                },
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+                  ],
+                  "example_id": "DIREX-0718293A4B5C6D7E",
+                  "given": [
+                    "start=50",
+                    "end=20"
+                  ],
+                  "then": [
+                    "抛出 ValueError"
+                  ],
+                  "title": "结束刻度小于开始刻度时抛出 ValueError",
+                  "when": "调用 duration(50, 20)"
+                }
+              ]
+            },
+            "requirement_refs": [
+              "DIRREQ-A1B2C3D4E5F60718",
+              "DIRREQ-B2C3D4E5F6071829"
+            ],
+            "statement": "结束刻度小于或等于开始刻度时抛出 ValueError，合法区间返回 end - start。"
+          }
+        ],
+        "constraints": [
+          {
+            "constraint_id": "DIRCON-C3D4E5F60718293A",
+            "statement": "严格保持 duration(start: int, end: int) -> int 函数签名与类型注解不变。"
+          }
+        ],
+        "decision_context": {
+          "assumptions": [],
+          "capability_refs": [],
+          "context_ref": null,
+          "guardrail_dispositions": []
+        },
+        "goal": "修复预约区间在结束刻度不大于开始刻度时的校验缺陷，抛出 ValueError",
+        "non_goals": [
+          "不引入日期、时区或日历解释，不添加持久化或远程调用服务。"
+        ],
+        "schema_version": "strixnova.direction-decision.v1",
+        "scope": [
+          {
+            "requirement_id": "DIRREQ-A1B2C3D4E5F60718",
+            "statement": "当结束刻度不大于开始刻度时（即 end <= start），抛出 ValueError。"
+          },
+          {
+            "requirement_id": "DIRREQ-B2C3D4E5F6071829",
+            "statement": "合法区间保持原有返回值（即 end - start），且函数签名不变。"
+          }
+        ],
+        "tradeoffs": [],
+        "work_item_relations": []
+      }
+    },
+    "relations": {
+      "declared": [],
+      "referenced_by": []
+    },
+    "schema_version": "strixnova.next-step.v1",
+    "work_item_id": "WI-20260928-9CA7291C",
+    "work_item_status": "awaiting_direction_confirmation",
+    "work_item_version": 2
+  },
+  "semantic_acceptance": "pending independent review"
+}

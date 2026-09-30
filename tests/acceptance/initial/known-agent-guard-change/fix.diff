@@ -1,0 +1,210 @@
+--- before/docs/engineering/policy.yaml
++++ after/docs/engineering/policy.yaml
+@@ -169,6 +169,7 @@
+     purpose: 执行明确属于只读检查或本地交付的版本管理操作。
+     argument_policy: exact_plan_only
+   forbidden_agent_program_names:
++  - agy
+   - codex
+   - claude
+   - gemini
+--- before/docs/engineering/repository-conventions.md
++++ after/docs/engineering/repository-conventions.md
+@@ -31,7 +31,7 @@
+ | 构建、安装与 Git 检出 | `scripts/build_clean_wheel.py`、`scripts/check_package_checkout.py`、`scripts/build_offline_bundle.py`、`scripts/check_offline_installation.py` | 只有 clean wheel 是构建入口；检出检查不构建、不暂存、不安装。对应构建、检出及离线安装测试。 |
+ | 内容身份与许可 | `scripts/skill_bundle_manifest.py`、`scripts/check_skill_cn_sync.py`、`scripts/third_party_notice.py` | 原字节身份、审阅同步和根 README 唯一许可正文分别核对，不用同一版本号代替同一内容。 |
+ 
+-脚本修改的方案需要指出所属职责、调用方和受影响检查；语义判断仍由 Agent 完成。开发工具可以调用已授权的外部 Agent，产品运行包仍不得因此新增 Agent 调度能力。
++脚本修改的方案需要指出所属职责、调用方和受影响检查；语义判断仍由 Agent 完成。开发工具可以调用已授权的外部 Agent，产品运行包仍不得因此新增 Agent 调度能力。本地验证外层保留已授权 Antigravity（`agy`）验收进程的调用能力；产品内部使用完整的禁止 Agent 名称政策。开发调用仍受 AGENTS.md 和本轮用户授权约束，外层允许执行不代表语义验收授权。
+ 
+ ## 核验和收尾
+ 
+--- before/scripts/local_validation.py
++++ after/scripts/local_validation.py
+@@ -5,6 +5,7 @@
+ import argparse
+ from contextlib import contextmanager
+ from datetime import datetime, timedelta, timezone
++from dataclasses import replace
+ import json
+ import os
+ from pathlib import Path
+@@ -252,9 +253,15 @@
+         try:
+             tempfile.tempdir = str(work / "temp")
+             try:
++                process_policy = ProcessPolicy.exact("local-validation", label, command)
++                # This development wrapper hosts explicitly authorized native
++                # Antigravity acceptance. Product calls construct their own
++                # policy with the complete agent deny list. Preserve all
++                # other existing outer-wrapper restrictions.
++                process_policy = replace(process_policy,
++                    forbidden_program_names=process_policy.forbidden_program_names - {"agy"})
+                 result = run_process(command, cwd=self.root, env=environment,
+-                    policy=ProcessPolicy.exact("local-validation", label, command),
+-                    limits=limits)
++                    policy=process_policy, limits=limits)
+                 record.update(status="passed" if result.exit_code == 0 else "failed", process_settled=True)
+             except ProcessExecutionError as error:
+                 result = error.partial_result
+--- before/skills-cn/strixnova/references/authority-authoring.zh-CN.md
++++ after/skills-cn/strixnova/references/authority-authoring.zh-CN.md
+@@ -270,7 +270,7 @@
+     - program: git
+       purpose: 执行明确批准的本地版本管理操作。
+       argument_policy: exact_plan_only
+-  forbidden_agent_program_names: [codex, claude, gemini, aider, opencode, cursor, windsurf]
++  forbidden_agent_program_names: [agy, codex, claude, gemini, aider, opencode, cursor, windsurf]
+   wrapper_policy: forbidden_unless_exactly_approved
+   working_directory_policy: project_or_authorized_worktree_only
+   plan_binding_required: true
+--- before/skills-cn/strixnova/references/engineering-policy-contracts.zh-CN.md
++++ after/skills-cn/strixnova/references/engineering-policy-contracts.zh-CN.md
+@@ -138,7 +138,7 @@
+ 工作目录政策只能是 `project_or_authorized_worktree_only`（仅项目或已授权工作区），
+ 方案绑定必须为 `true`（是）。
+ 
+-禁止程序至少包含 `codex`、`claude`、`gemini`、`aider`、`opencode`、`cursor` 和 `windsurf`。
++禁止程序至少包含 `agy`、`codex`、`claude`、`gemini`、`aider`、`opencode`、`cursor` 和 `windsurf`。
+ 这些是验证命令不得递归启动的 Agent 程序名，不限制当前宿主是谁。
+ 
+ 长期允许程序使用稳定程序身份或仓库内稳定相对路径，不写一次性环境的绝对路径；
+@@ -156,7 +156,7 @@
+     - program: git
+       purpose: 执行明确批准的本地版本管理操作。
+       argument_policy: exact_plan_only
+-  forbidden_agent_program_names: [codex, claude, gemini, aider, opencode, cursor, windsurf]
++  forbidden_agent_program_names: [agy, codex, claude, gemini, aider, opencode, cursor, windsurf]
+   wrapper_policy: forbidden_unless_exactly_approved
+   working_directory_policy: project_or_authorized_worktree_only
+   plan_binding_required: true
+--- before/strixnova/src/strixnova/process_supervisor.py
++++ after/strixnova/src/strixnova/process_supervisor.py
+@@ -18,6 +18,7 @@
+ _JOB_OBJECT_EXTENDED_LIMIT_INFORMATION = 9
+ _FORBIDDEN_AGENT_PROGRAM_NAMES = frozenset(
+     {
++        "agy",
+         "aider",
+         "claude",
+         "codex",
+--- before/strixnova/src/strixnova/project_engineering_policy.py
++++ after/strixnova/src/strixnova/project_engineering_policy.py
+@@ -56,7 +56,7 @@
+     }
+ )
+ REQUIRED_FORBIDDEN_AGENT_PROGRAM_NAMES = frozenset(
+-    {"aider", "claude", "codex", "cursor", "gemini", "opencode", "windsurf"}
++    {"agy", "aider", "claude", "codex", "cursor", "gemini", "opencode", "windsurf"}
+ )
+ 
+ 
+--- before/strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md
++++ after/strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md
+@@ -270,7 +270,7 @@
+     - program: git
+       purpose: 执行明确批准的本地版本管理操作。
+       argument_policy: exact_plan_only
+-  forbidden_agent_program_names: [codex, claude, gemini, aider, opencode, cursor, windsurf]
++  forbidden_agent_program_names: [agy, codex, claude, gemini, aider, opencode, cursor, windsurf]
+   wrapper_policy: forbidden_unless_exactly_approved
+   working_directory_policy: project_or_authorized_worktree_only
+   plan_binding_required: true
+--- before/strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md
++++ after/strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md
+@@ -138,7 +138,7 @@
+ 工作目录政策只能是 `project_or_authorized_worktree_only`（仅项目或已授权工作区），
+ 方案绑定必须为 `true`（是）。
+ 
+-禁止程序至少包含 `codex`、`claude`、`gemini`、`aider`、`opencode`、`cursor` 和 `windsurf`。
++禁止程序至少包含 `agy`、`codex`、`claude`、`gemini`、`aider`、`opencode`、`cursor` 和 `windsurf`。
+ 这些是验证命令不得递归启动的 Agent 程序名，不限制当前宿主是谁。
+ 
+ 长期允许程序使用稳定程序身份或仓库内稳定相对路径，不写一次性环境的绝对路径；
+@@ -156,7 +156,7 @@
+     - program: git
+       purpose: 执行明确批准的本地版本管理操作。
+       argument_policy: exact_plan_only
+-  forbidden_agent_program_names: [codex, claude, gemini, aider, opencode, cursor, windsurf]
++  forbidden_agent_program_names: [agy, codex, claude, gemini, aider, opencode, cursor, windsurf]
+   wrapper_policy: forbidden_unless_exactly_approved
+   working_directory_policy: project_or_authorized_worktree_only
+   plan_binding_required: true
+--- before/tests/support/project_baseline.py
++++ after/tests/support/project_baseline.py
+@@ -193,6 +193,7 @@
+                 }
+             ],
+             "forbidden_agent_program_names": [
++                "agy",
+                 "aider",
+                 "claude",
+                 "codex",
+--- before/tests/support/verification_approval.py
++++ after/tests/support/verification_approval.py
+@@ -7,6 +7,7 @@
+ 
+ 
+ FORBIDDEN_AGENT_PROGRAM_NAMES = [
++    "agy",
+     "aider",
+     "claude",
+     "codex",
+--- before/tests/unit/test_process_supervisor.py
++++ after/tests/unit/test_process_supervisor.py
+@@ -222,3 +222,27 @@
+         ProcessLimits(max_input_bytes=64 * 1024 * 1024 + 1)
+     with pytest.raises(ValueError, match="max_output_bytes"):
+         ProcessLimits(max_output_bytes=256 * 1024 * 1024 + 1)
++
++
++@pytest.mark.parametrize(
++    ("command", "reason"),
++    [
++        (["agy", "--version"], "forbidden_agent_program"),
++        (["AGY.EXE", "--version"], "forbidden_agent_program"),
++        ([sys.executable, "agy"], "forbidden_agent_wrapper"),
++        (["powershell.exe", "-Command", "agy.exe", "--version"], "forbidden_agent_wrapper"),
++    ],
++)
++def test_known_antigravity_entry_is_rejected_before_process_start(
++    tmp_path: Path, monkeypatch, command: list[str], reason: str,
++) -> None:
++    def unexpected_start(*args, **kwargs):
++        raise AssertionError("agent policy rejection must precede process creation")
++
++    monkeypatch.setattr("strixnova.process_supervisor.subprocess.Popen", unexpected_start)
++    with pytest.raises(ProcessExecutionError) as rejected:
++        run_process(
++            command, cwd=tmp_path,
++            policy=ProcessPolicy.exact("test.known-agent-denial", "deny_agent", command),
++        )
++    assert rejected.value.reason == reason
+--- before/tests/unit/test_project_engineering_policy.py
++++ after/tests/unit/test_project_engineering_policy.py
+@@ -147,3 +147,14 @@
+         for issue in issues
+     )
+     assert all("is a required property" not in issue for issue in issues)
++
++
++def test_policy_requires_known_antigravity_entry_in_agent_denials(tmp_path: Path) -> None:
++    value = _policy().load()
++    for key in [key for key in value if key.startswith("_")]:
++        value.pop(key)
++    value["verification_command_policy"]["forbidden_agent_program_names"].remove("agy")
++    _write_policy(tmp_path, value)
++    with pytest.raises(ProjectEngineeringPolicyError) as rejected:
++        ProjectEngineeringPolicy(tmp_path, POLICY_PATH).load()
++    assert any("缺少必须禁止" in issue and "agy" in issue for issue in rejected.value.issues)
+--- before/tests/unit/test_verification_runner.py
++++ after/tests/unit/test_verification_runner.py
+@@ -195,6 +195,8 @@
+     [
+         (["codex", "exec", "work"], "forbidden_agent_program"),
+         ([sys.executable, "codex"], "forbidden_agent_wrapper"),
++        (["agy.exe", "--version"], "forbidden_agent_program"),
++        ([sys.executable, "agy"], "forbidden_agent_wrapper"),
+     ],
+ )
+ def test_execution_rejects_agent_program_and_wrapper(

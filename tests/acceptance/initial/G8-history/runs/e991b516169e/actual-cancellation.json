@@ -1,0 +1,825 @@
+{
+  "schema_version": "strixnova.work-item.v1",
+  "work_item_id": "WI-20260928-D44E67E3",
+  "title": "预约工具固定诊断分支",
+  "status": "cancelled",
+  "version": 9,
+  "data": {
+    "actual_result": null,
+    "actual_result_confirmation": null,
+    "authority_adoption": null,
+    "blockers": [],
+    "cancellation": {
+      "git_state": {
+        "previous_integrations": [],
+        "repositories": [],
+        "requires_user_decision": false,
+        "schema_version": "strixnova.project-git-cancellation-state.v1"
+      },
+      "has_unmerged_work": false,
+      "reason": "固定历史读取场景：诊断分支到此结束，保留已经生成的失败与未运行记录。"
+    },
+    "direction": {
+      "acceptance": [
+        {
+          "acceptance_id": "DIRACC-3333333333333333",
+          "behavior": {
+            "applicability": "not_applicable",
+            "reason": "This fixture exercises workflow bookkeeping; behavior examples are covered separately."
+          },
+          "requirement_refs": [
+            "DIRREQ-1111111111111111"
+          ],
+          "statement": "保留真实退出码、输出、未运行原因和取消状态，不虚构通过。"
+        }
+      ],
+      "constraints": [
+        {
+          "constraint_id": "DIRCON-2222222222222222",
+          "statement": "只使用项目 Python 3.12 venv。"
+        }
+      ],
+      "decision_context": {
+        "assumptions": [],
+        "capability_refs": [],
+        "context_ref": null,
+        "guardrail_dispositions": []
+      },
+      "goal": "保留一次真实失败与一次未运行的诊断事实，随后结束本诊断分支。",
+      "non_goals": [
+        "不修改产品或业务实现，不把诊断记录当作业务验收。"
+      ],
+      "schema_version": "strixnova.direction-decision.v1",
+      "scope": [
+        {
+          "requirement_id": "DIRREQ-1111111111111111",
+          "statement": "在固定隔离工程记录实际诊断命令结果，按事实区分失败、未运行和取消。"
+        }
+      ],
+      "tradeoffs": [
+        "只生成受控的状态样本，不尝试修复真实产品功能。"
+      ],
+      "work_item_relations": [
+        {
+          "reason": "对同一预约工具演进目标的固定诊断记录；关系不代表组合接受。",
+          "relation_type": "related_to",
+          "target_work_item_id": "WI-20260928-9CA7291C"
+        }
+      ]
+    },
+    "direction_confirmation": {
+      "accepted": true,
+      "agent_decision": {
+        "decision": "accept",
+        "reason": "预配置的合成诊断前提；不作为真实负责人或本轮Agent验收。"
+      },
+      "candidate_fingerprint": "sha256:176e5788d05faaee812acc3693c7825d61204db62b69b213cb468b545618386d",
+      "candidate_kind": "direction",
+      "decision_interpreter": "coding_agent",
+      "decision_label": "当前展示的方向",
+      "direction_version": 3,
+      "schema_version": "strixnova.user-confirmation.v1",
+      "semantic_content_machine_proven": false,
+      "summary": "预配置的合成诊断前提；不作为真实负责人或本轮Agent验收。",
+      "user_confirmation": "接受这份固定隔离诊断前提；不代表真实负责人或本轮行为验收。"
+    },
+    "direction_item_history": {
+      "active_ids": [
+        "DIRACC-3333333333333333",
+        "DIRCON-2222222222222222",
+        "DIRREQ-1111111111111111"
+      ],
+      "retired_ids": []
+    },
+    "engineering": {
+      "assessment": {
+        "adr_plans": [],
+        "alternatives_and_tradeoffs": [],
+        "assessment_id": "EA-HISTORY-DIAGNOSTIC-001",
+        "assessment_revision": 1,
+        "authority_change_set": null,
+        "change_context": {
+          "change_kind": "exploration",
+          "formal_implementation": false
+        },
+        "delivery_plan": null,
+        "design_decisions": [],
+        "direction_ref": {
+          "direction_version": 3,
+          "work_item_id": "WI-20260928-D44E67E3"
+        },
+        "domain_fact_changes": [],
+        "external_observation_provider_plans": [],
+        "impact_scope": {
+          "affected": [],
+          "unaffected": [
+            "user_behavior",
+            "product_scope",
+            "domain",
+            "architecture",
+            "interface",
+            "data",
+            "security_privacy",
+            "quality_performance",
+            "operations_deployment",
+            "compatibility_migration",
+            "testing",
+            "documentation_support"
+          ],
+          "unknown": []
+        },
+        "implementation_slices": [],
+        "investigation_ref": "working_tree",
+        "method_applications": [],
+        "operations": [],
+        "owner_view": {
+          "current_decision": "是否接受该只读调查结果。",
+          "decision_support": {
+            "alternatives": [
+              "另开正式实施事项处理发现。"
+            ],
+            "current_problem": "完成只读调查并如实报告现状。",
+            "impact": "不改变仓库文件、产品范围或领域含义。",
+            "necessary_questions": [],
+            "next_step": "审阅调查结果并决定是否另开建设事项。",
+            "no_action_consequence": "当前未知继续存在且不形成实施结论。",
+            "recommendation": "保留只读范围并明确报告限制。",
+            "why_it_matters": "需要区分已观察事实与尚未确认推断。"
+          },
+          "engineering_context": {
+            "architecture_responsibilities": "不改变目标架构责任。",
+            "highest_impact_risks": "不得把调查推断冒充已经实施。",
+            "implementation_order": "只读取证据并形成报告，不实施仓库变更。",
+            "product_and_domain_change": "不改变产品范围或领域含义。",
+            "uncertainties": "所有未确认内容保留为调查限制。",
+            "verification_and_observation": "没有适用验证命令，并明确说明原因。"
+          },
+          "schema_version": "strixnova.owner-view.v1",
+          "semantic_content_machine_proven": false
+        },
+        "repository_scope": {
+          "project_id": "PROJECT-1111111111111111",
+          "repositories": [
+            {
+              "investigation_ref": "working_tree",
+              "repository_id": "REPO-1111111111111111",
+              "role": "read",
+              "target_ref": null
+            }
+          ]
+        },
+        "requested_assurance": {
+          "band": "A0",
+          "reason": "只读调查，不形成仓库操作。"
+        },
+        "risk_assessments": [],
+        "schema_version": "strixnova.engineering-assessment.v1",
+        "semantic_review": null,
+        "source_references": [],
+        "unknowns_and_limitations": [],
+        "verification_commands": [
+          {
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-c",
+              "import sys; print(\"controlled diagnostic failure\"); sys.exit(7)"
+            ],
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333",
+              "direction.constraint:DIRCON-2222222222222222"
+            ],
+            "cwd": ".",
+            "reason": "运行已登记的受控失败命令，记录真实失败而非伪造回执。",
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test"
+          },
+          {
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-c",
+              "print(\"this registered command is intentionally not run\")"
+            ],
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333"
+            ],
+            "cwd": ".",
+            "reason": "本固定诊断明确留作未运行分支。",
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test"
+          }
+        ],
+        "verification_reviews": []
+      },
+      "plan": {
+        "actual_result_requirements": {
+          "domain_fact_changes": []
+        },
+        "applicable_rules": [],
+        "assessment_ref": {
+          "assessment_id": "EA-HISTORY-DIAGNOSTIC-001",
+          "assessment_revision": 1,
+          "work_item_id": "WI-20260928-D44E67E3"
+        },
+        "assurance_band": "A0",
+        "authority_change_set": null,
+        "behavior_examples": {},
+        "change_context": {
+          "change_kind": "exploration",
+          "formal_implementation": false
+        },
+        "delivery_plan": null,
+        "direction_ref": {
+          "direction_version": 3,
+          "work_item_id": "WI-20260928-D44E67E3"
+        },
+        "domain_fact_change_refs": [],
+        "external_observation_provider_plans": [],
+        "governance_profile": {
+          "profile_id": "strixnova-general-software-engineering",
+          "profile_version": "2026-08-23",
+          "project_tailoring": []
+        },
+        "impact_scope": {
+          "affected": [],
+          "unaffected": [
+            "user_behavior",
+            "product_scope",
+            "domain",
+            "architecture",
+            "interface",
+            "data",
+            "security_privacy",
+            "quality_performance",
+            "operations_deployment",
+            "compatibility_migration",
+            "testing",
+            "documentation_support"
+          ],
+          "unknown": []
+        },
+        "implementation_slices": [],
+        "investigation_ref": "working_tree",
+        "method_applications": [],
+        "operations": [],
+        "owner_view": {
+          "current_decision": "是否接受该只读调查结果。",
+          "decision_support": {
+            "alternatives": [
+              "另开正式实施事项处理发现。"
+            ],
+            "current_problem": "完成只读调查并如实报告现状。",
+            "impact": "不改变仓库文件、产品范围或领域含义。",
+            "necessary_questions": [],
+            "next_step": "审阅调查结果并决定是否另开建设事项。",
+            "no_action_consequence": "当前未知继续存在且不形成实施结论。",
+            "recommendation": "保留只读范围并明确报告限制。",
+            "why_it_matters": "需要区分已观察事实与尚未确认推断。"
+          },
+          "engineering_context": {
+            "architecture_responsibilities": "不改变目标架构责任。",
+            "highest_impact_risks": "不得把调查推断冒充已经实施。",
+            "implementation_order": "只读取证据并形成报告，不实施仓库变更。",
+            "product_and_domain_change": "不改变产品范围或领域含义。",
+            "uncertainties": "所有未确认内容保留为调查限制。",
+            "verification_and_observation": "没有适用验证命令，并明确说明原因。"
+          },
+          "schema_version": "strixnova.owner-view.v1",
+          "semantic_content_machine_proven": false
+        },
+        "plan_id": "PLAN-EA-HISTORY-DIAGNOSTIC-001-R1",
+        "repository_scope": {
+          "project_id": "PROJECT-1111111111111111",
+          "repositories": [
+            {
+              "investigation_ref": "working_tree",
+              "repository_id": "REPO-1111111111111111",
+              "role": "read",
+              "target_ref": null
+            }
+          ]
+        },
+        "schema_version": "strixnova.engineering-plan.v1",
+        "semantic_content_machine_proven": false,
+        "semantic_review": null,
+        "trace_refs": [
+          "impact_scope.unaffected[0]",
+          "impact_scope.unaffected[1]",
+          "impact_scope.unaffected[2]",
+          "impact_scope.unaffected[3]",
+          "impact_scope.unaffected[4]",
+          "impact_scope.unaffected[5]",
+          "impact_scope.unaffected[6]",
+          "impact_scope.unaffected[7]",
+          "impact_scope.unaffected[8]",
+          "impact_scope.unaffected[9]",
+          "impact_scope.unaffected[10]",
+          "impact_scope.unaffected[11]",
+          "direction.acceptance:DIRACC-3333333333333333",
+          "direction.constraint:DIRCON-2222222222222222",
+          "direction.requirement:DIRREQ-1111111111111111",
+          "owner_view"
+        ],
+        "verification_commands": [
+          {
+            "approved_program": {
+              "argument_policy": "exact_plan_only",
+              "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "purpose": "只执行该已确认工程方案中的精确验证命令。",
+              "resolved_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe"
+            },
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-c",
+              "import sys; print(\"controlled diagnostic failure\"); sys.exit(7)"
+            ],
+            "command_id": "VC-001",
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333",
+              "direction.constraint:DIRCON-2222222222222222"
+            ],
+            "cwd": ".",
+            "optional_timeout": null,
+            "reasons": [
+              "运行已登记的受控失败命令，记录真实失败而非伪造回执。"
+            ],
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test",
+            "source_command_indexes": [
+              0
+            ]
+          },
+          {
+            "approved_program": {
+              "argument_policy": "exact_plan_only",
+              "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "purpose": "只执行该已确认工程方案中的精确验证命令。",
+              "resolved_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe"
+            },
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-c",
+              "print(\"this registered command is intentionally not run\")"
+            ],
+            "command_id": "VC-002",
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333"
+            ],
+            "cwd": ".",
+            "optional_timeout": null,
+            "reasons": [
+              "本固定诊断明确留作未运行分支。"
+            ],
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test",
+            "source_command_indexes": [
+              1
+            ]
+          }
+        ],
+        "verification_policy_decision": {
+          "forbidden_agent_program_names": [
+            "aider",
+            "claude",
+            "codex",
+            "cursor",
+            "gemini",
+            "opencode",
+            "windsurf"
+          ],
+          "observed_commit": null,
+          "plan_binding_required": true,
+          "policy_id": "strixnova.confirmed-plan-bootstrap",
+          "policy_revision_id": "2026-08-23",
+          "schema_version": "strixnova.verification-policy-decision.v1",
+          "source_kind": "confirmed_plan_bootstrap",
+          "working_directory_policy": "project_or_authorized_worktree_only",
+          "wrapper_policy": "forbidden_unless_exactly_approved"
+        },
+        "verification_targets": [
+          {
+            "command_ids": [
+              "VC-001",
+              "VC-002"
+            ],
+            "evidence_refs": [],
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.acceptance:DIRACC-3333333333333333"
+          },
+          {
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.constraint:DIRCON-2222222222222222"
+          }
+        ]
+      },
+      "plan_confirmation": {
+        "accepted": true,
+        "agent_decision": {
+          "decision": "accept",
+          "reason": "预配置的合成诊断前提；不作为真实负责人或本轮Agent验收。"
+        },
+        "candidate_fingerprint": "sha256:03f77d8debfb6f842beac80f2912531a26f2affdc4c4a7a78d9d05a6996991a4",
+        "candidate_kind": "engineering_plan",
+        "decision_interpreter": "coding_agent",
+        "decision_label": "当前展示的工程方案",
+        "schema_version": "strixnova.user-confirmation.v1",
+        "semantic_content_machine_proven": false,
+        "summary": "预配置的合成诊断前提；不作为真实负责人或本轮Agent验收。",
+        "user_confirmation": "接受这份固定隔离诊断前提；不代表真实负责人或本轮行为验收。"
+      }
+    },
+    "git": {},
+    "implementation_slice_completions": [],
+    "pending_effect": null,
+    "project_authority_decisions": [],
+    "project_authority_presentations": [],
+    "project_authority_reviews": [],
+    "project_id": "PROJECT-1111111111111111",
+    "raw_request": "仅在本隔离样例产生一次真实失败诊断记录和一次明确未运行记录，再取消该诊断分支；不修改业务源码。",
+    "repository_deliveries": [],
+    "verifications": [
+      {
+        "approval_ref": {
+          "plan_id": "PLAN-EA-HISTORY-DIAGNOSTIC-001-R1",
+          "policy_id": "strixnova.confirmed-plan-bootstrap",
+          "policy_observed_commit": null,
+          "policy_revision_id": "2026-08-23",
+          "schema_version": "strixnova.verification-approval-ref.v1",
+          "work_item_version": 6
+        },
+        "argv": [
+          "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+          "-c",
+          "import sys; print(\"controlled diagnostic failure\"); sys.exit(7)"
+        ],
+        "code_change_assessment": null,
+        "command_id": "VC-001",
+        "covers": [
+          "direction.acceptance:DIRACC-3333333333333333",
+          "direction.constraint:DIRCON-2222222222222222"
+        ],
+        "cwd": ".",
+        "duration_seconds": 0.07900000002700835,
+        "exit_code": 7,
+        "inputs_changed_during_execution": false,
+        "limitations": [],
+        "output_summary": {
+          "stderr": "",
+          "stdout": "controlled diagnostic failure\r\n"
+        },
+        "project_input_snapshot": {
+          "content_sha256": "70184bdcaab2efe4db3f21b63a58744d30f8241a46c84f3d1ec1fbecc9c4f0b8",
+          "dependencies": [],
+          "plan_id": "PLAN-EA-HISTORY-DIAGNOSTIC-001-R1",
+          "repositories": [
+            {
+              "content_sha256": "df2e6d03549c4d62115e666ffb367400b8a66d1c149c23364bee0208570d5f13",
+              "paths": [
+                {
+                  "path": ".gitattributes",
+                  "sha256": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c",
+                  "state": "file"
+                },
+                {
+                  "path": ".gitignore",
+                  "sha256": "a915280dc6bc4f0695b4177b476b39d2f0ce125c9f02a93a2134e2ab8188819f",
+                  "state": "file"
+                },
+                {
+                  "path": "AGENTS.md",
+                  "sha256": "ff1de394f3ef0a5c798d1aa22f25724f04b2ac1d1b95c40963bc4e3ce4c4cfa6",
+                  "state": "file"
+                },
+                {
+                  "path": "README.md",
+                  "sha256": "48bed7d16d77b10c786a93b311e587a096a9a42968c1c16675d380325fac2975",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-constraints.yaml",
+                  "sha256": "ffb7aff1f4b26ccae37ffbcee623a21ec704c9982225d3f01df752a40293c2dc",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-domain-facts.yaml",
+                  "sha256": "f3681472754c67f260867433462351e35dce2d78e79e9eeb46c6373b4146861c",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-modules.yaml",
+                  "sha256": "82504bd0628b4b0734456f9d9ed774408f8c1c8e47106fff496e94d3a2bacbb7",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-relationships.yaml",
+                  "sha256": "bdda00b8b8499beb29833e1fbe53b98886cb450d4c78e66f12755d7643657248",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-stages.yaml",
+                  "sha256": "b651a068f0b229457dc38d779230b5007eb49efa8946eeabb126247e5f382f17",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/model.yaml",
+                  "sha256": "8c2a74bd46fef87d1fc7375a4efb65b71fa58dd251ebd78c789ea2daae082913",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/collections/core.yaml",
+                  "sha256": "14ea50b2d4cbff9cb7f443b8742965d8d3f91990114740c8c94631ef5f25bb24",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/model.yaml",
+                  "sha256": "75e0e35e48ff93bd99e7bc6888b752c1d62439ded96ac036907f9023cad82d02",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/sources/core.yaml",
+                  "sha256": "6c7aad0f582c1aadede526dec3ee0c3920dd7a1dbf286bf972cdf5492dc20796",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/actual-dependencies.yaml",
+                  "sha256": "cdc248839a25b73e825c9c5d13d603bac354370d7a30852666dfa0ce6eea1ec6",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/alignment.yaml",
+                  "sha256": "0e69a29b5d771f9c4e8f4da970da0c4918bdbdf334e59f08702f48acdf57f945",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/baseline.yaml",
+                  "sha256": "f171e3b779ac5070c068433a632b94ad958a3370618a0db4c96fda64c38bcee7",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/deviations.yaml",
+                  "sha256": "ad973ffc0bf2e6c9193877cbe4bb51331f5c3d58da304dfee71a6a796e8d3aba",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/policy.yaml",
+                  "sha256": "e9d4c672e780d5f621e1fdec87d20bac8714c3360d8c3a12e40ee06673ac9ff8",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/source-ownership.yaml",
+                  "sha256": "b9fc2cb942c63a098c046a7fd8c14f0c6c4f447cf247e0a72c6c1b17444319c7",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/target-responsibilities.yaml",
+                  "sha256": "7f53af091e2063b6247724b4e1ccb6c3f53d2e364c9f53c9a56c978a315c2787",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/product/PRD.md",
+                  "sha256": "1fd00bc1317b9ed837fcac5e2d7c29ee76e6bb76f39cb4a64e0eb16919a0c7ee",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/product/definition.yaml",
+                  "sha256": "03210a7a158dee9867766166717fabfe674de26e7911077d55b5d886da6d207c",
+                  "state": "file"
+                },
+                {
+                  "path": "src.py",
+                  "sha256": "9a9927302b84e575e3a4b987819732263cc7af0c72483bed6ff3ba54d0f0ae67",
+                  "state": "file"
+                },
+                {
+                  "path": "strixnova-project.yaml",
+                  "sha256": "f3787f6840af20301b883ffb1a0625d7fe1676bed218276eb08a6db795671245",
+                  "state": "file"
+                },
+                {
+                  "path": "tests/test_duration.py",
+                  "sha256": "0a640a5d2f88ee0caae1c1a02929c8705cdf8400f5d291ccfb552e9a3d6d596e",
+                  "state": "file"
+                }
+              ],
+              "repository_id": "REPO-1111111111111111"
+            }
+          ],
+          "schema_version": "strixnova.project-content-snapshot.v1",
+          "semantic_content_machine_proven": false
+        },
+        "raw_output_refs": {
+          "stderr": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\f0addbc9966a\\work\\project\\.strixnova\\artifacts\\WI-20260928-D44E67E3\\VR-WI-20260928-D44E67E3-94038BFBBD.stderr.log",
+          "stdout": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\f0addbc9966a\\work\\project\\.strixnova\\artifacts\\WI-20260928-D44E67E3\\VR-WI-20260928-D44E67E3-94038BFBBD.stdout.log"
+        },
+        "reasons": [
+          "运行已登记的受控失败命令，记录真实失败而非伪造回执。"
+        ],
+        "receipt_id": "VR-WI-20260928-D44E67E3-94038BFBBD",
+        "repository_id": "REPO-1111111111111111",
+        "result": "failed",
+        "run_kind": "targeted_test",
+        "schema_version": "strixnova.verification-summary.v1",
+        "started_at": "2026-09-28T11:29:37.524818Z",
+        "work_item_id": "WI-20260928-D44E67E3"
+      },
+      {
+        "approval_ref": {
+          "plan_id": "PLAN-EA-HISTORY-DIAGNOSTIC-001-R1",
+          "policy_id": "strixnova.confirmed-plan-bootstrap",
+          "policy_observed_commit": null,
+          "policy_revision_id": "2026-08-23",
+          "schema_version": "strixnova.verification-approval-ref.v1",
+          "work_item_version": 7
+        },
+        "argv": [
+          "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+          "-c",
+          "print(\"this registered command is intentionally not run\")"
+        ],
+        "code_change_assessment": {
+          "changed_after": false,
+          "needs_retest": false,
+          "rationale": "这是公开登记的未运行诊断分支，未修改业务实现；本记录保持not_run，不提供业务验证通过结论。"
+        },
+        "command_id": "VC-002",
+        "covers": [
+          "direction.acceptance:DIRACC-3333333333333333"
+        ],
+        "cwd": ".",
+        "duration_seconds": 0.0,
+        "exit_code": null,
+        "inputs_changed_during_execution": false,
+        "limitations": [
+          "该命令明确未执行，不能据此判断任何测试或业务是否通过。"
+        ],
+        "not_run_reason": "本次固定诊断明确不执行此命令；不是环境故障，也不是通过。",
+        "output_summary": {
+          "stderr": "",
+          "stdout": ""
+        },
+        "project_input_snapshot": {
+          "content_sha256": "70184bdcaab2efe4db3f21b63a58744d30f8241a46c84f3d1ec1fbecc9c4f0b8",
+          "dependencies": [],
+          "plan_id": "PLAN-EA-HISTORY-DIAGNOSTIC-001-R1",
+          "repositories": [
+            {
+              "content_sha256": "df2e6d03549c4d62115e666ffb367400b8a66d1c149c23364bee0208570d5f13",
+              "paths": [
+                {
+                  "path": ".gitattributes",
+                  "sha256": "d60f352d0db1404c70afb4bb8b2ca3fd1c610572aa40720e8a0b7baa7885418c",
+                  "state": "file"
+                },
+                {
+                  "path": ".gitignore",
+                  "sha256": "a915280dc6bc4f0695b4177b476b39d2f0ce125c9f02a93a2134e2ab8188819f",
+                  "state": "file"
+                },
+                {
+                  "path": "AGENTS.md",
+                  "sha256": "ff1de394f3ef0a5c798d1aa22f25724f04b2ac1d1b95c40963bc4e3ce4c4cfa6",
+                  "state": "file"
+                },
+                {
+                  "path": "README.md",
+                  "sha256": "48bed7d16d77b10c786a93b311e587a096a9a42968c1c16675d380325fac2975",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-constraints.yaml",
+                  "sha256": "ffb7aff1f4b26ccae37ffbcee623a21ec704c9982225d3f01df752a40293c2dc",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-domain-facts.yaml",
+                  "sha256": "f3681472754c67f260867433462351e35dce2d78e79e9eeb46c6373b4146861c",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-modules.yaml",
+                  "sha256": "82504bd0628b4b0734456f9d9ed774408f8c1c8e47106fff496e94d3a2bacbb7",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-relationships.yaml",
+                  "sha256": "bdda00b8b8499beb29833e1fbe53b98886cb450d4c78e66f12755d7643657248",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-stages.yaml",
+                  "sha256": "b651a068f0b229457dc38d779230b5007eb49efa8946eeabb126247e5f382f17",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/model.yaml",
+                  "sha256": "8c2a74bd46fef87d1fc7375a4efb65b71fa58dd251ebd78c789ea2daae082913",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/collections/core.yaml",
+                  "sha256": "14ea50b2d4cbff9cb7f443b8742965d8d3f91990114740c8c94631ef5f25bb24",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/model.yaml",
+                  "sha256": "75e0e35e48ff93bd99e7bc6888b752c1d62439ded96ac036907f9023cad82d02",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/sources/core.yaml",
+                  "sha256": "6c7aad0f582c1aadede526dec3ee0c3920dd7a1dbf286bf972cdf5492dc20796",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/actual-dependencies.yaml",
+                  "sha256": "cdc248839a25b73e825c9c5d13d603bac354370d7a30852666dfa0ce6eea1ec6",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/alignment.yaml",
+                  "sha256": "0e69a29b5d771f9c4e8f4da970da0c4918bdbdf334e59f08702f48acdf57f945",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/baseline.yaml",
+                  "sha256": "f171e3b779ac5070c068433a632b94ad958a3370618a0db4c96fda64c38bcee7",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/deviations.yaml",
+                  "sha256": "ad973ffc0bf2e6c9193877cbe4bb51331f5c3d58da304dfee71a6a796e8d3aba",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/policy.yaml",
+                  "sha256": "e9d4c672e780d5f621e1fdec87d20bac8714c3360d8c3a12e40ee06673ac9ff8",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/source-ownership.yaml",
+                  "sha256": "b9fc2cb942c63a098c046a7fd8c14f0c6c4f447cf247e0a72c6c1b17444319c7",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/target-responsibilities.yaml",
+                  "sha256": "7f53af091e2063b6247724b4e1ccb6c3f53d2e364c9f53c9a56c978a315c2787",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/product/PRD.md",
+                  "sha256": "1fd00bc1317b9ed837fcac5e2d7c29ee76e6bb76f39cb4a64e0eb16919a0c7ee",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/product/definition.yaml",
+                  "sha256": "03210a7a158dee9867766166717fabfe674de26e7911077d55b5d886da6d207c",
+                  "state": "file"
+                },
+                {
+                  "path": "src.py",
+                  "sha256": "9a9927302b84e575e3a4b987819732263cc7af0c72483bed6ff3ba54d0f0ae67",
+                  "state": "file"
+                },
+                {
+                  "path": "strixnova-project.yaml",
+                  "sha256": "f3787f6840af20301b883ffb1a0625d7fe1676bed218276eb08a6db795671245",
+                  "state": "file"
+                },
+                {
+                  "path": "tests/test_duration.py",
+                  "sha256": "0a640a5d2f88ee0caae1c1a02929c8705cdf8400f5d291ccfb552e9a3d6d596e",
+                  "state": "file"
+                }
+              ],
+              "repository_id": "REPO-1111111111111111"
+            }
+          ],
+          "schema_version": "strixnova.project-content-snapshot.v1",
+          "semantic_content_machine_proven": false
+        },
+        "raw_output_refs": {
+          "stderr": null,
+          "stdout": null
+        },
+        "reasons": [
+          "本固定诊断明确留作未运行分支。"
+        ],
+        "receipt_id": "VR-WI-20260928-D44E67E3-663F1995FA",
+        "repository_id": "REPO-1111111111111111",
+        "result": "not_run",
+        "run_kind": "targeted_test",
+        "schema_version": "strixnova.verification-summary.v1",
+        "started_at": "2026-09-28T11:38:02.406049Z",
+        "work_item_id": "WI-20260928-D44E67E3"
+      }
+    ],
+    "selected_repository_id": null
+  },
+  "created_at": "2026-09-28T11:27:53.025972Z",
+  "updated_at": "2026-09-28T11:38:03.639745Z"
+}

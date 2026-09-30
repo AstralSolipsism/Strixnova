@@ -1,0 +1,427 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-2277B6C54D314546
+scope_fact_ids: []
+facts:
+- fact_id: FACT-8BB9E8C279494481
+  status: draft
+  title: 项目产品权威治理能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    definition: 形成、确认、采用和演进唯一项目产品定义，同时隔离领域、架构和实现内容。 项目可有多个成员仓库，修改归属与依赖使用分别说明；共同长期材料沿唯一权威链版本化。
+    primary_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    supporting_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明完整候选如何成为已确认产品权威。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须拒绝范围关键未知、结构错误和权威污染。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持负责人纠正候选且旧确认随实质变化失效。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须允许放弃未确认修订而不污染当前权威。
+- fact_id: FACT-56355272151F44EF
+  status: draft
+  title: 项目领域模型治理能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    definition: 从已确认产品范围建设完整目标语义、稳定身份、显式关系、迁移谱系和定档版本。
+    primary_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    supporting_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明完整领域候选如何经过语义确认定档。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须阻断缺失场景、悬空引用、实现证据和范围关键未知。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须允许拆分、替换、废止和补齐领域事实。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须允许放弃草案并保持已确认模型不变。
+- fact_id: FACT-1B200CD9D4FC4A3B
+  status: draft
+  title: 目标架构治理能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    definition: 从已确认领域模型建设唯一预期架构，明确责任、接口、关系、约束、承载和阶段。
+    primary_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    supporting_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明目标架构候选如何覆盖领域事实并定档。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须阻断未分配责任、未声明关系、循环和不可验证约束。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持负责人依据取舍纠正目标架构。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须允许放弃候选而不把当前文件布局升级为目标权威。
+- fact_id: FACT-29A948A8B5364EB3
+  status: draft
+  title: 项目实现对齐与漂移治理能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  content:
+    definition: 对照已确认目标和完整实现观察范围，分类当前行为、关系、观察覆盖和责任状态，并默认阻断可确定的新漂移及无法诚实证明的完整对齐。 同名路径按仓库身份区分；接口测试不能替代依赖仓库源码层面的实现证据。
+    primary_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    supporting_actor_fact_ids:
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明完整实现底账如何绑定精确代码状态、观察范围、适用配置和覆盖结果。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须阻断未归属、未分类、偏离、未知、观察缺口和新增架构漂移。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持修正错误判断并保留依据和限制。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须允许取消未完成复核且不得伪造对齐状态。
+- fact_id: FACT-463994C54BF647D4
+  status: draft
+  title: 产品发现与想法验证能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    definition: 由项目负责人提供愿望和重大取舍，由智能编码代理调查项目与可取得证据、选择并执行与当前缺口相称的发现动作、提出可纠正建议和形成结论；Strixnova 程序不选择动作或裁决含义。明确请求可以跳过，想法不成立或只需真实实验时可以不建立建设事项。
+    primary_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    supporting_actor_fact_ids:
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明发现动作怎样根据真实缺口被选择、组合或跳过，并及时形成现有候选或紧凑结论。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须在关键证据无法取得或只能通过真实实验判断时保留未知并停止冒充已证实事实。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持负责人纠正问题、角色、假设或取舍，并重新形成受影响结论和下游候选。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须允许想法被否定、搁置或只获得更清楚认识而不建立建设事项。
+- fact_id: FACT-5ABABA148CFB4B87
+  status: draft
+  title: 引导式方向澄清能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-ED05BCEB08B94F1E
+  content:
+    definition: 作为引导式形成在建设事项方向阶段的具体能力，由智能编码代理先调查并读取当前有效决定的只读上下文；意图已经足够时直接形成候选，仍有真实缺口时逐项说明相关能力和全部产品护栏的适用性、理由与重新考虑项，将一轮高影响问题收束到五个以内，再一次只让负责人决定一个会实质改变方向的问题。方向需求、方向约束和验收条件具有稳定身份；智能编码代理说明修订时身份的保留、退出和替代，程序只校验格式、唯一性、引用、需求覆盖及历史不可复用，项目负责人通过完整方向修订确认语义。
+    primary_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    supporting_actor_fact_ids:
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明模糊愿望如何在当前有效决定约束下收敛为可理解、可确认且不遗漏护栏的方向。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须在实质决定缺失、当前决定上下文过期、护栏覆盖不完整或用户无法理解时停止确认。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持用户纠偏并使受影响确认失效。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须允许用户停止本次方向澄清而不建立建设事项。
+- fact_id: FACT-5F57CFB4FDC74459
+  status: draft
+  title: 软件工程评估与方案治理能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-A1C2E3F405162738
+  - FACT-C3E4A5061728395A
+  - FACT-B2D3F40516273849
+  - FACT-D4F5B61728395A6B
+  - FACT-ED05BCEB08B94F1E
+  content:
+    definition: 先判断可独立验收结果及交付跨度，再与真实影响、保障等级和项目政策分别形成包含权威变更、跨产物语义复核、有依赖实施切片和负责人视图的完整工程候选；工程操作、验证覆盖和追溯使用稳定方向条目身份而不是数组位置，同时继续绑定完整方向版本。常见标准产物只作为现有权威和实施切片的形成指引或阅读投影，确定性校验后交负责人确认实施增量。
+      一个目标需要前后端共同验收时形成同一事项，明确仓库操作和联合依赖；提前独立交付须先有独立验收目标。
+    primary_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    supporting_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明调查、评估、校验和方案确认的完整路径。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须拒绝缺失依据、冲突操作、未分类影响和越过目标版本的方案。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持重评估并使旧方案确认失效。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须允许取消方案且不建立实施空间或伪造结果。
+- fact_id: FACT-5CDC1574A9AC4ADB
+  status: draft
+  title: 建设事项与本地交付协调能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  content:
+    definition: 管理事项状态、关系、本地版本空间、提交顺序、合入、冲突、取消和安全收尾。实际结果中的明确延期承诺经用户接受后可查询；后续方向通过精确原事项、结果版本与条目引用承接，并以被接受的逐项结果记录解决、部分解决、继续开放或接受限制。原历史保持，后续事项完成或取消不自动解除原承诺。
+      多仓库事项在整体结果接受后分别交付，部分合入、失败、中断恢复和取消保留真实仓库事实。
+    primary_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    supporting_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-2D3C638B3E92417A
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明确认后实施、结果接受、提交、合入和清理路径。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须阻断未确认方案、冲突、越界改动和不安全清理。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持冲突后复测、重规划和结果变化后的重新确认。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须支持不同阶段的安全取消并保留用户资料。
+- fact_id: FACT-0127B7C06DA94946
+  status: draft
+  title: 验证与实际证据治理能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  content:
+    definition: 每项当前验收、约束和本轮风险都须有核验安排或明确未核验处置；命令覆盖从已选命令引用派生，其他目标由 Agent 审阅或复用已知证据。保存真实命令回执和逐项 Agent 结论，区分命令完成、条目证据、语义、效果、接受和合规；不把零命令或全部命令通过解释成全部目标已被证明。
+      以必要仓库内容、契约、实际服务或制品版本和环境解释联合验证；缺失、漂移及源码不可观察的范围保持可见。
+    primary_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    supporting_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明真实命令回执如何进入实际结果并供用户接受。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须拒绝未授权命令、代理启动、伪造回执和矛盾状态。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持重测、补充环境限制和修正结果解释。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须允许停止未完成验证并如实记录未运行状态。
+- fact_id: FACT-66252BA438DE4431
+  status: draft
+  title: 交付发布与运行维护治理能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  content:
+    definition: 对交付、发布、部署、观测和运行维护保存责任、计划、状态、关口和外部证据。
+    primary_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-2D3C638B3E92417A
+    supporting_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明外部执行计划、回执和完成判断的治理路径。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须阻断缺失授权、证据、回退或运行责任的活动。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持失败、回退、重新执行和运行事件后的纠偏。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须支持安全取消未执行活动并保留已发生外部事实。
+- fact_id: FACT-07CA21F1D5DD431B
+  status: draft
+  title: 全链路追溯与下一步投影能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  - FACT-ED05BCEB08B94F1E
+  content:
+    definition: 从权威、事项、稳定方向条目、实施切片、完整方向版本和证据派生可重建的当前状态、审计关系和唯一最小下一步；追溯以稳定条目身份建边，不把数组位置或相同条目身份误作旧方案继续有效的依据；面向负责人按关注点压缩呈现。
+      历史成果通过独立入口按原记录版本有界读取，覆盖所有事项状态；当前动作和当前业务规则不能阻断或重判历史。 同时展示整体事项与各仓库状态，按原版本组合读取已接受、部分交付和取消历史。 审阅资料可按本次改动或明确模块从已有归属、约束和显式事实依赖重建，无需创建事项；已确认约定、候选、历史观察和当前代码分别标明来源与版本。缺项或过期时保留可靠部分和调查缺口，身份或版本矛盾不得被拼成可靠依据；资料准备不执行审阅或决定语义相关性。
+    primary_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    supporting_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-2D3C638B3E92417A
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须说明精确版本上的当前与审计追溯如何取得。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须拒绝未绑定版本、悬空来源和把工作树冒充已采用事实。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须支持上游变化后重建投影并撤销过期下一步。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 事项取消后仍需保留审计事实并停止提供实施下一步。
+- fact_id: FACT-C397E6F65C5E74B7
+  status: draft
+  title: 受支持智能编码代理交互能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    definition: 以精确随包唯一 Strixnova Skill（技能）、公开命令、项目文件、当前动作和稳定错误支持能够使用 Skill 的智能编码代理，并要求代理在普通确认点主动形成与复杂度相称的可决策说明；不要求插件、钩子或宿主会话适配，也不由程序生成或评价说明语义。
+    primary_actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    supporting_actor_fact_ids:
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 必须证明加载精确随包 Skill 的全新受支持代理在没有插件、钩子或宿主会话适配时也能完成核心流程，并在三个普通确认点主动提供可决策说明。
+    - scenario_type: blocking
+      applicability: required
+      reason: 必须用稳定错误阻断无效输入而不是要求宿主承担语义。
+    - scenario_type: correction
+      applicability: required
+      reason: 必须让代理根据错误和当前动作独立纠正输入。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 必须让代理通过公开入口安全取消当前事项。
+- fact_id: FACT-4443210E3D22E700
+  status: draft
+  title: Strixnova 自身升级与恢复能力
+  kind: product_capability
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    definition: 由用户或获授权的智能编码代理明确发起自身安装、更新与恢复，绑定本地制品与指定项目，分别识别程序构建、Skill 内容、当前持久格式和业务修订。首次安装以已有 Windows x64、Python
+      3.12 和 Git 为前提，准备独立受管环境和配套 Skill，不安装前提软件、不采用业务项目权威。运行更新保留当前格式，经过一致备份、副本核验、维护切换、匹配安装和中断恢复；新增事实阻止旧备份覆盖。
+    primary_actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    supporting_actor_fact_ids:
+    - FACT-4FD08D68267441B6
+    scenario_requirements:
+    - scenario_type: normal
+      applicability: required
+      reason: 证明历史及未完成事项在匹配升级后可继续。
+    - scenario_type: blocking
+      applicability: required
+      reason: 未知格式、写入未静止或条件变化时保留源数据并阻断。
+    - scenario_type: correction
+      applicability: required
+      reason: 切换中断后能够恢复一致版本组合。
+    - scenario_type: cancellation
+      applicability: required
+      reason: 尚无新增事实时可恢复原版本，已有新增事实时拒绝覆盖。

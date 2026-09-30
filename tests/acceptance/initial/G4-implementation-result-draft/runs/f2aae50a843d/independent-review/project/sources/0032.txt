@@ -1,0 +1,276 @@
+1: schema_version: strixnova.architecture-domain-fact-dispositions.v1
+2: architecture_id: ARCH-1111111111111111
+3: architecture_revision_id: ARCHREV-3333333333333333
+4: domain_model_ref:
+5:   model_id: MODEL-1111111111111111
+6:   revision_id: MODELREV-3333333333333333
+7: dispositions:
+8:   # FACT-2222222222222222 被替代，不再出现在现行处置中
+9: 
+10:   - domain_fact_id: FACT-3333333333333333
+11:     disposition_type: primary_module
+12:     primary_module_id: MODULE-A000000000000001
+13:     collaborator_module_ids: []
+14:     relationship_ids: []
+15:     constraint_ids: []
+16:     rationale: 区间正时长不变量由申请域承载。
+17: 
+18:   - domain_fact_id: FACT-A000000000000001
+19:     disposition_type: no_independent_implementation
+20:     primary_module_id: null
+21:     collaborator_module_ids: []
+22:     relationship_ids: []
+23:     constraint_ids: []
+24:     rationale: 限界上下文是整体边界声明，由全部模块共同体现。
+25: 
+26:   - domain_fact_id: FACT-A000000000000002
+27:     disposition_type: no_independent_implementation
+28:     primary_module_id: null
+29:     collaborator_module_ids: []
+30:     relationship_ids: []
+31:     constraint_ids: []
+32:     rationale: 申请成员是外部参与者角色，不需独立实现模块。
+33: 
+34:   - domain_fact_id: FACT-A000000000000003
+35:     disposition_type: no_independent_implementation
+36:     primary_module_id: null
+37:     collaborator_module_ids: []
+38:     relationship_ids: []
+39:     constraint_ids: []
+40:     rationale: 负责人是外部参与者角色，不需独立实现模块。
+41: 
+42:   - domain_fact_id: FACT-A000000000000004
+43:     disposition_type: no_independent_implementation
+44:     primary_module_id: null
+45:     collaborator_module_ids: []
+46:     relationship_ids: []
+47:     constraint_ids: []
+48:     rationale: 业务开发者是外部调用方，不需独立实现模块。
+49: 
+50:   - domain_fact_id: FACT-A000000000000005
+51:     disposition_type: primary_module
+52:     primary_module_id: MODULE-A000000000000001
+53:     collaborator_module_ids: [MODULE-A000000000000002]
+54:     relationship_ids: [RELATION-A000000000000001]
+55:     constraint_ids: []
+56:     rationale: 审批决定权规则由申请域承载，成员服务协调触发。
+57: 
+58:   - domain_fact_id: FACT-A000000000000006
+59:     disposition_type: primary_module
+60:     primary_module_id: MODULE-A000000000000001
+61:     collaborator_module_ids: [MODULE-A000000000000002]
+62:     relationship_ids: [RELATION-A000000000000001]
+63:     constraint_ids: []
+64:     rationale: 撤回决定权规则由申请域承载，成员服务协调触发。
+65: 
+66:   - domain_fact_id: FACT-A000000000000007
+67:     disposition_type: no_independent_implementation
+68:     primary_module_id: null
+69:     collaborator_module_ids: []
+70:     relationship_ids: []
+71:     constraint_ids: []
+72:     rationale: 术语定义用于统一理解，不需独立实现模块。
+73: 
+74:   - domain_fact_id: FACT-A000000000000008
+75:     disposition_type: no_independent_implementation
+76:     primary_module_id: null
+77:     collaborator_module_ids: []
+78:     relationship_ids: []
+79:     constraint_ids: []
+80:     rationale: 术语定义用于统一理解，不需独立实现模块。
+81: 
+82:   - domain_fact_id: FACT-A000000000000009
+83:     disposition_type: primary_module
+84:     primary_module_id: MODULE-A000000000000001
+85:     collaborator_module_ids: []
+86:     relationship_ids: []
+87:     constraint_ids: []
+88:     rationale: 预约区间值对象由申请域承载。
+89: 
+90:   - domain_fact_id: FACT-A00000000000000A
+91:     disposition_type: primary_module
+92:     primary_module_id: MODULE-A000000000000001
+93:     collaborator_module_ids: []
+94:     relationship_ids: []
+95:     constraint_ids: []
+96:     rationale: 审计条目值对象由申请域承载。
+97: 
+98:   - domain_fact_id: FACT-A00000000000000B
+99:     disposition_type: primary_module
+100:     primary_module_id: MODULE-A000000000000001
+101:     collaborator_module_ids: []
+102:     relationship_ids: []
+103:     constraint_ids: []
+104:     rationale: 预约申请实体由申请域承载。
+105: 
+106:   - domain_fact_id: FACT-A00000000000000C
+107:     disposition_type: primary_module
+108:     primary_module_id: MODULE-A000000000000001
+109:     collaborator_module_ids: []
+110:     relationship_ids: []
+111:     constraint_ids: []
+112:     rationale: 预约申请生命周期由申请域承载。
+113: 
+114:   - domain_fact_id: FACT-A00000000000000D
+115:     disposition_type: primary_module
+116:     primary_module_id: MODULE-A000000000000001
+117:     collaborator_module_ids: []
+118:     relationship_ids: []
+119:     constraint_ids: []
+120:     rationale: 申请状态变更事件由申请域产生。
+121: 
+122:   - domain_fact_id: FACT-A00000000000000E
+123:     disposition_type: primary_module
+124:     primary_module_id: MODULE-A000000000000001
+125:     collaborator_module_ids: [MODULE-A000000000000002]
+126:     relationship_ids: [RELATION-A000000000000001]
+127:     constraint_ids: [CONSTRAINT-A000000000000001]
+128:     rationale: 只操作本人申请规则由申请域执行，成员服务提供身份。
+129: 
+130:   - domain_fact_id: FACT-A00000000000000F
+131:     disposition_type: primary_module
+132:     primary_module_id: MODULE-A000000000000001
+133:     collaborator_module_ids: []
+134:     relationship_ids: []
+135:     constraint_ids: []
+136:     rationale: 只允许待审核状态撤回规则由申请域执行。
+137: 
+138:   - domain_fact_id: FACT-A000000000000010
+139:     disposition_type: primary_module
+140:     primary_module_id: MODULE-A000000000000001
+141:     collaborator_module_ids: []
+142:     relationship_ids: []
+143:     constraint_ids: []
+144:     rationale: 幂等撤回规则由申请域执行。
+145: 
+146:   - domain_fact_id: FACT-A000000000000011
+147:     disposition_type: architecture_constraint
+148:     primary_module_id: null
+149:     collaborator_module_ids: []
+150:     relationship_ids: []
+151:     constraint_ids: [CONSTRAINT-A000000000000001]
+152:     rationale: 身份信任规则作为全局约束适用于所有接收身份的模块。
+153: 
+154:   - domain_fact_id: FACT-A000000000000012
+155:     disposition_type: primary_module
+156:     primary_module_id: MODULE-A000000000000003
+157:     collaborator_module_ids: []
+158:     relationship_ids: []
+159:     constraint_ids: [CONSTRAINT-A000000000000001]
+160:     rationale: 周报访问控制由运营汇总模块执行。
+161: 
+162:   - domain_fact_id: FACT-A000000000000013
+163:     disposition_type: architecture_constraint
+164:     primary_module_id: null
+165:     collaborator_module_ids: []
+166:     relationship_ids: []
+167:     constraint_ids: [CONSTRAINT-A000000000000002]
+168:     rationale: 并发安全不变量作为全局约束由申请域并发机制保证。
+169: 
+170:   - domain_fact_id: FACT-A000000000000014
+171:     disposition_type: primary_module
+172:     primary_module_id: MODULE-A000000000000001
+173:     collaborator_module_ids: []
+174:     relationship_ids: []
+175:     constraint_ids: []
+176:     rationale: 审计完整性不变量由申请域承载。
+177: 
+178:   - domain_fact_id: FACT-A000000000000015
+179:     disposition_type: module_relationship
+180:     primary_module_id: null
+181:     collaborator_module_ids: []
+182:     relationship_ids:
+183:       - RELATION-A000000000000001
+184:       - RELATION-A000000000000002
+185:     constraint_ids: []
+186:     rationale: >-
+187:       统一申请身份不变量通过成员服务和运营汇总都依赖申请域的关系保证。
+188: 
+189:   - domain_fact_id: FACT-A000000000000016
+190:     disposition_type: primary_module
+191:     primary_module_id: MODULE-A000000000000001
+192:     collaborator_module_ids: []
+193:     relationship_ids: []
+194:     constraint_ids: []
+195:     rationale: 领域产品能力-区间校验由申请域承载。
+196: 
+197:   - domain_fact_id: FACT-A000000000000017
+198:     disposition_type: primary_module
+199:     primary_module_id: MODULE-A000000000000001
+200:     collaborator_module_ids: [MODULE-A000000000000002]
+201:     relationship_ids: [RELATION-A000000000000001]
+202:     constraint_ids: []
+203:     rationale: 领域产品能力-撤回由申请域承载，成员服务协调。
+204: 
+205:   - domain_fact_id: FACT-A000000000000018
+206:     disposition_type: primary_module
+207:     primary_module_id: MODULE-A000000000000003
+208:     collaborator_module_ids: []
+209:     relationship_ids: [RELATION-A000000000000002]
+210:     constraint_ids: []
+211:     rationale: 领域产品能力-读取周报由运营汇总承载。
+212: 
+213:   - domain_fact_id: FACT-A000000000000019
+214:     disposition_type: primary_module
+215:     primary_module_id: MODULE-A000000000000001
+216:     collaborator_module_ids: []
+217:     relationship_ids: []
+218:     constraint_ids: []
+219:     rationale: 正常区间校验场景由申请域承载。
+220: 
+221:   - domain_fact_id: FACT-A00000000000001A
+222:     disposition_type: primary_module
+223:     primary_module_id: MODULE-A000000000000001
+224:     collaborator_module_ids: []
+225:     relationship_ids: []
+226:     constraint_ids: []
+227:     rationale: 阻断区间校验场景由申请域承载。
+228: 
+229:   - domain_fact_id: FACT-A00000000000001B
+230:     disposition_type: primary_module
+231:     primary_module_id: MODULE-A000000000000001
+232:     collaborator_module_ids: [MODULE-A000000000000002]
+233:     relationship_ids: [RELATION-A000000000000001]
+234:     constraint_ids: []
+235:     rationale: 正常撤回场景由申请域执行，成员服务协调。
+236: 
+237:   - domain_fact_id: FACT-A00000000000001C
+238:     disposition_type: primary_module
+239:     primary_module_id: MODULE-A000000000000001
+240:     collaborator_module_ids: [MODULE-A000000000000002]
+241:     relationship_ids: [RELATION-A000000000000001]
+242:     constraint_ids: []
+243:     rationale: 阻断撤回场景由申请域执行，成员服务协调。
+244: 
+245:   - domain_fact_id: FACT-A00000000000001D
+246:     disposition_type: primary_module
+247:     primary_module_id: MODULE-A000000000000001
+248:     collaborator_module_ids: [MODULE-A000000000000002]
+249:     relationship_ids: [RELATION-A000000000000001]
+250:     constraint_ids: []
+251:     rationale: 纠正撤回场景由申请域执行，成员服务协调。
+252: 
+253:   - domain_fact_id: FACT-A00000000000001E
+254:     disposition_type: primary_module
+255:     primary_module_id: MODULE-A000000000000003
+256:     collaborator_module_ids: []
+257:     relationship_ids: [RELATION-A000000000000002]
+258:     constraint_ids: []
+259:     rationale: 正常读取周报场景由运营汇总承载。
+260: 
+261:   - domain_fact_id: FACT-A00000000000001F
+262:     disposition_type: primary_module
+263:     primary_module_id: MODULE-A000000000000003
+264:     collaborator_module_ids: []
+265:     relationship_ids: [RELATION-A000000000000002]
+266:     constraint_ids: [CONSTRAINT-A000000000000001]
+267:     rationale: 阻断读取周报场景由运营汇总承载，身份约束全局适用。
+268: 
+269:   - domain_fact_id: FACT-A000000000000020
+270:     disposition_type: no_independent_implementation
+271:     primary_module_id: null
+272:     collaborator_module_ids: []
+273:     relationship_ids: []
+274:     constraint_ids: [CONSTRAINT-A000000000000001]
+275:     rationale: >-
+276:       可信宿主会话是外部系统，本项目不实现它，只通过身份约束信任其提供的身份。

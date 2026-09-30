@@ -1,0 +1,28 @@
+schema_version: strixnova.project-domain-collection.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+collection_id: COLL-9E8BDB21FBE8481F
+title: 产品能力与业务场景
+routing_summary: 需要判断某项产品能力的正常、阻断、纠偏或取消行为时读取。
+child_collection_paths: []
+sources:
+- source_id: SRC-2277B6C54D314546
+  title: 产品能力
+  routing_summary: 将产品定义中的现行能力解释为领域行为边界。
+  path: docs/domain/sources/capabilities.yaml
+- source_id: SRC-F70E0EA04C1E4126
+  title: 长期目标权威场景
+  routing_summary: 产品、领域、目标架构和实现对齐能力的四类场景。
+  path: docs/domain/sources/scenarios-authority.yaml
+- source_id: SRC-F906B1A12CA44E14
+  title: 方向与工程治理场景
+  routing_summary: 引导式形成在方向阶段的快慢节奏，以及分别判断意图缺口、交付跨度、保障深度并形成权威变更、语义复核、实施切片和负责人视图的工程治理四类场景。
+  path: docs/domain/sources/scenarios-governance.yaml
+- source_id: SRC-FFBF6809E04E4814
+  title: 建设、验证和交付运行场景
+  routing_summary: 单仓库与多仓库建设协调、外部依赖验证、部分交付恢复和取消，以及交付发布运行维护的四类场景。
+  path: docs/domain/sources/scenarios-delivery.yaml
+- source_id: SRC-A02E4C7187F240D0
+  title: 追溯与通用交互场景
+  routing_summary: 按仓库内容组合区分整体与局部事实的追溯、下一步投影和受支持智能编码代理交互四类场景。
+  path: docs/domain/sources/scenarios-interface.yaml

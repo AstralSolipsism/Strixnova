@@ -1,0 +1,519 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "STRIXNOVA-GOV-REQ-001",
+      "issues": [],
+      "limitations": [
+        "评价对象是新仓库初始候选的冻结材料，不代表外部标准认证、用户主观接受或宿主环境自动加载。",
+        "隔离场景G1在固定输入下的机械通过不等于真人负责人的实际语义确认。"
+      ],
+      "reason": "初始候选的产品定义草稿（EVIDENCE-26615D3E04DF3364）结构化声明了目标、能力、非目标、约束与成功准则并保持身份互引，隔离验收（EVIDENCE-64BD0AC70E33B3B3）与场景执行（EVIDENCE-AACD811124381ADE）提供了可观察验收形式。但材料如实记录了产品定义仍为draft、confirmed_by_owner_id为null、Git绑定为空、Agent目录有待验场景，未将操作说明升级为已完成，因此partially_satisfied的评定准确且证据充分。",
+      "references": [
+        {
+          "end_line": 187,
+          "source_id": "assessment",
+          "start_line": 158,
+          "original_text": "    {\n      \"applicability\": \"applicable\",\n      \"applicability_reason\": \"本次是完整重构的初始候选，产品定义草稿（EVIDENCE-26615D3E04DF3364）已结构化表达了 purpose、6 项 problems、8 项 outcomes、13 项 capabilities、10 项 non_goals、14 项 constraints 和 18 项 success_criteria 并以稳定身份互引。隔离验收方案（EVIDENCE-64BD0AC70E33B3B3）有固定输入的可观察验收条件。G1 确认场景（EVIDENCE-AACD811124381ADE）含真实原生执行和三项独立复核。但产品定义 revision_status 为 draft、confirmed_by_owner_id 为 null，负责人尚未真实确认；三份 Git 绑定均为 null；Agent 目录仍有 10 项待验。\",\n      \"evidence_ids\": [\n        \"EVIDENCE-26615D3E04DF3364\",\n        \"EVIDENCE-64BD0AC70E33B3B3\",\n        \"EVIDENCE-AACD811124381ADE\",\n        \"EVIDENCE-3BEA85A280AD8EB4\"\n      ],\n      \"gaps\": [\n        \"产品定义 revision_status: draft, confirmed_by_owner_id: null — 负责人未真实确认目标、范围和验收\",\n        \"三份 Git 绑定（evidence_base_commit、base_commit）均为 null\",\n        \"Agent 目录 10 项待验场景\"\n      ],\n      \"limitations\": [\n        \"本地证据只覆盖明确的输入、版本与环境；不表示外部标准认证、用户语义接受或宿主自动加载\",\n        \"隔离场景的固定输入通过不等于真人接受\"\n      ],\n      \"remediation_actions\": [\n        \"完成负责人对产品定义草稿的正式确认\",\n        \"实际结果审阅后完成首次 Git 提交并补齐三份正式绑定\",\n        \"完成剩余 10 项待验 Agent 场景\"\n      ],\n      \"rule_id\": \"STRIXNOVA-GOV-REQ-001\",\n      \"source_ids\": [\n        \"ISO-29148-2018\",\n        \"ISO-15289-2019\"\n      ],\n      \"status\": \"partially_satisfied\"\n    },\n",
+          "source_sha256": "ff33e27461158b38afa251b628a1bf7c533cb301073456e462dfbcbceaddc359",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 10,
+          "source_id": "EVIDENCE-26615D3E04DF3364",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-product-definition.v1\nproduct_id: PRODUCT-8312417768A84DE4\nrevision:\n  revision_id: REVISION-59EB5B9A3F3F46C0\n  status: draft\n  supersedes_revision_id: null\n  confirmed_by_owner_id: null\n  confirmed_on: null\ntitle: Strixnova项目产品定义\npurpose: 帮助能够说明预期结果但不必掌握完整软件工程知识的项目负责人， 通过具有命令执行能力的智能编码代理，把产品目标持续推进为方向正确、 权威清晰、过程受控、证据完整且可追溯的软件工程成果。\n",
+          "source_sha256": "91c80b879f97284ce585757eecff0189a8762d8148890484ecaccd91983faa8e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 27,
+          "source_id": "EVIDENCE-64BD0AC70E33B3B3",
+          "start_line": 1,
+          "original_text": "# 新项目隔离验收\n\n负责人已同意本方案。固定输入只用于登记的隔离工程，不代表真实重构结果接受。\n\n本轮 Strixnova 新候选的必要 Agent 验收采用固定隔离对话方式：真实 Antigravity 执行，独立 Antigravity 复核，Codex 仅负责准备夹具、转交预设输入、记录原始事件和运行确定性检查。未取得真实结果时不声称通过；不将测试角色的接受解释为负责人对 Strixnova 重构结果的接受。\n\n固定输入如下。与当前候选不相符、未形成候选、未完成必要检查或独立复核存在阻断时，程序不得投递相应接受输入。\n\n| 投递时点 | 固定负责人角色测试输入 | 用途 |\n| --- | --- | --- |\n| 首次解释方向后 | 我没看明白，请用修改前后的差异再解释一次。 | 验证疑问不会被当作接受或退回，同一候选可重述 |\n| 同一方向完成重述且必要独立检查完成后 | 现在理解这份方向说明了，同意这个方向，请继续制定工程方案。 | 验证决定绑定当前方向且不提前实施 |\n| 完整工程方案展示且必要独立检查完成后 | 同意当前展示的工程方案，仅在本临时测试工程内实施与验证；实际结果接受前不要提交。 | 验证临时工程内的实施授权与提交边界 |\n| 实际结果、证据、限制均展示且必要独立检查完成后 | 接受当前展示的实现结果及已明确说明的限制，仅允许本临时测试工程的本地提交与合入。 | 验证精确结果接受、本地交付及不扩展到远端 |\n| 当前四类权威完整候选包展示且必要独立检查完成后 | 接受当前完整展示的产品定义、领域模型、目标架构和工程政策四项候选；实现对齐仍保持草稿，实际结果另行处理。 | 验证逐类决定、确认元数据和实现结果边界 |\n\n实施限制：\n\n1. 场景只在本轮新建并登记的隔离测试工程中执行，不使用产品管理自身的重构，不对真实项目投递上述输入。\n2. 固定输入、题面、场景范围、完成标准、权限与模型在运行前登记。固定输入保存摘要，运行中不因被测 Agent 的错误临时编造同意。\n3. 真实执行者和独立语义复核者均使用 Antigravity；具体可用模型与调用信息在运行前核实并记录，不使用 Codex 替代。\n4. Codex 只执行确定性阶段判断和投递，不自行判断语义通过。必要候选检查由独立 Antigravity 完成，并保留其结论与来源。\n5. 记录题面、输入原文、阶段、候选身份、版本、实际调用、原始事件、生成产物与独立复核。结论限定为固定对话下的实际 Agent 与程序行为。\n6. 模型返回未收口、权限阻断、环境故障或场景失败时如实记录；有限定位后保留待验或失败，不改用 Codex 演练冒充通过。\n7. 运行前说明范围、预计耗时、资源和停止条件。沿用既有验证入口与证据保留原则，不自动追加场景、增加 Agent 或重演已退出支持范围的旧格式流程。\n8. 新项目实际代码、工程材料与最终结果仍提交给负责人审阅；上述输入不授权真实仓库提交、推送、公开发布或真人接受。\n\n",
+          "source_sha256": "b59f706817096255d9a17e4e91849e90e92e241cfedce88a7f7fee9f84aba55b",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 30,
+          "source_id": "EVIDENCE-AACD811124381ADE",
+          "start_line": 1,
+          "original_text": "{\n  \"group\": \"G1-current-confirmation\",\n  \"executed_skill_bundle_manifest_sha256\": \"084fb9187265c798db2ebb6c9edc13a2545d7cde4c1446674a4414629f04e84b\",\n  \"execution\": {\n    \"mechanical_passed\": true,\n    \"failure_layer\": null,\n    \"outcome\": \"endpoint_observed\",\n    \"report_valid\": true\n  },\n  \"cases\": [\n    {\n      \"case_id\": \"GF-CLEAR-BOUNDED\",\n      \"issues\": [],\n      \"limitations\": [\n        \"起始权威 confirmed 状态是合成测试前提，非真人预先接受。\",\n        \"后续负责人输入为固定预登记输入，不代表真人实际理解或主观重构接受。\"\n      ],\n      \"reason\": \"在接收到明确的预约区间函数缺陷修复请求后，Agent在单个WorkItem治理生命周期内，直接聚焦于修复范围，查阅既有方向上下文后形成方向候选并提交。没有引入产品发现、PRD编撰或架构重构等额外规划仪式，也没有提出无意义追问，且未越界操作。整个过程严格保持单事项边界。\",\n      \"references\": [\n        {\n          \"end_line\": 43,\n          \"source_id\": \"direction/endpoint.json\",\n          \"start_line\": 1,\n          \"original_text\": \"{\\n  \\\"reached\\\": true,\\n  \\\"work_item_id\\\": \\\"WI-20260929-83293982\\\",\\n  \\\"next\\\": {\\n    \\\"current_action\\\": {\\n      \\\"action_type\\\": \\\"confirm_direction\\\",\\n      \\\"actor\\\": \\\"user\\\",\\n      \\\"blocking_facts\\\": [],\\n      \\\"conditional_record_refs\\\": [],\\n      \\\"confirmation_challenge\\\": {\\n        \\\"candidate_fingerprint\\\": \\\"sha256:8da145c196a3c47c0d24b630005b177a52b608e966af47852b38e4616def37f6\\\",\\n        \\\"candidate_kind\\\": \\\"direction\\\",\\n        \\\"decision_interpreter\\\": \\\"coding_agent\\\",\\n        \\\"decision_label\\\": \\\"当前展示的方向\\\",\\n        \\\"schema_version\\\": \\\"strixnova.confirmation-challenge.v1\\\"\\n      },\\n      \\\"input_contract_ref\\\": \\\"input.contract:confirm_direction\\\",\\n      \\\"input_kind\\\": \\\"direction_confirmation\\\",\\n      \\\"intent\\\": \\\"confirm\\\",\\n      \\\"record_refs\\\": [\\n        \\\"direction\\\",\\n        \\\"project.direction_context\\\"\\n      ],\\n      \\\"schema_version\\\": \\\"strixnova.current-action.v1\\\",\\n      \\\"work_item_id\\\": \\\"WI-20260929-83293982\\\",\\n      \\\"work_item_version\\\": 2\\n    },\\n    \\\"reading\\\": {\\n      \\\"complete\\\": true,\\n      \\\"max_output_bytes\\\": 4096,\\n      \\\"schema_version\\\": \\\"strixnova.record-reading.v1\\\",\\n      \\\"unread_refs\\\": []\\n    },\\n    \\\"record_pages\\\": {},\\n    \\\"record_sources\\\": {},\\n    \\\"records\\\": {},\\n    \\\"relations\\\": {\\n      \\\"declared\\\": [],\\n      \\\"referenced_by\\\": []\\n    },\\n    \\\"schema_version\\\": \\\"strixnova.next-step.v1\\\",\\n    \\\"work_item_id\\\": \\\"WI-20260929-83293982\\\",\\n    \\\"work_item_status\\\": \\\"awaiting_direction_confirmation\\\",\\n\",\n          \"source_sha256\": \"d9942f7d033ecb8768d510b54352d26c1f45d80861bbaa3c3b78075ddbebb453\",\n          \"source_role\": \"author_artifact\"\n        },\n        {\n          \"end_line\": 27,\n          \"source_id\": \"direction/author-response.md\",\n",
+          "source_sha256": "4faa7a55791d809a90992d13b8cd052f47db098920daf8aa777a438a4d33f9e0",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 35,
+          "source_id": "EVIDENCE-3BEA85A280AD8EB4",
+          "start_line": 1,
+          "original_text": "# 当前验证状态\n\n版本：0.1.0.dev0。初始候选仍在验收；尚未取得负责人对实际重构结果的接受，也未暂存、提交或发布。\n\n| 范围 | 已有结果 | 当前边界 |\n| --- | --- | --- |\n| 快速功能回归 | 1139 通过，5 跳过，含三项真实隔离安装探测 | 四项文件符号链接检查受宿主权限限制，一项文件名规则不适用于 Windows |\n| 全量功能回归 | 1143 通过，4 失败，8 跳过；25 分 29 秒 | 三个依赖真实未提交基线的功能夹具已隔离并通过定点复验；真实基线检查移入仓库状态层保留。原失败没有改写为首次通过 |\n| 技术复核与修复 | 已知 Agent 拒绝修复69项回归通过；当前合同清理51项回归通过 | 新回归先复现外部GIT_DIR干扰失败，删除无用读取后通过；旧表示回退已退出。机器验证与独立重核分别保留 |\n| 最新源码观察与实现评价 | 135 个受管文件，60 个 Python 源码，664 条规范化关系 | 21 个模块、83 条关系和 33 条约束已有当前原生评价及独立复核；其中 1 项保留部分或未满足状态，原缺口和补验要求仍在；剩余 0 条关系、0 条约束待评价。模块和约束评价不等于完整 Agent 流程验收 |\n| 最新 clean wheel 与隔离安装 | 135 个源码、wheel 和安装文件匹配；9 次安装及原生入口调用通过 | 未安装到系统或源码环境；不表示普通宿主自动加载或正式发布 |\n| 真实 Agent 证据 | 50 项目录中，40 项声明依赖与证据当前有效、0 项需重核、10 项待验 | 当前策略 G1 已完成新的实际执行和三项独立复核；原越界失败、服务 EOF 与纠正保留。固定输入下通过不代表真人接受或任意输入下的可靠性 |\n| 复杂流程验收 | 22:20后恢复实际原生执行，两次有限调用仍未完成新评估提交 | 当前版本13停在submit_engineering_assessment；未投递新接受、未实施业务，原拒绝及超时保留；此场景停止追加，先完成不依赖它的检查 |\n| 仓库材料与 Git checkout | 原仓库状态检查 6 通过、8 未通过；checkout 因属性未暂存而拒绝 | 三份正式 Git 绑定仍为空；当前 137/137 项实现目标已有评价，7 条工程保障规则待评价。原字节相等不等于索引 checkout 通过 |\n| 负责人实际结果接受 | 待完整可审阅结果形成 | 隔离测试中的固定接受不授权真实仓库提交、推送或发布 |\n\n最新候选位于本地 `.artifacts/candidates/initial-alignment-clean/`。wheel SHA-256：`f71c0e7d19da20db54ad64b2383c9d95d986b288299d13b71f9927953fe375e8`；Skill 摘要：`084fb9187265c798db2ebb6c9edc13a2545d7cde4c1446674a4414629f04e84b`。135个源码/wheel/安装文件匹配，9次安装与命令检查通过；不代表完整Agent、Git或负责人接受。\n\n修复前的本地记录：快速 `f5e20647248e`，全量 `d0856323c4b6`，修复层 `7aaf327a1ccb`，该轮观察 `8216d2c84e13`，wheel `308a4b4949e2`，离线包 `2b4fc62609a7`，隔离安装 `1dc202780cbc`，源码/制品注册 `f88e7668b02e`，仓库状态 `8b07f3a022b4`，checkout 阻断 `8a1262000350`。本次同步和构建先因同步清单滞后而拒绝，补齐后通过；原 `19621d5bd348`、`63b2a9a23508` 仍保留，不伪称首次通过。\n\n逐项结果、原始记录及当前性以[验收目录](../../tests/acceptance/guided-formation-cases.yaml)为准。SPEC 更新见[独立证据](../../tests/acceptance/initial/G5-spec-update/evidence.json)，回执恢复见[独立证据](../../tests/acceptance/initial/G7-verification-resume/evidence.json)，版号括注影响见[五项原生证据重评](../../tests/acceptance/initial/v1-label-reassessment/evidence.json)。固定输入和接受边界见[隔离验收方案](agent-acceptance.md)。\n\n较早的局部程序检查 `30608175d9f5`：15 项通过。它保留未知格式、未知目录、原始数据与 Git 排除文件保护；删除了一项仅检查退役入口名称的测试。因此上表完整套件的计数是对应既有运行当时的结果，不冒充本次重新运行了全套。对齐草稿首轮因猜测一个不存在的参考文件而未通过执行检查；原错误保留，按现有索引完成有限复核后由独立原生会话判定通过。\n\n维护场景 `G9` 已完成实际未收口阻断、停止证据恢复、程序/Skill切换及新会话显式加载，原记录与业务输出保全；见[维护证据](../../tests/acceptance/initial/G9-maintenance/evidence.json)。源与目标均为当前 v1 格式，不进行格式迁移。原生步骤只执行一次；两项外层包装器判断错误及纠正记录一并保留。\n\n历史与整体进度场景 `G8` 的两项原生验收通过，数据表、业务源码与集成HEAD保持不变。真实失败命令仅执行一次，未运行记录有明确限制，取消事实和缺失原输出分别呈现；原输出字节已另行保全。见[历史证据](../../tests/acceptance/initial/G8-history/evidence.json)。\n\n实现评价先落地了产品、领域和目标架构三个读取模块，共 9 项归属文件；见[独立评价绑定](../../tests/acceptance/initial/implementation-assessment/authority-readers/evaluation-binding.json)。这些是代码职责评价，工程材料继续保持草稿；不构成 Git 采用、完整 Agent 效果或负责人接受。\n\n已知 Agent 拒绝修复曾完成三模块有限重核。当前 v1 清理后涉及的两模块和 12 条关系已完成[当前差异复核](../../tests/acceptance/initial/implementation-assessment/current-contract-cleanup/evaluation-binding.json)，原评价、位置变化和新的评价均保留。\n初始范围、设计取舍与交付边界见[基线设计](initial-baseline-design.md)；14 轮机器检查及原始失败见[证据索引](../../tests/acceptance/initial/machine-checks/index.json)。复杂流程的原生前置候选和独立拒绝结论见[停止记录](../../tests/acceptance/initial/G4-G2-stopped/index.json)，17 项后续待验没有改记为通过。\n本轮已知 Agent 入口拒绝修复及原始证据见[修复索引](../../tests/acceptance/initial/known-agent-guard-change/index.json)。定点回归 `30b2d951c8f4` 为 69 项通过，修复后无进程探针 `737a1374cf49` 确认拒绝，Skill 同步 `a51188c03009` 通过，新 clean wheel `cedc8d6f6c55`、隔离安装 `8c6342d8bbab` 和字节登记 `f68fa067ebbd` 通过。观察准备首次因控制器误用带仓库身份的摘要键而失败，修正后 `03f9c0119538` 通过；原 `42db14333e21` 保留。未重复全部功能套件，未把原 33 项证据改记为新候选通过。\n\n2026-09-29，前两次原生调用因个人额度耗尽而结束；错误和冻结输入保留于[额度记录](../../tests/acceptance/initial/native-quota-block/index.json)。恢复后原会话虽产生新结构化候选，仍附带旧额度错误；同账号同模型的新会话可用性检查673d4f50190b成功。当前已改用新会话，旧错误不改记为通过。\n",
+          "source_sha256": "b8aeaac0af8f8cb90d52b7f45478e6fba1a36c53911bd5f40582cfdee950e1db",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅判断这份内部规则评价是否准确且有证据；真实的部分、未满足或待验状态可以被如实登记，复核通过不把它们升级为已满足。不宣称完整候选、外部认证或负责人接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_seven_rules_present": true,
+          "evidence_ids_and_hashes_bound": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "STRIXNOVA-GOV-LIFE-001",
+      "issues": [],
+      "limitations": [
+        "本地生命周期与配置规范处于草稿或设计说明状态，未在真实远程或正式仓库分支执行。",
+        "机器检查保留了全量失败记录与定点修复事实，未合并篡改原始记录。"
+      ],
+      "reason": "工程政策（EVIDENCE-778AAA36AF9ADA11）、基线声明（EVIDENCE-005707332E5A2FB6）、初始设计（EVIDENCE-C0F52712AA3F227F）及仓库约定（EVIDENCE-4D29953BF23C354C）完整阐述了操作信息项、验证门禁与提交顺序。评价如实指出了base_commit为空、Git checkout被拒绝（EVIDENCE-89C77AFE58990642）、政策与基线均未正式确认生效的缺口，没有用操作规约替代真实Git生命周期执行，partially_satisfied结论真实客观。",
+      "references": [
+        {
+          "end_line": 217,
+          "source_id": "assessment",
+          "start_line": 188,
+          "original_text": "    {\n      \"applicability\": \"applicable\",\n      \"applicability_reason\": \"新仓库初始建设必须说明变更操作和交付方式。工程政策（EVIDENCE-778AAA36AF9ADA11）定义了 verification_command_policy 和 delivery_gates。基线（EVIDENCE-005707332E5A2FB6）声明了五类权威引用。初始设计（EVIDENCE-C0F52712AA3F227F）和仓库约定（EVIDENCE-4D29953BF23C354C）说明了操作流程。机器检查索引（EVIDENCE-0FBE5731BD4BD276）记录了 14 轮验证运行。但 Git 生命周期未完成、政策和基线均为 draft。\",\n      \"evidence_ids\": [\n        \"EVIDENCE-778AAA36AF9ADA11\",\n        \"EVIDENCE-005707332E5A2FB6\",\n        \"EVIDENCE-C0F52712AA3F227F\",\n        \"EVIDENCE-4D29953BF23C354C\",\n        \"EVIDENCE-0FBE5731BD4BD276\"\n      ],\n      \"gaps\": [\n        \"Git 生命周期（暂存、提交、检出、回退）未实际执行 — base_commit: null，checkout 被拒绝\",\n        \"工程政策和基线均为 draft 且 under_review\",\n        \"真实仓库交付尚未发生\"\n      ],\n      \"limitations\": [\n        \"本地证据只覆盖明确的输入、版本与环境\",\n        \"机器检查含原始全量失败与后续定点修复，分别保留\"\n      ],\n      \"remediation_actions\": [\n        \"负责人确认后执行首次 Git 提交\",\n        \"补齐 checkout 通过证据\",\n        \"工程政策和基线从 draft 进入采用\"\n      ],\n      \"rule_id\": \"STRIXNOVA-GOV-LIFE-001\",\n      \"source_ids\": [\n        \"ISO-12207-2026\"\n      ],\n      \"status\": \"partially_satisfied\"\n    },\n",
+          "source_sha256": "ff33e27461158b38afa251b628a1bf7c533cb301073456e462dfbcbceaddc359",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 45,
+          "source_id": "EVIDENCE-778AAA36AF9ADA11",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-engineering-policy.v1\npolicy_id: POLICY-464E891F2CE841AA\nrevision:\n  revision_id: POLICYREV-6151D5CB5D3D4E51\n  status: draft\n  supersedes_revision_id: null\n  confirmed_by_owner_id: null\n  confirmed_on: null\nproduct_definition_ref:\n  product_id: PRODUCT-8312417768A84DE4\n  revision_id: REVISION-59EB5B9A3F3F46C0\nbase_profile_ref:\n  profile_id: strixnova-general-software-engineering\n  profile_version: '2026-08-23'\nmethod_adoptions:\n- method_id: ddd\n  status: adopted\n  reason: Strixnova的核心复杂度来自建设事项、工程评估、项目治理、交付与验证等 领域事实及其关系；采用 DDD（领域驱动设计）维护统一语言、限界上下文、 领域不变量、上下文关系和实现对齐，不把方法名称当作代码目录模板或认证。\n  conditions: []\n  adopted_technique_ids:\n  - ubiquitous_language\n  - bounded_context\n  - context_map\n  - domain_invariant_trace\npolicy_statements:\n  quality:\n  - 可用性必须由真实效果、安装和验证证明，开发阶段标签不是可用性结论。\n  - 合规状态必须区分来源绑定、程序校验、内部评估、真实人类审查和外部认证。\n  - 方向阶段由智能编码代理自行查明项目事实，只向项目负责人提出会实质改变方向的决定；请求已明确时不得仪式性追问。\n  - 方向、完整工程方案和实际结果进入确认前，智能编码代理必须主动说明当前或修改前状态、候选变化、产品效果、工程逻辑、影响与风险、未知、推荐和授权边界；内容按实际复杂度组织，不要求负责人先追问或理解系统字段。\n  - 普通确认允许负责人自然表达明确接受或具体纠正；Agent 保留真实原文，提交显式接受或要求修改的决定及依据。事项版本、决定标签、候选身份、指纹、Schema 名称和结果卡编号只作为程序内部绑定或审计事实，默认不得要求负责人阅读、复制或签署；程序不按自然语言词表判断决定。\n  - 用户表示看不懂、提问或要求换一种说法时，智能编码代理必须解释同一候选并保持确认待定；只有会改变候选含义的实质纠正才进入退回和修订，程序不得从自然语言近义表达、沉默或上下文推断接受。\n  - 方向阶段的只读上下文必须完整列出当前产品能力、非目标和约束；智能编码代理负责调查并逐项解释适用性、理由和重开条件，程序只校验精确版本、合法引用、唯一覆盖与失效关系。\n  - 实现观察的支持结论必须同时注明语言、关系种类、配置、提供者和实际覆盖状态；识别文件扩展名、存在适配器或取得空关系结果都不能单独证明完整支持。\n  - 需求形成深度、交付跨度和保障深度必须分别依据真实意图缺口、可独立验收结果及风险说明；文件数、代码行数、活动名称或产物名称不得自动推出其中任一结论。\n  - 方向条目身份、引用闭合、需求覆盖和历史不可复用可以由程序证明；条目是否保持同一含义、验收是否充分以及结构转换是否仍忠实于业务含义，只能由智能编码代理形成判断并由项目负责人确认。\n  - 不得用方向条目身份未变化、Schema 通过、转换成功或测试通过冒充产品语义未变化。\n  - 首次使用以现成 Windows x64、Python 3.12、Git 和能够读取配套 Skill 的 Agent 为前提；分发物只携带 Strixnova、锁定依赖、配套 Skill 与安装入口说明。技术安装、Skill\n    文件复制、宿主加载、用户接受和业务效果分别报告。\n  - 多仓库事项按一个可独立接受目标组织整体方向、方案和实际结果，仓库数量不增加普通确认点；部分交付、取消及原接受同时如实呈现。\n  testing:\n  - 当前事项的每项验收、约束和已识别风险都须有明确核验安排。命令覆盖复用既有引用，其余逐项说明 Agent 审阅、证据复用或未核验；不能以整体无命令理由代替条目处置，也不制造占位测试命令。\n  - 实际结果区分命令证据与 Agent 语义判断。明确未核验或未获支持的条目必须保留限制；缺少当前核验目标不能形成可接受结果，不自动补造通过。\n  - 实际结果须携带复核前取得的内容身份，绑定方案、方向、声明仓库输入与已采用规则依据；程序在校验和记录结果时核对同一内容，不事后为旧判断补认新版本。身份匹配仅证明声明范围内内容一致，不证明实际阅读、范围穷尽或语义正确。\n  - 用户或外部调用方可观察的行为变化默认在方向验收内形成有依据的例子；纯说明或不改变行为的机械修改可说明不适用。例子不增加方法采用状态、Gherkin 要求或确认点。\n",
+          "source_sha256": "1c232deaccb31ac2a75cd40830a4fb01b17edd1746af98422d1d274f8dff9183",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 52,
+          "source_id": "EVIDENCE-005707332E5A2FB6",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-engineering-baseline.v1\nbaseline_id: BASELINE-3DA9F397664D4781\nproject:\n  project_id: PROJECT-65F87DBEC31A4E4A\n  title: Strixnova\n  owner_id: OWNER-71B223E45DCB476F\nauthority_refs:\n  product_definition:\n    path: docs/product/definition.yaml\n    product_id: PRODUCT-8312417768A84DE4\n    revision_id: REVISION-59EB5B9A3F3F46C0\n    status:\n      revision_status: draft\n      adoption_status: under_review\n    repository_id: REPO-284FDA042B2A4ABD\n    ref: null\n  domain_model:\n    path: docs/domain/model.yaml\n    model_id: MODEL-2F8356E6752B4CC6\n    revision_id: MODELREV-D90FA05044CD4310\n    status:\n      revision_status: draft\n      adoption_status: under_review\n    repository_id: REPO-284FDA042B2A4ABD\n    ref: null\n  target_architecture:\n    path: docs/architecture/model.yaml\n    architecture_id: ARCH-963827FB26C94363\n    revision_id: ARCHREV-8D00B950BAAD458F\n    status:\n      revision_status: draft\n      adoption_status: under_review\n    repository_id: REPO-284FDA042B2A4ABD\n    ref: null\n  engineering_policy:\n    path: docs/engineering/policy.yaml\n    policy_id: POLICY-464E891F2CE841AA\n    revision_id: POLICYREV-6151D5CB5D3D4E51\n    status:\n      revision_status: draft\n      adoption_status: under_review\n    repository_id: REPO-284FDA042B2A4ABD\n    ref: null\n  implementation_alignment:\n    path: docs/implementation-alignment/model.yaml\n    alignment_model_id: ALIGNMODEL-7BC755CF18D1404C\n    revision_id: ALIGNREV-D15EBF40D6074A7C\n    status:\n      revision_status: draft\n      adoption_status: under_review\n    repository_id: REPO-284FDA042B2A4ABD\n    ref: null\n",
+          "source_sha256": "2d8c4f0725902fc670913c9fa724f000f9414feef58e572c9a37f5fe35370bea",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 50,
+          "source_id": "EVIDENCE-C0F52712AA3F227F",
+          "start_line": 1,
+          "original_text": "# Strixnova 初始基线设计\n\n本说明整理已确定的建设范围与实现选择，供初始候选审阅。它引用现有产品、领域、架构及工程材料，不另建权威或状态。范围确认与实际结果接受是两个阶段；当前验证和未完成项以[验证状态](validation-status.md)及原始证据为准。\n\n## 目标与交付边界\n\nStrixnova 是独立的开发中项目。展示名为 `Strixnova`，软件版本为 `0.1.0.dev0`。发行包、Python 导入包、命令和唯一 Skill 均名为 `strixnova`；项目配置是 `strixnova-project.yaml`，私有状态位于 `.strixnova/`。协议命名空间采用 `strixnova.*`，环境变量和专属规则身份采用 `STRIXNOVA_*` 与 `STRIXNOVA-GOV-*`。\n\n初始交付包含当前运行代码、随包资源、Skill、审阅材料、构建安装工具、有效行为测试、当前工程材料和本候选真实形成的证据。完整公开合同、Authority、活动库和证据格式分别从 v1 开始。发行版本、格式版本、内容摘要和成熟度是不同概念。\n\n保留产品当前的确认、工程评估、实施切片、验证、真实回执、本地 Git、多仓库协作、独立历史查询、事务恢复、维护互斥与受管安装能力。历史查询读取本产品当前格式生成的记录；软件维护保留检查、备份、停止、验证、切换和恢复，不预建其他格式的转换机制。\n\n交付不包含已有数据或仓库历史导入、跨品牌转换、命令别名、双配置名查找、双格式读取或兼容包装。宿主现有安装、其他项目、公开包登记、域名、官网及远程发布不在本次实现范围。项目不使用自身管理本次开发，不建立相应 WorkItem。CI、hooks、WebUI 和额外插件不属于本次建设。\n\n## 设计选择\n\n| 关注点 | 采用的方案与理由 | 对应实现或约束 |\n| --- | --- | --- |\n| 独立产品身份 | 生成端、消费端、结构合同、安装元数据和安全归属同时使用唯一命名，避免一个产物拥有互不一致的身份 | 包入口、Schema、路径、Git 分支、安装回执和测试协议同步 |\n| 完整 v1 | 以当前完整结构直接初始化，逐项确定当前合同，不把所有版本数字无差别替换 | 新数据库直接创建完整表、索引与写入保护；不识别的格式明确拒绝 |\n| 现有模块边界 | 沿用单一应用协调、独立权威读取、确定性治理、只读投影及外部执行职责 | [目标模块](../architecture/modules.yaml)、[关系](../architecture/relationships.yaml)、[约束](../architecture/constraints.yaml) |\n| 历史与恢复 | 保留新产品自身的真实历史与通用恢复能力；不从缺失数据推测既往结果 | 原始回执、精确提交、写入意图、文件摘要和停止证据各自保留来源 |\n| 交付身份 | clean wheel 从临时源码快照构建，按字节核对资源；一次性隔离环境只检查安装态 | 源码测试、wheel、安装、Git 检出和 Agent 加载分别提供证据 |\n| 依赖和开发入口 | 使用现有锁定依赖及仓库 Python 3.12，不顺带升级依赖或增加自动化平台 | `requirements-dev-win-py312.txt`、运行锁和 `scripts/local_validation.py` |\n\n上述选择属于初始基线。本说明保留这些长期取舍；当前没有需要另立 ADR 的新模块机制。今后改变权威方向、持久格式或公共接口时，再按工程政策记录具体决策，不以本说明替代正式权威修订。\n\n## 影响、风险与控制\n\n命令、导入、配置路径和公开协议会影响调用方式；文档、Skill 与安装器必须使用同一合同。新库初始化和格式拒绝影响数据行为；格式不符时应保留原始文件，不能尝试转换、回填或清空。安全边界必须随路径一起变更，包括私有目录、符号链接、工作树归属、SQLite 写入保护、验证命令政策和清理范围。\n\n| 风险 | 保留的设计控制 | 验证与限制 |\n| --- | --- | --- |\n| 不受管路径或工作树被误处理 | 路径限定、普通文件检查、仓库身份、创建归属和分支前缀共同校验 | 定点功能回归及本地 Git 夹具；未取得宿主能力的检查保持跳过记录 |\n| 验证或维护中断后重复产生效果 | 持久写入意图、真实进程回执、互斥与恢复入口 | 保留真实中断及停止事件，恢复复用原始结果；不把模拟状态当原始执行 |\n| 包、Skill 与运行代码不一致 | 分别绑定源码资源、Skill 内容、wheel 和实际安装身份 | clean wheel、隔离安装及原生加载证据；版本号相同不代表字节相同 |\n| 测试结果被扩大为语义接受 | 程序、Agent 与负责人职责分开；失败、跳过、待验和限制可见 | 确定性检查不决定语义，真实 Antigravity 独立复核不代替负责人接受 |\n| 交付过程混入既有内容或未授权副作用 | 新目录、新环境、新证据；真实仓库在结果确认前不暂存或提交 | 本地 Git 状态单独检查；不操作其他项目、现有宿主安装或远端 |\n\n用户行为和文档支持由新命令、公开合同及唯一 Skill 承担；产品和领域的有效职责继续保留，架构不增加并行系统。质量与性能采用当前测试和有界查询机制，本次未形成新的性能保证。安全、隐私、供应链和部署运维的结论限于明确受检的输入与环境，不构成外部认证。\n\n## 验证和交付\n\n源码验证使用仓库根解释器和本地验证入口；按影响完成定点、快速和全量回归，保留失败及修复后的结果。工程材料检查核对归属、依赖、责任和实际绑定。只有 clean wheel 入口提供构建证据，随后在一次性隔离环境检查运行依赖、包资源和命令。\n\nAgent 场景按[已确认的隔离方案](agent-acceptance.md)使用固定输入；候选尚未形成或独立复核存在阻断时不得投递接受输入。场景停止后保留失败或待验，继续不依赖该场景的工作。结果、记录和当前依赖见[验收目录](../../tests/acceptance/guided-formation-cases.yaml)。\n\n实际结果审阅前，真实仓库保持未暂存、未提交，工程材料保留草稿和未完成绑定。负责人确认后才组织原子提交，再用真实提交及祖先关系补齐 Git 绑定，执行相应检出和仓库检查。不得填写假提交、把空绑定解释为已采用，或把隔离测试接受解释为真实仓库提交与发布授权。\n\n候选使用受管安装时，进入条件、停止证据、维护互斥、备份、验证和恢复由现有维护流程约束；具体步骤见[历史查询与自身升级](../使用说明/历史查询与自身升级.md)。初始交付不对任何现有宿主执行安装切换。第三方来源和许可仍由根 README 集中维护。\n",
+          "source_sha256": "74b81c8e531b779836c7ed668b7aaa75b7d929c5116f4d2b2188fee13b57bd57",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 45,
+          "source_id": "EVIDENCE-4D29953BF23C354C",
+          "start_line": 1,
+          "original_text": "# Strixnova 仓库目录与开发工具约定\n\n本文件整理本仓库既有布局、开发边界和证据保留要求，由工程政策引用。它不规定其他受管项目采用同样目录，也不改变产品领域事实或目标模块职责。新文件的语义职责由 Agent 调查和说明，程序不根据文件名推断业务含义。\n\n## 文件放置与职责\n\n| 位置 | 放置内容及维护要求 |\n| --- | --- |\n| `strixnova/src/strixnova/` | 随包运行代码及资源。沿用现有模块职责与归属登记；不为目录对称性搬动源码。新增文件先说明承担的既有职责，无法归属时保留调查缺口。 |\n| `strixnova/src/strixnova/resources/agent-skill/strixnova/` | 唯一随包 Skill。内容身份按实际文件字节计算，变更后同步中文审阅材料；不得把外部验收驱动引入产品。 |\n| `tests/unit/`、`tests/integration/`、`tests/support/` | 隔离的行为回归和公共夹具。Python 用例沿用 `test_*.py`；支持资料不能代替真实回执。 |\n| `tests/repository_checks/` | 显式执行的本仓库材料、来源及配置一致性检查，不混入默认功能回归。 |\n| `scripts/` | 长期维护的开发入口：验证、构建、证据登记及外部验收驱动。可重用入口接受明确参数；一次性诊断脚本留在归属清楚的 `.artifacts/` 运行目录。 |\n| `docs/domain/`、`docs/architecture/`、`docs/implementation-alignment/` | 分别维护领域、目标架构和实际实现记录。实际路径归属属于实现对齐，不能把当前布局当作目标职责。 |\n| `docs/领域模型阅读版/`、`docs/使用说明/` | 供人阅读的说明，按对应正式来源更新；来源变化需要复核，文档存在或编号齐全不等于含义正确。 |\n| `.artifacts/validation/<运行ID>/work/`、`evidence/` | 前者放临时项目和环境，后者放应保留的检查证据。唯一证据不能只存放在待释放工作区。 |\n| `tests/acceptance/` | 正式验收索引、必要回执和可恢复的原始记录。大量重复快照不得逐次展开入库；历史记录不改写为首次通过。 |\n\n普通 Python 源码沿用小写下划线命名；已有历史文件不为统一名字强制改名。文档按当前用途目录归档，不以名称匹配推断规则含义。移动文件必须处理调用、引用和归属记录；同名文件按仓库身份区分。\n\n## 关键开发工具边界\n\n这些工具属于本仓库开发过程，受本约定和 AGENTS.md 管理；不伪称已经纳入[产品运行包归属清单](../implementation-alignment/source-ownership.yaml)。\n\n| 职责 | 现有入口 | 必要检查 |\n| --- | --- | --- |\n| 外部 Agent 传输、事件采集、原文附引 | `scripts/agent_acceptance.py`、`scripts/acceptance_evidence.py` | 命令、输入、输出、权限和引用身份有真实记录；程序不产生语义通过结论。对应 `test_agent_acceptance.py`、`test_acceptance_evidence.py`。 |\n| 独立复核及场景执行 | `scripts/review_antigravity_evidence.py`、`scripts/run_antigravity_*.py`、`scripts/run_rule_enforcement_acceptance.py` | 留在开发工具侧；测试范围、固定输入和评审结论分别保留。改动需要 Agent 行为验收时，按本轮用户授权执行；禁止时明确未验。 |\n| 验收目录当前性 | `scripts/check_guided_formation_acceptance.py` | 只比较已声明依赖与原始摘要，分别报告未登记、变化和待验；不把 Skill 一致冒充整个执行条件一致。对应 `test_guided_formation_acceptance.py`、`test_acceptance_dependency_freshness.py`。 |\n| 运行目录与释放 | `scripts/local_validation.py` | 复用既有进程监督、锁、路径与归属检查；保留证据的释放与完整释放区分。对应 `test_local_validation.py`。 |\n| 构建、安装与 Git 检出 | `scripts/build_clean_wheel.py`、`scripts/check_package_checkout.py`、`scripts/build_offline_bundle.py`、`scripts/check_offline_installation.py` | 只有 clean wheel 是构建入口；检出检查不构建、不暂存、不安装。对应构建、检出及离线安装测试。 |\n| 内容身份与许可 | `scripts/skill_bundle_manifest.py`、`scripts/check_skill_cn_sync.py`、`scripts/third_party_notice.py` | 原字节身份、审阅同步和根 README 唯一许可正文分别核对，不用同一版本号代替同一内容。 |\n\n脚本修改的方案需要指出所属职责、调用方和受影响检查；语义判断仍由 Agent 完成。开发工具可以调用已授权的外部 Agent，产品运行包仍不得因此新增 Agent 调度能力。本地验证外层保留已授权 Antigravity（`agy`）验收进程的调用能力；产品内部使用完整的禁止 Agent 名称政策。开发调用仍受 AGENTS.md 和本轮用户授权约束，外层允许执行不代表语义验收授权。\n\n## 核验和收尾\n\n工程方案沿现有操作、约束、验证命令及实际结果引用记录本次约定的落实。尚未建设规则 ID 直接作为核验目标的新合同；不得声称本文件的每句话都已由机器自动强制执行。\n\n1. 按 AGENTS.md 运行受影响验证；用户禁止调用 Agent 时，不通过测试或包装脚本间接启动。\n2. 保存必要输入、失败和最终回执；同一份未变化材料用身份引用复用，避免重复工作区快照。\n3. 确认执行结束、唯一证据及 wheel 已保全后，使用 `clean --release-workspace <运行ID>` 释放工作区，保留记录。未知和仍运行的目录不释放。\n4. 用户确认实际结果后才暂存。暂存完成后可通过本地验证入口运行 `scripts/check_package_checkout.py --wheel <候选wheel>`，核对暂存索引真实检出与冻结源码、wheel；未暂存源码、换行转换或 wheel 不一致均报告差异。该检查不代表宿主已经安装或 Agent 已加载。\n\n新约定若与现行工程政策矛盾，进入既有政策修订流程；不得临时放行来制造通过，也不得自行增加一套审批状态。\n",
+          "source_sha256": "c274b0a95a7e2ef4ecca55298fd77be5d0d69a56761e434a8794b900394e017a",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 50,
+          "source_id": "EVIDENCE-0FBE5731BD4BD276",
+          "start_line": 1,
+          "original_text": "{\n  \"scope\": \"Original local command results and deterministic evidence. No Agent semantic acceptance, owner acceptance, Git adoption or release claim.\",\n  \"runs\": [\n    {\n      \"run_id\": \"d0856323c4b6\",\n      \"status\": \"failed\",\n      \"scope\": \"Full functional run; original failures and skips retained.\",\n      \"files\": [\n        {\n          \"path\": \"tests/acceptance/initial/machine-checks/d0856323c4b6/result.json\",\n          \"sha256\": \"f1f57b4f9d639e0088927f1da4ebcf9c9837826887e13c422f6755f2fc1ce6a4\"\n        },\n        {\n          \"path\": \"tests/acceptance/initial/machine-checks/d0856323c4b6/stdout.log\",\n          \"sha256\": \"e96f99391ba937769923234da6d9b141c11509d5cd6b20b29a42c6faae83dff0\"\n        },\n        {\n          \"path\": \"tests/acceptance/initial/machine-checks/d0856323c4b6/stderr.log\",\n          \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"\n        },\n        {\n          \"path\": \"tests/acceptance/initial/machine-checks/d0856323c4b6/evidence/pytest.xml\",\n          \"sha256\": \"62480ce4357eceacd5e030f5e1134360c9635709be4fa74d40fbb3a6a6cd90c2\"\n        }\n      ],\n      \"retained_local\": []\n    },\n    {\n      \"run_id\": \"f5e20647248e\",\n      \"status\": \"passed\",\n      \"scope\": \"Quick functional run including installed probes; later test removal does not alter this count.\",\n      \"files\": [\n        {\n          \"path\": \"tests/acceptance/initial/machine-checks/f5e20647248e/result.json\",\n          \"sha256\": \"d6a53e367ca8c6d0d2092de3dfe0de15c0c7e2e5e4a6ea50c82bd4af88ed0dde\"\n        },\n        {\n          \"path\": \"tests/acceptance/initial/machine-checks/f5e20647248e/stdout.log\",\n          \"sha256\": \"1b7dacdada19df6ed916c6d2ab851a587f3498abfb453adcbda146d5e6b037b0\"\n        },\n        {\n          \"path\": \"tests/acceptance/initial/machine-checks/f5e20647248e/stderr.log\",\n          \"sha256\": \"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"\n        },\n        {\n          \"path\": \"tests/acceptance/initial/machine-checks/f5e20647248e/evidence/pytest.xml\",\n          \"sha256\": \"59d46549baa479d8dc352ba9c48648bc16c08754aa2ef2cbfc0928a8e3ded41e\"\n        }\n      ],\n      \"retained_local\": []\n",
+          "source_sha256": "8c9f90e54d933082e1ecd1782e7943a78bbd7c8fa2381c881260deaa4a075461",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅判断这份内部规则评价是否准确且有证据；真实的部分、未满足或待验状态可以被如实登记，复核通过不把它们升级为已满足。不宣称完整候选、外部认证或负责人接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_seven_rules_present": true,
+          "evidence_ids_and_hashes_bound": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "STRIXNOVA-GOV-QUALITY-001",
+      "issues": [],
+      "limitations": [
+        "质量属性评估与测试覆盖仅限于冻结的特定环境与确定性输入，不构成对全部通用质量维度的长期保证。",
+        "符号链接在当前平台跳过的处置决定尚未正式闭环。"
+      ],
+      "reason": "初始设计（EVIDENCE-C0F52712AA3F227F）分析了风险与设计控制，验证状态（EVIDENCE-3BEA85A280AD8EB4）提供了回归测试与实现对齐评价（EVIDENCE-F8A691C6F53987B2）。评估诚实指明缺少独立的ImpactScope系统性质量影响文档、非功能质量未全部量化驱动，且137项评价中有符号链接跳过缺口，将状态定为partially_satisfied符合客观证据。",
+      "references": [
+        {
+          "end_line": 245,
+          "source_id": "assessment",
+          "start_line": 218,
+          "original_text": "    {\n      \"applicability\": \"applicable\",\n      \"applicability_reason\": \"初始候选的质量属性直接影响后续可用性和维护性。初始设计（EVIDENCE-C0F52712AA3F227F）有风险表和设计控制。验证状态（EVIDENCE-3BEA85A280AD8EB4）记录快速回归 1139 通过/5 跳过、全量 1143 通过/4 失败/8 跳过。实现对齐模型（EVIDENCE-F8A691C6F53987B2）引用了 135 文件和 664 关系。但缺独立质量影响范围文档、性能无保证、1 项评价缺口。\",\n      \"evidence_ids\": [\n        \"EVIDENCE-C0F52712AA3F227F\",\n        \"EVIDENCE-3BEA85A280AD8EB4\",\n        \"EVIDENCE-F8A691C6F53987B2\"\n      ],\n      \"gaps\": [\n        \"缺系统性质量属性影响范围（ImpactScope）文档连接质量目标到风险和验收\",\n        \"功能以外的质量属性未形成明确验证目标\",\n        \"137 项评价中 1 项保留符号链接运行证据缺口\"\n      ],\n      \"limitations\": [\n        \"验证状态中全量运行原始有 4 项失败（后续定点修复通过），原失败保留\",\n        \"质量评估限于当前环境和输入\"\n      ],\n      \"remediation_actions\": [\n        \"为适用质量属性建立连接到风险和验收的显式目标\",\n        \"完成符号链接缺口或记录不适用理由\",\n        \"工程保障评价完成后更新 assurance model\"\n      ],\n      \"rule_id\": \"STRIXNOVA-GOV-QUALITY-001\",\n      \"source_ids\": [\n        \"ISO-25010-2023\"\n      ],\n      \"status\": \"partially_satisfied\"\n    },\n",
+          "source_sha256": "ff33e27461158b38afa251b628a1bf7c533cb301073456e462dfbcbceaddc359",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 50,
+          "source_id": "EVIDENCE-C0F52712AA3F227F",
+          "start_line": 1,
+          "original_text": "# Strixnova 初始基线设计\n\n本说明整理已确定的建设范围与实现选择，供初始候选审阅。它引用现有产品、领域、架构及工程材料，不另建权威或状态。范围确认与实际结果接受是两个阶段；当前验证和未完成项以[验证状态](validation-status.md)及原始证据为准。\n\n## 目标与交付边界\n\nStrixnova 是独立的开发中项目。展示名为 `Strixnova`，软件版本为 `0.1.0.dev0`。发行包、Python 导入包、命令和唯一 Skill 均名为 `strixnova`；项目配置是 `strixnova-project.yaml`，私有状态位于 `.strixnova/`。协议命名空间采用 `strixnova.*`，环境变量和专属规则身份采用 `STRIXNOVA_*` 与 `STRIXNOVA-GOV-*`。\n\n初始交付包含当前运行代码、随包资源、Skill、审阅材料、构建安装工具、有效行为测试、当前工程材料和本候选真实形成的证据。完整公开合同、Authority、活动库和证据格式分别从 v1 开始。发行版本、格式版本、内容摘要和成熟度是不同概念。\n\n保留产品当前的确认、工程评估、实施切片、验证、真实回执、本地 Git、多仓库协作、独立历史查询、事务恢复、维护互斥与受管安装能力。历史查询读取本产品当前格式生成的记录；软件维护保留检查、备份、停止、验证、切换和恢复，不预建其他格式的转换机制。\n\n交付不包含已有数据或仓库历史导入、跨品牌转换、命令别名、双配置名查找、双格式读取或兼容包装。宿主现有安装、其他项目、公开包登记、域名、官网及远程发布不在本次实现范围。项目不使用自身管理本次开发，不建立相应 WorkItem。CI、hooks、WebUI 和额外插件不属于本次建设。\n\n## 设计选择\n\n| 关注点 | 采用的方案与理由 | 对应实现或约束 |\n| --- | --- | --- |\n| 独立产品身份 | 生成端、消费端、结构合同、安装元数据和安全归属同时使用唯一命名，避免一个产物拥有互不一致的身份 | 包入口、Schema、路径、Git 分支、安装回执和测试协议同步 |\n| 完整 v1 | 以当前完整结构直接初始化，逐项确定当前合同，不把所有版本数字无差别替换 | 新数据库直接创建完整表、索引与写入保护；不识别的格式明确拒绝 |\n| 现有模块边界 | 沿用单一应用协调、独立权威读取、确定性治理、只读投影及外部执行职责 | [目标模块](../architecture/modules.yaml)、[关系](../architecture/relationships.yaml)、[约束](../architecture/constraints.yaml) |\n| 历史与恢复 | 保留新产品自身的真实历史与通用恢复能力；不从缺失数据推测既往结果 | 原始回执、精确提交、写入意图、文件摘要和停止证据各自保留来源 |\n| 交付身份 | clean wheel 从临时源码快照构建，按字节核对资源；一次性隔离环境只检查安装态 | 源码测试、wheel、安装、Git 检出和 Agent 加载分别提供证据 |\n| 依赖和开发入口 | 使用现有锁定依赖及仓库 Python 3.12，不顺带升级依赖或增加自动化平台 | `requirements-dev-win-py312.txt`、运行锁和 `scripts/local_validation.py` |\n\n上述选择属于初始基线。本说明保留这些长期取舍；当前没有需要另立 ADR 的新模块机制。今后改变权威方向、持久格式或公共接口时，再按工程政策记录具体决策，不以本说明替代正式权威修订。\n\n## 影响、风险与控制\n\n命令、导入、配置路径和公开协议会影响调用方式；文档、Skill 与安装器必须使用同一合同。新库初始化和格式拒绝影响数据行为；格式不符时应保留原始文件，不能尝试转换、回填或清空。安全边界必须随路径一起变更，包括私有目录、符号链接、工作树归属、SQLite 写入保护、验证命令政策和清理范围。\n\n| 风险 | 保留的设计控制 | 验证与限制 |\n| --- | --- | --- |\n| 不受管路径或工作树被误处理 | 路径限定、普通文件检查、仓库身份、创建归属和分支前缀共同校验 | 定点功能回归及本地 Git 夹具；未取得宿主能力的检查保持跳过记录 |\n| 验证或维护中断后重复产生效果 | 持久写入意图、真实进程回执、互斥与恢复入口 | 保留真实中断及停止事件，恢复复用原始结果；不把模拟状态当原始执行 |\n| 包、Skill 与运行代码不一致 | 分别绑定源码资源、Skill 内容、wheel 和实际安装身份 | clean wheel、隔离安装及原生加载证据；版本号相同不代表字节相同 |\n| 测试结果被扩大为语义接受 | 程序、Agent 与负责人职责分开；失败、跳过、待验和限制可见 | 确定性检查不决定语义，真实 Antigravity 独立复核不代替负责人接受 |\n| 交付过程混入既有内容或未授权副作用 | 新目录、新环境、新证据；真实仓库在结果确认前不暂存或提交 | 本地 Git 状态单独检查；不操作其他项目、现有宿主安装或远端 |\n\n用户行为和文档支持由新命令、公开合同及唯一 Skill 承担；产品和领域的有效职责继续保留，架构不增加并行系统。质量与性能采用当前测试和有界查询机制，本次未形成新的性能保证。安全、隐私、供应链和部署运维的结论限于明确受检的输入与环境，不构成外部认证。\n\n## 验证和交付\n\n源码验证使用仓库根解释器和本地验证入口；按影响完成定点、快速和全量回归，保留失败及修复后的结果。工程材料检查核对归属、依赖、责任和实际绑定。只有 clean wheel 入口提供构建证据，随后在一次性隔离环境检查运行依赖、包资源和命令。\n\nAgent 场景按[已确认的隔离方案](agent-acceptance.md)使用固定输入；候选尚未形成或独立复核存在阻断时不得投递接受输入。场景停止后保留失败或待验，继续不依赖该场景的工作。结果、记录和当前依赖见[验收目录](../../tests/acceptance/guided-formation-cases.yaml)。\n\n实际结果审阅前，真实仓库保持未暂存、未提交，工程材料保留草稿和未完成绑定。负责人确认后才组织原子提交，再用真实提交及祖先关系补齐 Git 绑定，执行相应检出和仓库检查。不得填写假提交、把空绑定解释为已采用，或把隔离测试接受解释为真实仓库提交与发布授权。\n\n候选使用受管安装时，进入条件、停止证据、维护互斥、备份、验证和恢复由现有维护流程约束；具体步骤见[历史查询与自身升级](../使用说明/历史查询与自身升级.md)。初始交付不对任何现有宿主执行安装切换。第三方来源和许可仍由根 README 集中维护。\n",
+          "source_sha256": "74b81c8e531b779836c7ed668b7aaa75b7d929c5116f4d2b2188fee13b57bd57",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 35,
+          "source_id": "EVIDENCE-3BEA85A280AD8EB4",
+          "start_line": 1,
+          "original_text": "# 当前验证状态\n\n版本：0.1.0.dev0。初始候选仍在验收；尚未取得负责人对实际重构结果的接受，也未暂存、提交或发布。\n\n| 范围 | 已有结果 | 当前边界 |\n| --- | --- | --- |\n| 快速功能回归 | 1139 通过，5 跳过，含三项真实隔离安装探测 | 四项文件符号链接检查受宿主权限限制，一项文件名规则不适用于 Windows |\n| 全量功能回归 | 1143 通过，4 失败，8 跳过；25 分 29 秒 | 三个依赖真实未提交基线的功能夹具已隔离并通过定点复验；真实基线检查移入仓库状态层保留。原失败没有改写为首次通过 |\n| 技术复核与修复 | 已知 Agent 拒绝修复69项回归通过；当前合同清理51项回归通过 | 新回归先复现外部GIT_DIR干扰失败，删除无用读取后通过；旧表示回退已退出。机器验证与独立重核分别保留 |\n| 最新源码观察与实现评价 | 135 个受管文件，60 个 Python 源码，664 条规范化关系 | 21 个模块、83 条关系和 33 条约束已有当前原生评价及独立复核；其中 1 项保留部分或未满足状态，原缺口和补验要求仍在；剩余 0 条关系、0 条约束待评价。模块和约束评价不等于完整 Agent 流程验收 |\n| 最新 clean wheel 与隔离安装 | 135 个源码、wheel 和安装文件匹配；9 次安装及原生入口调用通过 | 未安装到系统或源码环境；不表示普通宿主自动加载或正式发布 |\n| 真实 Agent 证据 | 50 项目录中，40 项声明依赖与证据当前有效、0 项需重核、10 项待验 | 当前策略 G1 已完成新的实际执行和三项独立复核；原越界失败、服务 EOF 与纠正保留。固定输入下通过不代表真人接受或任意输入下的可靠性 |\n| 复杂流程验收 | 22:20后恢复实际原生执行，两次有限调用仍未完成新评估提交 | 当前版本13停在submit_engineering_assessment；未投递新接受、未实施业务，原拒绝及超时保留；此场景停止追加，先完成不依赖它的检查 |\n| 仓库材料与 Git checkout | 原仓库状态检查 6 通过、8 未通过；checkout 因属性未暂存而拒绝 | 三份正式 Git 绑定仍为空；当前 137/137 项实现目标已有评价，7 条工程保障规则待评价。原字节相等不等于索引 checkout 通过 |\n| 负责人实际结果接受 | 待完整可审阅结果形成 | 隔离测试中的固定接受不授权真实仓库提交、推送或发布 |\n\n最新候选位于本地 `.artifacts/candidates/initial-alignment-clean/`。wheel SHA-256：`f71c0e7d19da20db54ad64b2383c9d95d986b288299d13b71f9927953fe375e8`；Skill 摘要：`084fb9187265c798db2ebb6c9edc13a2545d7cde4c1446674a4414629f04e84b`。135个源码/wheel/安装文件匹配，9次安装与命令检查通过；不代表完整Agent、Git或负责人接受。\n\n修复前的本地记录：快速 `f5e20647248e`，全量 `d0856323c4b6`，修复层 `7aaf327a1ccb`，该轮观察 `8216d2c84e13`，wheel `308a4b4949e2`，离线包 `2b4fc62609a7`，隔离安装 `1dc202780cbc`，源码/制品注册 `f88e7668b02e`，仓库状态 `8b07f3a022b4`，checkout 阻断 `8a1262000350`。本次同步和构建先因同步清单滞后而拒绝，补齐后通过；原 `19621d5bd348`、`63b2a9a23508` 仍保留，不伪称首次通过。\n\n逐项结果、原始记录及当前性以[验收目录](../../tests/acceptance/guided-formation-cases.yaml)为准。SPEC 更新见[独立证据](../../tests/acceptance/initial/G5-spec-update/evidence.json)，回执恢复见[独立证据](../../tests/acceptance/initial/G7-verification-resume/evidence.json)，版号括注影响见[五项原生证据重评](../../tests/acceptance/initial/v1-label-reassessment/evidence.json)。固定输入和接受边界见[隔离验收方案](agent-acceptance.md)。\n\n较早的局部程序检查 `30608175d9f5`：15 项通过。它保留未知格式、未知目录、原始数据与 Git 排除文件保护；删除了一项仅检查退役入口名称的测试。因此上表完整套件的计数是对应既有运行当时的结果，不冒充本次重新运行了全套。对齐草稿首轮因猜测一个不存在的参考文件而未通过执行检查；原错误保留，按现有索引完成有限复核后由独立原生会话判定通过。\n\n维护场景 `G9` 已完成实际未收口阻断、停止证据恢复、程序/Skill切换及新会话显式加载，原记录与业务输出保全；见[维护证据](../../tests/acceptance/initial/G9-maintenance/evidence.json)。源与目标均为当前 v1 格式，不进行格式迁移。原生步骤只执行一次；两项外层包装器判断错误及纠正记录一并保留。\n\n历史与整体进度场景 `G8` 的两项原生验收通过，数据表、业务源码与集成HEAD保持不变。真实失败命令仅执行一次，未运行记录有明确限制，取消事实和缺失原输出分别呈现；原输出字节已另行保全。见[历史证据](../../tests/acceptance/initial/G8-history/evidence.json)。\n\n实现评价先落地了产品、领域和目标架构三个读取模块，共 9 项归属文件；见[独立评价绑定](../../tests/acceptance/initial/implementation-assessment/authority-readers/evaluation-binding.json)。这些是代码职责评价，工程材料继续保持草稿；不构成 Git 采用、完整 Agent 效果或负责人接受。\n\n已知 Agent 拒绝修复曾完成三模块有限重核。当前 v1 清理后涉及的两模块和 12 条关系已完成[当前差异复核](../../tests/acceptance/initial/implementation-assessment/current-contract-cleanup/evaluation-binding.json)，原评价、位置变化和新的评价均保留。\n初始范围、设计取舍与交付边界见[基线设计](initial-baseline-design.md)；14 轮机器检查及原始失败见[证据索引](../../tests/acceptance/initial/machine-checks/index.json)。复杂流程的原生前置候选和独立拒绝结论见[停止记录](../../tests/acceptance/initial/G4-G2-stopped/index.json)，17 项后续待验没有改记为通过。\n本轮已知 Agent 入口拒绝修复及原始证据见[修复索引](../../tests/acceptance/initial/known-agent-guard-change/index.json)。定点回归 `30b2d951c8f4` 为 69 项通过，修复后无进程探针 `737a1374cf49` 确认拒绝，Skill 同步 `a51188c03009` 通过，新 clean wheel `cedc8d6f6c55`、隔离安装 `8c6342d8bbab` 和字节登记 `f68fa067ebbd` 通过。观察准备首次因控制器误用带仓库身份的摘要键而失败，修正后 `03f9c0119538` 通过；原 `42db14333e21` 保留。未重复全部功能套件，未把原 33 项证据改记为新候选通过。\n\n2026-09-29，前两次原生调用因个人额度耗尽而结束；错误和冻结输入保留于[额度记录](../../tests/acceptance/initial/native-quota-block/index.json)。恢复后原会话虽产生新结构化候选，仍附带旧额度错误；同账号同模型的新会话可用性检查673d4f50190b成功。当前已改用新会话，旧错误不改记为通过。\n",
+          "source_sha256": "b8aeaac0af8f8cb90d52b7f45478e6fba1a36c53911bd5f40582cfdee950e1db",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 30,
+          "source_id": "EVIDENCE-F8A691C6F53987B2",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-implementation-alignment.v1\nalignment_model_id: ALIGNMODEL-7BC755CF18D1404C\nrevision:\n  revision_id: ALIGNREV-D15EBF40D6074A7C\n  status: draft\n  supersedes_revision_id: null\n  confirmed_by_owner_id: null\n  confirmed_on: null\ndomain_model_ref:\n  model_id: MODEL-2F8356E6752B4CC6\n  revision_id: MODELREV-D90FA05044CD4310\narchitecture_ref:\n  architecture_id: ARCH-963827FB26C94363\n  revision_id: ARCHREV-8D00B950BAAD458F\ncode_snapshot:\n  repositories:\n  - repository_id: REPO-284FDA042B2A4ABD\n    base_commit: null\n    worktree_state: dirty\n  governed_source_manifest_sha256: 7618140a345ca82982cd29c5ef1861ef1636868a82ff5a015358254436d8ca39\n  observed_on: '2026-09-29'\nobservation_scopes:\n- scope_id: OBSCOPE-A4E3EC1A6BC8404A\n  root: strixnova/src/strixnova\n  languages:\n  - python\n  required_relation_kinds:\n  - source_import\n  configurations:\n  - default\n",
+          "source_sha256": "36c08b09fa7b4b2b6f6d5084ac31786eabb8170fabbb3d5d31f9e240f401d283",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅判断这份内部规则评价是否准确且有证据；真实的部分、未满足或待验状态可以被如实登记，复核通过不把它们升级为已满足。不宣称完整候选、外部认证或负责人接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_seven_rules_present": true,
+          "evidence_ids_and_hashes_bound": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "STRIXNOVA-GOV-TEST-001",
+      "issues": [],
+      "limitations": [
+        "测试执行结果区分了原始pytest-full失败与定点修复运行，不代表全量用例经整体重测无误。",
+        "复杂Agent长流程包含停止和未投递输入状态。"
+      ],
+      "reason": "项目保留了真实测试命令回执（包括EVIDENCE-E3DB102C95ACBEE4原始全量失败、EVIDENCE-85896A80A6C80CE5快速通过、EVIDENCE-2714E199F9FE507F安装验证），未伪造回执或掩盖失败。评价如实披露了原始失败、复杂流程有17项待验停止（EVIDENCE-66A6B160F45AEC9F）及Git checkout失败的事实，严谨判定为partially_satisfied，与实际执行记录完全一致。",
+      "references": [
+        {
+          "end_line": 279,
+          "source_id": "assessment",
+          "start_line": 246,
+          "original_text": "    {\n      \"applicability\": \"applicable\",\n      \"applicability_reason\": \"初始候选涉及大量代码变更。有真实命令回执（EVIDENCE-E3DB102C95ACBEE4 全量失败、EVIDENCE-85896A80A6C80CE5 快速通过、EVIDENCE-2714E199F9FE507F 安装通过）和 Agent 场景（EVIDENCE-AACD811124381ADE 通过、EVIDENCE-66A6B160F45AEC9F 停止）。仓库检查（EVIDENCE-89C77AFE58990642）失败。命令来自真实执行，不是伪造。\",\n      \"evidence_ids\": [\n        \"EVIDENCE-E3DB102C95ACBEE4\",\n        \"EVIDENCE-85896A80A6C80CE5\",\n        \"EVIDENCE-2714E199F9FE507F\",\n        \"EVIDENCE-89C77AFE58990642\",\n        \"EVIDENCE-AACD811124381ADE\",\n        \"EVIDENCE-66A6B160F45AEC9F\"\n      ],\n      \"gaps\": [\n        \"全量运行原始失败后经定点修复但非完整重测\",\n        \"复杂 Agent 流程 17 项待验场景停止\",\n        \"Git checkout 失败\",\n        \"Agent 目录 10 项待验\"\n      ],\n      \"limitations\": [\n        \"原始全量失败与后续修复分别保留，不合并计为首次通过\",\n        \"隔离场景 owner_accepted: false\",\n        \"JUnit 不含源码执行时哈希\"\n      ],\n      \"remediation_actions\": [\n        \"清理全量运行残余失败或记录不适用\",\n        \"完成 Git checkout 通过\",\n        \"推进剩余待验 Agent 场景\"\n      ],\n      \"rule_id\": \"STRIXNOVA-GOV-TEST-001\",\n      \"source_ids\": [\n        \"ISO-29119-2-2021\",\n        \"ISO-25010-2023\"\n      ],\n      \"status\": \"partially_satisfied\"\n    },\n",
+          "source_sha256": "ff33e27461158b38afa251b628a1bf7c533cb301073456e462dfbcbceaddc359",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 35,
+          "source_id": "EVIDENCE-E3DB102C95ACBEE4",
+          "start_line": 1,
+          "original_text": "{\n  \"schema_version\": \"strixnova.local-validation.v1\",\n  \"repository\": \"D:\\\\AboutDEV\\\\Strixnova\",\n  \"run_id\": \"d0856323c4b6\",\n  \"label\": \"pytest-full\",\n  \"command\": [\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n    \"-X\",\n    \"utf8\",\n    \"-m\",\n    \"pytest\",\n    \"--maxfail=8\",\n    \"--tb=short\",\n    \"--durations=15\",\n    \"-n\",\n    \"8\",\n    \"-q\",\n    \"--dist=loadgroup\",\n    \"--basetemp\",\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\d0856323c4b6\\\\work\\\\pytest\",\n    \"--junitxml\",\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\d0856323c4b6\\\\evidence\\\\pytest.xml\",\n    \"-o\",\n    \"cache_dir=D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\d0856323c4b6\\\\work\\\\pytest-cache\"\n  ],\n  \"started_at\": \"2026-09-28T05:26:29.255135+00:00\",\n  \"status\": \"failed\",\n  \"process_settled\": true,\n  \"keep_workspace\": false,\n  \"pin_evidence\": true,\n  \"workspace_removed\": false,\n  \"exit_code\": 1,\n  \"duration_seconds\": 1529.9530000000377,\n  \"finished_at\": \"2026-09-28T05:51:59.230679+00:00\"\n}\n",
+          "source_sha256": "f1f57b4f9d639e0088927f1da4ebcf9c9837826887e13c422f6755f2fc1ce6a4",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 37,
+          "source_id": "EVIDENCE-85896A80A6C80CE5",
+          "start_line": 1,
+          "original_text": "{\n  \"schema_version\": \"strixnova.local-validation.v1\",\n  \"repository\": \"D:\\\\AboutDEV\\\\Strixnova\",\n  \"run_id\": \"f5e20647248e\",\n  \"label\": \"pytest-affected-or-quick\",\n  \"command\": [\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n    \"-X\",\n    \"utf8\",\n    \"-m\",\n    \"pytest\",\n    \"--tb=short\",\n    \"--maxfail=8\",\n    \"--durations=15\",\n    \"-m\",\n    \"not slow\",\n    \"-n\",\n    \"8\",\n    \"-q\",\n    \"--dist=loadgroup\",\n    \"--basetemp\",\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\f5e20647248e\\\\work\\\\pytest\",\n    \"--junitxml\",\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\f5e20647248e\\\\evidence\\\\pytest.xml\",\n    \"-o\",\n    \"cache_dir=D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\f5e20647248e\\\\work\\\\pytest-cache\"\n  ],\n  \"started_at\": \"2026-09-28T06:12:05.979598+00:00\",\n  \"status\": \"passed\",\n  \"process_settled\": true,\n  \"keep_workspace\": false,\n  \"pin_evidence\": true,\n  \"workspace_removed\": true,\n  \"exit_code\": 0,\n  \"duration_seconds\": 412.469000000041,\n  \"finished_at\": \"2026-09-28T06:18:58.468603+00:00\"\n}\n",
+          "source_sha256": "d6a53e367ca8c6d0d2092de3dfe0de15c0c7e2e5e4a6ea50c82bd4af88ed0dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 21,
+          "source_id": "EVIDENCE-2714E199F9FE507F",
+          "start_line": 1,
+          "original_text": "{\n  \"schema_version\": \"strixnova.local-validation.v1\",\n  \"repository\": \"D:\\\\AboutDEV\\\\Strixnova\",\n  \"run_id\": \"1dc202780cbc\",\n  \"label\": \"v1-contract-label-isolated-install\",\n  \"command\": [\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n    \"scripts\\\\check_offline_installation.py\",\n    \"--bundle\",\n    \".artifacts\\\\candidates\\\\initial-v1\\\\strixnova-0.1.0.dev0-win-py312\"\n  ],\n  \"started_at\": \"2026-09-28T09:20:02.933943+00:00\",\n  \"status\": \"passed\",\n  \"process_settled\": true,\n  \"keep_workspace\": true,\n  \"pin_evidence\": true,\n  \"workspace_removed\": false,\n  \"exit_code\": 0,\n  \"duration_seconds\": 23.23499999998603,\n  \"finished_at\": \"2026-09-28T09:20:26.173658+00:00\"\n}\n",
+          "source_sha256": "2a51ced5ea46b5ea1f8c0db0aa5fd3553e887f6b0b64c7385c79214f2f3b84a8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 36,
+          "source_id": "EVIDENCE-89C77AFE58990642",
+          "start_line": 1,
+          "original_text": "{\n  \"schema_version\": \"strixnova.local-validation.v1\",\n  \"repository\": \"D:\\\\AboutDEV\\\\Strixnova\",\n  \"run_id\": \"8b07f3a022b4\",\n  \"label\": \"pytest-affected-or-quick\",\n  \"command\": [\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n    \"-X\",\n    \"utf8\",\n    \"-m\",\n    \"pytest\",\n    \"tests\\\\repository_checks\",\n    \"--tb=short\",\n    \"-m\",\n    \"not slow\",\n    \"-n\",\n    \"8\",\n    \"-q\",\n    \"--dist=loadgroup\",\n    \"--basetemp\",\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\8b07f3a022b4\\\\work\\\\pytest\",\n    \"--junitxml\",\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\8b07f3a022b4\\\\evidence\\\\pytest.xml\",\n    \"-o\",\n    \"cache_dir=D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\8b07f3a022b4\\\\work\\\\pytest-cache\"\n  ],\n  \"started_at\": \"2026-09-28T06:09:43.417246+00:00\",\n  \"status\": \"failed\",\n  \"process_settled\": true,\n  \"keep_workspace\": false,\n  \"pin_evidence\": true,\n  \"workspace_removed\": false,\n  \"exit_code\": 1,\n  \"duration_seconds\": 24.04700000002049,\n  \"finished_at\": \"2026-09-28T06:10:07.487580+00:00\"\n}\n",
+          "source_sha256": "1bbfcd1ac1b7d8626b2fa8295fb1a9e30a08d5d26b52ce58e6de430afa672a16",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 30,
+          "source_id": "EVIDENCE-AACD811124381ADE",
+          "start_line": 1,
+          "original_text": "{\n  \"group\": \"G1-current-confirmation\",\n  \"executed_skill_bundle_manifest_sha256\": \"084fb9187265c798db2ebb6c9edc13a2545d7cde4c1446674a4414629f04e84b\",\n  \"execution\": {\n    \"mechanical_passed\": true,\n    \"failure_layer\": null,\n    \"outcome\": \"endpoint_observed\",\n    \"report_valid\": true\n  },\n  \"cases\": [\n    {\n      \"case_id\": \"GF-CLEAR-BOUNDED\",\n      \"issues\": [],\n      \"limitations\": [\n        \"起始权威 confirmed 状态是合成测试前提，非真人预先接受。\",\n        \"后续负责人输入为固定预登记输入，不代表真人实际理解或主观重构接受。\"\n      ],\n      \"reason\": \"在接收到明确的预约区间函数缺陷修复请求后，Agent在单个WorkItem治理生命周期内，直接聚焦于修复范围，查阅既有方向上下文后形成方向候选并提交。没有引入产品发现、PRD编撰或架构重构等额外规划仪式，也没有提出无意义追问，且未越界操作。整个过程严格保持单事项边界。\",\n      \"references\": [\n        {\n          \"end_line\": 43,\n          \"source_id\": \"direction/endpoint.json\",\n          \"start_line\": 1,\n          \"original_text\": \"{\\n  \\\"reached\\\": true,\\n  \\\"work_item_id\\\": \\\"WI-20260929-83293982\\\",\\n  \\\"next\\\": {\\n    \\\"current_action\\\": {\\n      \\\"action_type\\\": \\\"confirm_direction\\\",\\n      \\\"actor\\\": \\\"user\\\",\\n      \\\"blocking_facts\\\": [],\\n      \\\"conditional_record_refs\\\": [],\\n      \\\"confirmation_challenge\\\": {\\n        \\\"candidate_fingerprint\\\": \\\"sha256:8da145c196a3c47c0d24b630005b177a52b608e966af47852b38e4616def37f6\\\",\\n        \\\"candidate_kind\\\": \\\"direction\\\",\\n        \\\"decision_interpreter\\\": \\\"coding_agent\\\",\\n        \\\"decision_label\\\": \\\"当前展示的方向\\\",\\n        \\\"schema_version\\\": \\\"strixnova.confirmation-challenge.v1\\\"\\n      },\\n      \\\"input_contract_ref\\\": \\\"input.contract:confirm_direction\\\",\\n      \\\"input_kind\\\": \\\"direction_confirmation\\\",\\n      \\\"intent\\\": \\\"confirm\\\",\\n      \\\"record_refs\\\": [\\n        \\\"direction\\\",\\n        \\\"project.direction_context\\\"\\n      ],\\n      \\\"schema_version\\\": \\\"strixnova.current-action.v1\\\",\\n      \\\"work_item_id\\\": \\\"WI-20260929-83293982\\\",\\n      \\\"work_item_version\\\": 2\\n    },\\n    \\\"reading\\\": {\\n      \\\"complete\\\": true,\\n      \\\"max_output_bytes\\\": 4096,\\n      \\\"schema_version\\\": \\\"strixnova.record-reading.v1\\\",\\n      \\\"unread_refs\\\": []\\n    },\\n    \\\"record_pages\\\": {},\\n    \\\"record_sources\\\": {},\\n    \\\"records\\\": {},\\n    \\\"relations\\\": {\\n      \\\"declared\\\": [],\\n      \\\"referenced_by\\\": []\\n    },\\n    \\\"schema_version\\\": \\\"strixnova.next-step.v1\\\",\\n    \\\"work_item_id\\\": \\\"WI-20260929-83293982\\\",\\n    \\\"work_item_status\\\": \\\"awaiting_direction_confirmation\\\",\\n\",\n          \"source_sha256\": \"d9942f7d033ecb8768d510b54352d26c1f45d80861bbaa3c3b78075ddbebb453\",\n          \"source_role\": \"author_artifact\"\n        },\n        {\n          \"end_line\": 27,\n          \"source_id\": \"direction/author-response.md\",\n",
+          "source_sha256": "4faa7a55791d809a90992d13b8cd052f47db098920daf8aa777a438a4d33f9e0",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 40,
+          "source_id": "EVIDENCE-66A6B160F45AEC9F",
+          "start_line": 1,
+          "original_text": "{\n  \"status\": \"stopped_with_unaccepted_prerequisite\",\n  \"pending_case_ids\": [\n    \"GF-GUIDANCE-AUTHORITY-DECISION\",\n    \"GF-COMM-COMPLETE-DECISION\",\n    \"GF-CONCRETE-INCOMPLETE\",\n    \"GF-ONE-HIGH-RISK\",\n    \"GF-MULTIPLE-RESULTS\",\n    \"GF-CROSS-UNIT-ARCHITECTURE\",\n    \"GF-UPSTREAM-CORRECTION\",\n    \"GF-PD-AUTHORITY-CORRECTION\",\n    \"GF-PRD-FORMATION\",\n    \"GF-PRD-CORRECTION\",\n    \"GF-TEST-BOUNDARY-STABILITY\",\n    \"GF-METHODS-FEATURE-CHAIN\",\n    \"GF-UX-FORMATION\",\n    \"GF-UX-REVIEW-CORRECTION\",\n    \"GF-BEHAVIOR-CONTRACT-RISKS\",\n    \"GF-ALIGNMENT-FINALIZATION-ORDER\",\n    \"GF-DOMAIN-LANGUAGE-CORRECTION\"\n  ],\n  \"current_work_item_version\": 9,\n  \"current_candidate_fingerprint\": \"sha256:a749d25d6e22f1941e459c6bcdeb2759936ad7ecba39f7c2752067d1d07c63df\",\n  \"latest_gate\": \"tests/acceptance/initial/G4-G2-stopped/runs/f36774893e76/gate-binding.json\",\n  \"latest_independent_review\": \"tests/acceptance/initial/G4-G2-stopped/runs/f36774893e76/independent-review/review.json\",\n  \"files\": [\n    {\n      \"path\": \"tests/acceptance/initial/G4-G2-stopped/runs/027a8d164e99/author-response.md\",\n      \"sha256\": \"a28266706acb987980572d3fb4990747079c714b14f1f594910c2683249f70fa\"\n    },\n    {\n      \"path\": \"tests/acceptance/initial/G4-G2-stopped/runs/027a8d164e99/endpoint.json\",\n      \"sha256\": \"293c29063b42de2ce29a1c617e25d3ef7607ae5b2976c59830a3818848d0fccc\"\n    },\n    {\n      \"path\": \"tests/acceptance/initial/G4-G2-stopped/runs/027a8d164e99/execution/driver-receipt.json\",\n      \"sha256\": \"c717124abff38f1cd4ff6f4a28f19ddddbdbeb840c20207f4e70b5d8a5ee0dd2\"\n    },\n    {\n      \"path\": \"tests/acceptance/initial/G4-G2-stopped/runs/027a8d164e99/execution/events.jsonl\",\n",
+          "source_sha256": "4a4307fe759fe035c2fa894e781f26798c0c784e0b5b26f00ebe9ab9b9a42f3c",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅判断这份内部规则评价是否准确且有证据；真实的部分、未满足或待验状态可以被如实登记，复核通过不把它们升级为已满足。不宣称完整候选、外部认证或负责人接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_seven_rules_present": true,
+          "evidence_ids_and_hashes_bound": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "STRIXNOVA-GOV-ARCH-001",
+      "issues": [],
+      "limitations": [
+        "架构产物处于草稿审查状态，目标架构与当前代码之间尚存在演进差额。",
+        "架构方案取舍来自设计声明，其约束效力依赖后续正式确认生效。"
+      ],
+      "reason": "架构模型（EVIDENCE-AF3B52480084A3AE）及其模块（EVIDENCE-365F417C98A32F56）、关系（EVIDENCE-233B7D5F46455FB7）、约束（EVIDENCE-3132B7C07FD8F395）子产物详细定义了系统架构，初始设计（EVIDENCE-C0F52712AA3F227F）记录了6项方案取舍并阐明了ADR适用性结论。评价清晰记录了各子产物仍为draft且confirmed_by_owner_id为空、复核中权威关口为needs_revision等缺口，未将规约结构误判为完整采用，评级准确。",
+      "references": [
+        {
+          "end_line": 310,
+          "source_id": "assessment",
+          "start_line": 280,
+          "original_text": "    {\n      \"applicability\": \"applicable\",\n      \"applicability_reason\": \"初始候选定义了全新目标架构。架构模型（EVIDENCE-AF3B52480084A3AE）引用五份子产物。模块（EVIDENCE-365F417C98A32F56，442 行）、关系（EVIDENCE-233B7D5F46455FB7，587 行）、约束（EVIDENCE-3132B7C07FD8F395，420 行）均已结构化定义。初始设计（EVIDENCE-C0F52712AA3F227F）列出六项设计取舍并给出 ADR 适用性结论。但所有五份均为 draft、confirmed_by_owner_id: null。\",\n      \"evidence_ids\": [\n        \"EVIDENCE-AF3B52480084A3AE\",\n        \"EVIDENCE-365F417C98A32F56\",\n        \"EVIDENCE-233B7D5F46455FB7\",\n        \"EVIDENCE-3132B7C07FD8F395\",\n        \"EVIDENCE-C0F52712AA3F227F\"\n      ],\n      \"gaps\": [\n        \"五份架构子产物均 draft，未被负责人确认采用\",\n        \"独立复核发现 GF-CONCRETE-INCOMPLETE，四类权威候选就绪关口 needs_revision\",\n        \"ADR 结论依赖架构采用后才有约束力\"\n      ],\n      \"limitations\": [\n        \"目标架构与当前实现对齐之间的差距需要持续更新\",\n        \"架构取舍为设计声明而非执行证据\"\n      ],\n      \"remediation_actions\": [\n        \"完成目标架构草稿的负责人确认和采用\",\n        \"解决 GF-CONCRETE-INCOMPLETE 缺口\",\n        \"架构采用后如有变更按政策记录 ADR\"\n      ],\n      \"rule_id\": \"STRIXNOVA-GOV-ARCH-001\",\n      \"source_ids\": [\n        \"ISO-42010-2022\",\n        \"ISO-15289-2019\"\n      ],\n      \"status\": \"partially_satisfied\"\n    },\n",
+          "source_sha256": "ff33e27461158b38afa251b628a1bf7c533cb301073456e462dfbcbceaddc359",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 20,
+          "source_id": "EVIDENCE-AF3B52480084A3AE",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-architecture-description.v1\narchitecture_id: ARCH-963827FB26C94363\nrevision:\n  revision_id: ARCHREV-8D00B950BAAD458F\n  status: draft\n  supersedes_revision_id: null\n  confirmed_by_owner_id: null\n  confirmed_on: null\ndomain_model_ref:\n  model_id: MODEL-2F8356E6752B4CC6\n  revision_id: MODELREV-D90FA05044CD4310\ntitle: Strixnova目标架构\npurpose: 定义承载已确认领域模型的预期建设模块、稳定接口、依赖方向、协作方式、 跨模块约束、领域事实处置和实施顺序；不保存当前源码路径、当前模块布局或实现证据。 多仓库修订明确项目解析、仓库限定读取、整体事项、组合证据、逐仓库交付及恢复的单向协作。\nartifact_paths:\n  modules: docs/architecture/modules.yaml\n  relationships: docs/architecture/relationships.yaml\n  constraints: docs/architecture/constraints.yaml\n  domain_fact_dispositions: docs/architecture/domain-fact-dispositions.yaml\n  implementation_stages: docs/architecture/implementation-stages.yaml\nunresolved_decisions: []\n",
+          "source_sha256": "82e54e73aa2926fa80a15746d2d3d17b35a7441524e4da419c783d90ec4832f8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 35,
+          "source_id": "EVIDENCE-365F417C98A32F56",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.architecture-modules.v1\narchitecture_id: ARCH-963827FB26C94363\narchitecture_revision_id: ARCHREV-8D00B950BAAD458F\nmodules:\n- module_id: MODULE-333FEE8F8A1B491E\n  title: 命令适配器\n  layer: adapter\n  responsibility: 把命令参数、标准输入和宿主请求转换为应用用例请求，并把公开结果转换为稳定机器输出或有界 CLI 诊断；面向负责人的候选解释由接口外的受支持智能编码代理依据唯一随包 Skill 形成。 接收项目入口和明确仓库引用，并原样交给应用、查询或维护入口；不在命令层重复解析仓库，也不要求负责人复制内部内容组合身份。\n  not_responsible_for:\n  - 不编排完整业务流程或直接调用领域写接口。\n  - 不判断用户意图、工程语义或状态迁移是否合法。\n  - 不生成、改写、评分或保存面向负责人的可决策说明。\n  - 不拥有智能编码代理会话、身份或能力。\n  public_interface:\n    interface_id: INTERFACE-FBB310E94A6D4B82\n    title: 命令交互接口\n    operations:\n    - name: 转换写请求\n      meaning: 只解析显式意图、参数、精确版本和已提供确认事实，再提交应用用例协调器。\n    - name: 执行只读查询\n      meaning: 只把查询参数交给引导查询投影并呈现返回值。\n    - name: 呈现稳定错误\n      meaning: 将公开错误代码、阻断原因和下一步转换为协议输出，不改写其含义。\n- module_id: MODULE-159AE7957218470C\n  title: 应用用例协调器\n  layer: application\n  responsibility: 作为所有正式状态变更流程的唯一应用入口，按照已确认规则和确定性前后置条件协调目标权威、事项、工程治理、验证与交付模块。 一次用例统一取得项目上下文，再将已绑定仓库范围和精确内容依据交给各职责。事项状态和恢复意图仍只写入原事项权威，仓库准备、交付与回写按同一整体结果组织；不在不同动作中复制目录解析和多仓库快照算法。实际结果接收复用与只读查询相同的审阅对象构造，比较先取得的内容身份及当前方案、方向、声明输入与规则依据；校验期间变化仍拒绝，不在接收时给旧判断补认新版本。\n  not_responsible_for:\n  - 不生成、选择或裁决产品、领域、架构和工程语义，也不按关键词、文件数量、代码行数、活动名称或产物名称决定形成路径、交付跨度和保障深度。\n  - 不直接执行版本、验证、部署或监控进程。\n  - 不保存第二份领域状态或外部回执。\n  public_interface:\n    interface_id: INTERFACE-17728BB940EE4E5D\n    title: 应用用例接口\n    operations:\n",
+          "source_sha256": "f6c3efe6120580193a5a1b9dafa0897dbfd3fe55145cf270248ed60c640c2b74",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 40,
+          "source_id": "EVIDENCE-233B7D5F46455FB7",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.architecture-relationships.v1\narchitecture_id: ARCH-963827FB26C94363\narchitecture_revision_id: ARCHREV-8D00B950BAAD458F\ndefault_relationship_policy: forbidden\nrelationships:\n- relationship_id: RELATION-16A5E4BCC740B914\n  from_module_id: MODULE-1CDA1D66DA409B5A\n  to_module_id: MODULE-B558AA14F6004AC0\n  mode: read_only_projection\n  mediator_module_id: null\n  contract: 自身升级通过既有只读 Git 接口核验项目实际元数据位置及未完成操作，覆盖链接工作树。 仓库与内容范围由上游已解析上下文绑定，读取保留仓库身份和精确版本，不回调项目解析或扩大范围。\n  reason: Git 元数据位置由 Git 解析，维护层不复制工作树寻址或执行版本修改。\n- relationship_id: RELATION-43B44102AC817F60\n  from_module_id: MODULE-71687954FB1E4DFD\n  to_module_id: MODULE-B558AA14F6004AC0\n  mode: read_only_projection\n  mediator_module_id: null\n  contract: 历史查询通过版本化文件读取接口取得原结果提交的精确产物及可用性，不读取当前同名文件替代原文。 仓库与内容范围由上游已解析上下文绑定，读取保留仓库身份和精确版本，不回调项目解析或扩大范围。\n  reason: 产物历史需定位不可变提交，沿用现有只读 Git 边界。\n- relationship_id: RELATION-083B8F95227DC36A\n  from_module_id: MODULE-1CDA1D66DA409B5A\n  to_module_id: MODULE-71687954FB1E4DFD\n  mode: read_only_projection\n  mediator_module_id: null\n  contract: 运行维护只读取得公开包版本元数据，并通过历史查询接口核验切换后项目事实的可读性。\n  reason: 程序身份与实际试读复用公开查询合同，不复制版本或历史解释。\n- relationship_id: RELATION-B80F630ADDA54FBF\n  from_module_id: MODULE-333FEE8F8A1B491E\n  to_module_id: MODULE-159AE7957218470C\n  mode: direct\n  mediator_module_id: null\n  contract: 命令适配器只能提交显式、类型化、版本绑定的应用用例请求并接收公开结果。\n  reason: 所有正式状态变化必须集中经过唯一应用协调入口。\n- relationship_id: RELATION-46047F8FE587404D\n  from_module_id: MODULE-333FEE8F8A1B491E\n  to_module_id: MODULE-71687954FB1E4DFD\n  mode: direct\n  mediator_module_id: null\n  contract: 命令适配器可以提交只读查询并呈现聚焦投影，不得取得投影内部来源的写权。\n  reason: 读路径不需要绕过查询模块直接拼装多权威事实。\n",
+          "source_sha256": "0d1ff5c00e1e0bafa8abe9a4d85299cf1932d0bc76f363e45e88d2a44f883334",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 35,
+          "source_id": "EVIDENCE-3132B7C07FD8F395",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.architecture-constraints.v1\narchitecture_id: ARCH-963827FB26C94363\narchitecture_revision_id: ARCHREV-8D00B950BAAD458F\nconstraints:\n- constraint_id: CONSTRAINT-956A537458EB4CC8\n  title: 长期权威链只能单向约束下游\n  statement: 产品定义约束领域模型，领域模型约束目标架构，目标架构约束实现对齐，当前实现和证据不得反向定义上游；下游只能通过绑定现行基线和全部下游处置的权威变更集提出精确修订候选，变更集本身不得成为新长期权威。\n  applies_to_module_ids:\n  - MODULE-361DDA9576FF4C16\n  - MODULE-BA5C6A8095B6484E\n  - MODULE-525F73C6C189406A\n  - MODULE-97978EF8747F4A02\n  verification_methods:\n  - method_type: automatic_gate\n    description: 检查产物精确绑定方向、模块依赖方向和禁止关系，发现下游到上游的未声明或写入依赖即失败。\n  - method_type: behavior_acceptance\n    description: 修改当前代码或对齐候选时证明产品、领域和架构正文不会被程序自动改变。\n- constraint_id: CONSTRAINT-AE6EE9C762EF43D6\n  title: 程序不得生成或裁决工程语义\n  statement: 所有程序模块只处理结构、引用、版本、声明覆盖、状态、确定性规则和真实回执；产品、领域、架构、影响、风险、方法、跨产物语义复核与结果含义必须由智能编码代理形成候选并由适用权威确认，程序不得评价复核文字、严重程度或处置是否正确。\n  applies_to_module_ids:\n  - MODULE-159AE7957218470C\n  - MODULE-361DDA9576FF4C16\n  - MODULE-BA5C6A8095B6484E\n  - MODULE-525F73C6C189406A\n  - MODULE-5CEF109E340C469F\n  - MODULE-992560C2560A4013\n  verification_methods:\n  - method_type: automatic_gate\n    description: 结构合同拒绝程序生成的默认语义字段、关键词推断和未绑定确认；只检查语义复核八类声明齐全及所声明的阻断状态自洽，公开结果标记机器未证明语义。\n  - method_type: behavior_acceptance\n    description: 使用缺失、冲突和错误语义候选验证程序只报告确定性问题而不会补写或选择答案。\n  - method_type: manual_review\n    description: 审查所有公开写路径，确认没有隐藏的模型调用、启发式语义评分或自我确认。\n- constraint_id: CONSTRAINT-4AB33A8FE5464062\n",
+          "source_sha256": "c2918d3d92f16a447411d8598d5c1487fcb0d211b5118f382f4b630a909bf4d5",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 50,
+          "source_id": "EVIDENCE-C0F52712AA3F227F",
+          "start_line": 1,
+          "original_text": "# Strixnova 初始基线设计\n\n本说明整理已确定的建设范围与实现选择，供初始候选审阅。它引用现有产品、领域、架构及工程材料，不另建权威或状态。范围确认与实际结果接受是两个阶段；当前验证和未完成项以[验证状态](validation-status.md)及原始证据为准。\n\n## 目标与交付边界\n\nStrixnova 是独立的开发中项目。展示名为 `Strixnova`，软件版本为 `0.1.0.dev0`。发行包、Python 导入包、命令和唯一 Skill 均名为 `strixnova`；项目配置是 `strixnova-project.yaml`，私有状态位于 `.strixnova/`。协议命名空间采用 `strixnova.*`，环境变量和专属规则身份采用 `STRIXNOVA_*` 与 `STRIXNOVA-GOV-*`。\n\n初始交付包含当前运行代码、随包资源、Skill、审阅材料、构建安装工具、有效行为测试、当前工程材料和本候选真实形成的证据。完整公开合同、Authority、活动库和证据格式分别从 v1 开始。发行版本、格式版本、内容摘要和成熟度是不同概念。\n\n保留产品当前的确认、工程评估、实施切片、验证、真实回执、本地 Git、多仓库协作、独立历史查询、事务恢复、维护互斥与受管安装能力。历史查询读取本产品当前格式生成的记录；软件维护保留检查、备份、停止、验证、切换和恢复，不预建其他格式的转换机制。\n\n交付不包含已有数据或仓库历史导入、跨品牌转换、命令别名、双配置名查找、双格式读取或兼容包装。宿主现有安装、其他项目、公开包登记、域名、官网及远程发布不在本次实现范围。项目不使用自身管理本次开发，不建立相应 WorkItem。CI、hooks、WebUI 和额外插件不属于本次建设。\n\n## 设计选择\n\n| 关注点 | 采用的方案与理由 | 对应实现或约束 |\n| --- | --- | --- |\n| 独立产品身份 | 生成端、消费端、结构合同、安装元数据和安全归属同时使用唯一命名，避免一个产物拥有互不一致的身份 | 包入口、Schema、路径、Git 分支、安装回执和测试协议同步 |\n| 完整 v1 | 以当前完整结构直接初始化，逐项确定当前合同，不把所有版本数字无差别替换 | 新数据库直接创建完整表、索引与写入保护；不识别的格式明确拒绝 |\n| 现有模块边界 | 沿用单一应用协调、独立权威读取、确定性治理、只读投影及外部执行职责 | [目标模块](../architecture/modules.yaml)、[关系](../architecture/relationships.yaml)、[约束](../architecture/constraints.yaml) |\n| 历史与恢复 | 保留新产品自身的真实历史与通用恢复能力；不从缺失数据推测既往结果 | 原始回执、精确提交、写入意图、文件摘要和停止证据各自保留来源 |\n| 交付身份 | clean wheel 从临时源码快照构建，按字节核对资源；一次性隔离环境只检查安装态 | 源码测试、wheel、安装、Git 检出和 Agent 加载分别提供证据 |\n| 依赖和开发入口 | 使用现有锁定依赖及仓库 Python 3.12，不顺带升级依赖或增加自动化平台 | `requirements-dev-win-py312.txt`、运行锁和 `scripts/local_validation.py` |\n\n上述选择属于初始基线。本说明保留这些长期取舍；当前没有需要另立 ADR 的新模块机制。今后改变权威方向、持久格式或公共接口时，再按工程政策记录具体决策，不以本说明替代正式权威修订。\n\n## 影响、风险与控制\n\n命令、导入、配置路径和公开协议会影响调用方式；文档、Skill 与安装器必须使用同一合同。新库初始化和格式拒绝影响数据行为；格式不符时应保留原始文件，不能尝试转换、回填或清空。安全边界必须随路径一起变更，包括私有目录、符号链接、工作树归属、SQLite 写入保护、验证命令政策和清理范围。\n\n| 风险 | 保留的设计控制 | 验证与限制 |\n| --- | --- | --- |\n| 不受管路径或工作树被误处理 | 路径限定、普通文件检查、仓库身份、创建归属和分支前缀共同校验 | 定点功能回归及本地 Git 夹具；未取得宿主能力的检查保持跳过记录 |\n| 验证或维护中断后重复产生效果 | 持久写入意图、真实进程回执、互斥与恢复入口 | 保留真实中断及停止事件，恢复复用原始结果；不把模拟状态当原始执行 |\n| 包、Skill 与运行代码不一致 | 分别绑定源码资源、Skill 内容、wheel 和实际安装身份 | clean wheel、隔离安装及原生加载证据；版本号相同不代表字节相同 |\n| 测试结果被扩大为语义接受 | 程序、Agent 与负责人职责分开；失败、跳过、待验和限制可见 | 确定性检查不决定语义，真实 Antigravity 独立复核不代替负责人接受 |\n| 交付过程混入既有内容或未授权副作用 | 新目录、新环境、新证据；真实仓库在结果确认前不暂存或提交 | 本地 Git 状态单独检查；不操作其他项目、现有宿主安装或远端 |\n\n用户行为和文档支持由新命令、公开合同及唯一 Skill 承担；产品和领域的有效职责继续保留，架构不增加并行系统。质量与性能采用当前测试和有界查询机制，本次未形成新的性能保证。安全、隐私、供应链和部署运维的结论限于明确受检的输入与环境，不构成外部认证。\n\n## 验证和交付\n\n源码验证使用仓库根解释器和本地验证入口；按影响完成定点、快速和全量回归，保留失败及修复后的结果。工程材料检查核对归属、依赖、责任和实际绑定。只有 clean wheel 入口提供构建证据，随后在一次性隔离环境检查运行依赖、包资源和命令。\n\nAgent 场景按[已确认的隔离方案](agent-acceptance.md)使用固定输入；候选尚未形成或独立复核存在阻断时不得投递接受输入。场景停止后保留失败或待验，继续不依赖该场景的工作。结果、记录和当前依赖见[验收目录](../../tests/acceptance/guided-formation-cases.yaml)。\n\n实际结果审阅前，真实仓库保持未暂存、未提交，工程材料保留草稿和未完成绑定。负责人确认后才组织原子提交，再用真实提交及祖先关系补齐 Git 绑定，执行相应检出和仓库检查。不得填写假提交、把空绑定解释为已采用，或把隔离测试接受解释为真实仓库提交与发布授权。\n\n候选使用受管安装时，进入条件、停止证据、维护互斥、备份、验证和恢复由现有维护流程约束；具体步骤见[历史查询与自身升级](../使用说明/历史查询与自身升级.md)。初始交付不对任何现有宿主执行安装切换。第三方来源和许可仍由根 README 集中维护。\n",
+          "source_sha256": "74b81c8e531b779836c7ed668b7aaa75b7d929c5116f4d2b2188fee13b57bd57",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅判断这份内部规则评价是否准确且有证据；真实的部分、未满足或待验状态可以被如实登记，复核通过不把它们升级为已满足。不宣称完整候选、外部认证或负责人接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_seven_rules_present": true,
+          "evidence_ids_and_hashes_bound": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "STRIXNOVA-GOV-SEC-001",
+      "issues": [],
+      "limitations": [
+        "安全边界与受限命令策略不等于操作系统或虚拟机级别的强沙箱隔离。",
+        "验证证据仅限受检测试集，不构成第三方或外部安全资质认证。"
+      ],
+      "reason": "工程政策（EVIDENCE-778AAA36AF9ADA11）阐明了安全与受限执行模型，初始设计（EVIDENCE-C0F52712AA3F227F）提供了安全风险与控制设计，交付要求（EVIDENCE-8047C68009D3709A）和产品定义（EVIDENCE-26615D3E04DF3364）列出了安全约束。评估准确指出了安全政策仍为草稿、缺乏独立供应链评估及符号链接跳过等缺口，客观判定为partially_satisfied。",
+      "references": [
+        {
+          "end_line": 340,
+          "source_id": "assessment",
+          "start_line": 311,
+          "original_text": "    {\n      \"applicability\": \"applicable\",\n      \"applicability_reason\": \"初始候选涉及命令执行策略、路径安全和 Agent 拒绝等安全关注。政策（EVIDENCE-778AAA36AF9ADA11）security 节说明了信任模型和执行边界。初始设计（EVIDENCE-C0F52712AA3F227F）有安全风险表。交付要求（EVIDENCE-8047C68009D3709A）引用 69 项回归和探针。产品定义（EVIDENCE-26615D3E04DF3364）有安全约束。但安全验证限于明确受检输入、符号链接跳过、无独立供应链评估。\",\n      \"evidence_ids\": [\n        \"EVIDENCE-778AAA36AF9ADA11\",\n        \"EVIDENCE-C0F52712AA3F227F\",\n        \"EVIDENCE-8047C68009D3709A\",\n        \"EVIDENCE-26615D3E04DF3364\"\n      ],\n      \"gaps\": [\n        \"符号链接检查因宿主权限限制跳过\",\n        \"无独立供应链风险评估文档\",\n        \"安全政策仍为 draft\"\n      ],\n      \"limitations\": [\n        \"安全验证限于明确受检的输入与环境，不构成外部认证\",\n        \"流程受控不等于安全隔离\"\n      ],\n      \"remediation_actions\": [\n        \"为符号链接跳过记录处置决定\",\n        \"确认供应链依赖锁定完整性\",\n        \"安全政策从 draft 进入采用\"\n      ],\n      \"rule_id\": \"STRIXNOVA-GOV-SEC-001\",\n      \"source_ids\": [\n        \"NIST-SP-800-218-1.1\",\n        \"ISO-12207-2026\"\n      ],\n      \"status\": \"partially_satisfied\"\n    },\n",
+          "source_sha256": "ff33e27461158b38afa251b628a1bf7c533cb301073456e462dfbcbceaddc359",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 45,
+          "source_id": "EVIDENCE-778AAA36AF9ADA11",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-engineering-policy.v1\npolicy_id: POLICY-464E891F2CE841AA\nrevision:\n  revision_id: POLICYREV-6151D5CB5D3D4E51\n  status: draft\n  supersedes_revision_id: null\n  confirmed_by_owner_id: null\n  confirmed_on: null\nproduct_definition_ref:\n  product_id: PRODUCT-8312417768A84DE4\n  revision_id: REVISION-59EB5B9A3F3F46C0\nbase_profile_ref:\n  profile_id: strixnova-general-software-engineering\n  profile_version: '2026-08-23'\nmethod_adoptions:\n- method_id: ddd\n  status: adopted\n  reason: Strixnova的核心复杂度来自建设事项、工程评估、项目治理、交付与验证等 领域事实及其关系；采用 DDD（领域驱动设计）维护统一语言、限界上下文、 领域不变量、上下文关系和实现对齐，不把方法名称当作代码目录模板或认证。\n  conditions: []\n  adopted_technique_ids:\n  - ubiquitous_language\n  - bounded_context\n  - context_map\n  - domain_invariant_trace\npolicy_statements:\n  quality:\n  - 可用性必须由真实效果、安装和验证证明，开发阶段标签不是可用性结论。\n  - 合规状态必须区分来源绑定、程序校验、内部评估、真实人类审查和外部认证。\n  - 方向阶段由智能编码代理自行查明项目事实，只向项目负责人提出会实质改变方向的决定；请求已明确时不得仪式性追问。\n  - 方向、完整工程方案和实际结果进入确认前，智能编码代理必须主动说明当前或修改前状态、候选变化、产品效果、工程逻辑、影响与风险、未知、推荐和授权边界；内容按实际复杂度组织，不要求负责人先追问或理解系统字段。\n  - 普通确认允许负责人自然表达明确接受或具体纠正；Agent 保留真实原文，提交显式接受或要求修改的决定及依据。事项版本、决定标签、候选身份、指纹、Schema 名称和结果卡编号只作为程序内部绑定或审计事实，默认不得要求负责人阅读、复制或签署；程序不按自然语言词表判断决定。\n  - 用户表示看不懂、提问或要求换一种说法时，智能编码代理必须解释同一候选并保持确认待定；只有会改变候选含义的实质纠正才进入退回和修订，程序不得从自然语言近义表达、沉默或上下文推断接受。\n  - 方向阶段的只读上下文必须完整列出当前产品能力、非目标和约束；智能编码代理负责调查并逐项解释适用性、理由和重开条件，程序只校验精确版本、合法引用、唯一覆盖与失效关系。\n  - 实现观察的支持结论必须同时注明语言、关系种类、配置、提供者和实际覆盖状态；识别文件扩展名、存在适配器或取得空关系结果都不能单独证明完整支持。\n  - 需求形成深度、交付跨度和保障深度必须分别依据真实意图缺口、可独立验收结果及风险说明；文件数、代码行数、活动名称或产物名称不得自动推出其中任一结论。\n  - 方向条目身份、引用闭合、需求覆盖和历史不可复用可以由程序证明；条目是否保持同一含义、验收是否充分以及结构转换是否仍忠实于业务含义，只能由智能编码代理形成判断并由项目负责人确认。\n  - 不得用方向条目身份未变化、Schema 通过、转换成功或测试通过冒充产品语义未变化。\n  - 首次使用以现成 Windows x64、Python 3.12、Git 和能够读取配套 Skill 的 Agent 为前提；分发物只携带 Strixnova、锁定依赖、配套 Skill 与安装入口说明。技术安装、Skill\n    文件复制、宿主加载、用户接受和业务效果分别报告。\n  - 多仓库事项按一个可独立接受目标组织整体方向、方案和实际结果，仓库数量不增加普通确认点；部分交付、取消及原接受同时如实呈现。\n  testing:\n  - 当前事项的每项验收、约束和已识别风险都须有明确核验安排。命令覆盖复用既有引用，其余逐项说明 Agent 审阅、证据复用或未核验；不能以整体无命令理由代替条目处置，也不制造占位测试命令。\n  - 实际结果区分命令证据与 Agent 语义判断。明确未核验或未获支持的条目必须保留限制；缺少当前核验目标不能形成可接受结果，不自动补造通过。\n  - 实际结果须携带复核前取得的内容身份，绑定方案、方向、声明仓库输入与已采用规则依据；程序在校验和记录结果时核对同一内容，不事后为旧判断补认新版本。身份匹配仅证明声明范围内内容一致，不证明实际阅读、范围穷尽或语义正确。\n  - 用户或外部调用方可观察的行为变化默认在方向验收内形成有依据的例子；纯说明或不改变行为的机械修改可说明不适用。例子不增加方法采用状态、Gherkin 要求或确认点。\n",
+          "source_sha256": "1c232deaccb31ac2a75cd40830a4fb01b17edd1746af98422d1d274f8dff9183",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 50,
+          "source_id": "EVIDENCE-C0F52712AA3F227F",
+          "start_line": 1,
+          "original_text": "# Strixnova 初始基线设计\n\n本说明整理已确定的建设范围与实现选择，供初始候选审阅。它引用现有产品、领域、架构及工程材料，不另建权威或状态。范围确认与实际结果接受是两个阶段；当前验证和未完成项以[验证状态](validation-status.md)及原始证据为准。\n\n## 目标与交付边界\n\nStrixnova 是独立的开发中项目。展示名为 `Strixnova`，软件版本为 `0.1.0.dev0`。发行包、Python 导入包、命令和唯一 Skill 均名为 `strixnova`；项目配置是 `strixnova-project.yaml`，私有状态位于 `.strixnova/`。协议命名空间采用 `strixnova.*`，环境变量和专属规则身份采用 `STRIXNOVA_*` 与 `STRIXNOVA-GOV-*`。\n\n初始交付包含当前运行代码、随包资源、Skill、审阅材料、构建安装工具、有效行为测试、当前工程材料和本候选真实形成的证据。完整公开合同、Authority、活动库和证据格式分别从 v1 开始。发行版本、格式版本、内容摘要和成熟度是不同概念。\n\n保留产品当前的确认、工程评估、实施切片、验证、真实回执、本地 Git、多仓库协作、独立历史查询、事务恢复、维护互斥与受管安装能力。历史查询读取本产品当前格式生成的记录；软件维护保留检查、备份、停止、验证、切换和恢复，不预建其他格式的转换机制。\n\n交付不包含已有数据或仓库历史导入、跨品牌转换、命令别名、双配置名查找、双格式读取或兼容包装。宿主现有安装、其他项目、公开包登记、域名、官网及远程发布不在本次实现范围。项目不使用自身管理本次开发，不建立相应 WorkItem。CI、hooks、WebUI 和额外插件不属于本次建设。\n\n## 设计选择\n\n| 关注点 | 采用的方案与理由 | 对应实现或约束 |\n| --- | --- | --- |\n| 独立产品身份 | 生成端、消费端、结构合同、安装元数据和安全归属同时使用唯一命名，避免一个产物拥有互不一致的身份 | 包入口、Schema、路径、Git 分支、安装回执和测试协议同步 |\n| 完整 v1 | 以当前完整结构直接初始化，逐项确定当前合同，不把所有版本数字无差别替换 | 新数据库直接创建完整表、索引与写入保护；不识别的格式明确拒绝 |\n| 现有模块边界 | 沿用单一应用协调、独立权威读取、确定性治理、只读投影及外部执行职责 | [目标模块](../architecture/modules.yaml)、[关系](../architecture/relationships.yaml)、[约束](../architecture/constraints.yaml) |\n| 历史与恢复 | 保留新产品自身的真实历史与通用恢复能力；不从缺失数据推测既往结果 | 原始回执、精确提交、写入意图、文件摘要和停止证据各自保留来源 |\n| 交付身份 | clean wheel 从临时源码快照构建，按字节核对资源；一次性隔离环境只检查安装态 | 源码测试、wheel、安装、Git 检出和 Agent 加载分别提供证据 |\n| 依赖和开发入口 | 使用现有锁定依赖及仓库 Python 3.12，不顺带升级依赖或增加自动化平台 | `requirements-dev-win-py312.txt`、运行锁和 `scripts/local_validation.py` |\n\n上述选择属于初始基线。本说明保留这些长期取舍；当前没有需要另立 ADR 的新模块机制。今后改变权威方向、持久格式或公共接口时，再按工程政策记录具体决策，不以本说明替代正式权威修订。\n\n## 影响、风险与控制\n\n命令、导入、配置路径和公开协议会影响调用方式；文档、Skill 与安装器必须使用同一合同。新库初始化和格式拒绝影响数据行为；格式不符时应保留原始文件，不能尝试转换、回填或清空。安全边界必须随路径一起变更，包括私有目录、符号链接、工作树归属、SQLite 写入保护、验证命令政策和清理范围。\n\n| 风险 | 保留的设计控制 | 验证与限制 |\n| --- | --- | --- |\n| 不受管路径或工作树被误处理 | 路径限定、普通文件检查、仓库身份、创建归属和分支前缀共同校验 | 定点功能回归及本地 Git 夹具；未取得宿主能力的检查保持跳过记录 |\n| 验证或维护中断后重复产生效果 | 持久写入意图、真实进程回执、互斥与恢复入口 | 保留真实中断及停止事件，恢复复用原始结果；不把模拟状态当原始执行 |\n| 包、Skill 与运行代码不一致 | 分别绑定源码资源、Skill 内容、wheel 和实际安装身份 | clean wheel、隔离安装及原生加载证据；版本号相同不代表字节相同 |\n| 测试结果被扩大为语义接受 | 程序、Agent 与负责人职责分开；失败、跳过、待验和限制可见 | 确定性检查不决定语义，真实 Antigravity 独立复核不代替负责人接受 |\n| 交付过程混入既有内容或未授权副作用 | 新目录、新环境、新证据；真实仓库在结果确认前不暂存或提交 | 本地 Git 状态单独检查；不操作其他项目、现有宿主安装或远端 |\n\n用户行为和文档支持由新命令、公开合同及唯一 Skill 承担；产品和领域的有效职责继续保留，架构不增加并行系统。质量与性能采用当前测试和有界查询机制，本次未形成新的性能保证。安全、隐私、供应链和部署运维的结论限于明确受检的输入与环境，不构成外部认证。\n\n## 验证和交付\n\n源码验证使用仓库根解释器和本地验证入口；按影响完成定点、快速和全量回归，保留失败及修复后的结果。工程材料检查核对归属、依赖、责任和实际绑定。只有 clean wheel 入口提供构建证据，随后在一次性隔离环境检查运行依赖、包资源和命令。\n\nAgent 场景按[已确认的隔离方案](agent-acceptance.md)使用固定输入；候选尚未形成或独立复核存在阻断时不得投递接受输入。场景停止后保留失败或待验，继续不依赖该场景的工作。结果、记录和当前依赖见[验收目录](../../tests/acceptance/guided-formation-cases.yaml)。\n\n实际结果审阅前，真实仓库保持未暂存、未提交，工程材料保留草稿和未完成绑定。负责人确认后才组织原子提交，再用真实提交及祖先关系补齐 Git 绑定，执行相应检出和仓库检查。不得填写假提交、把空绑定解释为已采用，或把隔离测试接受解释为真实仓库提交与发布授权。\n\n候选使用受管安装时，进入条件、停止证据、维护互斥、备份、验证和恢复由现有维护流程约束；具体步骤见[历史查询与自身升级](../使用说明/历史查询与自身升级.md)。初始交付不对任何现有宿主执行安装切换。第三方来源和许可仍由根 README 集中维护。\n",
+          "source_sha256": "74b81c8e531b779836c7ed668b7aaa75b7d929c5116f4d2b2188fee13b57bd57",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 27,
+          "source_id": "EVIDENCE-8047C68009D3709A",
+          "start_line": 1,
+          "original_text": "# 初始交付要求与证据\n\n本表按已确定的独立新项目范围检查当前结果。它是交付审阅索引，不另建权威，也不把局部检查称为完整验收。当前候选为 `0.1.0.dev0`；实际状态详见[验证状态](validation-status.md)。\n\n| 要求 | 当前可核对证据 | 尚未完成或证明边界 |\n| --- | --- | --- |\n| 展示名、发行包、导入包、CLI、Skill、配置、状态路径及协议统一为 Strixnova/strixnova | 包元数据和唯一命令入口；135 个源码/wheel/安装文件匹配；新交付文件及嵌套制品命名检查；新数据库命名检查 | 扫描覆盖明确文件和制品，不扩大到其他忽略目录、Git 历史、图像像素或任意编码 |\n| 当前完整合同和存储各自建立 v1，只支持当前明确格式 | 当前安装含 43 个 `strixnova.*.v1` 合同资源；真实初次使用数据库声明格式 1；格式准入及未知格式拒绝回归 | 初始 intake 不必在数据库中保存公共 schema ID；存储格式与公开合同分别检查 |\n| 保留当前有效的治理、确认、执行、验证、本地 Git、多仓库、历史与恢复能力 | 快速/全量及修复后的定点记录；21 个模块的原生评价和独立复核；此前实际 Agent 场景及失败记录 | 功能记录各有输入与时间范围；83 条关系、33 条约束及 7 条工程保障规则尚未全部完成评价；Agent 目录仍有需重核和待验项 |\n| 保留路径、归属、证据及受限执行安全边界 | 格式准入修复；已知 Agent 入口拒绝修复的 69 项回归、无进程前后探针及独立复核；既有权限、恢复和工作树保护测试 | 名称政策、流程保护和单一宿主测试不构成安全沙箱、通用可用性或外部认证 |\n| 使用新环境、新夹具、新构建及新证据，不继承既有接受结论 | 仓库 Python 3.12；锁定依赖；独立 clean wheel；一次性隔离安装；本轮原始调用、失败、修正和精确内容身份 | 原作者、wheel 与 Skill 身份保留；后续代码变化不通过刷新摘要继承原通过 |\n| 工程材料对应当前实现并保持真实确认状态 | 当前产品、领域、架构、政策与实现记录；135 个文件和 664 条规范化依赖观察；源码归属及模块评价 | 材料仍为草稿；三处真实 Git 绑定等待实际结果审阅后的首次提交，不能填占位摘要 |\n| 不引入兼容别名、平行机制、WebUI、hooks 或 CI | 当前交付树、包入口、安装器、公开合同和仓库规则；本轮没有相关新增入口 | 安全与恢复保留当前职责，不表示支持其他数据格式的迁移 |\n| 原工作区作为来源，保留用户目录；结果确认前不提交或推送 | 来源仓库 HEAD 与受跟踪文件未改；目标仓库仍未暂存；本轮无远程 Git、普通宿主安装或其他项目操作 | 负责人实际结果接受、本地提交及后续交付仍是后续阶段；测试角色的接受不授权真实交付 |\n\n对应原始材料：\n\n- [初始基线设计](initial-baseline-design.md)：范围、选择、安全控制与交付顺序。\n- [机器检查索引](../../tests/acceptance/initial/machine-checks/index.json)：原全量失败、后续定点修复、构建安装及原 Git 阻断。\n- [已知 Agent 入口修复](../../tests/acceptance/initial/known-agent-guard-change/index.json)：精确差异、69 项回归、前后探针与当前制品身份。\n- [修复的模块独立评价](../../tests/acceptance/initial/implementation-assessment/known-agent-guard/evaluation-binding.json)：原评价保留、有限重核及当前内容绑定。\n- [交付边界检查](../../tests/acceptance/initial/delivery-boundary-checks/index.json)：当时交付文件与指定制品命名、配置文件名断言修正、生成数据库及安装合同检查。\n- [Agent 验收目录](../../tests/acceptance/guided-formation-cases.yaml)：逐项原始证据、声明依赖与当前性；[复杂流程停止记录](../../tests/acceptance/initial/G4-G2-stopped/index.json)保留前置未通过和未投递接受输入的事实。\n\n2026-09-29 状态：21 个模块、83 条关系和 33 条约束已有当前原生评价及独立复核；其中 1 项保留部分或未满足状态，原缺口和补验要求仍在；剩余 0 条关系、0 条约束及 7 条工程保障规则待完成。Agent 目录为 40 项有效、0 项需重核、10 项待验。当前策略下的小修复已完成实际重验和独立复核；原失败、机械汇总纠正和独立复核均保留，完整验收仍未完成。\n\n当前小修复重验首轮因确认边界越过而未通过，原始记录与独立诊断保全；修改的是隔离验收控制器的自动续行设置，已完成原生定点重验并保留原失败；其他复杂场景仍待完成。当前制品命名检查在保全一份含旧名诊断模式的控制器后通过，详情与扫描时点见[验证状态](validation-status.md)。\n",
+          "source_sha256": "8a8a2e27340d54f1ef94ca2a9b3b2e0a316e4522a831dc0966fa25639a4b7683",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 10,
+          "source_id": "EVIDENCE-26615D3E04DF3364",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-product-definition.v1\nproduct_id: PRODUCT-8312417768A84DE4\nrevision:\n  revision_id: REVISION-59EB5B9A3F3F46C0\n  status: draft\n  supersedes_revision_id: null\n  confirmed_by_owner_id: null\n  confirmed_on: null\ntitle: Strixnova项目产品定义\npurpose: 帮助能够说明预期结果但不必掌握完整软件工程知识的项目负责人， 通过具有命令执行能力的智能编码代理，把产品目标持续推进为方向正确、 权威清晰、过程受控、证据完整且可追溯的软件工程成果。\n",
+          "source_sha256": "91c80b879f97284ce585757eecff0189a8762d8148890484ecaccd91983faa8e",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅判断这份内部规则评价是否准确且有证据；真实的部分、未满足或待验状态可以被如实登记，复核通过不把它们升级为已满足。不宣称完整候选、外部认证或负责人接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_seven_rules_present": true,
+          "evidence_ids_and_hashes_bound": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "STRIXNOVA-GOV-OPS-001",
+      "issues": [],
+      "limitations": [
+        "安装验证基于一次性隔离测试环境，不保证所有宿主平台或依赖组合均可运行。",
+        "跨平台与运行时兼容性限制在Windows x64与Python 3.12。"
+      ],
+      "reason": "政策（EVIDENCE-778AAA36AF9ADA11）中包含发布、运维和兼容性条款，初始设计（EVIDENCE-C0F52712AA3F227F）说明了维护策略，G9场景（EVIDENCE-3BEA85A280AD8EB4）、交付边界（EVIDENCE-8047C68009D3709A）与隔离安装（EVIDENCE-2714E199F9FE507F）提供了执行凭证。评价明确揭示了真实Git提交合入未发生、回退机制仅停留在设计层面、真实维护政策未转入采用等实质缺口，判为partially_satisfied真实有效。",
+      "references": [
+        {
+          "end_line": 371,
+          "source_id": "assessment",
+          "start_line": 342,
+          "original_text": "      \"applicability\": \"applicable\",\n      \"applicability_reason\": \"初始候选定义了 v1 格式、安装方式和维护流程。政策（EVIDENCE-778AAA36AF9ADA11）有 release、operations、compatibility 节。初始设计（EVIDENCE-C0F52712AA3F227F）说明了维护流程。验证状态（EVIDENCE-3BEA85A280AD8EB4）G9 维护场景有执行证据。交付要求（EVIDENCE-8047C68009D3709A）明确排除了别名等。安装检查（EVIDENCE-2714E199F9FE507F）通过。但真实交付未执行、回退仅设计承诺。\",\n      \"evidence_ids\": [\n        \"EVIDENCE-778AAA36AF9ADA11\",\n        \"EVIDENCE-C0F52712AA3F227F\",\n        \"EVIDENCE-3BEA85A280AD8EB4\",\n        \"EVIDENCE-8047C68009D3709A\",\n        \"EVIDENCE-2714E199F9FE507F\"\n      ],\n      \"gaps\": [\n        \"真实仓库交付（Git 提交、合入）未执行\",\n        \"回退路径仅为设计承诺，无执行证据\",\n        \"兼容性测试限于 Windows x64 + Python 3.12\"\n      ],\n      \"limitations\": [\n        \"隔离安装证据不代表普通宿主安装\",\n        \"维护场景有两项外层包装器错误纠正记录保留\"\n      ],\n      \"remediation_actions\": [\n        \"负责人接受后执行首次 Git 提交并验证回退\",\n        \"记录其他环境的不支持声明\",\n        \"维护政策从 draft 进入采用\"\n      ],\n      \"rule_id\": \"STRIXNOVA-GOV-OPS-001\",\n      \"source_ids\": [\n        \"ISO-12207-2026\",\n        \"ISO-25010-2023\"\n      ],\n      \"status\": \"partially_satisfied\"\n    }\n",
+          "source_sha256": "ff33e27461158b38afa251b628a1bf7c533cb301073456e462dfbcbceaddc359",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 45,
+          "source_id": "EVIDENCE-778AAA36AF9ADA11",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-engineering-policy.v1\npolicy_id: POLICY-464E891F2CE841AA\nrevision:\n  revision_id: POLICYREV-6151D5CB5D3D4E51\n  status: draft\n  supersedes_revision_id: null\n  confirmed_by_owner_id: null\n  confirmed_on: null\nproduct_definition_ref:\n  product_id: PRODUCT-8312417768A84DE4\n  revision_id: REVISION-59EB5B9A3F3F46C0\nbase_profile_ref:\n  profile_id: strixnova-general-software-engineering\n  profile_version: '2026-08-23'\nmethod_adoptions:\n- method_id: ddd\n  status: adopted\n  reason: Strixnova的核心复杂度来自建设事项、工程评估、项目治理、交付与验证等 领域事实及其关系；采用 DDD（领域驱动设计）维护统一语言、限界上下文、 领域不变量、上下文关系和实现对齐，不把方法名称当作代码目录模板或认证。\n  conditions: []\n  adopted_technique_ids:\n  - ubiquitous_language\n  - bounded_context\n  - context_map\n  - domain_invariant_trace\npolicy_statements:\n  quality:\n  - 可用性必须由真实效果、安装和验证证明，开发阶段标签不是可用性结论。\n  - 合规状态必须区分来源绑定、程序校验、内部评估、真实人类审查和外部认证。\n  - 方向阶段由智能编码代理自行查明项目事实，只向项目负责人提出会实质改变方向的决定；请求已明确时不得仪式性追问。\n  - 方向、完整工程方案和实际结果进入确认前，智能编码代理必须主动说明当前或修改前状态、候选变化、产品效果、工程逻辑、影响与风险、未知、推荐和授权边界；内容按实际复杂度组织，不要求负责人先追问或理解系统字段。\n  - 普通确认允许负责人自然表达明确接受或具体纠正；Agent 保留真实原文，提交显式接受或要求修改的决定及依据。事项版本、决定标签、候选身份、指纹、Schema 名称和结果卡编号只作为程序内部绑定或审计事实，默认不得要求负责人阅读、复制或签署；程序不按自然语言词表判断决定。\n  - 用户表示看不懂、提问或要求换一种说法时，智能编码代理必须解释同一候选并保持确认待定；只有会改变候选含义的实质纠正才进入退回和修订，程序不得从自然语言近义表达、沉默或上下文推断接受。\n  - 方向阶段的只读上下文必须完整列出当前产品能力、非目标和约束；智能编码代理负责调查并逐项解释适用性、理由和重开条件，程序只校验精确版本、合法引用、唯一覆盖与失效关系。\n  - 实现观察的支持结论必须同时注明语言、关系种类、配置、提供者和实际覆盖状态；识别文件扩展名、存在适配器或取得空关系结果都不能单独证明完整支持。\n  - 需求形成深度、交付跨度和保障深度必须分别依据真实意图缺口、可独立验收结果及风险说明；文件数、代码行数、活动名称或产物名称不得自动推出其中任一结论。\n  - 方向条目身份、引用闭合、需求覆盖和历史不可复用可以由程序证明；条目是否保持同一含义、验收是否充分以及结构转换是否仍忠实于业务含义，只能由智能编码代理形成判断并由项目负责人确认。\n  - 不得用方向条目身份未变化、Schema 通过、转换成功或测试通过冒充产品语义未变化。\n  - 首次使用以现成 Windows x64、Python 3.12、Git 和能够读取配套 Skill 的 Agent 为前提；分发物只携带 Strixnova、锁定依赖、配套 Skill 与安装入口说明。技术安装、Skill\n    文件复制、宿主加载、用户接受和业务效果分别报告。\n  - 多仓库事项按一个可独立接受目标组织整体方向、方案和实际结果，仓库数量不增加普通确认点；部分交付、取消及原接受同时如实呈现。\n  testing:\n  - 当前事项的每项验收、约束和已识别风险都须有明确核验安排。命令覆盖复用既有引用，其余逐项说明 Agent 审阅、证据复用或未核验；不能以整体无命令理由代替条目处置，也不制造占位测试命令。\n  - 实际结果区分命令证据与 Agent 语义判断。明确未核验或未获支持的条目必须保留限制；缺少当前核验目标不能形成可接受结果，不自动补造通过。\n  - 实际结果须携带复核前取得的内容身份，绑定方案、方向、声明仓库输入与已采用规则依据；程序在校验和记录结果时核对同一内容，不事后为旧判断补认新版本。身份匹配仅证明声明范围内内容一致，不证明实际阅读、范围穷尽或语义正确。\n  - 用户或外部调用方可观察的行为变化默认在方向验收内形成有依据的例子；纯说明或不改变行为的机械修改可说明不适用。例子不增加方法采用状态、Gherkin 要求或确认点。\n",
+          "source_sha256": "1c232deaccb31ac2a75cd40830a4fb01b17edd1746af98422d1d274f8dff9183",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 50,
+          "source_id": "EVIDENCE-C0F52712AA3F227F",
+          "start_line": 1,
+          "original_text": "# Strixnova 初始基线设计\n\n本说明整理已确定的建设范围与实现选择，供初始候选审阅。它引用现有产品、领域、架构及工程材料，不另建权威或状态。范围确认与实际结果接受是两个阶段；当前验证和未完成项以[验证状态](validation-status.md)及原始证据为准。\n\n## 目标与交付边界\n\nStrixnova 是独立的开发中项目。展示名为 `Strixnova`，软件版本为 `0.1.0.dev0`。发行包、Python 导入包、命令和唯一 Skill 均名为 `strixnova`；项目配置是 `strixnova-project.yaml`，私有状态位于 `.strixnova/`。协议命名空间采用 `strixnova.*`，环境变量和专属规则身份采用 `STRIXNOVA_*` 与 `STRIXNOVA-GOV-*`。\n\n初始交付包含当前运行代码、随包资源、Skill、审阅材料、构建安装工具、有效行为测试、当前工程材料和本候选真实形成的证据。完整公开合同、Authority、活动库和证据格式分别从 v1 开始。发行版本、格式版本、内容摘要和成熟度是不同概念。\n\n保留产品当前的确认、工程评估、实施切片、验证、真实回执、本地 Git、多仓库协作、独立历史查询、事务恢复、维护互斥与受管安装能力。历史查询读取本产品当前格式生成的记录；软件维护保留检查、备份、停止、验证、切换和恢复，不预建其他格式的转换机制。\n\n交付不包含已有数据或仓库历史导入、跨品牌转换、命令别名、双配置名查找、双格式读取或兼容包装。宿主现有安装、其他项目、公开包登记、域名、官网及远程发布不在本次实现范围。项目不使用自身管理本次开发，不建立相应 WorkItem。CI、hooks、WebUI 和额外插件不属于本次建设。\n\n## 设计选择\n\n| 关注点 | 采用的方案与理由 | 对应实现或约束 |\n| --- | --- | --- |\n| 独立产品身份 | 生成端、消费端、结构合同、安装元数据和安全归属同时使用唯一命名，避免一个产物拥有互不一致的身份 | 包入口、Schema、路径、Git 分支、安装回执和测试协议同步 |\n| 完整 v1 | 以当前完整结构直接初始化，逐项确定当前合同，不把所有版本数字无差别替换 | 新数据库直接创建完整表、索引与写入保护；不识别的格式明确拒绝 |\n| 现有模块边界 | 沿用单一应用协调、独立权威读取、确定性治理、只读投影及外部执行职责 | [目标模块](../architecture/modules.yaml)、[关系](../architecture/relationships.yaml)、[约束](../architecture/constraints.yaml) |\n| 历史与恢复 | 保留新产品自身的真实历史与通用恢复能力；不从缺失数据推测既往结果 | 原始回执、精确提交、写入意图、文件摘要和停止证据各自保留来源 |\n| 交付身份 | clean wheel 从临时源码快照构建，按字节核对资源；一次性隔离环境只检查安装态 | 源码测试、wheel、安装、Git 检出和 Agent 加载分别提供证据 |\n| 依赖和开发入口 | 使用现有锁定依赖及仓库 Python 3.12，不顺带升级依赖或增加自动化平台 | `requirements-dev-win-py312.txt`、运行锁和 `scripts/local_validation.py` |\n\n上述选择属于初始基线。本说明保留这些长期取舍；当前没有需要另立 ADR 的新模块机制。今后改变权威方向、持久格式或公共接口时，再按工程政策记录具体决策，不以本说明替代正式权威修订。\n\n## 影响、风险与控制\n\n命令、导入、配置路径和公开协议会影响调用方式；文档、Skill 与安装器必须使用同一合同。新库初始化和格式拒绝影响数据行为；格式不符时应保留原始文件，不能尝试转换、回填或清空。安全边界必须随路径一起变更，包括私有目录、符号链接、工作树归属、SQLite 写入保护、验证命令政策和清理范围。\n\n| 风险 | 保留的设计控制 | 验证与限制 |\n| --- | --- | --- |\n| 不受管路径或工作树被误处理 | 路径限定、普通文件检查、仓库身份、创建归属和分支前缀共同校验 | 定点功能回归及本地 Git 夹具；未取得宿主能力的检查保持跳过记录 |\n| 验证或维护中断后重复产生效果 | 持久写入意图、真实进程回执、互斥与恢复入口 | 保留真实中断及停止事件，恢复复用原始结果；不把模拟状态当原始执行 |\n| 包、Skill 与运行代码不一致 | 分别绑定源码资源、Skill 内容、wheel 和实际安装身份 | clean wheel、隔离安装及原生加载证据；版本号相同不代表字节相同 |\n| 测试结果被扩大为语义接受 | 程序、Agent 与负责人职责分开；失败、跳过、待验和限制可见 | 确定性检查不决定语义，真实 Antigravity 独立复核不代替负责人接受 |\n| 交付过程混入既有内容或未授权副作用 | 新目录、新环境、新证据；真实仓库在结果确认前不暂存或提交 | 本地 Git 状态单独检查；不操作其他项目、现有宿主安装或远端 |\n\n用户行为和文档支持由新命令、公开合同及唯一 Skill 承担；产品和领域的有效职责继续保留，架构不增加并行系统。质量与性能采用当前测试和有界查询机制，本次未形成新的性能保证。安全、隐私、供应链和部署运维的结论限于明确受检的输入与环境，不构成外部认证。\n\n## 验证和交付\n\n源码验证使用仓库根解释器和本地验证入口；按影响完成定点、快速和全量回归，保留失败及修复后的结果。工程材料检查核对归属、依赖、责任和实际绑定。只有 clean wheel 入口提供构建证据，随后在一次性隔离环境检查运行依赖、包资源和命令。\n\nAgent 场景按[已确认的隔离方案](agent-acceptance.md)使用固定输入；候选尚未形成或独立复核存在阻断时不得投递接受输入。场景停止后保留失败或待验，继续不依赖该场景的工作。结果、记录和当前依赖见[验收目录](../../tests/acceptance/guided-formation-cases.yaml)。\n\n实际结果审阅前，真实仓库保持未暂存、未提交，工程材料保留草稿和未完成绑定。负责人确认后才组织原子提交，再用真实提交及祖先关系补齐 Git 绑定，执行相应检出和仓库检查。不得填写假提交、把空绑定解释为已采用，或把隔离测试接受解释为真实仓库提交与发布授权。\n\n候选使用受管安装时，进入条件、停止证据、维护互斥、备份、验证和恢复由现有维护流程约束；具体步骤见[历史查询与自身升级](../使用说明/历史查询与自身升级.md)。初始交付不对任何现有宿主执行安装切换。第三方来源和许可仍由根 README 集中维护。\n",
+          "source_sha256": "74b81c8e531b779836c7ed668b7aaa75b7d929c5116f4d2b2188fee13b57bd57",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 35,
+          "source_id": "EVIDENCE-3BEA85A280AD8EB4",
+          "start_line": 1,
+          "original_text": "# 当前验证状态\n\n版本：0.1.0.dev0。初始候选仍在验收；尚未取得负责人对实际重构结果的接受，也未暂存、提交或发布。\n\n| 范围 | 已有结果 | 当前边界 |\n| --- | --- | --- |\n| 快速功能回归 | 1139 通过，5 跳过，含三项真实隔离安装探测 | 四项文件符号链接检查受宿主权限限制，一项文件名规则不适用于 Windows |\n| 全量功能回归 | 1143 通过，4 失败，8 跳过；25 分 29 秒 | 三个依赖真实未提交基线的功能夹具已隔离并通过定点复验；真实基线检查移入仓库状态层保留。原失败没有改写为首次通过 |\n| 技术复核与修复 | 已知 Agent 拒绝修复69项回归通过；当前合同清理51项回归通过 | 新回归先复现外部GIT_DIR干扰失败，删除无用读取后通过；旧表示回退已退出。机器验证与独立重核分别保留 |\n| 最新源码观察与实现评价 | 135 个受管文件，60 个 Python 源码，664 条规范化关系 | 21 个模块、83 条关系和 33 条约束已有当前原生评价及独立复核；其中 1 项保留部分或未满足状态，原缺口和补验要求仍在；剩余 0 条关系、0 条约束待评价。模块和约束评价不等于完整 Agent 流程验收 |\n| 最新 clean wheel 与隔离安装 | 135 个源码、wheel 和安装文件匹配；9 次安装及原生入口调用通过 | 未安装到系统或源码环境；不表示普通宿主自动加载或正式发布 |\n| 真实 Agent 证据 | 50 项目录中，40 项声明依赖与证据当前有效、0 项需重核、10 项待验 | 当前策略 G1 已完成新的实际执行和三项独立复核；原越界失败、服务 EOF 与纠正保留。固定输入下通过不代表真人接受或任意输入下的可靠性 |\n| 复杂流程验收 | 22:20后恢复实际原生执行，两次有限调用仍未完成新评估提交 | 当前版本13停在submit_engineering_assessment；未投递新接受、未实施业务，原拒绝及超时保留；此场景停止追加，先完成不依赖它的检查 |\n| 仓库材料与 Git checkout | 原仓库状态检查 6 通过、8 未通过；checkout 因属性未暂存而拒绝 | 三份正式 Git 绑定仍为空；当前 137/137 项实现目标已有评价，7 条工程保障规则待评价。原字节相等不等于索引 checkout 通过 |\n| 负责人实际结果接受 | 待完整可审阅结果形成 | 隔离测试中的固定接受不授权真实仓库提交、推送或发布 |\n\n最新候选位于本地 `.artifacts/candidates/initial-alignment-clean/`。wheel SHA-256：`f71c0e7d19da20db54ad64b2383c9d95d986b288299d13b71f9927953fe375e8`；Skill 摘要：`084fb9187265c798db2ebb6c9edc13a2545d7cde4c1446674a4414629f04e84b`。135个源码/wheel/安装文件匹配，9次安装与命令检查通过；不代表完整Agent、Git或负责人接受。\n\n修复前的本地记录：快速 `f5e20647248e`，全量 `d0856323c4b6`，修复层 `7aaf327a1ccb`，该轮观察 `8216d2c84e13`，wheel `308a4b4949e2`，离线包 `2b4fc62609a7`，隔离安装 `1dc202780cbc`，源码/制品注册 `f88e7668b02e`，仓库状态 `8b07f3a022b4`，checkout 阻断 `8a1262000350`。本次同步和构建先因同步清单滞后而拒绝，补齐后通过；原 `19621d5bd348`、`63b2a9a23508` 仍保留，不伪称首次通过。\n\n逐项结果、原始记录及当前性以[验收目录](../../tests/acceptance/guided-formation-cases.yaml)为准。SPEC 更新见[独立证据](../../tests/acceptance/initial/G5-spec-update/evidence.json)，回执恢复见[独立证据](../../tests/acceptance/initial/G7-verification-resume/evidence.json)，版号括注影响见[五项原生证据重评](../../tests/acceptance/initial/v1-label-reassessment/evidence.json)。固定输入和接受边界见[隔离验收方案](agent-acceptance.md)。\n\n较早的局部程序检查 `30608175d9f5`：15 项通过。它保留未知格式、未知目录、原始数据与 Git 排除文件保护；删除了一项仅检查退役入口名称的测试。因此上表完整套件的计数是对应既有运行当时的结果，不冒充本次重新运行了全套。对齐草稿首轮因猜测一个不存在的参考文件而未通过执行检查；原错误保留，按现有索引完成有限复核后由独立原生会话判定通过。\n\n维护场景 `G9` 已完成实际未收口阻断、停止证据恢复、程序/Skill切换及新会话显式加载，原记录与业务输出保全；见[维护证据](../../tests/acceptance/initial/G9-maintenance/evidence.json)。源与目标均为当前 v1 格式，不进行格式迁移。原生步骤只执行一次；两项外层包装器判断错误及纠正记录一并保留。\n\n历史与整体进度场景 `G8` 的两项原生验收通过，数据表、业务源码与集成HEAD保持不变。真实失败命令仅执行一次，未运行记录有明确限制，取消事实和缺失原输出分别呈现；原输出字节已另行保全。见[历史证据](../../tests/acceptance/initial/G8-history/evidence.json)。\n\n实现评价先落地了产品、领域和目标架构三个读取模块，共 9 项归属文件；见[独立评价绑定](../../tests/acceptance/initial/implementation-assessment/authority-readers/evaluation-binding.json)。这些是代码职责评价，工程材料继续保持草稿；不构成 Git 采用、完整 Agent 效果或负责人接受。\n\n已知 Agent 拒绝修复曾完成三模块有限重核。当前 v1 清理后涉及的两模块和 12 条关系已完成[当前差异复核](../../tests/acceptance/initial/implementation-assessment/current-contract-cleanup/evaluation-binding.json)，原评价、位置变化和新的评价均保留。\n初始范围、设计取舍与交付边界见[基线设计](initial-baseline-design.md)；14 轮机器检查及原始失败见[证据索引](../../tests/acceptance/initial/machine-checks/index.json)。复杂流程的原生前置候选和独立拒绝结论见[停止记录](../../tests/acceptance/initial/G4-G2-stopped/index.json)，17 项后续待验没有改记为通过。\n本轮已知 Agent 入口拒绝修复及原始证据见[修复索引](../../tests/acceptance/initial/known-agent-guard-change/index.json)。定点回归 `30b2d951c8f4` 为 69 项通过，修复后无进程探针 `737a1374cf49` 确认拒绝，Skill 同步 `a51188c03009` 通过，新 clean wheel `cedc8d6f6c55`、隔离安装 `8c6342d8bbab` 和字节登记 `f68fa067ebbd` 通过。观察准备首次因控制器误用带仓库身份的摘要键而失败，修正后 `03f9c0119538` 通过；原 `42db14333e21` 保留。未重复全部功能套件，未把原 33 项证据改记为新候选通过。\n\n2026-09-29，前两次原生调用因个人额度耗尽而结束；错误和冻结输入保留于[额度记录](../../tests/acceptance/initial/native-quota-block/index.json)。恢复后原会话虽产生新结构化候选，仍附带旧额度错误；同账号同模型的新会话可用性检查673d4f50190b成功。当前已改用新会话，旧错误不改记为通过。\n",
+          "source_sha256": "b8aeaac0af8f8cb90d52b7f45478e6fba1a36c53911bd5f40582cfdee950e1db",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 27,
+          "source_id": "EVIDENCE-8047C68009D3709A",
+          "start_line": 1,
+          "original_text": "# 初始交付要求与证据\n\n本表按已确定的独立新项目范围检查当前结果。它是交付审阅索引，不另建权威，也不把局部检查称为完整验收。当前候选为 `0.1.0.dev0`；实际状态详见[验证状态](validation-status.md)。\n\n| 要求 | 当前可核对证据 | 尚未完成或证明边界 |\n| --- | --- | --- |\n| 展示名、发行包、导入包、CLI、Skill、配置、状态路径及协议统一为 Strixnova/strixnova | 包元数据和唯一命令入口；135 个源码/wheel/安装文件匹配；新交付文件及嵌套制品命名检查；新数据库命名检查 | 扫描覆盖明确文件和制品，不扩大到其他忽略目录、Git 历史、图像像素或任意编码 |\n| 当前完整合同和存储各自建立 v1，只支持当前明确格式 | 当前安装含 43 个 `strixnova.*.v1` 合同资源；真实初次使用数据库声明格式 1；格式准入及未知格式拒绝回归 | 初始 intake 不必在数据库中保存公共 schema ID；存储格式与公开合同分别检查 |\n| 保留当前有效的治理、确认、执行、验证、本地 Git、多仓库、历史与恢复能力 | 快速/全量及修复后的定点记录；21 个模块的原生评价和独立复核；此前实际 Agent 场景及失败记录 | 功能记录各有输入与时间范围；83 条关系、33 条约束及 7 条工程保障规则尚未全部完成评价；Agent 目录仍有需重核和待验项 |\n| 保留路径、归属、证据及受限执行安全边界 | 格式准入修复；已知 Agent 入口拒绝修复的 69 项回归、无进程前后探针及独立复核；既有权限、恢复和工作树保护测试 | 名称政策、流程保护和单一宿主测试不构成安全沙箱、通用可用性或外部认证 |\n| 使用新环境、新夹具、新构建及新证据，不继承既有接受结论 | 仓库 Python 3.12；锁定依赖；独立 clean wheel；一次性隔离安装；本轮原始调用、失败、修正和精确内容身份 | 原作者、wheel 与 Skill 身份保留；后续代码变化不通过刷新摘要继承原通过 |\n| 工程材料对应当前实现并保持真实确认状态 | 当前产品、领域、架构、政策与实现记录；135 个文件和 664 条规范化依赖观察；源码归属及模块评价 | 材料仍为草稿；三处真实 Git 绑定等待实际结果审阅后的首次提交，不能填占位摘要 |\n| 不引入兼容别名、平行机制、WebUI、hooks 或 CI | 当前交付树、包入口、安装器、公开合同和仓库规则；本轮没有相关新增入口 | 安全与恢复保留当前职责，不表示支持其他数据格式的迁移 |\n| 原工作区作为来源，保留用户目录；结果确认前不提交或推送 | 来源仓库 HEAD 与受跟踪文件未改；目标仓库仍未暂存；本轮无远程 Git、普通宿主安装或其他项目操作 | 负责人实际结果接受、本地提交及后续交付仍是后续阶段；测试角色的接受不授权真实交付 |\n\n对应原始材料：\n\n- [初始基线设计](initial-baseline-design.md)：范围、选择、安全控制与交付顺序。\n- [机器检查索引](../../tests/acceptance/initial/machine-checks/index.json)：原全量失败、后续定点修复、构建安装及原 Git 阻断。\n- [已知 Agent 入口修复](../../tests/acceptance/initial/known-agent-guard-change/index.json)：精确差异、69 项回归、前后探针与当前制品身份。\n- [修复的模块独立评价](../../tests/acceptance/initial/implementation-assessment/known-agent-guard/evaluation-binding.json)：原评价保留、有限重核及当前内容绑定。\n- [交付边界检查](../../tests/acceptance/initial/delivery-boundary-checks/index.json)：当时交付文件与指定制品命名、配置文件名断言修正、生成数据库及安装合同检查。\n- [Agent 验收目录](../../tests/acceptance/guided-formation-cases.yaml)：逐项原始证据、声明依赖与当前性；[复杂流程停止记录](../../tests/acceptance/initial/G4-G2-stopped/index.json)保留前置未通过和未投递接受输入的事实。\n\n2026-09-29 状态：21 个模块、83 条关系和 33 条约束已有当前原生评价及独立复核；其中 1 项保留部分或未满足状态，原缺口和补验要求仍在；剩余 0 条关系、0 条约束及 7 条工程保障规则待完成。Agent 目录为 40 项有效、0 项需重核、10 项待验。当前策略下的小修复已完成实际重验和独立复核；原失败、机械汇总纠正和独立复核均保留，完整验收仍未完成。\n\n当前小修复重验首轮因确认边界越过而未通过，原始记录与独立诊断保全；修改的是隔离验收控制器的自动续行设置，已完成原生定点重验并保留原失败；其他复杂场景仍待完成。当前制品命名检查在保全一份含旧名诊断模式的控制器后通过，详情与扫描时点见[验证状态](validation-status.md)。\n",
+          "source_sha256": "8a8a2e27340d54f1ef94ca2a9b3b2e0a316e4522a831dc0966fa25639a4b7683",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 21,
+          "source_id": "EVIDENCE-2714E199F9FE507F",
+          "start_line": 1,
+          "original_text": "{\n  \"schema_version\": \"strixnova.local-validation.v1\",\n  \"repository\": \"D:\\\\AboutDEV\\\\Strixnova\",\n  \"run_id\": \"1dc202780cbc\",\n  \"label\": \"v1-contract-label-isolated-install\",\n  \"command\": [\n    \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n    \"scripts\\\\check_offline_installation.py\",\n    \"--bundle\",\n    \".artifacts\\\\candidates\\\\initial-v1\\\\strixnova-0.1.0.dev0-win-py312\"\n  ],\n  \"started_at\": \"2026-09-28T09:20:02.933943+00:00\",\n  \"status\": \"passed\",\n  \"process_settled\": true,\n  \"keep_workspace\": true,\n  \"pin_evidence\": true,\n  \"workspace_removed\": false,\n  \"exit_code\": 0,\n  \"duration_seconds\": 23.23499999998603,\n  \"finished_at\": \"2026-09-28T09:20:26.173658+00:00\"\n}\n",
+          "source_sha256": "2a51ced5ea46b5ea1f8c0db0aa5fd3553e887f6b0b64c7385c79214f2f3b84a8",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅判断这份内部规则评价是否准确且有证据；真实的部分、未满足或待验状态可以被如实登记，复核通过不把它们升级为已满足。不宣称完整候选、外部认证或负责人接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_seven_rules_present": true,
+          "evidence_ids_and_hashes_bound": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 1,
+    "records": [],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false,
+  "supersedes_review": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\5625d6bad9a3\\evidence\\independent-review\\review.json"
+}

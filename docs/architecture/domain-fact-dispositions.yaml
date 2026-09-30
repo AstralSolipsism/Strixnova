@@ -1,0 +1,2438 @@
+schema_version: strixnova.architecture-domain-fact-dispositions.v1
+architecture_id: ARCH-963827FB26C94363
+architecture_revision_id: ARCHREV-8D00B950BAAD458F
+domain_model_ref:
+  model_id: MODEL-2F8356E6752B4CC6
+  revision_id: MODELREV-D90FA05044CD4310
+dispositions:
+- domain_fact_id: FACT-7C8FE93A620B4D51
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 方案与实际结果的精确条目绑定属于事项合同，命令运行和语义判断仍保留各自边界。
+- domain_fact_id: FACT-B184DE92F60A4375
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 原承诺和后继接受都保存在既有事项权威，以记录引用和版本控制派生跟进结果。
+- domain_fact_id: FACT-C8E6F2891E194C50
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 项目负责人是外部决定主体，其确认通过精确绑定进入系统，不由程序模块实现该角色。
+- domain_fact_id: FACT-DF782F3974E94BCF
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  - CONSTRAINT-4AB33A8FE5464062
+  rationale: 智能编码代理形成候选并调用Strixnova，但Strixnova不得实现、启动或控制该主体。
+- domain_fact_id: FACT-4FD08D68267441B6
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  - CONSTRAINT-4AB33A8FE5464062
+  rationale: Strixnova程序的允许职责和禁止职责由全局架构约束封闭。
+- domain_fact_id: FACT-2D3C638B3E92417A
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-F1C702A492724B6E
+  - CONSTRAINT-610485D3758B4216
+  rationale: 外部工程工具和内置观察只提供能力、覆盖与真实执行事实，由用途专属模块接入而不取得语义权威。
+- domain_fact_id: FACT-F88E0CDB464A46B9
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 真实审查或外部符合性主体位于系统边界外，Strixnova只记录其真实结论和范围。
+- domain_fact_id: FACT-E5600880C7564373
+  disposition_type: primary_module
+  primary_module_id: MODULE-361DDA9576FF4C16
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 产品定义模块承载结构和生命周期，项目负责人保留正式产品决定权。
+- domain_fact_id: FACT-F8205962DE474AD7
+  disposition_type: primary_module
+  primary_module_id: MODULE-BA5C6A8095B6484E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 领域模型模块承载结构和生命周期，项目负责人保留正式领域决定权。
+- domain_fact_id: FACT-189E656540F34461
+  disposition_type: primary_module
+  primary_module_id: MODULE-525F73C6C189406A
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 目标架构模块承载结构和生命周期，项目负责人保留正式架构决定权。
+- domain_fact_id: FACT-06BA69B23654410F
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 工程治理校验智能编码代理候选，项目负责人通过事项方案确认保留正式取舍权。
+- domain_fact_id: FACT-38C06FCB63F74F91
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-A94EF8E733E64205
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 建设事项权威保存精确实际结果接受，验证与查询只提供事实和呈现。
+- domain_fact_id: FACT-0097CF4C0FE041A7
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 应用协调器安排确定性操作顺序，各权威模块执行自身结构和状态规则。
+- domain_fact_id: FACT-890978A0F8F043AD
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 真实复核与外部符合性决定位于系统边界外，Strixnova不能程序化替代。
+- domain_fact_id: FACT-8BB9E8C279494481
+  disposition_type: primary_module
+  primary_module_id: MODULE-361DDA9576FF4C16
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 产品能力继续由产品权威承载，仓库归属与读取位置通过统一上下文表达，不在产品正文中复制运行定位逻辑。
+- domain_fact_id: FACT-56355272151F44EF
+  disposition_type: primary_module
+  primary_module_id: MODULE-BA5C6A8095B6484E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该产品能力由一个主要目标模块承载，协作者通过已声明稳定接口参与。
+- domain_fact_id: FACT-1B200CD9D4FC4A3B
+  disposition_type: primary_module
+  primary_module_id: MODULE-525F73C6C189406A
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该产品能力由一个主要目标模块承载，协作者通过已声明稳定接口参与。
+- domain_fact_id: FACT-29A948A8B5364EB3
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  - MODULE-BED07DF20C2A4493
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 按仓库限定的内容、实际关系和观察范围形成对齐判断，接口证据与对端源码覆盖分别呈现。
+- domain_fact_id: FACT-5ABABA148CFB4B87
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-8969A50FE0E44AF2
+  rationale: 引导查询负责提供完整当前决定上下文，事项权威保存代理形成的逐项处置，应用协调只做版本、引用、覆盖和失效校验。
+- domain_fact_id: FACT-5F57CFB4FDC74459
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 按独立目标编制多仓库操作、切片、必要依赖与联合验收，提前独立交付通过既有目标修订处理。
+- domain_fact_id: FACT-5CDC1574A9AC4ADB
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 整体方案和结果授权由唯一应用入口协调，仓库执行事实返回原事项权威，不建立各仓库平行流程。
+- domain_fact_id: FACT-0127B7C06DA94946
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 回执明确绑定执行仓库、内容组合和实际对端版本依据，复测、未知与证据范围继续独立说明。
+- domain_fact_id: FACT-66252BA438DE4431
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该产品能力由一个主要目标模块承载，协作者通过已声明稳定接口参与。
+- domain_fact_id: FACT-07CA21F1D5DD431B
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 查询并列呈现整体事项和各仓库进度，使用原精确内容组合解释历史与取消后的已发生事实。
+- domain_fact_id: FACT-C397E6F65C5E74B7
+  disposition_type: primary_module
+  primary_module_id: MODULE-333FEE8F8A1B491E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该产品能力由一个主要目标模块承载，协作者通过已声明稳定接口参与。
+- domain_fact_id: FACT-DEA5E73655D34B1F
+  disposition_type: primary_module
+  primary_module_id: MODULE-361DDA9576FF4C16
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-EECD54CFF0944627
+  disposition_type: primary_module
+  primary_module_id: MODULE-361DDA9576FF4C16
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-ABAD525D11E74844
+  disposition_type: primary_module
+  primary_module_id: MODULE-361DDA9576FF4C16
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-2440F4A0919040F7
+  disposition_type: primary_module
+  primary_module_id: MODULE-361DDA9576FF4C16
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-F65209B774D84F02
+  disposition_type: primary_module
+  primary_module_id: MODULE-BA5C6A8095B6484E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-7CAD454506DE4E64
+  disposition_type: primary_module
+  primary_module_id: MODULE-BA5C6A8095B6484E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-7B5B606491C84C9D
+  disposition_type: primary_module
+  primary_module_id: MODULE-BA5C6A8095B6484E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-42B04FB290B14D73
+  disposition_type: primary_module
+  primary_module_id: MODULE-BA5C6A8095B6484E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-77FE05384EB44525
+  disposition_type: primary_module
+  primary_module_id: MODULE-525F73C6C189406A
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-45239D4EF1E64FAB
+  disposition_type: primary_module
+  primary_module_id: MODULE-525F73C6C189406A
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-96AD2DBAB68F4C42
+  disposition_type: primary_module
+  primary_module_id: MODULE-525F73C6C189406A
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-8E0C3E051A2041B9
+  disposition_type: primary_module
+  primary_module_id: MODULE-525F73C6C189406A
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-BE795DE6819D421A
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-3A42B09EA5184C5A
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-B43D69C03B23475E
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-21AF5F263E614ECD
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-99893ACBCF894C8F
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-B427CF758D0C4D11
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-7741DFDE49B44392
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-27E7512EA0F44E14
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-5C0D85151EB248C5
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 按独立目标编制多仓库操作、切片、必要依赖与联合验收，提前独立交付通过既有目标修订处理。
+- domain_fact_id: FACT-C4D7AD5F12A34050
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 按独立目标编制多仓库操作、切片、必要依赖与联合验收，提前独立交付通过既有目标修订处理。
+- domain_fact_id: FACT-FAA4C5C2CD22423A
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 按独立目标编制多仓库操作、切片、必要依赖与联合验收，提前独立交付通过既有目标修订处理。
+- domain_fact_id: FACT-5DBFF78852634620
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-01351001A4CC44D6
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 整体方案和结果授权由唯一应用入口协调，仓库执行事实返回原事项权威，不建立各仓库平行流程。
+- domain_fact_id: FACT-FFC61CF4C4B14995
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 整体方案和结果授权由唯一应用入口协调，仓库执行事实返回原事项权威，不建立各仓库平行流程。
+- domain_fact_id: FACT-A9323748487742E8
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 整体方案和结果授权由唯一应用入口协调，仓库执行事实返回原事项权威，不建立各仓库平行流程。
+- domain_fact_id: FACT-DBA681F3A9484E6C
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 整体方案和结果授权由唯一应用入口协调，仓库执行事实返回原事项权威，不建立各仓库平行流程。
+- domain_fact_id: FACT-4F0408C3B7624CA2
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 回执明确绑定执行仓库、内容组合和实际对端版本依据，复测、未知与证据范围继续独立说明。
+- domain_fact_id: FACT-AE928511AA404D49
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 回执明确绑定执行仓库、内容组合和实际对端版本依据，复测、未知与证据范围继续独立说明。
+- domain_fact_id: FACT-A550C6BAE8D64E8F
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 回执明确绑定执行仓库、内容组合和实际对端版本依据，复测、未知与证据范围继续独立说明。
+- domain_fact_id: FACT-8FE825B2520F411E
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 回执明确绑定执行仓库、内容组合和实际对端版本依据，复测、未知与证据范围继续独立说明。
+- domain_fact_id: FACT-19598988370745DA
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-EC73A00678984281
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-EF3F770A2DD84BBD
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-7B63889DDB9A4A88
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-E4EBE50EC806432F
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 查询并列呈现整体事项和各仓库进度，使用原精确内容组合解释历史与取消后的已发生事实。
+- domain_fact_id: FACT-D6807E787C114AF0
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 查询并列呈现整体事项和各仓库进度，使用原精确内容组合解释历史与取消后的已发生事实。
+- domain_fact_id: FACT-09FD0E7C4B5B4657
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 查询并列呈现整体事项和各仓库进度，使用原精确内容组合解释历史与取消后的已发生事实。
+- domain_fact_id: FACT-7DCF18248249465A
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 查询并列呈现整体事项和各仓库进度，使用原精确内容组合解释历史与取消后的已发生事实。
+- domain_fact_id: FACT-1AA374E89718E89A
+  disposition_type: primary_module
+  primary_module_id: MODULE-333FEE8F8A1B491E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-3CF4E66474DD4EB0
+  disposition_type: primary_module
+  primary_module_id: MODULE-333FEE8F8A1B491E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-B28F877C0ACE457A
+  disposition_type: primary_module
+  primary_module_id: MODULE-333FEE8F8A1B491E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-01DD3BBF3962465A
+  disposition_type: primary_module
+  primary_module_id: MODULE-333FEE8F8A1B491E
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该场景与其产品能力共享主要承载模块，阻断、纠正和取消路径均由同一稳定接口闭合。
+- domain_fact_id: FACT-AD3A3604E30A4387
+  disposition_type: primary_module
+  primary_module_id: MODULE-E74F1900EDCA43AE
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 项目身份及采用定位继续由基线承载；启动解析独立，基线接收已绑定上下文而不执行仓库发现。
+- domain_fact_id: FACT-01E58C1E2F3C4D9C
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-361DDA9576FF4C16
+  - MODULE-BA5C6A8095B6484E
+  - MODULE-525F73C6C189406A
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 应用协调器统一安排权威修订状态变化，各权威模块校验自身候选。
+- domain_fact_id: FACT-B3D14DA096B94DD9
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 同一事项权威保存整体接受、各仓库交付和恢复事实，按全部必要仓库条件推导完成或部分取消。
+- domain_fact_id: FACT-B79387477E254534
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-8205A05A6F5E48A8
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-47B266640F1840DA
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 按独立目标编制多仓库操作、切片、必要依赖与联合验收，提前独立交付通过既有目标修订处理。
+- domain_fact_id: FACT-C33E74EC824D4AE0
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-6DEF61048B394531
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 回执明确绑定执行仓库、内容组合和实际对端版本依据，复测、未知与证据范围继续独立说明。
+- domain_fact_id: FACT-B8155BDA282E4527
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-C81DA4F98DBF40FB
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-A94EF8E733E64205
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 同一事项权威保存整体接受、各仓库交付和恢复事实，按全部必要仓库条件推导完成或部分取消。
+- domain_fact_id: FACT-8E8D0712BBF64AC3
+  disposition_type: primary_module
+  primary_module_id: MODULE-09B10A7EF967494D
+  collaborator_module_ids:
+  - MODULE-B558AA14F6004AC0
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 在已解析上下文中核对仓库限定的精确权威引用，保持权威语义身份与物理内容定位分离。
+- domain_fact_id: FACT-D11A6942C2314E72
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-3F99553572844A05
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-361FDF7E6A6044C2
+  disposition_type: primary_module
+  primary_module_id: MODULE-8205A05A6F5E48A8
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-577431AEBE214F66
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-32F33CAB000C4F0D
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-8AC9AE21345846DE
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-BB121DB52CFE47D1
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 回执明确绑定执行仓库、内容组合和实际对端版本依据，复测、未知与证据范围继续独立说明。
+- domain_fact_id: FACT-EB11DC9B0C44464D
+  disposition_type: primary_module
+  primary_module_id: MODULE-B558AA14F6004AC0
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 统一提供带仓库身份的内容定位与比较，当前同名路径不得替代精确历史内容。
+- domain_fact_id: FACT-B6D853E18DEB42F8
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-BED07DF20C2A4493
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-1A4920CC49584349
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-361DDA9576FF4C16
+  - MODULE-BA5C6A8095B6484E
+  - MODULE-525F73C6C189406A
+  - MODULE-8205A05A6F5E48A8
+  - MODULE-E74F1900EDCA43AE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-89383788CD9D4BB0
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 同一事项权威保存整体接受、各仓库交付和恢复事实，按全部必要仓库条件推导完成或部分取消。
+- domain_fact_id: FACT-8FF8B1444DD741AC
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-4D46E55AA5C948DA
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-BED07DF20C2A4493
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-9FE2D628A8D8483D
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-7508D8A111574696
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  - MODULE-E74F1900EDCA43AE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-6843B2110EC845C2
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  - MODULE-E74F1900EDCA43AE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-7D38374475FA4947
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  - MODULE-E74F1900EDCA43AE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-F4E493D03E8143F4
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-1D2DAF4D22184B44
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-FFDE76EC22744438
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-3B7B22C4A1C247D9
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-6EEB450EA68C4D79
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-CCEF92A5D2114880
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-B789F5869BA34D66
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-0327B3690DAB4024
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 同一事项权威保存整体接受、各仓库交付和恢复事实，按全部必要仓库条件推导完成或部分取消。
+- domain_fact_id: FACT-956C060E82CD4797
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 同一事项权威保存整体接受、各仓库交付和恢复事实，按全部必要仓库条件推导完成或部分取消。
+- domain_fact_id: FACT-8EACFB031A6E49B9
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-21F0C7A48B934E6D
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-333FEE8F8A1B491E
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-4585A5A5E5CA47F3
+  disposition_type: primary_module
+  primary_module_id: MODULE-CB284ED0FE4040DE
+  collaborator_module_ids:
+  - MODULE-B558AA14F6004AC0
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-A9DB06A4D7704578
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-A94EF8E733E64205
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 整体方案和结果授权由唯一应用入口协调，仓库执行事实返回原事项权威，不建立各仓库平行流程。
+- domain_fact_id: FACT-677F1A9C8B014ACE
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-E168D350730A4403
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-4AB33A8FE5464062
+  rationale: 代理归属记录不能扩张为代理会话或控制职责。
+- domain_fact_id: FACT-FAD62047DB9646C2
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-333FEE8F8A1B491E
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-DFADAA6E74FC42D5
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-D013580DC0D04476
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-68C862ECAC8D44EB
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-C9F90588EF6A43E4
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-ACD0BFB983314DD7
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-A94EF8E733E64205
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-4C7A221868114D28
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  rationale: 智能编码代理形成候选，程序模块只校验结构和确定性边界。
+- domain_fact_id: FACT-FBF963348B9C4939
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  rationale: 程序只做确定性校验是跨模块强制约束。
+- domain_fact_id: FACT-CEF1A02972184E23
+  disposition_type: primary_module
+  primary_module_id: MODULE-8205A05A6F5E48A8
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-C602626C50D44D50
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-EA9C469E15A04AB3
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-A7B33131C4864C91
+  rationale: 工程方法标签不得被扩大为实现或符合性证据。
+- domain_fact_id: FACT-B51D821A3412481B
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  rationale: 权威单向链由目标依赖和精确版本门禁共同执行。
+- domain_fact_id: FACT-A3B8F3BE848F44E1
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  - MODULE-97978EF8747F4A02
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-1A778E8A2C00462A
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-4AB33A8FE5464062
+  rationale: 代理调用方向由全局约束和进程门禁封闭。
+- domain_fact_id: FACT-69309FFDE6734423
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-829429778259E4DE
+  - CONSTRAINT-4AB33A8FE5464062
+  rationale: 受支持代理的 Skill 前置、Skill 非权威边界与禁止代理控制由两条互补约束共同封闭。
+- domain_fact_id: FACT-29E2D48F3475456A
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-F1C702A492724B6E
+  rationale: 外部工具执行事实由用途专属接口和真实回执验收。
+- domain_fact_id: FACT-73ECDAF0DCB749FF
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-3DB18101680C4A1E
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-FB4D1ACCCD784006
+  rationale: 用户呈现的最小决定、解释和纠偏要求属于跨模块体验约束。
+- domain_fact_id: FACT-B2D082E72E6247D1
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-F1C702A492724B6E
+  rationale: 版本历史必须保持外部真实来源。
+- domain_fact_id: FACT-DE436F477E6F4066
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-ACB972FEC5DB4760
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-AD16717B514F48E1
+  disposition_type: primary_module
+  primary_module_id: MODULE-8205A05A6F5E48A8
+  collaborator_module_ids:
+  - MODULE-E74F1900EDCA43AE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-FCEDF1B76B274200
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  - MODULE-A94EF8E733E64205
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-CC5907248DBD4800
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-F543EB0437354851
+  disposition_type: primary_module
+  primary_module_id: MODULE-09B10A7EF967494D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-A6D67900F98A4F01
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  rationale: 智能编码代理候选与正式决定必须结构上分离。
+- domain_fact_id: FACT-9D32027B60DA4C07
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  - CONSTRAINT-AE6EE9C762EF43D6
+  rationale: 项目负责人正式语义权威不能由程序或代理代签。
+- domain_fact_id: FACT-34162167D6B443BC
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  rationale: 禁止程序语义是所有模块的硬边界。
+- domain_fact_id: FACT-D921CBBA28354A0B
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-4AB33A8FE5464062
+  rationale: 禁止调用和控制智能编码代理由接口与进程门禁验证。
+- domain_fact_id: FACT-47AB0A44E81E474E
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-8205A05A6F5E48A8
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-A213336BCB004594
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-A7B33131C4864C91
+  rationale: 方法声明的证据范围由统一证据约束限制。
+- domain_fact_id: FACT-27C295F6010D4773
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  rationale: 禁止下游反向污染上游由权威链和依赖关系共同执行。
+- domain_fact_id: FACT-49B99509DDEC4127
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-58B9D32F32AD4661
+  rationale: 领域正文和目标架构均不得混入当前实现路径或证据。
+- domain_fact_id: FACT-C1AF1567F0264D5E
+  disposition_type: primary_module
+  primary_module_id: MODULE-BA5C6A8095B6484E
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-549143984F6B44C0
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-525F73C6C189406A
+  - MODULE-BED07DF20C2A4493
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-610485D3758B4216
+  rationale: 实现对齐承担完整性裁决，观察模块提供覆盖明确的事实，跨模块约束阻止观察缺口形成假完整。
+- domain_fact_id: FACT-17027103062E40D3
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-8DE1C2CB85B64AF6
+  rationale: 直接依赖无环由目标架构门禁机械证明。
+- domain_fact_id: FACT-0BE56C5E099F4DBE
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-4AB33A8FE5464062
+  - CONSTRAINT-6CDB801E1CD24D15
+  rationale: 验证入口必须同时满足禁止代理和批准命令政策。
+- domain_fact_id: FACT-88722DFF064F4817
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-942ED7F67B244AC2
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-A7B33131C4864C91
+  rationale: 所有证据只能支持其实际记录范围。
+- domain_fact_id: FACT-159C0FC61FEE4E5D
+  disposition_type: primary_module
+  primary_module_id: MODULE-09B10A7EF967494D
+  collaborator_module_ids:
+  - MODULE-361DDA9576FF4C16
+  - MODULE-BA5C6A8095B6484E
+  - MODULE-525F73C6C189406A
+  - MODULE-E74F1900EDCA43AE
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 在已解析上下文中核对仓库限定的精确权威引用，保持权威语义身份与物理内容定位分离。
+- domain_fact_id: FACT-077782C6BEA34CA1
+  disposition_type: primary_module
+  primary_module_id: MODULE-8205A05A6F5E48A8
+  collaborator_module_ids:
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-766005AF53DF4871
+  disposition_type: primary_module
+  primary_module_id: MODULE-97978EF8747F4A02
+  collaborator_module_ids:
+  - MODULE-525F73C6C189406A
+  - MODULE-BA5C6A8095B6484E
+  - MODULE-09B10A7EF967494D
+  - MODULE-BED07DF20C2A4493
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 按仓库限定的内容、实际关系和观察范围形成对齐判断，接口证据与对端源码覆盖分别呈现。
+- domain_fact_id: FACT-AA4174FFBF99444C
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 同一事项权威保存整体接受、各仓库交付和恢复事实，按全部必要仓库条件推导完成或部分取消。
+- domain_fact_id: FACT-07A448FB8DED43A4
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-8205A05A6F5E48A8
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 按独立目标编制多仓库操作、切片、必要依赖与联合验收，提前独立交付通过既有目标修订处理。
+- domain_fact_id: FACT-2BF62783DA7F4553
+  disposition_type: primary_module
+  primary_module_id: MODULE-CB284ED0FE4040DE
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-6DEF61048B394531
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 逐仓库处理已授权本地版本副作用并返回实际状态，整体接受与取消不由底层执行模块另行裁决。
+- domain_fact_id: FACT-C1F4646AEC0747C0
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 回执明确绑定执行仓库、内容组合和实际对端版本依据，复测、未知与证据范围继续独立说明。
+- domain_fact_id: FACT-A3B069965B724D7D
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-A468C3D0605A3756
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 查询并列呈现整体事项和各仓库进度，使用原精确内容组合解释历史与取消后的已发生事实。
+- domain_fact_id: FACT-6BE665349FD548B2
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-8431BBE65FA54B8E
+  constraint_ids: []
+  rationale: 已确认目标通过跨权威治理上下文进入工程评估。
+- domain_fact_id: FACT-AF048FE53E594287
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-AB1171F4E8BF42B3
+  - RELATION-8431BBE65FA54B8E
+  constraint_ids: []
+  rationale: 工程政策先由跨权威检查读取，再以只读治理上下文约束工程评估。
+- domain_fact_id: FACT-E58C42CB6F0A4BF2
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-3779D3AE37C1482E
+  - RELATION-8431BBE65FA54B8E
+  constraint_ids: []
+  rationale: 实现差距通过跨权威检查进入工程评估，不反向修改目标。
+- domain_fact_id: FACT-EC3651398E1546BE
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-8CAFF14BE03A4502
+  - RELATION-0389E61D4802458D
+  constraint_ids: []
+  rationale: 应用协调器连接工程方案候选与事项确认状态。
+- domain_fact_id: FACT-3E762C2DD5EF44DA
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-CDC41CEBF40D49A5
+  - RELATION-0389E61D4802458D
+  constraint_ids: []
+  rationale: 协作仍经同一应用与事项接口，传递明确仓库及内容组合；局部交付与证据不会取得独立确认或写权威。
+- domain_fact_id: FACT-0FC4C462684B45B2
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-FC3CADC92F0245FC
+  - RELATION-0389E61D4802458D
+  constraint_ids: []
+  rationale: 协作仍经同一应用与事项接口，传递明确仓库及内容组合；局部交付与证据不会取得独立确认或写权威。
+- domain_fact_id: FACT-AEE51BA46DBF4F03
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-FC3CADC92F0245FC
+  - RELATION-0389E61D4802458D
+  constraint_ids: []
+  rationale: 协作仍经同一应用与事项接口，传递明确仓库及内容组合；局部交付与证据不会取得独立确认或写权威。
+- domain_fact_id: FACT-D566C3C81CB044FF
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-635E72C9BF3C40B3
+  - RELATION-0389E61D4802458D
+  constraint_ids: []
+  rationale: 事项目标和关口通过应用协调约束外部活动治理。
+- domain_fact_id: FACT-8A2A6392E50A40AC
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-635E72C9BF3C40B3
+  - RELATION-FC3CADC92F0245FC
+  constraint_ids: []
+  rationale: 外部活动事实由活动治理记录并进入验证证据闭环。
+- domain_fact_id: FACT-EB468CFBBDEF42F1
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-B17288C8D18A4D2A
+  constraint_ids: []
+  rationale: 协作仍经同一应用与事项接口，传递明确仓库及内容组合；局部交付与证据不会取得独立确认或写权威。
+- domain_fact_id: FACT-683646B2E82E4024
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-B80F630ADDA54FBF
+  - RELATION-0389E61D4802458D
+  constraint_ids: []
+  rationale: 命令适配器经应用协调提交版本绑定事项请求。
+- domain_fact_id: FACT-8C6CC8AD9DCD4310
+  disposition_type: primary_module
+  primary_module_id: MODULE-CB284ED0FE4040DE
+  collaborator_module_ids:
+  - MODULE-B558AA14F6004AC0
+  - MODULE-6DEF61048B394531
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-E006363B710D433B
+  disposition_type: module_relationship
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids:
+  - RELATION-52E069B0D9C1442A
+  - RELATION-86851296AB9348BF
+  constraint_ids: []
+  rationale: 测试、构建和授权解析观察都由用途专属模块经受限进程监督取得真实过程事实。
+- domain_fact_id: FACT-0BE164423C8D4C90
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-BBEEBE36CB0F40CF
+  disposition_type: primary_module
+  primary_module_id: MODULE-BB121DB52CFE47D1
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实需要由一个目标模块承担主要行为，协作者只通过稳定接口参与。
+- domain_fact_id: FACT-0802FE81639F4AE2
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-EC301385EB774E9D
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 术语说明对应规范事实，不新增独立模块；仓库范围、整体接受和内容组合由相应规范事实的既有承载执行。
+- domain_fact_id: FACT-66B7EEC7A5D44062
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-E7CF8A1203174E78
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-842D56B52BA74B35
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-19962E6E0946425F
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-EAD1014D81E84578
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-0418907AB3454690
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-9FE9A7E7072643D5
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-06002D0BC6F947D7
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-07EEBF090D654C9E
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-A03A1A36FA224467
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-B8F40EBA57BB4B36
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-444852CEF32A4A95
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-0F4D688028C0D0D6
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-DAFDC4DCF08C4543
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-4A0E7817FC8E464E
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-31728B336026ECB2
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-302CDDFA33D1493C
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义统一语言，语义由引用它的模块和合同使用，不为术语本身建立运行模块。
+- domain_fact_id: FACT-653C16DFB45A4E18
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 术语说明对应规范事实，不新增独立模块；仓库范围、整体接受和内容组合由相应规范事实的既有承载执行。
+- domain_fact_id: FACT-296143B0C54B493D
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义项目工程保障评估的统一语言，具体校验与投影由既有工程治理和查询模块承载，不为术语建立独立模块。
+- domain_fact_id: FACT-D7351091E90D4C29
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-A7B33131C4864C91
+  rationale: 工程评估治理模块负责确定性校验逐项规则评估候选，查询模块只读呈现；二者都不得把内部判断扩张为外部认证或语义证明。
+- domain_fact_id: FACT-A1C2E3F405162738
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  rationale: 工程评估治理校验权威变更集的基线、候选和下游处置；跨权威检查提供现行基线，应用协调器安排独立权威确认顺序。
+- domain_fact_id: FACT-C3E4A5061728395A
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  - CONSTRAINT-A7B33131C4864C91
+  rationale: 工程评估治理只校验代理提交的八类复核声明和阻断自洽性，查询模块只读呈现，任何程序模块都不判断复核语义正确性。
+- domain_fact_id: FACT-B2D3F40516273849
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-159AE7957218470C
+  - MODULE-A94EF8E733E64205
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-6CDB801E1CD24D15
+  - CONSTRAINT-4AB33A8FE5464062
+  rationale: 按独立目标编制多仓库操作、切片、必要依赖与联合验收，提前独立交付通过既有目标修订处理。
+- domain_fact_id: FACT-D4F5B61728395A6B
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-FB4D1ACCCD784006
+  rationale: 工程评估治理保存同一方案的负责人视图，查询模块按需呈现；视图不新增写权威或确认点。
+- domain_fact_id: FACT-C94A0B6C7D8E9FA0
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-09B10A7EF967494D
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  rationale: 工程评估治理和应用协调依据现行基线及独立权威确认事实派生变更集状态，不建立新的长期权威状态机。
+- domain_fact_id: FACT-DA5B1C7D8E9FA0B1
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  - MODULE-159AE7957218470C
+  - MODULE-A94EF8E733E64205
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-6CDB801E1CD24D15
+  - CONSTRAINT-4AB33A8FE5464062
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 同一事项权威保存整体接受、各仓库交付和恢复事实，按全部必要仓库条件推导完成或部分取消。
+- domain_fact_id: FACT-EB6C2D8E9FA0B1C2
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  rationale: 单向权威链约束规定变更集只能组织修订候选，不能成为新长期权威或遗漏下游处置。
+- domain_fact_id: FACT-FC7D3E9FA0B1C2D3
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  rationale: 程序语义边界约束把八类复核内容留给智能编码代理；工程治理校验计划级声明，应用协调与事项权威再把最终候选复核绑定精确正文散列，机器仍不评价复核结论。
+- domain_fact_id: FACT-FB647E11402F47D0
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-992560C2560A4013
+  relationship_ids:
+  - RELATION-0389E61D4802458D
+  - RELATION-F81E17FC24D54C3E
+  constraint_ids:
+  - CONSTRAINT-178645AB839A46B1
+  rationale: 应用协调器先在事项权威保存精确待恢复意图，再由专用元数据事务边界执行可重入跨文件写入和失败恢复；任何模块都不能绕过唯一应用入口自行确认。
+- domain_fact_id: FACT-AD8E4FA0B1C2D3E4
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-6CDB801E1CD24D15
+  - CONSTRAINT-4AB33A8FE5464062
+  - CONSTRAINT-773E501C7BE448EF
+  rationale: 保留实施切片、依赖与直接关系约束，并按仓库身份核对操作及完成依据，不以同名路径混合范围。
+- domain_fact_id: FACT-77865B53D2B34969
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-FB4D1ACCCD784006
+  rationale: 用户呈现约束集中承载自适应信息覆盖、三个关口授权边界、问题上限以及重述与实质纠正的区别。
+- domain_fact_id: FACT-CFA061C2D3E4F506
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  rationale: 单向权威链的自动门禁校验四类现行基线、候选未采用状态和完整下游处置。
+- domain_fact_id: FACT-D0B172D3E4F50617
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-6CDB801E1CD24D15
+  - CONSTRAINT-8DE1C2CB85B64AF6
+  - CONSTRAINT-773E501C7BE448EF
+  rationale: 保留实施切片、依赖与直接关系约束，并按仓库身份核对操作及完成依据，不以同名路径混合范围。
+- domain_fact_id: FACT-E1C283E4F5061728
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  - CONSTRAINT-A7B33131C4864C91
+  rationale: 语义边界与证据边界共同禁止把复核结构检查扩大成语义正确性证明。
+- domain_fact_id: FACT-F2D394F506172839
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-FB4D1ACCCD784006
+  rationale: 用户呈现约束保证负责人视图不新增确认点、不超过问题预算，也不转嫁可调查事实。
+- domain_fact_id: FACT-E506C728394A5B6C
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义权威变更集的统一语言，具体行为由工程评估治理承载，不为术语建立模块。
+- domain_fact_id: FACT-F617D8394A5B6C7D
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 术语说明对应规范事实，不新增独立模块；仓库范围、整体接受和内容组合由相应规范事实的既有承载执行。
+- domain_fact_id: FACT-A728E94A5B6C7D8E
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义语义复核的统一语言，复核由智能编码代理完成，不为术语建立语义引擎。
+- domain_fact_id: FACT-B839FA5B6C7D8E9F
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该事实定义负责人视图的统一语言，既有工程治理和查询模块承载其结构与展示。
+- domain_fact_id: FACT-D912073EFE104893
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该术语说明未来显式指定领域稳定点时的含义；初始草稿尚未冻结，精确修订由既有领域模型承载。
+- domain_fact_id: FACT-73E63F97C5B64499
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-71687954FB1E4DFD
+  - MODULE-159AE7957218470C
+  - MODULE-361DDA9576FF4C16
+  relationship_ids:
+  - RELATION-60CB4C2F39A84DEF
+  - RELATION-B17288C8D18A4D2A
+  - RELATION-21CC4F7956D247A4
+  constraint_ids:
+  - CONSTRAINT-8969A50FE0E44AF2
+  rationale: 事项权威保存决定上下文绑定；查询只读投影完整目录，应用协调机械核对，产品权威继续拥有原始能力和护栏。
+- domain_fact_id: FACT-9DADF2842D094773
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-8969A50FE0E44AF2
+  rationale: 跨模块约束固定程序完整投影与智能编码代理语义解释之间的责任边界。
+- domain_fact_id: FACT-ADD3819AC3274637
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-8969A50FE0E44AF2
+  rationale: 方向可确认和进入工程评估前必须机械证明当前版本、合法引用与全部护栏唯一覆盖，但不得机器判断理由。
+- domain_fact_id: FACT-C965B52EF77E42BE
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该术语统一解释既有事项、查询和产品权威之间的绑定，不新增模块或第二份权威。
+- domain_fact_id: FACT-D02D863191514763
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-00C970B4CFF7412A
+  - CONSTRAINT-610485D3758B4216
+  rationale: 跨模块信任边界区分只读静态观察、负责人授权的解析与其他本地执行，以及本产品明确不提供的安全沙箱和身份系统。
+- domain_fact_id: FACT-ECC7967D187F4AA1
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 该术语约束观察计划和完整对齐的共同语言，不为术语本身建立运行模块。
+- domain_fact_id: FACT-7A9F98FC2BFE44E3
+  disposition_type: primary_module
+  primary_module_id: MODULE-BED07DF20C2A4493
+  collaborator_module_ids:
+  - MODULE-97978EF8747F4A02
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-610485D3758B4216
+  rationale: 实现事实观察模块规范化各语言关系事实，实现对齐只消费证据并作目标分类。
+- domain_fact_id: FACT-84DF6E5CAB34446B
+  disposition_type: primary_module
+  primary_module_id: MODULE-BED07DF20C2A4493
+  collaborator_module_ids:
+  - MODULE-97978EF8747F4A02
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-610485D3758B4216
+  rationale: 观察模块形成可机械校验的覆盖结果，实现对齐和查询模块分别用于裁决与诚实呈现。
+- domain_fact_id: FACT-643E08A42D944901
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-610485D3758B4216
+  rationale: 跨模块约束确保所有观察缺口保持可见并阻断假空关系和完整对齐。
+- domain_fact_id: FACT-831845472CCD4880
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 引导式形成是智能编码代理使用现有权威和公开合同的跨阶段原则，不新增模块、状态机或第二入口。
+- domain_fact_id: FACT-82730E66B2A443E2
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 交付跨度是智能编码代理解释一个或多个可独立验收结果时使用的分类语言，不形成可由程序自动计算的新对象。
+- domain_fact_id: FACT-EBDA1DF2249B477A
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 跨模块约束确保现有查询、协调和工程治理只支持引导式形成，不把该原则实现成新流程权威。
+- domain_fact_id: FACT-4CA07D0AA8924D7D
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 程序语义禁区与引导式形成约束共同禁止确定性模块用规模信号或关键词替代智能编码代理判断。
+- domain_fact_id: FACT-D2E54729BD8E4263
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 形成深度、交付跨度和保障深度由智能编码代理分别说明，现有模块只消费其落入既有合同后的结果。
+- domain_fact_id: FACT-346BD66898834B1E
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 产物名称只影响形成指引和只读呈现；产品、领域、方向、架构、事项与切片仍由现有权威模块拥有。
+- domain_fact_id: FACT-8ECA5F87E8DC459B
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 工程政策权威只读取显式方法采用，不能从 Skill 使用或阅读投影反向生成采用事实。
+- domain_fact_id: FACT-415381C6F0AB4AD0
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 快速起草和逐项辅导都通过同一方向与确认合同完成，不需要新增模式字段、状态或入口。
+- domain_fact_id: FACT-AB7833584D354796
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 单向权威链与引导式形成约束要求下游发现错误时回到对应上游候选，不允许只改阅读投影。
+- domain_fact_id: FACT-80FC172A8D784960
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 方向需求术语解释建设事项权威已有 DirectionItem 及稳定引用，不建立独立需求模块。
+- domain_fact_id: FACT-F6044AA05940484D
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 方向约束术语解释同一 DirectionItem 的一种类型，不建立独立约束仓储。
+- domain_fact_id: FACT-B08EEE5142FB4A31
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 验收条件术语解释同一 DirectionItem 及其需求覆盖引用，不建立第二份验收权威。
+- domain_fact_id: FACT-ED05BCEB08B94F1E
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 建设事项权威拥有稳定方向条目和历史，工程治理与查询只通过规范化引用消费。
+- domain_fact_id: FACT-57EEA3D1D18E40B4
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 建设事项权威在完整方向确认与修订时机械维护条目当前或退出状态，应用协调只编排合法用例。
+- domain_fact_id: FACT-891C6A4386EB4D68
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 建设事项权威校验历史身份不可复用，智能编码代理和负责人保留语义连续性判断。
+- domain_fact_id: FACT-753C846FFB784962
+  disposition_type: primary_module
+  primary_module_id: MODULE-5CEF109E340C469F
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-71687954FB1E4DFD
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 工程治理统一校验稳定方向引用，事项权威提供规范条目，查询按相同身份建边并保留完整方向版本。
+- domain_fact_id: FACT-BB5B23DD1FAB4533
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 建设事项权威集中证明身份、引用、覆盖和历史闭合，工程治理拒绝不在该闭集中的下游引用。
+- domain_fact_id: FACT-FA45768A3F2541A8
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 产品发现是引导式形成的产品层应用，由智能编码代理按需使用，不新增模块、状态、入口或权威。
+- domain_fact_id: FACT-463994C54BF647D4
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-829429778259E4DE
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 能力通过唯一随包 Skill 的按需资料提供，程序继续只提供上下文和确定性校验，不取得产品发现语义责任。
+- domain_fact_id: FACT-ED887913315E4A85
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 发现动作选择属于智能编码代理语义判断，架构约束禁止程序评分、路由或固定为阶段。
+- domain_fact_id: FACT-ABF86B04DB1C477F
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 事实、决定、假设和证据的区分由智能编码代理形成并由负责人决定，程序不认证其含义。
+- domain_fact_id: FACT-0FCE425CA2D74D8C
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-956A537458EB4CC8
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 单向权威与引导式形成约束共同保证发现结果只进入现有权威或保持非权威结论。
+- domain_fact_id: FACT-3D6EEA6DDBDD4C0A
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 明确请求跳过发现由 Agent 行为验收证明，不需要程序路线或新模块。
+- domain_fact_id: FACT-43BC6F5E5D644B37
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 从偏好方案回到真实问题及扩展选项属于 Agent 语义行为，以现有对话和候选链承载。
+- domain_fact_id: FACT-56155E419DAA48D0
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 想法被否定或搁置是无新增状态的有效停止结果，不强制形成建设事项。
+- domain_fact_id: FACT-0D7A44EA56DB427E
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-AE6EE9C762EF43D6
+  - CONSTRAINT-B194350ABDA04C04
+  rationale: 外部证据调查和限制说明由智能编码代理负责，程序不执行研究或认证结论。
+- domain_fact_id: FACT-4443210E3D22E700
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-3D2D74227A26E9A6
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-D0828206E1A6C60E
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-A6AEAAD06C24D8F8
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-C9C5B5C016D75999
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-81EF50F2966ED4B6
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-12810BF6CFD2AA73
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-7B99D0DC855342F7
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-0F36EFE1A9DC481A
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-9CE1F26692E7C6FE
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-0F36EFE1A9DC481A
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-7E2C917D0C47DA5B
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-B4E899DFA270182C
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-A4FD5F9B5119B747
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-C0B3F11948BF8495
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-67492CB3D4A97378
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-ECF7D6F8F584BC2C
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-1CAB6ACCB64BA995
+  disposition_type: primary_module
+  primary_module_id: MODULE-71687954FB1E4DFD
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 查询并列呈现整体事项和各仓库进度，使用原精确内容组合解释历史与取消后的已发生事实。
+- domain_fact_id: FACT-555293E4B9730D21
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-AA9765DEDBB8389B
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-B1FABAA446210228
+  disposition_type: primary_module
+  primary_module_id: MODULE-1CDA1D66DA409B5A
+  collaborator_module_ids:
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 历史事实保有原权威；查询只读，维护独立协调版本组合和恢复。
+- domain_fact_id: FACT-12A47E948AC94AF2
+  disposition_type: primary_module
+  primary_module_id: MODULE-F55E33D530DD42A8
+  collaborator_module_ids:
+  - MODULE-B558AA14F6004AC0
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-773E501C7BE448EF
+  rationale: 仓库身份和明确本机绑定由统一解析模块提供，版本真实性由底层只读能力核对；不建立全局注册权威。
+- domain_fact_id: FACT-EECFC91CAB03476E
+  disposition_type: primary_module
+  primary_module_id: MODULE-F55E33D530DD42A8
+  collaborator_module_ids:
+  - MODULE-E74F1900EDCA43AE
+  relationship_ids:
+  - RELATION-69215BA308034F07
+  constraint_ids:
+  - CONSTRAINT-773E501C7BE448EF
+  rationale: 从版本化项目声明读取唯一归属及用途，本机绑定仅说明位置；基线采用定位不复制归属正文。
+- domain_fact_id: FACT-B66A3271FAD74C65
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 仓库交付是事项内实体，状态与事件属于同一权威，底层交付提供真实外部事实。
+- domain_fact_id: FACT-ADDCB3B236194270
+  disposition_type: primary_module
+  primary_module_id: MODULE-B558AA14F6004AC0
+  collaborator_module_ids:
+  - MODULE-F55E33D530DD42A8
+  relationship_ids:
+  - RELATION-69215BA308034F07
+  - RELATION-EDD05730461949AD
+  constraint_ids:
+  - CONSTRAINT-773E501C7BE448EF
+  rationale: 底层读取集中维护仓库限定内容身份和精确读取语义，解析模块先完成绑定，读取不反向调用解析。
+- domain_fact_id: FACT-E793FB9BC65A4ED0
+  disposition_type: primary_module
+  primary_module_id: MODULE-B558AA14F6004AC0
+  collaborator_module_ids:
+  - MODULE-A94EF8E733E64205
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-671EC292D1E141AD
+  rationale: 内容组合的采集与比较由统一读取接口提供，验证和接受复用同一机制并保留各自判断与状态职责。
+- domain_fact_id: FACT-C88195D054B04436
+  disposition_type: primary_module
+  primary_module_id: MODULE-159AE7957218470C
+  collaborator_module_ids:
+  - MODULE-F55E33D530DD42A8
+  - MODULE-684D0E7D2345445D
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-A1D7C29B7D604635
+  - CONSTRAINT-04375F7A76854A93
+  rationale: 唯一应用入口按统一项目范围组织多仓库事项，保留单项目与外部工程工具分工，不承诺跨项目事务。
+- domain_fact_id: FACT-9E4CB9E89CA44AF3
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-773E501C7BE448EF
+  rationale: 归属唯一性由明确范围的解析与操作核对共同约束，消费依赖不授予另一份修改权。
+- domain_fact_id: FACT-7A7AD19A842140AF
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  - MODULE-159AE7957218470C
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  rationale: 整体接受的精确版本和合法迁移由事项权威维护，方案负责独立目标划分，应用入口协调执行。
+- domain_fact_id: FACT-ED05722401BA4708
+  disposition_type: architecture_constraint
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-04375F7A76854A93
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 全部必要仓库的真实落地决定完成，部分取消保留原接受及局部事实，不隐含回滚。
+- domain_fact_id: FACT-B498CB51CCB241F0
+  disposition_type: primary_module
+  primary_module_id: MODULE-A94EF8E733E64205
+  collaborator_module_ids:
+  - MODULE-5CEF109E340C469F
+  - MODULE-97978EF8747F4A02
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-22AEADF3D7FA42C1
+  rationale: 验证器保存已批准安排产生的实际依赖证据，工程治理编制所需核验，对齐模块限制源码层面的证明范围。
+- domain_fact_id: FACT-88B33C50BECF4B1D
+  disposition_type: primary_module
+  primary_module_id: MODULE-684D0E7D2345445D
+  collaborator_module_ids:
+  - MODULE-CB284ED0FE4040DE
+  relationship_ids: []
+  constraint_ids:
+  - CONSTRAINT-73FD747C76A44544
+  rationale: 单仓库合入事件写入原事项权威，由本地交付返回外部版本依据，不单独触发整项完成。
+- domain_fact_id: FACT-1FF32B4462434DF1
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 术语引用对应规范事实，其含义通过规范事实的主要承载或架构约束落实，不新增独立运行模块。
+- domain_fact_id: FACT-4EA038F1867E4FA8
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 术语引用对应规范事实，其含义通过规范事实的主要承载或架构约束落实，不新增独立运行模块。
+- domain_fact_id: FACT-6A7BAEF9FCA64057
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 术语引用对应规范事实，其含义通过规范事实的主要承载或架构约束落实，不新增独立运行模块。
+- domain_fact_id: FACT-890A53B987B74057
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 术语引用对应规范事实，其含义通过规范事实的主要承载或架构约束落实，不新增独立运行模块。
+- domain_fact_id: FACT-E2CD56D1500A4612
+  disposition_type: no_independent_implementation
+  primary_module_id: null
+  collaborator_module_ids: []
+  relationship_ids: []
+  constraint_ids: []
+  rationale: 术语引用对应规范事实，其含义通过规范事实的主要承载或架构约束落实，不新增独立运行模块。

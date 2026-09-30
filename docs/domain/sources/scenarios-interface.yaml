@@ -1,0 +1,382 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-A02E4C7187F240D0
+scope_fact_ids:
+- FACT-07CA21F1D5DD431B
+- FACT-C397E6F65C5E74B7
+facts:
+- fact_id: FACT-E4EBE50EC806432F
+  status: draft
+  title: 当前状态与追溯正常投影
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids:
+  - FACT-07CA21F1D5DD431B
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  - FACT-296143B0C54B493D
+  - FACT-D7351091E90D4C29
+  - FACT-ADDCB3B236194270
+  - FACT-E793FB9BC65A4ED0
+  - FACT-B66A3271FAD74C65
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-07CA21F1D5DD431B
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 查询绑定精确项目、权威版本、事项版本和采用代码版本。
+    - 审阅资料查询明确本次改动或模块及各仓库待审内容；无需事项，只有显式关联既有事项时才绑定其版本。
+    trigger: 项目负责人或智能编码代理需要知道当前情况、审计来历或唯一下一步。
+    steps:
+    - 程序从当前采用权威、事项事件、版本历史和证据按需重建只读投影。
+    - 当前视图只包含在指定版本被证明采用的事实，审计视图保留历史、取消和取代关系。
+    - 标准锚定与内部符合性矩阵逐项呈现适用规则、证据、缺口和纠偏，并与外部认证或合规状态分层显示。
+    - 默认只返回当前阶段、真实差距、推荐下一步和必要决定所需的最小信息。
+    - 同一认证仓库由唯一项目负责修改，其他项目的版本依赖单独呈现，不形成第二个受管归属。
+    - 各仓库同名文件按仓库身份与精确内容区分；同仓库链接工作树仍属于同一仓库。
+    - 并列说明整体结果接受与各仓库实际进度，历史依据原内容组合和原规则读取。
+    - 单成员事项按其原记录解释，不补造其他仓库的事实或验收；目录移动或清理不改变原引用。
+    - 审阅用途按已经登记的文件归属、模块关系与事实引用取得资料，同时保留完整产品护栏，不根据目录名猜测产品含义。
+    - 中介模块及关系端点的必要定义随相关约束提供；新增或未归属内容保持可见，由智能编码代理补充调查。
+    - 材料注明已采用、候选或历史线索，以及待审代码的实际版本；调用者可以使用任意审阅者，程序不发起审阅、修复或确认。
+    - 开始或恢复实施、核对验证后变化及纠偏时，从同一事项与方案版本组合原始目标、约束、当前切片、精确核验安排和未闭合发现；相关项目规则按已登记归属和显式引用展开，未知归属保持可见。
+    - 原始文字、身份与版本由程序保全并提供；未与当前方案精确绑定的评估说明不得拼入。材料送达不代表代理已理解、已完成语义复核或已经获得写入授权。
+    - 相关计划的上游确认全部闭合且当前内容仍匹配已记录决定时，尚未合入的已确认权威候选可以作为当前实施依据；未确认工作树内容不得替换已采用规则，确认后改写应明确拒绝。
+    outcome: 使用者无需装载全部历史即可取得可追溯、不产生第二写权威且不夸大证明范围的答案。
+    postconditions:
+    - 删除投影后可以从权威事实等价重建。
+- fact_id: FACT-D6807E787C114AF0
+  status: draft
+  title: 当前状态或追溯查询被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids:
+  - FACT-07CA21F1D5DD431B
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-07CA21F1D5DD431B
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 收到当前状态或追溯查询。
+    trigger: 查询未绑定精确版本、引用悬空、上游状态矛盾、所需事实不可读，或试图把当前工作树冒充已采用事实。
+    steps:
+    - 程序拒绝构造不可靠投影并返回缺失或矛盾的稳定身份。
+    - 智能编码代理补充真实版本、修复权威引用或明确报告无法确定。
+    - 不使用模糊匹配或缓存猜测填补缺失事实。
+    - 历史 Git 对象或证据缺失、内容不匹配分别说明，继续返回其他可读记录；不能用当前同名文件补位。
+    - 审阅资料缺项或过期时，返回可确认部分与明确缺口并允许继续调查；请求身份冲突、不可解析的指定版本或读取期间内容变化时拒绝本次组合。
+    - 未展开和超预算内容不得静默消失；必要规则无法在预算内表达时要求缩小范围或提高预算，不宣称完整审阅通过。
+    outcome: 不可靠状态不会进入用户下一步或完成声明。
+    postconditions:
+    - 未知保持未知且附解决方向。
+- fact_id: FACT-09FD0E7C4B5B4657
+  status: draft
+  title: 过期投影被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids:
+  - FACT-07CA21F1D5DD431B
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-07CA21F1D5DD431B
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 已有投影因权威、事项、版本或证据变化而过期或错误。
+    trigger: 上游修订、状态事件、代码采用关系或外部证据发生变化。
+    steps:
+    - 过期投影不再作为当前答案，但其历史来源继续可审计。
+    - 程序从新的精确事实重新构建当前和下一步。
+    - 智能编码代理解释用户可见变化和需要重新确认的内容。
+    - 只按明确采用且有证据的版本组合重建，不能把多个仓库各自最新分支拼成已验证整体。
+    - 审阅所需代码变化后，重新读取实际内容；旧依赖与归属观察只作历史线索，不自动刷新实现对齐或改写来源。
+    outcome: 当前投影与最新已采用事实一致且没有写回上游权威。
+    postconditions:
+    - 受影响确认按各自规则失效。
+- fact_id: FACT-7DCF18248249465A
+  status: draft
+  title: 已取消事项停止投影实施下一步
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids:
+  - FACT-07CA21F1D5DD431B
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-07CA21F1D5DD431B
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 建设事项已经取消。
+    trigger: 使用者查询已取消事项的当前状态或历史。
+    steps:
+    - 当前动作不再返回实施、验证、提交或交付指令。
+    - 审计投影保留方向、计划、已发生操作、证据和取消原因。
+    - 未发生内容不被合成为已完成结果。
+    - 部分交付后取消的事项仍显示已经合入和未交付的仓库、剩余处置及原接受，整体不显示为完成。
+    outcome: 取消后的当前状态终止行动，但历史追溯仍完整。
+    postconditions: []
+- fact_id: FACT-1AA374E89718E89A
+  status: draft
+  title: 受支持智能编码代理正常完成核心交互
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids:
+  - FACT-C397E6F65C5E74B7
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-C397E6F65C5E74B7
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 智能编码代理能够加载并遵循当前安装包随附的唯一 Strixnova Skill（技能）、读取项目文件、执行公开命令并理解结构化输出。
+    - 未安装专用插件、钩子或宿主会话适配。
+    trigger: 项目负责人要求智能编码代理使用本产品推进一个真实核心场景。
+    steps:
+    - 智能编码代理先加载精确随包 Skill，再按其中引用读取公开合同、项目文件和当前动作。
+    - 按当前动作提交显式意图并复制稳定身份、版本和引用。
+    - 程序返回最小结果、下一步或可纠正错误，不要求宿主承担产品语义。
+    - 智能编码代理继续调查、对话和实施，并在方向、完整工程方案和实际结果三个确认点分别形成与复杂度相称的可决策说明，准确交代各自授权边界。
+    - 用户表示看不懂或继续提问时，代理重述同一候选且不调用确认入口、不改变候选或事项版本；用户自然表达明确决定后，代理保留原文并提交接受或要求修改的判断及依据，程序只核对精确候选绑定与声明结构，不解释自然语言。
+    outcome: 核心流程在没有专用宿主机制时仍可正确完成。
+    postconditions:
+    - 随包唯一 Skill 是受支持代理的必要使用说明，但不取得用户授权、语义权威、身份认证或流程写权。
+- fact_id: FACT-3CF4E66474DD4EB0
+  status: draft
+  title: 通用命令交互被无效输入阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids:
+  - FACT-C397E6F65C5E74B7
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-C397E6F65C5E74B7
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 智能编码代理通过公开入口提交意图。
+    trigger: 输入结构、身份、引用、版本或状态无效，普通确认缺少用户原文、代理的显式决定与依据或当前候选绑定，或请求本产品承担语义判断、宿主认证和代理调度。
+    steps:
+    - 程序拒绝请求并返回稳定错误类别、当前版本和需要纠正的字段。
+    - 不启动代理、不猜用户意图、不改写输入语义也不要求安装专用适配。
+    - 智能编码代理根据公开信息决定修正、重新调查、继续向用户解释或保留用户原文提交明确决定；模糊回复、沉默或新问题保持待定。
+    outcome: 无效输入没有改变状态，且受支持代理拥有足够信息恢复。
+    postconditions:
+    - 不兼容或不可恢复错误被视为产品缺陷。
+- fact_id: FACT-B28F877C0ACE457A
+  status: draft
+  title: 通用命令输入被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids:
+  - FACT-C397E6F65C5E74B7
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-C397E6F65C5E74B7
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 上一次公开命令因可纠正问题失败。
+    trigger: 智能编码代理读取稳定错误和当前动作后重新提交；用户仅提问或表示看不懂时不产生失败请求。
+    steps:
+    - 保持原失败请求没有状态副作用。
+    - 代理只修改被指出的结构、引用、版本或状态前置条件。
+    - 程序重新执行完整校验而不是绕过原失败规则。
+    outcome: 修正后的合法意图按同一公开合同继续流程。
+    postconditions:
+    - 修正过程不依赖隐藏会话状态。
+- fact_id: FACT-01DD3BBF3962465A
+  status: draft
+  title: 通用命令入口安全取消事项
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids:
+  - FACT-C397E6F65C5E74B7
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-C397E6F65C5E74B7
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 项目负责人已经明确取消当前事项。
+    - 智能编码代理能够引用事项和当前版本。
+    trigger: 智能编码代理通过公开取消意图提交负责人决定。
+    steps:
+    - 程序校验事项身份、版本、当前阶段和取消条件。
+    - 允许时记录取消并返回适用的安全清理下一步；不允许时返回真实阻断。
+    - 智能编码代理解释保留内容、未清理项和已发生外部事实。
+    outcome: 取消无需插件、钩子或会话控制即可完成且不会删除用户资料。
+    postconditions:
+    - 产品没有停止或管理智能编码代理本身。
+- fact_id: FACT-B4E899DFA270182C
+  status: draft
+  title: 明确准备运行组合并在安全位置升级后继续事项
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-4443210E3D22E700
+  dependency_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  - FACT-D0828206E1A6C60E
+  - FACT-12810BF6CFD2AA73
+  - FACT-7B99D0DC855342F7
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-4443210E3D22E700
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 首次安装已有 Windows x64、Python 3.12、Git、匹配离线包和明确项目目录，安装根与项目互不包含且项目尚无 Strixnova 数据。
+    - 已有数据必须符合当前格式，事项可以未完成，但当前执行和回写能够到达稳定位置。
+    trigger: 明确安装或升级指定项目的 Strixnova。
+    steps:
+    - 绑定程序、Skill、格式与业务事实。
+    - 首次安装用已有 Python 准备独立受管环境与锁定依赖，返回精确入口与 Skill 路径；相同组合核对后复用，复制 Skill 不代表宿主加载。
+    - 已有数据进入明确的运行维护：排空后备份，在副本上核验当前格式与原始事实。
+    - 逐项切换并通过实际目标入口试读。
+    - 解除维护，继续原事项并查询已有完成成果。
+    outcome: 新项目取得可明确使用的运行组合；已有项目历史与未完成事项连续，原确认和验证事实保持。
+    postconditions:
+    - 旧运行组合及恢复材料保留。
+    - 首次安装不提供 Windows、Python 或 Git 安装程序，不修改系统 Python，不创建 WorkItem 或采用业务项目权威。
+- fact_id: FACT-A4FD5F9B5119B747
+  status: draft
+  title: 不受支持或条件变化阻断安装与升级
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-4443210E3D22E700
+  dependency_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  - FACT-D0828206E1A6C60E
+  - FACT-12810BF6CFD2AA73
+  - FACT-7B99D0DC855342F7
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-4443210E3D22E700
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 首次安装发现前提缺失、制品或依赖不匹配、目录归属冲突、已有数据或其他运行选择；或维护预检发现格式不支持、损坏、未收口执行或源事实改变。
+    trigger: 请求执行过期或不适用计划。
+    steps:
+    - 诊断具体问题和指定项目范围。
+    - 保持原数据，不初始化、不清空、不静默猜测映射。
+    - 首次入口对已有数据或其他运行组合转交显式升级，不下载前提软件；运行已准备而 Skill 复制失败时报告部分结果，保留可重试安装。
+    outcome: 没有在不满足前提时切换。
+    postconditions:
+    - 原事实和诊断可读取。
+- fact_id: FACT-C0B3F11948BF8495
+  status: draft
+  title: 部分切换中断后按持久记录恢复
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-4443210E3D22E700
+  dependency_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  - FACT-D0828206E1A6C60E
+  - FACT-12810BF6CFD2AA73
+  - FACT-7B99D0DC855342F7
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-4443210E3D22E700
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 升级在受维护保护的切换阶段中断。
+    trigger: 重新进入维护恢复入口。
+    steps:
+    - 核对原件、候选、备份和当前程序选择。
+    - 保留维护窗口，完成剩余切换或恢复已切换部分。
+    - 实际试读一致组合后解除维护。
+    outcome: 普通入口不观察或写入混合组合。
+    postconditions:
+    - 重复恢复不重复转换或执行业务副作用。
+- fact_id: FACT-67492CB3D4A97378
+  status: draft
+  title: 恢复旧组合保护升级后的新增事实
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-4443210E3D22E700
+  dependency_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  - FACT-D0828206E1A6C60E
+  - FACT-12810BF6CFD2AA73
+  - FACT-7B99D0DC855342F7
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-4443210E3D22E700
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 升级完成或切换尚未结束，旧备份和程序可用。
+    trigger: 明确放弃目标组合并请求恢复。
+    steps:
+    - 核对升级后业务修订、证据、文件及运行选择。
+    - 无新增事实时恢复原数据与程序并核验。
+    - 有新增事实时拒绝旧备份覆盖，保留数据并说明需要向前修复。
+    outcome: 恢复不会静默丢失已产生的事实。
+    postconditions:
+    - 恢复结果和拒绝原因均可追溯。

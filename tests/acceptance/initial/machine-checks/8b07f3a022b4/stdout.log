@@ -1,0 +1,101 @@
+bringing up nodes...
+bringing up nodes...
+
+FFFFFF.FF.....                                                           [100%]
+================================== FAILURES ===================================
+______ test_repository_baseline_contains_only_adoption_and_review_facts _______
+[gw2] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\repository_checks\test_baseline_state.py:10: in test_repository_baseline_contains_only_adoption_and_review_facts
+    baseline = ProjectEngineeringBaseline(PROJECT_ROOT).load(
+strixnova\src\strixnova\project_engineering_baseline.py:184: in load
+    return self.validate(
+strixnova\src\strixnova\project_engineering_baseline.py:328: in validate
+    raise ProjectEngineeringBaselineError(issues)
+E   strixnova.project_engineering_baseline.ProjectEngineeringBaselineError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+_ test_repository_assurance_binds_current_authorities_without_certifying_them _
+[gw4] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+strixnova\src\strixnova\project_authority_consistency.py:736: in load_working_tree_candidate
+    working_baseline = self.baseline_reader.load(
+strixnova\src\strixnova\project_engineering_baseline.py:184: in load
+    return self.validate(
+strixnova\src\strixnova\project_engineering_baseline.py:328: in validate
+    raise ProjectEngineeringBaselineError(issues)
+E   strixnova.project_engineering_baseline.ProjectEngineeringBaselineError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+
+The above exception was the direct cause of the following exception:
+tests\repository_checks\test_current_authority_materials.py:59: in test_repository_assurance_binds_current_authorities_without_certifying_them
+    consistency.load_working_tree_candidate(None)
+strixnova\src\strixnova\project_authority_consistency.py:760: in load_working_tree_candidate
+    raise ProjectAuthorityConsistencyError(issues) from error
+E   strixnova.project_authority_consistency.ProjectAuthorityConsistencyError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+___ test_repository_authorities_form_one_exact_chain_without_semantic_claim ___
+[gw3] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+strixnova\src\strixnova\project_authority_consistency.py:736: in load_working_tree_candidate
+    working_baseline = self.baseline_reader.load(
+strixnova\src\strixnova\project_engineering_baseline.py:184: in load
+    return self.validate(
+strixnova\src\strixnova\project_engineering_baseline.py:328: in validate
+    raise ProjectEngineeringBaselineError(issues)
+E   strixnova.project_engineering_baseline.ProjectEngineeringBaselineError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+
+The above exception was the direct cause of the following exception:
+tests\repository_checks\test_current_authority_materials.py:14: in test_repository_authorities_form_one_exact_chain_without_semantic_claim
+    ).load_working_tree_candidate(None)
+      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+strixnova\src\strixnova\project_authority_consistency.py:760: in load_working_tree_candidate
+    raise ProjectAuthorityConsistencyError(issues) from error
+E   strixnova.project_authority_consistency.ProjectAuthorityConsistencyError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+________ test_daily_alignment_gate_accepts_the_exact_governed_manifest ________
+[gw0] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\repository_checks\test_alignment_gate_state.py:31: in test_daily_alignment_gate_accepts_the_exact_governed_manifest
+    assert completed.returncode == 0, completed.stdout + completed.stderr
+E   AssertionError: {
+E       "schema_version": "strixnova.architecture-gate-result.v1",
+E       "mode": "daily",
+E       "passed": false,
+E       "counts": {},
+E       "failures": [
+E         "项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本"
+E       ],
+E       "semantic_content_machine_proven": false
+E     }
+E     
+E   assert 1 == 0
+E    +  where 1 = CompletedProcess(args=['D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe', 'D:\\AboutDEV\\Strixnova\\scripts\\check...sion.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本"\n  ],\n  "semantic_content_machine_proven": false\n}\n', stderr='').returncode
+_______ test_stage_completion_gate_tracks_the_owner_confirmation_state ________
+[gw1] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\repository_checks\test_alignment_gate_state.py:54: in test_stage_completion_gate_tracks_the_owner_confirmation_state
+    responsibility_statuses = result["counts"]["target_responsibility_statuses"]
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   KeyError: 'target_responsibility_statuses'
+___________ test_repository_alignment_artifacts_match_the_contract ____________
+[gw5] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\repository_checks\test_implementation_alignment_state.py:124: in test_repository_alignment_artifacts_match_the_contract
+    assert not list(validator.iter_errors(model))
+E   assert not [<ValidationError: "{'schema_version': 'strixnova.project-implementation-alignment.v1', 'alignment_model_id': 'ALIGNMO...。', 'resolution_plan': ['实际结果审阅并取得提交授权后，补齐真实祖先绑定和对应仓库状态检查，不用占位摘要替代。']}]} is not valid under any of the given schemas">]
+E    +  where [<ValidationError: "{'schema_version': 'strixnova.project-implementation-alignment.v1', 'alignment_model_id': 'ALIGNMO...。', 'resolution_plan': ['实际结果审阅并取得提交授权后，补齐真实祖先绑定和对应仓库状态检查，不用占位摘要替代。']}]} is not valid under any of the given schemas">] = list(<generator object create.<locals>.Validator.iter_errors at 0x000001E25146BEC0>)
+E    +    where <generator object create.<locals>.Validator.iter_errors at 0x000001E25146BEC0> = iter_errors({'schema_version': 'strixnova.project-implementation-alignment.v1', 'alignment_model_id': 'ALIGNMODEL-7BC755CF18D1404C...one, ...}, 'domain_model_ref': {'model_id': 'MODEL-2F8356E6752B4CC6', 'revision_id': 'MODELREV-D90FA05044CD4310'}, ...})
+E    +      where iter_errors = Draft202012Validator(schema={'$defs': {'alignment_id': {'pattern': '^ALIGNMODEL-[0-9A-F]{16}$', 'type': 'string'}, 'al...ency_catalog'}, {'$ref': '#/$defs/resp...ility_catalog'}, {'$ref': '#/$defs/deviation_catalog'}]}, format_checker=None).iter_errors
+__ test_alignment_is_bound_to_exact_authorities_and_an_ancestor_observation ___
+[gw6] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\repository_checks\test_implementation_alignment_state.py:148: in test_alignment_is_bound_to_exact_authorities_and_an_ancestor_observation
+    head = subprocess.run(
+C:\Users\柳州局\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\subprocess.py:571: in run
+    raise CalledProcessError(retcode, process.args,
+E   subprocess.CalledProcessError: Command '['git', '-c', 'safe.directory=D:/AboutDEV/Strixnova', 'rev-parse', 'HEAD']' returned non-zero exit status 128.
+___ test_target_responsibility_ledger_covers_every_architecture_target_once ___
+[gw2] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\repository_checks\test_implementation_alignment_state.py:333: in test_target_responsibility_ledger_covers_every_architecture_target_once
+    assert not any(item["status"] == "unknown" for item in records)
+E   assert not True
+E    +  where True = any(<generator object test_target_responsibility_ledger_covers_every_architecture_target_once.<locals>.<genexpr> at 0x000002130EB4B780>)
+=========================== short test summary info ===========================
+FAILED tests/repository_checks/test_baseline_state.py::test_repository_baseline_contains_only_adoption_and_review_facts
+FAILED tests/repository_checks/test_current_authority_materials.py::test_repository_assurance_binds_current_authorities_without_certifying_them
+FAILED tests/repository_checks/test_current_authority_materials.py::test_repository_authorities_form_one_exact_chain_without_semantic_claim
+FAILED tests/repository_checks/test_alignment_gate_state.py::test_daily_alignment_gate_accepts_the_exact_governed_manifest
+FAILED tests/repository_checks/test_alignment_gate_state.py::test_stage_completion_gate_tracks_the_owner_confirmation_state
+FAILED tests/repository_checks/test_implementation_alignment_state.py::test_repository_alignment_artifacts_match_the_contract
+FAILED tests/repository_checks/test_implementation_alignment_state.py::test_alignment_is_bound_to_exact_authorities_and_an_ancestor_observation
+FAILED tests/repository_checks/test_implementation_alignment_state.py::test_target_responsibility_ledger_covers_every_architecture_target_once
+8 failed, 6 passed in 23.23s

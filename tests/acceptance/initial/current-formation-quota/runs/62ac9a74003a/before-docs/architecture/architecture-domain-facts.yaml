@@ -1,0 +1,22 @@
+schema_version: strixnova.architecture-domain-fact-dispositions.v1
+architecture_id: ARCH-1111111111111111
+architecture_revision_id: ARCHREV-1111111111111111
+domain_model_ref:
+  model_id: MODEL-1111111111111111
+  revision_id: MODELREV-1111111111111111
+dispositions:
+- domain_fact_id: FACT-2222222222222222
+  disposition_type: primary_module
+  primary_module_id: MODULE-1111111111111111
+  collaborator_module_ids: &id001 []
+  relationship_ids: &id002 []
+  constraint_ids: &id003
+  - CONSTRAINT-1111111111111111
+  rationale: 测试事实由测试应用模块主要承载。
+- domain_fact_id: FACT-3333333333333333
+  disposition_type: primary_module
+  primary_module_id: MODULE-1111111111111111
+  collaborator_module_ids: *id001
+  relationship_ids: *id002
+  constraint_ids: *id003
+  rationale: 测试事实由测试应用模块主要承载。

@@ -1,0 +1,726 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "TARGET-RELATION-CDC41CEBF40D49A5",
+      "issues": [],
+      "limitations": [
+        "Recorded test results prove their named assertions at recorded time, not full semantic sufficiency; JUnit does not capture execution-time source hashes",
+        "Gate logic is verified by code inspection, not by independent behavioral proof of all state-transition paths"
+      ],
+      "reason": "应用协调器（application_coordinator）对工作区管理器（GitWorkspace）的调用受已确认方案关口和已接受实际结果关口严格守卫，准备工作区仅在方案确认后依据整体方案触发，提交、合入与清理依赖确切的整体接受回执，且回执按仓库向原事项权威返回。源码与集成/单元测试断言均证实该调用边界与单向依赖成立。",
+      "references": [
+        {
+          "end_line": 56,
+          "source_id": "strixnova/src/strixnova/application_coordinator.py",
+          "start_line": 56,
+          "original_text": "from strixnova.git_workspace import GitWorkspace, GitWorkspaceError\n",
+          "source_sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 22,
+          "source_id": "strixnova/src/strixnova/git_workspace.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Native local Git lifecycle for one WorkItem.\"\"\"\n\nfrom __future__ import annotations\n\nfrom pathlib import Path\nimport os\nimport re\nimport shutil\nfrom typing import Any\n\nfrom strixnova.git_project_reader import (\n    GitProjectReaderError,\n    repository_path_from_git,\n    repository_relative_path,\n)\nfrom strixnova.process_supervisor import (\n    ProcessExecutionError,\n    ProcessLimits,\n    ProcessPolicy,\n    ProcessResult,\n    run_process,\n)\n",
+          "source_sha256": "cca6947ef9de561f4f2f83edf1077402f12a0959ebe14759a515b0bc1bb3ad80",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 53,
+          "source_id": "tests/integration/test_git_workspace.py",
+          "start_line": 53,
+          "original_text": "def test_single_work_item_uses_a_local_branch_without_forcing_a_new_worktree(\n",
+          "source_sha256": "7856c1499b0fdfc2bd4a55e9ad54c6f3585c8c2fe7a57ecd831c51836f24c198",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 329,
+          "source_id": "tests/unit/test_application_delivery_snapshots.py",
+          "start_line": 329,
+          "original_text": "def test_actual_result_snapshot_rejects_an_added_unplanned_file(\n",
+          "source_sha256": "505f68bb32615df2b745ebd64e795384bc6ff386d7ec8fcca34f8e3a89b8f8ab",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-D30AE8CE877C462F",
+      "issues": [],
+      "limitations": [
+        "Recorded test results prove named assertions at recorded time; JUnit does not capture execution-time source hashes",
+        "The in-memory-only boundary is verified by import inspection; runtime dynamic invocation is not separately proven"
+      ],
+      "reason": "权威一致性模块（project_authority_consistency）仅从 yaml_metadata_patch 导入并在内存中调用纯内存元数据补丁渲染函数（render_yaml_value_patches），以预演实际结果授权的元数据差异并计算哈希，未导入也未调用任何底层事务应用或物理文件落盘函数，完整保持了一致性校验的只读边界。",
+      "references": [
+        {
+          "end_line": 57,
+          "source_id": "strixnova/src/strixnova/project_authority_consistency.py",
+          "start_line": 54,
+          "original_text": "from strixnova.yaml_metadata_patch import (\n    YamlMetadataPatchError,\n    render_yaml_value_patches,\n)\n",
+          "source_sha256": "a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1691,
+          "source_id": "strixnova/src/strixnova/project_authority_consistency.py",
+          "start_line": 1691,
+          "original_text": "                    normalized_authority = render_yaml_value_patches(\n",
+          "source_sha256": "a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 63,
+          "source_id": "tests/unit/test_project_authority_consistency.py",
+          "start_line": 63,
+          "original_text": "def test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches(\n",
+          "source_sha256": "2b84be2de5b11431e3c800a841ff286c3ba1cb446ebf0035e8b32a52962e266f",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 16,
+          "source_id": "tests/unit/test_yaml_metadata_patch.py",
+          "start_line": 16,
+          "original_text": "def test_patch_yaml_values_changes_only_selected_metadata_spans(\n",
+          "source_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-D4E5FF14DCD0494C",
+      "issues": [],
+      "limitations": [
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "The boundary verification is by import and structure inspection; dynamic reflection or plugin loading is not separately excluded"
+      ],
+      "reason": "应用协调器通过 ImplementationAlignmentPreparation 承担切片绑定、内容寻址分页准备、孤立缓存指纹和持久事务写入，将规范化观察与目标权威完整候选提交给对齐校验；对齐与准备模块均未反向依赖协调器或工作流权威，未越权改变事项状态、版本或确认元数据，权威职责划分清晰。",
+      "references": [
+        {
+          "end_line": 65,
+          "source_id": "strixnova/src/strixnova/application_coordinator.py",
+          "start_line": 62,
+          "original_text": "from strixnova.implementation_alignment_preparation import (\n    ImplementationAlignmentPreparation,\n    ImplementationAlignmentPreparationError,\n)\n",
+          "source_sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 48,
+          "source_id": "strixnova/src/strixnova/implementation_alignment_preparation.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Prepare observations and write implementation-alignment candidates.\n\nThe Module keeps observation, semantic decision binding, content-addressed\npreparation artifacts, and recoverable candidate writes behind one Interface.\nIt never assigns product, domain, architecture, or owner meaning by itself.\n\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections.abc import Callable\nfrom copy import deepcopy\nfrom datetime import date\nimport hashlib\nimport json\nfrom pathlib import Path, PurePosixPath\nimport re\nfrom typing import Any, Mapping, Sequence\n\nimport yaml\n\nfrom strixnova.git_project_reader import (\n    GitProjectReader, repository_relative_path, repository_scope_root,\n)\nfrom strixnova.project_content_snapshot import repository_path_key, split_repository_path_key\nfrom strixnova.implementation_observation import observe_project_implementation, external_observation_providers_from_plans\nfrom strixnova.project_domain_model import ProjectDomainModel\nfrom strixnova.project_architecture_description import ProjectArchitectureDescription\nfrom strixnova.engineering_change_planning import focused_slice\nfrom strixnova.project_engineering_baseline import (\n    ProjectEngineeringBaseline,\n    ProjectEngineeringBaselineError,\n)\nfrom strixnova.implementation_alignment_artifacts import (\n    AlignmentArtifactError,\n    ImplementationAlignmentArtifactStore,\n)\nfrom strixnova.project_implementation_alignment import (\n    IMPLEMENTATION_OBSERVATION_SCHEMA,\n    ProjectImplementationAlignment,\n    ProjectImplementationAlignmentError,\n    normalized_observed_relations,\n)\nfrom strixnova.recoverable_document_transaction import (\n    DocumentTransactionError,\n    recover_document_transactions,\n    replace_documents,\n)\n\n",
+          "source_sha256": "3613ffb9b475878113b92ae0ec861a19c21952ae93db39ad65a8cbf561900f61",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 43,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Complete project implementation alignment and deterministic drift checks.\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections import Counter\nfrom collections.abc import Mapping, Sequence\nfrom copy import deepcopy\nimport hashlib\nfrom importlib.resources import files\nimport json\nfrom pathlib import Path, PurePosixPath\nfrom typing import Any\n\nfrom jsonschema import Draft202012Validator, FormatChecker\n\nfrom strixnova.git_project_reader import (\n    GitProjectReader,\n    GitProjectReaderError,\n    project_reader_for_scope,\n    repository_relative_path,\n    repository_scope_root,\n)\nfrom strixnova.implementation_observation import (\n    ExternalObservationProvider,\n    IMPLEMENTATION_OBSERVATION_SCHEMA,\n    ImplementationObservationError,\n    external_observation_providers_from_plans,\n    observe_project_implementation,\n)\nfrom strixnova.project_content_snapshot import repository_path_key, split_repository_path_key\nfrom strixnova.project_architecture_description import (\n    ProjectArchitectureDescription,\n    ProjectArchitectureDescriptionError,\n)\nfrom strixnova.project_domain_model import (\n    ProjectDomainModel,\n    ProjectDomainModelError,\n)\nfrom strixnova.schema_error_reporting import (\n    one_of_branch_errors,\n    schema_error_message,\n)\n\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 255,
+          "source_id": "tests/unit/test_implementation_alignment_preparation.py",
+          "start_line": 255,
+          "original_text": "def test_single_module_and_root_sources_prepare_without_layout_changes(tmp_path: Path) -> None:\n",
+          "source_sha256": "0fc132535adafb78c8c5c137b1912be5864f07d6fd24c053386defc1862680ed",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-D7C6624612F34880",
+      "issues": [],
+      "limitations": [
+        "Mediation is verified by static import analysis; dynamic attribute access or plugin loading is not separately excluded",
+        "Parametrized test rows (38) exceed definition count (27); claims based on definition-level pass counts from recorded runs",
+        "Recorded test results prove named assertions at recorded time; no source hash binding"
+      ],
+      "reason": "命令适配器（cli 及 host_adapter）严格将所有事项写操作委托给应用用例协调器（ApplicationCoordinator），不直接导入或调用工作流权威（workflow_authority）的写接口，有效防止了命令入口绕过前置跨权威检查或复制状态流转逻辑。中介路径调用边界完全符合架构设计。",
+      "references": [
+        {
+          "end_line": 17,
+          "source_id": "strixnova/src/strixnova/cli.py",
+          "start_line": 14,
+          "original_text": "from strixnova.application_coordinator import (\n    ApplicationCoordinator,\n    ApplicationCoordinatorError,\n)\n",
+          "source_sha256": "4590c3f3599049252c68699c4c2d31754425d4a9729c02037754493aeea43dc8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 15,
+          "source_id": "strixnova/src/strixnova/host_adapter.py",
+          "start_line": 11,
+          "original_text": "from strixnova.application_coordinator import (\n    REPLAN_REQUEST_SCHEMA,\n    ApplicationCoordinator,\n    ApplicationCoordinatorError,\n)\n",
+          "source_sha256": "ee4098490b2c81c4ef399ed4e26a861fd2b06de53c7b3042912bd0ab5dc5ccb7",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 7,
+          "source_id": "strixnova/src/strixnova/confirmation_protocol.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Deterministic candidate binding for the three user confirmation gates.\n\nThe protocol deliberately does not decide whether a candidate is good or\nwhether an explanation was understood. The Agent interprets the user's later\nmessage; the program binds that explicit interpretation and verbatim message\nto one candidate and WorkItem version.\n\"\"\"\n",
+          "source_sha256": "8608c5ba58248a5d490f66c3078207d561ce27f4eefafaac239038f2084abbbe",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 131,
+          "source_id": "tests/unit/test_agent_setup.py",
+          "start_line": 131,
+          "original_text": "def test_packaged_agent_skill_has_one_entry_and_reachable_internal_references() -> None:\n",
+          "source_sha256": "8ed6340882a5dbbbfbdbe399752c34d3090f32892057f1967d2c88efb4d446bf",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 29,
+          "source_id": "tests/unit/test_confirmation_protocol.py",
+          "start_line": 29,
+          "original_text": "def test_challenge_binds_candidate_and_version_without_a_password() -> None:\n",
+          "source_sha256": "5070bd815ffabee81588b0668cd440d1c8529d1d6fe4c8ff5da148cfa21590d4",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-D9A7FFF677B8411B",
+      "issues": [],
+      "limitations": [
+        "test_baseline_does_not_load_or_validate_downstream_authority_bodies failed in one earlier run (d0856323c4b6) but passed in two later runs; the failure may have been transient or fixed between runs",
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "Read-only boundary verified by import inspection; no runtime write-prevention test"
+      ],
+      "reason": "权威一致性模块仅以只读方式加载工程基线（ProjectEngineeringBaseline.load）以取得定位、状态、阶段和标记，未引入任何基线持久化或写回函数，且跨权威检查逻辑与基线自身有效性校验严格解耦，满足只读依赖合同。早期测试失败已在后续执行中修复并通过。",
+      "references": [
+        {
+          "end_line": 39,
+          "source_id": "strixnova/src/strixnova/project_authority_consistency.py",
+          "start_line": 35,
+          "original_text": "from strixnova.project_engineering_baseline import (\n    AUTHORITY_KINDS,\n    ProjectEngineeringBaseline,\n    ProjectEngineeringBaselineError,\n)\n",
+          "source_sha256": "a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 446,
+          "source_id": "strixnova/src/strixnova/project_authority_consistency.py",
+          "start_line": 446,
+          "original_text": "        baseline = self.baseline_reader.load(required=False, allow_candidate_refs=True)\n",
+          "source_sha256": "a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 45,
+          "source_id": "tests/unit/test_project_engineering_baseline.py",
+          "start_line": 45,
+          "original_text": "def test_baseline_does_not_load_or_validate_downstream_authority_bodies(\n",
+          "source_sha256": "398e315ae77cba741a4a117a7b84f37d876680d302c9fcf865bb908c6b1c1cc1",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 63,
+          "source_id": "tests/unit/test_project_authority_consistency.py",
+          "start_line": 63,
+          "original_text": "def test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches(\n",
+          "source_sha256": "2b84be2de5b11431e3c800a841ff286c3ba1cb446ebf0035e8b32a52962e266f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-E7B2B284E1684007",
+      "issues": [],
+      "limitations": [
+        "2 symlink rejection tests (test_yaml_patch_transaction_rejects_external_symlink, test_yaml_patch_transaction_rejects_internal_symlink) skipped in both runs due to platform (Windows) limitations",
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "Run f5e20647248e did not include test_local_git_lifecycle integration tests (0 rows from that file), reducing cross-module coverage in that run"
+      ],
+      "reason": "yaml_metadata_patch 仅从 git_project_reader 导入 repository_relative_path 用于统一路径校验与安全边界约束，不实例化读取器类，不调用 Git 进程执行外部转换，也不扩大事务路径范围，保证了元数据事务与版本化读取共用同一安全路径定义。平台相关的符号链接测试跳过属于已知环境局限。",
+      "references": [
+        {
+          "end_line": 28,
+          "source_id": "strixnova/src/strixnova/yaml_metadata_patch.py",
+          "start_line": 25,
+          "original_text": "from strixnova.git_project_reader import (\n    GitProjectReaderError,\n    repository_relative_path,\n)\n",
+          "source_sha256": "fcd0ff9335c2a99234878c7d89a049113de632b59f72f6774f81f619a00e88d2",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 188,
+          "source_id": "strixnova/src/strixnova/yaml_metadata_patch.py",
+          "start_line": 188,
+          "original_text": "        normalized = repository_relative_path(\n",
+          "source_sha256": "fcd0ff9335c2a99234878c7d89a049113de632b59f72f6774f81f619a00e88d2",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 28,
+          "source_id": "tests/unit/test_git_project_reader.py",
+          "start_line": 28,
+          "original_text": "def test_git_for_windows_cmd_wrapper_resolves_to_direct_binary(\n",
+          "source_sha256": "f38ce340b7236a421da4ce3ee8e9b58a7a934f004e69607050a973eaffaa46d1",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 16,
+          "source_id": "tests/unit/test_yaml_metadata_patch.py",
+          "start_line": 16,
+          "original_text": "def test_patch_yaml_values_changes_only_selected_metadata_spans(\n",
+          "source_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-E908CF39D78845DF",
+      "issues": [],
+      "limitations": [
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "Language-independence is verified by import/content analysis; no formal proof that all alignment paths avoid language-specific logic"
+      ],
+      "reason": "项目实现对齐模块（project_implementation_alignment）仅向实现观察模块提交版本绑定的观察计划，只消费结构化、规范化的节点、关系与覆盖结果，完全不包含具体语言或生态工具的解析逻辑；多语言差异完全封装在 observation 内部，对齐层保持了深模块解耦。",
+      "references": [
+        {
+          "end_line": 29,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 23,
+          "original_text": "from strixnova.implementation_observation import (\n    ExternalObservationProvider,\n    IMPLEMENTATION_OBSERVATION_SCHEMA,\n    ImplementationObservationError,\n    external_observation_providers_from_plans,\n    observe_project_implementation,\n)\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 58,
+          "source_id": "strixnova/src/strixnova/implementation_observation.py",
+          "start_line": 48,
+          "original_text": "_LANGUAGE_ALIASES = {\n    \"c#\": \"csharp\",\n    \"cs\": \"csharp\",\n    \"c++\": \"cpp\",\n    \"golang\": \"go\",\n    \"javascript\": \"typescript\",\n    \"js\": \"typescript\",\n    \"py\": \"python\",\n    \"rs\": \"rust\",\n    \"ts\": \"typescript\",\n}\n",
+          "source_sha256": "122cd07e8273ceb36689c3c6d4881b02a7815a929827dc6d50fa502af43b4e65",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 144,
+          "source_id": "tests/unit/test_implementation_observation.py",
+          "start_line": 144,
+          "original_text": "def test_external_provider_contract_is_valid_and_shipped_without_drift() -> None:\n",
+          "source_sha256": "2d62220948694e0a2a20660923336953948668a4e606ce162e1a4ca4ce637d7d",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 42,
+          "source_id": "tests/unit/test_project_authority_contracts.py",
+          "start_line": 42,
+          "original_text": "def test_domain_runtime_reads_the_current_formal_authority() -> None:\n",
+          "source_sha256": "4ecc67c962d3983478b9ea7c09f1f021007e1293093b88a2972c691bd9cac0ad",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-E98DCC2FA1624DB7",
+      "issues": [],
+      "limitations": [
+        "Parametrized execution rows (32) exceed definition count (26); claims based on definition-level pass from recorded runs",
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "Remote-operation absence verified by content search; dynamic invocation not separately excluded"
+      ],
+      "reason": "应用协调器仅将 GitProjectReader 用于项目字节规范读取、候选快照核对及不可变提交校验，未发起远程推送/拉取操作，亦未将读取字节直接上升为业务工程语义；读取严格受上游解析上下文限定且保持版本与仓库身份绑定，符合统一版本读取边界。",
+      "references": [
+        {
+          "end_line": 57,
+          "source_id": "strixnova/src/strixnova/application_coordinator.py",
+          "start_line": 57,
+          "original_text": "from strixnova.git_project_reader import GitProjectReader, GitProjectReaderError\n",
+          "source_sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 23,
+          "source_id": "strixnova/src/strixnova/git_project_reader.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Read project-owned engineering files from a working tree or Git commit.\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections.abc import Iterator, Mapping, Sequence\nfrom dataclasses import dataclass\nimport base64\nimport hashlib\nimport os\nfrom pathlib import Path, PurePosixPath\nimport re\nimport shutil\nfrom typing import Any\n\nimport yaml\n\nfrom strixnova.process_supervisor import (\n    ProcessExecutionError,\n    ProcessLimits,\n    ProcessPolicy,\n    ProcessResult,\n    run_process,\n)\n",
+          "source_sha256": "83e73350c3c2be53e8b28964d0cb33d9004eb6fce63b628c13813d3502c62433",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 28,
+          "source_id": "tests/unit/test_git_project_reader.py",
+          "start_line": 28,
+          "original_text": "def test_git_for_windows_cmd_wrapper_resolves_to_direct_binary(\n",
+          "source_sha256": "f38ce340b7236a421da4ce3ee8e9b58a7a934f004e69607050a973eaffaa46d1",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 21,
+          "source_id": "tests/unit/test_repository_evidence_boundaries.py",
+          "start_line": 21,
+          "original_text": "def test_unbound_mechanical_paths_use_the_same_native_repository_only(tmp_path, linked):\n",
+          "source_sha256": "d282a7b28d3245658b854b854476250bc95d347b19d2ec94527d34706476e057",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-F3A4968600194593",
+      "issues": [],
+      "limitations": [
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "Run f5e20647248e did not include test_local_git_lifecycle tests (0 rows from that file), reducing lifecycle coverage in that run"
+      ],
+      "reason": "权威一致性模块基于基线确切引用构造目标架构描述读取器（ProjectArchitectureDescription），以只读方式获取领域绑定、修订、阶段与状态信息，没有任何修改或写回架构描述的操作，保证了一致性检查严格受已确认目标架构约束。",
+      "references": [
+        {
+          "end_line": 28,
+          "source_id": "strixnova/src/strixnova/project_authority_consistency.py",
+          "start_line": 25,
+          "original_text": "from strixnova.project_architecture_description import (\n    ProjectArchitectureDescription,\n    ProjectArchitectureDescriptionError,\n)\n",
+          "source_sha256": "a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 390,
+          "source_id": "strixnova/src/strixnova/project_authority_consistency.py",
+          "start_line": 382,
+          "original_text": "        for kind, constructor in (\n            (\"product_definition\", ProjectProductDefinition),\n            (\"domain_model\", ProjectDomainModel),\n            (\"target_architecture\", ProjectArchitectureDescription),\n            (\"engineering_policy\", ProjectEngineeringPolicy),\n        ):\n            if kind in readers:\n                source = readers[kind]\n                loaders[kind] = constructor(source.project, refs[kind][\"path\"], shared_reader=source)\n",
+          "source_sha256": "a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 63,
+          "source_id": "tests/unit/test_project_authority_consistency.py",
+          "start_line": 63,
+          "original_text": "def test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches(\n",
+          "source_sha256": "2b84be2de5b11431e3c800a841ff286c3ba1cb446ebf0035e8b32a52962e266f",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1,
+          "source_id": "tests/integration/test_configured_project_context.py",
+          "start_line": 1,
+          "original_text": "from __future__ import annotations\n",
+          "source_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-F81E17FC24D54C3E",
+      "issues": [],
+      "limitations": [
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "The authority-before-write ordering is verified by code structure; no formal temporal proof of all execution paths"
+      ],
+      "reason": "项目权威决策模块（project_authority_decision）在确认生效锁与意图写就之后，才提交绑定哈希与候选正文的 YAML 元数据事务；对齐准备模块同样使用可恢复文档事务机制保障崩溃一致性；事务模块不自行决定确认语义，仅处理指定仓库内精确路径的原子写入。",
+      "references": [
+        {
+          "end_line": 68,
+          "source_id": "strixnova/src/strixnova/project_authority_decision.py",
+          "start_line": 66,
+          "original_text": "    YamlMetadataPatchError,\n    apply_yaml_patch_transaction,\n    build_yaml_patch_transaction,\n",
+          "source_sha256": "decf507d0fb2b61817bf6fbc39b31c7466777760927505649414cbf319ba2714",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 47,
+          "source_id": "strixnova/src/strixnova/implementation_alignment_preparation.py",
+          "start_line": 43,
+          "original_text": "from strixnova.recoverable_document_transaction import (\n    DocumentTransactionError,\n    recover_document_transactions,\n    replace_documents,\n)\n",
+          "source_sha256": "3613ffb9b475878113b92ae0ec861a19c21952ae93db39ad65a8cbf561900f61",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 42,
+          "source_id": "tests/unit/test_project_authority_decision.py",
+          "start_line": 42,
+          "original_text": "def test_confirmation_checks_authority_before_creating_an_effect_lock(\n",
+          "source_sha256": "79f86a19e9bcf21da128932b1d19da21f3c27365532cccde1e3e3a13afed4f06",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 16,
+          "source_id": "tests/unit/test_yaml_metadata_patch.py",
+          "start_line": 16,
+          "original_text": "def test_patch_yaml_values_changes_only_selected_metadata_spans(\n",
+          "source_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-FC3CADC92F0245FC",
+      "issues": [],
+      "limitations": [
+        "Parametrized execution rows (21/20/6) exceed definition count (19); claims based on definition-level pass from recorded runs",
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "Reverse-dependency absence verified by import search; dynamic invocation or plugin loading not separately excluded"
+      ],
+      "reason": "协调器在方案已确认且当前切片依赖满足时才构造并提交验证请求，未计划路径与计划外文件变更有专门分支拦截阻断；验证执行器（VerificationRunner）不反向依赖协调器、规划或治理模块，无法反向获取方案编制或政策决定权，调用边界严格受控。",
+      "references": [
+        {
+          "end_line": 115,
+          "source_id": "strixnova/src/strixnova/application_coordinator.py",
+          "start_line": 111,
+          "original_text": "from strixnova.verification_runner import (\n    APPROVED_VERIFICATION_REQUEST_SCHEMA,\n    VerificationRunner,\n    VerificationRunnerError,\n)\n",
+          "source_sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 25,
+          "source_id": "strixnova/src/strixnova/verification_runner.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Bounded execution of coding-agent-selected local verification commands.\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections.abc import Callable, Mapping, Sequence\nfrom datetime import datetime, timezone\nimport math\nimport json\nimport os\nfrom pathlib import Path, PurePosixPath\nimport secrets\nfrom typing import Any\nfrom strixnova.verification_dependencies import normalize_dependency_checks, collect_dependency_evidence, dependency_evidence_stale, validate_dependency_evidence\n\nfrom strixnova.test_case_evidence import (\n    CaseExecution, TestCaseEvidenceError, merge_configs, normalize_config,\n    receipts_with_freshness, snapshot_matches, validate_evidence,\n)\nfrom strixnova.process_supervisor import (\n    ProcessExecutionError,\n    ProcessLimits,\n    ProcessPolicy,\n    ProcessResult,\n    run_process,\n)\n",
+          "source_sha256": "fdf89217cd1bf384b3ffdc0c0db066f2fe7c14a370c3787a112306443563cef0",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 50,
+          "source_id": "tests/unit/test_verification_runner.py",
+          "start_line": 50,
+          "original_text": "def test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:\n",
+          "source_sha256": "ffe8fe66b739127ecaebbaae89927bfbf9532100a108a1c8fa61891f6fd2e771",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 329,
+          "source_id": "tests/unit/test_application_delivery_snapshots.py",
+          "start_line": 329,
+          "original_text": "def test_actual_result_snapshot_rejects_an_added_unplanned_file(\n",
+          "source_sha256": "505f68bb32615df2b745ebd64e795384bc6ff386d7ec8fcca34f8e3a89b8f8ab",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-FC78A19148854EBE",
+      "issues": [],
+      "limitations": [
+        "Recorded test results prove named assertions at recorded time; no execution-time source hash binding",
+        "Run f5e20647248e did not include test_local_git_lifecycle tests (0 rows from that file), reducing lifecycle coverage in that run"
+      ],
+      "reason": "工程政策模块（project_engineering_policy）通过 GitProjectReader 仅读取仓库内工程政策产物的当前或版本锁定内容，复用统一安全路径与本地预取，不执行远程操作或越权扩大解析范围，确保政策权威与底层版本化读取机制清晰分离。",
+      "references": [
+        {
+          "end_line": 19,
+          "source_id": "strixnova/src/strixnova/project_engineering_policy.py",
+          "start_line": 14,
+          "original_text": "from strixnova.git_project_reader import (\n    GitProjectReader,\n    GitProjectReaderError,\n    project_reader_for_scope,\n    repository_relative_path,\n)\n",
+          "source_sha256": "827909708c13e2d65d9939e07084c17b737a3f366350f4a1360c61a7e018673d",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 233,
+          "source_id": "strixnova/src/strixnova/project_engineering_policy.py",
+          "start_line": 233,
+          "original_text": "            self.reader.prefetch(\n",
+          "source_sha256": "827909708c13e2d65d9939e07084c17b737a3f366350f4a1360c61a7e018673d",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 32,
+          "source_id": "tests/unit/test_project_engineering_policy.py",
+          "start_line": 32,
+          "original_text": "def test_repository_policy_is_the_current_independent_candidate() -> None:\n",
+          "source_sha256": "781ad6813ecbf617695595268ba5af35f903f71a9f513eec1ed890d39b54ba19",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 145,
+          "source_id": "tests/unit/test_project_engineering_assurance.py",
+          "start_line": 145,
+          "original_text": "def test_assurance_matrix_keeps_internal_evidence_and_external_claims_apart(\n",
+          "source_sha256": "357b5d4d4ca473633048fb676aea22756718a579752b8e1e243cc23ab0485177",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 2,
+    "records": [],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false
+}

@@ -1,0 +1,1803 @@
+{
+  "case_id": "GF-SPEC-UPDATE",
+  "candidate": {
+    "version": "0.1.0.dev0",
+    "wheel": "D:\\AboutDEV\\Strixnova\\.artifacts\\candidates\\initial-guidance\\strixnova-0.1.0.dev0-py3-none-any.whl",
+    "wheel_sha256": "24bd850c969f21ad96899183d6c780d846452598b5e5cb1a41570c7e489531de",
+    "build_sha256": "db671a2eac618316386cc1cd94c7ba3ef2c6e94582529df9e1abb4fadd0b2149",
+    "skill_sha256": "4584557be79522eaee6a810761361f3bffbf5019208468701a64d98ec609074b",
+    "installed_python": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e0c2366f7700\\work\\managed-installation\\versions\\24bd850c969f21ad96899183d6c780d846452598b5e5cb1a41570c7e489531de\\venv\\Scripts\\python.exe",
+    "installed_skill": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e0c2366f7700\\work\\managed-installation\\versions\\24bd850c969f21ad96899183d6c780d846452598b5e5cb1a41570c7e489531de\\venv\\Lib\\site-packages\\strixnova\\resources\\agent-skill\\strixnova",
+    "entrypoint": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e0c2366f7700\\work\\managed-installation\\versions\\24bd850c969f21ad96899183d6c780d846452598b5e5cb1a41570c7e489531de\\venv\\Scripts\\strixnova.exe",
+    "source_package_matches_wheel": true,
+    "source_package_files": 135,
+    "git_index_checkout_verified": false,
+    "git_baseline_bound": false,
+    "owner_accepted": false,
+    "native_acceptance": "pending",
+    "content_check_scope": "raw source package bytes, wheel and isolated installed package; no index-checkout claim",
+    "installation_evidence": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e0c2366f7700\\evidence\\offline-installation.json"
+  },
+  "fixed_inputs": [
+    "读取AGENTS与指定Skill。inputs/source-view.json是预先声明的显示层进度回归夹具：事项总版本变化，但原方向与工程方案内容、身份、确认完全未变。请对照真实基线记录判断SPEC应如何更新，仅在有必要时修改docs/reading/SPEC.md，并解释规格依据是否变化。不要把合成进度当真实工作流事件或新的接受。",
+    "现已换入第二份预先声明的来源：同一稳定事项的未接受方向候选第4版，实际新增480分钟上限并保留其他稳定身份；原工程方案尚未为新规则重评。请更新SPEC的受影响正文、来源绑定和行为覆盖，区分既有已确认基线与当前未接受候选，保留不受影响身份，并说明旧方案处置和缺口。不要创造已执行测试、新方案或接受记录；仅修改阅读产物。"
+  ],
+  "fixed_source_views": [
+    {
+      "scenario_kind": "synthetic_progress_only_projection",
+      "work_item_id": "WI-20260928-9CA7291C",
+      "aggregate_version": 20,
+      "status": "completed",
+      "progress_note": "控制器预设的投影版本变动，用于文档回归；不是真实事项新增事件。",
+      "direction_version": 3,
+      "direction": {
+        "acceptance": [
+          {
+            "acceptance_id": "DIRACC-D4E5F60718293A4B",
+            "behavior": {
+              "applicability": "required",
+              "examples": [
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+                  ],
+                  "example_id": "DIREX-E5F60718293A4B5C",
+                  "given": [
+                    "start=10",
+                    "end=60"
+                  ],
+                  "then": [
+                    "返回 50"
+                  ],
+                  "title": "合法区间保持原有时长",
+                  "when": "调用 duration(10, 60)"
+                },
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+                  ],
+                  "example_id": "DIREX-F60718293A4B5C6D",
+                  "given": [
+                    "start=30",
+                    "end=30"
+                  ],
+                  "then": [
+                    "抛出 ValueError"
+                  ],
+                  "title": "结束刻度等于开始刻度时抛出 ValueError",
+                  "when": "调用 duration(30, 30)"
+                },
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+                  ],
+                  "example_id": "DIREX-0718293A4B5C6D7E",
+                  "given": [
+                    "start=50",
+                    "end=20"
+                  ],
+                  "then": [
+                    "抛出 ValueError"
+                  ],
+                  "title": "结束刻度小于开始刻度时抛出 ValueError",
+                  "when": "调用 duration(50, 20)"
+                }
+              ]
+            },
+            "requirement_refs": [
+              "DIRREQ-A1B2C3D4E5F60718",
+              "DIRREQ-B2C3D4E5F6071829"
+            ],
+            "statement": "结束刻度小于或等于开始刻度时抛出 ValueError，合法区间返回 end - start。"
+          }
+        ],
+        "constraints": [
+          {
+            "constraint_id": "DIRCON-C3D4E5F60718293A",
+            "statement": "严格保持 duration(start: int, end: int) -> int 函数签名与类型注解不变。"
+          }
+        ],
+        "decision_context": {
+          "assumptions": [],
+          "capability_refs": [],
+          "context_ref": null,
+          "guardrail_dispositions": []
+        },
+        "goal": "修复预约区间在结束刻度不大于开始刻度时的校验缺陷，抛出 ValueError",
+        "non_goals": [
+          "不引入日期、时区或日历解释，不添加持久化或远程调用服务。"
+        ],
+        "schema_version": "strixnova.direction-decision.v1",
+        "scope": [
+          {
+            "requirement_id": "DIRREQ-A1B2C3D4E5F60718",
+            "statement": "当结束刻度不大于开始刻度时（即 end <= start），抛出 ValueError。"
+          },
+          {
+            "requirement_id": "DIRREQ-B2C3D4E5F6071829",
+            "statement": "合法区间保持原有返回值（即 end - start），且函数签名不变。"
+          }
+        ],
+        "tradeoffs": [],
+        "work_item_relations": []
+      },
+      "engineering_plan": {
+        "actual_result_requirements": {
+          "domain_fact_changes": []
+        },
+        "applicable_rules": [
+          {
+            "evidence_refs": [
+              "direction"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "requirement",
+              "acceptance",
+              "constraint"
+            ],
+            "rule_id": "STRIXNOVA-GOV-REQ-001",
+            "source_ids": [
+              "ISO-29148-2018",
+              "ISO-15289-2019"
+            ],
+            "topic": "requirements_and_acceptance",
+            "triggered_by": [
+              "formal_implementation"
+            ]
+          },
+          {
+            "evidence_refs": [
+              "direction"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "operation",
+              "delivery"
+            ],
+            "rule_id": "STRIXNOVA-GOV-LIFE-001",
+            "source_ids": [
+              "ISO-12207-2026"
+            ],
+            "topic": "life_cycle_and_configuration",
+            "triggered_by": [
+              "formal_implementation"
+            ]
+          },
+          {
+            "evidence_refs": [
+              "SRC-002"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "verification"
+            ],
+            "rule_id": "STRIXNOVA-GOV-TEST-001",
+            "source_ids": [
+              "ISO-29119-2-2021",
+              "ISO-25010-2023"
+            ],
+            "topic": "verification_and_testing",
+            "triggered_by": [
+              "impact_scope.testing:affected"
+            ]
+          }
+        ],
+        "assessment_ref": {
+          "assessment_id": "EA-20260928-11111111",
+          "assessment_revision": 1,
+          "work_item_id": "WI-20260928-9CA7291C"
+        },
+        "assurance_band": "A1",
+        "authority_change_set": {
+          "base_authorities": [
+            {
+              "artifact_id": "PRODUCT-1111111111111111",
+              "authority_kind": "product_definition",
+              "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "path": "docs/product/definition.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "REVISION-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "MODEL-1111111111111111",
+              "authority_kind": "domain_model",
+              "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "path": "docs/domain/model.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "MODELREV-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "ARCH-1111111111111111",
+              "authority_kind": "target_architecture",
+              "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "path": "docs/architecture/model.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ARCHREV-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "authority_kind": "implementation_alignment",
+              "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "path": "docs/engineering/alignment.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ALIGNREV-1111111111111111",
+              "status": "confirmed"
+            }
+          ],
+          "candidate_authorities": [
+            {
+              "adoption_effect": "not_adopted",
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "authority_kind": "implementation_alignment",
+              "path": "docs/engineering/alignment.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ALIGNREV-2222222222222222",
+              "status": "draft",
+              "supersedes_revision_id": "ALIGNREV-1111111111111111"
+            }
+          ],
+          "change_set_id": "AUTHCHANGE-1111111111111111",
+          "changes": [
+            {
+              "authority_kind": "implementation_alignment",
+              "change_id": "AUTHOP-001",
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "operation": "modify",
+              "summary": "更新受管源码快照、刷新目标责任对齐状态并消除已知实现偏离缺口。",
+              "target_ref": "ALIGNMODEL-1111111111111111"
+            }
+          ],
+          "downstream_dispositions": [],
+          "schema_version": "strixnova.authority-change-set.v1",
+          "semantic_content_machine_proven": false,
+          "work_item_id": "WI-20260928-9CA7291C"
+        },
+        "behavior_examples": {
+          "direction.example:DIREX-0718293A4B5C6D7E": {
+            "basis_refs": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "example_id": "DIREX-0718293A4B5C6D7E",
+            "example_sha256": "b96edff429fa847302fa1b4518ea7e316c343844aca6437dab1d4acb05e0c229",
+            "given": [
+              "start=50",
+              "end=20"
+            ],
+            "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+            "target_ref": "direction.example:DIREX-0718293A4B5C6D7E",
+            "then": [
+              "抛出 ValueError"
+            ],
+            "title": "结束刻度小于开始刻度时抛出 ValueError",
+            "when": "调用 duration(50, 20)"
+          },
+          "direction.example:DIREX-E5F60718293A4B5C": {
+            "basis_refs": [
+              "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+            ],
+            "example_id": "DIREX-E5F60718293A4B5C",
+            "example_sha256": "23a14b0f69ce933d1a05eb3fcb43da320ee6672c4364b17de1952534ae6e4f44",
+            "given": [
+              "start=10",
+              "end=60"
+            ],
+            "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+            "target_ref": "direction.example:DIREX-E5F60718293A4B5C",
+            "then": [
+              "返回 50"
+            ],
+            "title": "合法区间保持原有时长",
+            "when": "调用 duration(10, 60)"
+          },
+          "direction.example:DIREX-F60718293A4B5C6D": {
+            "basis_refs": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "example_id": "DIREX-F60718293A4B5C6D",
+            "example_sha256": "dc0b0bd5f007e811ada23ad0b81403796a4b2c505136f1fbc226afa33d5fcda2",
+            "given": [
+              "start=30",
+              "end=30"
+            ],
+            "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+            "target_ref": "direction.example:DIREX-F60718293A4B5C6D",
+            "then": [
+              "抛出 ValueError"
+            ],
+            "title": "结束刻度等于开始刻度时抛出 ValueError",
+            "when": "调用 duration(30, 30)"
+          }
+        },
+        "change_context": {
+          "change_kind": "modify_existing",
+          "formal_implementation": true
+        },
+        "delivery_plan": {
+          "evidence_refs": [
+            "SRC-001",
+            "SRC-002"
+          ],
+          "expected_outcome": "src.py 完成边界校验，tests/test_duration.py 覆盖异常分支，实现对齐更新闭环。",
+          "limitations": [],
+          "repository_order": [
+            "REPO-1111111111111111"
+          ],
+          "rollback_or_recovery": "git checkout 恢复修改。"
+        },
+        "direction_ref": {
+          "direction_version": 3,
+          "work_item_id": "WI-20260928-9CA7291C"
+        },
+        "domain_fact_change_refs": [],
+        "external_observation_provider_plans": [],
+        "governance_profile": {
+          "profile_id": "strixnova-general-software-engineering+POLICY-1111111111111111",
+          "profile_version": "2026-08-23",
+          "project_tailoring": []
+        },
+        "impact_scope": {
+          "affected": [
+            {
+              "dimension": "testing",
+              "evidence_refs": [
+                "SRC-002"
+              ],
+              "reason": "需要为非法区间拒绝分支增加测试断言。"
+            }
+          ],
+          "unaffected": [
+            "user_behavior",
+            "product_scope",
+            "domain",
+            "architecture",
+            "interface",
+            "data",
+            "security_privacy",
+            "quality_performance",
+            "operations_deployment",
+            "compatibility_migration",
+            "documentation_support"
+          ],
+          "unknown": []
+        },
+        "implementation_slices": [
+          {
+            "completion_criteria": [
+              "duration 在 end <= start 时抛出 ValueError，合法输入返回 end - start，测试全部通过，实现对齐刷新完成。"
+            ],
+            "continued_operation_refs": [],
+            "depends_on": [],
+            "implements": [
+              "direction.acceptance:DIRACC-D4E5F60718293A4B"
+            ],
+            "machine_validated": true,
+            "operation_refs": [
+              "operations[0]",
+              "operations[1]",
+              "operations[2]",
+              "operations[3]",
+              "operations[4]",
+              "operations[5]",
+              "operations[6]",
+              "operations[7]"
+            ],
+            "parallel_safe_with": [],
+            "purpose": "修复代码缺陷并刷新实现对齐底账与基线。",
+            "repository_ids": [
+              "REPO-1111111111111111"
+            ],
+            "rollback_or_recovery": "若失败则恢复工作区并检查校验条件。",
+            "schema_version": "strixnova.implementation-slice-plan.v1",
+            "slice_id": "SLICE-001",
+            "source_slice_ref": "implementation_slices[0]",
+            "verification_command_ids": [
+              "VC-001"
+            ]
+          }
+        ],
+        "investigation_ref": "086c446f029c89dcfe8e8a78cba643c83b009064",
+        "method_applications": [],
+        "operations": [
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718",
+              "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+            ],
+            "path": "src.py",
+            "reason": "增加 end <= start 时抛出 ValueError 的前置判断。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-002"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718",
+              "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+            ],
+            "path": "tests/test_duration.py",
+            "reason": "补充 end == start 和 end < start 抛出 ValueError 的断言用例。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "long_lived_artifact": {
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "artifact_type": "domain_alignment"
+            },
+            "path": "docs/engineering/alignment.yaml",
+            "reason": "更新实现对齐根文件。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/source-ownership.yaml",
+            "reason": "刷新源码归属底账散列。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/actual-dependencies.yaml",
+            "reason": "刷新实际关系底账散列。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/target-responsibilities.yaml",
+            "reason": "刷新目标责任底账状态。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/deviations.yaml",
+            "reason": "刷新偏离底账。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/baseline.yaml",
+            "reason": "更新基线指向新的对齐候选。",
+            "repository_id": "REPO-1111111111111111"
+          }
+        ],
+        "owner_view": {
+          "current_decision": "批准实施方案并授权开始实施修复与验证。",
+          "decision_support": {
+            "alternatives": [
+              "在调用方自行防御（不推荐，函数本身仍存在漏洞）"
+            ],
+            "current_problem": "预约区间函数在结束刻度不大于开始刻度时仍计算并返回结果，导致非法预约区间被放行。",
+            "impact": "仅修正 duration 函数在 end <= start 时的错误分支抛出 ValueError，合法输入与签名完全保持不变。",
+            "necessary_questions": [],
+            "next_step": "实施代码修复，运行 pytest 验证，刷新对齐文档并进行实际结果确认。",
+            "no_action_consequence": "非法时间刻度继续返回非预期结果，潜在影响后续调度和预约统计。",
+            "recommendation": "在函数入口处添加前置判断 if end <= start: raise ValueError(...)，并补充测试用例。",
+            "why_it_matters": "非法时间顺序进入业务流程会产生负时长或零时长脏数据，违反领域不变量。"
+          },
+          "engineering_context": {
+            "architecture_responsibilities": "由纯函数模块 src.py 承载区间校验与时长计算职责。",
+            "highest_impact_risks": "无高风险，修改高度局限在纯函数边界内。",
+            "implementation_order": "先修改 src.py，再更新 tests/test_duration.py，执行 pytest 验证后刷新实现对齐文档。",
+            "product_and_domain_change": "不改变既有产品定义和领域模型，本次属于实现层对领域既有不变量的补齐对齐。",
+            "uncertainties": "无未决工程不确定性。",
+            "verification_and_observation": "使用项目虚拟环境中的 python.exe -m pytest 运行测试断言。"
+          },
+          "schema_version": "strixnova.owner-view.v1",
+          "semantic_content_machine_proven": false
+        },
+        "plan_id": "PLAN-EA-20260928-11111111-R1",
+        "repository_scope": {
+          "project_id": "PROJECT-1111111111111111",
+          "repositories": [
+            {
+              "investigation_ref": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "repository_id": "REPO-1111111111111111",
+              "role": "modify",
+              "target_ref": "main"
+            }
+          ]
+        },
+        "schema_version": "strixnova.engineering-plan.v1",
+        "semantic_content_machine_proven": false,
+        "semantic_review": {
+          "checks": [
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "product_to_domain_coverage",
+              "status": "aligned",
+              "summary": "产品能力完整覆盖预约区间校验与非法输入拒绝。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "terminology_authority_rules_invariants",
+              "status": "aligned",
+              "summary": "术语统一为整数刻度、正时长与区间校验不变量。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "domain_to_architecture_disposition",
+              "status": "aligned",
+              "summary": "由单一纯函数模块承载领域事实与不变量。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "plan_and_slice_coverage",
+              "status": "aligned",
+              "summary": "实施切片覆盖代码修改、测试断言与对齐刷新。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "orphan_and_authority_inversion",
+              "status": "aligned",
+              "summary": "无孤儿文件或反向推导，严格按上游到下游顺序。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "scenario_coverage",
+              "status": "aligned",
+              "summary": "覆盖正时长合法场景与小于、等于的阻断场景。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "nonfunctional_and_risk_coverage",
+              "status": "aligned",
+              "summary": "纯函数无外部性能、安全或并发风险。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "evidence_and_claim_boundaries",
+              "status": "aligned",
+              "summary": "严格区分观察源码、断言回执与负责人确认边界。"
+            }
+          ],
+          "findings": [],
+          "question_budget": {
+            "maximum_questions": 5,
+            "questions_asked": 0,
+            "remaining_high_impact_decisions": [],
+            "resolved_decision_refs": []
+          },
+          "review_id": "SEMREVIEW-1111111111111111",
+          "reviewed_refs": [
+            "SRC-001",
+            "SRC-002"
+          ],
+          "schema_version": "strixnova.semantic-review.v1",
+          "semantic_content_machine_proven": false
+        },
+        "trace_refs": [
+          "operations[0]",
+          "operations[1]",
+          "operations[2]",
+          "operations[3]",
+          "operations[4]",
+          "operations[5]",
+          "operations[6]",
+          "operations[7]",
+          "implementation_slices[0]",
+          "impact_scope.affected[0]",
+          "impact_scope.unaffected[0]",
+          "impact_scope.unaffected[1]",
+          "impact_scope.unaffected[2]",
+          "impact_scope.unaffected[3]",
+          "impact_scope.unaffected[4]",
+          "impact_scope.unaffected[5]",
+          "impact_scope.unaffected[6]",
+          "impact_scope.unaffected[7]",
+          "impact_scope.unaffected[8]",
+          "impact_scope.unaffected[9]",
+          "impact_scope.unaffected[10]",
+          "direction.acceptance:DIRACC-D4E5F60718293A4B",
+          "direction.constraint:DIRCON-C3D4E5F60718293A",
+          "direction.requirement:DIRREQ-A1B2C3D4E5F60718",
+          "direction.requirement:DIRREQ-B2C3D4E5F6071829",
+          "delivery_plan",
+          "authority_change_set",
+          "semantic_review",
+          "owner_view"
+        ],
+        "verification_commands": [
+          {
+            "approved_program": {
+              "argument_policy": "exact_plan_only",
+              "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "purpose": "在本隔离工程运行已声明的 pytest 验证。",
+              "resolved_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe"
+            },
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-m",
+              "pytest",
+              "tests/test_duration.py",
+              "-q"
+            ],
+            "case_report": {
+              "adapter": "pytest",
+              "bindings": [
+                {
+                  "example_ref": "direction.example:DIREX-E5F60718293A4B5C",
+                  "test_ids": [
+                    "tests/test_duration.py::test_valid_interval_keeps_its_duration"
+                  ]
+                },
+                {
+                  "example_ref": "direction.example:DIREX-F60718293A4B5C6D",
+                  "test_ids": [
+                    "tests/test_duration.py::test_equal_marks_raise_value_error"
+                  ]
+                },
+                {
+                  "example_ref": "direction.example:DIREX-0718293A4B5C6D7E",
+                  "test_ids": [
+                    "tests/test_duration.py::test_reversed_marks_raise_value_error"
+                  ]
+                }
+              ],
+              "example_fingerprints": {
+                "direction.example:DIREX-0718293A4B5C6D7E": "b96edff429fa847302fa1b4518ea7e316c343844aca6437dab1d4acb05e0c229",
+                "direction.example:DIREX-E5F60718293A4B5C": "23a14b0f69ce933d1a05eb3fcb43da320ee6672c4364b17de1952534ae6e4f44",
+                "direction.example:DIREX-F60718293A4B5C6D": "dc0b0bd5f007e811ada23ad0b81403796a4b2c505136f1fbc226afa33d5fcda2"
+              },
+              "input_paths": [
+                "src.py",
+                "tests/test_duration.py"
+              ],
+              "test_root": "."
+            },
+            "command_id": "VC-001",
+            "covers": [
+              "direction.example:DIREX-E5F60718293A4B5C",
+              "direction.example:DIREX-F60718293A4B5C6D",
+              "direction.example:DIREX-0718293A4B5C6D7E",
+              "direction.constraint:DIRCON-C3D4E5F60718293A"
+            ],
+            "cwd": ".",
+            "optional_timeout": null,
+            "reasons": [
+              "验证合法区间、相等刻度与反序刻度在 pytest 下的真实行为与断言。"
+            ],
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test",
+            "source_command_indexes": [
+              0
+            ]
+          }
+        ],
+        "verification_policy_decision": {
+          "forbidden_agent_program_names": [
+            "aider",
+            "claude",
+            "codex",
+            "cursor",
+            "gemini",
+            "opencode",
+            "windsurf"
+          ],
+          "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+          "plan_binding_required": true,
+          "policy_id": "POLICY-1111111111111111",
+          "policy_revision_id": "POLICYREV-1111111111111111",
+          "schema_version": "strixnova.verification-policy-decision.v1",
+          "source_kind": "project_engineering_policy",
+          "working_directory_policy": "project_or_authorized_worktree_only",
+          "wrapper_policy": "forbidden_unless_exactly_approved"
+        },
+        "verification_targets": [
+          {
+            "child_example_refs": [
+              "direction.example:DIREX-0718293A4B5C6D7E",
+              "direction.example:DIREX-E5F60718293A4B5C",
+              "direction.example:DIREX-F60718293A4B5C6D"
+            ],
+            "command_ids": [],
+            "evidence_refs": [],
+            "method": "examples",
+            "reason": "验收结果由所属例子的实际证据与 Agent 审阅派生。",
+            "target_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B"
+          },
+          {
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.constraint:DIRCON-C3D4E5F60718293A"
+          },
+          {
+            "assertion_review_required": true,
+            "case_bindings": [
+              {
+                "command_id": "VC-001",
+                "test_ids": [
+                  "tests/test_duration.py::test_reversed_marks_raise_value_error"
+                ]
+              }
+            ],
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "example": {
+              "basis_refs": [
+                "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+              ],
+              "example_id": "DIREX-0718293A4B5C6D7E",
+              "example_sha256": "b96edff429fa847302fa1b4518ea7e316c343844aca6437dab1d4acb05e0c229",
+              "given": [
+                "start=50",
+                "end=20"
+              ],
+              "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+              "target_ref": "direction.example:DIREX-0718293A4B5C6D7E",
+              "then": [
+                "抛出 ValueError"
+              ],
+              "title": "结束刻度小于开始刻度时抛出 ValueError",
+              "when": "调用 duration(50, 20)"
+            },
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.example:DIREX-0718293A4B5C6D7E"
+          },
+          {
+            "assertion_review_required": true,
+            "case_bindings": [
+              {
+                "command_id": "VC-001",
+                "test_ids": [
+                  "tests/test_duration.py::test_valid_interval_keeps_its_duration"
+                ]
+              }
+            ],
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "example": {
+              "basis_refs": [
+                "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+              ],
+              "example_id": "DIREX-E5F60718293A4B5C",
+              "example_sha256": "23a14b0f69ce933d1a05eb3fcb43da320ee6672c4364b17de1952534ae6e4f44",
+              "given": [
+                "start=10",
+                "end=60"
+              ],
+              "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+              "target_ref": "direction.example:DIREX-E5F60718293A4B5C",
+              "then": [
+                "返回 50"
+              ],
+              "title": "合法区间保持原有时长",
+              "when": "调用 duration(10, 60)"
+            },
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.example:DIREX-E5F60718293A4B5C"
+          },
+          {
+            "assertion_review_required": true,
+            "case_bindings": [
+              {
+                "command_id": "VC-001",
+                "test_ids": [
+                  "tests/test_duration.py::test_equal_marks_raise_value_error"
+                ]
+              }
+            ],
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "example": {
+              "basis_refs": [
+                "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+              ],
+              "example_id": "DIREX-F60718293A4B5C6D",
+              "example_sha256": "dc0b0bd5f007e811ada23ad0b81403796a4b2c505136f1fbc226afa33d5fcda2",
+              "given": [
+                "start=30",
+                "end=30"
+              ],
+              "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+              "target_ref": "direction.example:DIREX-F60718293A4B5C6D",
+              "then": [
+                "抛出 ValueError"
+              ],
+              "title": "结束刻度等于开始刻度时抛出 ValueError",
+              "when": "调用 duration(30, 30)"
+            },
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.example:DIREX-F60718293A4B5C6D"
+          }
+        ]
+      },
+      "direction_fingerprint": "sha256:f5a2afd114a4ad47b16a8406f8e78c0fa1c4fbb5a5d4905bc7317873d3e8b06a",
+      "plan_fingerprint": "sha256:3e50e03c1a956e1cb89ee7abc6d0f4475d603c367ff6cc9aa3b8cf5b7db82e64",
+      "semantic_sources_changed": false,
+      "owner_accepted_by_this_input": false
+    },
+    {
+      "scenario_kind": "synthetic_unaccepted_direction_revision",
+      "work_item_id": "WI-20260928-9CA7291C",
+      "aggregate_version": 21,
+      "direction_version": 4,
+      "direction_candidate": {
+        "acceptance": [
+          {
+            "acceptance_id": "DIRACC-D4E5F60718293A4B",
+            "behavior": {
+              "applicability": "required",
+              "examples": [
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+                  ],
+                  "example_id": "DIREX-E5F60718293A4B5C",
+                  "given": [
+                    "start=10",
+                    "end=60"
+                  ],
+                  "then": [
+                    "返回 50"
+                  ],
+                  "title": "合法区间保持原有时长",
+                  "when": "调用 duration(10, 60)"
+                },
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+                  ],
+                  "example_id": "DIREX-F60718293A4B5C6D",
+                  "given": [
+                    "start=30",
+                    "end=30"
+                  ],
+                  "then": [
+                    "抛出 ValueError"
+                  ],
+                  "title": "结束刻度等于开始刻度时抛出 ValueError",
+                  "when": "调用 duration(30, 30)"
+                },
+                {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+                  ],
+                  "example_id": "DIREX-0718293A4B5C6D7E",
+                  "given": [
+                    "start=50",
+                    "end=20"
+                  ],
+                  "then": [
+                    "抛出 ValueError"
+                  ],
+                  "title": "结束刻度小于开始刻度时抛出 ValueError",
+                  "when": "调用 duration(50, 20)"
+                },
+                {
+                  "example_id": "DIREX-18293A4B5C6D7E8F",
+                  "title": "恰好上限仍接受",
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-18293A4B5C6D7E8F"
+                  ],
+                  "given": [
+                    "start=20",
+                    "end=500"
+                  ],
+                  "when": "调用duration(20,500)",
+                  "then": [
+                    "返回480"
+                  ]
+                },
+                {
+                  "example_id": "DIREX-293A4B5C6D7E8F90",
+                  "title": "超过上限拒绝",
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-18293A4B5C6D7E8F"
+                  ],
+                  "given": [
+                    "start=20",
+                    "end=501"
+                  ],
+                  "when": "调用duration(20,501)",
+                  "then": [
+                    "抛出ValueError"
+                  ]
+                }
+              ]
+            },
+            "requirement_refs": [
+              "DIRREQ-A1B2C3D4E5F60718",
+              "DIRREQ-B2C3D4E5F6071829",
+              "DIRREQ-18293A4B5C6D7E8F"
+            ],
+            "statement": "结束不晚于开始或正区间长度大于480分钟时抛出ValueError；其余正区间返回end-start。"
+          }
+        ],
+        "constraints": [
+          {
+            "constraint_id": "DIRCON-C3D4E5F60718293A",
+            "statement": "严格保持 duration(start: int, end: int) -> int 函数签名与类型注解不变。"
+          }
+        ],
+        "decision_context": {
+          "assumptions": [],
+          "capability_refs": [],
+          "context_ref": null,
+          "guardrail_dispositions": []
+        },
+        "goal": "在保留区间顺序校验与函数签名的前提下增加单次区间不超过480分钟的候选规则。",
+        "non_goals": [
+          "不引入日期、时区或日历解释，不添加持久化或远程调用服务。"
+        ],
+        "schema_version": "strixnova.direction-decision.v1",
+        "scope": [
+          {
+            "requirement_id": "DIRREQ-A1B2C3D4E5F60718",
+            "statement": "当结束刻度不大于开始刻度时（即 end <= start），抛出 ValueError。"
+          },
+          {
+            "requirement_id": "DIRREQ-B2C3D4E5F6071829",
+            "statement": "合法区间长度不超过480分钟时仍返回 end-start，函数签名不变。"
+          },
+          {
+            "requirement_id": "DIRREQ-18293A4B5C6D7E8F",
+            "statement": "正区间长度大于480分钟时抛出ValueError；恰好480分钟仍接受。"
+          }
+        ],
+        "tradeoffs": [],
+        "work_item_relations": []
+      },
+      "candidate_status": "draft",
+      "accepted_baseline_direction_version": 3,
+      "previous_engineering_plan": {
+        "actual_result_requirements": {
+          "domain_fact_changes": []
+        },
+        "applicable_rules": [
+          {
+            "evidence_refs": [
+              "direction"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "requirement",
+              "acceptance",
+              "constraint"
+            ],
+            "rule_id": "STRIXNOVA-GOV-REQ-001",
+            "source_ids": [
+              "ISO-29148-2018",
+              "ISO-15289-2019"
+            ],
+            "topic": "requirements_and_acceptance",
+            "triggered_by": [
+              "formal_implementation"
+            ]
+          },
+          {
+            "evidence_refs": [
+              "direction"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "operation",
+              "delivery"
+            ],
+            "rule_id": "STRIXNOVA-GOV-LIFE-001",
+            "source_ids": [
+              "ISO-12207-2026"
+            ],
+            "topic": "life_cycle_and_configuration",
+            "triggered_by": [
+              "formal_implementation"
+            ]
+          },
+          {
+            "evidence_refs": [
+              "SRC-002"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "verification"
+            ],
+            "rule_id": "STRIXNOVA-GOV-TEST-001",
+            "source_ids": [
+              "ISO-29119-2-2021",
+              "ISO-25010-2023"
+            ],
+            "topic": "verification_and_testing",
+            "triggered_by": [
+              "impact_scope.testing:affected"
+            ]
+          }
+        ],
+        "assessment_ref": {
+          "assessment_id": "EA-20260928-11111111",
+          "assessment_revision": 1,
+          "work_item_id": "WI-20260928-9CA7291C"
+        },
+        "assurance_band": "A1",
+        "authority_change_set": {
+          "base_authorities": [
+            {
+              "artifact_id": "PRODUCT-1111111111111111",
+              "authority_kind": "product_definition",
+              "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "path": "docs/product/definition.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "REVISION-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "MODEL-1111111111111111",
+              "authority_kind": "domain_model",
+              "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "path": "docs/domain/model.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "MODELREV-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "ARCH-1111111111111111",
+              "authority_kind": "target_architecture",
+              "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "path": "docs/architecture/model.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ARCHREV-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "authority_kind": "implementation_alignment",
+              "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "path": "docs/engineering/alignment.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ALIGNREV-1111111111111111",
+              "status": "confirmed"
+            }
+          ],
+          "candidate_authorities": [
+            {
+              "adoption_effect": "not_adopted",
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "authority_kind": "implementation_alignment",
+              "path": "docs/engineering/alignment.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ALIGNREV-2222222222222222",
+              "status": "draft",
+              "supersedes_revision_id": "ALIGNREV-1111111111111111"
+            }
+          ],
+          "change_set_id": "AUTHCHANGE-1111111111111111",
+          "changes": [
+            {
+              "authority_kind": "implementation_alignment",
+              "change_id": "AUTHOP-001",
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "operation": "modify",
+              "summary": "更新受管源码快照、刷新目标责任对齐状态并消除已知实现偏离缺口。",
+              "target_ref": "ALIGNMODEL-1111111111111111"
+            }
+          ],
+          "downstream_dispositions": [],
+          "schema_version": "strixnova.authority-change-set.v1",
+          "semantic_content_machine_proven": false,
+          "work_item_id": "WI-20260928-9CA7291C"
+        },
+        "behavior_examples": {
+          "direction.example:DIREX-0718293A4B5C6D7E": {
+            "basis_refs": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "example_id": "DIREX-0718293A4B5C6D7E",
+            "example_sha256": "b96edff429fa847302fa1b4518ea7e316c343844aca6437dab1d4acb05e0c229",
+            "given": [
+              "start=50",
+              "end=20"
+            ],
+            "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+            "target_ref": "direction.example:DIREX-0718293A4B5C6D7E",
+            "then": [
+              "抛出 ValueError"
+            ],
+            "title": "结束刻度小于开始刻度时抛出 ValueError",
+            "when": "调用 duration(50, 20)"
+          },
+          "direction.example:DIREX-E5F60718293A4B5C": {
+            "basis_refs": [
+              "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+            ],
+            "example_id": "DIREX-E5F60718293A4B5C",
+            "example_sha256": "23a14b0f69ce933d1a05eb3fcb43da320ee6672c4364b17de1952534ae6e4f44",
+            "given": [
+              "start=10",
+              "end=60"
+            ],
+            "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+            "target_ref": "direction.example:DIREX-E5F60718293A4B5C",
+            "then": [
+              "返回 50"
+            ],
+            "title": "合法区间保持原有时长",
+            "when": "调用 duration(10, 60)"
+          },
+          "direction.example:DIREX-F60718293A4B5C6D": {
+            "basis_refs": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "example_id": "DIREX-F60718293A4B5C6D",
+            "example_sha256": "dc0b0bd5f007e811ada23ad0b81403796a4b2c505136f1fbc226afa33d5fcda2",
+            "given": [
+              "start=30",
+              "end=30"
+            ],
+            "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+            "target_ref": "direction.example:DIREX-F60718293A4B5C6D",
+            "then": [
+              "抛出 ValueError"
+            ],
+            "title": "结束刻度等于开始刻度时抛出 ValueError",
+            "when": "调用 duration(30, 30)"
+          }
+        },
+        "change_context": {
+          "change_kind": "modify_existing",
+          "formal_implementation": true
+        },
+        "delivery_plan": {
+          "evidence_refs": [
+            "SRC-001",
+            "SRC-002"
+          ],
+          "expected_outcome": "src.py 完成边界校验，tests/test_duration.py 覆盖异常分支，实现对齐更新闭环。",
+          "limitations": [],
+          "repository_order": [
+            "REPO-1111111111111111"
+          ],
+          "rollback_or_recovery": "git checkout 恢复修改。"
+        },
+        "direction_ref": {
+          "direction_version": 3,
+          "work_item_id": "WI-20260928-9CA7291C"
+        },
+        "domain_fact_change_refs": [],
+        "external_observation_provider_plans": [],
+        "governance_profile": {
+          "profile_id": "strixnova-general-software-engineering+POLICY-1111111111111111",
+          "profile_version": "2026-08-23",
+          "project_tailoring": []
+        },
+        "impact_scope": {
+          "affected": [
+            {
+              "dimension": "testing",
+              "evidence_refs": [
+                "SRC-002"
+              ],
+              "reason": "需要为非法区间拒绝分支增加测试断言。"
+            }
+          ],
+          "unaffected": [
+            "user_behavior",
+            "product_scope",
+            "domain",
+            "architecture",
+            "interface",
+            "data",
+            "security_privacy",
+            "quality_performance",
+            "operations_deployment",
+            "compatibility_migration",
+            "documentation_support"
+          ],
+          "unknown": []
+        },
+        "implementation_slices": [
+          {
+            "completion_criteria": [
+              "duration 在 end <= start 时抛出 ValueError，合法输入返回 end - start，测试全部通过，实现对齐刷新完成。"
+            ],
+            "continued_operation_refs": [],
+            "depends_on": [],
+            "implements": [
+              "direction.acceptance:DIRACC-D4E5F60718293A4B"
+            ],
+            "machine_validated": true,
+            "operation_refs": [
+              "operations[0]",
+              "operations[1]",
+              "operations[2]",
+              "operations[3]",
+              "operations[4]",
+              "operations[5]",
+              "operations[6]",
+              "operations[7]"
+            ],
+            "parallel_safe_with": [],
+            "purpose": "修复代码缺陷并刷新实现对齐底账与基线。",
+            "repository_ids": [
+              "REPO-1111111111111111"
+            ],
+            "rollback_or_recovery": "若失败则恢复工作区并检查校验条件。",
+            "schema_version": "strixnova.implementation-slice-plan.v1",
+            "slice_id": "SLICE-001",
+            "source_slice_ref": "implementation_slices[0]",
+            "verification_command_ids": [
+              "VC-001"
+            ]
+          }
+        ],
+        "investigation_ref": "086c446f029c89dcfe8e8a78cba643c83b009064",
+        "method_applications": [],
+        "operations": [
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718",
+              "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+            ],
+            "path": "src.py",
+            "reason": "增加 end <= start 时抛出 ValueError 的前置判断。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-002"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718",
+              "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+            ],
+            "path": "tests/test_duration.py",
+            "reason": "补充 end == start 和 end < start 抛出 ValueError 的断言用例。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "long_lived_artifact": {
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "artifact_type": "domain_alignment"
+            },
+            "path": "docs/engineering/alignment.yaml",
+            "reason": "更新实现对齐根文件。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/source-ownership.yaml",
+            "reason": "刷新源码归属底账散列。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/actual-dependencies.yaml",
+            "reason": "刷新实际关系底账散列。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/target-responsibilities.yaml",
+            "reason": "刷新目标责任底账状态。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/deviations.yaml",
+            "reason": "刷新偏离底账。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+            ],
+            "path": "docs/engineering/baseline.yaml",
+            "reason": "更新基线指向新的对齐候选。",
+            "repository_id": "REPO-1111111111111111"
+          }
+        ],
+        "owner_view": {
+          "current_decision": "批准实施方案并授权开始实施修复与验证。",
+          "decision_support": {
+            "alternatives": [
+              "在调用方自行防御（不推荐，函数本身仍存在漏洞）"
+            ],
+            "current_problem": "预约区间函数在结束刻度不大于开始刻度时仍计算并返回结果，导致非法预约区间被放行。",
+            "impact": "仅修正 duration 函数在 end <= start 时的错误分支抛出 ValueError，合法输入与签名完全保持不变。",
+            "necessary_questions": [],
+            "next_step": "实施代码修复，运行 pytest 验证，刷新对齐文档并进行实际结果确认。",
+            "no_action_consequence": "非法时间刻度继续返回非预期结果，潜在影响后续调度和预约统计。",
+            "recommendation": "在函数入口处添加前置判断 if end <= start: raise ValueError(...)，并补充测试用例。",
+            "why_it_matters": "非法时间顺序进入业务流程会产生负时长或零时长脏数据，违反领域不变量。"
+          },
+          "engineering_context": {
+            "architecture_responsibilities": "由纯函数模块 src.py 承载区间校验与时长计算职责。",
+            "highest_impact_risks": "无高风险，修改高度局限在纯函数边界内。",
+            "implementation_order": "先修改 src.py，再更新 tests/test_duration.py，执行 pytest 验证后刷新实现对齐文档。",
+            "product_and_domain_change": "不改变既有产品定义和领域模型，本次属于实现层对领域既有不变量的补齐对齐。",
+            "uncertainties": "无未决工程不确定性。",
+            "verification_and_observation": "使用项目虚拟环境中的 python.exe -m pytest 运行测试断言。"
+          },
+          "schema_version": "strixnova.owner-view.v1",
+          "semantic_content_machine_proven": false
+        },
+        "plan_id": "PLAN-EA-20260928-11111111-R1",
+        "repository_scope": {
+          "project_id": "PROJECT-1111111111111111",
+          "repositories": [
+            {
+              "investigation_ref": "086c446f029c89dcfe8e8a78cba643c83b009064",
+              "repository_id": "REPO-1111111111111111",
+              "role": "modify",
+              "target_ref": "main"
+            }
+          ]
+        },
+        "schema_version": "strixnova.engineering-plan.v1",
+        "semantic_content_machine_proven": false,
+        "semantic_review": {
+          "checks": [
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "product_to_domain_coverage",
+              "status": "aligned",
+              "summary": "产品能力完整覆盖预约区间校验与非法输入拒绝。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "terminology_authority_rules_invariants",
+              "status": "aligned",
+              "summary": "术语统一为整数刻度、正时长与区间校验不变量。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "domain_to_architecture_disposition",
+              "status": "aligned",
+              "summary": "由单一纯函数模块承载领域事实与不变量。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "plan_and_slice_coverage",
+              "status": "aligned",
+              "summary": "实施切片覆盖代码修改、测试断言与对齐刷新。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "orphan_and_authority_inversion",
+              "status": "aligned",
+              "summary": "无孤儿文件或反向推导，严格按上游到下游顺序。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "scenario_coverage",
+              "status": "aligned",
+              "summary": "覆盖正时长合法场景与小于、等于的阻断场景。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "nonfunctional_and_risk_coverage",
+              "status": "aligned",
+              "summary": "纯函数无外部性能、安全或并发风险。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "finding_ids": [],
+              "perspective": "evidence_and_claim_boundaries",
+              "status": "aligned",
+              "summary": "严格区分观察源码、断言回执与负责人确认边界。"
+            }
+          ],
+          "findings": [],
+          "question_budget": {
+            "maximum_questions": 5,
+            "questions_asked": 0,
+            "remaining_high_impact_decisions": [],
+            "resolved_decision_refs": []
+          },
+          "review_id": "SEMREVIEW-1111111111111111",
+          "reviewed_refs": [
+            "SRC-001",
+            "SRC-002"
+          ],
+          "schema_version": "strixnova.semantic-review.v1",
+          "semantic_content_machine_proven": false
+        },
+        "trace_refs": [
+          "operations[0]",
+          "operations[1]",
+          "operations[2]",
+          "operations[3]",
+          "operations[4]",
+          "operations[5]",
+          "operations[6]",
+          "operations[7]",
+          "implementation_slices[0]",
+          "impact_scope.affected[0]",
+          "impact_scope.unaffected[0]",
+          "impact_scope.unaffected[1]",
+          "impact_scope.unaffected[2]",
+          "impact_scope.unaffected[3]",
+          "impact_scope.unaffected[4]",
+          "impact_scope.unaffected[5]",
+          "impact_scope.unaffected[6]",
+          "impact_scope.unaffected[7]",
+          "impact_scope.unaffected[8]",
+          "impact_scope.unaffected[9]",
+          "impact_scope.unaffected[10]",
+          "direction.acceptance:DIRACC-D4E5F60718293A4B",
+          "direction.constraint:DIRCON-C3D4E5F60718293A",
+          "direction.requirement:DIRREQ-A1B2C3D4E5F60718",
+          "direction.requirement:DIRREQ-B2C3D4E5F6071829",
+          "delivery_plan",
+          "authority_change_set",
+          "semantic_review",
+          "owner_view"
+        ],
+        "verification_commands": [
+          {
+            "approved_program": {
+              "argument_policy": "exact_plan_only",
+              "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "purpose": "在本隔离工程运行已声明的 pytest 验证。",
+              "resolved_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe"
+            },
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-m",
+              "pytest",
+              "tests/test_duration.py",
+              "-q"
+            ],
+            "case_report": {
+              "adapter": "pytest",
+              "bindings": [
+                {
+                  "example_ref": "direction.example:DIREX-E5F60718293A4B5C",
+                  "test_ids": [
+                    "tests/test_duration.py::test_valid_interval_keeps_its_duration"
+                  ]
+                },
+                {
+                  "example_ref": "direction.example:DIREX-F60718293A4B5C6D",
+                  "test_ids": [
+                    "tests/test_duration.py::test_equal_marks_raise_value_error"
+                  ]
+                },
+                {
+                  "example_ref": "direction.example:DIREX-0718293A4B5C6D7E",
+                  "test_ids": [
+                    "tests/test_duration.py::test_reversed_marks_raise_value_error"
+                  ]
+                }
+              ],
+              "example_fingerprints": {
+                "direction.example:DIREX-0718293A4B5C6D7E": "b96edff429fa847302fa1b4518ea7e316c343844aca6437dab1d4acb05e0c229",
+                "direction.example:DIREX-E5F60718293A4B5C": "23a14b0f69ce933d1a05eb3fcb43da320ee6672c4364b17de1952534ae6e4f44",
+                "direction.example:DIREX-F60718293A4B5C6D": "dc0b0bd5f007e811ada23ad0b81403796a4b2c505136f1fbc226afa33d5fcda2"
+              },
+              "input_paths": [
+                "src.py",
+                "tests/test_duration.py"
+              ],
+              "test_root": "."
+            },
+            "command_id": "VC-001",
+            "covers": [
+              "direction.example:DIREX-E5F60718293A4B5C",
+              "direction.example:DIREX-F60718293A4B5C6D",
+              "direction.example:DIREX-0718293A4B5C6D7E",
+              "direction.constraint:DIRCON-C3D4E5F60718293A"
+            ],
+            "cwd": ".",
+            "optional_timeout": null,
+            "reasons": [
+              "验证合法区间、相等刻度与反序刻度在 pytest 下的真实行为与断言。"
+            ],
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test",
+            "source_command_indexes": [
+              0
+            ]
+          }
+        ],
+        "verification_policy_decision": {
+          "forbidden_agent_program_names": [
+            "aider",
+            "claude",
+            "codex",
+            "cursor",
+            "gemini",
+            "opencode",
+            "windsurf"
+          ],
+          "observed_commit": "086c446f029c89dcfe8e8a78cba643c83b009064",
+          "plan_binding_required": true,
+          "policy_id": "POLICY-1111111111111111",
+          "policy_revision_id": "POLICYREV-1111111111111111",
+          "schema_version": "strixnova.verification-policy-decision.v1",
+          "source_kind": "project_engineering_policy",
+          "working_directory_policy": "project_or_authorized_worktree_only",
+          "wrapper_policy": "forbidden_unless_exactly_approved"
+        },
+        "verification_targets": [
+          {
+            "child_example_refs": [
+              "direction.example:DIREX-0718293A4B5C6D7E",
+              "direction.example:DIREX-E5F60718293A4B5C",
+              "direction.example:DIREX-F60718293A4B5C6D"
+            ],
+            "command_ids": [],
+            "evidence_refs": [],
+            "method": "examples",
+            "reason": "验收结果由所属例子的实际证据与 Agent 审阅派生。",
+            "target_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B"
+          },
+          {
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.constraint:DIRCON-C3D4E5F60718293A"
+          },
+          {
+            "assertion_review_required": true,
+            "case_bindings": [
+              {
+                "command_id": "VC-001",
+                "test_ids": [
+                  "tests/test_duration.py::test_reversed_marks_raise_value_error"
+                ]
+              }
+            ],
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "example": {
+              "basis_refs": [
+                "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+              ],
+              "example_id": "DIREX-0718293A4B5C6D7E",
+              "example_sha256": "b96edff429fa847302fa1b4518ea7e316c343844aca6437dab1d4acb05e0c229",
+              "given": [
+                "start=50",
+                "end=20"
+              ],
+              "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+              "target_ref": "direction.example:DIREX-0718293A4B5C6D7E",
+              "then": [
+                "抛出 ValueError"
+              ],
+              "title": "结束刻度小于开始刻度时抛出 ValueError",
+              "when": "调用 duration(50, 20)"
+            },
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.example:DIREX-0718293A4B5C6D7E"
+          },
+          {
+            "assertion_review_required": true,
+            "case_bindings": [
+              {
+                "command_id": "VC-001",
+                "test_ids": [
+                  "tests/test_duration.py::test_valid_interval_keeps_its_duration"
+                ]
+              }
+            ],
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "example": {
+              "basis_refs": [
+                "direction.requirement:DIRREQ-B2C3D4E5F6071829"
+              ],
+              "example_id": "DIREX-E5F60718293A4B5C",
+              "example_sha256": "23a14b0f69ce933d1a05eb3fcb43da320ee6672c4364b17de1952534ae6e4f44",
+              "given": [
+                "start=10",
+                "end=60"
+              ],
+              "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+              "target_ref": "direction.example:DIREX-E5F60718293A4B5C",
+              "then": [
+                "返回 50"
+              ],
+              "title": "合法区间保持原有时长",
+              "when": "调用 duration(10, 60)"
+            },
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.example:DIREX-E5F60718293A4B5C"
+          },
+          {
+            "assertion_review_required": true,
+            "case_bindings": [
+              {
+                "command_id": "VC-001",
+                "test_ids": [
+                  "tests/test_duration.py::test_equal_marks_raise_value_error"
+                ]
+              }
+            ],
+            "command_ids": [
+              "VC-001"
+            ],
+            "evidence_refs": [],
+            "example": {
+              "basis_refs": [
+                "direction.requirement:DIRREQ-A1B2C3D4E5F60718"
+              ],
+              "example_id": "DIREX-F60718293A4B5C6D",
+              "example_sha256": "dc0b0bd5f007e811ada23ad0b81403796a4b2c505136f1fbc226afa33d5fcda2",
+              "given": [
+                "start=30",
+                "end=30"
+              ],
+              "parent_acceptance_ref": "direction.acceptance:DIRACC-D4E5F60718293A4B",
+              "target_ref": "direction.example:DIREX-F60718293A4B5C6D",
+              "then": [
+                "抛出 ValueError"
+              ],
+              "title": "结束刻度等于开始刻度时抛出 ValueError",
+              "when": "调用 duration(30, 30)"
+            },
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.example:DIREX-F60718293A4B5C6D"
+          }
+        ]
+      },
+      "engineering_plan_disposition": "原方案尚未为上限规则重评；新行为的实现、覆盖和接受均待完成。",
+      "semantic_sources_changed": true,
+      "owner_accepted_by_this_input": false
+    }
+  ],
+  "synthetic_delta_disclosed": true,
+  "owner_accepted": false,
+  "os_isolation_verified": false,
+  "source_origin_run": "6ea564151824",
+  "phase_timeouts": [
+    420,
+    600
+  ]
+}

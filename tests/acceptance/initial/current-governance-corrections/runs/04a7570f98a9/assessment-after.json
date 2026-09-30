@@ -1,0 +1,800 @@
+{
+  "schema_version": "strixnova.engineering-assessment.v1",
+  "assessment_id": "EA-DEC61550-001",
+  "assessment_revision": 1,
+  "direction_ref": {
+    "work_item_id": "WI-20260929-DEC61550",
+    "direction_version": 4
+  },
+  "investigation_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+  "change_context": {
+    "change_kind": "add_capability",
+    "formal_implementation": true
+  },
+  "repository_scope": {
+    "repositories": [
+      {
+        "repository_id": "REPO-1111111111111111",
+        "role": "modify",
+        "investigation_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+        "target_ref": "main"
+      }
+    ]
+  },
+  "impact_scope": {
+    "affected": [
+      {
+        "dimension": "user_behavior",
+        "reason": "\u65b0\u589e\u6210\u5458\u64a4\u56de\u5f85\u5ba1\u6838\u7533\u8bf7\u7684\u4ea4\u4e92\u80fd\u529b\uff0c\u901a\u8fc7\u672c\u5730\u7ec8\u7aef\u547d\u4ee4\u884c\u5b8c\u6210",
+        "evidence_refs": ["direction", "SRC-001"]
+      },
+      {
+        "dimension": "product_scope",
+        "reason": "\u4ece\u4ec5\u6709\u533a\u95f4\u6821\u9a8c\u6269\u5c55\u5230\u5305\u542b\u7533\u8bf7\u751f\u547d\u5468\u671f\u548c\u6210\u5458\u64a4\u56de\u80fd\u529b",
+        "evidence_refs": ["direction", "SRC-001"]
+      },
+      {
+        "dimension": "domain",
+        "reason": "\u9700\u8981\u5efa\u7acb\u7533\u8bf7\u5b9e\u4f53\u3001\u72b6\u6001\u673a\u3001\u64a4\u56de\u89c4\u5219\u3001\u8eab\u4efd\u4fe1\u4efb\u548c\u5ba1\u8ba1\u7684\u9886\u57df\u6a21\u578b",
+        "evidence_refs": ["direction", "SRC-001"]
+      },
+      {
+        "dimension": "architecture",
+        "reason": "\u4ece\u5355\u51fd\u6570\u6269\u5c55\u5230\u5305\u542b\u7533\u8bf7\u57df\u6a21\u5757\u3001\u6210\u5458\u670d\u52a1\u6a21\u5757\u548c\u7ec8\u7aef\u9002\u914d\u7684\u591a\u6a21\u5757\u7ed3\u6784",
+        "evidence_refs": ["direction", "SRC-001"]
+      },
+      {
+        "dimension": "interface",
+        "reason": "\u65b0\u589e\u64a4\u56de\u547d\u4ee4\u7684\u672c\u5730\u7ec8\u7aefCLI\u63a5\u53e3\u548c\u7533\u8bf7\u72b6\u6001\u67e5\u8be2\u63a5\u53e3",
+        "evidence_refs": ["direction", "SRC-001"]
+      },
+      {
+        "dimension": "data",
+        "reason": "\u9700\u8981\u6301\u4e45\u5316\u7533\u8bf7\u8bb0\u5f55\u3001\u72b6\u6001\u8f6c\u6362\u548c\u5ba1\u8ba1\u65e5\u5fd7",
+        "evidence_refs": ["direction", "SRC-001"]
+      },
+      {
+        "dimension": "security_privacy",
+        "reason": "\u8eab\u4efd\u6765\u81ea\u53ef\u4fe1\u5bbf\u4e3b\u4f1a\u8bdd\uff0c\u9700\u8981\u9a8c\u8bc1\u64cd\u4f5c\u8005\u4e0e\u7533\u8bf7\u6240\u6709\u8005\u5339\u914d\uff0c\u9632\u6b62\u8d8a\u6743\u64a4\u56de",
+        "evidence_refs": ["direction", "SRC-001"]
+      },
+      {
+        "dimension": "testing",
+        "reason": "\u9700\u8981\u4e3a\u64a4\u56de\u884c\u4e3a\u3001\u6743\u9650\u62d2\u7edd\u3001\u5e76\u53d1\u51b2\u7a81\u548c\u5ba1\u8ba1\u5b8c\u6574\u6027\u5efa\u7acb\u6d4b\u8bd5",
+        "evidence_refs": ["direction", "SRC-001"]
+      },
+      {
+        "dimension": "documentation_support",
+        "reason": "\u4fee\u8ba2\u4ea7\u54c1\u5b9a\u4e49\u3001\u9886\u57df\u6a21\u578b\u3001\u67b6\u6784\u548c\u5de5\u7a0b\u653f\u7b56\u7684\u6743\u5a01\u6587\u6863\u4ee5\u53cd\u6620\u64a4\u56de\u80fd\u529b",
+        "evidence_refs": ["direction", "SRC-001"]
+      }
+    ],
+    "unknown": [
+      {
+        "dimension": "quality_performance",
+        "reason": "\u5e76\u53d1\u64a4\u56de\u4e0e\u5ba1\u6279\u7684\u51b2\u7a81\u5904\u7406\u673a\u5236\u5c1a\u672a\u786e\u5b9a\u5177\u4f53\u5b9e\u73b0\u7b56\u7565\uff0c\u6027\u80fd\u7279\u5f81\u5f85\u5b9e\u73b0\u540e\u9a8c\u8bc1",
+        "evidence_refs": ["direction"]
+      }
+    ],
+    "unaffected": [
+      "operations_deployment",
+      "compatibility_migration"
+    ]
+  },
+  "requested_assurance": {
+    "band": "A1",
+    "reason": "\u542b\u65b0\u7684\u7528\u6237\u53ef\u89c1\u884c\u4e3a\u3001\u9886\u57df\u5efa\u6a21\u3001\u591a\u6a21\u5757\u67b6\u6784\u548c\u5b89\u5168\u7ea6\u675f\uff0c\u9700\u8981\u6709\u7ed3\u6784\u5316\u7684\u9a8c\u6536\u548c\u9a8c\u8bc1\uff1b\u4f46\u9879\u76ee\u89c4\u6a21\u5c0f\u3001\u5355\u4ed3\u5e93\u3001\u672c\u5730\u4ea4\u4ed8\uff0c\u4e0d\u9700\u8981A2\u4ee5\u4e0a\u7684\u5916\u90e8\u5ba1\u8ba1"
+  },
+  "source_references": [
+    {
+      "reference_id": "SRC-001",
+      "path": "src.py",
+      "observed_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+      "epistemic_status": "observed",
+      "line_start": 1,
+      "line_end": 5
+    },
+    {
+      "reference_id": "SRC-002",
+      "path": "tests/test_duration.py",
+      "observed_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+      "epistemic_status": "observed",
+      "line_start": 1,
+      "line_end": 10
+    },
+    {
+      "reference_id": "SRC-003",
+      "path": "docs/product/definition.yaml",
+      "observed_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+      "epistemic_status": "observed"
+    },
+    {
+      "reference_id": "SRC-004",
+      "path": "docs/domain/model.yaml",
+      "observed_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+      "epistemic_status": "observed"
+    },
+    {
+      "reference_id": "SRC-005",
+      "path": "docs/architecture/model.yaml",
+      "observed_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+      "epistemic_status": "observed"
+    },
+    {
+      "reference_id": "SRC-006",
+      "path": "docs/engineering/policy.yaml",
+      "observed_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+      "epistemic_status": "observed"
+    },
+    {
+      "reference_id": "SRC-007",
+      "path": "docs/engineering/baseline.yaml",
+      "observed_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+      "epistemic_status": "observed"
+    },
+    {
+      "reference_id": "SRC-008",
+      "path": "docs/engineering/alignment.yaml",
+      "observed_ref": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+      "epistemic_status": "observed"
+    }
+  ],
+  "authority_change_set": {
+    "schema_version": "strixnova.authority-change-set.v1",
+    "change_set_id": "AUTHCHANGE-DEC6155000000001",
+    "work_item_id": "WI-20260929-DEC61550",
+    "base_authorities": [
+      {
+        "authority_kind": "product_definition",
+        "artifact_id": "PRODUCT-1111111111111111",
+        "revision_id": "REVISION-1111111111111111",
+        "path": "docs/product/definition.yaml",
+        "status": "confirmed",
+        "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+      },
+      {
+        "authority_kind": "domain_model",
+        "artifact_id": "MODEL-1111111111111111",
+        "revision_id": "MODELREV-1111111111111111",
+        "path": "docs/domain/model.yaml",
+        "status": "confirmed",
+        "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+      },
+      {
+        "authority_kind": "target_architecture",
+        "artifact_id": "ARCH-1111111111111111",
+        "revision_id": "ARCHREV-1111111111111111",
+        "path": "docs/architecture/model.yaml",
+        "status": "confirmed",
+        "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+      },
+      {
+        "authority_kind": "implementation_alignment",
+        "artifact_id": "ALIGNMODEL-1111111111111111",
+        "revision_id": "ALIGNREV-2222222222222222",
+        "path": "docs/engineering/alignment.yaml",
+        "status": "confirmed",
+        "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+      }
+    ],
+    "candidate_authorities": [
+      {
+        "authority_kind": "product_definition",
+        "artifact_id": "PRODUCT-1111111111111111",
+        "revision_id": "REVISION-3333333333333333",
+        "path": "docs/product/definition.yaml",
+        "status": "draft",
+        "supersedes_revision_id": "REVISION-1111111111111111",
+        "adoption_effect": "not_adopted"
+      },
+      {
+        "authority_kind": "domain_model",
+        "artifact_id": "MODEL-1111111111111111",
+        "revision_id": "MODELREV-3333333333333333",
+        "path": "docs/domain/model.yaml",
+        "status": "draft",
+        "supersedes_revision_id": "MODELREV-1111111111111111",
+        "adoption_effect": "not_adopted"
+      },
+      {
+        "authority_kind": "target_architecture",
+        "artifact_id": "ARCH-1111111111111111",
+        "revision_id": "ARCHREV-3333333333333333",
+        "path": "docs/architecture/model.yaml",
+        "status": "draft",
+        "supersedes_revision_id": "ARCHREV-1111111111111111",
+        "adoption_effect": "not_adopted"
+      },
+      {
+        "authority_kind": "implementation_alignment",
+        "artifact_id": "ALIGNMODEL-1111111111111111",
+        "revision_id": "ALIGNREV-3333333333333333",
+        "path": "docs/engineering/alignment.yaml",
+        "status": "draft",
+        "supersedes_revision_id": "ALIGNREV-2222222222222222",
+        "adoption_effect": "not_adopted"
+      }
+    ],
+    "changes": [
+      {
+        "change_id": "AUTHOP-001",
+        "authority_kind": "product_definition",
+        "operation": "modify",
+        "target_ref": "PRODUCT-1111111111111111",
+        "summary": "\u4ea7\u54c1\u5b9a\u4e49\u65b0\u589e\u64a4\u56de\u80fd\u529b\u7684\u4ea7\u54c1\u63cf\u8ff0\uff0c\u786e\u4fdd\u4e0e\u5df2\u786e\u8ba4\u65b9\u5411\u4e00\u81f4",
+        "evidence_refs": ["direction", "SRC-003"]
+      },
+      {
+        "change_id": "AUTHOP-002",
+        "authority_kind": "domain_model",
+        "operation": "modify",
+        "target_ref": "MODEL-1111111111111111",
+        "summary": "\u9886\u57df\u6a21\u578b\u65b0\u589e\u7533\u8bf7\u5b9e\u4f53\u3001\u72b6\u6001\u673a\u548c\u64a4\u56de\u89c4\u5219\u7684\u9886\u57df\u5b9a\u4e49",
+        "evidence_refs": ["direction", "SRC-004"]
+      },
+      {
+        "change_id": "AUTHOP-003",
+        "authority_kind": "target_architecture",
+        "operation": "modify",
+        "target_ref": "ARCH-1111111111111111",
+        "summary": "\u67b6\u6784\u63cf\u8ff0\u65b0\u589e\u7533\u8bf7\u57df\u3001\u6210\u5458\u670d\u52a1\u548c\u7ec8\u7aef\u9002\u914d\u6a21\u5757\u7684\u804c\u8d23\u5206\u914d",
+        "evidence_refs": ["direction", "SRC-005"]
+      },
+      {
+        "change_id": "AUTHOP-004",
+        "authority_kind": "implementation_alignment",
+        "operation": "modify",
+        "target_ref": "ALIGNMODEL-1111111111111111",
+        "summary": "\u5b9e\u73b0\u5bf9\u9f50\u66f4\u65b0\u6e90\u7801\u5f52\u5c5e\u548c\u76ee\u6807\u804c\u8d23\u4ee5\u53cd\u6620\u65b0\u589e\u6a21\u5757",
+        "evidence_refs": ["direction", "SRC-008"]
+      }
+    ],
+    "downstream_dispositions": [
+      {
+        "source_authority_kind": "product_definition",
+        "target_authority_kind": "domain_model",
+        "disposition": "revise",
+        "reason": "\u4ea7\u54c1\u65b0\u589e\u64a4\u56de\u80fd\u529b\u5fc5\u987b\u5f62\u6210\u65b0\u7684\u9886\u57df\u5019\u9009"
+      },
+      {
+        "source_authority_kind": "product_definition",
+        "target_authority_kind": "target_architecture",
+        "disposition": "revise",
+        "reason": "\u4ea7\u54c1\u65b0\u589e\u64a4\u56de\u80fd\u529b\u5fc5\u987b\u5f62\u6210\u65b0\u7684\u67b6\u6784\u5019\u9009"
+      },
+      {
+        "source_authority_kind": "product_definition",
+        "target_authority_kind": "implementation_alignment",
+        "disposition": "revise",
+        "reason": "\u4ea7\u54c1\u65b0\u589e\u64a4\u56de\u80fd\u529b\u5fc5\u987b\u5f62\u6210\u65b0\u7684\u5b9e\u73b0\u5bf9\u9f50\u5019\u9009"
+      },
+      {
+        "source_authority_kind": "domain_model",
+        "target_authority_kind": "target_architecture",
+        "disposition": "revise",
+        "reason": "\u9886\u57df\u65b0\u589e\u7533\u8bf7\u5b9e\u4f53\u548c\u64a4\u56de\u89c4\u5219\u5fc5\u987b\u5f62\u6210\u65b0\u7684\u67b6\u6784\u5019\u9009"
+      },
+      {
+        "source_authority_kind": "domain_model",
+        "target_authority_kind": "implementation_alignment",
+        "disposition": "revise",
+        "reason": "\u9886\u57df\u65b0\u589e\u7533\u8bf7\u5b9e\u4f53\u548c\u64a4\u56de\u89c4\u5219\u5fc5\u987b\u5f62\u6210\u65b0\u7684\u5b9e\u73b0\u5bf9\u9f50\u5019\u9009"
+      },
+      {
+        "source_authority_kind": "target_architecture",
+        "target_authority_kind": "implementation_alignment",
+        "disposition": "revise",
+        "reason": "\u67b6\u6784\u65b0\u589e\u6a21\u5757\u5fc5\u987b\u5f62\u6210\u65b0\u7684\u5b9e\u73b0\u5bf9\u9f50\u5019\u9009"
+      }
+    ],
+    "semantic_content_machine_proven": false
+  },
+  "alternatives_and_tradeoffs": [
+    {
+      "option": "\u5c06\u64a4\u56de\u903b\u8f91\u76f4\u63a5\u5199\u5165src.py\u540c\u4e00\u6a21\u5757\uff0c\u4fdd\u6301\u5355\u6587\u4ef6\u7ed3\u6784",
+      "disposition": "rejected",
+      "reason": "\u65b9\u5411\u8981\u6c42\u8eab\u4efd\u4fe1\u4efb\u3001\u5ba1\u8ba1\u548c\u5e76\u53d1\u63a7\u5236\uff0c\u8fd9\u4e9b\u804c\u8d23\u4e0e\u7eaf\u533a\u95f4\u8ba1\u7b97\u4e0d\u540c\uff0c\u6df7\u5728\u4e00\u8d77\u4f1a\u8fdd\u53cd\u4fdd\u6301duration\u65e2\u6709\u884c\u4e3a\u7684\u7ea6\u675f",
+      "tradeoffs": "\u5b9e\u73b0\u7b80\u5355\u4f46\u804c\u8d23\u6df7\u6dc6\uff0c\u96be\u4ee5\u72ec\u7acb\u6d4b\u8bd5\u5b89\u5168\u548c\u5ba1\u8ba1\u884c\u4e3a",
+      "evidence_refs": ["direction", "SRC-001"]
+    },
+    {
+      "option": "\u6309\u67b6\u6784\u6a21\u5757\u62c6\u5206\uff1a\u7533\u8bf7\u57df\u6a21\u5757\u3001\u6210\u5458\u670d\u52a1\u6a21\u5757\u3001\u7ec8\u7aef\u9002\u914d\u6a21\u5757\uff0c\u4fdd\u6301src.py\u4e2dduration\u51fd\u6570\u4e0d\u53d8",
+      "disposition": "selected",
+      "reason": "\u4e0e\u65b9\u5411\u4e2d\u7684\u804c\u8d23\u5206\u79bb\u4e00\u81f4\uff0c\u5404\u5c42\u53ef\u72ec\u7acb\u6d4b\u8bd5\u548c\u6f14\u8fdb",
+      "tradeoffs": "\u6587\u4ef6\u66f4\u591a\u4f46\u804c\u8d23\u6e05\u6670",
+      "evidence_refs": ["direction", "SRC-001", "SRC-005"]
+    },
+    {
+      "option": "\u5148\u53ea\u5b9e\u73b0\u5185\u5b58\u4e2d\u7684\u7533\u8bf7\u5b58\u50a8\uff0c\u4e0d\u5f15\u5165\u6570\u636e\u5e93",
+      "disposition": "selected",
+      "reason": "\u65b9\u5411\u672a\u6307\u5b9a\u6301\u4e45\u5316\u6280\u672f\uff0c\u672c\u5730\u7ec8\u7aef\u5de5\u5177\u7684\u6700\u5c0f\u53ef\u884c\u65b9\u6848\u53ef\u4f7f\u7528\u5185\u5b58\u5b57\u5178",
+      "tradeoffs": "\u91cd\u542f\u540e\u6570\u636e\u4e22\u5931\uff0c\u4f46\u8db3\u4ee5\u9a8c\u8bc1\u64a4\u56de\u884c\u4e3a\u6b63\u786e\u6027",
+      "evidence_refs": ["direction"]
+    }
+  ],
+  "design_decisions": [
+    {
+      "statement": "\u7533\u8bf7\u5b9e\u4f53\u4f7f\u7528\u7248\u672c\u53f7\u5b9e\u73b0\u4e50\u89c2\u5e76\u53d1\u63a7\u5236\uff0c\u64a4\u56de\u548c\u5ba1\u6279\u64cd\u4f5c\u5fc5\u987b\u643a\u5e26\u5f53\u524d\u7248\u672c\u53f7\uff0c\u7248\u672c\u4e0d\u5339\u914d\u65f6\u62d2\u7edd\u64cd\u4f5c",
+      "rationale": "\u65b9\u5411\u8981\u6c42\u64a4\u56de\u4e0e\u5ba1\u6279\u5e76\u53d1\u65f6\u53ea\u6709\u4e00\u4e2a\u6210\u529f\uff0c\u4e50\u89c2\u9501\u662f\u5355\u8fdb\u7a0b\u672c\u5730\u5de5\u5177\u4e2d\u6700\u7b80\u5355\u7684\u5e76\u53d1\u63a7\u5236\u65b9\u5f0f",
+      "evidence_refs": ["direction", "SRC-001"]
+    },
+    {
+      "statement": "\u64a4\u56de\u64cd\u4f5c\u7684\u8eab\u4efd\u9a8c\u8bc1\u901a\u8fc7\u6bd4\u8f83\u53ef\u4fe1\u5bbf\u4e3b\u4f1a\u8bdd\u4e2d\u7684\u6210\u5458\u6807\u8bc6\u4e0e\u7533\u8bf7\u8bb0\u5f55\u7684\u7533\u8bf7\u4eba\u6807\u8bc6\u5b8c\u6210",
+      "rationale": "\u65b9\u5411\u8981\u6c42\u8eab\u4efd\u6765\u81ea\u53ef\u4fe1\u5bbf\u4e3b\u4f1a\u8bdd\uff0c\u4e0d\u4fe1\u4efb\u4f20\u5165\u7684\u89d2\u8272\u6216\u6240\u6709\u8005\u5b57\u6bb5",
+      "evidence_refs": ["direction"]
+    },
+    {
+      "statement": "\u5ba1\u8ba1\u8bb0\u5f55\u5305\u542b\u64cd\u4f5c\u8005\u3001\u539f\u72b6\u6001\u3001\u65b0\u72b6\u6001\u3001\u64cd\u4f5c\u8eab\u4efd\u548c\u65f6\u95f4\u6233\uff0c\u4f5c\u4e3a\u4e0d\u53ef\u53d8\u8ffd\u52a0\u65e5\u5fd7\u5b58\u50a8",
+      "rationale": "\u65b9\u5411\u8981\u6c42\u5ba1\u8ba1\u4fdd\u7559\u64cd\u4f5c\u8005\u3001\u539f\u72b6\u6001\u3001\u65b0\u72b6\u6001\u548c\u64cd\u4f5c\u8eab\u4efd\uff0c\u4e0d\u53ef\u53d8\u65e5\u5fd7\u786e\u4fdd\u5ba1\u8ba1\u5b8c\u6574\u6027",
+      "evidence_refs": ["direction"]
+    }
+  ],
+  "risk_assessments": [
+    {
+      "statement": "\u5e76\u53d1\u64a4\u56de\u4e0e\u5ba1\u6279\u7684\u7ade\u4e89\u6761\u4ef6\u53ef\u80fd\u5bfc\u81f4\u4e24\u4e2a\u64cd\u4f5c\u90fd\u8ba4\u4e3a\u81ea\u5df1\u6210\u529f",
+      "likelihood": "medium",
+      "consequence": "high",
+      "reversibility": "moderate",
+      "uncertainty": "medium",
+      "external_assurance_required": false,
+      "mitigation": "\u4f7f\u7528\u7533\u8bf7\u7248\u672c\u53f7\u7684\u4e50\u89c2\u5e76\u53d1\u63a7\u5236\uff0c\u72b6\u6001\u8f6c\u6362\u524d\u68c0\u67e5\u7248\u672c\u53f7\u4e00\u81f4\u6027\uff1b\u6d4b\u8bd5\u4e2d\u6a21\u62df\u5e76\u53d1\u573a\u666f\u9a8c\u8bc1\u53ea\u6709\u4e00\u4e2a\u64cd\u4f5c\u6210\u529f",
+      "evidence_refs": ["direction"]
+    },
+    {
+      "statement": "\u6743\u5a01\u5019\u9009\u4fee\u8ba2\u95f4\u7684\u7ed1\u5b9a\u53ef\u80fd\u4e0d\u4e00\u81f4",
+      "likelihood": "medium",
+      "consequence": "medium",
+      "reversibility": "easy",
+      "uncertainty": "low",
+      "external_assurance_required": false,
+      "mitigation": "\u901a\u8fc7\u8bed\u4e49\u590d\u6838\u7684\u516b\u89c6\u89d2\u68c0\u67e5\u5019\u9009\u95f4\u4e00\u81f4\u6027\uff1b\u6743\u5a01\u5019\u9009\u8d77\u8349\u540e\u7ecf\u8d1f\u8d23\u4eba\u786e\u8ba4\u524d\u53ef\u4fee\u6b63",
+      "evidence_refs": ["SRC-003", "SRC-004", "SRC-005", "SRC-006"]
+    }
+  ],
+  "adr_plans": [
+    {
+      "disposition": "not_required",
+      "reason": "\u9879\u76ee\u89c4\u6a21\u5c0f\uff0c\u67b6\u6784\u51b3\u5b9a\u5df2\u5728\u5de5\u7a0b\u8bc4\u4f30\u7684design_decisions\u4e2d\u8bb0\u5f55\uff0c\u4e0d\u9700\u8981\u72ec\u7acbADR\u6587\u4ef6",
+      "evidence_refs": ["direction", "SRC-005"]
+    }
+  ],
+  "operations": [
+    {
+      "action": "modify",
+      "path": "docs/product/definition.yaml",
+      "reason": "\u4ea7\u54c1\u5b9a\u4e49\u5019\u9009\u4fee\u8ba2\uff0c\u786e\u4fdd\u64a4\u56de\u80fd\u529b\u7684\u4ea7\u54c1\u63cf\u8ff0\u4e0e\u5df2\u786e\u8ba4\u65b9\u5411\u4e00\u81f4",
+      "evidence_refs": ["direction", "SRC-003"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"],
+      "long_lived_artifact": {
+        "artifact_id": "PRODUCT-1111111111111111",
+        "artifact_type": "product_governance"
+      }
+    },
+    {
+      "action": "modify",
+      "path": "docs/domain/model.yaml",
+      "reason": "\u9886\u57df\u6a21\u578b\u5019\u9009\u4fee\u8ba2\uff0c\u5efa\u7acb\u7533\u8bf7\u5b9e\u4f53\u3001\u72b6\u6001\u673a\u548c\u64a4\u56de\u89c4\u5219\u7684\u9886\u57df\u5b9a\u4e49",
+      "evidence_refs": ["direction", "SRC-004"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"],
+      "long_lived_artifact": {
+        "artifact_id": "MODEL-1111111111111111",
+        "artifact_type": "domain_model"
+      }
+    },
+    {
+      "action": "modify",
+      "path": "docs/architecture/model.yaml",
+      "reason": "\u67b6\u6784\u63cf\u8ff0\u5019\u9009\u4fee\u8ba2\uff0c\u660e\u786e\u7533\u8bf7\u57df\u3001\u6210\u5458\u670d\u52a1\u548c\u7ec8\u7aef\u9002\u914d\u6a21\u5757\u7684\u804c\u8d23\u5206\u914d",
+      "evidence_refs": ["direction", "SRC-005"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"],
+      "long_lived_artifact": {
+        "artifact_id": "ARCH-1111111111111111",
+        "artifact_type": "architecture"
+      }
+    },
+    {
+      "action": "modify",
+      "path": "docs/engineering/policy.yaml",
+      "reason": "\u5de5\u7a0b\u653f\u7b56\u5019\u9009\u4fee\u8ba2\uff0c\u786e\u8ba4DDD\u6761\u4ef6\u91c7\u7528\u548c\u9a8c\u8bc1\u7b56\u7565",
+      "evidence_refs": ["direction", "SRC-006"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"],
+      "long_lived_artifact": {
+        "artifact_id": "POLICY-1111111111111111",
+        "artifact_type": "quality_policy"
+      }
+    },
+    {
+      "action": "modify",
+      "path": "docs/engineering/baseline.yaml",
+      "reason": "\u66f4\u65b0\u5de5\u7a0b\u57fa\u7ebf\u7d22\u5f15\uff0c\u7ed1\u5b9a\u65b0\u4fee\u8ba2\u7684\u4e94\u7c7b\u6743\u5a01\u8def\u5f84\u548c\u4fee\u8ba2\u53f7",
+      "evidence_refs": ["direction", "SRC-007"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"]
+    },
+    {
+      "action": "modify",
+      "path": "docs/engineering/alignment.yaml",
+      "reason": "\u7f16\u7801\u524d\u7684\u5b9e\u73b0\u5bf9\u9f50\u8bda\u5b9e\u5feb\u7167\uff0c\u8bb0\u5f55\u5f53\u524d\u6e90\u7801\u4e0e\u76ee\u6807\u67b6\u6784\u7684\u5bf9\u9f50\u72b6\u6001\u548c\u7f3a\u53e3",
+      "evidence_refs": ["direction", "SRC-008"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"],
+      "long_lived_artifact": {
+        "artifact_id": "ALIGNMODEL-1111111111111111",
+        "artifact_type": "domain_alignment"
+      }
+    },
+    {
+      "action": "create",
+      "path": "src/application/__init__.py",
+      "reason": "\u521b\u5efa\u7533\u8bf7\u57df\u6a21\u5757\u5305",
+      "evidence_refs": ["direction", "SRC-001"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001", "direction.requirement:DIRREQ-A000000000000003"]
+    },
+    {
+      "action": "create",
+      "path": "src/application/domain.py",
+      "reason": "\u7533\u8bf7\u5b9e\u4f53\u5b9a\u4e49\u3001\u72b6\u6001\u679a\u4e3e\u3001\u72b6\u6001\u8f6c\u6362\u89c4\u5219\u548c\u64a4\u56de\u4e1a\u52a1\u903b\u8f91",
+      "evidence_refs": ["direction", "SRC-001"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001", "direction.requirement:DIRREQ-A000000000000003", "direction.requirement:DIRREQ-A000000000000004"]
+    },
+    {
+      "action": "create",
+      "path": "src/application/audit.py",
+      "reason": "\u5ba1\u8ba1\u65e5\u5fd7\u8bb0\u5f55\u6a21\u5757\uff0c\u4fdd\u7559\u64cd\u4f5c\u8005\u3001\u539f\u72b6\u6001\u3001\u65b0\u72b6\u6001\u548c\u64cd\u4f5c\u8eab\u4efd",
+      "evidence_refs": ["direction"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000007"]
+    },
+    {
+      "action": "create",
+      "path": "src/application/service.py",
+      "reason": "\u6210\u5458\u670d\u52a1\u5c42\uff0c\u534f\u8c03\u8eab\u4efd\u9a8c\u8bc1\u3001\u72b6\u6001\u68c0\u67e5\u3001\u64a4\u56de\u6267\u884c\u548c\u5ba1\u8ba1\u5199\u5165",
+      "evidence_refs": ["direction", "SRC-001"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001", "direction.requirement:DIRREQ-A000000000000002"]
+    },
+    {
+      "action": "create",
+      "path": "src/cli.py",
+      "reason": "\u672c\u5730\u7ec8\u7aefCLI\u5165\u53e3\uff0c\u89e3\u6790\u64a4\u56de\u547d\u4ee4\u548c\u72b6\u6001\u67e5\u8be2\u547d\u4ee4",
+      "evidence_refs": ["direction"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000009"]
+    },
+    {
+      "action": "create",
+      "path": "tests/test_withdrawal.py",
+      "reason": "\u64a4\u56de\u884c\u4e3a\u7684\u5355\u5143\u6d4b\u8bd5\u548c\u96c6\u6210\u6d4b\u8bd5",
+      "evidence_refs": ["direction", "SRC-002"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001", "direction.requirement:DIRREQ-A000000000000003"]
+    },
+    {
+      "action": "modify",
+      "path": "docs/engineering/source-ownership.yaml",
+      "reason": "\u66f4\u65b0\u6e90\u7801\u5f52\u5c5e\uff0c\u5c06\u65b0\u589e\u7684\u7533\u8bf7\u57df\u548c\u670d\u52a1\u6a21\u5757\u7eb3\u5165\u5b9e\u73b0\u5bf9\u9f50\u7ba1\u7406",
+      "evidence_refs": ["direction", "SRC-008"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"]
+    },
+    {
+      "action": "modify",
+      "path": "docs/engineering/target-responsibilities.yaml",
+      "reason": "\u66f4\u65b0\u76ee\u6807\u804c\u8d23\u6620\u5c04\uff0c\u53cd\u6620\u65b0\u589e\u6a21\u5757\u4e0e\u67b6\u6784\u6a21\u5757\u7684\u5bf9\u5e94\u5173\u7cfb",
+      "evidence_refs": ["direction", "SRC-008"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"]
+    },
+    {
+      "action": "modify",
+      "path": "docs/engineering/actual-dependencies.yaml",
+      "reason": "\u66f4\u65b0\u5b9e\u9645\u4f9d\u8d56\u8bb0\u5f55\uff0c\u53cd\u6620\u65b0\u6a21\u5757\u95f4\u7684\u5bfc\u5165\u5173\u7cfb",
+      "evidence_refs": ["direction", "SRC-008"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"]
+    },
+    {
+      "action": "modify",
+      "path": "docs/engineering/deviations.yaml",
+      "reason": "\u66f4\u65b0\u504f\u5dee\u8bb0\u5f55\uff0c\u53cd\u6620\u7f16\u7801\u540e\u7684\u5b9e\u73b0\u5bf9\u9f50\u72b6\u6001",
+      "evidence_refs": ["direction", "SRC-008"],
+      "implements": ["direction.requirement:DIRREQ-A000000000000001"]
+    }
+  ],
+  "verification_commands": [
+    {
+      "argv": ["D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe", "-m", "pytest", "tests/test_withdrawal.py", "-q"],
+      "cwd": ".",
+      "run_kind": "targeted_test",
+      "covers": [
+        "direction.example:DIREX-A000000000000001",
+        "direction.example:DIREX-A000000000000002",
+        "direction.example:DIREX-A000000000000003",
+        "direction.example:DIREX-A000000000000004",
+        "direction.example:DIREX-A000000000000005",
+        "risk_assessments[0]"
+      ],
+      "reason": "\u9a8c\u8bc1\u64a4\u56de\u884c\u4e3a\u7684\u5168\u90e8\u65b9\u5411\u4f8b\u5b50\uff1a\u672c\u4eba\u64a4\u56de\u6210\u529f\u3001\u4ed6\u4eba\u64a4\u56de\u62d2\u7edd\u3001\u91cd\u590d\u64a4\u56de\u5e42\u7b49\u3001\u5e76\u53d1\u51b2\u7a81\u3001\u54cd\u5e94\u4e22\u5931\u540e\u67e5\u8be2",
+      "case_report": {
+        "adapter": "pytest",
+        "test_root": ".",
+        "input_paths": [
+          "src/application/__init__.py",
+          "src/application/domain.py",
+          "src/application/audit.py",
+          "src/application/service.py",
+          "tests/test_withdrawal.py"
+        ],
+        "bindings": [
+          {
+            "example_ref": "direction.example:DIREX-A000000000000001",
+            "test_ids": ["tests/test_withdrawal.py::test_member_withdraws_own_pending_application"]
+          },
+          {
+            "example_ref": "direction.example:DIREX-A000000000000002",
+            "test_ids": ["tests/test_withdrawal.py::test_withdraw_other_member_application_rejected"]
+          },
+          {
+            "example_ref": "direction.example:DIREX-A000000000000003",
+            "test_ids": ["tests/test_withdrawal.py::test_repeated_withdrawal_idempotent"]
+          },
+          {
+            "example_ref": "direction.example:DIREX-A000000000000004",
+            "test_ids": ["tests/test_withdrawal.py::test_concurrent_withdrawal_and_approval"]
+          },
+          {
+            "example_ref": "direction.example:DIREX-A000000000000005",
+            "test_ids": ["tests/test_withdrawal.py::test_query_actual_status_after_lost_response"]
+          }
+        ]
+      }
+    },
+    {
+      "argv": ["D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe", "-m", "pytest", "tests/test_duration.py", "-q"],
+      "cwd": ".",
+      "run_kind": "targeted_test",
+      "covers": [
+        "direction.constraint:DIRCON-A000000000000001"
+      ],
+      "reason": "\u56de\u5f52\u9a8c\u8bc1duration\u51fd\u6570\u7684\u65e2\u6709\u884c\u4e3a\u4fdd\u6301\u4e0d\u53d8"
+    }
+  ],
+  "verification_reviews": [
+    {
+      "target_ref": "direction.example:DIREX-A000000000000006",
+      "method": "agent_review",
+      "reason": "\u7edf\u4e00\u7533\u8bf7\u8eab\u4efd\u7684\u8de8\u5355\u5143\u4e00\u81f4\u6027\u9700\u8981agent\u5ba1\u67e5\u4ea7\u54c1\u5b9a\u4e49\u548c\u67b6\u6784\u7ea6\u675f\u662f\u5426\u5efa\u7acb\u4e86\u7edf\u4e00\u7684\u7533\u8bf7\u8eab\u4efd",
+      "evidence_refs": ["direction", "SRC-003", "SRC-005"]
+    },
+    {
+      "target_ref": "direction.example:DIREX-A000000000000007",
+      "method": "agent_review",
+      "reason": "\u7ec8\u7aef\u4ea4\u4e92\u754c\u9762\u7684\u5b8c\u6574\u6027\u901a\u8fc7agent\u5ba1\u67e5CLI\u5165\u53e3\u6a21\u5757\u9a8c\u8bc1",
+      "evidence_refs": ["direction"]
+    },
+    {
+      "target_ref": "direction.constraint:DIRCON-A000000000000002",
+      "method": "agent_review",
+      "reason": "\u9996\u6b21\u4fee\u8ba2\u6743\u5a01\u540e\u624d\u80fd\u5b9e\u65bd\u7684\u7ea6\u675f\u901a\u8fc7agent\u5ba1\u67e5\u5207\u7247\u4f9d\u8d56\u548c\u6cbb\u7406\u6d41\u7a0b\u9a8c\u8bc1",
+      "evidence_refs": ["direction"]
+    },
+    {
+      "target_ref": "risk_assessments[1]",
+      "method": "agent_review",
+      "reason": "\u6743\u5a01\u5019\u9009\u95f4\u7684\u7ed1\u5b9a\u4e00\u81f4\u6027\u901a\u8fc7\u8bed\u4e49\u590d\u6838\u7684\u516b\u89c6\u89d2\u68c0\u67e5\u9a8c\u8bc1",
+      "evidence_refs": ["SRC-003", "SRC-004", "SRC-005", "SRC-006"]
+    }
+  ],
+  "semantic_review": {
+    "schema_version": "strixnova.semantic-review.v1",
+    "review_id": "SEMREVIEW-DEC6155000000001",
+    "reviewed_refs": ["direction", "SRC-001", "SRC-003", "SRC-004", "SRC-005", "SRC-006", "SRC-007", "SRC-008"],
+    "checks": [
+      {
+        "perspective": "product_to_domain_coverage",
+        "status": "aligned",
+        "summary": "\u65b9\u5411\u4e2d\u7684\u64a4\u56de\u80fd\u529b\u5728\u9886\u57df\u6a21\u578b\u8349\u7a3f\u4e2d\u6709\u5bf9\u5e94\u7684\u7533\u8bf7\u5b9e\u4f53\u3001\u72b6\u6001\u673a\u548c\u64a4\u56de\u89c4\u5219\u5b9a\u4e49\u3002\u4ea7\u54c1\u5b9a\u4e49\u8349\u7a3f\u7684\u4e09\u9879\u80fd\u529b\u5747\u6709\u9886\u57df\u89e3\u91ca\u3002\u672c\u4e8b\u9879\u53ea\u4ea4\u4ed8\u64a4\u56de\uff0c\u5468\u62a5\u7531\u72ec\u7acb\u4e8b\u9879\u5904\u7406\u3002",
+        "evidence_refs": ["direction", "SRC-003", "SRC-004"],
+        "finding_ids": []
+      },
+      {
+        "perspective": "terminology_authority_rules_invariants",
+        "status": "finding",
+        "summary": "\u64a4\u56de\u4e8b\u9879\u548c\u5468\u62a5\u4e8b\u9879\u5171\u4eab\u7533\u8bf7\u57df\u7684\u6838\u5fc3\u672f\u8bed\uff0c\u65b9\u5411\u5047\u8bbe\u4e2d\u8981\u6c42\u5171\u4eab\u6743\u5a01\u5728\u5b9e\u65bd\u524d\u7edf\u4e00\u5efa\u7acb\u3002\u5f53\u524d\u6743\u5a01\u5019\u9009\u5747\u4e3a\u8349\u7a3f\u72b6\u6001\uff0c\u5171\u4eab\u672f\u8bed\u548c\u89c4\u5219\u9700\u8981\u5728\u9996\u6b21\u6743\u5a01\u786e\u8ba4\u65f6\u7edf\u4e00\u5b9a\u4e49\u3002",
+        "evidence_refs": ["direction", "SRC-003", "SRC-004"],
+        "finding_ids": ["FINDING-001"]
+      },
+      {
+        "perspective": "domain_to_architecture_disposition",
+        "status": "aligned",
+        "summary": "\u9886\u57df\u6a21\u578b\u8349\u7a3f\u4e2d\u7684\u7533\u8bf7\u5b9e\u4f53\u548c\u64a4\u56de\u89c4\u5219\u5728\u67b6\u6784\u8349\u7a3f\u4e2d\u6709\u552f\u4e00\u5904\u7f6e\uff1a\u7533\u8bf7\u57df\u6a21\u5757\u8d1f\u8d23\u5b9e\u4f53\u548c\u72b6\u6001\u673a\uff0c\u6210\u5458\u670d\u52a1\u6a21\u5757\u8d1f\u8d23\u64a4\u56de\u547d\u4ee4\u534f\u8c03\uff0c\u7ec8\u7aef\u9002\u914d\u6a21\u5757\u8d1f\u8d23CLI\u5165\u53e3\u3002\u65e0\u5171\u540c\u8d1f\u8d23\u6216\u60ac\u7a7a\u3002",
+        "evidence_refs": ["direction", "SRC-004", "SRC-005"],
+        "finding_ids": []
+      },
+      {
+        "perspective": "plan_and_slice_coverage",
+        "status": "aligned",
+        "summary": "\u6bcf\u4e2a\u65b9\u5411\u9a8c\u6536\u548c\u7ea6\u675f\u90fd\u6709\u5bf9\u5e94\u7684\u6587\u4ef6\u64cd\u4f5c\u3001\u5207\u7247\u5f52\u5c5e\u3001\u5b8c\u6210\u6761\u4ef6\u548c\u9a8c\u8bc1\u5b89\u6392\u3002\u6cbb\u7406\u5207\u7247\u5904\u7406\u6743\u5a01\u5019\u9009\uff0c\u5b9e\u65bd\u5207\u7247\u5904\u7406\u4e1a\u52a1\u4ee3\u7801\u548c\u6d4b\u8bd5\uff0c\u5bf9\u9f50\u5237\u65b0\u5207\u7247\u66f4\u65b0\u5b9e\u73b0\u5bf9\u9f50\u3002",
+        "evidence_refs": ["direction", "SRC-001"],
+        "finding_ids": []
+      },
+      {
+        "perspective": "orphan_and_authority_inversion",
+        "status": "aligned",
+        "summary": "\u6240\u6709\u6587\u4ef6\u64cd\u4f5c\u90fd\u8ffd\u6eaf\u5230\u65b9\u5411\u9700\u6c42\u3002\u8bbe\u8ba1\u51b3\u5b9a\u6765\u81ea\u65b9\u5411\u7ea6\u675f\u800c\u975e\u4ee3\u7801\u60ef\u4f8b\u3002\u65e0\u5b64\u513f\u6a21\u5757\u6216\u6743\u5a01\u5012\u7f6e\u3002",
+        "evidence_refs": ["direction", "SRC-001"],
+        "finding_ids": []
+      },
+      {
+        "perspective": "scenario_coverage",
+        "status": "aligned",
+        "summary": "\u65b9\u5411\u7684\u4e03\u4e2a\u884c\u4e3a\u4f8b\u5b50\u8986\u76d6\u6b63\u5e38\u64a4\u56de\u3001\u6743\u9650\u62d2\u7edd\u3001\u91cd\u590d\u64a4\u56de\u5e42\u7b49\u3001\u5e76\u53d1\u51b2\u7a81\u3001\u54cd\u5e94\u4e22\u5931\u67e5\u8be2\u3001\u8de8\u5355\u5143\u4e00\u81f4\u548c\u7ec8\u7aef\u4ea4\u4e92\u3002\u9a8c\u8bc1\u547d\u4ee4\u548cagent\u5ba1\u67e5\u8986\u76d6\u5168\u90e8\u573a\u666f\u3002",
+        "evidence_refs": ["direction"],
+        "finding_ids": []
+      },
+      {
+        "perspective": "nonfunctional_and_risk_coverage",
+        "status": "aligned",
+        "summary": "\u5b89\u5168\uff08\u8eab\u4efd\u4fe1\u4efb\uff09\u3001\u5e76\u53d1\uff08\u4e50\u89c2\u9501\uff09\u3001\u5ba1\u8ba1\uff08\u4e0d\u53ef\u53d8\u65e5\u5fd7\uff09\u7684\u98ce\u9669\u5df2\u8bc4\u4f30\u5e76\u6709\u7f13\u89e3\u63aa\u65bd\u3002\u6027\u80fd\u5217\u4e3a\u672a\u77e5\uff0c\u6709\u76f8\u5e94\u7684unknowns_and_limitations\u6761\u76ee\u3002",
+        "evidence_refs": ["direction", "SRC-001"],
+        "finding_ids": []
+      },
+      {
+        "perspective": "evidence_and_claim_boundaries",
+        "status": "aligned",
+        "summary": "\u65b9\u5411\u4e8b\u5b9e\u6765\u81ea\u5df2\u786e\u8ba4\u7684\u65b9\u5411\u8bb0\u5f55\uff0c\u6e90\u7801\u89c2\u5bdf\u6765\u81ea\u8c03\u67e5\u63d0\u4ea4\u7684\u6587\u4ef6\u5185\u5bb9\uff0c\u8bbe\u8ba1\u51b3\u5b9a\u660e\u786e\u6807\u6ce8\u4e3aAgent\u5224\u65ad\u800c\u975e\u8d1f\u8d23\u4eba\u786e\u8ba4\u3002\u672a\u5c06\u8349\u7a3f\u6743\u5a01\u5f53\u4f5c\u5df2\u91c7\u7528\u89c4\u5219\u3002",
+        "evidence_refs": ["direction", "SRC-001", "SRC-003"],
+        "finding_ids": []
+      }
+    ],
+    "findings": [
+      {
+        "finding_id": "FINDING-001",
+        "perspective": "terminology_authority_rules_invariants",
+        "severity": "medium",
+        "status": "open",
+        "locations": ["direction", "SRC-003"],
+        "statement": "\u65b9\u5411\u5047\u8bbe\u64a4\u56de\u4e0e\u5468\u62a5\u5171\u4eab\u7533\u8bf7\u8eab\u4efd\u3001\u72b6\u6001\u542b\u4e49\u548c\u51b3\u5b9a\u6743\uff0c\u5171\u4eab\u6743\u5a01\u987b\u5728\u5b9e\u65bd\u524d\u7edf\u4e00\u5efa\u7acb\u3002\u5f53\u524d\u4ea7\u54c1\u5b9a\u4e49\u548c\u9886\u57df\u6a21\u578b\u8349\u7a3f\u5df2\u5305\u542b\u4e24\u4e2a\u80fd\u529b\uff0c\u4f46\u5b83\u4eec\u7684\u5171\u4eab\u672f\u8bed\u548c\u89c4\u5219\u5b9a\u4e49\u9700\u8981\u5728\u9996\u6b21\u6743\u5a01\u786e\u8ba4\u4e2d\u660e\u786e\u7edf\u4e00\uff0c\u4e0d\u80fd\u5404\u81ea\u89e3\u91ca\u3002",
+        "impact": "\u82e5\u4e24\u4e2a\u4e8b\u9879\u7684\u6743\u5a01\u5019\u9009\u5bf9\u7533\u8bf7\u72b6\u6001\u542b\u4e49\u4e0d\u4e00\u81f4\uff0c\u5b9e\u65bd\u540e\u53ef\u80fd\u51fa\u73b0\u6210\u5458\u64a4\u56de\u6539\u53d8\u7684\u72b6\u6001\u4e0e\u5468\u62a5\u7edf\u8ba1\u7684\u72b6\u6001\u4e0d\u5339\u914d",
+        "recommendation": "\u5728\u9996\u6b21\u6743\u5a01\u786e\u8ba4\u7684\u5019\u9009\u5305\u4e2d\u786e\u4fdd\u7533\u8bf7\u5b9e\u4f53\u3001\u72b6\u6001\u679a\u4e3e\u548c\u72b6\u6001\u8f6c\u6362\u89c4\u5219\u5728\u9886\u57df\u6a21\u578b\u4e2d\u53ea\u6709\u4e00\u4efd\u5b9a\u4e49\uff0c\u4e24\u4e2a\u4e8b\u9879\u7684\u5b9e\u65bd\u90fd\u5f15\u7528\u540c\u4e00\u9886\u57df\u4e8b\u5b9e",
+        "owner_decision_required": false,
+        "decision_refs": [],
+        "resolution": null
+      }
+    ],
+    "question_budget": {
+      "maximum_questions": 5,
+      "questions_asked": 0,
+      "resolved_decision_refs": [],
+      "remaining_high_impact_decisions": []
+    },
+    "semantic_content_machine_proven": false
+  },
+  "unknowns_and_limitations": [
+    {
+      "statement": "\u5e76\u53d1\u64a4\u56de\u4e0e\u5ba1\u6279\u7684\u5177\u4f53\u6027\u80fd\u7279\u5f81\u5c1a\u672a\u9a8c\u8bc1",
+      "impact": "\u672c\u5730\u7ec8\u7aef\u5de5\u5177\u7684\u5e76\u53d1\u5ea6\u9884\u671f\u5f88\u4f4e\uff0c\u5b9e\u9645\u5f71\u54cd\u53ef\u80fd\u5f88\u5c0f\uff0c\u4f46\u65b9\u5411\u660e\u786e\u8981\u6c42\u53ea\u6709\u4e00\u4e2a\u64cd\u4f5c\u6210\u529f",
+      "handling": "\u5b9e\u65bd\u65f6\u7528\u4e50\u89c2\u9501\u5b9e\u73b0\u5e76\u53d1\u63a7\u5236\uff0c\u901a\u8fc7\u6d4b\u8bd5\u6a21\u62df\u5e76\u53d1\u573a\u666f\u9a8c\u8bc1\u6b63\u786e\u6027",
+      "evidence_refs": ["direction"]
+    },
+    {
+      "statement": "\u5468\u62a5\u4e8b\u9879\u65b9\u5411\u5c1a\u672a\u786e\u8ba4\uff0c\u5171\u4eab\u6743\u5a01\u4e2d\u5468\u62a5\u76f8\u5173\u7684\u9886\u57df\u4e8b\u5b9e\u548c\u67b6\u6784\u5904\u7f6e\u53ef\u80fd\u9700\u8981\u4fee\u8ba2",
+      "impact": "\u9996\u6b21\u6743\u5a01\u5019\u9009\u9700\u8981\u9884\u7559\u5468\u62a5\u80fd\u529b\u7684\u4f4d\u7f6e\uff0c\u4f46\u5176\u5177\u4f53\u9886\u57df\u89c4\u5219\u548c\u67b6\u6784\u6a21\u5757\u7559\u5f85\u5468\u62a5\u4e8b\u9879\u65b9\u5411\u786e\u8ba4\u540e\u8865\u5145",
+      "handling": "\u9996\u6b21\u6743\u5a01\u5019\u9009\u4e2d\u5305\u542b\u5468\u62a5\u80fd\u529b\u7684\u9ad8\u5c42\u63cf\u8ff0\uff0c\u4f46\u5177\u4f53\u5b9e\u73b0\u7ea7\u522b\u7684\u9886\u57df\u4e8b\u5b9e\u548c\u67b6\u6784\u6a21\u5757\u7559\u5f85\u5468\u62a5\u4e8b\u9879\u65b9\u5411\u786e\u8ba4\u540e\u8865\u5145\uff1b\u64a4\u56de\u4e8b\u9879\u4e0d\u4f9d\u8d56\u5468\u62a5\u7684\u5177\u4f53\u5b9e\u73b0",
+      "evidence_refs": ["direction", "SRC-003"]
+    }
+  ],
+  "implementation_slices": [
+    {
+      "schema_version": "strixnova.implementation-slice.v1",
+      "slice_id": "SLICE-001",
+      "purpose": "\u6743\u5a01\u5019\u9009\u4fee\u8ba2\uff1a\u5b8c\u6210\u4ea7\u54c1\u5b9a\u4e49\u3001\u9886\u57df\u6a21\u578b\u3001\u76ee\u6807\u67b6\u6784\u3001\u5de5\u7a0b\u653f\u7b56\u3001\u5de5\u7a0b\u57fa\u7ebf\u548c\u5b9e\u73b0\u5bf9\u9f50\u7684\u5019\u9009\u4fee\u8ba2\uff0c\u4f9b\u8d1f\u8d23\u4eba\u7edf\u4e00\u786e\u8ba4",
+      "implements": [
+        "direction.requirement:DIRREQ-A000000000000001",
+        "direction.requirement:DIRREQ-A000000000000008",
+        "direction.constraint:DIRCON-A000000000000002"
+      ],
+      "operation_refs": [
+        "operations[0]",
+        "operations[1]",
+        "operations[2]",
+        "operations[3]",
+        "operations[4]",
+        "operations[5]"
+      ],
+      "depends_on": [],
+      "parallel_safe_with": [],
+      "completion_criteria": [
+        "\u4ea7\u54c1\u5b9a\u4e49\u3001\u9886\u57df\u6a21\u578b\u3001\u76ee\u6807\u67b6\u6784\u3001\u5de5\u7a0b\u653f\u7b56\u548c\u5de5\u7a0b\u57fa\u7ebf\u7684\u5019\u9009\u4fee\u8ba2\u5df2\u5199\u5165\u5bf9\u5e94\u8def\u5f84",
+        "\u5b9e\u73b0\u5bf9\u9f50\u7684\u7f16\u7801\u524d\u8bda\u5b9e\u5feb\u7167\u5df2\u8bb0\u5f55\u5f53\u524d\u7f3a\u53e3"
+      ],
+      "verification_command_refs": [],
+      "rollback_or_recovery": "\u5019\u9009\u6587\u4ef6\u5747\u4e3a\u6cbb\u7406\u6587\u6863\uff0c\u5199\u5165\u5931\u8d25\u65f6\u6062\u590d\u5230\u8c03\u67e5\u63d0\u4ea4\u72b6\u6001\u5373\u53ef"
+    },
+    {
+      "schema_version": "strixnova.implementation-slice.v1",
+      "slice_id": "SLICE-002",
+      "purpose": "\u5b9e\u73b0\u64a4\u56de\u4e1a\u52a1\u6838\u5fc3\uff1a\u521b\u5efa\u7533\u8bf7\u57df\u6a21\u5757\u3001\u5ba1\u8ba1\u6a21\u5757\u3001\u6210\u5458\u670d\u52a1\u6a21\u5757\u548cCLI\u5165\u53e3\uff0c\u4ee5\u53ca\u5bf9\u5e94\u7684\u6d4b\u8bd5",
+      "implements": [
+        "direction.acceptance:DIRACC-A000000000000001",
+        "direction.acceptance:DIRACC-A000000000000002",
+        "direction.acceptance:DIRACC-A000000000000003",
+        "direction.acceptance:DIRACC-A000000000000004",
+        "direction.acceptance:DIRACC-A000000000000005",
+        "direction.acceptance:DIRACC-A000000000000006",
+        "direction.acceptance:DIRACC-A000000000000007"
+      ],
+      "operation_refs": [
+        "operations[6]",
+        "operations[7]",
+        "operations[8]",
+        "operations[9]",
+        "operations[10]",
+        "operations[11]"
+      ],
+      "depends_on": ["SLICE-001"],
+      "parallel_safe_with": [],
+      "completion_criteria": [
+        "\u64a4\u56de\u547d\u4ee4\u901a\u8fc7CLI\u53ef\u6267\u884c",
+        "\u5168\u90e8\u65b9\u5411\u884c\u4e3a\u4f8b\u5b50\u7684\u6d4b\u8bd5\u901a\u8fc7",
+        "duration\u56de\u5f52\u6d4b\u8bd5\u901a\u8fc7"
+      ],
+      "verification_command_refs": [
+        "verification_commands[0]",
+        "verification_commands[1]"
+      ],
+      "rollback_or_recovery": "\u5931\u8d25\u65f6\u4fdd\u7559\u672a\u63d0\u4ea4\u6539\u52a8\u5e76\u4fee\u6b63\u5f53\u524d\u5207\u7247\u5185\u7684\u4e1a\u52a1\u4ee3\u7801\u6216\u6d4b\u8bd5"
+    },
+    {
+      "schema_version": "strixnova.implementation-slice.v1",
+      "slice_id": "SLICE-003",
+      "purpose": "\u7f16\u7801\u540e\u5237\u65b0\u5b9e\u73b0\u5bf9\u9f50\uff1a\u66f4\u65b0\u6e90\u7801\u5f52\u5c5e\u3001\u76ee\u6807\u804c\u8d23\u3001\u5b9e\u9645\u4f9d\u8d56\u548c\u504f\u5dee\u8bb0\u5f55",
+      "implements": [
+        "direction.requirement:DIRREQ-A000000000000001"
+      ],
+      "operation_refs": [
+        "operations[12]",
+        "operations[13]",
+        "operations[14]",
+        "operations[15]"
+      ],
+      "continued_operation_refs": [
+        "operations[5]"
+      ],
+      "depends_on": ["SLICE-002"],
+      "parallel_safe_with": [],
+      "completion_criteria": [
+        "\u5b9e\u73b0\u5bf9\u9f50\u6839\u6587\u4ef6\u548c\u56db\u4efd\u5e95\u8d26\u53cd\u6620\u4e86\u7f16\u7801\u540e\u7684\u771f\u5b9e\u6a21\u5757\u7ed3\u6784\u548c\u4f9d\u8d56\u5173\u7cfb",
+        "\u5de5\u7a0b\u57fa\u7ebf\u7d22\u5f15\u5df2\u66f4\u65b0"
+      ],
+      "verification_command_refs": [],
+      "rollback_or_recovery": "\u5bf9\u9f50\u5237\u65b0\u662f\u89c2\u5bdf\u8bb0\u5f55\uff0c\u5199\u5165\u5931\u8d25\u65f6\u4ece\u7f16\u7801\u540e\u7684\u5de5\u4f5c\u6811\u91cd\u65b0\u751f\u6210\u5373\u53ef"
+    }
+  ],
+  "delivery_plan": {
+    "expected_outcome": "\u6210\u5458\u53ef\u901a\u8fc7\u672c\u5730\u7ec8\u7aef\u64a4\u56de\u672c\u4eba\u5f85\u5ba1\u6838\u7684\u9884\u7ea6\u7533\u8bf7\uff0c\u64a4\u56de\u64cd\u4f5c\u5b89\u5168\u3001\u5e42\u7b49\u3001\u6709\u5b8c\u6574\u5ba1\u8ba1\u8bb0\u5f55\uff0c\u5e76\u53d1\u51b2\u7a81\u65f6\u53ea\u6709\u4e00\u4e2a\u64cd\u4f5c\u6210\u529f",
+    "rollback_or_recovery": "\u6240\u6709\u53d8\u66f4\u5728\u672c\u5730\u5b8c\u6210\uff0cGit\u63d0\u4ea4\u524d\u53ef\u5b8c\u6574\u56de\u9000\uff1b\u63d0\u4ea4\u540e\u53ef\u901a\u8fc7git revert\u6062\u590d",
+    "limitations": [
+      "\u5468\u62a5\u80fd\u529b\u7531\u72ec\u7acb\u4e8b\u9879\u5355\u72ec\u4ea4\u4ed8\uff0c\u672c\u6b21\u4e0d\u5305\u542b",
+      "\u5171\u4eab\u6743\u5a01\u4e2d\u5468\u62a5\u76f8\u5173\u7684\u5177\u4f53\u9886\u57df\u89c4\u5219\u53ef\u80fd\u5728\u5468\u62a5\u4e8b\u9879\u65b9\u5411\u786e\u8ba4\u540e\u9700\u8981\u4fee\u8ba2"
+    ],
+    "evidence_refs": ["direction", "SRC-001"]
+  },
+  "owner_view": {
+    "schema_version": "strixnova.owner-view.v1",
+    "decision_support": {
+      "current_problem": "\u9879\u76ee\u9700\u8981\u4ece\u4ec5\u6709\u533a\u95f4\u6821\u9a8c\u7684\u5355\u51fd\u6570\u6269\u5c55\u5230\u652f\u6301\u6210\u5458\u64a4\u56de\u5f85\u5ba1\u6838\u7533\u8bf7\u7684\u5b8c\u6574\u80fd\u529b\uff0c\u540c\u65f6\u9700\u8981\u4fee\u8ba2\u73b0\u6709\u4ea7\u54c1\u3001\u9886\u57df\u3001\u67b6\u6784\u548c\u5b9e\u73b0\u5bf9\u9f50\u6743\u5a01",
+      "why_it_matters": "\u6ca1\u6709\u7edf\u4e00\u7684\u7533\u8bf7\u57df\u5b9a\u4e49\u548c\u6743\u5a01\u4fee\u8ba2\uff0c\u64a4\u56de\u80fd\u529b\u548c\u540e\u7eed\u5468\u62a5\u80fd\u529b\u53ef\u80fd\u5bf9\u7533\u8bf7\u72b6\u6001\u542b\u4e49\u5404\u81ea\u5b9a\u4e49\uff0c\u5bfc\u81f4\u6570\u636e\u4e0d\u4e00\u81f4\u548c\u5b89\u5168\u6f0f\u6d1e",
+      "impact": "\u4fee\u8ba2\u56db\u7c7b\u6743\u5a01\u5e76\u65b0\u589e\u7533\u8bf7\u57df\u3001\u6210\u5458\u670d\u52a1\u548cCLI\u5165\u53e3\u4e09\u4e2a\u6a21\u5757\u3002\u73b0\u6709\u7684duration\u51fd\u6570\u53ca\u5176\u6d4b\u8bd5\u4fdd\u6301\u4e0d\u53d8\u3002\u9879\u76ee\u4ece\u5355\u6587\u4ef6\u6f14\u8fdb\u4e3a\u591a\u6a21\u5757\u7ed3\u6784\u3002",
+      "recommendation": "\u6309\u4e09\u4e2a\u5207\u7247\u987a\u5e8f\u6267\u884c\uff1a\u5148\u4fee\u8ba2\u6743\u5a01\u5019\u9009\u5e76\u786e\u8ba4\uff0c\u518d\u5b9e\u73b0\u64a4\u56de\u4e1a\u52a1\u4ee3\u7801\u548c\u6d4b\u8bd5\uff0c\u6700\u540e\u5237\u65b0\u5b9e\u73b0\u5bf9\u9f50\u3002\u4f7f\u7528\u4e50\u89c2\u9501\u5904\u7406\u5e76\u53d1\u51b2\u7a81\uff0c\u4f7f\u7528\u4e0d\u53ef\u53d8\u8ffd\u52a0\u65e5\u5fd7\u4fdd\u8bc1\u5ba1\u8ba1\u5b8c\u6574\u3002",
+      "alternatives": [
+        "\u5c06\u64a4\u56de\u903b\u8f91\u76f4\u63a5\u52a0\u5165src.py\uff08\u5df2\u5426\u51b3\uff1a\u8fdd\u53cd\u804c\u8d23\u5206\u79bb\u548cduration\u4fdd\u6301\u4e0d\u53d8\u7684\u7ea6\u675f\uff09",
+        "\u63a8\u8fdf\u6743\u5a01\u4fee\u8ba2\uff0c\u5148\u5199\u4e1a\u52a1\u4ee3\u7801\uff08\u4e0d\u53ef\u884c\uff1a\u65b9\u5411\u7ea6\u675f\u8981\u6c42\u5148\u5b8c\u6210\u6743\u5a01\u4fee\u8ba2\u5e76\u786e\u8ba4\uff09"
+      ],
+      "no_action_consequence": "\u64a4\u56de\u80fd\u529b\u65e0\u6cd5\u4ea4\u4ed8\uff0c\u6210\u5458\u4ecd\u7136\u53ea\u80fd\u7b49\u5f85\u5ba1\u6279\u4eba\u5904\u7406\u5f85\u5ba1\u6838\u7533\u8bf7",
+      "next_step": "\u8d1f\u8d23\u4eba\u5ba1\u9605\u5e76\u786e\u8ba4\u672c\u5de5\u7a0b\u65b9\u6848\u540e\uff0cAgent\u6309\u5207\u7247\u987a\u5e8f\u5f00\u59cb\u5b9e\u65bd\uff1a\u5148\u8d77\u8349\u6743\u5a01\u5019\u9009\u5305\u4f9b\u786e\u8ba4\uff0c\u518d\u7f16\u5199\u4e1a\u52a1\u4ee3\u7801",
+      "necessary_questions": []
+    },
+    "engineering_context": {
+      "product_and_domain_change": "\u4ea7\u54c1\u4ece\u533a\u95f4\u6821\u9a8c\u5de5\u5177\u6269\u5c55\u4e3a\u9884\u7ea6\u7533\u8bf7\u7ba1\u7406\u5de5\u5177\uff0c\u65b0\u589e\u7533\u8bf7\u5b9e\u4f53\u3001\u5f85\u5ba1\u6838/\u5df2\u64a4\u56de/\u5df2\u6279\u51c6\u72b6\u6001\u673a\u3001\u64a4\u56de\u89c4\u5219\u3001\u8eab\u4efd\u4fe1\u4efb\u548c\u5ba1\u8ba1\u65e5\u5fd7\u7684\u9886\u57df\u5b9a\u4e49\u3002\u5468\u62a5\u80fd\u529b\u5728\u4ea7\u54c1\u5b9a\u4e49\u4e2d\u9884\u7559\u4f46\u7531\u72ec\u7acb\u4e8b\u9879\u4ea4\u4ed8\u3002",
+      "architecture_responsibilities": "\u65b0\u589e\u4e09\u4e2a\u6a21\u5757\uff1a\u7533\u8bf7\u57df\u6a21\u5757\u8d1f\u8d23\u5b9e\u4f53\u548c\u72b6\u6001\u673a\uff0c\u6210\u5458\u670d\u52a1\u6a21\u5757\u8d1f\u8d23\u64a4\u56de\u547d\u4ee4\u534f\u8c03\u548c\u8eab\u4efd\u9a8c\u8bc1\uff0cCLI\u5165\u53e3\u8d1f\u8d23\u547d\u4ee4\u89e3\u6790\u3002\u73b0\u6709src.py\u4e2d\u7684duration\u51fd\u6570\u4fdd\u6301\u72ec\u7acb\u3002\u4e24\u4e2a\u5355\u5143\u5171\u7528\u7533\u8bf7\u8eab\u4efd\u548c\u72b6\u6001\u542b\u4e49\u3002",
+      "implementation_order": "SLICE-001 \u6743\u5a01\u5019\u9009\u4fee\u8ba2\uff08\u6cbb\u7406\uff0c\u65e0\u9a8c\u8bc1\u547d\u4ee4\uff09\u2192 SLICE-002 \u64a4\u56de\u4e1a\u52a1\u5b9e\u73b0\u548c\u6d4b\u8bd5\uff08\u542b\u5168\u90e8\u9a8c\u8bc1\u547d\u4ee4\uff09\u2192 SLICE-003 \u5b9e\u73b0\u5bf9\u9f50\u5237\u65b0\uff08\u89c2\u5bdf\u8bb0\u5f55\uff09\u3002\u6743\u5a01\u5019\u9009\u9700\u7ecf\u8d1f\u8d23\u4eba\u786e\u8ba4\u540eSLICE-002\u624d\u5f00\u59cb\u7f16\u7801\u3002",
+      "highest_impact_risks": "\u5e76\u53d1\u64a4\u56de\u4e0e\u5ba1\u6279\u7684\u7ade\u4e89\u6761\u4ef6\uff08\u4e2d\u7b49\u53ef\u80fd\u3001\u9ad8\u540e\u679c\uff09\uff1a\u901a\u8fc7\u4e50\u89c2\u9501\u548c\u6a21\u62df\u5e76\u53d1\u6d4b\u8bd5\u7f13\u89e3\u3002\u6743\u5a01\u5019\u9009\u7ed1\u5b9a\u4e00\u81f4\u6027\uff08\u4e2d\u7b49\u53ef\u80fd\u3001\u4e2d\u7b49\u540e\u679c\uff09\uff1a\u901a\u8fc7\u8bed\u4e49\u590d\u6838\u548c\u786e\u8ba4\u524d\u4fee\u6b63\u7f13\u89e3\u3002",
+      "verification_and_observation": "\u64a4\u56de\u884c\u4e3a\u7684\u4e94\u4e2a\u65b9\u5411\u4f8b\u5b50\u901a\u8fc7pytest\u81ea\u52a8\u6d4b\u8bd5\u8986\u76d6\uff08\u5e26\u9010\u7528\u4f8b\u62a5\u544a\u5173\u8054\uff09\uff0c\u4e24\u4e2a\u901a\u8fc7agent\u5ba1\u67e5\u9a8c\u8bc1\u3002duration\u56de\u5f52\u6d4b\u8bd5\u786e\u4fdd\u65e2\u6709\u884c\u4e3a\u4e0d\u53d8\u3002\u6743\u5a01\u4e00\u81f4\u6027\u901a\u8fc7\u8bed\u4e49\u590d\u6838\u516b\u89c6\u89d2\u68c0\u67e5\u3002",
+      "uncertainties": "\u5e76\u53d1\u63a7\u5236\u7684\u6027\u80fd\u7279\u5f81\u672a\u5b9e\u6d4b\u3002\u5468\u62a5\u4e8b\u9879\u65b9\u5411\u672a\u786e\u8ba4\uff0c\u5171\u4eab\u6743\u5a01\u4e2d\u5468\u62a5\u76f8\u5173\u7684\u5177\u4f53\u9886\u57df\u89c4\u5219\u53ef\u80fd\u540e\u7eed\u53d8\u5316\u3002"
+    },
+    "current_decision": "\u8bf7\u5ba1\u9605\u5e76\u786e\u8ba4\u672c\u5de5\u7a0b\u65b9\u6848\uff1a\u4e09\u5207\u7247\u987a\u5e8f\u5b9e\u65bd\u64a4\u56de\u80fd\u529b\uff0c\u5148\u4fee\u8ba2\u6743\u5a01\u5019\u9009\u5305\u4f9b\u7edf\u4e00\u786e\u8ba4\uff0c\u7136\u540e\u7f16\u5199\u64a4\u56de\u4e1a\u52a1\u4ee3\u7801\u548c\u6d4b\u8bd5\uff0c\u6700\u540e\u5237\u65b0\u5b9e\u73b0\u5bf9\u9f50\u3002",
+    "semantic_content_machine_proven": false
+  }
+}

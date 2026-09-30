@@ -1,0 +1,428 @@
+--- before/skills-cn/strixnova/references/product-discovery.zh-CN.md
++++ after/skills-cn/strixnova/references/product-discovery.zh-CN.md
+@@ -3,6 +3,8 @@
+ 只有产品或功能想法还不足以形成需求、长期权威候选或可命名的 WorkItem（建设事项），已命名事项的产品前提仍不够确定以形成安全方向，用户明确要求头脑风暴或质疑一个想法，或者当前外部事实会实质改变产品决定时，才读取本资料。清楚且边界明确的请求、产品前提仍然有效的已确认方向和纯技术实现问题都跳过它。
+ 
+ ## 先判断是否真的需要发现
++
++本方法不能覆盖事项登记路由。用户已要求开始能够识别具体结果的受管工作时，先用 `strixnova intake` 记录原请求，再提出发现问题。请求可以已经具体，同时业务含义、范围或授权边界仍有缺口；这些问题在返回的方向动作中澄清。只有尚未形成具体事项的愿望或明确的纯讨论请求，才留在 WorkItem 之外。
+ 
+ 向负责人提问前，先检查用户原话、已采用权威、相关项目资料、必要代码和已有证据，再判断：
+ 
+@@ -69,7 +71,7 @@
+ - **变清楚**：不确定性减少，但还不足以决定建设；
+ - **需要实验**：只有真实世界观察才能决定。
+ 
+-不要把负面结果软化成待办功能。负责人否定或搁置想法时，不创建 DirectionDecision（方向决定）、WorkItem 或交付义务。
++不要把负面结果软化成待办功能。负责人否定或搁置想法时，不据此新建 DirectionDecision（方向决定）、WorkItem 或交付义务。受管请求已经有 WorkItem 时，保留登记记录，按负责人的实际决定遵守既有停止或取消合同；不抹掉登记，也不继续实施。
+ 
+ ## 动作四：调查会改变决定的证据
+ 
+--- before/skills-cn/strixnova/strixnova.zh-CN.md
++++ after/skills-cn/strixnova/strixnova.zh-CN.md
+@@ -47,6 +47,10 @@
+ 
+ ## 选择公开入口
+ 
++用户要求开始或管理能够识别具体结果的工作时，先按用户原话执行 `strixnova intake`，再请负责人澄清业务含义。术语、权限、产品边界尚不明确，或状态为 `unadopted_project`，都不推迟登记。登记只记录请求，不代表方向接受、权威采用或实施授权；这些缺口在返回的方向动作中处理。即使需要产品发现或产物形成资料，也遵守此优先顺序。
++
++登记前的产品发现只用于尚不能识别具体事项的愿望，或用户明确要求仅探索讨论、不开始受管工作的情形。
++
+ | 当前请求 | 入口与资料 |
+ |---|---|
+ | 查询状态或区分首次采用与已有项目 | `strixnova status` 默认读取不可变集成版本。独立接受未提交权威候选后、编码前，才用 `--working-tree` 核对候选；它不采用文件。 |
+@@ -175,9 +179,9 @@
+ 
+ - 产品前提不清、用户要求构思或压测，或外部证据会改变产品决定时，读
+   [产品发现](references/product-discovery.zh-CN.md)。明确有界请求、纯技术问题可跳过；
+-  产品发现可以不产生 WorkItem。
++  只有登记前的发现可以不产生 WorkItem；可识别的受管请求在登记后开展发现。
+ - 交付跨度不清、请求 PRD/SPEC 等产物、出现持久跨单元决定或上游纠正时，读
+-  [产物形成](references/artifact-formation.zh-CN.md)。只有产品前提仍不清时才先做发现。
++  [产物形成](references/artifact-formation.zh-CN.md)。只有尚不能识别具体受管事项时才在登记前发现；未明确的业务细节在方向形成中处理。
+ - 可观察行为改变或方案已有例子时，读[行为例子](references/behavior-examples.zh-CN.md)。
+ - 用户请求或方案要求代码审查时，读[代码审查](references/code-review.zh-CN.md)。
+   纯写作不加载代码审查或测试资料。
+--- before/skills-cn/strixnova/sync-manifest.v1.json
++++ after/skills-cn/strixnova/sync-manifest.v1.json
+@@ -1,158 +1,158 @@
+-{
+-  "files": [
+-    {
+-      "review": "strixnova.zh-CN.md",
+-      "source": "SKILL.md",
+-      "source_sha256": "a8f939fd74ccf886ca9e4ed282468196b49e44e7e395ec5c905a2bb628fc0574"
+-    },
+-    {
+-      "review": "agents/openai.zh-CN.md",
+-      "source": "agents/openai.yaml",
+-      "source_sha256": "73c1e72b77e4991dc581803cf97b90a579ef2c81c301d345cea2eb78c34e883c"
+-    },
+-    {
+-      "review": "references/architecture-artifact-contracts.zh-CN.md",
+-      "source": "references/architecture-artifact-contracts.md",
+-      "source_sha256": "b55b0844776eacc262c68f9def1a5223280232e6284dc9e4b438ad2e43b993cc"
+-    },
+-    {
+-      "review": "references/artifact-documentation.zh-CN.md",
+-      "source": "references/artifact-documentation.md",
+-      "source_sha256": "8c79fe7e34f1ba3353480a75116223f7f741f7f358d29e901e8b34e3ef396aec"
+-    },
+-    {
+-      "review": "references/artifact-formation.zh-CN.md",
+-      "source": "references/artifact-formation.md",
+-      "source_sha256": "adfa5c80f01c628531a746f09d7a7bfcdb11f1c73b6131a1f2ad0897d79af0f8"
+-    },
+-    {
+-      "review": "references/authority-authoring.zh-CN.md",
+-      "source": "references/authority-authoring.md",
+-      "source_sha256": "322df678e6a8e8f241f3551f6342baa6f80282e2ed4faaded3fca12fbd6f6ddb"
+-    },
+-    {
+-      "review": "references/behavior-contracts.zh-CN.md",
+-      "source": "references/behavior-contracts.md",
+-      "source_sha256": "82d9ea535aa7065ad69084506826f2a7c7e3634ad070a2036796dc1fabea233e"
+-    },
+-    {
+-      "review": "references/behavior-examples.zh-CN.md",
+-      "source": "references/behavior-examples.md",
+-      "source_sha256": "16d0b734b7c616b181ede74159edaefb6b92119288972eba52d44afe7a9be17c"
+-    },
+-    {
+-      "review": "references/code-review.zh-CN.md",
+-      "source": "references/code-review.md",
+-      "source_sha256": "8c8ca86dc5bf2a2bc732d3c45b4f5b01c30faff7cd38e8d6158bc72749c05450"
+-    },
+-    {
+-      "review": "references/confirmation-and-cancel.zh-CN.md",
+-      "source": "references/confirmation-and-cancel.md",
+-      "source_sha256": "0a202ce100972026f39fd2c817e85b8ec2bff6f9d4c32b9ef1d7855c033e8505"
+-    },
+-    {
+-      "review": "references/cross-artifact-review.zh-CN.md",
+-      "source": "references/cross-artifact-review.md",
+-      "source_sha256": "2f9adfe1af8fd58e19f1ed867f02b93a6779c61d10e927008663c7c3e2a55c57"
+-    },
+-    {
+-      "review": "references/delivery.zh-CN.md",
+-      "source": "references/delivery.md",
+-      "source_sha256": "2a7de28ee2f2846f0f4f09ead1c3454ccb4065b2dcca09b80f6c46784d4e4ba6"
+-    },
+-    {
+-      "review": "references/direction.zh-CN.md",
+-      "source": "references/direction.md",
+-      "source_sha256": "21286fd083dc1a2e8fb09998032923e942aa210c4eb1e50083c03f708c76ed50"
+-    },
+-    {
+-      "review": "references/domain-documentation.zh-CN.md",
+-      "source": "references/domain-documentation.md",
+-      "source_sha256": "fde6ad334447d03028fde3b48f573841014a99018c6c270594415f67be0a63d2"
+-    },
+-    {
+-      "review": "references/domain-fact-contracts.zh-CN.md",
+-      "source": "references/domain-fact-contracts.md",
+-      "source_sha256": "35eecf2b2aa24323ac20eb14d1cb619b320174a1726ca6cd40d0fb5114fd2a55"
+-    },
+-    {
+-      "review": "references/domain-modeling-and-alignment.zh-CN.md",
+-      "source": "references/domain-modeling-and-alignment.md",
+-      "source_sha256": "3fd03b1751ef067519e58722818961eb1429a8e930d9d34aade11f91102e4c30"
+-    },
+-    {
+-      "review": "references/engineering-assessment.zh-CN.md",
+-      "source": "references/engineering-assessment.md",
+-      "source_sha256": "8334ad7d1b5de6711925e178a50c40059fe95b478d0d3f1bccf944e4ec4314a0"
+-    },
+-    {
+-      "review": "references/engineering-methods.zh-CN.md",
+-      "source": "references/engineering-methods.md",
+-      "source_sha256": "23de9aaa563e6fb8a38a3ddce10e0c42e85aceeac2113868f055b0bf9b602337"
+-    },
+-    {
+-      "review": "references/engineering-policy-contracts.zh-CN.md",
+-      "source": "references/engineering-policy-contracts.md",
+-      "source_sha256": "ff3f10c5419d7e804f5472c1285247690cee0cf0a2512ad05ff16743fed0218d"
+-    },
+-    {
+-      "review": "references/follow-ups.zh-CN.md",
+-      "source": "references/follow-ups.md",
+-      "source_sha256": "fafad83649ba48ed22dc47bbc47681bbb046b1eff5918401546165aa6255ff1d"
+-    },
+-    {
+-      "review": "references/history-and-upgrade.zh-CN.md",
+-      "source": "references/history-and-upgrade.md",
+-      "source_sha256": "e93178d699689e6454096851d8a606550fc59a2363b827cd5d5ad96c3c306ed0"
+-    },
+-    {
+-      "review": "references/implementation-alignment-artifact-contracts.zh-CN.md",
+-      "source": "references/implementation-alignment-artifact-contracts.md",
+-      "source_sha256": "909b7267bae561234c86c87c9661c2f3ad1a0681c81b8633e99b920007824f3b"
+-    },
+-    {
+-      "review": "references/implementation-alignment-workflow.zh-CN.md",
+-      "source": "references/implementation-alignment-workflow.md",
+-      "source_sha256": "67fd4a9ede32238f099fe865f20dc07fa2ce2de7420742b20af44d7842847154"
+-    },
+-    {
+-      "review": "references/implementation-practices.zh-CN.md",
+-      "source": "references/implementation-practices.md",
+-      "source_sha256": "ff0c9245973f39570f38d1b96f76fe217069c9f9328dc54e4670551315b28c58"
+-    },
+-    {
+-      "review": "references/prd-authoring.zh-CN.md",
+-      "source": "references/prd-authoring.md",
+-      "source_sha256": "e4a73d36897ade6b85100461561fe5a83031fe4683ba9de07bc86665d2c82f6d"
+-    },
+-    {
+-      "review": "references/product-discovery.zh-CN.md",
+-      "source": "references/product-discovery.md",
+-      "source_sha256": "806118c810f5ee4d74e3da416e6d29f86b24d1ec25962e8744185aae4796a19b"
+-    },
+-    {
+-      "review": "references/replanning.zh-CN.md",
+-      "source": "references/replanning.md",
+-      "source_sha256": "e00c6fb74d89026f8798fe866718a569fedf8b7ae683e757d7be9ab2a9456ba5"
+-    },
+-    {
+-      "review": "references/spec-authoring.zh-CN.md",
+-      "source": "references/spec-authoring.md",
+-      "source_sha256": "f9352b9d9732cda51a1544f357edd058ff77ed02592c8e8161dd4512dc9c2b8c"
+-    },
+-    {
+-      "review": "references/ux-design.zh-CN.md",
+-      "source": "references/ux-design.md",
+-      "source_sha256": "e11781aee4d87aaf1367c86733e48b5bbff6450504dfcf6eddfcf64e377ef643"
+-    },
+-    {
+-      "review": "references/verification.zh-CN.md",
+-      "source": "references/verification.md",
+-      "source_sha256": "29e07e783c217172191913a596fb390e3e5551c70d5653791501dd8d5e717da4"
+-    }
+-  ],
+-  "review_root": "skills-cn/strixnova",
+-  "schema_version": "strixnova.skill-cn-sync-manifest.v1",
+-  "semantic_translation_machine_proven": false,
+-  "source_root": "strixnova/src/strixnova/resources/agent-skill/strixnova"
+-}
++{
++  "files": [
++    {
++      "review": "strixnova.zh-CN.md",
++      "source": "SKILL.md",
++      "source_sha256": "9be977051221e8dbc1459cb953497c137322d8e22fd05fe1c0a36fd360d8d52b"
++    },
++    {
++      "review": "agents/openai.zh-CN.md",
++      "source": "agents/openai.yaml",
++      "source_sha256": "73c1e72b77e4991dc581803cf97b90a579ef2c81c301d345cea2eb78c34e883c"
++    },
++    {
++      "review": "references/architecture-artifact-contracts.zh-CN.md",
++      "source": "references/architecture-artifact-contracts.md",
++      "source_sha256": "b55b0844776eacc262c68f9def1a5223280232e6284dc9e4b438ad2e43b993cc"
++    },
++    {
++      "review": "references/artifact-documentation.zh-CN.md",
++      "source": "references/artifact-documentation.md",
++      "source_sha256": "8c79fe7e34f1ba3353480a75116223f7f741f7f358d29e901e8b34e3ef396aec"
++    },
++    {
++      "review": "references/artifact-formation.zh-CN.md",
++      "source": "references/artifact-formation.md",
++      "source_sha256": "adfa5c80f01c628531a746f09d7a7bfcdb11f1c73b6131a1f2ad0897d79af0f8"
++    },
++    {
++      "review": "references/authority-authoring.zh-CN.md",
++      "source": "references/authority-authoring.md",
++      "source_sha256": "322df678e6a8e8f241f3551f6342baa6f80282e2ed4faaded3fca12fbd6f6ddb"
++    },
++    {
++      "review": "references/behavior-contracts.zh-CN.md",
++      "source": "references/behavior-contracts.md",
++      "source_sha256": "82d9ea535aa7065ad69084506826f2a7c7e3634ad070a2036796dc1fabea233e"
++    },
++    {
++      "review": "references/behavior-examples.zh-CN.md",
++      "source": "references/behavior-examples.md",
++      "source_sha256": "16d0b734b7c616b181ede74159edaefb6b92119288972eba52d44afe7a9be17c"
++    },
++    {
++      "review": "references/code-review.zh-CN.md",
++      "source": "references/code-review.md",
++      "source_sha256": "8c8ca86dc5bf2a2bc732d3c45b4f5b01c30faff7cd38e8d6158bc72749c05450"
++    },
++    {
++      "review": "references/confirmation-and-cancel.zh-CN.md",
++      "source": "references/confirmation-and-cancel.md",
++      "source_sha256": "0a202ce100972026f39fd2c817e85b8ec2bff6f9d4c32b9ef1d7855c033e8505"
++    },
++    {
++      "review": "references/cross-artifact-review.zh-CN.md",
++      "source": "references/cross-artifact-review.md",
++      "source_sha256": "2f9adfe1af8fd58e19f1ed867f02b93a6779c61d10e927008663c7c3e2a55c57"
++    },
++    {
++      "review": "references/delivery.zh-CN.md",
++      "source": "references/delivery.md",
++      "source_sha256": "2a7de28ee2f2846f0f4f09ead1c3454ccb4065b2dcca09b80f6c46784d4e4ba6"
++    },
++    {
++      "review": "references/direction.zh-CN.md",
++      "source": "references/direction.md",
++      "source_sha256": "21286fd083dc1a2e8fb09998032923e942aa210c4eb1e50083c03f708c76ed50"
++    },
++    {
++      "review": "references/domain-documentation.zh-CN.md",
++      "source": "references/domain-documentation.md",
++      "source_sha256": "fde6ad334447d03028fde3b48f573841014a99018c6c270594415f67be0a63d2"
++    },
++    {
++      "review": "references/domain-fact-contracts.zh-CN.md",
++      "source": "references/domain-fact-contracts.md",
++      "source_sha256": "35eecf2b2aa24323ac20eb14d1cb619b320174a1726ca6cd40d0fb5114fd2a55"
++    },
++    {
++      "review": "references/domain-modeling-and-alignment.zh-CN.md",
++      "source": "references/domain-modeling-and-alignment.md",
++      "source_sha256": "3fd03b1751ef067519e58722818961eb1429a8e930d9d34aade11f91102e4c30"
++    },
++    {
++      "review": "references/engineering-assessment.zh-CN.md",
++      "source": "references/engineering-assessment.md",
++      "source_sha256": "8334ad7d1b5de6711925e178a50c40059fe95b478d0d3f1bccf944e4ec4314a0"
++    },
++    {
++      "review": "references/engineering-methods.zh-CN.md",
++      "source": "references/engineering-methods.md",
++      "source_sha256": "23de9aaa563e6fb8a38a3ddce10e0c42e85aceeac2113868f055b0bf9b602337"
++    },
++    {
++      "review": "references/engineering-policy-contracts.zh-CN.md",
++      "source": "references/engineering-policy-contracts.md",
++      "source_sha256": "ff3f10c5419d7e804f5472c1285247690cee0cf0a2512ad05ff16743fed0218d"
++    },
++    {
++      "review": "references/follow-ups.zh-CN.md",
++      "source": "references/follow-ups.md",
++      "source_sha256": "fafad83649ba48ed22dc47bbc47681bbb046b1eff5918401546165aa6255ff1d"
++    },
++    {
++      "review": "references/history-and-upgrade.zh-CN.md",
++      "source": "references/history-and-upgrade.md",
++      "source_sha256": "e93178d699689e6454096851d8a606550fc59a2363b827cd5d5ad96c3c306ed0"
++    },
++    {
++      "review": "references/implementation-alignment-artifact-contracts.zh-CN.md",
++      "source": "references/implementation-alignment-artifact-contracts.md",
++      "source_sha256": "909b7267bae561234c86c87c9661c2f3ad1a0681c81b8633e99b920007824f3b"
++    },
++    {
++      "review": "references/implementation-alignment-workflow.zh-CN.md",
++      "source": "references/implementation-alignment-workflow.md",
++      "source_sha256": "67fd4a9ede32238f099fe865f20dc07fa2ce2de7420742b20af44d7842847154"
++    },
++    {
++      "review": "references/implementation-practices.zh-CN.md",
++      "source": "references/implementation-practices.md",
++      "source_sha256": "ff0c9245973f39570f38d1b96f76fe217069c9f9328dc54e4670551315b28c58"
++    },
++    {
++      "review": "references/prd-authoring.zh-CN.md",
++      "source": "references/prd-authoring.md",
++      "source_sha256": "e4a73d36897ade6b85100461561fe5a83031fe4683ba9de07bc86665d2c82f6d"
++    },
++    {
++      "review": "references/product-discovery.zh-CN.md",
++      "source": "references/product-discovery.md",
++      "source_sha256": "62b5c7f2afb923f832d574239ecc041389dc7dca549be1f62c98652ad9e19447"
++    },
++    {
++      "review": "references/replanning.zh-CN.md",
++      "source": "references/replanning.md",
++      "source_sha256": "e00c6fb74d89026f8798fe866718a569fedf8b7ae683e757d7be9ab2a9456ba5"
++    },
++    {
++      "review": "references/spec-authoring.zh-CN.md",
++      "source": "references/spec-authoring.md",
++      "source_sha256": "f9352b9d9732cda51a1544f357edd058ff77ed02592c8e8161dd4512dc9c2b8c"
++    },
++    {
++      "review": "references/ux-design.zh-CN.md",
++      "source": "references/ux-design.md",
++      "source_sha256": "e11781aee4d87aaf1367c86733e48b5bbff6450504dfcf6eddfcf64e377ef643"
++    },
++    {
++      "review": "references/verification.zh-CN.md",
++      "source": "references/verification.md",
++      "source_sha256": "29e07e783c217172191913a596fb390e3e5551c70d5653791501dd8d5e717da4"
++    }
++  ],
++  "review_root": "skills-cn/strixnova",
++  "schema_version": "strixnova.skill-cn-sync-manifest.v1",
++  "semantic_translation_machine_proven": false,
++  "source_root": "strixnova/src/strixnova/resources/agent-skill/strixnova"
++}
+--- before/strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md
++++ after/strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md
+@@ -104,6 +104,17 @@
+ 
+ ## Choose the public route
+ 
++For a request to start or manage identifiable work, run `strixnova intake`
++from the user's original request before asking the owner to resolve its
++business meaning. Unknown terms, permissions, product boundaries, or an
++`unadopted_project` status do not postpone intake. Intake records the request;
++it does not accept a direction, adopt authority, or authorize implementation.
++Resolve those gaps in the returned direction action. This priority also applies
++when the discovery or artifact-formation references are needed.
++
++Pre-intake discovery is for a wish with no identifiable concrete matter, or an
++explicit request only to explore or discuss without starting managed work.
++
+ | Current request | Route and relevant guidance |
+ |---|---|
+ | Inspect project status or distinguish first adoption from an adopted project | `strixnova status` reads the immutable integrated version. Use `--working-tree` only for the independently accepted, uncommitted authority candidate before coding. It does not adopt that candidate. |
+@@ -241,11 +252,13 @@
+ - Read [product-discovery.md](references/product-discovery.md) for an unclear
+   product premise, requested brainstorming or challenge, or external evidence
+   that could change the product decision. Skip it for a clear bounded request
+-  or a purely technical question. Product discovery may end without a WorkItem.
++  or a purely technical question. Only pre-intake discovery may end without a
++  WorkItem; discovery for an identifiable managed request happens after intake.
+ - Read [artifact-formation.md](references/artifact-formation.md) when delivery
+   span is unclear, a PRD/SPEC or similar artifact is requested, a durable
+   cross-unit choice is emerging, or an upstream correction affects downstream
+-  work. Use discovery first only when the product premise is still unclear.
++  work. Use discovery before intake only when no concrete managed matter can
++  yet be identified; unresolved business details belong to direction formation.
+ - Read [behavior-examples.md](references/behavior-examples.md) for an observable
+   behavior change or a plan containing examples.
+ - Read [code-review.md](references/code-review.md) for requested or plan-required
+--- before/strixnova/src/strixnova/resources/agent-skill/strixnova/references/product-discovery.md
++++ after/strixnova/src/strixnova/resources/agent-skill/strixnova/references/product-discovery.md
+@@ -10,6 +10,13 @@
+ remains valid, or a purely technical implementation question.
+ 
+ ## First decide whether discovery is needed
++
++This method does not override the intake route. If the user has asked to start
++an identifiable managed result, record that request with `strixnova intake`
++before asking discovery questions. The request can be concrete while its
++business meaning, scope or authorization boundaries still need clarification;
++resolve these within the returned direction action. Only an unformed wish or
++an explicit discussion-only request stays outside a WorkItem.
+ 
+ Before asking the owner anything, inspect the user's original words, adopted
+ authorities, relevant project material, necessary code, and evidence already
+@@ -108,7 +115,10 @@
+ - **experiment needed** — only real-world observation can decide.
+ 
+ Do not soften a negative result into a feature backlog. If the owner rejects or
+-parks the idea, do not create a DirectionDecision, WorkItem, or delivery duty.
++parks the idea, do not create a new DirectionDecision, WorkItem, or delivery
++duty from it. If a managed request already has a WorkItem, preserve its record
++and follow the existing stop or cancellation contract for the actual owner
++decision; do not erase the intake or continue implementation.
+ 
+ ## Action 4: investigate decision-changing evidence
+ 

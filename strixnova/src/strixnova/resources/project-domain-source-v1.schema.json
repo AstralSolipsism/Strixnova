@@ -1,0 +1,921 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-domain-source.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model_id",
+    "model_revision_id",
+    "source_id",
+    "scope_fact_ids",
+    "facts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-domain-source.v1"
+    },
+    "model_id": {
+      "$ref": "#/$defs/model_id"
+    },
+    "model_revision_id": {
+      "$ref": "#/$defs/model_revision_id"
+    },
+    "source_id": {
+      "$ref": "#/$defs/source_id"
+    },
+    "scope_fact_ids": {
+      "$ref": "#/$defs/fact_id_list"
+    },
+    "facts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/fact"
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "optional_text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "model_id": {
+      "type": "string",
+      "pattern": "^MODEL-[0-9A-F]{16}$"
+    },
+    "model_revision_id": {
+      "type": "string",
+      "pattern": "^MODELREV-[0-9A-F]{16}$"
+    },
+    "source_id": {
+      "type": "string",
+      "pattern": "^SRC-[0-9A-F]{16}$"
+    },
+    "fact_id": {
+      "type": "string",
+      "pattern": "^FACT-[0-9A-F]{16}$"
+    },
+    "capability_id": {
+      "type": "string",
+      "pattern": "^CAPABILITY-[0-9A-F]{16}$"
+    },
+    "fact_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/fact_id"
+      }
+    },
+    "required_fact_id_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/fact_id"
+      }
+    },
+    "capability_id_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/capability_id"
+      }
+    },
+    "kind": {
+      "enum": [
+        "actor",
+        "product_capability",
+        "domain_scenario",
+        "domain_entity",
+        "value_object",
+        "lifecycle",
+        "domain_event",
+        "domain_rule",
+        "domain_invariant",
+        "decision_authority",
+        "bounded_context",
+        "context_relationship",
+        "external_system",
+        "term"
+      ]
+    },
+    "active_fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "status",
+        "title",
+        "kind",
+        "product_capability_ids",
+        "scope_fact_ids",
+        "dependency_fact_ids",
+        "content"
+      ],
+      "properties": {
+        "fact_id": {
+          "$ref": "#/$defs/fact_id"
+        },
+        "status": {
+          "enum": [
+            "candidate",
+            "draft",
+            "ready_for_confirmation",
+            "confirmed"
+          ]
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "kind": {
+          "$ref": "#/$defs/kind"
+        },
+        "product_capability_ids": {
+          "$ref": "#/$defs/capability_id_list"
+        },
+        "scope_fact_ids": {
+          "$ref": "#/$defs/fact_id_list"
+        },
+        "dependency_fact_ids": {
+          "$ref": "#/$defs/fact_id_list"
+        },
+        "content": {
+          "type": "object"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "actor"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/actor_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "product_capability"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/product_capability_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "domain_scenario"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/domain_scenario_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "domain_entity"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/domain_entity_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "value_object"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/value_object_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "lifecycle"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/lifecycle_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "domain_event"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/domain_event_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "domain_rule"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/domain_rule_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "domain_invariant"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/domain_invariant_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "decision_authority"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/decision_authority_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "bounded_context"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/bounded_context_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "context_relationship"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/context_relationship_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "external_system"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/external_system_content"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "term"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content": {
+                "$ref": "#/$defs/term_content"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "tombstone_fact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "fact_id",
+        "status",
+        "title",
+        "kind",
+        "product_capability_ids",
+        "scope_fact_ids",
+        "dependency_fact_ids",
+        "lineage",
+        "retirement_reason"
+      ],
+      "properties": {
+        "fact_id": {
+          "$ref": "#/$defs/fact_id"
+        },
+        "status": {
+          "enum": [
+            "superseded",
+            "retired"
+          ]
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "kind": {
+          "$ref": "#/$defs/kind"
+        },
+        "product_capability_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/capability_id"
+          }
+        },
+        "scope_fact_ids": {
+          "$ref": "#/$defs/fact_id_list"
+        },
+        "dependency_fact_ids": {
+          "$ref": "#/$defs/fact_id_list"
+        },
+        "lineage": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/lineage"
+          }
+        },
+        "retirement_reason": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "superseded"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "lineage": {
+                "minItems": 1
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "lineage": {
+                "maxItems": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "fact": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/active_fact"
+        },
+        {
+          "$ref": "#/$defs/tombstone_fact"
+        }
+      ]
+    },
+    "lineage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relation",
+        "target_fact_id"
+      ],
+      "properties": {
+        "relation": {
+          "enum": [
+            "superseded_by",
+            "split_into",
+            "merged_into"
+          ]
+        },
+        "target_fact_id": {
+          "$ref": "#/$defs/fact_id"
+        }
+      }
+    },
+    "actor_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "responsibilities",
+        "not_responsible_for"
+      ],
+      "properties": {
+        "role": {
+          "$ref": "#/$defs/text"
+        },
+        "responsibilities": {
+          "$ref": "#/$defs/text_list"
+        },
+        "not_responsible_for": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "scenario_requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_type",
+        "applicability",
+        "reason"
+      ],
+      "properties": {
+        "scenario_type": {
+          "enum": [
+            "normal",
+            "blocking",
+            "correction",
+            "cancellation"
+          ]
+        },
+        "applicability": {
+          "enum": [
+            "required",
+            "not_applicable"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "product_capability_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "definition",
+        "primary_actor_fact_ids",
+        "supporting_actor_fact_ids",
+        "scenario_requirements"
+      ],
+      "properties": {
+        "definition": {
+          "$ref": "#/$defs/text"
+        },
+        "primary_actor_fact_ids": {
+          "$ref": "#/$defs/required_fact_id_list"
+        },
+        "supporting_actor_fact_ids": {
+          "$ref": "#/$defs/fact_id_list"
+        },
+        "scenario_requirements": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/scenario_requirement"
+          }
+        }
+      }
+    },
+    "domain_scenario_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scenario_type",
+        "capability_fact_id",
+        "actor_fact_ids",
+        "preconditions",
+        "trigger",
+        "steps",
+        "outcome",
+        "postconditions"
+      ],
+      "properties": {
+        "scenario_type": {
+          "enum": [
+            "normal",
+            "blocking",
+            "correction",
+            "cancellation"
+          ]
+        },
+        "capability_fact_id": {
+          "$ref": "#/$defs/fact_id"
+        },
+        "actor_fact_ids": {
+          "$ref": "#/$defs/required_fact_id_list"
+        },
+        "preconditions": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "trigger": {
+          "$ref": "#/$defs/text"
+        },
+        "steps": {
+          "$ref": "#/$defs/text_list"
+        },
+        "outcome": {
+          "$ref": "#/$defs/text"
+        },
+        "postconditions": {
+          "$ref": "#/$defs/optional_text_list"
+        }
+      }
+    },
+    "domain_entity_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identity",
+        "responsibilities",
+        "lifecycle_fact_id"
+      ],
+      "properties": {
+        "identity": {
+          "$ref": "#/$defs/text"
+        },
+        "responsibilities": {
+          "$ref": "#/$defs/text_list"
+        },
+        "lifecycle_fact_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/fact_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "value_component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "meaning"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "meaning": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "value_object_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meaning",
+        "components",
+        "invariants"
+      ],
+      "properties": {
+        "meaning": {
+          "$ref": "#/$defs/text"
+        },
+        "components": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/value_component"
+          }
+        },
+        "invariants": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "lifecycle_state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "meaning"
+      ],
+      "properties": {
+        "state": {
+          "$ref": "#/$defs/text"
+        },
+        "meaning": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "lifecycle_transition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from_state",
+        "to_state",
+        "trigger",
+        "guards",
+        "resulting_event_fact_ids"
+      ],
+      "properties": {
+        "from_state": {
+          "$ref": "#/$defs/text"
+        },
+        "to_state": {
+          "$ref": "#/$defs/text"
+        },
+        "trigger": {
+          "$ref": "#/$defs/text"
+        },
+        "guards": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "resulting_event_fact_ids": {
+          "$ref": "#/$defs/fact_id_list"
+        }
+      }
+    },
+    "lifecycle_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject_fact_id",
+        "states",
+        "transitions"
+      ],
+      "properties": {
+        "subject_fact_id": {
+          "$ref": "#/$defs/fact_id"
+        },
+        "states": {
+          "type": "array",
+          "minItems": 2,
+          "items": {
+            "$ref": "#/$defs/lifecycle_state"
+          }
+        },
+        "transitions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/lifecycle_transition"
+          }
+        }
+      }
+    },
+    "domain_event_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "meaning",
+        "occurs_when",
+        "subject_fact_ids",
+        "information"
+      ],
+      "properties": {
+        "meaning": {
+          "$ref": "#/$defs/text"
+        },
+        "occurs_when": {
+          "$ref": "#/$defs/text"
+        },
+        "subject_fact_ids": {
+          "$ref": "#/$defs/required_fact_id_list"
+        },
+        "information": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "domain_rule_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "applies_when"
+      ],
+      "properties": {
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "applies_when": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "domain_invariant_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "protected_fact_ids"
+      ],
+      "properties": {
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "protected_fact_ids": {
+          "$ref": "#/$defs/required_fact_id_list"
+        }
+      }
+    },
+    "decision_authority_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision",
+        "authority_actor_fact_id",
+        "candidate_provider_actor_fact_ids",
+        "non_authority_actor_fact_ids"
+      ],
+      "properties": {
+        "decision": {
+          "$ref": "#/$defs/text"
+        },
+        "authority_actor_fact_id": {
+          "$ref": "#/$defs/fact_id"
+        },
+        "candidate_provider_actor_fact_ids": {
+          "$ref": "#/$defs/fact_id_list"
+        },
+        "non_authority_actor_fact_ids": {
+          "$ref": "#/$defs/fact_id_list"
+        }
+      }
+    },
+    "bounded_context_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "responsibility",
+        "decisions",
+        "excluded_responsibilities"
+      ],
+      "properties": {
+        "responsibility": {
+          "$ref": "#/$defs/text"
+        },
+        "decisions": {
+          "$ref": "#/$defs/text_list"
+        },
+        "excluded_responsibilities": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "context_relationship_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "from_context_fact_id",
+        "to_context_fact_id",
+        "relationship_type",
+        "contract"
+      ],
+      "properties": {
+        "from_context_fact_id": {
+          "$ref": "#/$defs/fact_id"
+        },
+        "to_context_fact_id": {
+          "$ref": "#/$defs/fact_id"
+        },
+        "relationship_type": {
+          "$ref": "#/$defs/text"
+        },
+        "contract": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "external_system_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "responsibility",
+        "provides_facts",
+        "does_not_decide"
+      ],
+      "properties": {
+        "responsibility": {
+          "$ref": "#/$defs/text"
+        },
+        "provides_facts": {
+          "$ref": "#/$defs/text_list"
+        },
+        "does_not_decide": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "term_content": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "term",
+        "definition"
+      ],
+      "properties": {
+        "term": {
+          "$ref": "#/$defs/text"
+        },
+        "definition": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

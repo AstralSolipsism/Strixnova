@@ -1,0 +1,72 @@
+# 已记录工作的查询与 Strixnova 维护
+
+本文件供中文审阅，正式运行说明来自随包英文资料。
+
+## 首次安装
+
+使用对应离线包的 README 和 `install.ps1` 或 `install.py`。Windows x64、Python 3.12 和 Git 是使用前提。安装器核对分发包后建立隔离受管环境，并安装锁定依赖；不向系统 Python 安装，不修改 PATH、宿主设置、插件、hooks 或模型凭证。
+
+安装根与业务项目互不包含，每个安装根只属于一个项目。使用返回的 `runtime.entrypoint`、`runtime.python_path` 和 `runtime.skill_path`。相同运行组合可重试；不同运行选择，或已有数据但尚无对应运行选择的项目，需要显式维护。安装不创建 WorkItem，也不采用项目权威。
+
+仅用 `--skills-dir` 指定 Skill 目录，替换必须使用 `--replace-skill` 并保留备份。按宿主自身机制重新加载。`host_loaded_verified=false` 表示复制文件尚不能证明实际加载。业务项目的权威应根据其自身需求形成，不复制 Strixnova 自己的工程文档。
+
+## 读取已记录的工作
+
+`strixnova history` 独立于 `strixnova next`。它读取已记录事实，不用今天的工程规则重新解释记录，不推进事项，也不初始化不存在的数据库。当前声明格式中的进行中、已完成和已取消事项均可查询。
+
+```text
+strixnova history --project-dir <project> --query <title-text> --limit 25
+strixnova history --project-dir <project> --state completed --state cancelled
+strixnova history --project-dir <project> --work-item-id <ID>
+strixnova history --project-dir <project> --work-item-id <ID> --record result --record delivery
+```
+
+`--query` 对标题作字面查询；`--since` 包含边界，`--until` 不包含边界，未写时区按 UTC 解释。`--limit` 为 1–100。续页使用返回的 `next_cursor`，并保持过滤条件和页大小不变。快照变化后重新查询，不拼接不同修订的分页结果。
+
+| 记录 | 含义 |
+| --- | --- |
+| `request` | 原始请求与标题 |
+| `result` | 保存的结果、接受情况、已被替代交付和取消情况 |
+| `decisions` | 已记录的方向、工程方案和负责人决定 |
+| `candidates` | 已展示候选及其记录处分 |
+| `events` | 原始事件引用 |
+| `verifications` | 回执引用，包括失败和未运行项目 |
+| `delivery` | 本地 Git 交付与精确提交的可用性 |
+| `artifacts` | 绑定本轮结果交付事件的长期引用 |
+| `relations` | 已声明的事项关系 |
+
+读取明细时复制返回的 `record_ref`，包括 `event:<sequence>`、`candidate:<sequence>`、`verification:<receipt-id>` 和 `artifact:<index>`；集合续页分别进行。原始输出使用 `output:<receipt-id>:stdout`、`output:<receipt-id>:stderr` 或 `output:<receipt-id>:cases`。`--offset` 与 `--bytes` 指定范围，每次最多 1 MiB。内容变化后不能随意拼接偏移范围，应使用返回的续页信息。精确字节以 base64 提供，展示文本不等于逐字节副本；该接口不接受任意文件路径。
+
+向负责人说明请求、接受、交付、验证分别发生了什么，以及还有哪些证据可用。区分草稿、拒绝、取消和已被替代结果。文件或 Git 对象缺失不抹去记录；散列不一致与文件不存在也不同。`unanchored` 表示没有执行时摘要能够证明原始字节，不能称为已验证证据。
+
+候选与决定只来自写入时记录的规范化事实。候选事件缺少这些事实属于不完整数据。不能用当前解析器重新推断决定，不能借用另一轮结果的最终提交，也不能用今天工作树中的文件代替记录提交中的产物。
+
+## 维护 Strixnova 自身
+
+`strixnova upgrade` 为一个明确项目维护程序、随包 Skill 和已有数据，只接受当前声明的数据格式，不转换不支持的格式。业务应用发布或部署属于 `strixnova activity`。维护不需要创建 WorkItem，也不能扫描其他项目或启动后台更新程序。
+
+初始 Authority、活动库和证据格式各为 v1。事项修订、格式版本、软件版本、程序构建散列与 Skill 散列是不同身份；开发版本字符串相同，不证明内容相同。
+
+1. 使用精确入口读取 `strixnova upgrade runtime`。更换安装时，确定目标 wheel、本地锁定依赖目录、来源 Python 和位于项目外的专属安装根。
+2. 运行 `strixnova upgrade check --project-dir <project> --target-wheel <wheel> --installation-root <installation> --source-python <source-python> --builder-python <builder-python> --wheelhouse <wheelhouse>`。安装记录已明确来源时可省略来源选择。不带安装选项时只检查当前调用方下的数据，不能证明程序已经升级。预检只读。
+3. 说明精确项目、来源与目标身份、保护内容、维护影响和阻断项。沿用已取得的具体授权，只补齐尚缺的重要决定；切换前收口未结束操作。不能通过编辑格式标记绕过拒绝。
+4. 将返回的 `upgrade` 对象原样保存为 UTF-8 JSON 文件，再运行 `strixnova upgrade apply --project-dir <project> --input @plan.json`。维护准备目标环境、等待写入结束、备份一致数据、核对副本，并逐项记录切换。来源事实变化时重新预检，不修改失效计划凑出匹配。
+5. 读取结果，必要时运行 `strixnova upgrade status --project-dir <project> --upgrade-id <ID>`。通过 `strixnova upgrade run --project-dir <project> --installation-root <installation> -- history --work-item-id <ID>` 调用选定入口。新会话或重新加载后使用其精确配套 Skill；如实说明 `host_reload_required`，文件一致不证明宿主已加载。
+
+准备好的 venv 已位于最终位置，不能搬动。依赖来自目标锁及明确的本地 wheel 目录；安装失败保留此前运行组合。维护使用 `strixnova upgrade validate` 实际调用目标入口再开放项目，其有界试读不能授权业务写入。`aborted` 表示没有替换目标数据；操作可能只解除了自身临时保护并保留后来的事实。应查看失败原因并重新预检。
+
+## 恢复中断的维护
+
+先读取状态并复制精确升级身份。仅在 `recovery_modes` 提供相应模式时，使用 `strixnova upgrade recover --project-dir <project> --upgrade-id <ID> --mode resume`。`--mode restore` 在安全条件满足时恢复已核对的原运行组合；重复恢复仍绑定同一操作。
+
+不能删除维护标记、备份、数据库附属文件或中间文件来解除阻断。进程已退出不等于维护完成。`.strixnova/artifacts/maintenance/<upgrade-ID>/` 保护部分切换，不属于可随意重建的缓存。恢复必须拒绝覆盖新的业务事实、证据或受保护文件变化。文件被占用、磁盘满、数据库损坏、备份缺失或散列变化，都不授权初始化空项目，也不能据此声称恢复程序就恢复了数据。
+
+## 收口没有结束记录的执行
+
+受管写入和安装准备先保存开始记录。进程退出但没有结束记录时仍未收口；锁释放或父进程消失不证明所有子进程已经停止。`cleanup_failed` 与 `verification_execution_unclosed` 要求调查，不能编造回执或立即重跑命令。
+
+先读取 `strixnova upgrade operations --project-dir <project>`，调查具体执行和副作用，再读取 `strixnova upgrade stop-evidence-contract`。将对应操作记录返回的 `stop_evidence_scope` 原样用于真实外部停止证据，通过 `strixnova upgrade recover-operation --project-dir <project> --operation-id <operation-ID> --input @stop-evidence.json` 提交。
+
+恢复保留开始记录与证据，不重放命令、不制造测试结果、不接受工程语义。程序核对绑定和文件完整性，`external_truth_machine_proven` 仍为 false。证据不足时继续保留未收口状态；尚未建立业务数据库时中断的 venv/pip 准备同样遵守该规则。
+
+事项副作用沿用[恢复已记录副作用](replanning.zh-CN.md#resume-a-recorded-effect)中的原仓库与意图。运行时维护使用上方独立入口。

@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-domain-model.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "model_id",
+    "revision",
+    "product_definition_ref",
+    "title",
+    "purpose",
+    "root_collection_paths",
+    "unresolved_decisions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-domain-model.v1"
+    },
+    "model_id": {
+      "$ref": "#/$defs/model_id"
+    },
+    "revision": {
+      "$ref": "#/$defs/revision"
+    },
+    "product_definition_ref": {
+      "$ref": "#/$defs/product_definition_ref"
+    },
+    "title": {
+      "$ref": "#/$defs/text"
+    },
+    "purpose": {
+      "$ref": "#/$defs/text"
+    },
+    "root_collection_paths": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/yaml_path"
+      }
+    },
+    "unresolved_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unresolved_decision"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "revision": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "ready_for_confirmation",
+                  "confirmed"
+                ]
+              }
+            }
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "unresolved_decisions": {
+            "maxItems": 0
+          }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "model_id": {
+      "type": "string",
+      "pattern": "^MODEL-[0-9A-F]{16}$"
+    },
+    "model_revision_id": {
+      "type": "string",
+      "pattern": "^MODELREV-[0-9A-F]{16}$"
+    },
+    "product_id": {
+      "type": "string",
+      "pattern": "^PRODUCT-[0-9A-F]{16}$"
+    },
+    "product_revision_id": {
+      "type": "string",
+      "pattern": "^REVISION-[0-9A-F]{16}$"
+    },
+    "owner_id": {
+      "type": "string",
+      "pattern": "^OWNER-[0-9A-F]{16}$"
+    },
+    "decision_id": {
+      "type": "string",
+      "pattern": "^DECISION-[0-9A-F]{16}$"
+    },
+    "yaml_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!.*\\\\)(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!\\.git(?:/|$))(?!\\.strixnova(?:/|$)).+\\.ya?ml$"
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revision_id",
+        "status",
+        "supersedes_revision_id",
+        "confirmed_by_owner_id",
+        "confirmed_on"
+      ],
+      "properties": {
+        "revision_id": {
+          "$ref": "#/$defs/model_revision_id"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "ready_for_confirmation",
+            "confirmed",
+            "superseded"
+          ]
+        },
+        "supersedes_revision_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/model_revision_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_by_owner_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/owner_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_on": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "confirmed_by_owner_id": {
+                "$ref": "#/$defs/owner_id"
+              },
+              "confirmed_on": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "confirmed_by_owner_id": {
+                "type": "null"
+              },
+              "confirmed_on": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "product_definition_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_id",
+        "revision_id"
+      ],
+      "properties": {
+        "product_id": {
+          "$ref": "#/$defs/product_id"
+        },
+        "revision_id": {
+          "$ref": "#/$defs/product_revision_id"
+        }
+      }
+    },
+    "unresolved_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "statement",
+        "impact"
+      ],
+      "properties": {
+        "decision_id": {
+          "$ref": "#/$defs/decision_id"
+        },
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "impact": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

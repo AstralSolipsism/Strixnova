@@ -1,0 +1,194 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-context.v1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/inspect_request"
+    },
+    {
+      "$ref": "#/$defs/read_request"
+    }
+  ],
+  "$defs": {
+    "project_id": {
+      "type": "string",
+      "pattern": "^PROJECT-[0-9A-F]{16}$"
+    },
+    "repository_id": {
+      "type": "string",
+      "pattern": "^REPO-[0-9A-F]{16}$"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "owner_project_id",
+        "purpose"
+      ],
+      "properties": {
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "owner_project_id": {
+          "$ref": "#/$defs/project_id"
+        },
+        "purpose": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "declaration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "repositories"
+      ],
+      "properties": {
+        "project_id": {
+          "$ref": "#/$defs/project_id"
+        },
+        "repositories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/repository"
+          }
+        },
+        "external_repositories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/repository"
+          }
+        }
+      }
+    },
+    "binding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "path"
+      ],
+      "properties": {
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "path": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "project_id",
+        "repositories"
+      ],
+      "properties": {
+        "project_id": {
+          "$ref": "#/$defs/project_id"
+        },
+        "management_root": {
+          "$ref": "#/$defs/text"
+        },
+        "repositories": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/binding"
+          }
+        }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "path"
+      ],
+      "properties": {
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "path": {
+          "$ref": "#/$defs/text",
+          "description": "仓库内普通文件相对路径，使用 /，不得使用绝对路径、上级穿越、.git 或 .strixnova。"
+        },
+        "ref": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "精确本地 Git ref；省略或 null 表示当前工作树。返回值始终说明实际提交或工作树范围。"
+        }
+      }
+    },
+    "inspect_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "declaration",
+        "bindings"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.project-context-inspect.v1"
+        },
+        "declaration": {
+          "$ref": "#/$defs/declaration"
+        },
+        "bindings": {
+          "$ref": "#/$defs/bindings"
+        }
+      }
+    },
+    "read_request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "declaration",
+        "bindings",
+        "reference"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.project-context-read.v1"
+        },
+        "declaration": {
+          "$ref": "#/$defs/declaration"
+        },
+        "bindings": {
+          "$ref": "#/$defs/bindings"
+        },
+        "reference": {
+          "$ref": "#/$defs/reference"
+        },
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1048576
+        },
+        "expected_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        }
+      }
+    }
+  }
+}

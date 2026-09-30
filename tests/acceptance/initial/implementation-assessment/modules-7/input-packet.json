@@ -1,0 +1,2234 @@
+{
+  "group": "modules-7",
+  "material_root": "inputs/files",
+  "targets": [
+    {
+      "target_id": "MODULE-E74F1900EDCA43AE",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-E74F1900EDCA43AE",
+        "title": "项目工程基线",
+        "layer": "authority",
+        "responsibility": "只保存和校验项目身份、负责人、各长期权威精确版本、独立状态、当前架构实施阶段、代码版本和待复核标记。采用定位可指向不同成员仓库的精确权威内容；使用调用方已选范围向统一上下文取得配置定位并核对身份，不自行扫描仓库、复制配置解析或重新裁决归属。",
+        "not_responsible_for": [
+          "不复制产品、领域、架构、政策或对齐正文。",
+          "不加载工程治理模块来决定自身字段。",
+          "不执行跨权威一致性判断。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-14D59E14AE154764",
+          "title": "项目基线接口",
+          "operations": [
+            {
+              "name": "读取精确项目基线",
+              "meaning": "返回项目当前采用版本、独立状态、当前阶段和待复核标记。"
+            },
+            {
+              "name": "校验项目基线自身",
+              "meaning": "只检查基线自身结构、身份、版本格式和内部不变量。"
+            },
+            {
+              "name": "更新采用定位",
+              "meaning": "在上游确认和应用用例授权后原子更新精确定位与待复核状态。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/6",
+        "start_line": 124,
+        "end_line": 141
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/project_engineering_baseline.py",
+        "strixnova/src/strixnova/resources/project-engineering-baseline-v1.schema.json"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/project_engineering_baseline.py",
+          "sha256": "421f5184fe7b1f9cbee30bf685c1e2f7f20d248584c76208a5908f0ab71ad485",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-E74F1900EDCA43AE",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目工程基线”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-engineering-baseline-v1.schema.json",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-93D95B6555E54FEB",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "3763d079ec386038a204294868d6e251d35726ddaf686091be11effcf11e8b49",
+          "target_module_id": "MODULE-E74F1900EDCA43AE",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“项目工程基线”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_project_engineering_baseline.py::test_baseline_does_not_load_or_validate_downstream_authority_bodies",
+        "tests/unit/test_project_engineering_baseline.py::test_baseline_rejects_unsupported_contract",
+        "tests/unit/test_project_engineering_baseline.py::test_baseline_schema_error_explains_type_in_chinese",
+        "tests/unit/test_project_engineering_baseline.py::test_current_authority_must_bind_a_confirmed_revision",
+        "tests/integration/test_configured_project_context.py::test_configuration_and_baseline_can_belong_to_different_repositories",
+        "tests/integration/test_configured_project_context.py::test_cross_repository_adoption_requires_an_explicit_commit",
+        "tests/integration/test_configured_project_context.py::test_existing_item_can_be_cancelled_when_the_current_locator_is_invalid",
+        "tests/integration/test_configured_project_context.py::test_governance_profile_reuses_the_policy_repository_and_commit",
+        "tests/integration/test_configured_project_context.py::test_multi_repository_execution_requires_an_existing_work_item_before_side_effects",
+        "tests/integration/test_configured_project_context.py::test_public_project_status_reads_separated_authorities_without_creating_state",
+        "tests/integration/test_configured_project_context.py::test_missing_authority_keeps_pinned_single_repository_metadata_read_only",
+        "tests/integration/test_configured_project_context.py::test_split_authorities_use_one_context_and_exact_independent_commits",
+        "tests/integration/test_configured_project_context.py::test_unadopted_status_does_not_create_the_configured_management_directory",
+        "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_planned_long_lived_move",
+        "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_removed_long_lived_artifact_only_after_unindexing",
+        "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_successor_alignment_over_an_unintegrated_baseline"
+      ]
+    },
+    {
+      "target_id": "MODULE-1CDA1D66DA409B5A",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-1CDA1D66DA409B5A",
+        "title": "Strixnova 运行升级与恢复",
+        "layer": "application",
+        "responsibility": "集中管理指定项目的 Strixnova 程序、Skill 与当前格式数据组合，封装首次离线安装、预检、受管安装、维护排空、一致备份、副本核验、持久切换与恢复。首次安装以已有 Windows x64、Python 3.12 和 Git 为前提，复用同一受管安装与当前选择；不创建业务事项或采用权威，不安装前提软件、不修改系统 Python 或宿主配置。首次建库通过同一维护协调机制保留合法首装材料，阻断并发安装、未收口操作和不明内容。项目管理数据、受管安装与成员仓库分别定位，只保护明确范围内的操作及回写；单成员使用同一当前合同，不合并不同项目的数据。",
+        "not_responsible_for": [
+          "不判断或改写项目业务语义、确认和历史结论。",
+          "不升级被管理业务系统，不扫描其他项目或更新共享宿主安装。",
+          "不管理智能编码代理会话、远程发布或后台自动更新。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-1CDA1D66DA409B5A",
+          "title": "运行维护接口",
+          "operations": [
+            {
+              "name": "识别运行组合",
+              "meaning": "分别识别实际程序构建、Skill 内容和持久格式。"
+            },
+            {
+              "name": "只读预检",
+              "meaning": "绑定指定项目、源事实、当前精确格式和本地目标制品。"
+            },
+            {
+              "name": "执行维护升级",
+              "meaning": "阻止新操作并排空已有操作，备份、核验副本、逐项切换并试读实际入口。"
+            },
+            {
+              "name": "查询维护进度",
+              "meaning": "读取持久尝试状态及明确的恢复条件。"
+            },
+            {
+              "name": "恢复一致组合",
+              "meaning": "按持久记录继续或恢复原组合；拒绝旧备份覆盖新事实。"
+            },
+            {
+              "name": "运行已选组合",
+              "meaning": "通过与项目匹配的实际入口和随包 Skill 使用受管安装。"
+            },
+            {
+              "name": "核验未收口执行",
+              "meaning": "只读列出未收口操作，绑定该操作的外部停止证据并保留原记录；程序不推断外部观察的语义真实性。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/19",
+        "start_line": 395,
+        "end_line": 421
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/initial_installation.py",
+        "strixnova/src/strixnova/managed_installation.py",
+        "strixnova/src/strixnova/resources/runtime-compatibility-v1.json",
+        "strixnova/src/strixnova/runtime_identity.py",
+        "strixnova/src/strixnova/runtime_upgrade.py"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/initial_installation.py",
+          "sha256": "2d95c14df97fd9e490e82dfb90dd1a4a6b5b802a622def3fe084a4d7958144e1",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-1CDA1D66DA409B5A",
+          "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“Strixnova 运行升级与恢复”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/managed_installation.py",
+          "sha256": "5a469911f1bcd2e99aba85e923b365a45da0f5b857eb61d24f3b49374dacc2d5",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-1CDA1D66DA409B5A",
+          "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“Strixnova 运行升级与恢复”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/runtime-compatibility-v1.json",
+          "sha256": "685451fdb39f1e8316b4f6f473e40ee8986d15b35be20bb432f3cd0827a84187",
+          "language_id": "resource",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "target_module_id": "MODULE-1CDA1D66DA409B5A",
+          "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“Strixnova 运行升级与恢复”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/runtime_identity.py",
+          "sha256": "c9f35be4a1df8388d1dfa7bcadde23f1a4f7834d66148040b6cb1f05e2e03aa5",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-1CDA1D66DA409B5A",
+          "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“Strixnova 运行升级与恢复”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/runtime_upgrade.py",
+          "sha256": "bb791e1ee23d4b7aeb43cba9401dcc868996d3ee54e9d472ccb5c33ef1fde9a2",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-1CDA1D66DA409B5A",
+          "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“Strixnova 运行升级与恢复”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_runtime_format_admission.py::test_precheck_rejects_noncanonical_format_without_changing_project_content",
+        "tests/unit/test_initial_installation.py::test_installer_can_import_without_strixnova_or_third_party_site_packages",
+        "tests/unit/test_initial_installation.py::test_initial_installation_reuses_existing_managed_operations",
+        "tests/unit/test_initial_installation.py::test_existing_project_data_requires_explicit_upgrade_before_preparation",
+        "tests/unit/test_initial_installation.py::test_existing_selection_is_not_replaced_by_initial_installation",
+        "tests/unit/test_managed_installation.py::test_pip_environment_cannot_redirect_installation_outside_the_managed_venv",
+        "tests/unit/test_managed_installation.py::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls",
+        "tests/unit/test_managed_installation.py::test_two_preparations_cannot_modify_one_environment_concurrently",
+        "tests/unit/test_managed_installation.py::test_installation_space_accounts_for_expanded_wheel_content",
+        "tests/unit/test_runtime_upgrade.py::test_linked_worktree_git_operation_blocks_precheck",
+        "tests/unit/test_runtime_upgrade.py::test_restore_refuses_a_new_activity_database_created_after_upgrade",
+        "tests/unit/test_runtime_upgrade.py::test_completed_inflight_write_invalidates_plan_without_stranding_maintenance",
+        "tests/unit/test_runtime_upgrade.py::test_initial_upgrade_journal_cannot_follow_a_directory_junction",
+        "tests/unit/test_runtime_upgrade.py::test_current_log_references_survive_project_move_and_detect_changed_bytes",
+        "tests/unit/test_runtime_upgrade.py::test_database_rejects_missing_or_incompatible_write_contract",
+        "tests/unit/test_runtime_upgrade.py::test_fence_only_recovery_preserves_a_late_activity_change",
+        "tests/unit/test_runtime_upgrade.py::test_open_wal_reader_blocks_switch_and_committed_wal_facts_are_preserved",
+        "tests/unit/test_runtime_upgrade.py::test_partial_database_switch_can_resume_without_repeating_completed_replacements",
+        "tests/unit/test_runtime_upgrade.py::test_recovery_finishes_after_restoring_runtime_selection_then_crashing",
+        "tests/unit/test_runtime_upgrade.py::test_restore_preserves_new_facts_and_only_restores_an_unchanged_generation",
+        "tests/unit/test_runtime_upgrade.py::test_runtime_maintenance_preserves_original_records_and_current_format",
+        "tests/unit/test_managed_installation.py::test_actual_interpreter_probe_uses_the_same_package_and_skill_identity_protocol",
+        "tests/unit/test_managed_installation.py::test_combined_precheck_binds_the_target_and_source_without_creating_an_installation",
+        "tests/integration/test_upgrade_cli.py::test_native_entry_reads_switched_history_inside_maintenance_without_writing"
+      ]
+    },
+    {
+      "target_id": "MODULE-F55E33D530DD42A8",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-F55E33D530DD42A8",
+        "title": "项目与仓库上下文解析",
+        "layer": "infrastructure",
+        "responsibility": "从最小项目定位声明和明确本机绑定形成只读项目上下文，区分稳定项目身份、版本化成员归属、管理数据位置、仓库实际根及本次操作所需范围。通过底层只读接口核对已声明仓库，返回可用、缺失、冲突或未知，不初始化事项或选择工程目标。",
+        "not_responsible_for": [
+          "不加载完整基线、跨权威采用链、事项数据库或工程方案来完成启动解析，不形成向上循环。",
+          "不形成第二份项目或仓库归属权威，不扫描全机证明全局唯一性，也不因目录可访问而授予修改权。",
+          "不直接编写 Git 调用、运行项目代码、探测远程服务或执行仓库变更，版本事实由底层只读模块提供。",
+          "不要求无关仓库在本机到齐，不把本机绑定的变更自动解释为归属迁移或历史重写。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-E3BC03D959C94C7D",
+          "title": "项目上下文接口",
+          "operations": [
+            {
+              "name": "解析项目入口",
+              "meaning": "从唯一版本化项目配置和明确本机绑定核对项目及仓库身份，返回管理数据位置和可用性；非 Git 入口通过明确绑定定位配置。同一仓库内的引用可继承包含它的版本，跨仓库采用引用必须选择精确提交。历史定位按原合同读取，不补造当时未记录的仓库身份。"
+            },
+            {
+              "name": "取得操作仓库上下文",
+              "meaning": "在同一解析快照中取得指定修改仓库或只读依赖的明确范围，拒绝归属冲突和无依据修改；结果不替代事项版本与用户授权检查。"
+            },
+            {
+              "name": "绑定仓库内容引用",
+              "meaning": "把仓库身份和选定精确版本或工作树内容范围转换为底层读取请求，完整保留来源身份；底层接口只接受已绑定范围，不回调项目解析。"
+            },
+            {
+              "name": "限定一次工程读取范围",
+              "meaning": "在已解析上下文中校验请求涉及的修改或读取仓库及各自版本，将可唯一确定的省略身份补齐；向治理提供范围值和只读事实，不评价工程语义、不读取事项库或执行命令。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/20",
+        "start_line": 422,
+        "end_line": 442
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/project_context.py",
+        "strixnova/src/strixnova/project_repository_scope.py",
+        "strixnova/src/strixnova/resources/project-bindings-v1.schema.json",
+        "strixnova/src/strixnova/resources/project-config-v1.schema.json",
+        "strixnova/src/strixnova/resources/project-context-v1.schema.json"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/project_context.py",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "8bf3cc68533dfbe26cda638e9a434dc5c743f20b2810a4aa8d365cdd3df43766",
+          "target_module_id": "MODULE-F55E33D530DD42A8",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“项目与仓库上下文解析”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/project_repository_scope.py",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "cf5c40d028e0fa30c9b78ccd88269b8696e91d706e53bcc2b01b3cba039ea6d2",
+          "target_module_id": "MODULE-F55E33D530DD42A8",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“项目与仓库上下文解析”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-bindings-v1.schema.json",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "2e70aa5bb17b460a31abe27067831a8ea6e57982d0cb2c96afac0e2dfcc84dfb",
+          "target_module_id": "MODULE-F55E33D530DD42A8",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“项目与仓库上下文解析”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-config-v1.schema.json",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "12dec05ee3c7d9b9961878724b421c8fad2e3ee2b5eb9a0a720cc0e9f44013d4",
+          "target_module_id": "MODULE-F55E33D530DD42A8",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“项目与仓库上下文解析”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/project-context-v1.schema.json",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "96187a0205b7d476a35163ec44231e0af2290dcc6f368d50298ade295f4da2e9",
+          "target_module_id": "MODULE-F55E33D530DD42A8",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“项目与仓库上下文解析”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_project_context.py::test_non_git_entry_resolves_separate_repositories_without_project_writes",
+        "tests/unit/test_project_context.py::test_same_path_in_two_repositories_retains_identity_and_exact_content",
+        "tests/unit/test_project_context.py::test_binding_digest_includes_the_resolved_base_of_relative_paths",
+        "tests/unit/test_project_context.py::test_missing_or_unbound_other_member_does_not_block_available_read",
+        "tests/integration/test_configured_project_context.py::test_configuration_and_baseline_can_belong_to_different_repositories",
+        "tests/integration/test_configured_project_context.py::test_cross_repository_adoption_requires_an_explicit_commit",
+        "tests/integration/test_configured_project_context.py::test_existing_item_can_be_cancelled_when_the_current_locator_is_invalid",
+        "tests/integration/test_configured_project_context.py::test_governance_profile_reuses_the_policy_repository_and_commit",
+        "tests/integration/test_configured_project_context.py::test_multi_repository_execution_requires_an_existing_work_item_before_side_effects",
+        "tests/integration/test_configured_project_context.py::test_public_project_status_reads_separated_authorities_without_creating_state",
+        "tests/integration/test_configured_project_context.py::test_missing_authority_keeps_pinned_single_repository_metadata_read_only",
+        "tests/integration/test_configured_project_context.py::test_split_authorities_use_one_context_and_exact_independent_commits",
+        "tests/integration/test_configured_project_context.py::test_unadopted_status_does_not_create_the_configured_management_directory",
+        "tests/integration/test_multi_repository_planning.py::test_domain_fact_location_includes_its_authority_repository",
+        "tests/integration/test_multi_repository_planning.py::test_external_repository_is_a_dependency_without_delivery_ownership",
+        "tests/integration/test_multi_repository_planning.py::test_invalid_repository_plans_do_not_create_management_state"
+      ]
+    }
+  ],
+  "test_definitions": {
+    "tests/unit/test_project_engineering_baseline.py::test_baseline_does_not_load_or_validate_downstream_authority_bodies": {
+      "path": "tests/unit/test_project_engineering_baseline.py",
+      "qualified_name": "test_baseline_does_not_load_or_validate_downstream_authority_bodies",
+      "start_line": 45,
+      "end_line": 62,
+      "current_file_sha256": "398e315ae77cba741a4a117a7b84f37d876680d302c9fcf865bb908c6b1c1cc1",
+      "original_locator": "tests/unit/test_project_engineering_baseline.py::test_baseline_does_not_load_or_validate_downstream_authority_bodies",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 685,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_does_not_load_or_validate_downstream_authority_bodies",
+          "outcome": "failed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 15,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_does_not_load_or_validate_downstream_authority_bodies",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 683,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_does_not_load_or_validate_downstream_authority_bodies",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_engineering_baseline.py::test_baseline_rejects_unsupported_contract": {
+      "path": "tests/unit/test_project_engineering_baseline.py",
+      "qualified_name": "test_baseline_rejects_unsupported_contract",
+      "start_line": 65,
+      "end_line": 80,
+      "current_file_sha256": "398e315ae77cba741a4a117a7b84f37d876680d302c9fcf865bb908c6b1c1cc1",
+      "original_locator": "tests/unit/test_project_engineering_baseline.py::test_baseline_rejects_unsupported_contract",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 720,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_rejects_unsupported_contract",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 19,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_rejects_unsupported_contract",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 701,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_rejects_unsupported_contract",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_engineering_baseline.py::test_baseline_schema_error_explains_type_in_chinese": {
+      "path": "tests/unit/test_project_engineering_baseline.py",
+      "qualified_name": "test_baseline_schema_error_explains_type_in_chinese",
+      "start_line": 83,
+      "end_line": 93,
+      "current_file_sha256": "398e315ae77cba741a4a117a7b84f37d876680d302c9fcf865bb908c6b1c1cc1",
+      "original_locator": "tests/unit/test_project_engineering_baseline.py::test_baseline_schema_error_explains_type_in_chinese",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 686,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_schema_error_explains_type_in_chinese",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 66,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_schema_error_explains_type_in_chinese",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 685,
+          "node": "tests.unit.test_project_engineering_baseline::test_baseline_schema_error_explains_type_in_chinese",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_engineering_baseline.py::test_current_authority_must_bind_a_confirmed_revision": {
+      "path": "tests/unit/test_project_engineering_baseline.py",
+      "qualified_name": "test_current_authority_must_bind_a_confirmed_revision",
+      "start_line": 96,
+      "end_line": 106,
+      "current_file_sha256": "398e315ae77cba741a4a117a7b84f37d876680d302c9fcf865bb908c6b1c1cc1",
+      "original_locator": "tests/unit/test_project_engineering_baseline.py::test_current_authority_must_bind_a_confirmed_revision",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 690,
+          "node": "tests.unit.test_project_engineering_baseline::test_current_authority_must_bind_a_confirmed_revision",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 18,
+          "node": "tests.unit.test_project_engineering_baseline::test_current_authority_must_bind_a_confirmed_revision",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 707,
+          "node": "tests.unit.test_project_engineering_baseline::test_current_authority_must_bind_a_confirmed_revision",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_configuration_and_baseline_can_belong_to_different_repositories": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_configuration_and_baseline_can_belong_to_different_repositories",
+      "start_line": 179,
+      "end_line": 205,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_configuration_and_baseline_can_belong_to_different_repositories",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1032,
+          "node": "tests.integration.test_configured_project_context::test_configuration_and_baseline_can_belong_to_different_repositories",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1044,
+          "node": "tests.integration.test_configured_project_context::test_configuration_and_baseline_can_belong_to_different_repositories",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_cross_repository_adoption_requires_an_explicit_commit": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_cross_repository_adoption_requires_an_explicit_commit",
+      "start_line": 112,
+      "end_line": 125,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_cross_repository_adoption_requires_an_explicit_commit",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1028,
+          "node": "tests.integration.test_configured_project_context::test_cross_repository_adoption_requires_an_explicit_commit",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1039,
+          "node": "tests.integration.test_configured_project_context::test_cross_repository_adoption_requires_an_explicit_commit",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_existing_item_can_be_cancelled_when_the_current_locator_is_invalid": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_existing_item_can_be_cancelled_when_the_current_locator_is_invalid",
+      "start_line": 208,
+      "end_line": 216,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_existing_item_can_be_cancelled_when_the_current_locator_is_invalid",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1050,
+          "node": "tests.integration.test_configured_project_context::test_existing_item_can_be_cancelled_when_the_current_locator_is_invalid",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1040,
+          "node": "tests.integration.test_configured_project_context::test_existing_item_can_be_cancelled_when_the_current_locator_is_invalid",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_governance_profile_reuses_the_policy_repository_and_commit": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_governance_profile_reuses_the_policy_repository_and_commit",
+      "start_line": 89,
+      "end_line": 109,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_governance_profile_reuses_the_policy_repository_and_commit",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1040,
+          "node": "tests.integration.test_configured_project_context::test_governance_profile_reuses_the_policy_repository_and_commit",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1029,
+          "node": "tests.integration.test_configured_project_context::test_governance_profile_reuses_the_policy_repository_and_commit",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_multi_repository_execution_requires_an_existing_work_item_before_side_effects": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_multi_repository_execution_requires_an_existing_work_item_before_side_effects",
+      "start_line": 169,
+      "end_line": 176,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_multi_repository_execution_requires_an_existing_work_item_before_side_effects",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1035,
+          "node": "tests.integration.test_configured_project_context::test_multi_repository_execution_requires_an_existing_work_item_before_side_effects",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1049,
+          "node": "tests.integration.test_configured_project_context::test_multi_repository_execution_requires_an_existing_work_item_before_side_effects",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_public_project_status_reads_separated_authorities_without_creating_state": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_public_project_status_reads_separated_authorities_without_creating_state",
+      "start_line": 128,
+      "end_line": 147,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_public_project_status_reads_separated_authorities_without_creating_state",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1036,
+          "node": "tests.integration.test_configured_project_context::test_public_project_status_reads_separated_authorities_without_creating_state",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1031,
+          "node": "tests.integration.test_configured_project_context::test_public_project_status_reads_separated_authorities_without_creating_state",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_missing_authority_keeps_pinned_single_repository_metadata_read_only": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_missing_authority_keeps_pinned_single_repository_metadata_read_only",
+      "start_line": 220,
+      "end_line": 242,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_single_repository_pinned_metadata_is_readable_but_not_sent_to_legacy_writers",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1034,
+          "node": "tests.integration.test_configured_project_context::test_single_repository_pinned_metadata_is_readable_but_not_sent_to_legacy_writers[configuration]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1038,
+          "node": "tests.integration.test_configured_project_context::test_single_repository_pinned_metadata_is_readable_but_not_sent_to_legacy_writers[configuration]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1037,
+          "node": "tests.integration.test_configured_project_context::test_single_repository_pinned_metadata_is_readable_but_not_sent_to_legacy_writers[authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1037,
+          "node": "tests.integration.test_configured_project_context::test_single_repository_pinned_metadata_is_readable_but_not_sent_to_legacy_writers[authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30608175d9f5",
+          "junit_testcase_index": 10,
+          "node": "tests.integration.test_configured_project_context::test_missing_authority_keeps_pinned_single_repository_metadata_read_only[configuration]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "30608175d9f5",
+          "junit_testcase_index": 12,
+          "node": "tests.integration.test_configured_project_context::test_missing_authority_keeps_pinned_single_repository_metadata_read_only[authority]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_split_authorities_use_one_context_and_exact_independent_commits": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_split_authorities_use_one_context_and_exact_independent_commits",
+      "start_line": 63,
+      "end_line": 86,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_split_authorities_use_one_context_and_exact_independent_commits",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1044,
+          "node": "tests.integration.test_configured_project_context::test_split_authorities_use_one_context_and_exact_independent_commits",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1034,
+          "node": "tests.integration.test_configured_project_context::test_split_authorities_use_one_context_and_exact_independent_commits",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_configured_project_context.py::test_unadopted_status_does_not_create_the_configured_management_directory": {
+      "path": "tests/integration/test_configured_project_context.py",
+      "qualified_name": "test_unadopted_status_does_not_create_the_configured_management_directory",
+      "start_line": 150,
+      "end_line": 166,
+      "current_file_sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "original_locator": "tests/integration/test_configured_project_context.py::test_unadopted_status_does_not_create_the_configured_management_directory",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1030,
+          "node": "tests.integration.test_configured_project_context::test_unadopted_status_does_not_create_the_configured_management_directory",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1042,
+          "node": "tests.integration.test_configured_project_context::test_unadopted_status_does_not_create_the_configured_management_directory",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_planned_long_lived_move": {
+      "path": "tests/unit/test_host_adapter.py",
+      "qualified_name": "test_actual_result_accepts_a_planned_long_lived_move",
+      "start_line": 2559,
+      "end_line": 2622,
+      "current_file_sha256": "eaad1fb10f4b801901378fed7180aca6195a431a5c289d9bb135bad4f55f9672",
+      "original_locator": "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_planned_long_lived_move",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 388,
+          "node": "tests.unit.test_host_adapter::test_actual_result_accepts_a_planned_long_lived_move",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 388,
+          "node": "tests.unit.test_host_adapter::test_actual_result_accepts_a_planned_long_lived_move",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_removed_long_lived_artifact_only_after_unindexing": {
+      "path": "tests/unit/test_host_adapter.py",
+      "qualified_name": "test_actual_result_accepts_a_removed_long_lived_artifact_only_after_unindexing",
+      "start_line": 2625,
+      "end_line": 2667,
+      "current_file_sha256": "eaad1fb10f4b801901378fed7180aca6195a431a5c289d9bb135bad4f55f9672",
+      "original_locator": "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_removed_long_lived_artifact_only_after_unindexing",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 390,
+          "node": "tests.unit.test_host_adapter::test_actual_result_accepts_a_removed_long_lived_artifact_only_after_unindexing",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 522,
+          "node": "tests.unit.test_host_adapter::test_actual_result_accepts_a_removed_long_lived_artifact_only_after_unindexing",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_successor_alignment_over_an_unintegrated_baseline": {
+      "path": "tests/unit/test_host_adapter.py",
+      "qualified_name": "test_actual_result_accepts_a_successor_alignment_over_an_unintegrated_baseline",
+      "start_line": 1997,
+      "end_line": 2072,
+      "current_file_sha256": "eaad1fb10f4b801901378fed7180aca6195a431a5c289d9bb135bad4f55f9672",
+      "original_locator": "tests/unit/test_host_adapter.py::test_actual_result_accepts_a_successor_alignment_over_an_unintegrated_baseline",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 515,
+          "node": "tests.unit.test_host_adapter::test_actual_result_accepts_a_successor_alignment_over_an_unintegrated_baseline",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 383,
+          "node": "tests.unit.test_host_adapter::test_actual_result_accepts_a_successor_alignment_over_an_unintegrated_baseline",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_format_admission.py::test_precheck_rejects_noncanonical_format_without_changing_project_content": {
+      "path": "tests/unit/test_runtime_format_admission.py",
+      "qualified_name": "test_precheck_rejects_noncanonical_format_without_changing_project_content",
+      "start_line": 15,
+      "end_line": 36,
+      "current_file_sha256": "15c9bdf66432977f7634f9ea7857c2e304fab5571b4ec31274a5fcfea96c3bbf",
+      "original_locator": "tests/unit/test_runtime_format_admission.py::test_precheck_rejects_noncanonical_format_without_changing_project_content",
+      "recorded_executions": [
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 2,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[ 1-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 814,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[ 1-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 3,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[01-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 874,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[01-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 4,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[01-delivery_activities]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 813,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[01-delivery_activities]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 5,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[+1-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 829,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[+1-authority]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 6,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[+1-delivery_activities]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 820,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[+1-delivery_activities]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 7,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[ 1-delivery_activities]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 816,
+          "node": "tests.unit.test_runtime_format_admission::test_precheck_rejects_noncanonical_format_without_changing_project_content[ 1-delivery_activities]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_initial_installation.py::test_installer_can_import_without_strixnova_or_third_party_site_packages": {
+      "path": "tests/unit/test_initial_installation.py",
+      "qualified_name": "test_installer_can_import_without_strixnova_or_third_party_site_packages",
+      "start_line": 20,
+      "end_line": 31,
+      "current_file_sha256": "54a86ac80967069354fda6108da88b6ee37aade19d968e82363c912106da458e",
+      "original_locator": "tests/unit/test_initial_installation.py::test_installer_can_import_without_strixnova_or_third_party_site_packages",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 450,
+          "node": "tests.unit.test_initial_installation::test_installer_can_import_without_strixnova_or_third_party_site_packages",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 47,
+          "node": "tests.unit.test_initial_installation::test_installer_can_import_without_strixnova_or_third_party_site_packages",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 463,
+          "node": "tests.unit.test_initial_installation::test_installer_can_import_without_strixnova_or_third_party_site_packages",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_initial_installation.py::test_initial_installation_reuses_existing_managed_operations": {
+      "path": "tests/unit/test_initial_installation.py",
+      "qualified_name": "test_initial_installation_reuses_existing_managed_operations",
+      "start_line": 34,
+      "end_line": 53,
+      "current_file_sha256": "54a86ac80967069354fda6108da88b6ee37aade19d968e82363c912106da458e",
+      "original_locator": "tests/unit/test_initial_installation.py::test_initial_installation_reuses_existing_managed_operations",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 467,
+          "node": "tests.unit.test_initial_installation::test_initial_installation_reuses_existing_managed_operations",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 49,
+          "node": "tests.unit.test_initial_installation::test_initial_installation_reuses_existing_managed_operations",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 446,
+          "node": "tests.unit.test_initial_installation::test_initial_installation_reuses_existing_managed_operations",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_initial_installation.py::test_existing_project_data_requires_explicit_upgrade_before_preparation": {
+      "path": "tests/unit/test_initial_installation.py",
+      "qualified_name": "test_existing_project_data_requires_explicit_upgrade_before_preparation",
+      "start_line": 56,
+      "end_line": 67,
+      "current_file_sha256": "54a86ac80967069354fda6108da88b6ee37aade19d968e82363c912106da458e",
+      "original_locator": "tests/unit/test_initial_installation.py::test_existing_project_data_requires_explicit_upgrade_before_preparation",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 451,
+          "node": "tests.unit.test_initial_installation::test_existing_project_data_requires_explicit_upgrade_before_preparation",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 60,
+          "node": "tests.unit.test_initial_installation::test_existing_project_data_requires_explicit_upgrade_before_preparation",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 447,
+          "node": "tests.unit.test_initial_installation::test_existing_project_data_requires_explicit_upgrade_before_preparation",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_initial_installation.py::test_existing_selection_is_not_replaced_by_initial_installation": {
+      "path": "tests/unit/test_initial_installation.py",
+      "qualified_name": "test_existing_selection_is_not_replaced_by_initial_installation",
+      "start_line": 71,
+      "end_line": 91,
+      "current_file_sha256": "54a86ac80967069354fda6108da88b6ee37aade19d968e82363c912106da458e",
+      "original_locator": "tests/unit/test_initial_installation.py::test_existing_selection_is_not_replaced_by_initial_installation",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 452,
+          "node": "tests.unit.test_initial_installation::test_existing_selection_is_not_replaced_by_initial_installation[True]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 52,
+          "node": "tests.unit.test_initial_installation::test_existing_selection_is_not_replaced_by_initial_installation[True]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 448,
+          "node": "tests.unit.test_initial_installation::test_existing_selection_is_not_replaced_by_initial_installation[True]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 454,
+          "node": "tests.unit.test_initial_installation::test_existing_selection_is_not_replaced_by_initial_installation[False]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 50,
+          "node": "tests.unit.test_initial_installation::test_existing_selection_is_not_replaced_by_initial_installation[False]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 449,
+          "node": "tests.unit.test_initial_installation::test_existing_selection_is_not_replaced_by_initial_installation[False]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_managed_installation.py::test_pip_environment_cannot_redirect_installation_outside_the_managed_venv": {
+      "path": "tests/unit/test_managed_installation.py",
+      "qualified_name": "test_pip_environment_cannot_redirect_installation_outside_the_managed_venv",
+      "start_line": 16,
+      "end_line": 24,
+      "current_file_sha256": "9e758ea7174d3a33a5010f19603e7f2a6a22fb2e69ff3d1ad6ee8ec24854c317",
+      "original_locator": "tests/unit/test_managed_installation.py::test_pip_environment_cannot_redirect_installation_outside_the_managed_venv",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 491,
+          "node": "tests.unit.test_managed_installation::test_pip_environment_cannot_redirect_installation_outside_the_managed_venv",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 27,
+          "node": "tests.unit.test_managed_installation::test_pip_environment_cannot_redirect_installation_outside_the_managed_venv",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 482,
+          "node": "tests.unit.test_managed_installation::test_pip_environment_cannot_redirect_installation_outside_the_managed_venv",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 0,
+          "node": "tests.unit.test_managed_installation::test_pip_environment_cannot_redirect_installation_outside_the_managed_venv",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_managed_installation.py::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls": {
+      "path": "tests/unit/test_managed_installation.py",
+      "qualified_name": "test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls",
+      "start_line": 32,
+      "end_line": 40,
+      "current_file_sha256": "9e758ea7174d3a33a5010f19603e7f2a6a22fb2e69ff3d1ad6ee8ec24854c317",
+      "original_locator": "tests/unit/test_managed_installation.py::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 487,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[--find-links https://example.invalid/wheels\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 40,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[--find-links https://example.invalid/wheels\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 484,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[--find-links https://example.invalid/wheels\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 2,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[--find-links https://example.invalid/wheels\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 488,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[demo @ https://example.invalid/demo.whl --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 61,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[demo @ https://example.invalid/demo.whl --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 485,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[demo @ https://example.invalid/demo.whl --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 4,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[demo @ https://example.invalid/demo.whl --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 489,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[../outside.whl --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 31,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[../outside.whl --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 486,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[../outside.whl --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 3,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[../outside.whl --hash=sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 502,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[-r outside.txt\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 64,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[-r outside.txt\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 483,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[-r outside.txt\\n]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 1,
+          "node": "tests.unit.test_managed_installation::test_target_dependency_contract_cannot_read_outside_files_or_fetch_urls[-r outside.txt\\n]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_managed_installation.py::test_two_preparations_cannot_modify_one_environment_concurrently": {
+      "path": "tests/unit/test_managed_installation.py",
+      "qualified_name": "test_two_preparations_cannot_modify_one_environment_concurrently",
+      "start_line": 43,
+      "end_line": 74,
+      "current_file_sha256": "9e758ea7174d3a33a5010f19603e7f2a6a22fb2e69ff3d1ad6ee8ec24854c317",
+      "original_locator": "tests/unit/test_managed_installation.py::test_two_preparations_cannot_modify_one_environment_concurrently",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 490,
+          "node": "tests.unit.test_managed_installation::test_two_preparations_cannot_modify_one_environment_concurrently",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 28,
+          "node": "tests.unit.test_managed_installation::test_two_preparations_cannot_modify_one_environment_concurrently",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 487,
+          "node": "tests.unit.test_managed_installation::test_two_preparations_cannot_modify_one_environment_concurrently",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 6,
+          "node": "tests.unit.test_managed_installation::test_two_preparations_cannot_modify_one_environment_concurrently",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_managed_installation.py::test_installation_space_accounts_for_expanded_wheel_content": {
+      "path": "tests/unit/test_managed_installation.py",
+      "qualified_name": "test_installation_space_accounts_for_expanded_wheel_content",
+      "start_line": 77,
+      "end_line": 93,
+      "current_file_sha256": "9e758ea7174d3a33a5010f19603e7f2a6a22fb2e69ff3d1ad6ee8ec24854c317",
+      "original_locator": "tests/unit/test_managed_installation.py::test_installation_space_accounts_for_expanded_wheel_content",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 495,
+          "node": "tests.unit.test_managed_installation::test_installation_space_accounts_for_expanded_wheel_content",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 29,
+          "node": "tests.unit.test_managed_installation::test_installation_space_accounts_for_expanded_wheel_content",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 492,
+          "node": "tests.unit.test_managed_installation::test_installation_space_accounts_for_expanded_wheel_content",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 5,
+          "node": "tests.unit.test_managed_installation::test_installation_space_accounts_for_expanded_wheel_content",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_linked_worktree_git_operation_blocks_precheck": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_linked_worktree_git_operation_blocks_precheck",
+      "start_line": 23,
+      "end_line": 42,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_linked_worktree_git_operation_blocks_precheck",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 816,
+          "node": "tests.unit.test_runtime_upgrade::test_linked_worktree_git_operation_blocks_precheck",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 0,
+          "node": "tests.unit.test_runtime_upgrade::test_linked_worktree_git_operation_blocks_precheck",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 836,
+          "node": "tests.unit.test_runtime_upgrade::test_linked_worktree_git_operation_blocks_precheck",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_restore_refuses_a_new_activity_database_created_after_upgrade": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_restore_refuses_a_new_activity_database_created_after_upgrade",
+      "start_line": 45,
+      "end_line": 59,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_restore_refuses_a_new_activity_database_created_after_upgrade",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 818,
+          "node": "tests.unit.test_runtime_upgrade::test_restore_refuses_a_new_activity_database_created_after_upgrade",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 1,
+          "node": "tests.unit.test_runtime_upgrade::test_restore_refuses_a_new_activity_database_created_after_upgrade",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 819,
+          "node": "tests.unit.test_runtime_upgrade::test_restore_refuses_a_new_activity_database_created_after_upgrade",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_completed_inflight_write_invalidates_plan_without_stranding_maintenance": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_completed_inflight_write_invalidates_plan_without_stranding_maintenance",
+      "start_line": 62,
+      "end_line": 83,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_completed_inflight_write_invalidates_plan_without_stranding_maintenance",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 823,
+          "node": "tests.unit.test_runtime_upgrade::test_completed_inflight_write_invalidates_plan_without_stranding_maintenance",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 10,
+          "node": "tests.unit.test_runtime_upgrade::test_completed_inflight_write_invalidates_plan_without_stranding_maintenance",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 831,
+          "node": "tests.unit.test_runtime_upgrade::test_completed_inflight_write_invalidates_plan_without_stranding_maintenance",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_initial_upgrade_journal_cannot_follow_a_directory_junction": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_initial_upgrade_journal_cannot_follow_a_directory_junction",
+      "start_line": 86,
+      "end_line": 109,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_initial_upgrade_journal_cannot_follow_a_directory_junction",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 824,
+          "node": "tests.unit.test_runtime_upgrade::test_initial_upgrade_journal_cannot_follow_a_directory_junction",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 9,
+          "node": "tests.unit.test_runtime_upgrade::test_initial_upgrade_journal_cannot_follow_a_directory_junction",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 823,
+          "node": "tests.unit.test_runtime_upgrade::test_initial_upgrade_journal_cannot_follow_a_directory_junction",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_current_log_references_survive_project_move_and_detect_changed_bytes": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_current_log_references_survive_project_move_and_detect_changed_bytes",
+      "start_line": 167,
+      "end_line": 183,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_current_log_references_survive_project_move_and_detect_changed_bytes",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 831,
+          "node": "tests.unit.test_runtime_upgrade::test_current_log_references_survive_project_move_and_detect_changed_bytes",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 13,
+          "node": "tests.unit.test_runtime_upgrade::test_current_log_references_survive_project_move_and_detect_changed_bytes",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 824,
+          "node": "tests.unit.test_runtime_upgrade::test_current_log_references_survive_project_move_and_detect_changed_bytes",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_database_rejects_missing_or_incompatible_write_contract": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_database_rejects_missing_or_incompatible_write_contract",
+      "start_line": 303,
+      "end_line": 316,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_database_rejects_missing_or_incompatible_write_contract",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 828,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[False-999]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 17,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[False-999]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 830,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[False-999]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 829,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[True-None]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 25,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[True-None]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 832,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[True-None]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 834,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[True-999]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 30,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[True-999]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 835,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[True-999]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 836,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[False-None]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 14,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[False-None]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 837,
+          "node": "tests.unit.test_runtime_upgrade::test_database_rejects_missing_or_incompatible_write_contract[False-None]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_fence_only_recovery_preserves_a_late_activity_change": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_fence_only_recovery_preserves_a_late_activity_change",
+      "start_line": 320,
+      "end_line": 355,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_fence_only_recovery_preserves_a_late_activity_change",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 845,
+          "node": "tests.unit.test_runtime_upgrade::test_fence_only_recovery_preserves_a_late_activity_change",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 24,
+          "node": "tests.unit.test_runtime_upgrade::test_fence_only_recovery_preserves_a_late_activity_change",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 838,
+          "node": "tests.unit.test_runtime_upgrade::test_fence_only_recovery_preserves_a_late_activity_change",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_open_wal_reader_blocks_switch_and_committed_wal_facts_are_preserved": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_open_wal_reader_blocks_switch_and_committed_wal_facts_are_preserved",
+      "start_line": 242,
+      "end_line": 260,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_open_wal_reader_blocks_switch_and_committed_wal_facts_are_preserved",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 825,
+          "node": "tests.unit.test_runtime_upgrade::test_open_wal_reader_blocks_switch_and_committed_wal_facts_are_preserved",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 21,
+          "node": "tests.unit.test_runtime_upgrade::test_open_wal_reader_blocks_switch_and_committed_wal_facts_are_preserved",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 846,
+          "node": "tests.unit.test_runtime_upgrade::test_open_wal_reader_blocks_switch_and_committed_wal_facts_are_preserved",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_partial_database_switch_can_resume_without_repeating_completed_replacements": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_partial_database_switch_can_resume_without_repeating_completed_replacements",
+      "start_line": 186,
+      "end_line": 213,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_partial_database_switch_can_resume_without_repeating_completed_replacements",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 826,
+          "node": "tests.unit.test_runtime_upgrade::test_partial_database_switch_can_resume_without_repeating_completed_replacements",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 12,
+          "node": "tests.unit.test_runtime_upgrade::test_partial_database_switch_can_resume_without_repeating_completed_replacements",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 834,
+          "node": "tests.unit.test_runtime_upgrade::test_partial_database_switch_can_resume_without_repeating_completed_replacements",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_recovery_finishes_after_restoring_runtime_selection_then_crashing": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_recovery_finishes_after_restoring_runtime_selection_then_crashing",
+      "start_line": 263,
+      "end_line": 298,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_recovery_finishes_after_restoring_runtime_selection_then_crashing",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 837,
+          "node": "tests.unit.test_runtime_upgrade::test_recovery_finishes_after_restoring_runtime_selection_then_crashing",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 23,
+          "node": "tests.unit.test_runtime_upgrade::test_recovery_finishes_after_restoring_runtime_selection_then_crashing",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 828,
+          "node": "tests.unit.test_runtime_upgrade::test_recovery_finishes_after_restoring_runtime_selection_then_crashing",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_restore_preserves_new_facts_and_only_restores_an_unchanged_generation": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_restore_preserves_new_facts_and_only_restores_an_unchanged_generation",
+      "start_line": 216,
+      "end_line": 237,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_restore_preserves_new_facts_and_only_restores_an_unchanged_generation",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 830,
+          "node": "tests.unit.test_runtime_upgrade::test_restore_preserves_new_facts_and_only_restores_an_unchanged_generation",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 16,
+          "node": "tests.unit.test_runtime_upgrade::test_restore_preserves_new_facts_and_only_restores_an_unchanged_generation",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 826,
+          "node": "tests.unit.test_runtime_upgrade::test_restore_preserves_new_facts_and_only_restores_an_unchanged_generation",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_runtime_upgrade.py::test_runtime_maintenance_preserves_original_records_and_current_format": {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "qualified_name": "test_runtime_maintenance_preserves_original_records_and_current_format",
+      "start_line": 112,
+      "end_line": 132,
+      "current_file_sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "original_locator": "tests/unit/test_runtime_upgrade.py::test_runtime_maintenance_preserves_original_records_and_current_format",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 833,
+          "node": "tests.unit.test_runtime_upgrade::test_runtime_maintenance_preserves_original_records_and_current_format",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 8,
+          "node": "tests.unit.test_runtime_upgrade::test_runtime_maintenance_preserves_original_records_and_current_format",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 822,
+          "node": "tests.unit.test_runtime_upgrade::test_runtime_maintenance_preserves_original_records_and_current_format",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_managed_installation.py::test_actual_interpreter_probe_uses_the_same_package_and_skill_identity_protocol": {
+      "path": "tests/unit/test_managed_installation.py",
+      "qualified_name": "test_actual_interpreter_probe_uses_the_same_package_and_skill_identity_protocol",
+      "start_line": 130,
+      "end_line": 140,
+      "current_file_sha256": "9e758ea7174d3a33a5010f19603e7f2a6a22fb2e69ff3d1ad6ee8ec24854c317",
+      "original_locator": "tests/unit/test_managed_installation.py::test_actual_interpreter_probe_uses_the_same_package_and_skill_identity_protocol",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 493,
+          "node": "tests.unit.test_managed_installation::test_actual_interpreter_probe_uses_the_same_package_and_skill_identity_protocol",
+          "outcome": "skipped"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 65,
+          "node": "tests.unit.test_managed_installation::test_actual_interpreter_probe_uses_the_same_package_and_skill_identity_protocol",
+          "outcome": "skipped"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 491,
+          "node": "tests.unit.test_managed_installation::test_actual_interpreter_probe_uses_the_same_package_and_skill_identity_protocol",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 9,
+          "node": "tests.unit.test_managed_installation::test_actual_interpreter_probe_uses_the_same_package_and_skill_identity_protocol",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_managed_installation.py::test_combined_precheck_binds_the_target_and_source_without_creating_an_installation": {
+      "path": "tests/unit/test_managed_installation.py",
+      "qualified_name": "test_combined_precheck_binds_the_target_and_source_without_creating_an_installation",
+      "start_line": 174,
+      "end_line": 188,
+      "current_file_sha256": "9e758ea7174d3a33a5010f19603e7f2a6a22fb2e69ff3d1ad6ee8ec24854c317",
+      "original_locator": "tests/unit/test_managed_installation.py::test_combined_precheck_binds_the_target_and_source_without_creating_an_installation",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 511,
+          "node": "tests.unit.test_managed_installation::test_combined_precheck_binds_the_target_and_source_without_creating_an_installation",
+          "outcome": "skipped"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 34,
+          "node": "tests.unit.test_managed_installation::test_combined_precheck_binds_the_target_and_source_without_creating_an_installation",
+          "outcome": "skipped"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 509,
+          "node": "tests.unit.test_managed_installation::test_combined_precheck_binds_the_target_and_source_without_creating_an_installation",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 12,
+          "node": "tests.unit.test_managed_installation::test_combined_precheck_binds_the_target_and_source_without_creating_an_installation",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_upgrade_cli.py::test_native_entry_reads_switched_history_inside_maintenance_without_writing": {
+      "path": "tests/integration/test_upgrade_cli.py",
+      "qualified_name": "test_native_entry_reads_switched_history_inside_maintenance_without_writing",
+      "start_line": 36,
+      "end_line": 64,
+      "current_file_sha256": "f3410cb7575691ab54a4d7c34b306218447d0c9d25c13b81d8457cbf569d8e62",
+      "original_locator": "tests/integration/test_upgrade_cli.py::test_native_entry_reads_switched_history_inside_maintenance_without_writing",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1127,
+          "node": "tests.integration.test_upgrade_cli::test_native_entry_reads_switched_history_inside_maintenance_without_writing",
+          "outcome": "skipped"
+        },
+        {
+          "run_id": "7aaf327a1ccb",
+          "junit_testcase_index": 67,
+          "node": "tests.integration.test_upgrade_cli::test_native_entry_reads_switched_history_inside_maintenance_without_writing",
+          "outcome": "skipped"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1117,
+          "node": "tests.integration.test_upgrade_cli::test_native_entry_reads_switched_history_inside_maintenance_without_writing",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "c1dfd12d2187",
+          "junit_testcase_index": 43,
+          "node": "tests.integration.test_upgrade_cli::test_native_entry_reads_switched_history_inside_maintenance_without_writing",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_context.py::test_non_git_entry_resolves_separate_repositories_without_project_writes": {
+      "path": "tests/unit/test_project_context.py",
+      "qualified_name": "test_non_git_entry_resolves_separate_repositories_without_project_writes",
+      "start_line": 20,
+      "end_line": 42,
+      "current_file_sha256": "75d18ea715b58bfe2efb98e8502bde94a35c5bbb51b66b800eb70cfbdc6a5dcd",
+      "original_locator": "tests/unit/test_project_context.py::test_non_git_entry_resolves_separate_repositories_without_project_writes",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 631,
+          "node": "tests.unit.test_project_context::test_non_git_entry_resolves_separate_repositories_without_project_writes",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 628,
+          "node": "tests.unit.test_project_context::test_non_git_entry_resolves_separate_repositories_without_project_writes",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_context.py::test_same_path_in_two_repositories_retains_identity_and_exact_content": {
+      "path": "tests/unit/test_project_context.py",
+      "qualified_name": "test_same_path_in_two_repositories_retains_identity_and_exact_content",
+      "start_line": 45,
+      "end_line": 60,
+      "current_file_sha256": "75d18ea715b58bfe2efb98e8502bde94a35c5bbb51b66b800eb70cfbdc6a5dcd",
+      "original_locator": "tests/unit/test_project_context.py::test_same_path_in_two_repositories_retains_identity_and_exact_content",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 634,
+          "node": "tests.unit.test_project_context::test_same_path_in_two_repositories_retains_identity_and_exact_content",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 632,
+          "node": "tests.unit.test_project_context::test_same_path_in_two_repositories_retains_identity_and_exact_content",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_context.py::test_binding_digest_includes_the_resolved_base_of_relative_paths": {
+      "path": "tests/unit/test_project_context.py",
+      "qualified_name": "test_binding_digest_includes_the_resolved_base_of_relative_paths",
+      "start_line": 63,
+      "end_line": 71,
+      "current_file_sha256": "75d18ea715b58bfe2efb98e8502bde94a35c5bbb51b66b800eb70cfbdc6a5dcd",
+      "original_locator": "tests/unit/test_project_context.py::test_binding_digest_includes_the_resolved_base_of_relative_paths",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 636,
+          "node": "tests.unit.test_project_context::test_binding_digest_includes_the_resolved_base_of_relative_paths",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 630,
+          "node": "tests.unit.test_project_context::test_binding_digest_includes_the_resolved_base_of_relative_paths",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_project_context.py::test_missing_or_unbound_other_member_does_not_block_available_read": {
+      "path": "tests/unit/test_project_context.py",
+      "qualified_name": "test_missing_or_unbound_other_member_does_not_block_available_read",
+      "start_line": 74,
+      "end_line": 90,
+      "current_file_sha256": "75d18ea715b58bfe2efb98e8502bde94a35c5bbb51b66b800eb70cfbdc6a5dcd",
+      "original_locator": "tests/unit/test_project_context.py::test_missing_or_unbound_other_member_does_not_block_available_read",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 635,
+          "node": "tests.unit.test_project_context::test_missing_or_unbound_other_member_does_not_block_available_read",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 633,
+          "node": "tests.unit.test_project_context::test_missing_or_unbound_other_member_does_not_block_available_read",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_multi_repository_planning.py::test_domain_fact_location_includes_its_authority_repository": {
+      "path": "tests/integration/test_multi_repository_planning.py",
+      "qualified_name": "test_domain_fact_location_includes_its_authority_repository",
+      "start_line": 310,
+      "end_line": 322,
+      "current_file_sha256": "856ff423ce16124c55738a4c8c8e5aa2c3c6adad60cf0899e8c3de47ea481c48",
+      "original_locator": "tests/integration/test_multi_repository_planning.py::test_domain_fact_location_includes_its_authority_repository",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1109,
+          "node": "tests.integration.test_multi_repository_planning::test_domain_fact_location_includes_its_authority_repository",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1099,
+          "node": "tests.integration.test_multi_repository_planning::test_domain_fact_location_includes_its_authority_repository",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_multi_repository_planning.py::test_external_repository_is_a_dependency_without_delivery_ownership": {
+      "path": "tests/integration/test_multi_repository_planning.py",
+      "qualified_name": "test_external_repository_is_a_dependency_without_delivery_ownership",
+      "start_line": 253,
+      "end_line": 285,
+      "current_file_sha256": "856ff423ce16124c55738a4c8c8e5aa2c3c6adad60cf0899e8c3de47ea481c48",
+      "original_locator": "tests/integration/test_multi_repository_planning.py::test_external_repository_is_a_dependency_without_delivery_ownership",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1107,
+          "node": "tests.integration.test_multi_repository_planning::test_external_repository_is_a_dependency_without_delivery_ownership[read]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1097,
+          "node": "tests.integration.test_multi_repository_planning::test_external_repository_is_a_dependency_without_delivery_ownership[read]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1115,
+          "node": "tests.integration.test_multi_repository_planning::test_external_repository_is_a_dependency_without_delivery_ownership[modify]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1105,
+          "node": "tests.integration.test_multi_repository_planning::test_external_repository_is_a_dependency_without_delivery_ownership[modify]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_multi_repository_planning.py::test_invalid_repository_plans_do_not_create_management_state": {
+      "path": "tests/integration/test_multi_repository_planning.py",
+      "qualified_name": "test_invalid_repository_plans_do_not_create_management_state",
+      "start_line": 208,
+      "end_line": 226,
+      "current_file_sha256": "856ff423ce16124c55738a4c8c8e5aa2c3c6adad60cf0899e8c3de47ea481c48",
+      "original_locator": "tests/integration/test_multi_repository_planning.py::test_invalid_repository_plans_do_not_create_management_state",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1102,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[duplicate_operation]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1100,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[duplicate_operation]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1104,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[readonly_write]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1095,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[readonly_write]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1105,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[invalid_collection]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1108,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[invalid_collection]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1114,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[missing_id]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1101,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[missing_id]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1150,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[invalid_order]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1091,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[invalid_order]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1152,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[wrong_repository]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1094,
+          "node": "tests.integration.test_multi_repository_planning::test_invalid_repository_plans_do_not_create_management_state[wrong_repository]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    }
+  },
+  "files": [
+    {
+      "path": "docs/architecture/modules.yaml",
+      "read_path": "inputs/files/docs/architecture/modules.yaml",
+      "sha256": "f6c3efe6120580193a5a1b9dafa0897dbfd3fe55145cf270248ed60c640c2b74",
+      "line_count": 442,
+      "bytes": 38835
+    },
+    {
+      "path": "strixnova/src/strixnova/initial_installation.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/initial_installation.py",
+      "sha256": "2d95c14df97fd9e490e82dfb90dd1a4a6b5b802a622def3fe084a4d7958144e1",
+      "line_count": 77,
+      "bytes": 3455
+    },
+    {
+      "path": "strixnova/src/strixnova/managed_installation.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/managed_installation.py",
+      "sha256": "5a469911f1bcd2e99aba85e923b365a45da0f5b857eb61d24f3b49374dacc2d5",
+      "line_count": 414,
+      "bytes": 28085
+    },
+    {
+      "path": "strixnova/src/strixnova/project_context.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_context.py",
+      "sha256": "8bf3cc68533dfbe26cda638e9a434dc5c743f20b2810a4aa8d365cdd3df43766",
+      "line_count": 587,
+      "bytes": 29805
+    },
+    {
+      "path": "strixnova/src/strixnova/project_engineering_baseline.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_engineering_baseline.py",
+      "sha256": "421f5184fe7b1f9cbee30bf685c1e2f7f20d248584c76208a5908f0ab71ad485",
+      "line_count": 369,
+      "bytes": 15715
+    },
+    {
+      "path": "strixnova/src/strixnova/project_repository_scope.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_repository_scope.py",
+      "sha256": "cf5c40d028e0fa30c9b78ccd88269b8696e91d706e53bcc2b01b3cba039ea6d2",
+      "line_count": 202,
+      "bytes": 10069
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-bindings-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/project-bindings-v1.schema.json",
+      "sha256": "2e70aa5bb17b460a31abe27067831a8ea6e57982d0cb2c96afac0e2dfcc84dfb",
+      "line_count": 67,
+      "bytes": 1403
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-config-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/project-config-v1.schema.json",
+      "sha256": "12dec05ee3c7d9b9961878724b421c8fad2e3ee2b5eb9a0a720cc0e9f44013d4",
+      "line_count": 102,
+      "bytes": 2131
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-context-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/project-context-v1.schema.json",
+      "sha256": "96187a0205b7d476a35163ec44231e0af2290dcc6f368d50298ade295f4da2e9",
+      "line_count": 194,
+      "bytes": 4391
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-engineering-baseline-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/project-engineering-baseline-v1.schema.json",
+      "sha256": "3763d079ec386038a204294868d6e251d35726ddaf686091be11effcf11e8b49",
+      "line_count": 424,
+      "bytes": 9746
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/runtime-compatibility-v1.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/runtime-compatibility-v1.json",
+      "sha256": "685451fdb39f1e8316b4f6f473e40ee8986d15b35be20bb432f3cd0827a84187",
+      "line_count": 13,
+      "bytes": 18777
+    },
+    {
+      "path": "strixnova/src/strixnova/runtime_identity.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/runtime_identity.py",
+      "sha256": "c9f35be4a1df8388d1dfa7bcadde23f1a4f7834d66148040b6cb1f05e2e03aa5",
+      "line_count": 101,
+      "bytes": 5095
+    },
+    {
+      "path": "strixnova/src/strixnova/runtime_upgrade.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/runtime_upgrade.py",
+      "sha256": "bb791e1ee23d4b7aeb43cba9401dcc868996d3ee54e9d472ccb5c33ef1fde9a2",
+      "line_count": 737,
+      "bytes": 49700
+    },
+    {
+      "path": "tests/integration/test_configured_project_context.py",
+      "read_path": "inputs/files/tests/integration/test_configured_project_context.py",
+      "sha256": "69081a2f5504b54d52fdb48681923f6f7d2b172916d8d989d872749dcb5aeff5",
+      "line_count": 242,
+      "bytes": 13681
+    },
+    {
+      "path": "tests/integration/test_multi_repository_planning.py",
+      "read_path": "inputs/files/tests/integration/test_multi_repository_planning.py",
+      "sha256": "856ff423ce16124c55738a4c8c8e5aa2c3c6adad60cf0899e8c3de47ea481c48",
+      "line_count": 384,
+      "bytes": 24096
+    },
+    {
+      "path": "tests/integration/test_upgrade_cli.py",
+      "read_path": "inputs/files/tests/integration/test_upgrade_cli.py",
+      "sha256": "f3410cb7575691ab54a4d7c34b306218447d0c9d25c13b81d8457cbf569d8e62",
+      "line_count": 64,
+      "bytes": 3448
+    },
+    {
+      "path": "tests/support/__init__.py",
+      "read_path": "inputs/files/tests/support/__init__.py",
+      "sha256": "3de8a4a2d1a7c39a39e659c040ef311e1526af24098a396468f33162bd1b2398",
+      "line_count": 1,
+      "bytes": 46
+    },
+    {
+      "path": "tests/support/behavior_examples.py",
+      "read_path": "inputs/files/tests/support/behavior_examples.py",
+      "sha256": "a17f6373d258fbe5f91dd5814a5abfc200eca5c834077625b20d000a646339b9",
+      "line_count": 42,
+      "bytes": 1815
+    },
+    {
+      "path": "tests/support/governance_assessment.py",
+      "read_path": "inputs/files/tests/support/governance_assessment.py",
+      "sha256": "5c912e2bd629b66bf8df73238d94b2da1e02bcb26541e9e7b64a857bd9407e63",
+      "line_count": 1007,
+      "bytes": 39873
+    },
+    {
+      "path": "tests/support/history_records.py",
+      "read_path": "inputs/files/tests/support/history_records.py",
+      "sha256": "3f9da9a198b32d015bcbbb0c54f548b2472b58084eb95500a870ae82d4c49604",
+      "line_count": 116,
+      "bytes": 7182
+    },
+    {
+      "path": "tests/support/implementation_alignment.py",
+      "read_path": "inputs/files/tests/support/implementation_alignment.py",
+      "sha256": "7711215903965a40507f36b9ba7050a11538d73fd708ecee402ba9c7302814f0",
+      "line_count": 110,
+      "bytes": 5344
+    },
+    {
+      "path": "tests/support/project_baseline.py",
+      "read_path": "inputs/files/tests/support/project_baseline.py",
+      "sha256": "1f729a46cd4775bc3ec64273310b5518bea3c19dec470e803c61fe15705eec97",
+      "line_count": 830,
+      "bytes": 32542
+    },
+    {
+      "path": "tests/support/project_configuration.py",
+      "read_path": "inputs/files/tests/support/project_configuration.py",
+      "sha256": "f5e31a3976bbddfbb74feccda2a1366205a83cdd031744372f81c1c617ce98ea",
+      "line_count": 51,
+      "bytes": 2373
+    },
+    {
+      "path": "tests/support/project_context.py",
+      "read_path": "inputs/files/tests/support/project_context.py",
+      "sha256": "e3dbd35ee4cdf6bd5d658319ef9b1086a88163a0506cbc6c82c5acd81e6701aa",
+      "line_count": 65,
+      "bytes": 2255
+    },
+    {
+      "path": "tests/support/review_context.py",
+      "read_path": "inputs/files/tests/support/review_context.py",
+      "sha256": "66775f3379adb6470cdae63122c9ac62ab55fa3920fd919e0ec7f86ee9c37be0",
+      "line_count": 60,
+      "bytes": 2644
+    },
+    {
+      "path": "tests/support/review_subject.py",
+      "read_path": "inputs/files/tests/support/review_subject.py",
+      "sha256": "eb5d8f4930524ef3df2cff69c87cb9c76ee944fa8d4e0a9ae0e43f02343096cb",
+      "line_count": 38,
+      "bytes": 1625
+    },
+    {
+      "path": "tests/support/verification_approval.py",
+      "read_path": "inputs/files/tests/support/verification_approval.py",
+      "sha256": "52e56793ed7d55b47cfe939d487f775b9d3c166de989cc654f0b8f970d792528",
+      "line_count": 66,
+      "bytes": 2084
+    },
+    {
+      "path": "tests/unit/test_host_adapter.py",
+      "read_path": "inputs/files/tests/unit/test_host_adapter.py",
+      "sha256": "eaad1fb10f4b801901378fed7180aca6195a431a5c289d9bb135bad4f55f9672",
+      "line_count": 2699,
+      "bytes": 96917
+    },
+    {
+      "path": "tests/unit/test_initial_installation.py",
+      "read_path": "inputs/files/tests/unit/test_initial_installation.py",
+      "sha256": "54a86ac80967069354fda6108da88b6ee37aade19d968e82363c912106da458e",
+      "line_count": 150,
+      "bytes": 8343
+    },
+    {
+      "path": "tests/unit/test_managed_installation.py",
+      "read_path": "inputs/files/tests/unit/test_managed_installation.py",
+      "sha256": "9e758ea7174d3a33a5010f19603e7f2a6a22fb2e69ff3d1ad6ee8ec24854c317",
+      "line_count": 296,
+      "bytes": 14333
+    },
+    {
+      "path": "tests/unit/test_project_context.py",
+      "read_path": "inputs/files/tests/unit/test_project_context.py",
+      "sha256": "75d18ea715b58bfe2efb98e8502bde94a35c5bbb51b66b800eb70cfbdc6a5dcd",
+      "line_count": 335,
+      "bytes": 16915
+    },
+    {
+      "path": "tests/unit/test_project_engineering_baseline.py",
+      "read_path": "inputs/files/tests/unit/test_project_engineering_baseline.py",
+      "sha256": "398e315ae77cba741a4a117a7b84f37d876680d302c9fcf865bb908c6b1c1cc1",
+      "line_count": 187,
+      "bytes": 6104
+    },
+    {
+      "path": "tests/unit/test_runtime_format_admission.py",
+      "read_path": "inputs/files/tests/unit/test_runtime_format_admission.py",
+      "sha256": "15c9bdf66432977f7634f9ea7857c2e304fab5571b4ec31274a5fcfea96c3bbf",
+      "line_count": 36,
+      "bytes": 1959
+    },
+    {
+      "path": "tests/unit/test_runtime_upgrade.py",
+      "read_path": "inputs/files/tests/unit/test_runtime_upgrade.py",
+      "sha256": "03c42afea8ff8670e149a7d08eb8895f31bf29b58eb48ba66440bebb19c6788d",
+      "line_count": 355,
+      "bytes": 18611
+    }
+  ],
+  "excluded_retired_locators": [],
+  "limitations": [
+    "The old locator index is navigation only. Contracts were compared to current documents; every source/test was re-read and function line locations rebuilt.",
+    "Recorded test results prove their named assertions at the recorded time, not full semantic sufficiency. JUnit does not capture execution-time source hashes.",
+    "All real-project authorities remain draft/unconfirmed; Git baseline fields are not yet bound because the new repo is unborn. Do not fabricate Git or owner acceptance.",
+    "These targets concern current program responsibilities. Agent effectiveness, whole-project maturity and external certification are separate claims."
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false
+}

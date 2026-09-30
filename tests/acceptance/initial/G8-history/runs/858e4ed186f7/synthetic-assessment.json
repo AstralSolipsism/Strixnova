@@ -1,0 +1,92 @@
+{
+  "schema_version": "strixnova.engineering-assessment.v1",
+  "assessment_id": "EA-HISTORY-DIAGNOSTIC-001",
+  "assessment_revision": 1,
+  "direction_ref": {
+    "work_item_id": "WI-20260928-D44E67E3",
+    "direction_version": 3
+  },
+  "investigation_ref": "working_tree",
+  "change_context": {
+    "change_kind": "exploration",
+    "formal_implementation": false
+  },
+  "impact_scope": {
+    "affected": [],
+    "unknown": [],
+    "unaffected": [
+      "user_behavior",
+      "product_scope",
+      "domain",
+      "architecture",
+      "interface",
+      "data",
+      "security_privacy",
+      "quality_performance",
+      "operations_deployment",
+      "compatibility_migration",
+      "testing",
+      "documentation_support"
+    ]
+  },
+  "method_applications": [],
+  "requested_assurance": {
+    "band": "A0",
+    "reason": "只读调查，不形成仓库操作。"
+  },
+  "owner_view": {
+    "schema_version": "strixnova.owner-view.v1",
+    "decision_support": {
+      "current_problem": "完成只读调查并如实报告现状。",
+      "why_it_matters": "需要区分已观察事实与尚未确认推断。",
+      "impact": "不改变仓库文件、产品范围或领域含义。",
+      "recommendation": "保留只读范围并明确报告限制。",
+      "alternatives": [
+        "另开正式实施事项处理发现。"
+      ],
+      "no_action_consequence": "当前未知继续存在且不形成实施结论。",
+      "next_step": "审阅调查结果并决定是否另开建设事项。",
+      "necessary_questions": []
+    },
+    "engineering_context": {
+      "product_and_domain_change": "不改变产品范围或领域含义。",
+      "architecture_responsibilities": "不改变目标架构责任。",
+      "implementation_order": "只读取证据并形成报告，不实施仓库变更。",
+      "highest_impact_risks": "不得把调查推断冒充已经实施。",
+      "verification_and_observation": "没有适用验证命令，并明确说明原因。",
+      "uncertainties": "所有未确认内容保留为调查限制。"
+    },
+    "current_decision": "是否接受该只读调查结果。",
+    "semantic_content_machine_proven": false
+  },
+  "verification_reviews": [],
+  "verification_commands": [
+    {
+      "argv": [
+        "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+        "-c",
+        "import sys; print(\"controlled diagnostic failure\"); sys.exit(7)"
+      ],
+      "cwd": ".",
+      "run_kind": "targeted_test",
+      "covers": [
+        "direction.acceptance:DIRACC-3333333333333333",
+        "direction.constraint:DIRCON-2222222222222222"
+      ],
+      "reason": "运行已登记的受控失败命令，记录真实失败而非伪造回执。"
+    },
+    {
+      "argv": [
+        "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+        "-c",
+        "print(\"this registered command is intentionally not run\")"
+      ],
+      "cwd": ".",
+      "run_kind": "targeted_test",
+      "covers": [
+        "direction.acceptance:DIRACC-3333333333333333"
+      ],
+      "reason": "本固定诊断明确留作未运行分支。"
+    }
+  ]
+}

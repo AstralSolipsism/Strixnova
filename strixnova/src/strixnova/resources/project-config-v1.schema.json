@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-config.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "repository_id",
+    "repositories",
+    "engineering_baseline"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-config.v1"
+    },
+    "project_id": {
+      "$ref": "#/$defs/project_id"
+    },
+    "repository_id": {
+      "$ref": "#/$defs/repository_id"
+    },
+    "repositories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/repository"
+      }
+    },
+    "external_repositories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/repository"
+      }
+    },
+    "engineering_baseline": {
+      "$ref": "#/$defs/reference"
+    },
+    "default_integration_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "project_id": {
+      "type": "string",
+      "pattern": "^PROJECT-[0-9A-F]{16}$"
+    },
+    "repository_id": {
+      "type": "string",
+      "pattern": "^REPO-[0-9A-F]{16}$"
+    },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "owner_project_id",
+        "purpose"
+      ],
+      "properties": {
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "owner_project_id": {
+          "$ref": "#/$defs/project_id"
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "reference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id",
+        "path"
+      ],
+      "properties": {
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        }
+      }
+    }
+  }
+}

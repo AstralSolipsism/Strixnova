@@ -1,0 +1,13 @@
+宿主执行说明：若工具转为后台执行，查询状态不等于等待完成。请使用宿主提供的实际等待或唤醒工具（例如 schedule），收到真实完成结果后继续。不能仅用一段“正在等待”的回答代替等待。
+
+继续你此前的独立审阅。原始报告已保存，不修改它或任何输入。本次仍只读 D:\AboutDEV\Strixnova\.artifacts\validation\f2aae50a843d\evidence\independent-review\project 中的冻结材料。以下反馈是需要重新核对的问题，不预设通过或失败；请对照原criteria、实际来源与答复重新给出判断。若有不支持的断言，应列为问题并按原标准处理，不用改写审阅理由掩盖作者答复缺陷。不要补查外部文件或执行工作流。保留原验证范围、引用规则及JSON结构；理由不要求重抄原文。
+
+请在同一冻结材料、同一内容验收范围内重新核对以下具体疑点，不预设结论。原passed报告保留。本次仍不得登记结果、改写代码、执行工作流或替代作者，且固定接受输入保持禁止。
+
+1. 可信身份：原报告称MemberService.withdraw与CLI均严格以已认证身份为基准。file/src/cli.py的build_parser允许调用者提供--member-id，run_cli将args.member_id直接传入authenticated_member_id；file/src/application/service.py的withdraw只比较这个参数与owner_member_id，文档把认证交给调用方。请沿实际调用路径查明可信宿主会话在何处提供/校验身份，或是否仅有参数名称和注释的假定。对照draft-actual-result的完整能力声明及当前限制，判断原结论是否有相称依据；若有真实保障路径，请引用该路径，若没有请按原标准报告。
+
+2. CLI实际可用性：file/src/cli.py定义build_parser和run_cli，但源码中没有顶层入口调用；file-inventory列出了实际可交付文件。请核对是否存在可执行的宿主装配/启动路径及实际运行证据，区分函数级接口与草稿所称完整本地终端能力。不能只以argparse出现作为实际贯通依据，也不新增原方案未要求的部署范围。
+
+3. 并发与状态：file/src/application/service.py先调用can_withdraw，之后才取expected_version并调用withdraw；file/src/application/domain.py的withdraw/approve分别检查版本后写状态和递增，withdraw内部未检查待审核状态。file/tests/test_withdrawal.py中的并发用例是读取版本后顺序调用。请核对该证据能支持多大的并发保证，尤其服务层状态检查与版本读取之间发生审批时，以及版本比较和更新的原子性。若当前实现或测试不能支持草稿的声明，确认是否已经如实披露；勿把版本字段存在或顺序模拟直接升级为并发保证。
+
+请返回原JSON结构，对每个实际问题给出冻结source_id及正确行号。若查证没有问题，也应解释上述实际数据流和执行边界，不能仅重复作者注释或草稿自述。

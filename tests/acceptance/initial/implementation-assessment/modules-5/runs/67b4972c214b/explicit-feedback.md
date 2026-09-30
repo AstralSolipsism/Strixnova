@@ -1,0 +1,7 @@
+请核对原评价中以下具体推断，不预设通过，也不要为消除partial而改合同：
+1. VerificationRunner返回后，application_coordinator.py:2649将输入快照持久化到执行意图，2683写入receipt并重新比较。请沿真实调用链判断本模块职责，不以run()内部没有同一赋值就认定整体快照未实现。新增上下文已经在inputs/files/中。
+2. 随包pytest适配器真实存在pytest_runtest_logreport、pytest_testnodedown读取workeroutput，以及worker的pytest_sessionfinish写出收集元数据；请结合实际pytest/xdist测试断言判断汇总路径。不要把未读协作机制当代码缺口，也不要把运行证据不足冒称完全覆盖。
+3. source_paths是生产归属候选，不是测试文件归属清单。测试通过中介模块验证边界是正常情形，需要沿调用核对相关性，不能仅因测试文件不列于source_paths就判缺实现。
+4. 符号链接测试因宿主权限跳过，应准确记录验证局限；是否存在代码职责缺失要另据代码/合同判断。YAML补丁与可恢复文档事务各自服务的调用路径和责任也需据实际事实判断，不能先假定必须合并为一个新机制。
+5. implemented、missing和limitations保持已有底账语义。原独立报告出现passed同时带未闭合issues，报告被保留且未计通过；请给出可供新独立复核的真实评价，不为修复报告结构而删掉真正问题。
+全程只读冻结材料，返回最终结构化对象，程序仅序列化你的结果。原始失败、跳过和没有执行时源码摘要的局限都保留；不能新增测试、改源码或虚构负责人接受。

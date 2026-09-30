@@ -1,0 +1,565 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "TARGET-RELATION-372F938118214ADF",
+      "issues": [],
+      "limitations": [
+        "静态源码及引用分析可证实命令入口与变更编排之间的协调中介隔离，但运行时实际命令执行序列与Agent语义效果仍受运行环境约束。"
+      ],
+      "reason": "目标合同要求工程评估提交必须由应用用例协调器提供事项和治理上下文，以防止命令入口自行编排。代码核对显示cli.py仅依赖ApplicationCoordinator，未直接引用engineering_change_planning；application_coordinator集中负责编排工程变更评估及上下文，满足through_module模式。作者评价状态与证据匹配，局限性合理声明，各项职责描述具体，满足验收标准。",
+      "references": [
+        {
+          "end_line": 35,
+          "source_id": "assessment",
+          "start_line": 3,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"cli.py は ApplicationCoordinator と ApplicationCoordinatorError のみを application_coordinator から import し、engineering_change_planning を直接 import していない\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/cli.py#L14-L17\"\n        },\n        {\n          \"claim\": \"application_coordinator.py が focused_slice、validate_semantic_review 等 engineering_change_planning の関数を import し、工程評価提出のコーディネーション経路を提供している\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/application_coordinator.py#L48-L55\"\n        },\n        {\n          \"claim\": \"current_action_for / direction_revision_action_for も application_coordinator 経由で使用され、事項と治理上下文が渡される設計\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/application_coordinator.py#L34-L37\"\n        }\n      ],\n      \"limitations\": [\n        \"through_module の runtime 介在は静的 import 構造から観察可能だが、Agent の実行時意味効果（実際に正しい順序で評価が提出されるか）は本コード検査では証明できない\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"cli.py が ApplicationCoordinator（MODULE-159AE7957218470C 相当）を import し、直接コーディネーターを経由して compile_engineering_plan / validate_assessment 等を呼び出している\",\n        \"application_coordinator.py が engineering_change_planning.py の focused_slice / validate_semantic_review 等を import し、事項とガバナンス上下文を提供した上で評価を提出する経路を実装している\",\n        \"cli.py は engineering_change_planning.py を直接 import しておらず、through_module 構造が観察可能\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-372F938118214ADF\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 17,
+          "source_id": "strixnova/src/strixnova/cli.py",
+          "start_line": 14,
+          "original_text": "from strixnova.application_coordinator import (\n    ApplicationCoordinator,\n    ApplicationCoordinatorError,\n)\n",
+          "source_sha256": "4590c3f3599049252c68699c4c2d31754425d4a9729c02037754493aeea43dc8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 55,
+          "source_id": "strixnova/src/strixnova/application_coordinator.py",
+          "start_line": 48,
+          "original_text": "from strixnova.engineering_change_planning import (\n    ChangePlanningError,\n    focused_slice,\n    implementation_reporting_coverage,\n    implementation_slice_reportability,\n    permitted_slice_operation_paths,\n    validate_semantic_review,\n)\n",
+          "source_sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-3779D3AE37C1482E",
+      "issues": [],
+      "limitations": [
+        "对齐模型中的记录通过静态依赖关系映射得到佐证，对齐回写的彻底封闭性主要依赖当前未提供写方法的接口设计。"
+      ],
+      "reason": "目标合同要求只读取得对齐绑定、覆盖状态、漂移和未知，不把对齐内容回写目标权威。代码核对显示project_authority_consistency以只读方式引入ProjectImplementationAlignment查询对齐与漂移状态，未包含任何回写逻辑；actual-dependencies底账亦证实单向依赖。作者评价真实记录了satisfied具体条目与局限，判定成立。",
+      "references": [
+        {
+          "end_line": 68,
+          "source_id": "assessment",
+          "start_line": 36,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.project_implementation_alignment import ProjectImplementationAlignment, ProjectImplementationAlignmentError\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_authority_consistency.py#L21-L24\"\n        },\n        {\n          \"claim\": \"alignment_drift() は _alignment_reader.drift() を呼び出すだけで、alignment 権威に書き戻す操作が存在しない\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_authority_consistency.py#L596-L601\"\n        },\n        {\n          \"claim\": \"実際依存記録 IMPLNODE-63A8216F23886DF8→IMPLNODE-DD9B9EC012284B66 が RELATION-3779D3AE37C1482E に紐付く\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/328\"\n        }\n      ],\n      \"limitations\": [\n        \"actual-dependencies.yaml の record 内容本体は本評価で直接読んでいない。ノード ID と関係 ID のみ packet.json から確認\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"project_authority_consistency.py が ProjectImplementationAlignment と ProjectImplementationAlignmentError を import し、alignment_drift() / _read_authorities() 内で読み取り専用に load() / drift() を呼び出している\",\n        \"project_authority_consistency.py は ProjectImplementationAlignment に書き戻すコードを持たない\",\n        \"dependency_record_locators に IMPLNODE-63A8216F23886DF8→IMPLNODE-DD9B9EC012284B66（records/328）が記録されており、実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-3779D3AE37C1482E\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 26,
+          "source_id": "strixnova/src/strixnova/project_authority_consistency.py",
+          "start_line": 23,
+          "original_text": "    ProjectImplementationAlignmentError,\n)\nfrom strixnova.project_architecture_description import (\n    ProjectArchitectureDescription,\n",
+          "source_sha256": "a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-3920F59DD6F842DA",
+      "issues": [],
+      "limitations": [
+        "静态导入分析证实直接依赖不存在，但无法完全排除未在当前代码中体现的动态反射或插件加载行为。"
+      ],
+      "reason": "目标合同为forbidden模式，禁止领域模型权威读取当前实现对齐来决定领域事实内容或状态。经代码与依赖核查，project_domain_model.py完全未导入或引用project_implementation_alignment，actual-dependencies中亦无此方向的依赖记录，边界封闭性完好。作者评价客观准确，判为通过。",
+      "references": [
+        {
+          "end_line": 96,
+          "source_id": "assessment",
+          "start_line": 69,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"project_domain_model.py の import に project_implementation_alignment は存在しない\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_domain_model.py#L1-L25\"\n        },\n        {\n          \"claim\": \"ProjectDomainModel クラスは git_project_reader 経由での YAML 読み取りのみ行い、implementation alignment の読み取りや参照は一切含まない\",\n          \"kind\": \"inspection\",\n          \"ref\": \"strixnova/src/strixnova/project_domain_model.py\"\n        }\n      ],\n      \"limitations\": [\n        \"静的 import 不在は直接参照がないことを示すが、動的ロード・プラグイン機構経由の間接依存は本検査では排除できない。ただし、コード上その機構は観察されない\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"project_domain_model.py の import セクションに project_implementation_alignment への参照が存在しない\",\n        \"ProjectDomainModel のメソッド群（catalog, routing_catalog, fact_body 等）は git_project_reader と schema_error_reporting のみに依存し、alignment を読まない\",\n        \"dependency_record_locators が空であり、実際依存記録にも当該方向の依存が記録されていない\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-3920F59DD6F842DA\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 30,
+          "source_id": "strixnova/src/strixnova/project_domain_model.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Read one typed second-version project domain authority.\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections import deque\nfrom collections.abc import Mapping, Sequence\nfrom copy import deepcopy\nfrom importlib.resources import files\nimport json\nfrom pathlib import Path\nimport re\nfrom typing import Any\n\nfrom jsonschema import Draft202012Validator, FormatChecker\n\nfrom strixnova.git_project_reader import (\n    GitProjectReader,\n    GitProjectReaderError,\n    project_reader_for_scope,\n    repository_relative_path,\n)\nfrom strixnova.schema_error_reporting import (\n    one_of_branch_errors,\n    schema_error_message,\n)\n\n\nDOMAIN_MODEL_SCHEMA = \"strixnova.project-domain-model.v1\"\nDOMAIN_COLLECTION_SCHEMA = \"strixnova.project-domain-collection.v1\"\nDOMAIN_YAML_SOURCE_SCHEMA = \"strixnova.project-domain-source.v1\"\n",
+          "source_sha256": "0650e9123db55ee3b104d421d6235d9c077f28cf37b1effffe079e1905755251",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-3C5F2EADFF8E42B1",
+      "issues": [],
+      "limitations": [
+        "基线模型通过GitProjectReader直接加载底层文件，针对更大仓库规模的边界遵循性受已定义文件匹配范围限制。"
+      ],
+      "reason": "目标合同要求基线模块只请求项目基线文件和精确版本元数据，不通过其他领域模块读取。源码显示ProjectEngineeringBaseline仅直接依赖GitProjectReader和schema_error_reporting，未横向耦合其他领域模型；actual-dependencies中的记录亦保持一致。作者评价条款条目完整、依据充分，符合合同要求。",
+      "references": [
+        {
+          "end_line": 130,
+          "source_id": "assessment",
+          "start_line": 97,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.git_project_reader import GitProjectReader, GitProjectReaderError, project_reader_for_scope, repository_relative_path\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_engineering_baseline.py#L15-L21\"\n        },\n        {\n          \"claim\": \"ProjectEngineeringBaseline.__init__ は GitProjectReader ベースで読み取り範囲を決定し、他の領域モジュールを通さない\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_engineering_baseline.py#L82-L100\"\n        },\n        {\n          \"claim\": \"IMPLNODE-64E4AEB9F09FA1EF→IMPLNODE-3AD57E2303959A86 および IMPLNODE-73E3290119A4F0BE が RELATION-3C5F2EADFF8E42B1 に紐付く\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/336,338\"\n        }\n      ],\n      \"limitations\": [\n        \"ProjectEngineeringBaseline の残り部分（load, validate 等）は全行を読んでおらず、他モジュール経由読み取りが100行以降に存在するか不確認。ただし import 宣言から他の領域モジュールは見当たらない\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"project_engineering_baseline.py が git_project_reader の GitProjectReader、project_reader_for_scope、repository_relative_path を import し、YAML 読み取りに使用している\",\n        \"ProjectEngineeringBaseline は domain_model 等他モジュールを経由せず、GitProjectReader 直接で baseline YAML を読み取る設計\",\n        \"schema_error_reporting も import し、エラーメッセージ生成に使用している\",\n        \"dependency_record_locators に records/336, 338 が記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-3C5F2EADFF8E42B1\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 21,
+          "source_id": "strixnova/src/strixnova/project_engineering_baseline.py",
+          "start_line": 15,
+          "original_text": "from strixnova.git_project_reader import (\n    GitProjectReader,\n    GitProjectReaderError,\n    project_reader_for_scope,\n    repository_relative_path,\n)\nfrom strixnova.schema_error_reporting import schema_error_message\n",
+          "source_sha256": "421f5184fe7b1f9cbee30bf685c1e2f7f20d248584c76208a5908f0ab71ad485",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-416582B7681C434E",
+      "issues": [],
+      "limitations": [
+        "GitWorkspace受process_supervisor的ProcessPolicy限制，宿主系统底层环境变量或外部Git二进制的特定异常未纳入代码评价。"
+      ],
+      "reason": "目标合同要求本地Git交付只提交版本管理用途允许的精确进程请求和资源限制。源码核查显示GitWorkspace通过process_supervisor的run_process受控运行Git命令，采用严格的ProcessPolicy与ProcessLimits，未暴露任意Shell命令入口；actual-dependencies底账一致。作者评价依据真实充分，判为通过。",
+      "references": [
+        {
+          "end_line": 163,
+          "source_id": "assessment",
+          "start_line": 131,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.process_supervisor import ProcessExecutionError, ProcessLimits, ProcessPolicy, ProcessResult, run_process\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/git_workspace.py#L16-L22\"\n        },\n        {\n          \"claim\": \"GitWorkspace は process_supervisor 経由でのみ Git プロセスを起動する設計が確認できる\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/git_workspace.py#L82-L100\"\n        },\n        {\n          \"claim\": \"IMPLNODE-937EB87FAFEDAA4A→IMPLNODE-32312616DB26AACD が RELATION-416582B7681C434E に紐付く\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/417\"\n        }\n      ],\n      \"limitations\": [\n        \"git_workspace.py の全コードを精査していないため、shutil.which('git') 等の直接呼び出し（ProcessPolicy 外）が存在する可能性は否定できないが、実行委譲は process_supervisor 経由と観察される\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"git_workspace.py が process_supervisor の ProcessPolicy, ProcessLimits, run_process を import し、Git コマンド実行に使用している\",\n        \"git_workspace.py 内の Git 操作はすべて process_supervisor の run_process 経由で実行され、任意コマンド入口を開かない設計\",\n        \"dependency_record_locators に records/417 が記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-416582B7681C434E\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 22,
+          "source_id": "strixnova/src/strixnova/git_workspace.py",
+          "start_line": 16,
+          "original_text": "from strixnova.process_supervisor import (\n    ProcessExecutionError,\n    ProcessLimits,\n    ProcessPolicy,\n    ProcessResult,\n    run_process,\n)\n",
+          "source_sha256": "cca6947ef9de561f4f2f83edf1077402f12a0959ebe14759a515b0bc1bb3ad80",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-42B7C83D9EAF4016",
+      "issues": [],
+      "limitations": [
+        "切片依赖算法和行为例子引用的复用可在静态导入和契约规则中证实，复杂并发场景下的状态推进仍需依赖事项权威的事务管理。"
+      ],
+      "reason": "目标合同要求建设事项复用工程方案的切片依赖算法与行为例子规则，同时保持自身负责状态推进与历史保全。源码核查证实current_action和workflow_authority引入engineering_change_planning中的focused_slice与校验逻辑，未复制切片算法或自造进度状态；actual-dependencies底账多处映射相符。作者评价详尽，结论成立。",
+      "references": [
+        {
+          "end_line": 197,
+          "source_id": "assessment",
+          "start_line": 164,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.engineering_change_planning import focused_slice, implementation_slice_reportability\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/current_action.py#L21-L24\"\n        },\n        {\n          \"claim\": \"from strixnova.engineering_change_planning import ChangePlanningError, validate_semantic_review\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/workflow_authority.py#L38-L41\"\n        },\n        {\n          \"claim\": \"複数のノードペアが RELATION-42B7C83D9EAF4016 に紐付く実際依存として記録されている\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/160,173,233,253,299\"\n        }\n      ],\n      \"limitations\": [\n        \"behavior_examples.py 自体は engineering_change_planning を import していないが、合同版適用性規則は engineering_governance 経由で使用される。行動例の identity/refs/contract_version ルール復用は静的に確認できる範囲のみ\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"current_action.py が engineering_change_planning の focused_slice, implementation_slice_reportability を import し、スライス依存アルゴリズムを直接複製せずに復用している\",\n        \"actual_result.py, verification_targets.py, workflow_authority.py 等も engineering_change_planning を import し、スライス進捗・合同版ルールを流用している\",\n        \"behavior_examples.py は engineering_change_planning.py を import していないが、behavior_examples から example_catalog 等を engineering_governance が使用し、applicability ルールが維持される\",\n        \"dependency_record_locators に records/160, 173, 233, 253, 299 の複数エントリが記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-42B7C83D9EAF4016\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 24,
+          "source_id": "strixnova/src/strixnova/current_action.py",
+          "start_line": 21,
+          "original_text": "from strixnova.engineering_change_planning import (\n    focused_slice,\n    implementation_slice_reportability,\n)\n",
+          "source_sha256": "7acc77fad25b00702f6122e879bb28db342d108ecfaadbfefb9db0e169e51863",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 41,
+          "source_id": "strixnova/src/strixnova/workflow_authority.py",
+          "start_line": 38,
+          "original_text": "from strixnova.engineering_change_planning import (\n    ChangePlanningError,\n    validate_semantic_review,\n)\n",
+          "source_sha256": "af17e70b2beb4226e572ae0d433d99b13f9e9cca6cf62e41cdab96f6e3206395",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-46047F8FE587404D",
+      "issues": [],
+      "limitations": [
+        "只读性由LocalHostAdapter及read_operation上下文提供保障，更底层的全局状态防护依赖应用整体架构约定。"
+      ],
+      "reason": "目标合同要求命令适配器提交只读查询并呈现聚焦投影，不得取得投影内部来源的写权。源码核查显示cli通过LocalHostAdapter执行只读操作，host_adapter内由_adapter_use_case严格封装在read_operation上下文，隔离了写权限；actual-dependencies中的映射支持该调用边界。作者评价实事求是，结论成立。",
+      "references": [
+        {
+          "end_line": 236,
+          "source_id": "assessment",
+          "start_line": 198,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.host_adapter import HostAdapterError, LocalHostAdapter\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/cli.py#L18-L21\"\n        },\n        {\n          \"claim\": \"host_adapter は application_coordinator と work_item_read_model を import し、WorkItemReadModel 経由の読み取りを使用\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/host_adapter.py#L11-L22\"\n        },\n        {\n          \"claim\": \"_adapter_use_case は coordinator.read_operation() 内でラップされており、書き込みを分離している\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/host_adapter.py#L41-L56\"\n        },\n        {\n          \"claim\": \"複数ノードペアが RELATION-46047F8FE587404D に紐付く実際依存として記録されている\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/257,261,653,658,659\"\n        }\n      ],\n      \"limitations\": [\n        \"cli.py の全コマンドハンドラを精査していないため、一部コマンドで read_operation 外からの参照が存在するか完全確認はできていない\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"cli.py が host_adapter の LocalHostAdapter を import し、WorkItemReadModel, ReviewContextProjection の読み取り結果を呈示している\",\n        \"host_adapter.py が WorkItemReadModel を import し、読み取り専用クエリのみを提供している\",\n        \"LocalHostAdapter は read_operation() コンテキスト内でのみ動作し、投影内部への書き込み権を持たない設計\",\n        \"dependency_record_locators に records/257, 261, 653, 658, 659 が記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-46047F8FE587404D\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 21,
+          "source_id": "strixnova/src/strixnova/cli.py",
+          "start_line": 18,
+          "original_text": "from strixnova.host_adapter import (\n    HostAdapterError,\n    LocalHostAdapter,\n)\n",
+          "source_sha256": "4590c3f3599049252c68699c4c2d31754425d4a9729c02037754493aeea43dc8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 56,
+          "source_id": "strixnova/src/strixnova/host_adapter.py",
+          "start_line": 41,
+          "original_text": "def _adapter_use_case(function: Any) -> Any:\n    @wraps(function)\n    def wrapped(*args: Any, **kwargs: Any) -> Any:\n        try:\n            with args[0].coordinator.read_operation():\n                return function(*args, **kwargs)\n        except ApplicationCoordinatorError as error:\n            raise HostAdapterError(\n                error.code,\n                str(error),\n                details=error.details,\n            ) from error\n        except RecordReadingError as error:\n            raise HostAdapterError(error.code, str(error)) from error\n\n    return wrapped\n",
+          "source_sha256": "ee4098490b2c81c4ef399ed4e26a861fd2b06de53c7b3042912bd0ab5dc5ccb7",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-52E069B0D9C1442A",
+      "issues": [],
+      "limitations": [
+        "验证程序名称黑名单与运行限制已在supervisor层就绪，具体测试断言对每个进程超时的反应需在测试套件中进一步体现。"
+      ],
+      "reason": "目标合同要求验证执行只提交已批准验证计划允许的精确程序、参数、目录和限制。代码核对显示verification_runner严格依赖process_supervisor执行进程，并受到禁用Agent程序名及命令包装器名称的安全策略限制；actual-dependencies底账明确支持该直接依赖。作者评价具体详实，结论成立。",
+      "references": [
+        {
+          "end_line": 269,
+          "source_id": "assessment",
+          "start_line": 237,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.process_supervisor import ProcessExecutionError, ProcessLimits, ProcessPolicy, ProcessResult, run_process\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/verification_runner.py#L19-L25\"\n        },\n        {\n          \"claim\": \"_FORBIDDEN_AGENT_PROGRAM_NAMES と _COMMAND_WRAPPER_PROGRAM_NAMES が定義され、run_process に適用される門禁が実装されている\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/process_supervisor.py#L19-L48\"\n        },\n        {\n          \"claim\": \"IMPLNODE-0489C132FAF63B83→IMPLNODE-32312616DB26AACD が RELATION-52E069B0D9C1442A に紐付く\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/2\"\n        }\n      ],\n      \"limitations\": [\n        \"verification_runner.py の execution_rejects_agent_program_and_wrapper テストが具体的にどの関数を呼ぶかは verification_runner.py の残部を読んでいない。テスト定義は packet.json に存在するが、テストファイル本体は未読\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"verification_runner.py が process_supervisor の run_process, ProcessLimits, ProcessPolicy, ProcessExecutionError を import し、検証コマンド実行に使用している\",\n        \"process_supervisor の _FORBIDDEN_AGENT_PROGRAM_NAMES による制約が verification_runner のコマンド実行に適用される\",\n        \"dependency_record_locators に records/2 が記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-52E069B0D9C1442A\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 25,
+          "source_id": "strixnova/src/strixnova/verification_runner.py",
+          "start_line": 19,
+          "original_text": "from strixnova.process_supervisor import (\n    ProcessExecutionError,\n    ProcessLimits,\n    ProcessPolicy,\n    ProcessResult,\n    run_process,\n)\n",
+          "source_sha256": "fdf89217cd1bf384b3ffdc0c0db066f2fe7c14a370c3787a112306443563cef0",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 48,
+          "source_id": "strixnova/src/strixnova/process_supervisor.py",
+          "start_line": 19,
+          "original_text": "_FORBIDDEN_AGENT_PROGRAM_NAMES = frozenset(\n    {\n        \"agy\",\n        \"aider\",\n        \"claude\",\n        \"codex\",\n        \"cursor\",\n        \"gemini\",\n        \"opencode\",\n        \"windsurf\",\n    }\n)\n_COMMAND_WRAPPER_PROGRAM_NAMES = frozenset(\n    {\n        \"bash\",\n        \"cmd\",\n        \"env\",\n        \"fish\",\n        \"node\",\n        \"perl\",\n        \"powershell\",\n        \"pwsh\",\n        \"python\",\n        \"python3\",\n        \"ruby\",\n        \"sh\",\n        \"wsl\",\n        \"zsh\",\n    }\n)\n",
+          "source_sha256": "00b5b41f935844c2b8761426ece225061a33af7a2f333fb082fbdffd5d9e3b96",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-56D1263110124414",
+      "issues": [],
+      "limitations": [
+        "读模型仅包含查询逻辑未包含写操作，但投影对超大验证输出的截断与呈现受CLI缓冲区约束。"
+      ],
+      "reason": "目标合同要求只读验证状态、回执、未运行项和证明范围，保持独立权威职责。源码显示work_item_read_model仅读取VerificationRunner状态与相关结果，并未调用执行或修改方法；actual-dependencies记录与此对应。作者评价如实反映了只读投影设计与分析局限，结论充分成立。",
+      "references": [
+        {
+          "end_line": 302,
+          "source_id": "assessment",
+          "start_line": 270,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.verification_runner import VerificationRunner, VerificationRunnerError\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/work_item_read_model.py#L42-L45\"\n        },\n        {\n          \"claim\": \"WorkItemReadModel は WorkflowAuthority と GitProjectReader を使った読み取り専用モデル設計\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/work_item_read_model.py#L84-L100\"\n        },\n        {\n          \"claim\": \"IMPLNODE-118C42EDF10D4468→IMPLNODE-0489C132FAF63B83 が RELATION-56D1263110124414 に紐付く\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/19\"\n        }\n      ],\n      \"limitations\": [\n        \"work_item_read_model.py の全コードを読んでいないため、VerificationRunner.execute() 等の書き込み系メソッドを呼ぶコードが残部にないか完全確認できていない\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"work_item_read_model.py が verification_runner の VerificationRunner, VerificationRunnerError を import し、検証状態・回執を読み取っている\",\n        \"work_item_read_model.py は VerificationRunner の実行コマンドを呼び出す権限を持たず、読み取り専用の投影に限定されている\",\n        \"dependency_record_locators に records/19 が記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-56D1263110124414\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 45,
+          "source_id": "strixnova/src/strixnova/work_item_read_model.py",
+          "start_line": 42,
+          "original_text": "from strixnova.verification_runner import (\n    VerificationRunner,\n    VerificationRunnerError,\n)\n",
+          "source_sha256": "24379f6f9bbb708a4dbd4537027d0ccad2898d5b12333c4e303b816908ddebd7",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 100,
+          "source_id": "strixnova/src/strixnova/work_item_read_model.py",
+          "start_line": 84,
+          "original_text": "class WorkItemReadModel:\n    \"\"\"Project WorkflowAuthority and Git facts without owning new state.\"\"\"\n\n    @staticmethod\n    def context_contract(action: str) -> dict[str, Any]:\n        try:\n            if action == \"review\":\n                return review_context_contract()\n            return project_context_contract(action)\n        except ProjectContextError as error:\n            raise ProjectContextQueryError(error.code, str(error), details=error.details) from error\n\n    @staticmethod\n    def query_project_context(\n        project_dir: str | Path, action: str, request: Mapping[str, Any]\n    ) -> dict[str, Any]:\n        \"\"\"Read supplied bootstrap inputs without constructing project state.\"\"\"\n",
+          "source_sha256": "24379f6f9bbb708a4dbd4537027d0ccad2898d5b12333c4e303b816908ddebd7",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-60CB4C2F39A84DEF",
+      "issues": [],
+      "limitations": [
+        "投影读取一致性权威 facts 的行为已验证，不从目录推导语义相关性的约束依赖外部上游不传入推导上下文。"
+      ],
+      "reason": "目标合同要求只读一致性、当前产品决定上下文、失效和阻断报告，不触发写操作也不从目录推导语义相关性。源码显示work_item_read_model、engineering_trace_projection和review_context_projection均只读引入ProjectAuthorityConsistency；actual-dependencies底账包含多处关联记录。作者评价细致完整，判定成立。",
+      "references": [
+        {
+          "end_line": 341,
+          "source_id": "assessment",
+          "start_line": 303,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.project_authority_consistency import ProjectAuthorityConsistency, ProjectAuthorityConsistencyError, direction_context_invalidation_issues, direction_context_requires_validation, unadopted_project_direction_context\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/work_item_read_model.py#L26-L32\"\n        },\n        {\n          \"claim\": \"from strixnova.project_authority_consistency import ProjectAuthorityConsistency, ProjectAuthorityConsistencyError\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/engineering_trace_projection.py#L12-L15\"\n        },\n        {\n          \"claim\": \"from strixnova.project_authority_consistency import ProjectAuthorityConsistency, ProjectAuthorityConsistencyError\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/review_context_projection.py#L16\"\n        },\n        {\n          \"claim\": \"3つのノードペアが RELATION-60CB4C2F39A84DEF に紐付く実際依存として記録されている\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/34,148,481\"\n        }\n      ],\n      \"limitations\": [\n        \"read_only_projection 合同が要求する「目録からの語義的相関性推論禁止」はコード構造検査では確認困難。ProjectAuthorityConsistency の結果を解釈する意味判断コードが残部にないか完全排除できていない\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"work_item_read_model.py が ProjectAuthorityConsistency を import し、一致性状態・失効・阻断情報を読み取り専用で使用している\",\n        \"engineering_trace_projection.py も ProjectAuthorityConsistency を import し、権威スナップショット情報を読み取っている\",\n        \"review_context_projection.py も ProjectAuthorityConsistency を import し、レビュー基盤として使用している\",\n        \"dependency_record_locators に records/34, 148, 481 が記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-60CB4C2F39A84DEF\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 32,
+          "source_id": "strixnova/src/strixnova/work_item_read_model.py",
+          "start_line": 26,
+          "original_text": "from strixnova.project_authority_consistency import (\n    ProjectAuthorityConsistency,\n    ProjectAuthorityConsistencyError,\n    direction_context_invalidation_issues,\n    direction_context_requires_validation,\n    unadopted_project_direction_context,\n)\n",
+          "source_sha256": "24379f6f9bbb708a4dbd4537027d0ccad2898d5b12333c4e303b816908ddebd7",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 15,
+          "source_id": "strixnova/src/strixnova/engineering_trace_projection.py",
+          "start_line": 12,
+          "original_text": "from strixnova.project_authority_consistency import (\n    ProjectAuthorityConsistency,\n    ProjectAuthorityConsistencyError,\n)\n",
+          "source_sha256": "31930ca70cc027d784013da07409d58b4256a0d23072488c3c03d37be2d78060",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-6251E54F918345C2",
+      "issues": [],
+      "limitations": [
+        "协调器对政策的协调通过事务函数实现，多仓库场景下的政策继承与局部覆盖需按仓库上下文独立加载。"
+      ],
+      "reason": "目标合同要求应用用例协调器提交明确的工程政策候选、读取确定性规则并协调精确修订采用。源码显示application_coordinator引入load_base_governance_profile并通过project_authority_decision的确认事务函数进行政策生命周期协调；actual-dependencies底账有多项明确映射。作者评价符合客观事实，判定成立。",
+      "references": [
+        {
+          "end_line": 374,
+          "source_id": "assessment",
+          "start_line": 342,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.project_engineering_policy import load_base_governance_profile\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/application_coordinator.py#L101\"\n        },\n        {\n          \"claim\": \"project_authority_decision 系関数を import し、policy 候選の確認トランザクションを ApplicationCoordinator が協調する\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/application_coordinator.py#L87-L96\"\n        },\n        {\n          \"claim\": \"IMPLNODE-176A61A45BFCFAE0→IMPLNODE-D11F5A754F64041A および IMPLNODE-A9DD414A869C89E1 が RELATION-6251E54F918345C2 に紐付く\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/101,472\"\n        }\n      ],\n      \"limitations\": [\n        \"project_engineering_policy.py への直接 import は load_base_governance_profile のみ確認。policy の読み取り・規則確認の詳細は application_coordinator.py 残部に存在する可能性があるが、パス自体は確認済み\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"application_coordinator.py が project_engineering_policy の load_base_governance_profile を import している\",\n        \"application_coordinator.py が project_authority_decision の apply_project_authority_confirmation_transaction 等を import し、工程政策候選・採用・確認協調を実装している\",\n        \"dependency_record_locators に records/101, 472 が記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-6251E54F918345C2\",\n      \"target_kind\": \"relationship\"\n    },\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 101,
+          "source_id": "strixnova/src/strixnova/application_coordinator.py",
+          "start_line": 87,
+          "original_text": "from strixnova.project_authority_decision import (\n    apply_project_authority_confirmation_transaction,\n    build_project_authority_confirmation_transaction,\n    confirmed_project_authority_snapshot,\n    planned_project_authority_paths,\n    project_authority_candidate,\n    project_authority_review_bundle,\n    validate_authority_change_targets,\n    validate_project_authority_decision,\n)\nfrom strixnova.project_engineering_baseline import (\n    ProjectEngineeringBaseline,\n    ProjectEngineeringBaselineError,\n)\nfrom strixnova.project_engineering_policy import load_base_governance_profile\n",
+          "source_sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-RELATION-635E72C9BF3C40B3",
+      "issues": [],
+      "limitations": [
+        "外部交付活动的完整状态转移由底层的SQLite存储保全，协调器负责入口路由与授权门禁。"
+      ],
+      "reason": "目标合同要求按已确认活动计划协调授权、状态变化和真实外部回执记录。源码核查显示application_coordinator统一引入DeliveryActivityAuthority进行外部活动生命周期协调，cli不直接调用活动实例；actual-dependencies底账记录相符。作者评价客观准确，符合合同规范，判定成立。",
+      "references": [
+        {
+          "end_line": 407,
+          "source_id": "assessment",
+          "start_line": 375,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"from strixnova.delivery_activity import DeliveryActivityAuthority, DeliveryActivityError\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/application_coordinator.py#L38-L41\"\n        },\n        {\n          \"claim\": \"delivery_activity は project_maintenance と storage_formats のみに依存し、application_coordinator が協調入口となる独立ライフサイクル設計\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/delivery_activity.py#L1-L17\"\n        },\n        {\n          \"claim\": \"IMPLNODE-176A61A45BFCFAE0→IMPLNODE-39FAFBF3156677A9 が RELATION-635E72C9BF3C40B3 に紐付く\",\n          \"kind\": \"artifact\",\n          \"ref\": \"docs/implementation-alignment/actual-dependencies.yaml#/records/75\"\n        }\n      ],\n      \"limitations\": [\n        \"application_coordinator.py の全メソッドを精査していないため、活動のライフサイクル協調の完全な範囲（authorized → running → completed 等）が実装されているかは残部確認を要する\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"application_coordinator.py が delivery_activity の DeliveryActivityAuthority, DeliveryActivityError を import し、活動計画・認可・外部回執記録を協調する責任を持つ\",\n        \"delivery_activity.py は独立した SQLite ベースのライフサイクル権威として設計され、cli.py からは直接起動されない\",\n        \"dependency_record_locators に records/75 が記録されており実際依存を裏付ける\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"RELATION-635E72C9BF3C40B3\",\n      \"target_kind\": \"relationship\"\n    }\n",
+          "source_sha256": "0e7f818d23e7033073755bd46a841bd90ed488ae9baf4a35ec13e177e0d03dde",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 41,
+          "source_id": "strixnova/src/strixnova/application_coordinator.py",
+          "start_line": 38,
+          "original_text": "from strixnova.delivery_activity import (\n    DeliveryActivityAuthority,\n    DeliveryActivityError,\n)\n",
+          "source_sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 17,
+          "source_id": "strixnova/src/strixnova/delivery_activity.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Lifecycle authority for externally executed delivery and runtime activities.\"\"\"\n\nfrom __future__ import annotations\n\nfrom collections.abc import Mapping, Sequence\nfrom copy import deepcopy\nfrom datetime import datetime, timezone\nimport json\nfrom pathlib import Path\nimport secrets\nimport sqlite3\nfrom contextlib import closing\n\nfrom strixnova.project_maintenance import connect_with_maintenance\nfrom strixnova.storage_formats import ACTIVITY_FORMAT, AUTHORITY_FORMAT, install_write_guards\nfrom typing import Any\n\n",
+          "source_sha256": "2cfd848a03a962ca201ab106ee9a8ad085f743449bf835b7cf46ef5a2b9adde4",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 2,
+    "records": [],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false
+}

@@ -1,0 +1,819 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-architecture-artifact.v1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/model"
+    },
+    {
+      "$ref": "#/$defs/module_catalog"
+    },
+    {
+      "$ref": "#/$defs/relationship_catalog"
+    },
+    {
+      "$ref": "#/$defs/constraint_catalog"
+    },
+    {
+      "$ref": "#/$defs/disposition_catalog"
+    },
+    {
+      "$ref": "#/$defs/stage_catalog"
+    }
+  ],
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "yaml_path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!.*\\\\)(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!\\.git(?:/|$))(?!\\.strixnova(?:/|$)).+\\.ya?ml$"
+    },
+    "text_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "optional_text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "architecture_id": {
+      "type": "string",
+      "pattern": "^ARCH-[0-9A-F]{16}$"
+    },
+    "revision_id": {
+      "type": "string",
+      "pattern": "^ARCHREV-[0-9A-F]{16}$"
+    },
+    "model_id": {
+      "type": "string",
+      "pattern": "^MODEL-[0-9A-F]{16}$"
+    },
+    "model_revision_id": {
+      "type": "string",
+      "pattern": "^MODELREV-[0-9A-F]{16}$"
+    },
+    "module_id": {
+      "type": "string",
+      "pattern": "^MODULE-[0-9A-F]{16}$"
+    },
+    "module_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/module_id"
+      }
+    },
+    "required_module_id_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/module_id"
+      }
+    },
+    "interface_id": {
+      "type": "string",
+      "pattern": "^INTERFACE-[0-9A-F]{16}$"
+    },
+    "relationship_id": {
+      "type": "string",
+      "pattern": "^RELATION-[0-9A-F]{16}$"
+    },
+    "relationship_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/relationship_id"
+      }
+    },
+    "constraint_id": {
+      "type": "string",
+      "pattern": "^CONSTRAINT-[0-9A-F]{16}$"
+    },
+    "constraint_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/constraint_id"
+      }
+    },
+    "fact_id": {
+      "type": "string",
+      "pattern": "^FACT-[0-9A-F]{16}$"
+    },
+    "stage_id": {
+      "type": "string",
+      "pattern": "^ARCHSTAGE-[0-9A-F]{16}$"
+    },
+    "stage_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/stage_id"
+      }
+    },
+    "artifact_paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "modules",
+        "relationships",
+        "constraints",
+        "domain_fact_dispositions",
+        "implementation_stages"
+      ],
+      "properties": {
+        "modules": {
+          "$ref": "#/$defs/yaml_path"
+        },
+        "relationships": {
+          "$ref": "#/$defs/yaml_path"
+        },
+        "constraints": {
+          "$ref": "#/$defs/yaml_path"
+        },
+        "domain_fact_dispositions": {
+          "$ref": "#/$defs/yaml_path"
+        },
+        "implementation_stages": {
+          "$ref": "#/$defs/yaml_path"
+        }
+      }
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revision_id",
+        "status",
+        "supersedes_revision_id",
+        "confirmed_by_owner_id",
+        "confirmed_on"
+      ],
+      "properties": {
+        "revision_id": {
+          "$ref": "#/$defs/revision_id"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "ready_for_confirmation",
+            "confirmed"
+          ]
+        },
+        "supersedes_revision_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/revision_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_by_owner_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^OWNER-[0-9A-F]{16}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_on": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "confirmed_by_owner_id": {
+                "type": "string"
+              },
+              "confirmed_on": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "confirmed_by_owner_id": {
+                "type": "null"
+              },
+              "confirmed_on": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "domain_model_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_id",
+        "revision_id"
+      ],
+      "properties": {
+        "model_id": {
+          "$ref": "#/$defs/model_id"
+        },
+        "revision_id": {
+          "$ref": "#/$defs/model_revision_id"
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "architecture_id",
+        "revision",
+        "domain_model_ref",
+        "title",
+        "purpose",
+        "artifact_paths",
+        "unresolved_decisions"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.project-architecture-description.v1"
+        },
+        "architecture_id": {
+          "$ref": "#/$defs/architecture_id"
+        },
+        "revision": {
+          "$ref": "#/$defs/revision"
+        },
+        "domain_model_ref": {
+          "$ref": "#/$defs/domain_model_ref"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "purpose": {
+          "$ref": "#/$defs/text"
+        },
+        "artifact_paths": {
+          "$ref": "#/$defs/artifact_paths"
+        },
+        "unresolved_decisions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "decision_id",
+              "statement",
+              "impact"
+            ],
+            "properties": {
+              "decision_id": {
+                "type": "string",
+                "pattern": "^DECISION-[0-9A-F]{16}$"
+              },
+              "statement": {
+                "$ref": "#/$defs/text"
+              },
+              "impact": {
+                "$ref": "#/$defs/text"
+              }
+            }
+          }
+        }
+      }
+    },
+    "operation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "meaning"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/text"
+        },
+        "meaning": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "public_interface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "interface_id",
+        "title",
+        "operations"
+      ],
+      "properties": {
+        "interface_id": {
+          "$ref": "#/$defs/interface_id"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "operations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/operation"
+          }
+        }
+      }
+    },
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "module_id",
+        "title",
+        "layer",
+        "responsibility",
+        "not_responsible_for",
+        "public_interface"
+      ],
+      "properties": {
+        "module_id": {
+          "$ref": "#/$defs/module_id"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "layer": {
+          "enum": [
+            "adapter",
+            "application",
+            "domain",
+            "authority",
+            "policy",
+            "query",
+            "infrastructure"
+          ]
+        },
+        "responsibility": {
+          "$ref": "#/$defs/text"
+        },
+        "not_responsible_for": {
+          "$ref": "#/$defs/text_list"
+        },
+        "public_interface": {
+          "$ref": "#/$defs/public_interface"
+        }
+      }
+    },
+    "module_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "architecture_id",
+        "architecture_revision_id",
+        "modules"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.architecture-modules.v1"
+        },
+        "architecture_id": {
+          "$ref": "#/$defs/architecture_id"
+        },
+        "architecture_revision_id": {
+          "$ref": "#/$defs/revision_id"
+        },
+        "modules": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/module"
+          }
+        }
+      }
+    },
+    "relationship": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "relationship_id",
+        "from_module_id",
+        "to_module_id",
+        "mode",
+        "mediator_module_id",
+        "contract",
+        "reason"
+      ],
+      "properties": {
+        "relationship_id": {
+          "$ref": "#/$defs/relationship_id"
+        },
+        "from_module_id": {
+          "$ref": "#/$defs/module_id"
+        },
+        "to_module_id": {
+          "$ref": "#/$defs/module_id"
+        },
+        "mode": {
+          "enum": [
+            "direct",
+            "through_module",
+            "read_only_projection",
+            "forbidden"
+          ]
+        },
+        "mediator_module_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/module_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "contract": {
+          "$ref": "#/$defs/text"
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "through_module"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "mediator_module_id": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "mediator_module_id": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "relationship_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "architecture_id",
+        "architecture_revision_id",
+        "default_relationship_policy",
+        "relationships"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.architecture-relationships.v1"
+        },
+        "architecture_id": {
+          "$ref": "#/$defs/architecture_id"
+        },
+        "architecture_revision_id": {
+          "$ref": "#/$defs/revision_id"
+        },
+        "default_relationship_policy": {
+          "const": "forbidden"
+        },
+        "relationships": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/relationship"
+          }
+        }
+      }
+    },
+    "verification_method": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method_type",
+        "description"
+      ],
+      "properties": {
+        "method_type": {
+          "enum": [
+            "automatic_gate",
+            "behavior_acceptance",
+            "manual_review"
+          ]
+        },
+        "description": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constraint_id",
+        "title",
+        "statement",
+        "applies_to_module_ids",
+        "verification_methods"
+      ],
+      "properties": {
+        "constraint_id": {
+          "$ref": "#/$defs/constraint_id"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "applies_to_module_ids": {
+          "$ref": "#/$defs/module_id_list"
+        },
+        "verification_methods": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/verification_method"
+          }
+        }
+      }
+    },
+    "constraint_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "architecture_id",
+        "architecture_revision_id",
+        "constraints"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.architecture-constraints.v1"
+        },
+        "architecture_id": {
+          "$ref": "#/$defs/architecture_id"
+        },
+        "architecture_revision_id": {
+          "$ref": "#/$defs/revision_id"
+        },
+        "constraints": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/constraint"
+          }
+        }
+      }
+    },
+    "disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "domain_fact_id",
+        "disposition_type",
+        "primary_module_id",
+        "collaborator_module_ids",
+        "relationship_ids",
+        "constraint_ids",
+        "rationale"
+      ],
+      "properties": {
+        "domain_fact_id": {
+          "$ref": "#/$defs/fact_id"
+        },
+        "disposition_type": {
+          "enum": [
+            "primary_module",
+            "module_relationship",
+            "architecture_constraint",
+            "no_independent_implementation",
+            "unallocated"
+          ]
+        },
+        "primary_module_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/module_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "collaborator_module_ids": {
+          "$ref": "#/$defs/module_id_list"
+        },
+        "relationship_ids": {
+          "$ref": "#/$defs/relationship_id_list"
+        },
+        "constraint_ids": {
+          "$ref": "#/$defs/constraint_id_list"
+        },
+        "rationale": {
+          "$ref": "#/$defs/text"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition_type": {
+                "const": "primary_module"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "primary_module_id": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "primary_module_id": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition_type": {
+                "const": "module_relationship"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "relationship_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "disposition_type": {
+                "const": "architecture_constraint"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "constraint_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "disposition_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "architecture_id",
+        "architecture_revision_id",
+        "domain_model_ref",
+        "dispositions"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.architecture-domain-fact-dispositions.v1"
+        },
+        "architecture_id": {
+          "$ref": "#/$defs/architecture_id"
+        },
+        "architecture_revision_id": {
+          "$ref": "#/$defs/revision_id"
+        },
+        "domain_model_ref": {
+          "$ref": "#/$defs/domain_model_ref"
+        },
+        "dispositions": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/disposition"
+          }
+        }
+      }
+    },
+    "stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage_id",
+        "order",
+        "title",
+        "scope",
+        "prerequisite_stage_ids",
+        "module_ids",
+        "entry_conditions",
+        "completion_conditions"
+      ],
+      "properties": {
+        "stage_id": {
+          "$ref": "#/$defs/stage_id"
+        },
+        "order": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "scope": {
+          "enum": [
+            "current_product_stage",
+            "future_candidate"
+          ]
+        },
+        "prerequisite_stage_ids": {
+          "$ref": "#/$defs/stage_id_list"
+        },
+        "module_ids": {
+          "$ref": "#/$defs/required_module_id_list"
+        },
+        "entry_conditions": {
+          "$ref": "#/$defs/text_list"
+        },
+        "completion_conditions": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "stage_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "architecture_id",
+        "architecture_revision_id",
+        "stages"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.architecture-implementation-stages.v1"
+        },
+        "architecture_id": {
+          "$ref": "#/$defs/architecture_id"
+        },
+        "architecture_revision_id": {
+          "$ref": "#/$defs/revision_id"
+        },
+        "stages": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/stage"
+          }
+        }
+      }
+    }
+  }
+}

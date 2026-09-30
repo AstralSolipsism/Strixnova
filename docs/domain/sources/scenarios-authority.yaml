@@ -1,0 +1,459 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-F70E0EA04C1E4126
+scope_fact_ids:
+- FACT-8BB9E8C279494481
+- FACT-56355272151F44EF
+- FACT-1B200CD9D4FC4A3B
+- FACT-29A948A8B5364EB3
+facts:
+- fact_id: FACT-DEA5E73655D34B1F
+  status: draft
+  title: 产品定义正常定档
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  scope_fact_ids:
+  - FACT-8BB9E8C279494481
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-8BB9E8C279494481
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions: []
+    trigger: 项目负责人提出建立或实质修改项目产品目标。
+    steps:
+    - 智能编码代理调查现有规划、项目事实和已确认决定，形成有依据的完整候选。
+    - 程序校验身份、版本、结构、引用、状态和未决决定是否闭合。
+    - 项目负责人理解候选的范围、非目标、约束、成功判断和阶段后确认精确修订。
+    outcome: 该精确修订成为当前唯一项目产品权威，旧修订保留演进关系但不再裁决当前目标。
+    postconditions:
+    - 产品定义状态为已确认。
+    - 领域模型只能引用该精确产品修订。
+- fact_id: FACT-EECD54CFF0944627
+  status: draft
+  title: 产品定义定档被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  scope_fact_ids:
+  - FACT-8BB9E8C279494481
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-8BB9E8C279494481
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 存在待定档产品候选。
+    trigger: 候选保留范围关键未知、悬空引用、重复身份或混入模块、路径、数据库和当前实现状态。
+    steps:
+    - 程序拒绝可机械判断的结构或引用错误。
+    - 智能编码代理解释无法由程序判断的语义冲突、影响和不处理后果。
+    - 只把真正改变产品方向的一个决定交给项目负责人。
+    outcome: 产品定义保持未确认，任何下游目标不得把候选当成正式权威。
+    postconditions:
+    - 阻断原因可被智能编码代理据此纠正。
+- fact_id: FACT-ABAD525D11E74844
+  status: draft
+  title: 产品定义候选被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  scope_fact_ids:
+  - FACT-8BB9E8C279494481
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-8BB9E8C279494481
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 产品候选已经展示或曾被确认。
+    - 已存在实质纠正；仅表示无法理解或继续提问时解释同一候选，不改变已有确认及下游状态。
+    trigger: 项目负责人实质纠正产品方向，或新事实实质改变范围、约束、取舍和成功判断。
+    steps:
+    - 受影响的旧确认立即失效。
+    - 智能编码代理重新调查并说明修改前后差异及其下游影响。
+    - 新候选获得新的精确修订身份并再次进入结构校验和负责人确认。
+    outcome: 纠正后的修订可重新定档，旧修订不被静默改写。
+    postconditions:
+    - 所有下游目标被标记为需要复核而不是自动改义。
+- fact_id: FACT-2440F4A0919040F7
+  status: draft
+  title: 产品定义候选被取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  scope_fact_ids:
+  - FACT-8BB9E8C279494481
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-8BB9E8C279494481
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    preconditions:
+    - 产品候选尚未确认。
+    trigger: 项目负责人明确放弃本次产品修订。
+    steps:
+    - 候选停止进入任何下游定档或实施流程。
+    - 已确认产品修订保持不变；没有已确认修订时项目保持无产品权威状态。
+    - 草案可作为普通历史材料保留，但不得被当前状态投影为已采用事实。
+    outcome: 取消不会生成虚假确认、下游目标或实现义务。
+    postconditions: []
+- fact_id: FACT-F65209B774D84F02
+  status: draft
+  title: 领域模型正常定档
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  scope_fact_ids:
+  - FACT-56355272151F44EF
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-56355272151F44EF
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 精确项目产品定义已经确认。
+    trigger: 项目需要建立或实质修改目标领域语义。
+    steps:
+    - 智能编码代理逐项解释产品能力并建设适用参与者、场景、对象、生命周期、事件、规则、不变量和边界。
+    - 旧领域事实逐项取得保留、修订、替换、拆分或废止结论，领域正文不含实现证据。
+    - 程序校验身份、引用、类型、谱系、能力追溯和场景覆盖。
+    - 项目负责人理解范围关键语义后确认精确领域模型修订。
+    outcome: 该修订成为目标架构唯一合法的领域上游。
+    postconditions:
+    - 所有产品能力都有完整领域解释。
+    - 范围关键未知为零。
+- fact_id: FACT-7CAD454506DE4E64
+  status: draft
+  title: 领域模型定档被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  scope_fact_ids:
+  - FACT-56355272151F44EF
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-56355272151F44EF
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 存在领域模型草案。
+    trigger: 产品定义未确认、产品能力缺少解释、适用场景未闭合、引用悬空、迁移遗漏、范围关键未知或正文含实现路径和测试证据。
+    steps:
+    - 程序拒绝可确定的结构、引用、状态、覆盖和污染问题。
+    - 智能编码代理列出语义缺口、冲突、推荐处置及其产品影响。
+    - 只有无法从项目事实解决的一个实质语义决定交给负责人。
+    outcome: 草案不得进入目标架构，也不得被报告为完整领域权威。
+    postconditions:
+    - 每个阻断项有明确来源和纠正方向。
+- fact_id: FACT-7B5B606491C84C9D
+  status: draft
+  title: 领域模型事实被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  scope_fact_ids:
+  - FACT-56355272151F44EF
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-56355272151F44EF
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 领域草案或已确认模型中的事实被发现含义错误、混合或缺失。
+    trigger: 项目负责人纠正语义，或智能编码代理基于新证据提出有影响的修订建议。
+    steps:
+    - 不改变含义的澄清保留事实身份；替换、拆分、合并和废止建立明确谱系。
+    - 受影响产品能力、场景、规则、边界和下游架构全部进入复核。
+    - 实质变化形成新模型修订并重新由负责人确认。
+    outcome: 新模型保留来历且不会静默改写历史引用。
+    postconditions:
+    - 旧确认只对旧精确版本有效。
+- fact_id: FACT-42B04FB290B14D73
+  status: draft
+  title: 领域模型草案被取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  scope_fact_ids:
+  - FACT-56355272151F44EF
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-56355272151F44EF
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    preconditions:
+    - 领域模型修订尚未确认。
+    trigger: 项目负责人明确放弃本次领域模型修订。
+    steps:
+    - 草案停止成为架构候选的输入。
+    - 当前已确认领域模型保持不变；没有已确认模型时项目保持未定档状态。
+    - 临时身份不得出现在正式下游引用中。
+    outcome: 取消不产生架构或实现义务，也不抹除既有已确认领域历史。
+    postconditions: []
+- fact_id: FACT-77FE05384EB44525
+  status: draft
+  title: 目标架构正常定档
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids:
+  - FACT-1B200CD9D4FC4A3B
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-1B200CD9D4FC4A3B
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 精确目标领域模型已经确认。
+    trigger: 项目需要建立或实质修改预期建设架构。
+    steps:
+    - 智能编码代理从已确认领域推导目标责任、稳定接口、关系、约束、领域承载和实施阶段候选。
+    - 每个活跃领域事实获得唯一主要承载或明确无需独立实现的处置。
+    - 程序校验身份、引用、分配、关系、阶段和验证方法的结构闭合。
+    - 项目负责人理解真实取舍后确认精确架构修订。
+    outcome: 该修订成为实现对齐和后续建设必须遵守的唯一目标架构。
+    postconditions:
+    - 当前文件布局不取得目标权威。
+    - 目标直接依赖关系无环。
+- fact_id: FACT-45239D4EF1E64FAB
+  status: draft
+  title: 目标架构定档被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids:
+  - FACT-1B200CD9D4FC4A3B
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-1B200CD9D4FC4A3B
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 存在目标架构候选。
+    trigger: 领域上游未确认、责任未分配、接口或关系不清、依赖成环、约束无验证方法、阶段条件缺失，或候选含当前源文件路径。
+    steps:
+    - 程序拒绝可确定的结构、引用、覆盖、循环和路径污染。
+    - 智能编码代理解释未闭合责任和真实架构取舍。
+    - 需要负责人决定时一次只提交一个难逆选择及后果。
+    outcome: 候选保持未确认，当前实现不得据此宣称架构符合。
+    postconditions:
+    - 阻断原因可以追溯到具体目标责任或约束。
+- fact_id: FACT-96AD2DBAB68F4C42
+  status: draft
+  title: 目标架构候选被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids:
+  - FACT-1B200CD9D4FC4A3B
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-1B200CD9D4FC4A3B
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 架构候选或已确认架构被发现无法承载领域、产生错误边界或包含不接受的取舍。
+    trigger: 项目负责人纠正取舍，领域上游实质变化，或对齐证据暴露目标本身有误。
+    steps:
+    - 智能编码代理区分目标错误与当前实现偏离，不用代码现状反向决定答案。
+    - 架构元素拆分、合并和取代保留明确谱系。
+    - 新修订重新完成领域分配、关系闭合、约束验证说明和负责人确认。
+    outcome: 纠正后的目标架构生效，下游实现对齐必须重新复核。
+    postconditions:
+    - 旧架构确认不自动转移到新修订。
+- fact_id: FACT-8E0C3E051A2041B9
+  status: draft
+  title: 目标架构候选被取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids:
+  - FACT-1B200CD9D4FC4A3B
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-1B200CD9D4FC4A3B
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    preconditions:
+    - 架构修订尚未确认。
+    trigger: 项目负责人明确放弃本次目标架构候选。
+    steps:
+    - 候选停止成为实现对齐和建设方案的上游。
+    - 当前已确认架构保持不变；没有已确认架构时项目保持未定档状态。
+    - 不把当前代码结构填入架构文件作为取消后的替代答案。
+    outcome: 取消不产生实现义务或虚假架构符合声明。
+    postconditions: []
+- fact_id: FACT-BE795DE6819D421A
+  status: draft
+  title: 项目实现对齐正常建立
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids:
+  - FACT-29A948A8B5364EB3
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  - FACT-ECC7967D187F4AA1
+  - FACT-7A9F98FC2BFE44E3
+  - FACT-84DF6E5CAB34446B
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-29A948A8B5364EB3
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 产品定义、目标领域模型和目标架构均已确认。
+    - 当前代码状态绑定到精确版本事实。
+    - 受管源码范围、项目、构建目标、配置、平台和所需关系粒度已经明确。
+    trigger: 项目建立或更新当前实现对齐。
+    steps:
+    - 智能编码代理建立完整实现观察范围并说明所有显式排除。
+    - 外部工程工具按该范围产生关系观察、能力和覆盖回执，未解析、歧义和限制保持可见。
+    - 智能编码代理为全部行为文件建立唯一目标模块归属或显式排除。
+    - 智能编码代理把全部已观察关系与目标允许、中介、只读或禁止关系逐项分类。
+    - 全部目标职责、关系、约束和承载领域事实获得实现状态、依据、限制或解决计划。
+    - 程序校验观察覆盖、归属覆盖、唯一性、引用、循环和可确定漂移。
+    outcome: 当前实现差距可完整、诚实地供后续建设选择，不重新定义任何上游目标。
+    postconditions:
+    - 观察范围、文件、关系和目标责任分类覆盖均完整。
+- fact_id: FACT-3A42B09EA5184C5A
+  status: draft
+  title: 项目实现对齐被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids:
+  - FACT-29A948A8B5364EB3
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-643E08A42D944901
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-29A948A8B5364EB3
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 存在实现对齐候选或当前对齐。
+    trigger: 上游目标未确认或过期，代码版本或实现观察范围不明确，所需观察能力不可用、未执行、失败或部分覆盖，存在未解析或歧义关系、未归属文件、未分类关系、重复主要状态、无解决计划的未知或新增漂移。
+    steps:
+    - 程序拒绝可确定的观察覆盖、归属覆盖、唯一性、引用、版本和架构符合问题。
+    - 智能编码代理调查剩余语义判断并给出依据、限制和解决计划。
+    - 不允许把观察失败或空结果写成无关系，也不允许通过改写对齐文字掩盖实际代码未变化。
+    outcome: 对齐不得被标记完整，相关建设或完成声明被阻断。
+    postconditions:
+    - 每个未知或偏离保持可见。
+- fact_id: FACT-B43D69C03B23475E
+  status: draft
+  title: 项目实现对齐被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids:
+  - FACT-29A948A8B5364EB3
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-84DF6E5CAB34446B
+  - FACT-643E08A42D944901
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-29A948A8B5364EB3
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 对齐记录被发现过期、错误或受代码及目标变化影响。
+    trigger: 精确目标、代码状态、观察范围、配置、能力或提供者版本变化，验证证据变化，发现先前假空结果，或工程调查推翻旧判断。
+    steps:
+    - 重新执行适用观察并计算机械清单，保留旧回执并标记全部受影响语义判断。
+    - 智能编码代理逐项保留、更新或废止判断并说明依据与限制。
+    - 程序重新校验观察与归属的完整覆盖和架构门禁，不保留永久豁免。
+    outcome: 对齐反映新的精确目标和代码状态，旧判断保留历史但不裁决当前状态。
+    postconditions:
+    - 当前差距和下一步重新投影。
+- fact_id: FACT-21AF5F263E614ECD
+  status: draft
+  title: 项目实现对齐复核被取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids:
+  - FACT-29A948A8B5364EB3
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-29A948A8B5364EB3
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 新对齐复核尚未完成或确认采用。
+    trigger: 项目负责人取消本次复核或相关目标修订被放弃。
+    steps:
+    - 未完成判断保持未知或待复核，不被填成已实现。
+    - 旧对齐只有在其目标和代码版本仍精确有效时继续作为当前记录。
+    - 因已知变化而过期的旧对齐不得因取消复核恢复可信状态。
+    outcome: 取消不会制造完整覆盖或架构符合声明。
+    postconditions:
+    - 过期和未知状态保持可见。

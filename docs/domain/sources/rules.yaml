@@ -1,0 +1,734 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-3437A9A834F14FAF
+scope_fact_ids: []
+facts:
+- fact_id: FACT-8EACFB031A6E49B9
+  status: draft
+  title: 普通建设事项只有三个确认点
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-B3D14DA096B94DD9
+  content:
+    statement: 普通建设事项只有方向、完整工程方案和实际结果三个项目负责人确认点；产品定义、领域模型、目标架构和工程政策的首次定档或实质变更必须另行独立确认，不得由普通实际结果确认代替；实际结果接受只可授权程序机械采用本轮精确实现对齐候选。
+    applies_when: 建设事项从方向澄清进入实施、验证和本地合入时。
+- fact_id: FACT-21F0C7A48B934E6D
+  status: draft
+  title: 方向澄清按真实未决决定收敛
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-C8E6F2891E194C50
+  content:
+    statement: 智能编码代理自行调查可取得的项目事实，只向项目负责人澄清会实质改变方向且无法安全推定的决定；每次说明推荐、可选项和用户可见影响，并在方向闭合时停止追问。
+    applies_when: 新事项存在真实方向缺口或用户纠偏时。
+- fact_id: FACT-4585A5A5E5CA47F3
+  status: draft
+  title: Git（版本管理系统）拥有变更历史
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8C6CC8AD9DCD4310
+  content:
+    statement: 源码、长期工程文件、分支、提交历史、差异和内容冲突的事实由外部版本管理系统提供；Strixnova不得复制一套竞争性的变更历史。
+    applies_when: 建设产生或检查版本化文件变化时。
+- fact_id: FACT-A9DB06A4D7704578
+  status: draft
+  title: 先验证和确认实际结果再提交
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C81DA4F98DBF40FB
+  - FACT-C8E6F2891E194C50
+  - FACT-7A7AD19A842140AF
+  content:
+    statement: 实施后必须先运行适当验证并向项目负责人展示实际效果、未运行项、偏差和限制；只有项目负责人接受精确实际结果后，智能编码代理才能形成原子提交并请求本地合入。若原生合入出现冲突，智能编码代理必须先判断是否改变已确认方向、方案或用户可见结果；未改变时仍须重跑全部受影响验证并绑定冲突解决文件快照，改变时必须重新规划或重新接受实际结果。
+      多仓库事项接受的是精确整体结果，随后分别形成各仓库结果提交；先完成一个仓库不提前取得整项完成状态。
+    applies_when: 建设事项准备从实施转入提交和本地合入时。
+- fact_id: FACT-677F1A9C8B014ACE
+  status: draft
+  title: 非交付调查不制造版本事实
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8C6CC8AD9DCD4310
+  content:
+    statement: 只读分析、方向调查和方案讨论不得创建不必要的版本工作区、空提交或虚假验证回执，也不得把调查结果表述成已经交付。
+    applies_when: 当前授权只包含调查、解释、诊断或方案形成时。
+- fact_id: FACT-E168D350730A4403
+  status: draft
+  title: 代理归属不等于代理控制
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    statement: Strixnova可以记录哪个智能编码代理提交了请求或候选，但不得管理其会话、上下文、工具或子代理，也不得把同一代理的自检伪称为独立复审。
+    applies_when: 命令请求、回执或追溯信息涉及智能编码代理时。
+- fact_id: FACT-FAD62047DB9646C2
+  status: draft
+  title: 渐进提供当前行动事实
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-32F33CAB000C4F0D
+  content:
+    statement: 命令接口先返回当前最小必要事实和唯一下一行动；智能编码代理按需继续取数，Strixnova不得一次倾倒全部内部状态增加使用者心智负担。
+    applies_when: 智能编码代理通过通用命令接口查询或推进事项时。
+- fact_id: FACT-DFADAA6E74FC42D5
+  status: draft
+  title: WorkItem（建设事项）关系只用于追溯
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  content:
+    statement: 建设事项关系只表达可解释的双向追溯，不自动产生调度、锁、测试义务、冲突处理或语义结论；真正的阻断和义务必须由独立事实明确表达。
+    applies_when: 建立、查询或解释建设事项之间的关系时。
+- fact_id: FACT-D013580DC0D04476
+  status: draft
+  title: 已确认方向是事项级单一方向事实
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-E5600880C7564373
+  - FACT-F8205962DE474AD7
+  - FACT-189E656540F34461
+  content:
+    statement: 已确认事项方向集中表达当前事项的目标、范围、约束、取舍和验收意图，并绑定形成方向时的当前决定上下文；工程评估只引用该精确版本并补充工程事实，不得改写产品、领域或目标架构权威。
+    applies_when: 形成或修订事项方向和工程评估时。
+- fact_id: FACT-9DADF2842D094773
+  status: draft
+  title: 决定上下文由程序完整投影、由智能编码代理解释相关性
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-73E63F97C5B64499
+  - FACT-5ABABA148CFB4B87
+  content:
+    statement: 程序在方向阶段只读投影当前产品目的、能力目录和全部非目标与约束，智能编码代理结合用户原话和项目调查选择相关能力、逐项解释每条护栏为何适用、不适用或需要重新考虑，并保存假设与重开条件；程序只校验精确上下文、引用、唯一覆盖、版本和失效关系。
+    applies_when: 模糊或明确的用户愿望被澄清为可确认方向，以及已确认方向进入工程评估时。
+- fact_id: FACT-68C862ECAC8D44EB
+  status: draft
+  title: 工程义务按真实影响触发
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-3F99553572844A05
+  - FACT-361FDF7E6A6044C2
+  content:
+    statement: 工程评估义务由真实影响、保障等级和项目工程政策触发；不适用内容应明确不适用理由或安全省略，程序不得要求代理编造占位语义。
+    applies_when: 计算工程评估覆盖、保障要求和验证选择时。
+- fact_id: FACT-C9F90588EF6A43E4
+  status: draft
+  title: VerificationStatus（验证状态）是唯一验证状态
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-577431AEBE214F66
+  - FACT-32F33CAB000C4F0D
+  content:
+    statement: 对外投影只用一个验证状态表达验证事实，能否继续以及下一步由当前行动另行表达，不组合可能互相矛盾的通过、就绪或阻断布尔值。
+    applies_when: 展示验证结果、事项状态和下一步时。
+- fact_id: FACT-ACD0BFB983314DD7
+  status: draft
+  title: ActualResult（实际结果）闭合方法使用
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C81DA4F98DBF40FB
+  - FACT-8AC9AE21345846DE
+  content:
+    statement: 实际结果必须逐项说明计划的方法和验证是否真正落实，并用真实产物或回执支撑；未落实、未运行、偏差和限制必须显式披露。
+    applies_when: 智能编码代理提交实际结果候选时。
+- fact_id: FACT-4C7A221868114D28
+  status: draft
+  title: 智能编码代理形成有依据的工程语义候选
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  content:
+    statement: 智能编码代理基于用户意图、已确认上游权威和项目调查形成领域、架构与工程语义候选，并在提交前检查矛盾、遗漏和依据边界。
+    applies_when: 需要形成领域、架构、方向、工程方案或结果候选时。
+- fact_id: FACT-FBF963348B9C4939
+  status: draft
+  title: 程序只做确定性校验
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-4FD08D68267441B6
+  content:
+    statement: 程序只校验结构、标识、引用、状态迁移、版本绑定、覆盖和可机械证明的一致性；不得补写、推断、评价或裁决项目语义。
+    applies_when: Strixnova接收、保存、投影或检查任何语义产物时。
+- fact_id: FACT-CEF1A02972184E23
+  status: draft
+  title: 工程方法采用是项目长期政策
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-077782C6BEA34CA1
+  content:
+    statement: 项目长期采用、条件采用或不采用哪些工程方法，由独立的项目工程政策权威定档；任何单一事项和当前实现都不得反向改写该政策。
+    applies_when: 项目采用、变更或解释工程方法时。
+- fact_id: FACT-C602626C50D44D50
+  status: draft
+  title: 工程方法选择由智能编码代理明确提交
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-47AB0A44E81E474E
+  content:
+    statement: 与事项真实影响相关的已采用方法，由智能编码代理明确说明本事项应用或经考虑不应用、理由、影响和验证；程序不得按关键词猜测方法选择。
+    applies_when: 形成工程评估和完整工程方案时。
+- fact_id: FACT-EA9C469E15A04AB3
+  status: draft
+  title: 工程方法标签不是落实证明
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A213336BCB004594
+  content:
+    statement: 声明采用某种工程方法只表示政策或方案选择，不证明代码已经对齐、自动完成重构、通过独立审查或符合外部认证；落实程度必须由独立对齐判断和实际证据说明。
+    applies_when: 方法标签出现在政策、方案、结果或对外说明中。
+- fact_id: FACT-B51D821A3412481B
+  status: draft
+  title: 长期权威按单向链进入实施
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-E5600880C7564373
+  - FACT-F8205962DE474AD7
+  - FACT-189E656540F34461
+  content:
+    statement: 产品定义限定领域模型，领域模型限定目标架构，目标架构限定实现对齐，已确认的长期权威再限定建设事项；下游只能提出上游变更候选，不能直接覆盖上游。调查提交尚无已采用项目配置和工程基线时，任何会改动或交付仓库文件的首次正式评估都必须使用
+      create_project，一次声明六个位置并计划建立项目配置、工程基线和五类长期权威；程序必须在工程方案形成前拒绝普通修改路线，非交付调查仍可保持 A0。
+    applies_when: 新建、解释、修改或使用任何长期权威和建设事项时。
+- fact_id: FACT-A3B8F3BE848F44E1
+  status: draft
+  title: 目标变化必须先定档再实施
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-F543EB0437354851
+  content:
+    statement: 当建设发现产品、领域或目标架构必须实质改变时，先停止依赖旧目标的实施，形成上游精确修订并由项目负责人确认，再重新评估对齐和事项方案。
+    applies_when: 实施、验证或漂移检查发现上游目标不能继续成立时。
+- fact_id: FACT-FB647E11402F47D0
+  status: draft
+  title: 长期权威确认与机械采用必须可恢复且原子
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B51D821A3412481B
+  - FACT-0097CF4C0FE041A7
+  content:
+    statement: 产品、领域、目标架构和工程政策的整包确认，以及实际结果授权的实现对齐机械采用，必须绑定向项目负责人展示的精确候选和负责人原文，并表现为可恢复、幂等的一次一致状态变化；只有长期权威元数据、项目工程基线和决定记录彼此一致时，才可视为确认或采用完成。进程中断、部分完成、重复请求或并发恢复不得留下相互矛盾的已确认事实，也不得把恢复中的状态冒充完成。
+    applies_when: 程序写入任何长期权威确认元数据、采用状态、负责人、日期或项目基线引用时。
+- fact_id: FACT-1A778E8A2C00462A
+  status: draft
+  title: Strixnova不得发起或控制智能编码代理
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-4FD08D68267441B6
+  - FACT-DF782F3974E94BCF
+  content:
+    statement: 调用方向永远是具备命令执行能力的智能编码代理调用Strixnova；Strixnova不得启动、调用、编排、暂停、恢复、认证或管理智能编码代理。
+    applies_when: 设计或执行命令接口、适配器、扩展、钩子和自动化时。
+- fact_id: FACT-69309FFDE6734423
+  status: draft
+  title: 受支持智能编码代理必须加载随包唯一 Skill
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids:
+  - FACT-C397E6F65C5E74B7
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-1A778E8A2C00462A
+  content:
+    statement: 能够加载并遵循当前安装包随附唯一 Strixnova Skill（技能）的智能编码代理才属于当前受支持范围；该 Skill 只提供渐进使用指导和公开合同路由，不取得用户授权、语义权威、身份认证、流程写权或独立运行状态。Strixnova不得检测、认证或管理代理是否加载
+      Skill，也不得把插件、钩子或宿主会话适配变成核心前提。
+    applies_when: 安装、使用说明、公开命令路由、真实智能编码代理验收或兼容性判断涉及代理能力边界时。
+- fact_id: FACT-29E2D48F3475456A
+  status: draft
+  title: 外部系统执行版本、测试、交付与运行操作
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8C6CC8AD9DCD4310
+  - FACT-E006363B710D433B
+  - FACT-0BE164423C8D4C90
+  - FACT-BBEEBE36CB0F40CF
+  content:
+    statement: 版本、源码与构建模型观察、测试、构建、交付、部署和监控操作由对应外部工具真实执行；Strixnova负责观察范围与能力合同、政策门禁、计划、授权边界、状态和回执记录，不得伪装自身完成了外部操作，也不得把工具未返回的关系解释为不存在。
+    applies_when: 事项需要观察实现、运行工程命令或记录外部活动时。
+- fact_id: FACT-73ECDAF0DCB749FF
+  status: draft
+  title: 未处理漂移阻断对齐与完成声明
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-CCEF92A5D2114880
+  content:
+    statement: 发现影响当前事项的产品、领域、架构、实现、验证或证据漂移后，在重新评估并闭合之前，不得声称实现已对齐、验证已充分或事项已完成。
+    applies_when: 任一上游权威、实现基线、验证条件或证据发生相关变化时。
+- fact_id: FACT-3DB18101680C4A1E
+  status: draft
+  title: 用户呈现只暴露当前必要决定
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-32F33CAB000C4F0D
+  content:
+    statement: 面向项目负责人时，智能编码代理必须主动解释当前情况或修改前状态、候选变化、产品效果、工程逻辑、影响与风险、未知、推荐和当前授权边界；可调查事实由代理补齐，信息按实际复杂度组织，不为完成模板制造标题或内容。确认时程序提供的决定标签、候选身份、版本、正文指纹和
+      Schema 名称只作内部绑定与代理机械传递，默认不向负责人展示或要求其复制；负责人只需用简短明确表达接受，或说明需要修改的内容。多类长期权威同时完整且引用闭合时，用一份候选包集中展示并允许负责人在一条后续消息中逐类独立决定，不为保持独立身份机械增加对话轮次。
+    applies_when: 请求确认、报告阻断、展示实际结果或引导纠偏时。
+- fact_id: FACT-EB6C2D8E9FA0B1C2
+  status: draft
+  title: 权威变更集必须绑定完整旧基线和下游处置
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A1C2E3F405162738
+  content:
+    statement: 权威变更集必须精确绑定当前采用的产品、领域、目标架构和实现对齐四类核心基线，逐项列出候选修订与所有下游处置；工程政策继续作为独立横向约束，变更集不能被采用为新的长期权威。
+    applies_when: 一个建设事项新增、修改、退役或更名任何长期权威内容时。
+- fact_id: FACT-FC7D3E9FA0B1C2D3
+  status: draft
+  title: 跨产物语义复核由智能编码代理负责
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C3E4A5061728395A
+  - FACT-DF782F3974E94BCF
+  content:
+    statement: 智能编码代理必须从产品到领域、术语到规则、领域到架构、计划到实施、孤立内容、场景、非功能风险和证据边界八个角度复核方案；当方案中的长期权威候选正文实际形成后，还必须在候选展示和负责人确认前提交一份绑定精确候选身份、修订和规范正文身份的最终候选复核，正文变化即失效。需要负责人决定的已处置发现只能引用已确认方向或项目基线中的已确认决定，来源材料和普通证据不能冒充负责人决定；程序只检查声明、引用、正文身份和阻断状态，不评价复核文字和严重程度是否正确，也不新增负责人确认点。
+    applies_when: 形成或重做完整工程方案，或方案内长期权威候选正文形成并准备展示确认时。
+- fact_id: FACT-D02D863191514763
+  status: draft
+  title: 本地信任主体与执行边界必须显式区分
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  content:
+    statement: Strixnova 信任本地项目负责人作出语义决定，并信任其明确授权的智能编码代理在给定工作空间提交候选和请求操作；项目文件、项目自定义程序、实现观察结果、外部工具输出、测试结果、内容身份和文档只能作为输入或证据，不能取得语义决定权。只读项目检查及其内置静态观察不得执行项目自定义转换、项目代码、构建脚本、钩子或远程操作，无法保证时必须拒绝并报告观察不可用或部分覆盖；确需调用语言或构建生态工具的解析观察，以及已确认方案中的验证、提交和本地合入，属于负责人明确授权的外部执行，会以宿主用户权限运行且可能执行项目代码或本地工具行为。Strixnova
+      提供流程与证据边界，不提供针对恶意本地用户、恶意已授权代理或恶意项目命令的安全沙箱、宿主认证或多用户隔离。
+    applies_when: 程序读取项目事实、请求外部执行或向用户说明安全保证范围时。
+- fact_id: FACT-AD8E4FA0B1C2D3E4
+  status: draft
+  title: 实施切片按依赖顺序推进
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B2D3F40516273849
+  - FACT-32F33CAB000C4F0D
+  - FACT-ADDCB3B236194270
+  content:
+    statement: 每项计划操作和验证命令必须恰好归入一个实施切片；相同命令若属于不同切片，因观察的是不同代码状态而必须保留不同命令身份和回执，只能归并同一切片内的完全重复命令。长期权威候选的起草、精确正文复核和负责人确认属于切片实施前的治理阶段：智能编码代理可以按自己决定的切片拆分，先在全部计划治理路径内形成完整候选包；程序只允许这些已经由真实候选治理路径证明且属于已确认方案的文件提前出现，不把它们记作切片完成，也不放行任何普通业务路径。完整候选包确认后，程序才只允许累计工作树包含已完成切片和首个依赖已满足切片的计划路径，并只允许当前切片进入验证。前序切片的操作不得在后续切片重写；唯一例外是已计划的同一份实现对齐草稿，可在一个明确的最终刷新切片中用实施后真实证据更新，不转移原操作归属，也不开放普通源码的跨切片改写。只属于后续切片的普通路径与计划外路径必须分别报告，程序不得决定怎样拆分工作，也不得启动、分配或控制智能编码代理。
+      每项操作和完成依据同时限定所属仓库；必要依赖可以跨仓库，但不会产生新的事项确认或代理调度权。
+    applies_when: 工程方案进入实施、验证或重新规划时。
+- fact_id: FACT-77865B53D2B34969
+  status: draft
+  title: 负责人确认说明按决策价值自适应组织
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-D4F5B61728395A6B
+  - FACT-C8E6F2891E194C50
+  content:
+    statement: 请求方向、完整工程方案或实际结果确认前，智能编码代理必须提供足以决定的说明，覆盖当前或修改前状态、候选变化、产品效果、工程逻辑、影响与风险、未知与限制、推荐以及确认后授权和不授权的动作；具体顺序、标题和篇幅按实际复杂度组织，确无决策价值的内容可以省略。方向说明强调愿望如何收敛及只授权继续工程调查；方案说明强调改前改后、实施验证及不授权提交；结果说明同时对照方案与实际、改前与当前，并说明只授权后续本地
+      Git 交付。用户表示看不懂、提问或要求换一种说法时，代理必须解释同一候选且不触发确认或版本变化；只有实质纠正才退回并形成新候选。同一轮最多保留五个高影响问题，并继续坚持一次只讨论一个实质决定。
+    applies_when: 展示方向、工程方案、阻断、纠偏或实际结果时。
+- fact_id: FACT-EBDA1DF2249B477A
+  status: draft
+  title: 引导式形成贯穿候选形成与纠偏
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-D054964736FE4AE1
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  content:
+    statement: 引导式形成贯穿产品发现、产品与领域候选、建设事项方向、工程方案和结果纠偏；智能编码代理必须先调查可查事实，只逐步解决会实质改变结果的缺口，允许项目负责人持续纠正，并在候选足以下游使用时停止追问。
+    applies_when: 从负责人愿望形成产品、领域、方向或工程候选，或者根据新事实纠正既有候选时。
+- fact_id: FACT-4CA07D0AA8924D7D
+  status: draft
+  title: 程序不得替代引导式形成的语义判断
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    statement: 程序不得通过关键词、文件数量、代码行数、活动名称或固定流程替代智能编码代理对产品发现动作、假设与证据、意图缺口、交付跨度、保障深度和推荐下一步的语义判断；这些信号只能作为调查依据，程序只校验现有合同、明确声明和政策下限。
+    applies_when: 开展产品发现、形成方向、推荐规划路径、拆分建设事项或裁剪工程保障时。
+- fact_id: FACT-ED887913315E4A85
+  status: draft
+  title: 产品发现动作按真实缺口选择
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-FA45768A3F2541A8
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    statement: 智能编码代理必须先检查用户原话、当前权威、项目资料、必要代码和可取得证据，再选择当前最能消除承重缺口的一个产品发现动作；动作可以跳过、组合或重复，但不得固定为阶段、要求负责人选择模式或在信息足够时继续追问。程序不得按关键词、文档数量、代码规模或固定评分生成路线。
+    applies_when: 产品或功能想法尚不足以形成需求、长期权威候选或建设方向时。
+- fact_id: FACT-ABF86B04DB1C477F
+  status: draft
+  title: 产品发现区分事实、决定、假设与证据
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-FA45768A3F2541A8
+  content:
+    statement: 智能编码代理必须明确区分项目可查事实、项目负责人决定、仍待验证的假设和带来源及时效的外部证据；模型已有知识只能提出调查假设，不能冒充当前外部事实。证据只能支持其实际范围，想法增强、被否定、暂时搁置或仅变清楚均可结束发现，不能把所有结果推向建设。
+    applies_when: 产品发现依赖项目事实、用户取舍、外部信息或尚未验证的核心主张时。
+- fact_id: FACT-0FCE425CA2D74D8C
+  status: draft
+  title: 产品发现结果只进入现有权威
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-FA45768A3F2541A8
+  - FACT-346BD66898834B1E
+  content:
+    statement: 继续建设的长期产品事实进入 ProjectProductDefinition，领域语义进入 ProjectDomainModel，跨单元持久取舍进入 ProjectArchitectureDescription
+      或 ADR，一次建设内容进入 DirectionDecision 和 WorkItem。Product Brief、PRFAQ、发现结论及可选工作材料不得取得独立写权、状态或确认；非权威工作材料不得进入 `.strixnova`、保存完整对话或复制已经进入正式权威的当前事实。
+    applies_when: 产品发现形成继续建设、搁置、否定或仅变清楚的结论时。
+- fact_id: FACT-D2E54729BD8E4263
+  status: draft
+  title: 三个规划裁剪轴必须分别说明
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-EAD1014D81E84578
+  - FACT-0418907AB3454690
+  content:
+    statement: 需求形成深度、交付跨度和保障深度必须分别依据意图缺口、可独立验收结果以及真实影响与风险说明；任一裁剪轴不得自动推出另一个轴的结论。
+    applies_when: 决定继续澄清、形成一个或多个建设事项、建立项目级建设建议或选择保障等级时。
+- fact_id: FACT-346BD66898834B1E
+  status: draft
+  title: 常见软件工程产物只作形成指引或阅读投影
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-D054964736FE4AE1
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-0802FE81639F4AE2
+  - FACT-0F4D688028C0D0D6
+  - FACT-DAFDC4DCF08C4543
+  - FACT-66B7EEC7A5D44062
+  - FACT-EC301385EB774E9D
+  - FACT-F617D8394A5B6C7D
+  content:
+    statement: Product Brief、PRFAQ、PRD、SPEC、Architecture Spine、Epic 和 Story 等名称只能作为现有权威候选的形成指引，或绑定精确权威修订的只读投影；不得取得独立写权、状态或确认，也不得与产品定义、领域模型、方向决定、目标架构、ADR、建设事项或实施切片形成平行事实。
+    applies_when: 使用常见软件工程产物帮助负责人思考、组织候选或向下游提供可读内容时。
+- fact_id: FACT-8ECA5F87E8DC459B
+  status: draft
+  title: 产物形成指引不自动构成工程方法采用
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-CEF1A02972184E23
+  - FACT-EA9C469E15A04AB3
+  content:
+    statement: 使用产品内置的产物形成指引，包括采用 SDD（规格驱动开发）的部分写作步骤，只表示智能编码代理采用一种思考或写作帮助，不表示受管项目已经采用对应 EngineeringMethod（工程方法）；方法采用仍必须由项目工程政策根据该项目真实需要单独记录。
+    applies_when: 形成或复核产品简述、PRD、规格、架构骨架、Story 或其他方法化阅读内容时。
+- fact_id: FACT-415381C6F0AB4AD0
+  status: draft
+  title: 快速起草与逐项辅导共用同一候选合同
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-21F0C7A48B934E6D
+  - FACT-66B7EEC7A5D44062
+  content:
+    statement: 目标、范围、护栏和验收已经足够明确时，智能编码代理可直接形成候选；仍缺客户、问题、边界、取舍或成功判断时，才逐项辅导。两种节奏必须形成同一种现有候选合同，不得要求用户预选模式、增加确认点或产生两套状态。
+    applies_when: 智能编码代理决定直接起草方向还是继续逐项澄清时。
+- fact_id: FACT-AB7833584D354796
+  status: draft
+  title: 上游语义错误必须回到对应长期权威
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A3B8F3BE848F44E1
+  - FACT-E506C728394A5B6C
+  content:
+    statement: 规划或实施发现产品、领域或目标架构语义错误时，必须回到对应长期权威形成精确修订候选，并通过权威变更集处置所有下游影响；不得只修改 PRD、SPEC、Story、实施计划或其他阅读投影来宣称上游事实已经改变。
+    applies_when: 任一下游形成、复核或实施活动发现已确认上游语义需要实质改变时。
+- fact_id: FACT-891C6A4386EB4D68
+  status: draft
+  title: 方向条目身份由语义连续性决定
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ED05BCEB08B94F1E
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    statement: 仅调整条目顺序或不改变含义地澄清措辞时保留身份；语义被替换、拆分或合并时使用新身份，被移除的身份不得在同一 WorkItem 的更晚方向中复活。智能编码代理必须说明保留和替换判断，项目负责人通过完整方向修订确认；程序不得按文本散列、相似度或数组位置作语义判断。
+    applies_when: 形成首次方向候选，或根据负责人纠正和新调查事实修订既有方向时。
+- fact_id: FACT-753C846FFB784962
+  status: draft
+  title: 稳定条目引用不取代完整方向版本
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-66B7EEC7A5D44062
+  - FACT-80FC172A8D784960
+  - FACT-F6044AA05940484D
+  - FACT-B08EEE5142FB4A31
+  content:
+    statement: 工程评估、方案、操作、验证和追溯分别使用 direction.requirement:DIRREQ-*、direction.constraint:DIRCON-* 和 direction.acceptance:DIRACC-*。稳定身份只表达跨方向修订的条目连续性；任何方向修订仍使旧工程评估、方案、切片完成、验证和实际结果按现行规则失效，不得把相同条目身份当作旧方案继续有效的依据。
+    applies_when: 工程语义或证据引用已确认方向中的需求、约束或验收条件，或者方向产生新修订时。
+- fact_id: FACT-12810BF6CFD2AA73
+  status: draft
+  title: 运行维护必须先稳定停写并核验副本
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  dependency_fact_ids:
+  - FACT-D0828206E1A6C60E
+  - FACT-C9C5B5C016D75999
+  - FACT-9CE1F26692E7C6FE
+  content:
+    statement: 预检绑定项目、源事实、当前精确格式和本地目标制品。阻止新操作并等待已有执行及回写结束后，保存一致备份，核验副本与原事实，再持久记录各次切换。中断按原记录继续或恢复，不清空数据库、强制完成事项或删除维护标记绕过保护。异常退出留下的未收口执行持续阻断维护，外部停止证据必须绑定该真实操作；父进程或操作锁消失不表示子进程及副作用已经结束。
+    applies_when: 用户或在其授权范围内的智能编码代理明确发起 Strixnova 自身升级或恢复时。
+- fact_id: FACT-ECF7D6F8F584BC2C
+  status: draft
+  title: 历史查询按原记录版本有界读取
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids:
+  - FACT-AA4174FFBF99444C
+  dependency_fact_ids:
+  - FACT-07CA21F1D5DD431B
+  - FACT-7B99D0DC855342F7
+  content:
+    statement: 历史列表和记录覆盖进行中、完成及取消事项，不依赖当前动作、当前权威或现有工作树。分页绑定明确版本，候选处分按发生时记录说明；原事件和用户决定不经当前规则重算。结果、交付和产物绑定原提交及相对路径，日志只经持久回执读取；缺失、摘要不匹配和当时未锚定分别报告，不能改写历史验证结论。
+    applies_when: 查询事项历史、候选、决定、验证、交付、关联和产物时。
+- fact_id: FACT-C88195D054B04436
+  status: draft
+  title: 当前阶段治理本地单项目的多个成员仓库
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AD3A3604E30A4387
+  - FACT-B3D14DA096B94DD9
+  - FACT-12A47E948AC94AF2
+  - FACT-EECFC91CAB03476E
+  content:
+    statement: 当前目标阶段治理本地单项目的一个或多个成员仓库。项目负责统一目标、事项与结果接受，成员仓库分别承担版本内容、实施空间和本地交付。必要依赖可由本地源码或可核验的外部契约、制品和服务提供，实施与验证条件按当前事项需要判断。远程代码托管、持续集成、部署和监控仍由外部系统执行；多仓库治理不赋予跨项目调度、多主机权威或跨仓库原子提交能力。
+    applies_when: 项目声明仓库范围，或事项选择修改、验证和本地交付范围时。
+- fact_id: FACT-7A7AD19A842140AF
+  status: draft
+  title: 同一事项整体接受后逐仓库交付
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-C81DA4F98DBF40FB
+  - FACT-B66A3271FAD74C65
+  content:
+    statement: 一个 WorkItem 的方向、工程方案和实际结果覆盖整个事项。实际结果并列说明全部修改仓库、必要依赖、整体效果、验证、未运行项和限制；负责人接受精确整体结果后才能提交并按方案逐仓库交付。仓库数量不增加普通确认点，不允许在同一事项中按仓库分批接受并提前交付。需要提前独立交付时先明确独立验收目标并按既有修订规则拆分事项。整体接受按结果版本发生；原接受因内容或依据变化失效时仍须形成新的整体候选并按原规则重新接受，未变化内容不因下一仓库开始交付重复确认。失败或有限结果仍可依原规则展示和审阅，接受限制不改写失败事实、静默缩小成功标准或绕过共同目标。
+    applies_when: 形成跨仓库事项、请求实际结果接受或组织逐仓库交付时。
+- fact_id: FACT-B498CB51CCB241F0
+  status: draft
+  title: 验证依赖由实际证据确定
+  kind: domain_rule
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-E793FB9BC65A4ED0
+  - FACT-8AC9AE21345846DE
+  content:
+    statement: 仅修改本地仓库的事项可以使用其他成员仓库或外部项目的契约、制品和已部署服务作为验证依赖。方案明确所需输入、环境、目标与核验方式，实际回执绑定真实可核验的版本和对应事实。契约说明预期，地址说明位置，二者都不单独证明运行实现版本；必要版本无法核验、执行期间变化或输入证据不足时保留未验证、受阻或限制。接口测试不能代替确需对端源码的实现对齐证据；满足接口级核验所需证据时不强制检出对端源码。输入变化后复核依赖它的证据及结果接受，已证明不受影响的证据可复用；依赖依据不足不得宣称可复用，原运行事实不得回写。
+    applies_when: 选择跨仓库或外部服务验证依赖、采集回执、复用证据或判断结果接受有效性时。

@@ -1,0 +1,346 @@
+{
+  "current_action": {
+    "action_type": "submit_engineering_assessment",
+    "actor": "coding_agent",
+    "blocking_facts": [],
+    "conditional_record_refs": [],
+    "input_contract_ref": "input.contract:submit_engineering_assessment",
+    "input_kind": "engineering_assessment",
+    "intent": "submit",
+    "record_refs": [
+      "direction",
+      "direction_confirmation",
+      "project.direction_context",
+      "project.follow_ups"
+    ],
+    "repository_execution_contexts": [
+      {
+        "mode": "worktree",
+        "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\5cce0a8e359b\\work\\project",
+        "repository_id": "REPO-1111111111111111"
+      }
+    ],
+    "schema_version": "strixnova.current-action.v1",
+    "work_item_id": "WI-20260929-DEC61550",
+    "work_item_version": 13
+  },
+  "reading": {
+    "complete": true,
+    "max_output_bytes": 262144,
+    "schema_version": "strixnova.record-reading.v1",
+    "unread_refs": []
+  },
+  "record_pages": {},
+  "record_sources": {
+    "direction": {
+      "root_ref": "direction",
+      "source_sha256": "c75c40ee1f6d1a26f68c3c9fbaf36a9ae1f673fefad18c1b2cf8644595467f6d"
+    },
+    "direction_confirmation": {
+      "root_ref": "direction_confirmation",
+      "source_sha256": "b4a9017efed62088bfa357c12b62160d7294757297375721c9f8eaa232ccce55"
+    }
+  },
+  "records": {
+    "direction": {
+      "acceptance": [
+        {
+          "acceptance_id": "DIRACC-A000000000000001",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A000000000000001",
+                  "direction.requirement:DIRREQ-A000000000000007"
+                ],
+                "example_id": "DIREX-A000000000000001",
+                "given": [
+                  "成员已通过可信宿主会话认证",
+                  "该成员有一份待审核的本人申请"
+                ],
+                "then": [
+                  "申请状态变为已撤回",
+                  "产生一条审计记录（操作者、待审核→已撤回、撤回）"
+                ],
+                "title": "成员撤回本人待审核申请",
+                "when": "成员请求撤回该申请"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A000000000000001",
+            "DIRREQ-A000000000000003",
+            "DIRREQ-A000000000000007"
+          ],
+          "statement": "成员撤回本人待审核申请后，状态变为已撤回，审计记录完整。"
+        },
+        {
+          "acceptance_id": "DIRACC-A000000000000002",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A000000000000002"
+                ],
+                "example_id": "DIREX-A000000000000002",
+                "given": [
+                  "成员已认证",
+                  "申请不属于该成员"
+                ],
+                "then": [
+                  "撤回被拒绝",
+                  "申请状态不变",
+                  "不产生审计记录"
+                ],
+                "title": "撤回他人申请被拒绝",
+                "when": "成员请求撤回该申请"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A000000000000002",
+            "DIRREQ-A000000000000003"
+          ],
+          "statement": "非本人或非待审核的撤回被拒绝，申请状态不变，不产生审计记录。"
+        },
+        {
+          "acceptance_id": "DIRACC-A000000000000003",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A000000000000004"
+                ],
+                "example_id": "DIREX-A000000000000003",
+                "given": [
+                  "申请已处于已撤回状态"
+                ],
+                "then": [
+                  "返回已撤回结果",
+                  "不新增审计记录"
+                ],
+                "title": "重复撤回幂等",
+                "when": "成员再次撤回该申请"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A000000000000004"
+          ],
+          "statement": "重复撤回返回相同结果且不重复记审计。"
+        },
+        {
+          "acceptance_id": "DIRACC-A000000000000004",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A000000000000005"
+                ],
+                "example_id": "DIREX-A000000000000004",
+                "given": [
+                  "申请处于待审核状态"
+                ],
+                "then": [
+                  "只有一个操作成功",
+                  "另一个被拒绝"
+                ],
+                "title": "并发撤回与审批",
+                "when": "成员撤回和负责人审批同时发生"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A000000000000005"
+          ],
+          "statement": "撤回与审批并发时只有一个成功。"
+        },
+        {
+          "acceptance_id": "DIRACC-A000000000000005",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A000000000000006"
+                ],
+                "example_id": "DIREX-A000000000000005",
+                "given": [
+                  "成员之前发起撤回但未收到响应"
+                ],
+                "then": [
+                  "返回申请的实际当前状态"
+                ],
+                "title": "查询实际状态",
+                "when": "成员查询申请状态"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A000000000000006"
+          ],
+          "statement": "响应丢失后可查询实际状态。"
+        },
+        {
+          "acceptance_id": "DIRACC-A000000000000006",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A000000000000008"
+                ],
+                "example_id": "DIREX-A000000000000006",
+                "given": [
+                  "一份申请已在成员服务中撤回"
+                ],
+                "then": [
+                  "运营汇总看到的状态与成员服务一致（已撤回）"
+                ],
+                "title": "统一申请身份",
+                "when": "运营汇总查询该申请状态"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A000000000000008"
+          ],
+          "statement": "成员服务和运营汇总使用统一的申请身份和状态含义。"
+        },
+        {
+          "acceptance_id": "DIRACC-A000000000000007",
+          "behavior": {
+            "applicability": "required",
+            "examples": [
+              {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A000000000000009"
+                ],
+                "example_id": "DIREX-A000000000000007",
+                "given": [
+                  "工具已启动"
+                ],
+                "then": [
+                  "操作通过本地终端命令行完成",
+                  "不通过网页或网络服务"
+                ],
+                "title": "终端交互",
+                "when": "成员执行撤回操作"
+              }
+            ]
+          },
+          "requirement_refs": [
+            "DIRREQ-A000000000000009"
+          ],
+          "statement": "全部交互通过本地终端完成。"
+        }
+      ],
+      "constraints": [
+        {
+          "constraint_id": "DIRCON-A000000000000001",
+          "statement": "保持 duration 函数签名和合法区间的既有返回行为。"
+        },
+        {
+          "constraint_id": "DIRCON-A000000000000002",
+          "statement": "方向确认后需完成产品、领域、架构和工程政策的首次修订并确认，才能开始实施。"
+        }
+      ],
+      "decision_context": {
+        "assumptions": [
+          {
+            "reconsider_when": "上游权威已有采用修订",
+            "statement": "项目尚未采用长期权威，方向确认后需要首次形成并确认产品、领域、架构和工程政策修订才能开始实施"
+          },
+          {
+            "reconsider_when": "产品定义要求改变区间校验行为",
+            "statement": "既有 duration 函数行为保持不变"
+          },
+          {
+            "reconsider_when": "负责人决定两个结果不共享申请域",
+            "statement": "成员撤回和负责人周报共享申请身份、状态含义和决定权，共享权威在实施前统一建立"
+          }
+        ],
+        "capability_refs": [],
+        "context_ref": null,
+        "guardrail_dispositions": []
+      },
+      "goal": "成员能通过本地终端撤回本人仍待审核的预约申请，并发安全，审计完整。",
+      "non_goals": [
+        "不实现已批准预约的取消。",
+        "不实现缴费。",
+        "不增加网页或网络服务。",
+        "不增加日期转换或时区处理。",
+        "本事项不交付周报能力（由另一事项单独交付）。"
+      ],
+      "schema_version": "strixnova.direction-decision.v1",
+      "scope": [
+        {
+          "requirement_id": "DIRREQ-A000000000000001",
+          "statement": "申请成员可撤回本人待审核的预约申请。"
+        },
+        {
+          "requirement_id": "DIRREQ-A000000000000002",
+          "statement": "身份来自可信宿主会话，不信任传入角色或所有者字段。"
+        },
+        {
+          "requirement_id": "DIRREQ-A000000000000003",
+          "statement": "只允许待审核状态撤回。"
+        },
+        {
+          "requirement_id": "DIRREQ-A000000000000004",
+          "statement": "重复撤回返回相同结果且不重复记审计。"
+        },
+        {
+          "requirement_id": "DIRREQ-A000000000000005",
+          "statement": "撤回与审批并发时只允许一个版本成功。"
+        },
+        {
+          "requirement_id": "DIRREQ-A000000000000006",
+          "statement": "响应丢失后可查询实际状态。"
+        },
+        {
+          "requirement_id": "DIRREQ-A000000000000007",
+          "statement": "审计保留操作者、原状态、新状态和操作身份。"
+        },
+        {
+          "requirement_id": "DIRREQ-A000000000000008",
+          "statement": "两个单元必须共用申请身份、状态含义和决定权，不能各自定义。"
+        },
+        {
+          "requirement_id": "DIRREQ-A000000000000009",
+          "statement": "界面限定为本地终端交互。"
+        }
+      ],
+      "tradeoffs": [],
+      "work_item_relations": []
+    },
+    "direction_confirmation": {
+      "accepted": true,
+      "agent_decision": {
+        "decision": "accept",
+        "reason": "负责人明确同意该方向，全部业务事实已给定，无待决的用户决定。"
+      },
+      "candidate_fingerprint": "sha256:de6be6b8d6c72d31cb71aa83f491e4f18634097c02f1e865dffbdac74437383a",
+      "candidate_kind": "direction",
+      "decision_interpreter": "coding_agent",
+      "decision_label": "当前展示的方向",
+      "direction_version": 4,
+      "schema_version": "strixnova.user-confirmation.v1",
+      "semantic_content_machine_proven": false,
+      "summary": "负责人明确同意该方向，全部业务事实已给定，无待决的用户决定。",
+      "user_confirmation": "现在理解这份方向说明了，同意这个方向，请继续制定工程方案。"
+    }
+  },
+  "relations": {
+    "declared": [],
+    "referenced_by": []
+  },
+  "schema_version": "strixnova.next-step.v1",
+  "work_item_id": "WI-20260929-DEC61550",
+  "work_item_status": "needs_engineering_assessment",
+  "work_item_version": 13
+}

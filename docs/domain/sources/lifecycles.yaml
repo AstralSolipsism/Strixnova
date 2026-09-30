@@ -1,0 +1,621 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-8820BD863C12458F
+scope_fact_ids: []
+facts:
+- fact_id: FACT-1A4920CC49584349
+  status: draft
+  title: 长期权威修订生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-01E58C1E2F3C4D9C
+  - FACT-7508D8A111574696
+  - FACT-6843B2110EC845C2
+  - FACT-7D38374475FA4947
+  content:
+    subject_fact_id: FACT-01E58C1E2F3C4D9C
+    states:
+    - state: draft
+      meaning: 候选语义仍在形成或修订，不能作为下游正式权威。
+    - state: ready_for_confirmation
+      meaning: 结构、引用和声明覆盖已经闭合，等待项目负责人确认语义。
+    - state: confirmed
+      meaning: 项目负责人已经确认该精确修订，允许下游引用。
+    - state: superseded
+      meaning: 新修订已经确认并取代本修订，本修订只保留历史权威。
+    transitions:
+    - from_state: draft
+      to_state: ready_for_confirmation
+      trigger: 智能编码代理提交完整候选并通过全部确定性结构检查。
+      guards:
+      - 范围关键未知为空。
+      - 上游精确修订已确认。
+      - 结构、身份、引用、覆盖和谱系闭合。
+      resulting_event_fact_ids:
+      - FACT-7508D8A111574696
+    - from_state: ready_for_confirmation
+      to_state: draft
+      trigger: 候选语义、范围或结构发生任何实质修订。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: ready_for_confirmation
+      to_state: confirmed
+      trigger: 当前项目负责人用可理解的语义决定文本确认已完整展示的精确修订。
+      guards:
+      - 被确认内容与待确认版本完全一致。
+      - 项目负责人能够理解当前实质决定。
+      - 候选身份、版本和内容身份由程序内部绑定，不要求项目负责人辨认或复制。
+      resulting_event_fact_ids:
+      - FACT-6843B2110EC845C2
+    - from_state: confirmed
+      to_state: superseded
+      trigger: 同一种长期权威的新精确修订已经确认采用。
+      guards:
+      - 新修订声明演进关系。
+      resulting_event_fact_ids:
+      - FACT-7D38374475FA4947
+- fact_id: FACT-89383788CD9D4BB0
+  status: draft
+  title: WorkItem（建设事项）生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-F4E493D03E8143F4
+  - FACT-1D2DAF4D22184B44
+  - FACT-3B7B22C4A1C247D9
+  - FACT-6EEB450EA68C4D79
+  - FACT-0327B3690DAB4024
+  - FACT-956C060E82CD4797
+  - FACT-B66A3271FAD74C65
+  - FACT-ED05722401BA4708
+  - FACT-88B33C50BECF4B1D
+  content:
+    subject_fact_id: FACT-B3D14DA096B94DD9
+    states:
+    - state: clarifying_direction
+      meaning: 正在调查和澄清方向，尚无可确认方向。
+    - state: awaiting_direction_confirmation
+      meaning: 完整方向等待项目负责人确认。
+    - state: assessing
+      meaning: 正在形成或修订工程评估和方案。
+    - state: awaiting_plan_confirmation
+      meaning: 完整工程方案等待项目负责人确认。
+    - state: implementing
+      meaning: 已确认方案正在完成切片实施前的长期权威治理，或正在按依赖顺序实施和验证切片；前一阶段只形成候选、复核和决定，不把切片记作完成。 操作按仓库限定，必要验证依赖可以由有证据的服务或制品提供。
+    - state: awaiting_result_confirmation
+      meaning: 实际结果已经展示，等待项目负责人接受。 候选同时说明所有修改仓库及必要依赖，接受对象为整个事项。
+    - state: ready_to_integrate
+      meaning: 实际结果已接受，等待智能编码代理提交和本地合入。 各仓库提交与交付必须对应当前已接受整体内容。
+    - state: integrating
+      meaning: 正在执行本地合入、冲突处理和复测。 各仓库可以有不同实际进度，部分完成、失败和未知分别保留。
+    - state: completed
+      meaning: 已接受结果对应的提交已本地合入且安全收尾完成。 正式交付须覆盖当前接受结果的全部必要仓库；无正式交付事项不制造空合入事实。
+    - state: canceled
+      meaning: 事项停止授权后续建设并保留已发生事实。 可保留已合入仓库及未交付仓库的不同事实，取消不自动回滚，也不表示整体完成。
+    transitions:
+    - from_state: clarifying_direction
+      to_state: awaiting_direction_confirmation
+      trigger: 方向六类事实闭合、当前决定上下文绑定完整且真实阻断为空。
+      guards:
+      - 项目负责人能够理解候选。
+      - 已有项目的方向绑定当前产品修订、至少一项相关能力并逐项处置全部产品护栏；新项目明确绑定空上下文。
+      - 相关能力选择、护栏处置理由、假设和重开条件由智能编码代理形成，程序没有判断其语义。
+      resulting_event_fact_ids: []
+    - from_state: awaiting_direction_confirmation
+      to_state: assessing
+      trigger: 项目负责人确认精确方向版本。
+      guards:
+      - 方向绑定的产品修订和护栏集合仍然是当前版本。
+      - 需要重新考虑的既有护栏在新产品修订独立确认前继续约束工程评估和实施。
+      resulting_event_fact_ids:
+      - FACT-F4E493D03E8143F4
+    - from_state: assessing
+      to_state: awaiting_plan_confirmation
+      trigger: 工程评估完整并通过确定性校验。
+      guards:
+      - 方向和长期目标引用仍有效。
+      resulting_event_fact_ids: []
+    - from_state: awaiting_plan_confirmation
+      to_state: implementing
+      trigger: 项目负责人确认精确工程方案版本。
+      guards:
+      - 若方案包含长期权威候选，本迁移只授权进入治理准备；在 implementing 内形成完整候选包、绑定精确正文完成八视角复核并按各自决定权确认全部上游候选后，才允许普通业务路径写入。
+      resulting_event_fact_ids:
+      - FACT-1D2DAF4D22184B44
+    - from_state: implementing
+      to_state: awaiting_result_confirmation
+      trigger: 智能编码代理提交实际效果、验证、未运行项、偏差和限制。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-3B7B22C4A1C247D9
+    - from_state: awaiting_result_confirmation
+      to_state: ready_to_integrate
+      trigger: 项目负责人接受精确实际结果版本。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-6EEB450EA68C4D79
+    - from_state: ready_to_integrate
+      to_state: integrating
+      trigger: 智能编码代理形成原子结果提交并请求本地合入。
+      guards:
+      - 提交只包含当前事项范围。
+      resulting_event_fact_ids: []
+    - from_state: integrating
+      to_state: completed
+      trigger: 结果提交已被证明本地合入且安全清理完成。
+      guards:
+      - 冲突后的结果和复测没有改变用户可见接受内容。
+      - 全部必要仓库的已接受内容均有实际合入与安全收尾依据，单仓库合入事件不能代替整体条件。
+      resulting_event_fact_ids:
+      - FACT-956C060E82CD4797
+    - from_state: awaiting_direction_confirmation
+      to_state: clarifying_direction
+      trigger: 方向候选被实质纠正，或新事实实质改变目标、范围、约束、取舍或成功判断。
+      guards:
+      - 仅表示看不懂、继续提问或要求换一种说法时解释同一候选，不触发本状态迁移，也不改变候选或事项版本。
+      resulting_event_fact_ids: []
+    - from_state: awaiting_plan_confirmation
+      to_state: assessing
+      trigger: 工程方案候选被纠正或上游发生实质变化。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: awaiting_result_confirmation
+      to_state: implementing
+      trigger: 实际结果被拒绝且仍在已确认方案范围内继续纠正。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: clarifying_direction
+      to_state: canceled
+      trigger: 项目负责人取消事项。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-0327B3690DAB4024
+    - from_state: assessing
+      to_state: canceled
+      trigger: 项目负责人取消事项。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-0327B3690DAB4024
+    - from_state: implementing
+      to_state: canceled
+      trigger: 项目负责人取消且当前外部事实允许安全停止。
+      guards:
+      - 取消不会删除用户资料或伪装已发生外部操作。
+      resulting_event_fact_ids:
+      - FACT-0327B3690DAB4024
+    - from_state: ready_to_integrate
+      to_state: canceled
+      trigger: 项目负责人明确取消尚未完成的整体事项，允许保留已合入部分。
+      guards:
+      - 停止新的建设副作用，已发操作已收口且结果可核对；执行中或结果未知时不得提前宣称安全终止。
+      - 分别记录已合入、未交付、原接受记录和剩余处置，不自动撤销已有合入。
+      resulting_event_fact_ids:
+      - FACT-0327B3690DAB4024
+    - from_state: integrating
+      to_state: canceled
+      trigger: 项目负责人明确取消尚未完成的整体事项，允许保留已合入部分。
+      guards:
+      - 停止新的建设副作用，已发操作已收口且结果可核对；执行中或结果未知时不得提前宣称安全终止。
+      - 分别记录已合入、未交付、原接受记录和剩余处置，不自动撤销已有合入。
+      resulting_event_fact_ids:
+      - FACT-0327B3690DAB4024
+- fact_id: FACT-8FF8B1444DD741AC
+  status: draft
+  title: VerificationRun（验证运行）生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C33E74EC824D4AE0
+  - FACT-FFDE76EC22744438
+  content:
+    subject_fact_id: FACT-C33E74EC824D4AE0
+    states:
+    - state: planned
+      meaning: 验证已在方案中选择但尚未开始。
+    - state: running
+      meaning: 外部工具正在执行命令。
+    - state: passed
+      meaning: 命令按其自身成功条件完成且未记录阻断问题。
+    - state: completed_with_issues
+      meaning: 运行失败、受限、取消、部分完成或含需要说明的问题。
+    transitions:
+    - from_state: planned
+      to_state: running
+      trigger: 合法验证请求通过政策和状态校验后交给外部工具。
+      guards:
+      - 首个可执行程序和参数符合已确认验证政策。
+      - 请求不能启动智能编码代理。
+      resulting_event_fact_ids: []
+    - from_state: running
+      to_state: passed
+      trigger: 外部工具返回符合该命令成功条件的真实回执。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-FFDE76EC22744438
+    - from_state: running
+      to_state: completed_with_issues
+      trigger: 外部工具返回失败、取消、超时、限制或部分结果。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-FFDE76EC22744438
+- fact_id: FACT-4D46E55AA5C948DA
+  status: draft
+  title: 实现对齐复核生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-CCEF92A5D2114880
+  - FACT-29A948A8B5364EB3
+  content:
+    subject_fact_id: FACT-29A948A8B5364EB3
+    states:
+    - state: current
+      meaning: 对齐绑定的目标和代码版本仍有效且声明覆盖闭合。
+    - state: needs_review
+      meaning: 上游、代码或证据变化使一个或多个判断需要重新评估。
+    - state: reviewing
+      meaning: 智能编码代理正在逐项调查和更新受影响判断。
+    - state: complete
+      meaning: 新对齐候选已完成观察范围、关系、归属和目标责任覆盖及门禁检查，等待被当前项目基线采用。
+    transitions:
+    - from_state: current
+      to_state: needs_review
+      trigger: 产品、领域、架构、代码、验证或对齐自身发生相关变化。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-CCEF92A5D2114880
+    - from_state: needs_review
+      to_state: reviewing
+      trigger: 智能编码代理开始处理受影响判断。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: reviewing
+      to_state: complete
+      trigger: 必需观察范围、文件、关系和目标责任重新达到完整覆盖；所有观察缺口与未知均保持可见并有解决计划。
+      guards:
+      - 可确定漂移门禁通过。
+      - 不存在被解释为空关系的未支持、未执行、失败、部分覆盖、未解析或歧义观察。
+      resulting_event_fact_ids: []
+    - from_state: complete
+      to_state: current
+      trigger: 项目采用新的精确对齐和代码版本。
+      guards: []
+      resulting_event_fact_ids: []
+- fact_id: FACT-9FE2D628A8D8483D
+  status: draft
+  title: DeliveryActivity（交付运行活动）生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B8155BDA282E4527
+  - FACT-B789F5869BA34D66
+  content:
+    subject_fact_id: FACT-B8155BDA282E4527
+    states:
+    - state: planned
+      meaning: 活动计划、责任、关口和外部工具仍在形成或等待确认。
+    - state: authorized
+      meaning: 活动计划已经确认且前置关口满足。
+    - state: running
+      meaning: 外部工具正在执行实际操作。
+    - state: completed
+      meaning: 外部操作和约定后置验证均有真实完成证据。
+    - state: failed
+      meaning: 外部操作失败、部分完成或后置验证不满足。
+    - state: canceled
+      meaning: 活动停止且已发生外部事实、剩余风险和后续责任已记录。
+    transitions:
+    - from_state: planned
+      to_state: authorized
+      trigger: 负责人确认活动计划且全部前置关口满足。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: authorized
+      to_state: running
+      trigger: 外部工具开始实际操作。
+      guards:
+      - 当前产品阶段具备真实执行或回执接收能力。
+      resulting_event_fact_ids:
+      - FACT-B789F5869BA34D66
+    - from_state: running
+      to_state: completed
+      trigger: 外部工具和后置验证提供完整成功事实。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-B789F5869BA34D66
+    - from_state: running
+      to_state: failed
+      trigger: 外部工具或后置验证提供失败、部分完成或受限事实。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-B789F5869BA34D66
+    - from_state: planned
+      to_state: canceled
+      trigger: 负责人取消尚未执行的活动。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: authorized
+      to_state: canceled
+      trigger: 外部系统确认活动在开始执行前已经取消。
+      guards:
+      - 真实取消回执绑定计划中的外部系统，并保留证据来源；不能用取消意图或缺少开始回执代替已取消事实。
+      resulting_event_fact_ids:
+      - FACT-B789F5869BA34D66
+    - from_state: running
+      to_state: canceled
+      trigger: 外部活动按真实能力停止且剩余影响已记录。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-B789F5869BA34D66
+- fact_id: FACT-C94A0B6C7D8E9FA0
+  status: draft
+  title: AuthorityChangeSet（权威变更集）生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A1C2E3F405162738
+  - FACT-C3E4A5061728395A
+  content:
+    subject_fact_id: FACT-A1C2E3F405162738
+    states:
+    - state: drafting
+      meaning: 智能编码代理正在绑定当前权威基线、候选修订和下游处置。
+    - state: review_ready
+      meaning: 确定性结构完整，跨产物语义复核没有未解决的高影响问题，可以并入工程方案确认。
+    - state: incorporated
+      meaning: 所列候选修订已经分别完成适用确认，变更集只保留历史追溯作用。
+    - state: invalidated
+      meaning: 任一基线在候选采用前已经变化，原变更集必须重新形成。
+    transitions:
+    - from_state: drafting
+      to_state: review_ready
+      trigger: 结构、引用、覆盖和声明状态检查通过，智能编码代理完成跨产物语义复核。
+      guards:
+      - 产品、领域、目标架构和实现对齐四类当前采用核心权威均被精确绑定。
+      - 所有下游影响均有明确处置。
+      - 没有未解决的高影响语义发现。
+      resulting_event_fact_ids: []
+    - from_state: review_ready
+      to_state: incorporated
+      trigger: 变更涉及的长期权威候选已经按各自决定权完成确认和采用。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: drafting
+      to_state: invalidated
+      trigger: 任一被绑定基线在候选采用前发生变化。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: review_ready
+      to_state: invalidated
+      trigger: 任一被绑定基线在候选采用前发生变化。
+      guards: []
+      resulting_event_fact_ids: []
+- fact_id: FACT-DA5B1C7D8E9FA0B1
+  status: draft
+  title: ImplementationSlice（实施切片）生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B2D3F40516273849
+  - FACT-8AC9AE21345846DE
+  - FACT-ADDCB3B236194270
+  - FACT-E793FB9BC65A4ED0
+  content:
+    subject_fact_id: FACT-B2D3F40516273849
+    states:
+    - state: dependency_blocked
+      meaning: 至少一个前置切片尚未由真实证据证明完成。
+    - state: ready
+      meaning: 所有前置切片已经完成，且切片实施前的长期权威候选治理已经闭合，当前切片可以由智能编码代理开始实施。
+    - state: in_progress
+      meaning: 智能编码代理正在实施该切片；Strixnova只记录和投影状态，不控制代理。
+    - state: completed
+      meaning: 有命令切片的全部验证已通过且不待重测，或零命令切片已提交绑定精确操作和文件快照的显式完成记录。
+    - state: terminal_with_issues
+      meaning: 当前切片的失败、阻断或未运行已完成事后判断，本轮可诚实展示有限制的实际结果，后续依赖切片明确记为未执行。
+    - state: needs_replanning
+      meaning: 计划语义、权威前提、操作边界或已完成证据发生实质变化，原切片证据不能继续使用。
+    transitions:
+    - from_state: dependency_blocked
+      to_state: ready
+      trigger: 所有前置切片均已有满足计划要求的真实通过回执或零命令完成记录。
+      guards:
+      - 计划内长期权威候选已经形成完整包、完成精确正文复核并按各自决定权确认；候选提前形成不等于任何切片已经完成。
+      resulting_event_fact_ids: []
+    - from_state: ready
+      to_state: in_progress
+      trigger: 智能编码代理按已确认工程方案开始实施当前切片。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: in_progress
+      to_state: completed
+      trigger: 当前切片的全部计划验证通过且事后判断无需重测，或零命令切片提交了显式完成记录。
+      guards:
+      - 完成证据逐项绑定本切片计划操作和完成时文件快照。
+      - 完成依据区分仓库身份、实际内容及必要依赖，不能以同名路径或未核验对端版本代替。
+      resulting_event_fact_ids: []
+    - from_state: in_progress
+      to_state: terminal_with_issues
+      trigger: 当前切片的失败、阻断或未运行均已完成事后判断，且明确不再重测。
+      guards:
+      - 所有未执行的后续切片及其验证命令都以限制事实列出。
+      resulting_event_fact_ids: []
+    - from_state: completed
+      to_state: needs_replanning
+      trigger: 完成时文件快照被改写、上游权威失效或计划语义发生实质变化。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: ready
+      to_state: needs_replanning
+      trigger: 上游权威、计划前提或依赖事实变化。
+      guards: []
+      resulting_event_fact_ids: []
+- fact_id: FACT-57EEA3D1D18E40B4
+  status: draft
+  title: DirectionItem（方向条目）生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ED05BCEB08B94F1E
+  - FACT-F4E493D03E8143F4
+  content:
+    subject_fact_id: FACT-ED05BCEB08B94F1E
+    states:
+    - state: proposed
+      meaning: 条目存在于尚未确认的方向候选中，不授权工程方案或实施。
+    - state: current
+      meaning: 条目存在于当前已确认方向中，可被该精确方向版本的工程方案稳定引用。
+    - state: retired
+      meaning: 条目在后续已确认方向中被移除、替换、拆分或合并，永久退出该 WorkItem。
+    transitions:
+    - from_state: proposed
+      to_state: current
+      trigger: 完整方向通过身份、引用和覆盖校验并被项目负责人确认。
+      guards:
+      - 条目身份符合种类前缀并在当前方向内唯一。
+      - 所有验收需求引用存在且每条方向需求至少由一项验收条件覆盖。
+      - 该身份没有在同一 WorkItem 的较早方向中退出。
+      resulting_event_fact_ids:
+      - FACT-F4E493D03E8143F4
+    - from_state: current
+      to_state: current
+      trigger: 后续完整方向保留该条目的同一语义身份并重新获得项目负责人确认。
+      guards:
+      - 智能编码代理已经说明身份连续性，程序没有代替其判断语义。
+      - 旧工程方案仍按完整方向版本变化规则失效。
+      resulting_event_fact_ids:
+      - FACT-F4E493D03E8143F4
+    - from_state: current
+      to_state: retired
+      trigger: 后续完整方向不再包含该身份并获得项目负责人确认。
+      guards:
+      - 被替换、拆分或合并的含义使用新身份。
+      resulting_event_fact_ids:
+      - FACT-F4E493D03E8143F4
+- fact_id: FACT-7E2C917D0C47DA5B
+  status: draft
+  title: Strixnova 升级与恢复生命周期
+  kind: lifecycle
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  dependency_fact_ids:
+  - FACT-D0828206E1A6C60E
+  - FACT-81EF50F2966ED4B6
+  content:
+    subject_fact_id: FACT-D0828206E1A6C60E
+    states:
+    - state: prepared
+      meaning: 预检与目标准备已绑定，尚未切换。
+    - state: maintaining
+      meaning: 已阻止新操作，正在排空、备份和副本核验。
+    - state: switching
+      meaning: 受影响数据与程序正在按记录逐项切换。
+    - state: completed
+      meaning: 目标组合已核验并可恢复使用。
+    - state: recovering
+      meaning: 依据持久记录继续切换或恢复原组合。
+    - state: restored
+      meaning: 已恢复核验一致的原组合。
+    - state: aborted
+      meaning: 尚未切换即结束本次尝试，保留源事实与诊断，可重新预检。
+    transitions:
+    - from_state: prepared
+      to_state: maintaining
+      trigger: 源事实仍与计划一致，明确执行升级。
+      guards:
+      - 已有操作及回写已经结束。
+      resulting_event_fact_ids: []
+    - from_state: maintaining
+      to_state: switching
+      trigger: 备份、副本核验及保全核验完成。
+      guards:
+      - 源事实未变化。
+      resulting_event_fact_ids: []
+    - from_state: switching
+      to_state: completed
+      trigger: 目标组合的实际入口核验成功。
+      guards: []
+      resulting_event_fact_ids:
+      - FACT-81EF50F2966ED4B6
+    - from_state: maintaining
+      to_state: recovering
+      trigger: 升级中断或失败。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: switching
+      to_state: recovering
+      trigger: 切换中断。
+      guards: []
+      resulting_event_fact_ids: []
+    - from_state: completed
+      to_state: recovering
+      trigger: 明确请求恢复。
+      guards:
+      - 没有新增事实或文件变化将被覆盖。
+      resulting_event_fact_ids: []
+    - from_state: recovering
+      to_state: completed
+      trigger: 恢复继续完成目标切换。
+      guards:
+      - 目标组合核验通过。
+      resulting_event_fact_ids:
+      - FACT-81EF50F2966ED4B6
+    - from_state: recovering
+      to_state: restored
+      trigger: 恢复原组合。
+      guards:
+      - 原备份与旧程序完整匹配。
+      - 没有新增事实被覆盖。
+      resulting_event_fact_ids:
+      - FACT-81EF50F2966ED4B6
+    - from_state: prepared
+      to_state: aborted
+      trigger: 前提失效或准备失败，尚未替换源数据。
+      guards:
+      - 保留全部当前源事实。
+      resulting_event_fact_ids: []
+    - from_state: maintaining
+      to_state: aborted
+      trigger: 在切换前停止本次维护。
+      guards:
+      - 尚无目标数据被替换，只撤销本次保护。
+      resulting_event_fact_ids: []
+    - from_state: recovering
+      to_state: aborted
+      trigger: 中断恢复确认尚未切换，结束本次尝试。
+      guards:
+      - 保留期间产生的源事实，只撤销已识别的临时保护。
+      resulting_event_fact_ids: []

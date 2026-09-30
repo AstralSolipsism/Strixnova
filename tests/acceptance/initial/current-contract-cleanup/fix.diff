@@ -1,0 +1,85 @@
+--- before/tests/unit/test_implementation_alignment_preparation.py
++++ after/tests/unit/test_implementation_alignment_preparation.py
+@@ -871,8 +871,11 @@
+     assert result["candidate_status"] == "draft"
+ 
+ 
++@pytest.mark.parametrize("ambient_git_override", [False, True])
+ def test_prepare_and_write_candidate_form_a_valid_recoverable_draft(
+     tmp_path: Path,
++    monkeypatch: pytest.MonkeyPatch,
++    ambient_git_override: bool,
+ ) -> None:
+     current, baseline = _complete_project(tmp_path)
+     alignment_path = tmp_path / baseline["authority_refs"][
+@@ -894,6 +897,10 @@
+     )
+     before_version = current["version"]
+     before_status = current["status"]
++    if ambient_git_override:
++        # Observation is already bound to the declared repositories. Ambient
++        # Git routing must not replace that binding during candidate writing.
++        monkeypatch.setenv("GIT_DIR", str(tmp_path / "unrelated-git-directory"))
+     result = module.write_candidate(
+         current,
+         {
+--- before/strixnova/src/strixnova/implementation_alignment_preparation.py
++++ after/strixnova/src/strixnova/implementation_alignment_preparation.py
+@@ -14,7 +14,6 @@
+ import json
+ from pathlib import Path, PurePosixPath
+ import re
+-import subprocess
+ from typing import Any, Mapping, Sequence
+ 
+ import yaml
+@@ -90,18 +89,6 @@
+         recovery_root=recovery_root,
+         allowed_targets=allowed_targets,
+     )
+-
+-
+-def _git(project: Path, *arguments: str) -> str:
+-    return subprocess.run(
+-        ["git", *arguments],
+-        cwd=project,
+-        check=True,
+-        capture_output=True,
+-        text=True,
+-        encoding="utf-8",
+-        errors="replace",
+-    ).stdout.strip()
+ 
+ 
+ def _scope_contains_path(scope: Mapping[str, Any], path: str) -> bool:
+@@ -2157,8 +2144,6 @@
+         revision_id = str(revision.get("revision_id") or "")
+         domain_model = packet["domain_model"]
+         architecture_model = packet["architecture_model"]
+-        head = _git(project, "rev-parse", "HEAD")
+-        worktree_state = "dirty" if _git(project, "status", "--porcelain") else "clean"
+         model["domain_model_ref"] = {
+             "model_id": domain_model["model_id"],
+             "revision_id": domain_model["revision"]["revision_id"],
+--- before/strixnova/src/strixnova/project_authority_consistency.py
++++ after/strixnova/src/strixnova/project_authority_consistency.py
+@@ -2453,18 +2453,12 @@
+         affected = set(
+             baseline["review_state"]["affected_authority_kinds"]
+         )
+-        context = self.baseline_reader.context
+-        if context is not None and sum(item.membership == "member" for item in context.repositories) > 1 and alignment.get("schema_version") != "strixnova.project-implementation-alignment.v1":
+-            reasons.append("多仓库内容组合验证与整体阶段完成判定尚未接管")
+-            affected.update({"implementation_alignment", "code_version"})
+         if alignment["revision"]["status"] != "confirmed":
+             reasons.append("实现对齐修订尚未确认")
+             affected.add("implementation_alignment")
+         code = baseline["code_version"]
+         alignment_code = alignment["code_snapshot"]
+-        alignment_version = {"repositories": alignment_code["repositories"]} if "repositories" in alignment_code else {"base_commit": alignment_code["base_commit"], "worktree_state": alignment_code["worktree_state"]}
+-        if "repositories" in code and "repositories" not in alignment_version:
+-            alignment_version = {"repositories": [{"repository_id": baseline["authority_refs"]["implementation_alignment"].get("repository_id"), **alignment_version}]}
++        alignment_version = {"repositories": alignment_code["repositories"]}
+         if code != alignment_version:
+             reasons.append("项目基线与实现对齐没有引用同一代码观察基点")
+             affected.update({"code_version", "implementation_alignment"})

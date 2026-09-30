@@ -1,0 +1,290 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.current-action.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "work_item_id",
+    "work_item_version",
+    "action_type",
+    "actor",
+    "intent",
+    "input_kind",
+    "input_contract_ref",
+    "record_refs",
+    "conditional_record_refs",
+    "blocking_facts"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.current-action.v1"
+    },
+    "work_item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_item_version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "action_type": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "actor": {
+      "enum": [
+        "user",
+        "coding_agent",
+        "strixnova"
+      ]
+    },
+    "intent": {
+      "enum": [
+        "submit",
+        "confirm",
+        "authority",
+        "delivery",
+        "verify",
+        "cancel"
+      ]
+    },
+    "input_kind": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "input_contract_ref": {
+      "type": "string",
+      "pattern": "^input\\.contract:[a-z][a-z0-9_]*$"
+    },
+    "record_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "conditional_record_refs": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "blocking_facts": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "confirmation_challenge": {
+      "$ref": "#/$defs/confirmation_challenge"
+    },
+    "authority_kind": {
+      "$ref": "#/$defs/authority_kind"
+    },
+    "authority_kinds": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/authority_kind"
+      }
+    },
+    "confirmation_challenges": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/confirmation_challenge"
+      }
+    },
+    "repository_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^REPO-[0-9A-F]{16}$"
+    },
+    "repository_execution_contexts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "repository_id",
+          "path",
+          "mode"
+        ],
+        "properties": {
+          "repository_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "pattern": "^REPO-[0-9A-F]{16}$"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mode": {
+            "enum": [
+              "worktree",
+              "target",
+              "integrated"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "authority_kind": {
+      "enum": [
+        "product_definition",
+        "domain_model",
+        "target_architecture",
+        "engineering_policy"
+      ]
+    },
+    "confirmation_challenge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "candidate_kind",
+        "candidate_fingerprint",
+        "decision_label",
+        "decision_interpreter"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.confirmation-challenge.v1"
+        },
+        "candidate_kind": {
+          "enum": [
+            "direction",
+            "engineering_plan",
+            "actual_result",
+            "project_authority:product_definition",
+            "project_authority:domain_model",
+            "project_authority:target_architecture",
+            "project_authority:engineering_policy"
+          ]
+        },
+        "candidate_fingerprint": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "decision_label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "decision_interpreter": {
+          "const": "coding_agent"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "intent": {
+            "const": "confirm"
+          }
+        },
+        "required": [
+          "intent"
+        ]
+      },
+      "then": {
+        "required": [
+          "confirmation_challenge"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "confirmation_challenge"
+          ]
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action_type": {
+            "enum": [
+              "author_project_authority_candidate",
+              "review_project_authority_candidates",
+              "confirm_project_authority_candidates"
+            ]
+          }
+        },
+        "required": [
+          "action_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "authority_kind",
+          "authority_kinds"
+        ]
+      },
+      "else": {
+        "allOf": [
+          {
+            "not": {
+              "required": [
+                "authority_kind"
+              ]
+            }
+          },
+          {
+            "not": {
+              "required": [
+                "authority_kinds"
+              ]
+            }
+          },
+          {
+            "not": {
+              "required": [
+                "confirmation_challenges"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "action_type": {
+            "const": "confirm_project_authority_candidates"
+          }
+        },
+        "required": [
+          "action_type"
+        ]
+      },
+      "then": {
+        "required": [
+          "confirmation_challenges"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "confirmation_challenges"
+          ]
+        }
+      }
+    }
+  ]
+}

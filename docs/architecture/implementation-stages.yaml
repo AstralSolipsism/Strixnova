@@ -1,0 +1,213 @@
+schema_version: strixnova.architecture-implementation-stages.v1
+architecture_id: ARCH-963827FB26C94363
+architecture_revision_id: ARCHREV-8D00B950BAAD458F
+stages:
+- stage_id: ARCHSTAGE-92EC5D26F28042EB
+  order: 1
+  title: 长期权威与确定性门禁地基
+  scope: current_product_stage
+  prerequisite_stage_ids: []
+  module_ids:
+  - MODULE-B558AA14F6004AC0
+  - MODULE-992560C2560A4013
+  - MODULE-361DDA9576FF4C16
+  - MODULE-BA5C6A8095B6484E
+  - MODULE-525F73C6C189406A
+  - MODULE-8205A05A6F5E48A8
+  - MODULE-E74F1900EDCA43AE
+  - MODULE-09B10A7EF967494D
+  - MODULE-97978EF8747F4A02
+  - MODULE-BED07DF20C2A4493
+  entry_conditions:
+  - 本阶段承载单成员项目的基础职责；复用模块的多仓库接口、组合证据与恢复增量由后续专门阶段承载，基础阶段标记不证明这些增量完成。
+  - 产品定义、目标领域模型和目标架构精确候选已经分别形成且不存在范围关键未决决定。
+  - 明确当前工作区、代码版本、合同与实施范围，保留范围外已有内容。
+  completion_conditions:
+  - 新产品、领域、架构、工程政策、项目基线和实现对齐合同能够独立校验自身。
+  - 跨权威一致性检查能发现精确版本错配、上游未确认、下游过期和代码版本变化。
+  - 每个活跃领域事实、实现观察范围、行为文件、实际关系、观察覆盖和目标责任都有新底账承载位置。
+  - 当前合同承担正式裁决且各类权威具有唯一事实来源。
+- stage_id: ARCHSTAGE-855FE8B2614840F4
+  order: 2
+  title: 唯一应用协调与领域用例收敛
+  scope: current_product_stage
+  prerequisite_stage_ids:
+  - ARCHSTAGE-92EC5D26F28042EB
+  module_ids:
+  - MODULE-159AE7957218470C
+  - MODULE-684D0E7D2345445D
+  - MODULE-5CEF109E340C469F
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-71687954FB1E4DFD
+  entry_conditions:
+  - 本阶段承载单成员项目的基础职责；复用模块的多仓库接口、组合证据与恢复增量由后续专门阶段承载，基础阶段标记不证明这些增量完成。
+  - 阶段一的新权威与一致性接口已经通过受影响测试并成为唯一当前合同。
+  - 普通建设事项三个确认点和长期目标独立定档边界已有可执行状态合同。
+  completion_conditions:
+  - 所有正式写流程只有应用用例协调器一个入口。
+  - 命令入口和本地主机入口只做协议转换且对同一用例返回一致公开结果。
+  - 工程治理只消费智能编码代理候选和只读治理上下文，能够校验权威变更集、语义复核声明、实施切片与负责人视图，不依赖验证执行或项目基线形成循环。
+  - 只读查询分开呈现目标完整性、实现完成度、首个依赖已满足实施切片、验证、安装验收和发布状态。
+- stage_id: ARCHSTAGE-3A40145E290D4B62
+  order: 3
+  title: 外部执行收紧与当前漂移清零
+  scope: current_product_stage
+  prerequisite_stage_ids:
+  - ARCHSTAGE-855FE8B2614840F4
+  module_ids:
+  - MODULE-CB284ED0FE4040DE
+  - MODULE-A94EF8E733E64205
+  - MODULE-6DEF61048B394531
+  - MODULE-BB121DB52CFE47D1
+  - MODULE-97978EF8747F4A02
+  - MODULE-BED07DF20C2A4493
+  - MODULE-159AE7957218470C
+  entry_conditions:
+  - 本阶段承载单成员项目的基础职责；复用模块的多仓库接口、组合证据与恢复增量由后续专门阶段承载，基础阶段标记不证明这些增量完成。
+  - 唯一应用协调入口已经接管本地交付、验证和外部活动状态变化。
+  - 当前全部必需实现观察范围、行为文件、实际关系、覆盖缺口和目标责任已经进入实现对齐底账。
+  completion_conditions:
+  - 验证执行只能运行已确认方案、当前实施切片和项目验证政策共同允许的命令，不能越级或启动智能编码代理。
+  - 工程治理、项目工程基线和验证执行之间不存在直接或延迟循环依赖。
+  - 当前阶段无未归属行为文件、未声明关系、观察缺口、循环、入口绕过、偏离和未知。
+  - 本地交付不执行远程操作且用户已有未跟踪资料得到保护。
+  - 交付发布与运行活动如实区分规划、外部回执接收和真实执行能力。
+- stage_id: ARCHSTAGE-B3F5D04C39204E08
+  order: 4
+  title: 基础流程的构建安装与受支持代理验收
+  scope: current_product_stage
+  prerequisite_stage_ids:
+  - ARCHSTAGE-3A40145E290D4B62
+  module_ids:
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-159AE7957218470C
+  - MODULE-684D0E7D2345445D
+  - MODULE-5CEF109E340C469F
+  - MODULE-71687954FB1E4DFD
+  - MODULE-CB284ED0FE4040DE
+  - MODULE-A94EF8E733E64205
+  - MODULE-BB121DB52CFE47D1
+  - MODULE-1CDA1D66DA409B5A
+  entry_conditions:
+  - 本阶段承载单成员项目的基础职责；复用模块的多仓库接口、组合证据与恢复增量由后续专门阶段承载，基础阶段标记不证明这些增量完成。
+  - 本阶段基础范围的目标责任已实现且实现对齐阶段完成门通过。
+  - 正式规则、结构化合同、公开说明、代码和受影响测试一致。
+  completion_conditions:
+  - 在明确的基础范围候选验收中，按实际变更完成必要验证；仍匹配的基础证据可复用。进入多仓库后继阶段不要求先重复整套基础全量、构建和安装，最终组合按后继收口阶段验收。
+  - 需要独立基础安装验收时，一次性隔离环境中的依赖、公开命令和基础流程有实际证据；最终多仓库安装结论由后继收口阶段另行形成。
+  - 加载精确随包唯一 Strixnova Skill（技能）、但未预装专用插件或钩子且没有宿主会话适配的全新受支持智能编码代理，完成初始化、目标读取、权威变更说明、跨产物复核、实施切片推进、普通事项纠偏、中断恢复、验证失败和负责人可理解的实际结果展示。
+  - Strixnova没有启动或控制智能编码代理，所有未运行项、偏差、限制和未来阶段如实披露。
+  - 项目负责人看到实际结果并确认后，才允许组织原子提交和本地合入。
+  - 当前历史查询、中断恢复、程序与 Skill 匹配及新增事实保护分别完成本地确定性、隔离安装和公开入口 Agent 验收。
+  - 本阶段仅表达已授权基础范围的验收要求；新增多仓库责任必须按后续阶段完成，原阶段标记不构成新范围的实施授权或通过证据。
+- stage_id: ARCHSTAGE-93D95B6555E54FEB
+  order: 5
+  title: 统一项目上下文与仓库引用
+  scope: current_product_stage
+  prerequisite_stage_ids:
+  - ARCHSTAGE-B3F5D04C39204E08
+  module_ids:
+  - MODULE-F55E33D530DD42A8
+  - MODULE-B558AA14F6004AC0
+  - MODULE-E74F1900EDCA43AE
+  - MODULE-09B10A7EF967494D
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  - MODULE-1CDA1D66DA409B5A
+  - MODULE-992560C2560A4013
+  entry_conditions:
+  - 多仓库产品、领域、架构和受影响工程政策已经形成精确候选，相关正式实施范围已由负责人确认。
+  - 既有基础代码和历史归属已保全，新模块不建立第二套项目状态。
+  completion_conditions:
+  - 非 Git 项目入口、分离仓库与单成员项目使用同一解析机制，缺少无关仓库不阻断当前请求。
+  - 仓库限定引用、同名路径和链接工作树能被准确区分，读取与解析依赖无环。
+  - 基线和各权威接收一致上下文，解析只读且不初始化事项。
+  - 应用操作内复用一次选定上下文，操作结束后释放；损坏定位不妨碍按原记录取消或重新规划。
+  - 旧配置和基线通过既有离线升级预检、备份与恢复转换，保全原管理位置和业务历史；原不可变提交继续按原合同解释。
+  - 当前单成员流程和转换后的原事项有实际回归，第三方修改、重复执行与中断恢复有明确结果；本阶段不宣称多仓库写入或完整候选验收。
+- stage_id: ARCHSTAGE-4537A8D12415428C
+  order: 6
+  title: 多仓库事项与整体结果合同
+  scope: current_product_stage
+  prerequisite_stage_ids:
+  - ARCHSTAGE-93D95B6555E54FEB
+  module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-5CEF109E340C469F
+  - MODULE-159AE7957218470C
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-71687954FB1E4DFD
+  - MODULE-F55E33D530DD42A8
+  - MODULE-09B10A7EF967494D
+  - MODULE-97978EF8747F4A02
+  - MODULE-1CDA1D66DA409B5A
+  entry_conditions:
+  - 统一上下文与仓库引用已在受影响入口可用，当前写入合同与历史解释范围明确。
+  completion_conditions:
+  - 事项保存多个仓库交付责任，切片操作与依赖按仓库限定，整体方向、方案和接受保持唯一。
+  - 提前独立交付以独立目标拆项，事项版本冲突与原确认失效规则保持。
+  - 跨仓库所需 Schema、公开输入和读取合同按同一当前机制切换，不保留单双仓平行写路径。
+  - 工程评估与方案保存各仓库独立调查版本和明确交付顺序，读依赖不产生交付责任；所需仓库之外的成员不强制检出。
+  - 当前写入格式通过既有离线维护前进并隔离旧写入器，原事项、事件和确认保持原字节；明确项目归属在管理库内核对。
+  - 未接管的多仓库实施、验证、实际结果接受及交付保持副作用前拒绝；本阶段通过不表示这些后继能力已完成。
+- stage_id: ARCHSTAGE-9114032F543D46B2
+  order: 7
+  title: 内容组合与外部依赖证据
+  scope: current_product_stage
+  prerequisite_stage_ids:
+  - ARCHSTAGE-4537A8D12415428C
+  module_ids:
+  - MODULE-B558AA14F6004AC0
+  - MODULE-A94EF8E733E64205
+  - MODULE-97978EF8747F4A02
+  - MODULE-BED07DF20C2A4493
+  - MODULE-159AE7957218470C
+  - MODULE-71687954FB1E4DFD
+  entry_conditions:
+  - 事项与方案可以表达明确仓库范围和必要依赖，验证政策已规定实际核验方式。
+  completion_conditions:
+  - 提交前快照与提交后内容对应可核对，候选接受和验证共用内容比较机制。
+  - 仅有前端源码时按实际需要核验服务版本、契约和环境，未知与变化不会冒充完整通过。
+  - 观察与对齐区分仓库身份、接口证据和源码覆盖；相关输入变化只使相应依据进入复核。
+- stage_id: ARCHSTAGE-EC5E2DF72673491B
+  order: 8
+  title: 逐仓库交付与受限恢复
+  scope: current_product_stage
+  prerequisite_stage_ids:
+  - ARCHSTAGE-9114032F543D46B2
+  module_ids:
+  - MODULE-684D0E7D2345445D
+  - MODULE-CB284ED0FE4040DE
+  - MODULE-992560C2560A4013
+  - MODULE-159AE7957218470C
+  - MODULE-1CDA1D66DA409B5A
+  - MODULE-71687954FB1E4DFD
+  entry_conditions:
+  - 整体接受与内容组合已经可核对，交付意图与回写合同包含精确仓库和目标依据。
+  completion_conditions:
+  - 整体接受后逐仓库落地，部分成功、失败、未知和整体完成有明确区分。
+  - 执行后回写前中断可据实恢复，不重复执行，不自动回滚已合入部分。
+  - 部分合入后取消保留已合入与未交付事实，未收口执行不得提前宣称安全结束。
+  - 分离位置及跨盘元数据目标按明确清单恢复，不扩大到共同父目录。
+- stage_id: ARCHSTAGE-865AD1FCCBD349E0
+  order: 9
+  title: 多仓库历史保全与完整候选收口
+  scope: current_product_stage
+  prerequisite_stage_ids:
+  - ARCHSTAGE-EC5E2DF72673491B
+  module_ids:
+  - MODULE-1CDA1D66DA409B5A
+  - MODULE-684D0E7D2345445D
+  - MODULE-71687954FB1E4DFD
+  - MODULE-333FEE8F8A1B491E
+  - MODULE-159AE7957218470C
+  - MODULE-A94EF8E733E64205
+  - MODULE-CB284ED0FE4040DE
+  entry_conditions:
+  - 多仓库职责按受影响层实施与验证，单成员路径使用同一合同，并保持原始事实保全责任。
+  - 需要完整候选验收时，其范围已明确且待验内容冻结。
+  completion_conditions:
+  - 历史按原记录与精确内容组合读取；运行维护保全事件、确认和明确归属，不自动合并不同项目。
+  - 维护、安装、代码与随包指引在新项目范围内匹配；不同位置及部分仓库可用场景具有真实证据。
+  - 在明确完整候选验收范围内完成本地快速、全量、clean wheel、隔离安装和需补齐的 Agent 场景，保留失败与未知边界。
+  - 源码结果接受、本地 Git 交付和产品实际可用性分别记录，不把文档、结构或安装成功当成整体验收。

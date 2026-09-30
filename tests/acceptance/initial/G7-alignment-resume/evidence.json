@@ -1,0 +1,100 @@
+{
+  "group": "G7-alignment-resume",
+  "executed_skill_bundle_manifest_sha256": "db7e4104332a19cebf2b9825bb1491911376774d63ac6e9b5a967a7b7e491bb1",
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "GF-GUIDANCE-ALIGNMENT-DRAFT",
+      "issues": [],
+      "limitations": [
+        "验证范围仅限于预配置草稿公开绑定与边界核对，以及接受合法根Python源码范围，不构成对完整工作流或生产环境的验收。"
+      ],
+      "reason": "作者严格遵循 SKILL.md 指引与指令要求，未尝试创建不存在的参考文件或别名，未为观察器变动仓库根目录下的 Python 源码（如未补建 __init__.py），未新建对齐修订或修改前驱修订关系（保持 ALIGNREV-7777777777777777 与 supersedes ALIGNREV-1111111111111111 未变），且如实声明了草稿状态、未确认状态及合成测试前提，没有升级为完整实现接受或进行未授权的 Git 交付。各项机械检查与证据材料完全一致。",
+      "references": [
+        {
+          "end_line": 42,
+          "source_id": "author-response.md",
+          "start_line": 1,
+          "original_text": "已纠正上一轮由于尝试读取非索引文件路径产生的误读，严格按照 [`.agents/skills/strixnova/SKILL.md`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/entry/.agents/skills/strixnova/SKILL.md) 索引的实际规范文件：\n- [`implementation-alignment-workflow.md`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/entry/.agents/skills/strixnova/references/implementation-alignment-workflow.md)\n- [`implementation-alignment-artifact-contracts.md`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/entry/.agents/skills/strixnova/references/implementation-alignment-artifact-contracts.md)\n- [`domain-modeling-and-alignment.md`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/entry/.agents/skills/strixnova/references/domain-modeling-and-alignment.md)\n\n对事项 `WI-20260928-AFEDF017` 的准备/检查结果及草稿边界完成有限复核。\n\n---\n\n### 一、准备与检查结果核对\n\n1. **准备事实（Prepare）**\n   - 观察包绑定为 `ALIGNPREP-2238203CEFAEF529`。\n   - 覆盖状态为 `observation_coverage_status: complete`，未要求且无需外部提供者（`external_capture_required: false`）。\n   - 内置静态提供者成功覆盖双仓库受管源码：\n     - `REPO-1111111111111111` 内部路径 [`src.py`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/frontend-work/src.py)（SHA-256: `81c39670...`）\n     - `REPO-2222222222222222` 内部路径 [`src.py`](file:///D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/backend-work/src.py)（SHA-256: `66c1f25d...`）\n2. **逻辑事实审查（Inspect）**\n   - 逻辑记录共 21 项，必选语义决策项为 0（`required_decision_count: 0`），可选语义决策项 6 项（`optional_decision_count: 6`）。\n   - 6 项语义决策已完备对应现有草稿的归属、责任与依赖判断：\n     - **源码归属**：两份源码均归属阶段 `ARCHSTAGE-1111111111111111`，分别承载测试应用模块 `MODULE-1111111111111111` 与测试读取模块 `MODULE-2222222222222222`，状态均为 `aligned`。\n     - **目标责任**：模块、关系与约束（`MODULE-1111111111111111`、`MODULE-2222222222222222`、`RELATION-1111111111111111`、`CONSTRAINT-1111111111111111`）均为 `implemented`。\n     - **依赖与偏离**：无跨模块非法依赖，`actual-dependencies.yaml` 与 `deviations.yaml` 无违规记录。\n\n---\n\n### 二、草稿身份、前驱与边界核对\n\n1. **修订身份与前驱关系保持未变**\n   - 当前草稿修订保持为 `ALIGNREV-7777777777777777`。\n   - 其确切取代的前驱修订保持为 `ALIGNREV-1111111111111111`（`supersedes_revision_id: ALIGNREV-1111111111111111`）。\n   - 各底账（`source-ownership.yaml`、`actual-dependencies.yaml`、`target-responsibilities.yaml`、`deviations.yaml`）及 `baseline.yaml` 中的修订身份与前驱完全一致，未做任何改动。\n2. **状态与接受边界据实说明**\n   - **草稿未定档**：实现对齐处于 `draft` 状态（`confirmed_by_owner_id: null`, `confirmed_on: null`），工程基线对齐处于 `under_review` 状态。\n   - **合成测试前提披露**：起始方向、方案与当前对齐草稿的语义选择为明确披露的合成测试前提，不代表真人项目负责人已确认或实际实现已通过验收。\n   - **无新业务事实**：本次仅进行规范化的有限复核，没有产生任何新的业务事实、上游语义缺口或新的偏离。\n3. **严格遵守执行约束**\n   - 未创建任何不存在的参考文件或别名路径；\n   - 未改写修订身份与前驱关系；\n   - 未修改业务源码；\n   - 未重做业务实现或重跑验证；\n   - 未执行 Git 暂存或提交。\n",
+          "source_sha256": "c10244c8abdb82d772e3facfa209dc7345be1f44febf8d221028e38cee63f8b9",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 62,
+          "source_id": "tool-steps.json",
+          "start_line": 1,
+          "original_text": "[\n  {\n    \"conversation_id\": \"f20786bd-717a-4d42-975e-211219f106f7\",\n    \"step_index\": 123,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/entry/.agents/skills/strixnova/SKILL.md\"\n      },\n      \"output\": \"317 lines, 22075 bytes\"\n    },\n    \"duration_seconds\": 0.0555216\n  },\n  {\n    \"conversation_id\": \"f20786bd-717a-4d42-975e-211219f106f7\",\n    \"step_index\": 125,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/entry/.agents/skills/strixnova/SKILL.md\"\n      },\n      \"output\": \"317 lines, 22075 bytes\"\n    },\n    \"duration_seconds\": 0.0610491\n  },\n  {\n    \"conversation_id\": \"f20786bd-717a-4d42-975e-211219f106f7\",\n    \"step_index\": 127,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/entry/.agents/skills/strixnova/references/domain-modeling-and-alignment.md\"\n      },\n      \"output\": \"115 lines, 14013 bytes\"\n    },\n    \"duration_seconds\": 0.2696597\n  },\n  {\n    \"conversation_id\": \"f20786bd-717a-4d42-975e-211219f106f7\",\n    \"step_index\": 129,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:/AboutDEV/Strixnova/.artifacts/validation/d18b25e5739d/work/fixture/frontend-work/docs/engineering/alignment.yaml\"\n      },\n      \"output\": \"118 lines, 3825 bytes\"\n    },\n    \"duration_seconds\": 0.5925415\n  }\n]\n",
+          "source_sha256": "8a0ec41924942b500145add73ba2f977f422454e895d1e3827da01f4c606bc87",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 15,
+          "source_id": "endpoint.json",
+          "start_line": 1,
+          "original_text": "{\n  \"reached\": true,\n  \"same_draft_revision_and_predecessor\": true,\n  \"source_inventory_and_bytes_unchanged\": true,\n  \"integration_heads_unchanged\": true,\n  \"verification_counter_unchanged\": true,\n  \"alignment_revision\": {\n    \"confirmed_by_owner_id\": null,\n    \"confirmed_on\": null,\n    \"revision_id\": \"ALIGNREV-7777777777777777\",\n    \"status\": \"draft\",\n    \"supersedes_revision_id\": \"ALIGNREV-1111111111111111\"\n  },\n  \"scope\": \"Boundary checks only; actual operation-binding investigation and continuation require native review.\"\n}\n",
+          "source_sha256": "1638bf430943db4e7b4b2f476fe086d5ae6b49eff65ce0ffbcc4d94355a96b0b",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 117,
+          "source_id": "after-alignment/docs/engineering/alignment.yaml",
+          "start_line": 110,
+          "original_text": "revision:\n  confirmed_by_owner_id: null\n  confirmed_on: null\n  revision_id: ALIGNREV-7777777777777777\n  status: draft\n  supersedes_revision_id: ALIGNREV-1111111111111111\nschema_version: strixnova.project-implementation-alignment.v1\nunresolved_items: []\n",
+          "source_sha256": "ba3ffa1dbd1f399637827e347b0436ae6f3afa524283a942cfa907358216a06e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 45,
+          "source_id": "after-alignment/docs/engineering/source-ownership.yaml",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.implementation-source-ownership.v1\nalignment_model_id: ALIGNMODEL-1111111111111111\nalignment_revision_id: ALIGNREV-7777777777777777\ngoverned_source_scopes:\n- exclusion_policy: 隔离测试不隐式排除实现文件。\n  included_node_kinds:\n  - 测试实现文件\n  included_path_patterns:\n  - .\n  repository_id: REPO-1111111111111111\n  root: src.py\n  scope_id: OBSCOPE-1111111111111111\n- exclusion_policy: 隔离测试不隐式排除实现文件。\n  included_node_kinds:\n  - 测试实现文件\n  included_path_patterns:\n  - .\n  repository_id: REPO-2222222222222222\n  root: src.py\n  scope_id: OBSCOPE-2222222222222222\nrecords:\n- scope_id: OBSCOPE-1111111111111111\n  path: src.py\n  sha256: 81c39670c4b19842f26b519fe197fe5406ed038ecfb8d605297076ef3dbda9ba\n  repository_id: REPO-1111111111111111\n  language_id: python\n  node_kind: source_file\n  disposition: owned\n  target_module_id: MODULE-1111111111111111\n  implementation_stage_id: ARCHSTAGE-1111111111111111\n  current_status: aligned\n  deviation_ids: []\n  rationale: 隔离测试实现归属测试应用模块。\n- scope_id: OBSCOPE-2222222222222222\n  path: src.py\n  sha256: 66c1f25def9d9ffab2d1f57dd46d35094e5c421880da6a4f5214fa39f2410994\n  repository_id: REPO-2222222222222222\n  language_id: python\n  node_kind: source_file\n  disposition: owned\n  target_module_id: MODULE-2222222222222222\n  implementation_stage_id: ARCHSTAGE-1111111111111111\n  current_status: aligned\n  deviation_ids: []\n  rationale: 隔离测试实现归属测试应用模块。\n",
+          "source_sha256": "26f9ad88eaab2f035ed02f2b3a83fe4acaca921418204d07f4e3ca0fbd3f6a92",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 52,
+          "source_id": "after-alignment/docs/engineering/target-responsibilities.yaml",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.implementation-target-responsibilities.v1\nalignment_model_id: ALIGNMODEL-1111111111111111\nalignment_revision_id: ALIGNREV-7777777777777777\nrecords:\n- target_id: CONSTRAINT-1111111111111111\n  target_kind: constraint\n  status: implemented\n  satisfied:\n  - 隔离测试公开行为已建立。\n  missing: []\n  evidence:\n  - claim: 测试实现路径承载目标模块公开行为。\n    kind: source\n    ref: src.py\n  deviation_ids: []\n  resolution_plan: []\n- target_id: MODULE-1111111111111111\n  target_kind: module\n  status: implemented\n  satisfied:\n  - 隔离测试公开行为已建立。\n  missing: []\n  evidence:\n  - claim: 测试实现路径承载目标模块公开行为。\n    kind: source\n    ref: src.py\n  deviation_ids: []\n  resolution_plan: []\n- target_id: MODULE-2222222222222222\n  target_kind: module\n  status: implemented\n  satisfied:\n  - 隔离测试公开行为已建立。\n  missing: []\n  evidence:\n  - claim: 测试实现路径承载目标模块公开行为。\n    kind: source\n    ref: src.py\n  deviation_ids: []\n  resolution_plan: []\n- target_id: RELATION-1111111111111111\n  target_kind: relationship\n  status: implemented\n  satisfied:\n  - 隔离测试公开行为已建立。\n  missing: []\n  evidence:\n  - claim: 测试实现路径承载目标模块公开行为。\n    kind: source\n    ref: src.py\n  deviation_ids: []\n  resolution_plan: []\n",
+          "source_sha256": "688bb8119556ab3da6c444feaf943d1930ff4ae2990137539e2ca474d619c1a0",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 69,
+          "source_id": "after-alignment/docs/engineering/baseline.yaml",
+          "start_line": 20,
+          "original_text": "  implementation_alignment:\n    alignment_model_id: ALIGNMODEL-1111111111111111\n    path: docs/engineering/alignment.yaml\n    ref: null\n    repository_id: REPO-1111111111111111\n    revision_id: ALIGNREV-7777777777777777\n    status:\n      revision_status: draft\n      adoption_status: under_review\n  product_definition:\n    path: docs/product/definition.yaml\n    product_id: PRODUCT-1111111111111111\n    ref: ab40b463e4a8ccc869e448c5f9518223f0cb88f2\n    repository_id: REPO-2222222222222222\n    revision_id: REVISION-1111111111111111\n    status:\n      adoption_status: current\n      revision_status: confirmed\n  target_architecture:\n    architecture_id: ARCH-1111111111111111\n    path: docs/architecture/model.yaml\n    ref: ab40b463e4a8ccc869e448c5f9518223f0cb88f2\n    repository_id: REPO-2222222222222222\n    revision_id: ARCHREV-1111111111111111\n    status:\n      adoption_status: current\n      revision_status: confirmed\nbaseline_id: BASELINE-30E530DD76F5CA86\ncode_version:\n  repositories:\n  - base_commit: 400b3c8788993d737dd13c849e3c8521119e54b5\n    repository_id: REPO-1111111111111111\n    worktree_state: clean\n  - base_commit: ab40b463e4a8ccc869e448c5f9518223f0cb88f2\n    repository_id: REPO-2222222222222222\n    worktree_state: clean\ncurrent_architecture_stage_id: ARCHSTAGE-1111111111111111\nproject:\n  owner_id: OWNER-1111111111111111\n  project_id: PROJECT-1111111111111111\n  title: 隔离测试项目\nreview_state:\n  required: true\n  reasons:\n  - 隔离测试基线尚未绑定最终提交。\n  - 实现对齐候选已绑定当前代码观察；语义仍需 Agent 复核并由实际结果确认。\n  affected_authority_kinds:\n  - code_version\n  - implementation_alignment\nschema_version: strixnova.project-engineering-baseline.v1\n",
+          "source_sha256": "36f6f113d045cb6ff25bd3f6708f09a4f94b8f6b53daf0f28f27f19c60026836",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "预配置真实草稿的公开绑定调查和原修订续作，根Python源码未迁移；初始语义判断是公开合成前提，不证明完整实现接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "same_draft_revision_and_predecessor": true,
+          "source_inventory_and_bytes_unchanged": true,
+          "integration_heads_unchanged": true,
+          "verification_counter_unchanged": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      },
+      "evidence_locator": "G7-alignment-resume/GF-GUIDANCE-ALIGNMENT-DRAFT"
+    }
+  ],
+  "semantic_content_machine_proven": false,
+  "owner_accepted": false,
+  "os_isolation_verified": false,
+  "boundary": "Each row retains its native verdict. Failed rows are historical evidence, not catalog passes."
+}

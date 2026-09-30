@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\application_coordinator.py", line 254, in wrapped
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\application_coordinator.py", line 2673, in verify
+    receipt = runner.not_run(
+              ^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\verification_runner.py", line 765, in not_run
+    raise VerificationRunnerError(
+strixnova.verification_runner.VerificationRunnerError: not_run 必须明确记录至少一项限制
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\AboutDEV\Strixnova\.artifacts\acceptance\initial\finish_g8_history_preparation.py", line 22, in <module>
+    second=adapter.coordinator.verify(item['work_item_id'],{'command_id':commands[1]['command_id'],'mode':'not_run',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\application_coordinator.py", line 294, in wrapped
+    raise ApplicationCoordinatorError(
+strixnova.application_coordinator.ApplicationCoordinatorError: not_run 必须明确记录至少一项限制

@@ -1,0 +1,12 @@
+1: schema_version: strixnova.architecture-constraints.v1
+2: architecture_id: ARCH-1111111111111111
+3: architecture_revision_id: ARCHREV-1111111111111111
+4: constraints:
+5: - constraint_id: CONSTRAINT-1111111111111111
+6:   title: 函数边界
+7:   statement: 保持函数签名，合法输入返回值不变；不写入外部状态。
+8:   applies_to_module_ids:
+9:   - MODULE-1111111111111111
+10:   verification_methods:
+11:   - method_type: behavior_acceptance
+12:     description: 用真实函数调用检查合法返回与不合法顺序拒绝。

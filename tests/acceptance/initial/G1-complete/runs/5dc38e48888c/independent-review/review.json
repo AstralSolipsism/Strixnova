@@ -1,0 +1,81 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "G1-PLAN-READY",
+      "issues": [],
+      "limitations": [],
+      "reason": "经独立审阅冻结证据材料，本关口满足向负责人提交固定工程方案并等待其确认的投递条件：1. 实际公开候选已成功提交至 strixnova，进入 awaiting_plan_confirmation 状态，CurrentAction 明确由负责人执行 confirm_engineering_plan，工作项版本推进至 4；2. 方案与用户请求（针对非法刻度抛出 ValueError、合法区间保持原值与签名不变）、已确认方向（direction）及现有代码严格一致，清晰定义了实施切片 SLICE-001（修改 src.py、补充 tests/test_duration.py 测试用例及对齐底账刷新）；3. 初始解释与最新解释均使用具有业务意义的名称与路径，未要求普通负责人阅读或复制内部随机绑定ID；对三个行为例子（合法区间、相等刻度、反序刻度）和函数签名保持均有明确的 pytest 验证安排与核验依据；4. 负责人在插问“当前做到哪里了？之前明确的方向还需要重新确认吗？”后，最新回答清晰区分了已确认的方向无需重复确认，说明当前正停留在工程方案确认关口并等待方案授权，未发生方向重走或私自替代方案接受；5. 工具执行与当前状态表明系统完全处于等待确认状态，未越权开始代码实施。",
+      "references": [
+        {
+          "end_line": 46,
+          "source_id": "initial-explanation",
+          "start_line": 1,
+          "original_text": "已完成工程评估与工程方案制定。到达需要负责人明确决定的**工程方案确认关口（Engineering Plan Confirmation）**，具体方案候选如下：\n\n---\n\n### 工程方案候选\n\n#### 1. 决策支持（Owner View）\n* **当前问题**：\n  预约区间函数在结束刻度不大于开始刻度时（`end <= start`）仍直接相减返回结果，导致非法时间刻度被放行，违反了领域中“合法区间必须具有正时长”的业务不变量。\n* **为什么重要**：\n  若非法时间顺序进入后续排期流程，会产生负时长或零时长脏数据；需要在组件入口处建立防御。\n* **影响范围**：\n  仅修改 [src.py](file:///D:/AboutDEV/Strixnova/.artifacts/validation/f0addbc9966a/work/project/src.py) 中 `duration(start: int, end: int)` 的错误分支行为（`end <= start` 时抛出 `ValueError`），保持合法正区间（`end > start`）的计算与函数签名完全不变；同步补充测试断言与实现对齐底账记录。\n* **推荐做法**：\n  在 `duration` 入口增加校验 `if end <= start: raise ValueError(...)`，并在 [tests/test_duration.py](file:///D:/AboutDEV/Strixnova/.artifacts/validation/f0addbc9966a/work/project/tests/test_duration.py) 中增加对相等刻度和反序刻度的测试用例。\n* **替代选择**：\n  由外部调用方自行防御（不推荐，函数本身仍存在漏洞且违反领域不变量）。\n* **不处理后果**：\n  非法刻度继续被当作正常区间返回，导致后续业务产生脏数据。\n* **下一步**：\n  方案确认后，进入实施切片（执行代码修改、测试断言验证及实现对齐刷新）。\n\n---\n\n#### 2. 工程上下文与实施安排\n* **实施切片（SLICE-001）**：\n  1. 修改 [src.py](file:///D:/AboutDEV/Strixnova/.artifacts/validation/f0addbc9966a/work/project/src.py)：增加非法刻度校验。\n  2. 修改 [tests/test_duration.py](file:///D:/AboutDEV/Strixnova/.artifacts/validation/f0addbc9966a/work/project/tests/test_duration.py)：补充相等刻度与反序刻度抛出 `ValueError` 的 pytest 断言。\n  3. 刷新实现对齐底账：更新 [docs/engineering/alignment.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/f0addbc9966a/work/project/docs/engineering/alignment.yaml) 及关联底账，记录修复后的源码观察和完全实现的模块职责。\n* **验证计划**：\n  使用虚拟环境解释器执行命令：\n  `D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe -m pytest tests/test_duration.py -q`\n  逐项核验并生成报告覆盖以下目标：\n  * `DIREX-E5F60718293A4B5C`（合法区间返回正时长）\n  * `DIREX-F60718293A4B5C6D`（相等刻度抛出 `ValueError`）\n  * `DIREX-0718293A4B5C6D7E`（反序刻度抛出 `ValueError`）\n  * `DIRCON-C3D4E5F60718293A`（函数签名保持不变）\n\n---\n\n#### 3. 授权边界\n本关口确认仅授权在本地按上述方案实施修改与验证，不代表实际结果（Actual Result）的最终验收，亦不包含远程 Git 操作。\n\n---\n\n请确认是否接受上述工程方案？（您可以直接回复同意/批准，或提出需要调整的意见）\n",
+          "source_sha256": "829bfb4802c268f9076cd4f041defb57abef8c015d7b08eb2a23ea0ea3c7a5e8",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 24,
+          "source_id": "current-explanation",
+          "start_line": 1,
+          "original_text": "### 当前进展说明\n\n1. **已明确的方向不需要重新确认**：\n   * **方向（Direction）已经确认通过**，目标已锁定为：在 `end <= start` 时抛出 `ValueError`，合法区间保持原有返回值，函数签名不变。\n2. **当前停留的具体位置**：\n   * 目前处于**工程方案确认关口（Engineering Plan Confirmation）**。\n   * 我已根据确认的方向完成了工程评估并提交了实施方案，系统当前正在等待负责人对**这份具体的工程方案**给出明确决定（授权后才能开始修改代码和执行测试）。\n\n---\n\n### 方案核心内容摘要（供本次决定）\n\n* **实施操作**：\n  1. [src.py](file:///D:/AboutDEV/Strixnova/.artifacts/validation/f0addbc9966a/work/project/src.py)：增加 `if end <= start: raise ValueError(\"end must be greater than start\")`；\n  2. [tests/test_duration.py](file:///D:/AboutDEV/Strixnova/.artifacts/validation/f0addbc9966a/work/project/tests/test_duration.py)：新增相等刻度与反序刻度抛出 `ValueError` 的断言用例；\n  3. 刷新实现对齐底账文档（消除之前的实现缺口记录）。\n* **验证方式**：\n  使用夹具虚拟环境运行 `pytest` 自动核验合法区间、相等刻度与反序刻度 3 个行为例子。\n* **本次授权边界**：\n  批准后将启动本地编码实施与验证，不包含最终实际结果验收或远程推送。\n\n---\n\n若您认可上述实施与验证方案，请回复**“同意该方案”**或**“批准实施”**，我将立即进入代码修改与自动化验证。\n",
+          "source_sha256": "0fb1f14b9cb3b81055bf3df29041ed3f2cda564fe7db07a28caf400660adb8c4",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 190,
+          "source_id": "actual-candidate",
+          "start_line": 1,
+          "original_text": "{\n  \"reached\": true,\n  \"same_candidate_and_version\": true,\n  \"next\": {\n    \"current_action\": {\n      \"action_type\": \"confirm_engineering_plan\",\n      \"actor\": \"user\",\n      \"blocking_facts\": [],\n      \"conditional_record_refs\": [],\n      \"confirmation_challenge\": {\n        \"candidate_fingerprint\": \"sha256:3e50e03c1a956e1cb89ee7abc6d0f4475d603c367ff6cc9aa3b8cf5b7db82e64\",\n        \"candidate_kind\": \"engineering_plan\",\n        \"decision_interpreter\": \"coding_agent\",\n        \"decision_label\": \"当前展示的工程方案\",\n        \"schema_version\": \"strixnova.confirmation-challenge.v1\"\n      },\n      \"input_contract_ref\": \"input.contract:confirm_engineering_plan\",\n      \"input_kind\": \"engineering_plan_confirmation\",\n      \"intent\": \"confirm\",\n      \"record_refs\": [\n        \"engineering.plan\",\n        \"repository_deliveries\"\n      ],\n      \"schema_version\": \"strixnova.current-action.v1\",\n      \"work_item_id\": \"WI-20260928-9CA7291C\",\n      \"work_item_version\": 4\n    },\n    \"reading\": {\n      \"complete\": false,\n      \"max_output_bytes\": 4096,\n      \"schema_version\": \"strixnova.record-reading.v1\",\n      \"unread_refs\": []\n    },\n    \"record_pages\": {\n      \"engineering.plan\": {\n        \"entries\": [\n          {\n            \"key\": \"actual_result_requirements\",\n            \"ref\": \"engineering.plan#/actual_result_requirements\",\n            \"type\": \"object\",\n            \"value\": {\n              \"domain_fact_changes\": []\n            }\n          },\n          {\n            \"key\": \"applicable_rules\",\n            \"ref\": \"engineering.plan#/applicable_rules\",\n            \"type\": \"array\",\n            \"value\": [\n              {\n                \"evidence_refs\": [\n                  \"direction\"\n                ],\n                \"minimum_assurance\": \"A1\",\n                \"required_information_kinds\": [\n                  \"requirement\",\n                  \"acceptance\",\n                  \"constraint\"\n                ],\n                \"rule_id\": \"STRIXNOVA-GOV-REQ-001\",\n                \"source_ids\": [\n                  \"ISO-29148-2018\",\n                  \"ISO-15289-2019\"\n                ],\n                \"topic\": \"requirements_and_acceptance\",\n                \"triggered_by\": [\n                  \"formal_implementation\"\n                ]\n              },\n              {\n                \"evidence_refs\": [\n                  \"direction\"\n                ],\n                \"minimum_assurance\": \"A1\",\n                \"required_information_kinds\": [\n                  \"operation\",\n                  \"delivery\"\n                ],\n                \"rule_id\": \"STRIXNOVA-GOV-LIFE-001\",\n                \"source_ids\": [\n                  \"ISO-12207-2026\"\n                ],\n                \"topic\": \"life_cycle_and_configuration\",\n                \"triggered_by\": [\n                  \"formal_implementation\"\n                ]\n              },\n              {\n                \"evidence_refs\": [\n                  \"SRC-002\"\n                ],\n                \"minimum_assurance\": \"A1\",\n                \"required_information_kinds\": [\n                  \"verification\"\n                ],\n                \"rule_id\": \"STRIXNOVA-GOV-TEST-001\",\n                \"source_ids\": [\n                  \"ISO-29119-2-2021\",\n                  \"ISO-25010-2023\"\n                ],\n                \"topic\": \"verification_and_testing\",\n                \"triggered_by\": [\n                  \"impact_scope.testing:affected\"\n                ]\n              }\n            ]\n          },\n          {\n            \"key\": \"assessment_ref\",\n            \"ref\": \"engineering.plan#/assessment_ref\",\n            \"type\": \"object\",\n            \"value\": {\n              \"assessment_id\": \"EA-20260928-11111111\",\n              \"assessment_revision\": 1,\n              \"work_item_id\": \"WI-20260928-9CA7291C\"\n            }\n          },\n          {\n            \"key\": \"assurance_band\",\n            \"ref\": \"engineering.plan#/assurance_band\",\n            \"type\": \"string\",\n            \"value\": \"A1\"\n          },\n          {\n            \"key\": \"authority_change_set\",\n            \"ref\": \"engineering.plan#/authority_change_set\",\n            \"type\": \"object\",\n            \"value_omitted\": true\n          },\n          {\n            \"key\": \"behavior_examples\",\n            \"ref\": \"engineering.plan#/behavior_examples\",\n            \"type\": \"object\",\n            \"value_omitted\": true\n          },\n          {\n            \"key\": \"change_context\",\n            \"ref\": \"engineering.plan#/change_context\",\n            \"type\": \"object\",\n            \"value\": {\n              \"change_kind\": \"modify_existing\",\n              \"formal_implementation\": true\n            }\n          },\n          {\n            \"key\": \"delivery_plan\",\n            \"ref\": \"engineering.plan#/delivery_plan\",\n            \"type\": \"object\",\n            \"value\": {\n              \"evidence_refs\": [\n                \"SRC-001\",\n                \"SRC-002\"\n              ],\n              \"expected_outcome\": \"src.py 完成边界校验，tests/test_duration.py 覆盖异常分支，实现对齐更新闭环。\",\n              \"limitations\": [],\n              \"repository_order\": [\n                \"REPO-1111111111111111\"\n              ],\n              \"rollback_or_recovery\": \"git checkout 恢复修改。\"\n            }\n          }\n        ],\n        \"next_cursor\": \"eyJiaW5kaW5nIjoiYzE2NmU0YTQ2ODhhZWM1NDBmOTM1NzVhYWZkYTU5Njc3NGU1YjE4ODVmZmVlMjYzNmVkYzg3NTY1NDliMjdmYyIsIm9mZnNldCI6OH0\",\n        \"start\": 0,\n        \"total_count\": 27,\n        \"type\": \"object\",\n        \"unexpanded_refs\": [\n          \"engineering.plan#/authority_change_set\",\n          \"engineering.plan#/behavior_examples\"\n        ]\n      }\n    },\n    \"record_sources\": {\n      \"engineering.plan\": {\n        \"root_ref\": \"engineering.plan\",\n        \"source_sha256\": \"4e78d2913ad7c50f3a8d8d58cad944060ca6aea52f46c5a2e32efb74744294b6\"\n      }\n    },\n    \"records\": {},\n    \"relations\": {\n      \"declared\": [],\n      \"referenced_by\": []\n    },\n    \"schema_version\": \"strixnova.next-step.v1\",\n    \"work_item_id\": \"WI-20260928-9CA7291C\",\n    \"work_item_status\": \"awaiting_plan_confirmation\",\n    \"work_item_version\": 4\n  },\n  \"semantic_acceptance\": \"pending independent review\"\n}\n",
+          "source_sha256": "57e4a0df1700160c450037bd980e0ede5244b725ebb12e3e6e2e971c6938068f",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 929,
+          "source_id": "initial-tools",
+          "start_line": 915,
+          "original_text": "    \"conversation_id\": \"d34c7bd2-32a4-4f4f-9ba8-d82570c1e913\",\n    \"step_index\": 186,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"run_command\",\n    \"tool_info\": {\n      \"name\": \"run_command\",\n      \"parameters\": {\n        \"CommandLine\": \"$strixnovaInput = [IO.Path]::GetTempFileName()\\ntry {\\n  @{\\n    schema_version = \\\"strixnova.engineering-assessment.v1\\\"\\n    assessment_id = \\\"EA-20260928-11111111\\\"\\n    assessment_revision = 1\\n    direction_ref = @{\\n      work_item_id = \\\"WI-20260928-9CA7291C\\\"\\n      direction_version = 3\\n    }\\n    investigation_ref = \\\"086c446f029c89dcfe8e8a78cba643c83b009064\\\"\\n    change_context = @{\\n      change_kind = \\\"modify_existing\\\"\\n      formal_implementation = $true\\n    }\\n    repository_scope = @{\\n      project_id = \\\"PROJEC…\"\n      },\n      \"output\": \"{\\\"next\\\": {\\\"current_action\\\": {\\\"action_type\\\": \\\"confirm_engineering_plan\\\", \\\"actor\\\": \\\"user\\\", \\\"blocking_facts\\\": [], \\\"conditional_record_refs\\\": [], \\\"confirmation_challenge\\\": {\\\"candidate_fingerprint\\\": \\\"sha256:3e50e03c1a956e1cb89ee7abc6d0f4475d603c367ff6cc9aa3b8cf5b7db82e64\\\", \\\"candidate_kind\\\": \\\"engineering_plan\\\", \\\"decision_interpreter\\\": \\\"coding_agent\\\", \\\"decision_label\\\": \\\"\\\\u5f53\\\\u524d\\\\u5c55\\\\u793a\\\\u7684\\\\u5de5\\\\u7a0b\\\\u65b9\\\\u6848\\\", \\\"schema_version\\\": \\\"strixnova.confirmation-challenge.v1\\\"}, \\\"input_contract_ref\\\": \\\"input.contract:confirm_engineering_plan\\\", \\\"input_kind\\\": \\\"engineering_plan_confirmation\\\", \\\"intent\\\": \\\"confirm\\\", \\\"record_refs\\\": [\\\"engineering.plan\\\", \\\"repository_deliveries\\\"], \\\"schema_version\\\": \\\"strixnova.current-action.v1\\\", \\\"work_item_id\\\": \\\"WI-20260928-9CA7291C\\\", \\\"work_item_version\\\": 4}, \\\"records\\\": {}, \\\"relations\\\": {\\\"declared\\\": [], \\\"referenced_by\\\": []}, \\\"schema_version\\\": \\\"strixnova.next-step.v1\\\", \\\"work_item_id\\\": \\\"WI-20260928-9CA7291C\\\", \\\"work_item_status\\\": \\\"awaiting_plan_confirmation\\\", \\\"work_item_version\\\": 4}, \\\"ok\\\": true}\\r\\n\"\n    },\n    \"duration_seconds\": 4.6367243\n  }\n]\n",
+          "source_sha256": "da70234b8d207fd17896222fba4c7fe9ea8ab5ecc45a87d02a82de097938410b",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1,
+          "source_id": "current-tools",
+          "start_line": 1,
+          "original_text": "[]\n",
+          "source_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅决定是否满足已批准固定工程方案接受输入的投递条件；不是G1完整通过或真人理解/接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "plan_candidate_waits_for_owner": true,
+          "same_candidate_and_version_after_question": true,
+          "source_and_git_unchanged": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 3,
+    "records": [],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false
+}

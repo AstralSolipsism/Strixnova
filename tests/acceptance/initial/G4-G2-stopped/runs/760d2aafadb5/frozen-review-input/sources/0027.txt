@@ -1,0 +1,35 @@
+1: schema_version: strixnova.project-domain-source.v1
+2: model_id: MODEL-1111111111111111
+3: model_revision_id: MODELREV-1111111111111111
+4: source_id: SRC-1111111111111111
+5: scope_fact_ids:
+6: - FACT-2222222222222222
+7: facts:
+8: - fact_id: FACT-2222222222222222
+9:   status: confirmed
+10:   title: 预约区间校验上下文
+11:   kind: bounded_context
+12:   product_capability_ids:
+13:   - CAPABILITY-1111111111111111
+14:   scope_fact_ids: []
+15:   dependency_fact_ids: []
+16:   content:
+17:     responsibility: 校验给定整数分钟刻度的顺序并计算时长。
+18:     decisions:
+19:     - 结束刻度必须严格晚于开始刻度。
+20:     excluded_responsibilities:
+21:     - 不解释日期、时区或日历，不负责保存预约。
+22: - fact_id: FACT-3333333333333333
+23:   status: confirmed
+24:   title: 合法区间必须有正时长
+25:   kind: domain_invariant
+26:   product_capability_ids:
+27:   - CAPABILITY-1111111111111111
+28:   scope_fact_ids:
+29:   - FACT-2222222222222222
+30:   dependency_fact_ids:
+31:   - FACT-2222222222222222
+32:   content:
+33:     statement: end 必须严格大于 start；合法时长为 end-start，不合法顺序抛出 ValueError。
+34:     protected_fact_ids:
+35:     - FACT-2222222222222222

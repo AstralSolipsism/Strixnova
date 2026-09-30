@@ -1,0 +1,552 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-engineering-policy.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "policy_id",
+    "revision",
+    "product_definition_ref",
+    "base_profile_ref",
+    "method_adoptions",
+    "policy_statements",
+    "project_sources",
+    "rule_extensions",
+    "rule_tailoring",
+    "verification_command_policy",
+    "delivery_gates",
+    "evidence_requirements",
+    "unresolved_decisions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-engineering-policy.v1"
+    },
+    "policy_id": {
+      "type": "string",
+      "pattern": "^POLICY-[0-9A-F]{16}$"
+    },
+    "revision": {
+      "$ref": "#/$defs/revision"
+    },
+    "product_definition_ref": {
+      "$ref": "#/$defs/product_ref"
+    },
+    "base_profile_ref": {
+      "$ref": "#/$defs/profile_ref"
+    },
+    "method_adoptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/method_adoption"
+      }
+    },
+    "policy_statements": {
+      "$ref": "#/$defs/policy_statements"
+    },
+    "project_sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/project_source"
+      }
+    },
+    "rule_extensions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule_extension"
+      }
+    },
+    "rule_tailoring": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/rule_tailoring"
+      }
+    },
+    "verification_command_policy": {
+      "$ref": "#/$defs/verification_policy"
+    },
+    "delivery_gates": {
+      "$ref": "#/$defs/delivery_gates"
+    },
+    "evidence_requirements": {
+      "$ref": "#/$defs/evidence_requirements"
+    },
+    "unresolved_decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/unresolved_decision"
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "required_text_list": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/text_list"
+        },
+        {
+          "minItems": 1
+        }
+      ]
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revision_id",
+        "status",
+        "supersedes_revision_id",
+        "confirmed_by_owner_id",
+        "confirmed_on"
+      ],
+      "properties": {
+        "revision_id": {
+          "type": "string",
+          "pattern": "^POLICYREV-[0-9A-F]{16}$"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "ready_for_confirmation",
+            "confirmed"
+          ]
+        },
+        "supersedes_revision_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^POLICYREV-[0-9A-F]{16}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_by_owner_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^OWNER-[0-9A-F]{16}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_on": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "confirmed_by_owner_id": {
+                "type": "string"
+              },
+              "confirmed_on": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "confirmed_by_owner_id": {
+                "type": "null"
+              },
+              "confirmed_on": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "product_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_id",
+        "revision_id"
+      ],
+      "properties": {
+        "product_id": {
+          "type": "string",
+          "pattern": "^PRODUCT-[0-9A-F]{16}$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^REVISION-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "profile_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "profile_version"
+      ],
+      "properties": {
+        "profile_id": {
+          "$ref": "#/$defs/text"
+        },
+        "profile_version": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "method_adoption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "method_id",
+        "status",
+        "reason",
+        "conditions",
+        "adopted_technique_ids"
+      ],
+      "properties": {
+        "method_id": {
+          "$ref": "#/$defs/text"
+        },
+        "status": {
+          "enum": [
+            "adopted",
+            "conditional",
+            "not_adopted",
+            "not_assessed"
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        },
+        "conditions": {
+          "$ref": "#/$defs/text_list"
+        },
+        "adopted_technique_ids": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "policy_statements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quality",
+        "testing",
+        "security",
+        "release",
+        "operations",
+        "maintenance",
+        "compatibility"
+      ],
+      "properties": {
+        "quality": {
+          "$ref": "#/$defs/text_list"
+        },
+        "testing": {
+          "$ref": "#/$defs/text_list"
+        },
+        "security": {
+          "$ref": "#/$defs/text_list"
+        },
+        "release": {
+          "$ref": "#/$defs/text_list"
+        },
+        "operations": {
+          "$ref": "#/$defs/text_list"
+        },
+        "maintenance": {
+          "$ref": "#/$defs/text_list"
+        },
+        "compatibility": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "project_source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "title",
+        "path",
+        "status",
+        "usage"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/text"
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!.*\\\\).+$"
+        },
+        "status": {
+          "enum": [
+            "current",
+            "superseded",
+            "retired"
+          ]
+        },
+        "usage": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "rule_extension": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "topic",
+        "source_ids",
+        "always_for_formal_implementation",
+        "impact_dimensions",
+        "minimum_assurance",
+        "required_information_kinds",
+        "strixnova_interpretation",
+        "evidence_expectations"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/text"
+        },
+        "topic": {
+          "$ref": "#/$defs/text"
+        },
+        "source_ids": {
+          "$ref": "#/$defs/required_text_list"
+        },
+        "always_for_formal_implementation": {
+          "type": "boolean"
+        },
+        "impact_dimensions": {
+          "$ref": "#/$defs/text_list"
+        },
+        "minimum_assurance": {
+          "enum": [
+            "A0",
+            "A1",
+            "A2",
+            "A3",
+            "A4"
+          ]
+        },
+        "required_information_kinds": {
+          "$ref": "#/$defs/text_list"
+        },
+        "strixnova_interpretation": {
+          "$ref": "#/$defs/text"
+        },
+        "evidence_expectations": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "rule_tailoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "disposition",
+        "minimum_assurance",
+        "reason",
+        "owner_confirmed"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/text"
+        },
+        "disposition": {
+          "enum": [
+            "retained",
+            "strengthened",
+            "project_not_applicable"
+          ]
+        },
+        "minimum_assurance": {
+          "oneOf": [
+            {
+              "enum": [
+                "A0",
+                "A1",
+                "A2",
+                "A3",
+                "A4"
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "reason": {
+          "$ref": "#/$defs/text"
+        },
+        "owner_confirmed": {
+          "const": true
+        }
+      }
+    },
+    "verification_program": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "program",
+        "purpose",
+        "argument_policy"
+      ],
+      "properties": {
+        "program": {
+          "$ref": "#/$defs/text"
+        },
+        "purpose": {
+          "$ref": "#/$defs/text"
+        },
+        "argument_policy": {
+          "enum": [
+            "exact_plan_only"
+          ]
+        }
+      }
+    },
+    "verification_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "allowed_programs",
+        "forbidden_agent_program_names",
+        "wrapper_policy",
+        "working_directory_policy",
+        "plan_binding_required"
+      ],
+      "properties": {
+        "allowed_programs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/verification_program"
+          }
+        },
+        "forbidden_agent_program_names": {
+          "$ref": "#/$defs/required_text_list"
+        },
+        "wrapper_policy": {
+          "enum": [
+            "forbidden_unless_exactly_approved"
+          ]
+        },
+        "working_directory_policy": {
+          "enum": [
+            "project_or_authorized_worktree_only"
+          ]
+        },
+        "plan_binding_required": {
+          "const": true
+        }
+      }
+    },
+    "delivery_gates": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "result_acceptance_before_commit",
+        "local_integration_only",
+        "external_execution_requires_external_receipt",
+        "remote_operations_in_scope"
+      ],
+      "properties": {
+        "result_acceptance_before_commit": {
+          "const": true
+        },
+        "local_integration_only": {
+          "const": true
+        },
+        "external_execution_requires_external_receipt": {
+          "const": true
+        },
+        "remote_operations_in_scope": {
+          "const": false
+        }
+      }
+    },
+    "evidence_requirements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "separate_structure_semantics_confirmation_effect_and_conformance",
+        "unrun_items_visible",
+        "semantic_correctness_machine_proven",
+        "external_conformance_without_external_evidence"
+      ],
+      "properties": {
+        "separate_structure_semantics_confirmation_effect_and_conformance": {
+          "const": true
+        },
+        "unrun_items_visible": {
+          "const": true
+        },
+        "semantic_correctness_machine_proven": {
+          "const": false
+        },
+        "external_conformance_without_external_evidence": {
+          "const": false
+        }
+      }
+    },
+    "unresolved_decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_id",
+        "statement",
+        "impact"
+      ],
+      "properties": {
+        "decision_id": {
+          "type": "string",
+          "pattern": "^DECISION-[0-9A-F]{16}$"
+        },
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "impact": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    }
+  }
+}

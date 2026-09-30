@@ -1,0 +1,16 @@
+1: import pytest
+2: from src import duration
+3: 
+4: 
+5: def test_valid_interval_keeps_its_duration():
+6:     assert duration(10, 60) == 50
+7: 
+8: 
+9: def test_duration_equal_scale_raises_value_error():
+10:     with pytest.raises(ValueError, match="end must be greater than start"):
+11:         duration(10, 10)
+12: 
+13: 
+14: def test_duration_end_before_start_raises_value_error():
+15:     with pytest.raises(ValueError, match="end must be greater than start"):
+16:         duration(20, 10)

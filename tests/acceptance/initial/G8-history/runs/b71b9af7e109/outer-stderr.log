@@ -1,0 +1,23 @@
+Traceback (most recent call last):
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\application_coordinator.py", line 254, in wrapped
+    return function(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\application_coordinator.py", line 2673, in verify
+    receipt = runner.not_run(
+              ^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\verification_runner.py", line 761, in not_run
+    assessment = _assessment(code_change_assessment)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\verification_runner.py", line 344, in _assessment
+    raise VerificationRunnerError(
+strixnova.verification_runner.VerificationRunnerError: 必须由 Agent 明确判断验证后是否发生相关代码变化
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "D:\AboutDEV\Strixnova\.artifacts\acceptance\initial\finish_g8_history_preparation.py", line 22, in <module>
+    second=adapter.coordinator.verify(item['work_item_id'],{'command_id':commands[1]['command_id'],'mode':'not_run',
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\AboutDEV\Strixnova\strixnova\src\strixnova\application_coordinator.py", line 294, in wrapped
+    raise ApplicationCoordinatorError(
+strixnova.application_coordinator.ApplicationCoordinatorError: 必须由 Agent 明确判断验证后是否发生相关代码变化

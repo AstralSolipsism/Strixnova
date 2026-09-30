@@ -1,0 +1,72 @@
+{
+  "sources": {
+    "baseline-history": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\work\\project\\inputs\\recorded-work-item.json",
+      "role": "original_input"
+    },
+    "initial-spec": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\initial-SPEC.md",
+      "role": "original_input"
+    },
+    "turn-1/source-view.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-01\\source-view.json",
+      "role": "original_input"
+    },
+    "turn-1/user-input.txt": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-01\\user-input.txt",
+      "role": "user_input"
+    },
+    "turn-1/author-response.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-01\\author-response.md",
+      "role": "author_response"
+    },
+    "turn-1/tool-steps.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-01\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "turn-1/SPEC.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-01\\SPEC.md",
+      "role": "author_artifact"
+    },
+    "turn-2/source-view.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-02\\source-view.json",
+      "role": "original_input"
+    },
+    "turn-2/user-input.txt": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-02\\user-input.txt",
+      "role": "user_input"
+    },
+    "turn-2/author-response.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-02\\author-response.md",
+      "role": "author_response"
+    },
+    "turn-2/tool-steps.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-02\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "turn-2/SPEC.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\202d2e7927b8\\evidence\\turn-02\\SPEC.md",
+      "role": "author_artifact"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "GF-SPEC-UPDATE",
+      "expected_behavior": "来源含义变更后更新受影响正文和覆盖，保持或退出正确身份；仅实施进度变化不冒充规格失效。",
+      "must_avoid": "沿用旧方向或方案、因 WorkItem 总版本变化重写规格，或改变来源。",
+      "evidence_source_ids": [
+        "turn-1/author-response.md",
+        "turn-1/tool-steps.json",
+        "turn-1/SPEC.md",
+        "turn-2/author-response.md",
+        "turn-2/tool-steps.json",
+        "turn-2/SPEC.md"
+      ],
+      "verification_scope": "真实基线记录之上的两个公开合成文档输入变更：仅进度与未接受方向修订；不证明工作流新事件、实现或负责人接受。",
+      "machine_checks": {
+        "native_phases_settled": true,
+        "frozen_inputs_unchanged": true
+      }
+    }
+  ]
+}

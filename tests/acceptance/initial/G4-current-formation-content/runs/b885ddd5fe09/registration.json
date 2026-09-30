@@ -1,0 +1,54 @@
+{
+  "group": "G4",
+  "project": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\5cce0a8e359b\\work\\project",
+  "candidate": {
+    "version": "0.1.0.dev0",
+    "wheel": "D:\\AboutDEV\\Strixnova\\.artifacts\\candidates\\initial-alignment-clean\\dist\\strixnova-0.1.0.dev0-py3-none-any.whl",
+    "wheel_sha256": "f71c0e7d19da20db54ad64b2383c9d95d986b288299d13b71f9927953fe375e8",
+    "build_sha256": "ff0a06732ca0ca470153bfb9e6056b68fb0c93f8f6a146080e8ae7a788c6274a",
+    "skill_sha256": "084fb9187265c798db2ebb6c9edc13a2545d7cde4c1446674a4414629f04e84b",
+    "installed_python": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\131734e155c7\\work\\managed-installation\\versions\\f71c0e7d19da20db54ad64b2383c9d95d986b288299d13b71f9927953fe375e8\\venv\\Scripts\\python.exe",
+    "installed_skill": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\131734e155c7\\work\\managed-installation\\versions\\f71c0e7d19da20db54ad64b2383c9d95d986b288299d13b71f9927953fe375e8\\venv\\Lib\\site-packages\\strixnova\\resources\\agent-skill\\strixnova",
+    "entrypoint": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\131734e155c7\\work\\managed-installation\\versions\\f71c0e7d19da20db54ad64b2383c9d95d986b288299d13b71f9927953fe375e8\\venv\\Scripts\\strixnova.exe",
+    "source_package_matches_wheel": true,
+    "source_package_files": 135,
+    "git_index_checkout_verified": false,
+    "git_baseline_bound": false,
+    "owner_accepted": false,
+    "native_acceptance": "pending",
+    "content_check_scope": "raw source package bytes, wheel and isolated installed package; no index-checkout claim",
+    "installation_evidence": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\131734e155c7\\evidence\\offline-installation.json"
+  },
+  "candidate_registration": "D:\\AboutDEV\\Strixnova\\.artifacts\\candidates\\initial-alignment-clean\\candidate.json",
+  "fixed_inputs": {
+    "start": "请先读取本工程 AGENTS.md、指定 Skill 和 .agent-inputs/g4-fixed/background.md。我要把现有组件扩展为预约申请工具：成员能取消自己的申请，负责人能下载每周汇总。这两个结果都需要，但可以分别交付。请开始形成工作，具体业务含义还有缺口；到需要我明确的关键事实时提出问题，先不实施代码，也不替我确认候选。",
+    "clarify_read_only": "先澄清一个前提：这里的申请是待审核的预约申请，不是已经生效的预约。成员只可撤回自己仍待审核的申请；已批准的预约需要由审批人另行处理，本轮不做该处理。下载请求只是传输动作，不能和预约申请合并成一个领域对象。请这轮只读解释这项纠正，指出哪些旧推断、权威含义和给定源码样本受影响，区分代码偏离与尚未核实的内容；暂时不要修改候选文件。",
+    "form_candidates": "请把刚才明确的纠正正式落实到产品、领域、目标架构和工程政策的完整候选，以及对应 PRD 和受影响的事项方向；保留不受影响的稳定身份，逐项说明旧含义和下游处置。补充固定业务事实：一名成员只能操作本人申请；身份来自可信宿主会话，不信任传入角色或所有者字段；只允许待审核状态撤回；重复撤回返回相同结果且不重复记审计；撤回与审批并发时只允许一个版本成功；响应丢失后可查询实际状态；审计保留操作者、原状态、新状态和操作身份。周报仅负责人可读，按本地已指定的自然周统计当前状态，不含成员私人联系方式；暂不实现自动发送、缴费或已批准预约的取消。两个单元必须共用申请身份、状态含义和决定权，不能各自定义。界面先限定为本地终端交互，不增加网页或网络服务。这些是候选的业务输入，不是对候选的接受。先完成实际可审阅文件，解释完整包和限制，等我决定；实现对齐保持草稿，不实施业务代码，不提交。",
+    "accept_authorities": "接受当前完整展示的产品定义、领域模型、目标架构和工程政策四项候选；实现对齐仍保持草稿，实际结果另行处理。"
+  },
+  "g1_fixture": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\5cce0a8e359b\\work\\fixture.json",
+  "completed_g1_run": "0e84420ca5d8",
+  "reviewed_g1_run": "d5467fcad9f5",
+  "fixed_inputs_sha256": "d0b6f09fd67935f34ea76759bc224358001f6e6343c2d7e66cff46eb88a773ef",
+  "model": "claude-opus-4-6-thinking",
+  "reviewer_model": "gemini-3.8-flash-low",
+  "timeout_seconds": 600,
+  "scope": "Existing G1 fixture, new proposed product scope; only formation and authority decisions after independent gate.",
+  "acceptance_dispatch_rule": "Only after complete real candidates, public identities and independent native readiness review; never inferred by controller.",
+  "owner_accepted": false,
+  "os_isolation_verified": false,
+  "initial_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+  "protected_source": {
+    "src.py": "9a9927302b84e575e3a4b987819732263cc7af0c72483bed6ff3ba54d0f0ae67",
+    "tests/test_duration.py": "99603fb00c4344e87bad056a8866c438b8980c6596e3c2ad85042af621418716"
+  },
+  "background_files": {
+    ".agent-inputs/g4-fixed/background.md": "9e1f7c6ff6c944db82c3d3e449cebc77bf3552705a8bc6c02a3bba1baf0f2ed9",
+    ".agent-inputs/g4-fixed/request_projection.py": "d0c132cd71f0111a8d718469b97974619532ced554991f291e23c1f27caddff5"
+  },
+  "continued_from": "62ac9a74003a",
+  "phase": "form_candidates_after_quota",
+  "new_conversation_reason": "Avoid stale aggregate ERROR status; same account, same registered model, after quota reset only.",
+  "fixed_input_sha256": "5c91225913d8cd3b8e5bb3e525df615f679adfb132c198cb8be179cd2223c512",
+  "actual_owner_accepted": false
+}

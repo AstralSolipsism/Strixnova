@@ -1,0 +1,360 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "TARGET-CONSTRAINT-829429778259E4DE",
+      "issues": [],
+      "limitations": [
+        "受支持代理加载随包唯一Skill在全新隔离项目下的行为验收（behavior_acceptance）及人工审阅（manual_review）超出当前冻结代码与单元测试覆盖范围，当前无独立冻结测试运行证据证明真实端到端会话。",
+        "test_managed_installation 与 test_upgrade_cli 在部分执行环境中存在跳过现象，受宿主环境与安装路径影响。"
+      ],
+      "reason": "经核对源码与测试断言，安装包随附唯一 Skill 入口（strixnova/resources/agent-skill/strixnova/SKILL.md），文档与代码明确规定 Skill 仅作为渐进指导和路由，不授予权威也不管理代理宿主与会话；agent_setup._result 显式输出不修改宿主配置且不安装插件或钩子；third_party_notice 保证第三方许可正文仅保留在根 README 并不在 Skill 中复制，wheel 长描述携带唯一声明。作者的实现评价各项职责与源码、测试断言一致，无未解决缺陷。",
+      "references": [
+        {
+          "end_line": 48,
+          "source_id": "assessment",
+          "start_line": 39,
+          "original_text": "      \"satisfied\": [\n        \"安装包随附唯一 Strixnova Skill：SKILL.md 位于 strixnova/src/strixnova/resources/agent-skill/strixnova/ 下，test_packaged_agent_skill_has_one_entry_and_reachable_internal_references 验证恰好一个 SKILL.md 入口\",\n        \"Skill 引用的公开合同与随包资源存在且可解析：test_agent_skill_routes_every_public_runtime_command, test_agent_skill_has_structural_guidance_for_every_product_capability, test_alignment_reference_matches_every_runtime_artifact_contract, test_architecture_reference_matches_every_runtime_artifact_contract, test_domain_fact_reference_matches_every_runtime_fact_contract, test_engineering_policy_reference_matches_every_runtime_nested_contract 均校验引用一致性\",\n        \"Skill 只提供渐进指导和路由不获取权威：SKILL.md 的 Operating rules 明确表示 'This bundled Skill guides that work without granting authority or managing the Agent's host, identity or session'\",\n        \"agent_setup.py install_agent_skill 返回结果显式声明 modifies_host_config=False, installs_hooks=False, installs_plugins=False, issues_credentials=False\",\n        \"install_agent_skill 不检测或管理代理是否加载 Skill：agent_setup.py 全模块无代理会话检测/控制代码\",\n        \"Skill install 本地幂等且有备份：test_agent_skill_install_is_local_idempotent_and_has_no_host_side_effects 和 test_agent_skill_requires_explicit_replace_and_preserves_a_backup 通过\",\n        \"第三方许可只保存在根 README：third_party_notice.py verify_wheel_notice 检查 wheel 不含独立许可文件且长描述携带唯一声明，test_malformed_root_notice_is_rejected 所有参数化用例通过\",\n        \"产品发现方法按需引用不预加载：SKILL.md 中 product-discovery.md 明确标记 'Skip it for a clear bounded request'\"\n      ],\n",
+          "source_sha256": "3ec030b149350a3f8090279a7f42d1e8f2ac52e25647820763096cdf08cd5024",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 128,
+          "source_id": "strixnova/src/strixnova/agent_setup.py",
+          "start_line": 114,
+          "original_text": "def _result(\n    status: str,\n    target: Path,\n    backup: Path | None,\n) -> dict[str, Any]:\n    return {\n        \"schema_version\": \"strixnova.agent-skill-install.v1\",\n        \"status\": status,\n        \"target_path\": str(target),\n        \"backup_path\": str(backup) if backup else None,\n        \"modifies_host_config\": False,\n        \"installs_hooks\": False,\n        \"installs_plugins\": False,\n        \"issues_credentials\": False,\n    }\n",
+          "source_sha256": "96da7c81ff16369ca06dbad9e77be87f7bc7973c44c7cafc4d65d8f9d7e127fc",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 135,
+          "source_id": "scripts/third_party_notice.py",
+          "start_line": 88,
+          "original_text": "def verify_wheel_notice(wheel_path: Path, notice: str) -> None:\n    \"\"\"Keep the root notice in wheel metadata without standalone copies.\"\"\"\n\n    notice_bytes = notice.encode(\"utf-8\")\n    start_marker = NOTICE_START.encode(\"utf-8\")\n    end_marker = NOTICE_END.encode(\"utf-8\")\n    normalized_notice = notice_bytes.replace(b\"\\r\\n\", b\"\\n\")\n    with ZipFile(wheel_path) as archive:\n        metadata_names = [\n            name\n            for name in archive.namelist()\n            if name.endswith(\".dist-info/METADATA\")\n        ]\n        if len(metadata_names) != 1:\n            raise ThirdPartyNoticeError(\n                \"wheel 必须恰好包含一份可核验第三方声明的 METADATA\"\n            )\n        try:\n            metadata = archive.read(metadata_names[0])\n            metadata.decode(\"utf-8\")\n        except (KeyError, UnicodeDecodeError) as error:\n            raise ThirdPartyNoticeError(\n                \"wheel 元数据缺少可解析第三方声明\"\n            ) from error\n        duplicate_paths = [\n            entry.filename\n            for entry in archive.infolist()\n            if not entry.is_dir()\n            and entry.filename != metadata_names[0]\n            and normalized_notice in archive.read(entry).replace(b\"\\r\\n\", b\"\\n\")\n        ]\n        if duplicate_paths:\n            raise ThirdPartyNoticeError(\n                \"wheel 不得包含独立第三方声明副本：\" + \"、\".join(duplicate_paths)\n            )\n    normalized_metadata = metadata.replace(b\"\\r\\n\", b\"\\n\")\n    if (\n        metadata.count(start_marker) != 1\n        or metadata.count(end_marker) != 1\n        or normalized_notice not in normalized_metadata\n    ):\n        raise ThirdPartyNoticeError(\"wheel 长描述没有机械携带唯一根 README 声明\")\n    parsed_metadata = BytesParser(policy=policy.default).parsebytes(metadata)\n    license_headers = parsed_metadata.get_all(\"License-File\", [])\n    if license_headers:\n        raise ThirdPartyNoticeError(\n            \"wheel 不得登记独立许可文件；第三方声明只随根 README 进入长描述\"\n        )\n",
+          "source_sha256": "b0da149a2cc868a7b48d1d73b8b42db6846ee825755260744cb670592c98d1ce",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 13,
+          "source_id": "strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md",
+          "start_line": 1,
+          "original_text": "---\nname: strixnova\ndescription: >-\n  引导具有命令执行能力的 Coding Agent（智能编码代理）使用 Strixnova完成本地单项目软件工程治理，包括项目状态、长期权威、建设事项、验证、本地交付和外部活动。仅当用户明确要求使用 Strixnova、启动 Strixnova管理的 WorkItem（建设事项）或继续已有本地 WorkItem（建设事项）时使用；不要因为已经安装就介入普通编码。\n---\n\n# Strixnova\n\nStrixnova records engineering decisions and checks their bindings, state, Git\nfacts and execution evidence. The Agent investigates, forms project-specific\nmeaning, implements the authorized work and explains results; the owner makes\nproduct and acceptance decisions. This bundled Skill guides that work without\ngranting authority or managing the Agent's host, identity or session.\n",
+          "source_sha256": "a8f939fd74ccf886ca9e4ed282468196b49e44e7e395ec5c905a2bb628fc0574",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-8969A50FE0E44AF2",
+      "issues": [],
+      "limitations": [
+        "全新智能编码代理处理模糊方向、护栏不适用及重开条件的行为验收（behavior_acceptance）未在冻结材料中提供真实会话记录，属于语义与人机交互层面范围。"
+      ],
+      "reason": "核查表明，project_direction_context 只读投影已确认产品定义的精确修订、目的、全部能力及全部护栏（非目标与约束），显式设置 semantic_relevance_machine_proven 为 False；应用协调与事项权威仅校验版本、引用、唯一覆盖和失效关系，不根据关键词或硬编码规则过滤能力或代作语义判断；测试验证了产品权威修订发生变化时会阻断未采用的旧方向绑定。作者的评价支持职责与代码逻辑完全契合。",
+      "references": [
+        {
+          "end_line": 95,
+          "source_id": "assessment",
+          "start_line": 88,
+          "original_text": "      \"satisfied\": [\n        \"引导查询从当前产品定义只读投影精确修订、目的、能力、非目标和约束：project_product_definition.py project_direction_context 投影 product_id/revision_id/title/purpose/capability_catalog/guardrails 且 semantic_relevance_machine_proven=False\",\n        \"建设事项保存智能编码代理提交的相关能力、全部护栏逐项处置、理由、假设和重开条件：工程评估通过 validate_assessment 接收 agent 语义输入，程序不筛选能力或生成理由\",\n        \"应用协调与事项权威只校验版本、引用、唯一覆盖和失效关系：project_authority_consistency.py 检查 baseline_identity/revision_id 匹配而不判断语义正确性\",\n        \"任何模块不按关键词、路径或固定规则筛选相关能力或生成理由：project_direction_context 不过滤 capability_catalog 条目，返回全集；semantic_relevance_machine_proven 显式设为 False\",\n        \"产品修订变化阻断旧方向进入工程评估：test_new_product_authority_invalidates_an_unadopted_direction_binding 验证新产品权威使旧方向绑定失效\",\n        \"审阅上下文按明确变更和已登记源码归属机械选择资料并保留全部护栏：review_context_projection.py 机械选择但 semantic_relevance_machine_proven=False\"\n      ],\n",
+          "source_sha256": "3ec030b149350a3f8090279a7f42d1e8f2ac52e25647820763096cdf08cd5024",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 165,
+          "source_id": "strixnova/src/strixnova/project_product_definition.py",
+          "start_line": 68,
+          "original_text": "def project_direction_context(\n    product_definition: Mapping[str, Any],\n    *,\n    observed_commit: str | None,\n) -> dict[str, Any]:\n    \"\"\"Project all current product choices without selecting what is relevant.\n\n    The digest is only an internal freshness binding. It is computed over the\n    complete projected product purpose, capability catalog and guardrail text;\n    it neither classifies those values nor proves their meaning.\n    \"\"\"\n\n    revision = product_definition.get(\"revision\")\n    revision = revision if isinstance(revision, Mapping) else {}\n    stages = list(product_definition.get(\"delivery_stages\") or [])\n    current_stages = [\n        stage\n        for stage in stages\n        if isinstance(stage, Mapping)\n        and stage.get(\"commitment\") == \"current_target\"\n    ]\n    if revision.get(\"status\") != \"confirmed\" or len(current_stages) != 1:\n        raise ProjectProductDefinitionError(\n            [\"方向决定上下文只能从已确认且具有唯一当前阶段的产品定义投影\"]\n        )\n\n    product = {\n        \"product_id\": str(product_definition.get(\"product_id\") or \"\"),\n        \"revision_id\": str(revision.get(\"revision_id\") or \"\"),\n        \"title\": str(product_definition.get(\"title\") or \"\"),\n        \"purpose\": str(product_definition.get(\"purpose\") or \"\"),\n        \"current_stage\": {\n            \"stage_id\": str(current_stages[0].get(\"stage_id\") or \"\"),\n            \"title\": str(current_stages[0].get(\"title\") or \"\"),\n            \"description\": str(current_stages[0].get(\"description\") or \"\"),\n        },\n    }\n    capabilities = [\n        {\n            \"capability_ref\": \"product.capability:\"\n            + str(capability.get(\"capability_id\") or \"\"),\n            \"capability_id\": str(capability.get(\"capability_id\") or \"\"),\n            \"title\": str(capability.get(\"title\") or \"\"),\n            \"description\": str(capability.get(\"description\") or \"\"),\n        }\n        for capability in product_definition.get(\"capabilities\") or []\n        if isinstance(capability, Mapping)\n    ]\n    guardrails = [\n        {\n            \"decision_ref\": \"product.non_goal:\"\n            + str(item.get(\"non_goal_id\") or \"\"),\n            \"kind\": \"non_goal\",\n            \"stable_id\": str(item.get(\"non_goal_id\") or \"\"),\n            \"statement\": str(item.get(\"statement\") or \"\"),\n        }\n        for item in product_definition.get(\"non_goals\") or []\n        if isinstance(item, Mapping)\n    ] + [\n        {\n            \"decision_ref\": \"product.constraint:\"\n            + str(item.get(\"constraint_id\") or \"\"),\n            \"kind\": \"constraint\",\n            \"stable_id\": str(item.get(\"constraint_id\") or \"\"),\n            \"statement\": str(item.get(\"statement\") or \"\"),\n        }\n        for item in product_definition.get(\"constraints\") or []\n        if isinstance(item, Mapping)\n    ]\n    content = {\n        \"product\": product,\n        \"capability_catalog\": capabilities,\n        \"guardrails\": guardrails,\n    }\n    digest = hashlib.sha256(\n        json.dumps(\n            content,\n            ensure_ascii=False,\n            sort_keys=True,\n            separators=(\",\", \":\"),\n            allow_nan=False,\n        ).encode(\"utf-8\")\n    ).hexdigest()\n    return {\n        \"schema_version\": PROJECT_DIRECTION_CONTEXT_SCHEMA,\n        \"authority_scope\": \"adopted_integration_commit\",\n        \"observed_commit\": observed_commit,\n        \"context_ref\": (\n            \"product-definition:\"\n            + product[\"product_id\"]\n            + \":\"\n            + product[\"revision_id\"]\n            + \":sha256:\"\n            + digest\n        ),\n        **content,\n        \"semantic_relevance_machine_proven\": False,\n    }\n",
+          "source_sha256": "23f4e499092417c1447769ea39ba7a194f81dc2c3ea86a3c059b59a2d595f09b",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 100,
+          "source_id": "strixnova/src/strixnova/application_coordinator.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Deterministic application-use-case coordination without semantic judgment.\"\"\"\n\nfrom __future__ import annotations\n\nfrom strixnova.work_item_repositories import repository_item, repository_operation, selected_repository, previous_integrations\nfrom strixnova.project_content_snapshot import capture_repository_content, compose_content_snapshot, verification_input_paths, repository_path_key, continued_verification_paths, verification_snapshot_matches\nfrom strixnova.verification_dependencies import dependency_evidence_stale\nfrom inspect import signature\n\nfrom collections.abc import Mapping, Sequence\nfrom contextlib import contextmanager, nullcontext\nfrom copy import deepcopy\nfrom datetime import datetime, timezone\nfrom functools import wraps\nimport hashlib\nimport os\nfrom pathlib import Path\nfrom typing import Any\n\nfrom strixnova.actual_result import (\n    ActualResultError,\n    validate_actual_result,\n)\nfrom strixnova.follow_ups import declared_refs\nfrom strixnova.agent_setup import AgentSetupError, install_agent_skill\nfrom strixnova.project_maintenance import MaintenanceError, ProjectMaintenance, project_operation\nfrom strixnova.persistent_evidence import EvidenceReferenceError, capture_outputs\nfrom strixnova.test_case_evidence import receipts_with_freshness\nfrom strixnova.confirmation_protocol import (\n    ConfirmationProtocolError,\n    confirmation_input_schema,\n    confirmation_record_from_input,\n)\nfrom strixnova.current_action import (\n    current_action_for,\n    direction_revision_action_for,\n)\nfrom strixnova.delivery_activity import (\n    DeliveryActivityAuthority,\n    DeliveryActivityError,\n)\nfrom strixnova.engineering_governance import (\n    ASSESSMENT_SCHEMA,\n    EngineeringGovernanceError,\n    compile_engineering_plan,\n    validate_assessment,\n)\nfrom strixnova.engineering_change_planning import (\n    ChangePlanningError,\n    focused_slice,\n    implementation_reporting_coverage,\n    implementation_slice_reportability,\n    permitted_slice_operation_paths,\n    validate_semantic_review,\n)\nfrom strixnova.git_workspace import GitWorkspace, GitWorkspaceError\nfrom strixnova.git_project_reader import GitProjectReader, GitProjectReaderError\nfrom strixnova.project_context import ProjectContext, ProjectContextError, ProjectContextResolver\nfrom strixnova.implementation_candidate_evidence import (\n    ImplementationCandidateEvidence,\n)\nfrom strixnova.implementation_alignment_preparation import (\n    ImplementationAlignmentPreparation,\n    ImplementationAlignmentPreparationError,\n)\nfrom strixnova.project_authority_consistency import (\n    DIRECTION_CONTEXT_RECOVERY_STATES,\n    ProjectAuthorityConsistency,\n    ProjectAuthorityConsistencyError,\n    direction_context_invalidation_issues,\n    direction_context_requires_validation,\n)\nfrom strixnova.project_authority_progress import (\n    PROJECT_AUTHORITY_DECISION_SCHEMA,\n    PROJECT_AUTHORITY_KINDS,\n    PROJECT_AUTHORITY_PRESENTATION_SCHEMA,\n    PROJECT_AUTHORITY_REVIEW_SCHEMA,\n    ProjectAuthorityDecisionError,\n    authority_confirmation_challenge,\n    current_project_authority_presentations,\n    current_project_authority_review,\n    current_semantic_reviews,\n    planned_upstream_authority_kinds,\n    project_authority_prerequisites,\n    project_authority_plan_ref,\n)\nfrom strixnova.project_authority_decision import (\n    apply_project_authority_confirmation_transaction,\n    build_project_authority_confirmation_transaction,\n    confirmed_project_authority_snapshot,\n    planned_project_authority_paths,\n    project_authority_candidate,\n    project_authority_review_bundle,\n    validate_authority_change_targets,\n    validate_project_authority_decision,\n)\nfrom strixnova.project_engineering_baseline import (\n    ProjectEngineeringBaseline,\n    ProjectEngineeringBaselineError,\n)\n",
+          "source_sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-8DE1C2CB85B64AF6",
+      "issues": [],
+      "limitations": [
+        "本约束为架构层无环约束（applies_to_module_ids 为空列表），静态分析机制由 project_architecture_description 提供，未在所有动态或非标准调用路径上做动态拦截。"
+      ],
+      "reason": "核查表明，project_architecture_description._acyclic 实现了基于 Kahn 算法的确定性拓扑排序，并在 _validate_graph 中对直接依赖边进行环路检测，发现循环或非 DAG 结构时显式记录违规；单元测试 test_target_direct_dependency_graph_is_acyclic_and_default_denied 独立复现拓扑排序断言依赖图无环且默认策略为 forbidden。作者给出的职责支持与机制相符。",
+      "references": [
+        {
+          "end_line": 136,
+          "source_id": "assessment",
+          "start_line": 130,
+          "original_text": "      \"satisfied\": [\n        \"project_architecture_description.py _acyclic 方法实现确定性拓扑排序，对全部允许直接和只读关系执行，存在强连通分量即失败（visited != len(module_ids) 时返回 False）\",\n        \"_validate_graph 在自环检查后调用 _acyclic 并将失败追加到 issues 列表中（'目标架构直接依赖图存在循环'）\",\n        \"test_target_direct_dependency_graph_is_acyclic_and_default_denied 独立重现拓扑排序算法并断言 set(visited) == module_ids，且 default_relationship_policy == 'forbidden'\",\n        \"test_every_mediated_relationship_has_both_declared_direct_legs 验证中介关系的两段直接边存在\",\n        \"全部 10 个 test_target_architecture_contract 测试定义在两次运行中均通过（d0856323c4b6: 10 passed, f5e20647248e: 10 passed）\"\n      ],\n",
+          "source_sha256": "3ec030b149350a3f8090279a7f42d1e8f2ac52e25647820763096cdf08cd5024",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 494,
+          "source_id": "strixnova/src/strixnova/project_architecture_description.py",
+          "start_line": 474,
+          "original_text": "    @staticmethod\n    def _acyclic(\n        module_ids: set[str],\n        edges: set[tuple[str, str]],\n    ) -> bool:\n        graph: dict[str, set[str]] = defaultdict(set)\n        indegree = {identifier: 0 for identifier in module_ids}\n        for start, end in edges:\n            if end not in graph[start]:\n                graph[start].add(end)\n                indegree[end] += 1\n        queue = deque(sorted(key for key, value in indegree.items() if value == 0))\n        visited = 0\n        while queue:\n            identifier = queue.popleft()\n            visited += 1\n            for target in sorted(graph[identifier]):\n                indegree[target] -= 1\n                if indegree[target] == 0:\n                    queue.append(target)\n        return visited == len(module_ids)\n",
+          "source_sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 421,
+          "source_id": "strixnova/src/strixnova/project_architecture_description.py",
+          "start_line": 417,
+          "original_text": "        if not ProjectArchitectureDescription._acyclic(\n            known_modules,\n            direct_edges,\n        ):\n            issues.append(\"目标架构直接依赖图存在循环\")\n",
+          "source_sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 203,
+          "source_id": "tests/unit/test_target_architecture_contract.py",
+          "start_line": 167,
+          "original_text": "def test_target_direct_dependency_graph_is_acyclic_and_default_denied() -> None:\n    _, artifacts = _repository_architecture()\n    assert (\n        artifacts[\"relationships\"][\"default_relationship_policy\"]\n        == \"forbidden\"\n    )\n    module_ids = {\n        item[\"module_id\"] for item in artifacts[\"modules\"][\"modules\"]\n    }\n    graph: dict[str, set[str]] = defaultdict(set)\n    indegree = {module_id: 0 for module_id in module_ids}\n    allowed_pairs: set[tuple[str, str]] = set()\n    forbidden_pairs: set[tuple[str, str]] = set()\n    for relationship in artifacts[\"relationships\"][\"relationships\"]:\n        pair = (\n            relationship[\"from_module_id\"],\n            relationship[\"to_module_id\"],\n        )\n        if relationship[\"mode\"] in {\"direct\", \"read_only_projection\"}:\n            allowed_pairs.add(pair)\n            if pair[1] not in graph[pair[0]]:\n                graph[pair[0]].add(pair[1])\n                indegree[pair[1]] += 1\n        elif relationship[\"mode\"] == \"forbidden\":\n            forbidden_pairs.add(pair)\n    assert not (allowed_pairs & forbidden_pairs)\n\n    ready = deque(sorted(key for key, value in indegree.items() if value == 0))\n    visited: list[str] = []\n    while ready:\n        module_id = ready.popleft()\n        visited.append(module_id)\n        for target_id in sorted(graph[module_id]):\n            indegree[target_id] -= 1\n            if indegree[target_id] == 0:\n                ready.append(target_id)\n    assert set(visited) == module_ids\n",
+          "source_sha256": "e4aa5ba2c3cd36c191969aba010ab4a2dd1f0aebb112669f943de01d077a388b",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-956A537458EB4CC8",
+      "issues": [],
+      "limitations": [
+        "修改当前代码或对齐候选时证明上游正文不会被程序自动改变的行为验收缺乏跨会话的端到端执行录制，主要依托单向接口设计和单元测试保障。"
+      ],
+      "reason": "核查表明，权威链单向约束严格按照 product_definition -> domain_model -> target_architecture -> engineering_policy -> implementation_alignment 进行级联校验；各个只读加载模块不具备回写上游权威能力；单元测试验证了实际结果无法独立采用未绑定的产品修订、拒绝预确认对齐以及下游权威正文替换检测。作者评价中的各项职责具备充分源码与测试支撑。",
+      "references": [
+        {
+          "end_line": 191,
+          "source_id": "assessment",
+          "start_line": 181,
+          "original_text": "      \"satisfied\": [\n        \"产品定义约束领域模型：project_authority_consistency.py 的权威链顺序为 product_definition → domain_model → target_architecture → engineering_policy → implementation_alignment，baseline 校验要求身份和修订匹配\",\n        \"下游不得反向定义上游：test_actual_result_cannot_adopt_an_independent_product_revision 验证实际结果不能采用独立产品修订\",\n        \"test_actual_result_rejects_a_preconfirmed_implementation_alignment 验证实际结果拒绝预确认的实现对齐\",\n        \"test_actual_result_rejects_deterministic_alignment_drift_before_acceptance 验证在接受前拒绝确定性对齐漂移\",\n        \"test_baseline_identity_must_match_the_loaded_authority 验证基线身份必须与已加载权威匹配\",\n        \"test_domain_source_change_invalidates_only_known_downstream_chain 验证领域源变更仅使已知下游链失效\",\n        \"test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches 验证不可变完整权威链使用单一快照和有界批次\",\n        \"test_integrated_commit_must_still_match_the_accepted_authority_snapshot 验证集成提交必须仍匹配已接受的权威快照\",\n        \"全部 12 个 test_project_authority_consistency 测试定义在三次运行中均通过（d0856323c4b6: 12 passed, f5e20647248e: 12 passed, 5bba08870241: 12 passed）\"\n      ],\n",
+          "source_sha256": "3ec030b149350a3f8090279a7f42d1e8f2ac52e25647820763096cdf08cd5024",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 100,
+          "source_id": "strixnova/src/strixnova/project_authority_consistency.py",
+          "start_line": 79,
+          "original_text": "_CORE_ARTIFACT_KIND_BY_TYPE = {\n    \"product_governance\": \"product_definition\",\n    \"domain_model\": \"domain_model\",\n    \"architecture\": \"target_architecture\",\n    \"quality_policy\": \"engineering_policy\",\n    \"domain_alignment\": \"implementation_alignment\",\n}\n_AUTHORITY_IDENTITY_FIELD = {\n    \"product_definition\": \"product_id\",\n    \"domain_model\": \"model_id\",\n    \"target_architecture\": \"architecture_id\",\n    \"engineering_policy\": \"policy_id\",\n    \"implementation_alignment\": \"alignment_model_id\",\n}\n_AUTHORITY_RESULT_KEY = {\n    \"product_definition\": \"product_definition\",\n    \"domain_model\": \"domain_catalog\",\n    \"target_architecture\": \"target_architecture\",\n    \"engineering_policy\": \"engineering_policy\",\n    \"implementation_alignment\": \"implementation_alignment\",\n}\n_ACTUAL_RESULT_ADOPTABLE_KINDS = frozenset({\"implementation_alignment\"})\n",
+          "source_sha256": "a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 310,
+          "source_id": "tests/unit/test_project_authority_consistency.py",
+          "start_line": 237,
+          "original_text": "def test_actual_result_cannot_adopt_an_independent_product_revision(\n    tmp_path: Path,\n    monkeypatch: pytest.MonkeyPatch,\n) -> None:\n    checker = ProjectAuthorityConsistency(tmp_path)\n    candidate = {\n        \"baseline\": {\n            \"project\": {\"owner_id\": \"OWNER-1111111111111111\"},\n            \"authority_refs\": {\n                \"product_definition\": {\n                    \"path\": \"docs/product/definition.yaml\",\n                    \"product_id\": \"PRODUCT-1111111111111111\",\n                    \"revision_id\": \"REVISION-AAAAAAAAAAAAAAAA\",\n                    \"status\": {\n                        \"revision_status\": \"confirmed\",\n                        \"adoption_status\": \"current\",\n                    },\n                }\n            },\n            \"review_state\": {\n                \"required\": True,\n                \"reasons\": [\"产品定义候选尚未独立确认。\"],\n                \"affected_authority_kinds\": [\"product_definition\"],\n            },\n            \"_manifest_path\": \"docs/engineering/baseline.yaml\",\n        },\n        \"product_definition\": {\n            \"product_id\": \"PRODUCT-1111111111111111\",\n            \"revision\": {\n                \"revision_id\": \"REVISION-BBBBBBBBBBBBBBBB\",\n                \"status\": \"draft\",\n                \"confirmed_by_owner_id\": None,\n                \"confirmed_on\": None,\n            },\n        },\n        \"changed_authority_kinds\": [\"product_definition\"],\n        \"candidate_base_observed_commit\": \"a\" * 40,\n    }\n    monkeypatch.setattr(\n        checker,\n        \"load_working_tree_candidate_for\",\n        lambda _ref: candidate,\n    )\n    monkeypatch.setattr(\n        checker,\n        \"_accepted_candidate_snapshot_verified\",\n        lambda *_args, **_kwargs: True,\n    )\n    actual_result = {\n        \"long_lived_refs\": [\n            {\n                \"artifact_id\": \"PRODUCT-1111111111111111\",\n                \"artifact_type\": \"product_governance\",\n                \"path\": \"docs/product/definition.yaml\",\n                \"relation\": \"updated\",\n            }\n        ]\n    }\n\n    record = checker.authority_adoption_record(\n        actual_result,\n        investigation_ref=\"a\" * 40,\n        actual_result_confirmed=True,\n        confirmed_on=\"2026-08-28\",\n    )\n\n    assert record[\"authority_updates\"] == []\n    assert record[\"baseline_update\"] is None\n    assert record[\"ready_for_atomic_commits\"] is False\n    assert record[\"semantic_reconfirmation_required\"] is True\n    assert any(\n        \"普通实际结果确认不能替代\" in issue\n        for issue in record[\"blocking_issues\"]\n    )\n",
+          "source_sha256": "2b84be2de5b11431e3c800a841ff286c3ba1cb446ebf0035e8b32a52962e266f",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 641,
+          "source_id": "tests/unit/test_project_authority_consistency.py",
+          "start_line": 596,
+          "original_text": "def test_actual_result_confirmation_snapshot_detects_authority_body_swap(\n    tmp_path: Path,\n    monkeypatch: pytest.MonkeyPatch,\n) -> None:\n    _copy_authorities(tmp_path)\n    _git(tmp_path, \"init\")\n    _git(tmp_path, \"config\", \"user.name\", \"Strixnova Test\")\n    _git(tmp_path, \"config\", \"user.email\", \"strixnova@example.invalid\")\n    _git(tmp_path, \"add\", \".\")\n    _git(tmp_path, \"commit\", \"-m\", \"accepted authority base\")\n    investigation_ref = _git(tmp_path, \"rev-parse\", \"HEAD\")\n    checker = ProjectAuthorityConsistency(tmp_path)\n    monkeypatch.setattr(\n        checker,\n        \"_require_candidate_without_deterministic_drift\",\n        lambda _candidate: None,\n    )\n    actual_result: dict = {\"long_lived_refs\": []}\n    actual_result[\"authority_candidate_snapshot\"] = (\n        checker.authority_candidate_snapshot(\n            actual_result,\n            investigation_ref=investigation_ref,\n        )\n    )\n\n    proof = checker.verify_working_tree_candidate_snapshot(\n        actual_result,\n        investigation_ref=investigation_ref,\n    )\n    assert proof[\"accepted_candidate_snapshot_verified\"] is True\n\n    product_path = tmp_path / \"docs\" / \"product\" / \"definition.yaml\"\n    product = yaml.safe_load(product_path.read_text(encoding=\"utf-8\"))\n    product[\"title\"] = \"负责人看到结果后被替换的产品正文\"\n    product_path.write_text(\n        yaml.safe_dump(product, allow_unicode=True, sort_keys=False),\n        encoding=\"utf-8\",\n    )\n\n    with pytest.raises(ProjectAuthorityConsistencyError) as captured:\n        checker.verify_working_tree_candidate_snapshot(\n            actual_result,\n            investigation_ref=investigation_ref,\n        )\n\n    assert captured.value.issues\n",
+          "source_sha256": "2b84be2de5b11431e3c800a841ff286c3ba1cb446ebf0035e8b32a52962e266f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-98F09B40DE6F4A39",
+      "issues": [],
+      "limitations": [
+        "运行时动态加载、注册表与反射等复杂动态入口的人工逐项审阅（manual_review）超出自动化测试与静态检查范畴。"
+      ],
+      "reason": "核查表明，系统在 project_architecture_description 中对所有未声明的模块关系默认阻断，default_relationship_policy 为 forbidden；在 project_implementation_alignment 中对依赖项进行显式分类，PASSING_DEPENDENCY_CLASSIFICATIONS 仅允许声明的直接、只读、模块内部或已观察外部依赖；测试验证了高风险边界显式禁止与对齐门对源漂移的检查。作者评价准确反映了当前机制。",
+      "references": [
+        {
+          "end_line": 240,
+          "source_id": "assessment",
+          "start_line": 231,
+          "original_text": "      \"satisfied\": [\n        \"project_architecture_description.py _validate_graph 校验所有关系边的 from/to_module_id 都在已知模块集合中，未声明依赖默认阻断\",\n        \"default_relationship_policy 在测试中断言为 'forbidden'：test_target_direct_dependency_graph_is_acyclic_and_default_denied\",\n        \"project_implementation_alignment.py 分类每条实际依赖为 internal_same_module/allowed_direct/allowed_read_only/external_observed/requires_mediator_but_direct/forbidden/undeclared 之一\",\n        \"PASSING_DEPENDENCY_CLASSIFICATIONS 只包含 internal_same_module/allowed_direct/allowed_read_only/external_observed 四种通过分类\",\n        \"test_daily_alignment_gate_accepts_fixed_project_and_reports_source_drift 验证对齐门接受固定项目并报告源漂移\",\n        \"test_stage_gate_enforces_confirmation_in_a_fixed_project 的三个参数化用例（draft/confirmed/ready_for_confirmation）在三次运行中均通过\",\n        \"test_high_risk_boundaries_are_explicit_in_the_target_graph 验证高风险边界在目标图中显式声明\",\n        \"全部 12 个测试定义在运行中均全部通过（d0856323c4b6: 14 rows passed, f5e20647248e: 14 rows passed, 5bba08870241: 4 rows passed）\"\n      ],\n",
+          "source_sha256": "3ec030b149350a3f8090279a7f42d1e8f2ac52e25647820763096cdf08cd5024",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 82,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 47,
+          "original_text": "PASSING_DEPENDENCY_CLASSIFICATIONS = frozenset(\n    {\n        \"internal_same_module\",\n        \"allowed_direct\",\n        \"allowed_read_only\",\n        \"external_observed\",\n    }\n)\n_ARTIFACT_SCHEMAS = {\n    \"source_ownership\": \"strixnova.implementation-source-ownership.v1\",\n    \"actual_dependencies\": \"strixnova.implementation-actual-dependencies.v1\",\n    \"target_responsibilities\": (\n        \"strixnova.implementation-target-responsibilities.v1\"\n    ),\n    \"deviations\": \"strixnova.implementation-deviations.v1\",\n}\n_SCHEMA_BRANCHES = {\n    PROJECT_IMPLEMENTATION_ALIGNMENT_SCHEMA: 0,\n    \"strixnova.implementation-source-ownership.v1\": 1,\n    \"strixnova.implementation-actual-dependencies.v1\": 2,\n    \"strixnova.implementation-target-responsibilities.v1\": 3,\n    \"strixnova.implementation-deviations.v1\": 4,\n}\n_CLASSIFICATION_FOR_MODE = {\n    \"direct\": \"allowed_direct\",\n    \"read_only_projection\": \"allowed_read_only\",\n    \"through_module\": \"requires_mediator_but_direct\",\n    \"forbidden\": \"forbidden\",\n}\n_IMPLEMENTATION_PRIORITY = {\n    \"unknown\": 5,\n    \"drifted\": 4,\n    \"not_implemented\": 3,\n    \"partially_implemented\": 2,\n    \"implemented\": 1,\n}\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 421,
+          "source_id": "strixnova/src/strixnova/project_architecture_description.py",
+          "start_line": 358,
+          "original_text": "    @staticmethod\n    def _validate_graph(\n        artifacts: Mapping[str, Mapping[str, Any]],\n        issues: list[str],\n    ) -> None:\n        modules = artifacts[\"modules\"][\"modules\"]\n        module_ids = [item[\"module_id\"] for item in modules]\n        interface_ids = [\n            item[\"public_interface\"][\"interface_id\"] for item in modules\n        ]\n        if len(module_ids) != len(set(module_ids)):\n            issues.append(\"目标架构模块身份重复\")\n        if len(interface_ids) != len(set(interface_ids)):\n            issues.append(\"目标架构稳定接口身份重复\")\n        known_modules = set(module_ids)\n        for module in modules:\n            operations = [\n                item[\"name\"]\n                for item in module[\"public_interface\"][\"operations\"]\n            ]\n            if len(operations) != len(set(operations)):\n                issues.append(f\"目标模块 {module['module_id']} 的操作名称重复\")\n\n        relationships = artifacts[\"relationships\"][\"relationships\"]\n        relationship_ids = [item[\"relationship_id\"] for item in relationships]\n        if len(relationship_ids) != len(set(relationship_ids)):\n            issues.append(\"目标架构关系身份重复\")\n        direct_edges: set[tuple[str, str]] = set()\n        forbidden_edges: set[tuple[str, str]] = set()\n        for item in relationships:\n            start = item[\"from_module_id\"]\n            end = item[\"to_module_id\"]\n            mediator = item[\"mediator_module_id\"]\n            if start not in known_modules or end not in known_modules:\n                issues.append(f\"目标架构关系引用未知模块：{item['relationship_id']}\")\n            if start == end:\n                issues.append(f\"目标架构关系不得指向自身：{item['relationship_id']}\")\n            if mediator is not None and (\n                mediator not in known_modules or mediator in {start, end}\n            ):\n                issues.append(f\"目标架构关系中介无效：{item['relationship_id']}\")\n            pair = (start, end)\n            if item[\"mode\"] in {\"direct\", \"read_only_projection\"}:\n                direct_edges.add(pair)\n            elif item[\"mode\"] == \"forbidden\":\n                forbidden_edges.add(pair)\n        if direct_edges & forbidden_edges:\n            issues.append(\"同一目标架构关系不能同时允许和禁止\")\n        for item in relationships:\n            if item[\"mode\"] != \"through_module\":\n                continue\n            mediator = item[\"mediator_module_id\"]\n            if (\n                (item[\"from_module_id\"], mediator) not in direct_edges\n                or (mediator, item[\"to_module_id\"]) not in direct_edges\n            ):\n                issues.append(\n                    f\"中介关系缺少声明的直接协作边：{item['relationship_id']}\"\n                )\n        if not ProjectArchitectureDescription._acyclic(\n            known_modules,\n            direct_edges,\n        ):\n            issues.append(\"目标架构直接依赖图存在循环\")\n",
+          "source_sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 203,
+          "source_id": "tests/unit/test_target_architecture_contract.py",
+          "start_line": 167,
+          "original_text": "def test_target_direct_dependency_graph_is_acyclic_and_default_denied() -> None:\n    _, artifacts = _repository_architecture()\n    assert (\n        artifacts[\"relationships\"][\"default_relationship_policy\"]\n        == \"forbidden\"\n    )\n    module_ids = {\n        item[\"module_id\"] for item in artifacts[\"modules\"][\"modules\"]\n    }\n    graph: dict[str, set[str]] = defaultdict(set)\n    indegree = {module_id: 0 for module_id in module_ids}\n    allowed_pairs: set[tuple[str, str]] = set()\n    forbidden_pairs: set[tuple[str, str]] = set()\n    for relationship in artifacts[\"relationships\"][\"relationships\"]:\n        pair = (\n            relationship[\"from_module_id\"],\n            relationship[\"to_module_id\"],\n        )\n        if relationship[\"mode\"] in {\"direct\", \"read_only_projection\"}:\n            allowed_pairs.add(pair)\n            if pair[1] not in graph[pair[0]]:\n                graph[pair[0]].add(pair[1])\n                indegree[pair[1]] += 1\n        elif relationship[\"mode\"] == \"forbidden\":\n            forbidden_pairs.add(pair)\n    assert not (allowed_pairs & forbidden_pairs)\n\n    ready = deque(sorted(key for key, value in indegree.items() if value == 0))\n    visited: list[str] = []\n    while ready:\n        module_id = ready.popleft()\n        visited.append(module_id)\n        for target_id in sorted(graph[module_id]):\n            indegree[target_id] -= 1\n            if indegree[target_id] == 0:\n                ready.append(target_id)\n    assert set(visited) == module_ids\n",
+          "source_sha256": "e4aa5ba2c3cd36c191969aba010ab4a2dd1f0aebb112669f943de01d077a388b",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-A7B33131C4864C91",
+      "issues": [],
+      "limitations": [
+        "针对失败、跳过、部分运行在最终用户展示交互层面的完整视觉与格式呈现缺乏端到端交互录制，属于行为验收层面限制。"
+      ],
+      "reason": "核查表明，project_engineering_assurance 与 verification_targets、execution_context 明确将机器验证范围限定为结构合同与证据摘要校验，显式将 semantic_content_machine_proven 与 external_assurance_machine_proven 输出为 False，明确不将结构检查升级为语义证明或产品认证；证据校验机制拒绝缺失证据的 satisfied 规则以及哈希漂移的证据。作者评价真实严谨，未扩大证明范围。",
+      "references": [
+        {
+          "end_line": 302,
+          "source_id": "assessment",
+          "start_line": 291,
+          "original_text": "      \"satisfied\": [\n        \"project_engineering_assurance.py _validate_evidence 对每项证据校验路径存在、UTF-8 可解析和 sha256 内容摘要匹配，漂移则报错 '项目工程保障证据内容已漂移'\",\n        \"_validate_rule_assessments 要求满足(satisfied)规则必须引用证据、不得保留缺口；未满足(not_satisfied)/未知(unknown)必须记录缺口和纠偏；部分满足必须同时记录证据、缺口和纠偏\",\n        \"_validate_external_assurance 拒绝没有外部回执的外部保障声明\",\n        \"matrix() 方法输出包含 semantic_content_machine_proven=False, external_assurance_machine_proven=False, projection_is_project_authority=False\",\n        \"machine_validation_scope 列表明确限定为结构合同、精确权威绑定、治理规则覆盖、证据摘要、状态约束，不声称语义正确或外部认证\",\n        \"verification_targets.py assess_targets 输出 semantic_content_machine_proven=False, semantic_judgment 区分 'not_machine_proven'/'agent'\",\n        \"execution_context.py 输出 semantic_content_machine_proven=False, writes_performed=False\",\n        \"test_assurance_rejects_a_satisfied_rule_without_evidence 和 test_assurance_rejects_drifted_repository_evidence 验证证据约束\",\n        \"test_assessed_failed_slice_reports_without_fabricating_dependents 验证失败切片报告不伪造依赖项\",\n        \"全部 12 个测试定义在两次运行中均通过（d0856323c4b6: 16 rows passed, f5e20647248e: 16 rows passed）\"\n      ],\n",
+          "source_sha256": "3ec030b149350a3f8090279a7f42d1e8f2ac52e25647820763096cdf08cd5024",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 207,
+          "source_id": "strixnova/src/strixnova/project_engineering_assurance.py",
+          "start_line": 195,
+          "original_text": "            \"machine_validation_scope\": [\n                \"结构合同\",\n                \"精确权威与治理档案绑定\",\n                \"治理规则和来源完整覆盖\",\n                \"证据路径及内容摘要\",\n                \"逐项状态与缺口纠偏约束\",\n            ],\n            \"semantic_content_machine_proven\": False,\n            \"external_assurance_machine_proven\": False,\n            \"projection_is_project_authority\": False,\n            \"manifest_path\": value[\"_manifest_path\"],\n            \"observed_commit\": value[\"_observed_commit\"],\n        }\n",
+          "source_sha256": "fbe8aa8939d3f997acaad76cb773d43937443a207126c7ca1925680e781a0c03",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 396,
+          "source_id": "strixnova/src/strixnova/project_engineering_assurance.py",
+          "start_line": 335,
+          "original_text": "    @staticmethod\n    def _validate_rule_assessments(\n        value: Mapping[str, Any],\n        profile: Mapping[str, Any],\n        evidence_by_id: Mapping[str, Mapping[str, Any]],\n        issues: list[str],\n    ) -> None:\n        rules = {\n            str(rule[\"rule_id\"]): rule for rule in profile[\"rules\"]\n        }\n        assessments: dict[str, Mapping[str, Any]] = {}\n        for assessment in value.get(\"rule_assessments\") or []:\n            if not isinstance(assessment, Mapping):\n                continue\n            rule_id = str(assessment.get(\"rule_id\") or \"\")\n            if rule_id in assessments:\n                issues.append(f\"治理规则评估重复：{rule_id}\")\n                continue\n            assessments[rule_id] = assessment\n            rule = rules.get(rule_id)\n            if rule is None:\n                issues.append(f\"治理规则评估引用未知规则：{rule_id}\")\n                continue\n            if assessment.get(\"source_ids\") != rule.get(\"source_ids\"):\n                issues.append(f\"治理规则评估来源绑定不精确：{rule_id}\")\n            evidence_ids = set(assessment.get(\"evidence_ids\") or [])\n            unknown_evidence = sorted(evidence_ids - set(evidence_by_id))\n            if unknown_evidence:\n                issues.append(\n                    f\"治理规则评估 {rule_id} 引用未知证据：\"\n                    + \", \".join(unknown_evidence)\n                )\n            applicability = assessment.get(\"applicability\")\n            status = assessment.get(\"status\")\n            gaps = list(assessment.get(\"gaps\") or [])\n            remediation = list(assessment.get(\"remediation_actions\") or [])\n            if applicability == \"not_applicable\":\n                if status != \"not_applicable\":\n                    issues.append(f\"不适用规则的状态必须是不适用：{rule_id}\")\n            elif applicability == \"unknown\":\n                if status != \"unknown\":\n                    issues.append(f\"适用性未知规则的状态必须是未知：{rule_id}\")\n                if not gaps or not remediation:\n                    issues.append(f\"适用性未知必须记录缺口和解决计划：{rule_id}\")\n            elif status == \"not_applicable\":\n                issues.append(f\"适用规则不得标记为不适用：{rule_id}\")\n            elif status == \"satisfied\":\n                if not evidence_ids:\n                    issues.append(f\"满足规则必须引用证据：{rule_id}\")\n                if gaps or remediation:\n                    issues.append(f\"满足规则不得同时保留缺口或纠偏：{rule_id}\")\n            elif status == \"partially_satisfied\":\n                if not evidence_ids or not gaps or not remediation:\n                    issues.append(\n                        f\"部分满足规则必须记录证据、缺口和纠偏：{rule_id}\"\n                    )\n            elif status in {\"not_satisfied\", \"unknown\"}:\n                if not gaps or not remediation:\n                    issues.append(f\"未满足或未知规则必须记录缺口和纠偏：{rule_id}\")\n        missing = sorted(set(rules) - set(assessments))\n        if missing:\n            issues.append(\"项目工程保障评估缺少治理规则：\" + \", \".join(missing))\n",
+          "source_sha256": "fbe8aa8939d3f997acaad76cb773d43937443a207126c7ca1925680e781a0c03",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 179,
+          "source_id": "strixnova/src/strixnova/verification_targets.py",
+          "start_line": 170,
+          "original_text": "    successful = {\"command_evidence_passed\", \"case_evidence_passed\", \"agent_supported\", \"example_evidence_recorded\"}\n    by_ref = {row[\"target_ref\"]: row for row in rows}\n    for plan in plan_targets:\n        if plan[\"method\"] != \"examples\":\n            continue\n        children = plan[\"child_example_refs\"]\n        passed = all(child in by_ref and by_ref[child][\"status\"] in successful for child in children)\n        rows.append({\"target_ref\": plan[\"target_ref\"], \"method\": \"examples\", \"status\": \"example_evidence_recorded\" if passed else \"example_evidence_incomplete\", \"child_example_refs\": list(children), \"semantic_judgment\": \"agent\"})\n    complete = all(row[\"status\"] in successful for row in rows)\n    return list(submitted.values()), {\"schema_version\": \"strixnova.target-verification.v1\", \"status\": \"evidence_recorded\" if complete else \"with_gaps\", \"items\": rows, \"semantic_content_machine_proven\": False}\n",
+          "source_sha256": "20ff4a75aa83bb06012ed04370727b8a7577e782a774c5372c27cfe953b9dc40",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 120,
+          "source_id": "strixnova/src/strixnova/execution_context.py",
+          "start_line": 95,
+          "original_text": "    return {\n        \"schema_version\": \"strixnova.execution-context.v1\",\n        \"source\": {\n            \"work_item_id\": work_item.get(\"work_item_id\"),\n            \"work_item_version\": work_item.get(\"version\"),\n            \"plan_id\": plan.get(\"plan_id\"),\n            \"plan_sha256\": content_fingerprint(plan),\n            \"assessment_ref\": deepcopy(dict(assessment_ref)),\n            \"direction_version\": confirmation.get(\"direction_version\"),\n            \"direction_sha256\": content_fingerprint(data.get(\"direction\")),\n        },\n        \"direction\": deepcopy(data.get(\"direction\")),\n        \"slice\": deepcopy(implementation_slice),\n        \"resolved_operations\": operations,\n        \"applicable_rules\": deepcopy(plan.get(\"applicable_rules\") or []),\n        \"assessment_material\": assessment_material,\n        \"open_findings\": findings,\n        # Plan-wide review arrangements include constraints and risks whose\n        # applicability must not be inferred from matching words or filenames.\n        \"verification_targets\": deepcopy(plan.get(\"verification_targets\") or []),\n        \"verification_commands\": deepcopy(commands),\n        \"blockers\": deepcopy(data.get(\"blockers\") or []),\n        \"gaps\": gaps,\n        \"semantic_content_machine_proven\": False,\n        \"writes_performed\": False,\n    }\n",
+          "source_sha256": "397b4eb62e0260d5f58ac498d1ba23b1de220b31ad552b45e78ab2ee506aa15c",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 2,
+    "records": [],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false
+}

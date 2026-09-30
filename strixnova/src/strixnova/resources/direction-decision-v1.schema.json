@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.direction-decision.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_context",
+    "goal",
+    "scope",
+    "non_goals",
+    "constraints",
+    "tradeoffs",
+    "acceptance"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.direction-decision.v1"
+    },
+    "decision_context": {
+      "$ref": "#/$defs/decision_context"
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/requirement"
+      }
+    },
+    "non_goals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/constraint"
+      }
+    },
+    "tradeoffs": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "acceptance": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/acceptance"
+      }
+    },
+    "work_item_relations": {
+      "type": "array",
+      "items": {
+        "$ref": "work-item-relation-v1.schema.json"
+      }
+    }
+  },
+  "$defs": {
+    "requirement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "requirement_id",
+        "statement"
+      ],
+      "properties": {
+        "requirement_id": {
+          "type": "string",
+          "pattern": "^DIRREQ-[0-9A-F]{16}$"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "constraint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "constraint_id",
+        "statement"
+      ],
+      "properties": {
+        "constraint_id": {
+          "type": "string",
+          "pattern": "^DIRCON-[0-9A-F]{16}$"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "acceptance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "acceptance_id",
+        "statement",
+        "requirement_refs",
+        "behavior"
+      ],
+      "properties": {
+        "acceptance_id": {
+          "type": "string",
+          "pattern": "^DIRACC-[0-9A-F]{16}$"
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "requirement_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "pattern": "^DIRREQ-[0-9A-F]{16}$"
+          }
+        },
+        "behavior": {
+          "$ref": "behavior-example-v1.schema.json#/$defs/behavior"
+        }
+      }
+    },
+    "decision_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "context_ref",
+        "capability_refs",
+        "guardrail_dispositions",
+        "assumptions"
+      ],
+      "properties": {
+        "context_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "minLength": 1
+        },
+        "capability_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "guardrail_dispositions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/guardrail_disposition"
+          }
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/assumption"
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "context_ref": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "context_ref"
+            ]
+          },
+          "then": {
+            "properties": {
+              "capability_refs": {
+                "maxItems": 0
+              },
+              "guardrail_dispositions": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "capability_refs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "guardrail_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_ref",
+        "disposition",
+        "reason"
+      ],
+      "properties": {
+        "decision_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "disposition": {
+          "enum": [
+            "applies",
+            "not_applicable",
+            "reconsider"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "assumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "reconsider_when"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reconsider_when": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

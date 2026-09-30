@@ -1,0 +1,523 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-701BAA3C59E54C52
+scope_fact_ids: []
+facts:
+- fact_id: FACT-0802FE81639F4AE2
+  status: draft
+  title: ProjectProductDefinition（项目产品定义）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8BB9E8C279494481
+  content:
+    term: ProjectProductDefinition（项目产品定义）
+    definition: 独立保存产品为谁解决什么问题、预期结果、能力、永久非目标、约束、成功判断和交付阶段的最高产品语义权威。
+- fact_id: FACT-EC301385EB774E9D
+  status: draft
+  title: WorkItem（建设事项）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  content:
+    term: WorkItem（建设事项）
+    definition: 在已确认长期目标约束下，由一个可独立判断是否接受的用户目标贯穿方向、工程方案、实施、验证、整体实际结果接受和本地交付的建设单位；归属一个项目，可涉及一个或多个成员仓库，仓库拆分本身不要求拆项。
+- fact_id: FACT-66B7EEC7A5D44062
+  status: draft
+  title: DirectionDecision（方向决定）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  content:
+    term: DirectionDecision（方向决定）
+    definition: 项目负责人针对一个建设事项确认的目标、带稳定身份的方向需求、非目标、带稳定身份的方向约束、关键取舍和带稳定身份及需求覆盖关系的验收条件，以及这些内容如何承接当前有效产品决定的可理解完整版本；条目身份不转移确认，也不取代项目级产品、领域或目标架构权威。
+- fact_id: FACT-80FC172A8D784960
+  status: draft
+  title: DirectionRequirement（方向需求）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ED05BCEB08B94F1E
+  content:
+    term: DirectionRequirement（方向需求）
+    definition: DirectionDecision.scope 中一条带 DIRREQ-* 身份的范围内需求。身份只在所属 WorkItem（建设事项）的完整历史中稳定；重排或不改变含义的澄清保持身份，替换、拆分或合并使用新身份。
+- fact_id: FACT-F6044AA05940484D
+  status: draft
+  title: DirectionConstraint（方向约束）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ED05BCEB08B94F1E
+  content:
+    term: DirectionConstraint（方向约束）
+    definition: DirectionDecision.constraints 中一条带 DIRCON-* 身份、限制本事项怎样实现或验证的方向约束。它可以被工程操作或验证稳定引用，但不替代项目级产品或工程政策约束。
+- fact_id: FACT-B08EEE5142FB4A31
+  status: draft
+  title: AcceptanceCriterion（验收条件）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ED05BCEB08B94F1E
+  - FACT-80FC172A8D784960
+  content:
+    term: AcceptanceCriterion（验收条件）
+    definition: DirectionDecision.acceptance 中一条带 DIRACC-* 身份的可判断完成条件；它通过 requirement_refs 明确覆盖一项或多项 DirectionRequirement（方向需求），不能用相同位置或相似文字替代这项关系。
+- fact_id: FACT-C965B52EF77E42BE
+  status: draft
+  title: DecisionContextBinding（决定上下文绑定）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-73E63F97C5B64499
+  content:
+    term: DecisionContextBinding（决定上下文绑定）
+    definition: 方向形成时对当前产品修订、相关能力、全部产品护栏逐项处置、智能编码代理理由以及假设重开条件的精确绑定；程序维护其版本和覆盖，不理解或裁决其中语义。
+- fact_id: FACT-831845472CCD4880
+  status: draft
+  title: GuidedFormation（引导式形成）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-D054964736FE4AE1
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-EBDA1DF2249B477A
+  content:
+    term: GuidedFormation（引导式形成）
+    definition: 智能编码代理先调查可查事实，只逐步解决会实质改变结果的缺口，允许项目负责人持续纠正，并在候选足以下游使用时停止的跨阶段交互原则；它不建立新的持久化对象、工作模式、状态机或确认点。
+- fact_id: FACT-FA45768A3F2541A8
+  status: draft
+  title: ProductDiscovery（产品发现）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-831845472CCD4880
+  content:
+    term: ProductDiscovery（产品发现）
+    definition: 在产品或功能想法进入正式需求、长期权威候选或建设方向之前，由智能编码代理依据真实缺口选择问题界定、选项扩展、假设压测、证据调查或产品归纳，以减少会改变产品方向的不确定性。它是 GuidedFormation
+      的产品层应用，不是有身份对象、用户模式、程序状态或必经阶段；继续形成、暂时搁置、否定想法和仅获得更清楚认识都是有效结果。
+- fact_id: FACT-E7CF8A1203174E78
+  status: draft
+  title: WorkItemRelation（建设事项关系）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ACB972FEC5DB4760
+  content:
+    term: WorkItemRelation（建设事项关系）
+    definition: 连接两个建设事项的描述性双向追溯事实，只帮助理解来源、组成、依赖、后续或取代关系，不自动产生工作流效果。
+- fact_id: FACT-842D56B52BA74B35
+  status: draft
+  title: EngineeringAssessment（工程评估）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B79387477E254534
+  content:
+    term: EngineeringAssessment（工程评估）
+    definition: 智能编码代理依据已确认方向、长期目标、工程政策、实现对齐和直接调查事实，形成的事项级影响、风险、方法、增量、验证和限制候选。
+- fact_id: FACT-19962E6E0946425F
+  status: draft
+  title: EngineeringPlan（工程方案）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-47B266640F1840DA
+  - FACT-842D56B52BA74B35
+  content:
+    term: EngineeringPlan（工程方案）
+    definition: 工程评估候选通过确定性结构、引用、覆盖和政策校验后形成的完整实施与验证方案；仍需项目负责人确认才可授权实施。
+- fact_id: FACT-EAD1014D81E84578
+  status: draft
+  title: ImpactScope（影响范围）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-3F99553572844A05
+  content:
+    term: ImpactScope（影响范围）
+    definition: 对项目稳定工程维度逐项作出受影响、不受影响或未知分类，并为受影响和未知项说明理由、依据和处置的完整判断。
+- fact_id: FACT-0418907AB3454690
+  status: draft
+  title: AssuranceBand（保障等级）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-361FDF7E6A6044C2
+  content:
+    term: AssuranceBand（保障等级）
+    definition: 同一建设生命周期中，依据真实影响、风险和项目政策确定的调查、审查与验证深度，不代表自动合规或外部认证。
+- fact_id: FACT-82730E66B2A443E2
+  status: draft
+  title: DeliverySpan（交付跨度）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-D2E54729BD8E4263
+  content:
+    term: DeliverySpan（交付跨度）
+    definition: 为得到可独立验收结果而需要的建设单元范围，可表现为一个建设事项、多个共享上层目标的建设事项或涉及多个长期产品及架构决定的项目级建设；它不表示风险高低，也不自动创建 Epic、调度代理或汇总进度。
+- fact_id: FACT-9FE9A7E7072643D5
+  status: draft
+  title: EngineeringMethod（工程方法）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-CEF1A02972184E23
+  content:
+    term: EngineeringMethod（工程方法）
+    definition: 具有可信来源、项目采用状态、适用影响、应用要求和证据要求的软件工程思维或实践；名称本身不证明已落实。
+- fact_id: FACT-06002D0BC6F947D7
+  status: draft
+  title: MethodApplication（方法应用）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-47AB0A44E81E474E
+  content:
+    term: MethodApplication（方法应用）
+    definition: 智能编码代理对某一工程方法在当前建设事项中明确应用或经考虑不应用的事项级判断，以及应用时的技术、目标和验证安排。
+- fact_id: FACT-07EEBF090D654C9E
+  status: draft
+  title: VerificationStatus（验证状态）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-577431AEBE214F66
+  content:
+    term: VerificationStatus（验证状态）
+    definition: 对验证是否无需运行、等待运行、按约通过或带问题完成的唯一确定性汇总；不能继续和下一步由当前行动另行表达。
+- fact_id: FACT-A03A1A36FA224467
+  status: draft
+  title: CurrentAction（当前行动）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-32F33CAB000C4F0D
+  content:
+    term: CurrentAction（当前行动）
+    definition: 根据已保存权威状态和确定性规则投影的唯一下一操作指针，包含所需输入、阻断原因和最小读取提示，不包含程序生成的语义。
+- fact_id: FACT-B8F40EBA57BB4B36
+  status: draft
+  title: ActualResult（实际结果）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C81DA4F98DBF40FB
+  content:
+    term: ActualResult（实际结果）
+    definition: 面向项目负责人的已实施效果、真实验证结果、未运行项、计划偏差、已知限制和方法落实情况总结，只有其精确版本可被接受。
+- fact_id: FACT-444852CEF32A4A95
+  status: draft
+  title: ProjectEngineeringBaseline（项目工程基线）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-159C0FC61FEE4E5D
+  - FACT-077782C6BEA34CA1
+  content:
+    term: ProjectEngineeringBaseline（项目工程基线）
+    definition: 定位当前已确认产品、领域、目标架构、工程政策、实现对齐、代码版本、已确认方案授权实施的最高架构阶段和待治理状态的精确清单，不复制各权威正文；当前阶段是实施授权边界，不是事后完成度统计。
+- fact_id: FACT-0F4D688028C0D0D6
+  status: draft
+  title: ProjectDomainModel（项目领域模型）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-56355272151F44EF
+  content:
+    term: ProjectDomainModel（项目领域模型）
+    definition: 在已确认产品范围内，以参与者、能力、场景、对象、生命周期、事件、规则、不变量、决定权、边界关系和统一语言定义应当成立语义的独立长期权威。
+- fact_id: FACT-DAFDC4DCF08C4543
+  status: draft
+  title: ProjectArchitectureDescription（项目目标架构描述）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-1B200CD9D4FC4A3B
+  content:
+    term: ProjectArchitectureDescription（项目目标架构描述）
+    definition: 依据已确认领域模型，独立定义预期建设模块、责任、拥有关系、依赖方向、接口契约、质量属性、禁止关系和阶段性取舍的长期架构权威，不描述当前模块布局。
+- fact_id: FACT-ECC7967D187F4AA1
+  status: draft
+  title: ImplementationObservationScope（实现观察范围）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-29A948A8B5364EB3
+  content:
+    term: ImplementationObservationScope（实现观察范围）
+    definition: 为一次实现对齐明确声明的受管源码根、项目或包、构建目标、配置、特性、平台和关系粒度；完整结论只能在该范围完整且所有排除均显式时成立，范围不得为取得通过而静默缩小。
+- fact_id: FACT-4A0E7817FC8E464E
+  status: draft
+  title: ProjectImplementationAlignment（项目实现对齐）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-29A948A8B5364EB3
+  - FACT-ECC7967D187F4AA1
+  - FACT-7A9F98FC2BFE44E3
+  - FACT-84DF6E5CAB34446B
+  content:
+    term: ProjectImplementationAlignment（项目实现对齐）
+    definition: 对已确认领域事实和目标架构责任与精确实现观察范围内的当前文件、接口、关系、覆盖、状态、差距、验证及处置之间关系的完整长期工程判断；实现关系观察只是判断证据，程序只校验结构、覆盖和时效，不证明观察结果或工程语义正确。
+- fact_id: FACT-31728B336026ECB2
+  status: draft
+  title: EngineeringTraceProjection（工程追溯投影）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-444852CEF32A4A95
+  content:
+    term: EngineeringTraceProjection（工程追溯投影）
+    definition: 从事项权威、外部版本事实和长期权威按需重建的只读追溯视图，没有写接口，也不成为第二份产品、领域、架构、对齐或历史权威。
+- fact_id: FACT-302CDDFA33D1493C
+  status: draft
+  title: ADR（架构决策记录）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-189E656540F34461
+  content:
+    term: ADR（架构决策记录）
+    definition: 记录对目标架构有长期且难逆影响的特定取舍、背景、替代方案、理由和后果；它解释决定，但不取代目标架构正文。
+- fact_id: FACT-653C16DFB45A4E18
+  status: draft
+  title: GitWorkArea（版本工作区）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8C6CC8AD9DCD4310
+  content:
+    term: GitWorkArea（版本工作区）
+    definition: 外部版本管理系统为一个已授权建设事项提供的本地分支或链接工作区，以及其精确基线、变更、结果提交、合入和清理事实。 一个事项可关联多个不同仓库的工作区，须分别限定仓库和精确内容；同仓库链接工作树不产生新的逻辑仓库。
+- fact_id: FACT-296143B0C54B493D
+  status: draft
+  title: ProjectEngineeringAssurance（项目工程保障评估）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-31728B336026ECB2
+  - FACT-8AC9AE21345846DE
+  content:
+    term: ProjectEngineeringAssurance（项目工程保障评估）
+    definition: 对精确长期权威链、已采用工程方法和项目证据所作的版本化内部保障判断；它逐项呈现适用规则、满足情况、证据、缺口、纠偏和证明边界，不成为第六项长期权威，也不等同于外部标准认证。
+- fact_id: FACT-E506C728394A5B6C
+  status: draft
+  title: AuthorityChangeSet（权威变更集）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A1C2E3F405162738
+  content:
+    term: AuthorityChangeSet（权威变更集）
+    definition: 一次建设中对产品、领域、目标架构和实现对齐四类核心权威准备作出的成套变更说明；它精确绑定旧基线、候选修订和下游处置，工程政策仍作为独立横向约束进入评估，而变更集自身不是新的长期权威。
+- fact_id: FACT-F617D8394A5B6C7D
+  status: draft
+  title: ImplementationSlice（实施切片）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B2D3F40516273849
+  content:
+    term: ImplementationSlice（实施切片）
+    definition: 工程方案中一组可独立推进和验证的操作，明确依赖、写入范围、完成条件和验证命令；它描述工作顺序，不负责启动或调度智能编码代理。 操作和完成证据按仓库身份限定，必要验证依赖可跨仓库。
+- fact_id: FACT-A728E94A5B6C7D8E
+  status: draft
+  title: SemanticReview（语义复核）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C3E4A5061728395A
+  content:
+    term: SemanticReview（语义复核）
+    definition: 智能编码代理对产品、领域、架构、方案和证据是否表达同一建设意图所作的跨产物检查；程序只能检查复核记录是否完整，不能证明复核结论正确。
+- fact_id: FACT-B839FA5B6C7D8E9F
+  status: draft
+  title: OwnerView（负责人视图）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-D4F5B61728395A6B
+  content:
+    term: OwnerView（负责人视图）
+    definition: 把同一工程方案按当前问题、重要原因、影响、推荐、替代选择、不处理后果、下一步和必要问题重新组织的负责人阅读形式；它不新增一份权威或确认。
+- fact_id: FACT-D912073EFE104893
+  status: draft
+  title: DomainCompatibilityBaseline（领域兼容基线）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-0F4D688028C0D0D6
+  content:
+    term: DomainCompatibilityBaseline（领域兼容基线）
+    definition: 项目负责人为一个产品主版本指定的一份精确、已确认 ProjectDomainModel（项目领域模型）修订；它固定该主版本中稳定事实身份、术语含义、决定权、生命周期和核心不变量的兼容解释，不成为新的权威种类，也不冻结实现、存储介质或实现对齐。
+- fact_id: FACT-B1FABAA446210228
+  status: draft
+  title: MaintenanceWindow（维护窗口）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  dependency_fact_ids:
+  - FACT-D0828206E1A6C60E
+  content:
+    term: MaintenanceWindow（维护窗口）
+    definition: 指定项目的 Strixnova 升级或恢复期间，阻止新管理操作并等待已有操作及回写结束的短暂状态。它覆盖完整操作生命周期，不是宿主身份或会话租约，也不代表业务系统被停止。
+- fact_id: FACT-1FF32B4462434DF1
+  status: draft
+  title: Repository（仓库）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-12A47E948AC94AF2
+  content:
+    term: Repository（仓库）
+    definition: 拥有稳定身份和独立版本历史的工程内容载体，本机位置、分支和一次提交不代替仓库身份。
+- fact_id: FACT-890A53B987B74057
+  status: draft
+  title: RepositoryMembership（项目仓库归属）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-EECFC91CAB03476E
+  content:
+    term: RepositoryMembership（项目仓库归属）
+    definition: 在明确项目修订中记录仓库的唯一修改与交付归属及工程用途，与依赖使用和本机检出分别表达。
+- fact_id: FACT-E2CD56D1500A4612
+  status: draft
+  title: RepositoryDelivery（仓库交付）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B66A3271FAD74C65
+  content:
+    term: RepositoryDelivery（仓库交付）
+    definition: 从属于一个建设事项、由事项与仓库身份区分的实施和本地落地责任，不拥有独立用户确认或另一套流程权威。
+- fact_id: FACT-6A7BAEF9FCA64057
+  status: draft
+  title: RepositoryContentReference（仓库内容引用）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ADDCB3B236194270
+  content:
+    term: RepositoryContentReference（仓库内容引用）
+    definition: 以仓库身份、精确版本或捕获内容及范围定位实际工程内容的引用，不能以当前同名文件替代。
+- fact_id: FACT-4EA038F1867E4FA8
+  status: draft
+  title: ProjectContentSnapshot（项目内容快照）
+  kind: term
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-E793FB9BC65A4ED0
+  content:
+    term: ProjectContentSnapshot（项目内容快照）
+    definition: 一项工程判断实际依据的权威、仓库内容与必要外部依赖的精确组合，同时保留证明范围和未知；区别于 Strixnova 自身运行版本组合。

@@ -1,0 +1,31 @@
+schema_version: strixnova.architecture-implementation-stages.v1
+architecture_id: ARCH-1111111111111111
+architecture_revision_id: ARCHREV-3333333333333333
+stages:
+  - stage_id: ARCHSTAGE-A000000000000001
+    order: 1
+    title: 核心申请域与撤回
+    scope: current_product_stage
+    prerequisite_stage_ids: []
+    module_ids:
+      - MODULE-A000000000000001
+      - MODULE-A000000000000002
+      - MODULE-A000000000000004
+    entry_conditions:
+      - 产品、领域和目标架构已确认。
+    completion_conditions:
+      - 申请域规则和撤回场景通过真实终端验证。
+      - 区间校验既有行为不受影响。
+
+  - stage_id: ARCHSTAGE-A000000000000002
+    order: 2
+    title: 负责人周报
+    scope: current_product_stage
+    prerequisite_stage_ids: [ARCHSTAGE-A000000000000001]
+    module_ids:
+      - MODULE-A000000000000003
+    entry_conditions:
+      - 核心申请域与撤回已完成。
+      - 申请身份和状态含义已统一。
+    completion_conditions:
+      - 负责人能通过终端读取按自然周统计的周报。

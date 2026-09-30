@@ -1,0 +1,562 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-7D33433E3D8B489C
+scope_fact_ids: []
+facts:
+- fact_id: FACT-B2D082E72E6247D1
+  status: draft
+  title: 版本变更历史权威必须保持
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-4585A5A5E5CA47F3
+  content:
+    statement: Strixnova的任何状态和投影都不得取代或伪造外部版本管理系统提供的文件、差异、提交和历史事实。
+    protected_fact_ids:
+    - FACT-8C6CC8AD9DCD4310
+    - FACT-B3D14DA096B94DD9
+- fact_id: FACT-DE436F477E6F4066
+  status: draft
+  title: 实际结果确认前不得提交
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A9DB06A4D7704578
+  content:
+    statement: 对普通建设事项，项目负责人尚未接受精确实际结果时，不得形成用于本地合入的结果提交。
+    protected_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-C81DA4F98DBF40FB
+- fact_id: FACT-ACB972FEC5DB4760
+  status: draft
+  title: 建设事项关系只能用于追溯
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DFADAA6E74FC42D5
+  content:
+    statement: 建设事项关系不得自行产生调度、锁、测试义务、冲突处理或语义裁决。
+    protected_fact_ids:
+    - FACT-B3D14DA096B94DD9
+- fact_id: FACT-AD16717B514F48E1
+  status: draft
+  title: 项目方法采用状态是长期事实
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-CEF1A02972184E23
+  content:
+    statement: 项目工程方法采用状态必须由独立长期政策承载，不得藏在单一事项、当前代码布局或短期运行状态中。
+    protected_fact_ids:
+    - FACT-077782C6BEA34CA1
+- fact_id: FACT-FCEDF1B76B274200
+  status: draft
+  title: 方法使用必须在实际结果中闭合
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ACD0BFB983314DD7
+  content:
+    statement: 方案承诺的方法应用必须在实际结果中逐项说明落实、未落实、偏差、限制和支撑事实。
+    protected_fact_ids:
+    - FACT-47B266640F1840DA
+    - FACT-C81DA4F98DBF40FB
+- fact_id: FACT-CC5907248DBD4800
+  status: draft
+  title: 普通建设事项三个确认点固定
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8EACFB031A6E49B9
+  content:
+    statement: 普通建设事项不得增设除方向、完整工程方案和实际结果以外的用户确认点，也不得跳过其中任一点。
+    protected_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-C8E6F2891E194C50
+- fact_id: FACT-F543EB0437354851
+  status: draft
+  title: 目标权威变化必须先独立定档
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A3B8F3BE848F44E1
+  content:
+    statement: 产品定义、领域模型、目标架构或工程政策的实质变化，必须作为精确长期权威修订由项目负责人独立确认并由项目工程基线采用后，才能成为普通事项的新依据；普通实际结果确认不得替代。
+    protected_fact_ids:
+    - FACT-8BB9E8C279494481
+    - FACT-56355272151F44EF
+    - FACT-1B200CD9D4FC4A3B
+- fact_id: FACT-A6D67900F98A4F01
+  status: draft
+  title: 智能编码代理只形成语义候选
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-4C7A221868114D28
+  content:
+    statement: 智能编码代理可以调查、推理、推荐和形成语义候选，但候选在适用确认发生前不得被表述成项目负责人的正式决定。
+    protected_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-C8E6F2891E194C50
+- fact_id: FACT-9D32027B60DA4C07
+  status: draft
+  title: 项目负责人拥有正式语义决定权
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-E5600880C7564373
+  - FACT-F8205962DE474AD7
+  - FACT-189E656540F34461
+  - FACT-06BA69B23654410F
+  - FACT-38C06FCB63F74F91
+  content:
+    statement: 产品目标、领域含义、目标架构、工程方案取舍和实际结果接受的正式决定权始终属于项目负责人。
+    protected_fact_ids:
+    - FACT-C8E6F2891E194C50
+- fact_id: FACT-34162167D6B443BC
+  status: draft
+  title: 程序不得生成或裁决语义
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-FBF963348B9C4939
+  content:
+    statement: Strixnova程序在任何路径都不得生成、补写、猜测、评价、选择或确认项目语义，只能处理确定性结构和状态事实。
+    protected_fact_ids:
+    - FACT-4FD08D68267441B6
+- fact_id: FACT-D921CBBA28354A0B
+  status: draft
+  title: 产品不得调用或控制智能编码代理
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-1A778E8A2C00462A
+  content:
+    statement: Strixnova产品在任何模式、适配器、扩展或钩子中都不得启动、调用、编排、认证或控制智能编码代理。
+    protected_fact_ids:
+    - FACT-4FD08D68267441B6
+    - FACT-DF782F3974E94BCF
+- fact_id: FACT-47AB0A44E81E474E
+  status: draft
+  title: 事项方法选择必须显式形成
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C602626C50D44D50
+  content:
+    statement: 与真实影响相关的每项已采用工程方法，都必须有明确的应用或经考虑不应用结论、理由和验证安排。
+    protected_fact_ids:
+    - FACT-B79387477E254534
+    - FACT-47B266640F1840DA
+- fact_id: FACT-A213336BCB004594
+  status: draft
+  title: 方法声明不得冒充落实证明
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-EA9C469E15A04AB3
+  content:
+    statement: 方法名称、采用声明或文档存在本身都不得被当作实现已对齐、审查已独立或外部标准已符合的证据。
+    protected_fact_ids:
+    - FACT-29A948A8B5364EB3
+    - FACT-C81DA4F98DBF40FB
+- fact_id: FACT-27C295F6010D4773
+  status: draft
+  title: 权威不得从下游反向污染上游
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B51D821A3412481B
+  content:
+    statement: 当前代码、测试、数据库、事项状态、投影、文档副本和历史事实都不得反向定义产品目标、领域含义或目标架构；它们只能提供实现和证据事实或触发上游修订候选。
+    protected_fact_ids:
+    - FACT-8BB9E8C279494481
+    - FACT-56355272151F44EF
+    - FACT-1B200CD9D4FC4A3B
+- fact_id: FACT-49B99509DDEC4127
+  status: draft
+  title: 领域正文不得混入实现证据
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-56355272151F44EF
+  - FACT-29A948A8B5364EB3
+  content:
+    statement: 领域模型只定义应当成立的业务语义，不保存源码路径、测试路径、数据库表、当前模块布局或实现符合性结论；这些内容只能进入实现对齐与证据产物。
+    protected_fact_ids:
+    - FACT-56355272151F44EF
+    - FACT-29A948A8B5364EB3
+- fact_id: FACT-C1AF1567F0264D5E
+  status: draft
+  title: 每项产品能力必须具备场景闭环
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-857E4CA751A34FA1
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-56355272151F44EF
+  content:
+    statement: 每项产品能力必须明确正常、阻断、纠正和取消场景，任何不适用场景都必须给出可理解理由；缺失场景时领域模型不得定档。
+    protected_fact_ids:
+    - FACT-56355272151F44EF
+- fact_id: FACT-643E08A42D944901
+  status: draft
+  title: 实现观察缺口不得伪装为无关系或完整对齐
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ECC7967D187F4AA1
+  - FACT-7A9F98FC2BFE44E3
+  - FACT-84DF6E5CAB34446B
+  - FACT-B6D853E18DEB42F8
+  content:
+    statement: 任何必需实现观察范围中的未支持、未执行、执行失败、部分覆盖、未解析或歧义结果，都必须表现为可见观察缺口、偏离或未知及其解决计划，并阻止受影响范围获得完整实现对齐；空观察结果只有在覆盖完整且确实没有关系时才能解释为无关系。
+    protected_fact_ids:
+    - FACT-29A948A8B5364EB3
+    - FACT-549143984F6B44C0
+- fact_id: FACT-549143984F6B44C0
+  status: draft
+  title: 实现对齐必须完整覆盖目标责任
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-29A948A8B5364EB3
+  - FACT-643E08A42D944901
+  content:
+    statement: 每个受管实现文件和外部接口必须归属一个目标架构责任，每个目标责任必须有实现状态、差距、验证和处置；全部必需实现观察范围、配置和关系种类必须具有完整覆盖或显式未知及解决计划。未声明关系、未分类实现、静默排除或观察缺口存在时不得声称完整对齐。
+    protected_fact_ids:
+    - FACT-29A948A8B5364EB3
+    - FACT-1B200CD9D4FC4A3B
+- fact_id: FACT-17027103062E40D3
+  status: draft
+  title: 目标架构依赖方向不得形成闭环
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-1B200CD9D4FC4A3B
+  content:
+    statement: 目标架构的拥有关系和依赖关系必须存在明确方向且不得形成循环依赖；确需双向协作时必须通过独立契约或事件解耦，而不是互相拥有。
+    protected_fact_ids:
+    - FACT-1B200CD9D4FC4A3B
+- fact_id: FACT-0BE56C5E099F4DBE
+  status: draft
+  title: 验证执行不得启动智能编码代理
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-D921CBBA28354A0B
+  - FACT-E006363B710D433B
+  content:
+    statement: 任何被Strixnova允许或记录的验证命令都不得以智能编码代理、代理宿主或代理会话作为首个执行程序，也不得通过包装脚本规避该边界。
+    protected_fact_ids:
+    - FACT-C33E74EC824D4AE0
+    - FACT-DF782F3974E94BCF
+- fact_id: FACT-88722DFF064F4817
+  status: draft
+  title: 确认必须绑定精确候选版本
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-D11A6942C2314E72
+  - FACT-C8E6F2891E194C50
+  content:
+    statement: 每次确认必须来自项目负责人对当时完整展示且可理解的精确语义候选所作决定；程序必须在内部把负责人原文绑定到该候选的精确身份、修订和事项版本，正文实质变化或版本过期即失效。对同一候选重新解释、回答问题或改变展示措辞不产生确认、不改变候选身份，也不使候选自动失效；内部身份不得作为用户需要理解或复制的确认内容，程序、智能编码代理、测试或另一个候选都不得代签、推断或复用确认。
+    protected_fact_ids:
+    - FACT-D11A6942C2314E72
+    - FACT-C8E6F2891E194C50
+- fact_id: FACT-942ED7F67B244AC2
+  status: draft
+  title: 证据只能支持其实际证明范围
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8AC9AE21345846DE
+  - FACT-C81DA4F98DBF40FB
+  - FACT-296143B0C54B493D
+  - FACT-D7351091E90D4C29
+  content:
+    statement: 测试通过、命令成功、文件存在、路径可发现、文档声明、规则来源绑定、内部符合性判断和单一环境结果，只能证明其实际覆盖的事实；不得被扩大解释为语义正确、通用可用、外部认证或合规、完整交付或用户已确认。
+    protected_fact_ids:
+    - FACT-8AC9AE21345846DE
+    - FACT-C81DA4F98DBF40FB
+    - FACT-296143B0C54B493D
+    - FACT-D7351091E90D4C29
+- fact_id: FACT-CFA061C2D3E4F506
+  status: draft
+  title: 权威变更不得绕过现行基线和下游处置
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-EB6C2D8E9FA0B1C2
+  content:
+    statement: 正式工程方案中的权威变更集必须恰好绑定产品、领域、目标架构和实现对齐四类当前采用核心基线；候选修订在独立确认前不得标记为已采用，任何下游影响都不得缺失处置。
+    protected_fact_ids:
+    - FACT-A1C2E3F405162738
+    - FACT-01E58C1E2F3C4D9C
+- fact_id: FACT-D0B172D3E4F50617
+  status: draft
+  title: 计划操作与验证必须完整归入依赖切片
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AD8E4FA0B1C2D3E4
+  content:
+    statement: 正式实施中的每项计划操作和验证命令必须恰好属于一个实施切片；切片依赖不得成环，未满足依赖不得越级，存在重叠写入的切片不得被声明为可并行。切片实施前的长期权威治理阶段只可提前形成已确认方案所列候选的真实治理路径，并且必须先完成精确正文复核和完整候选包确认；这些路径仍保留原切片归属，不构成切片完成，也不得夹带普通业务路径。进入切片实施后，累计工作树不得提前包含其他后续路径。已完成切片的操作结果和文件快照在下一切片、实际结果确认、提交和本地合入前都必须保持一致；仅允许两类显式且可复核的变化：工程方案声明的同一实现对齐草稿可在唯一最终切片刷新；原生
+      Git 合入冲突经智能编码代理明确判断未改变已确认方向、方案和用户可见结果，且全部受影响验证通过后，可形成一份只保护普通交付文件的冲突解决快照，并要求真正合入提交与之完全一致。其他跨切片或确认后改写必须重新规划或重新确认。不属于任何已确认操作的路径必须单独标为计划外改动，不能冒充后续切片实现。
+      多仓库操作、路径重叠和完成快照均按仓库身份与内容范围核对；两个仓库的同名路径不能混为一项操作。
+    protected_fact_ids:
+    - FACT-B2D3F40516273849
+    - FACT-47B266640F1840DA
+    - FACT-C33E74EC824D4AE0
+    - FACT-ADDCB3B236194270
+- fact_id: FACT-E1C283E4F5061728
+  status: draft
+  title: 程序不得把语义复核冒充机器证明
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-FC7D3E9FA0B1C2D3
+  - FACT-34162167D6B443BC
+  content:
+    statement: 程序不得判断语义复核的文字、严重程度或解决方案是否正确；它只能检查复核记录的结构、八类声明覆盖、引用和被声明阻断之间的确定性关系。
+    protected_fact_ids:
+    - FACT-C3E4A5061728395A
+    - FACT-4FD08D68267441B6
+- fact_id: FACT-F2D394F506172839
+  status: draft
+  title: 负责人视图不得制造额外确认负担
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-77865B53D2B34969
+  - FACT-CC5907248DBD4800
+  content:
+    statement: 负责人视图或确认说明不得成为第四个事项确认点、第二份候选或持久化展示快照；同一轮高影响问题不得超过五个，可调查事实不得转嫁给负责人，任何确认仍绑定原精确候选版本。
+    protected_fact_ids:
+    - FACT-D4F5B61728395A6B
+    - FACT-C8E6F2891E194C50
+    - FACT-B3D14DA096B94DD9
+- fact_id: FACT-ADD3819AC3274637
+  status: draft
+  title: 方向决定必须完整承接当前产品护栏且不得由程序判断语义
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-73E63F97C5B64499
+  - FACT-9DADF2842D094773
+  content:
+    statement: 对已有项目，每个可确认方向必须精确绑定当前产品修订、引用至少一项由智能编码代理判断相关的产品能力，并对该修订全部非目标和约束各处置一次且写明理由；对尚无产品权威的新项目必须明确绑定空上下文。程序不得生成或评价相关性和理由。产品修订或护栏集合变化、处置缺失重复或引用悬空时，方向及全部下游确认必须失效；标记需要重新考虑的护栏在新产品修订独立确认前继续约束实施。
+    protected_fact_ids:
+    - FACT-D013580DC0D04476
+    - FACT-89383788CD9D4BB0
+    - FACT-A6D67900F98A4F01
+- fact_id: FACT-BB5B23DD1FAB4533
+  status: draft
+  title: 方向身份、引用、覆盖和历史必须闭合
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-66B7EEC7A5D44062
+  - FACT-ED05BCEB08B94F1E
+  - FACT-80FC172A8D784960
+  - FACT-F6044AA05940484D
+  - FACT-B08EEE5142FB4A31
+  content:
+    statement: 每个方向条目身份必须符合其种类前缀，同一方向的同类身份必须唯一；验收项只能引用同一方向中存在的需求，每条需求至少被一个验收项覆盖；行为例子必须属于一个验收项，只引用该项所覆盖需求或当前方向约束，并在当前方向内唯一。同一
+      WorkItem 历史中已经退出的身份不得再次出现；所有下游方向引用必须使用稳定身份，不得接受数组位置。程序可以机械证明这些条件，但不能证明条目含义、语义连续性或验收设计正确。
+    protected_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-66B7EEC7A5D44062
+    - FACT-ED05BCEB08B94F1E
+    - FACT-80FC172A8D784960
+    - FACT-F6044AA05940484D
+    - FACT-B08EEE5142FB4A31
+- fact_id: FACT-7B99D0DC855342F7
+  status: draft
+  title: 单一当前写格式与历史原文保全
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  dependency_fact_ids:
+  - FACT-D0828206E1A6C60E
+  - FACT-A6AEAAD06C24D8F8
+  - FACT-C9C5B5C016D75999
+  content:
+    statement: 每个运行构建只读写当前已声明的精确持久格式；初始 Authority、活动库和证据格式各为 v1。未知、不匹配或损坏格式写前拒绝并保留原文件。历史入口有界读取原事件、用户决定、验证结论及确认依据，不以当前规则重判原决定；产生新事实后不得用既有备份静默覆盖。
+    protected_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-D0828206E1A6C60E
+    - FACT-A6AEAAD06C24D8F8
+    - FACT-C9C5B5C016D75999
+- fact_id: FACT-7C8FE93A620B4D51
+  status: draft
+  title: 当前验收约束与风险必须逐项有核验处置
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids:
+  - FACT-C81DA4F98DBF40FB
+  dependency_fact_ids:
+  - FACT-C33E74EC824D4AE0
+  - FACT-C81DA4F98DBF40FB
+  content:
+    statement: 当前事项的每项验收、约束和已识别风险必须有命令覆盖或明确的 Agent 审阅、既有证据、未核验安排；含例子的验收对每个例子安排并从子例子派生结果。自动例子必须绑定框架原生用例，实际结果还须逐例提交
+      Agent 断言审阅。缺报告、未收集、跳过、预期失败、未运行、失败或声明输入变化均不能冒充例子通过；测试是否足够仍由 Agent 判断。实际结果逐项回应非命令安排并保留缺口限制。旧方案保留原安排，不自动补造新核验结论。
+    protected_fact_ids:
+    - FACT-C33E74EC824D4AE0
+    - FACT-C81DA4F98DBF40FB
+- fact_id: FACT-B184DE92F60A4375
+  status: draft
+  title: 后续处置必须绑定被接受的原延期承诺
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-C81DA4F98DBF40FB
+  content:
+    statement: 明确延期承诺只有在原实际结果接受后才生效。后续事项绑定原事项、结果版本和条目身份，逐项说明处置；只有后续结果接受才更新派生状态，完成或取消事项不自动解除承诺。并发过期处置写前拒绝，原结果与决定不改写，接受限制并结束跟进与未来处理承诺分开。
+    protected_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-C81DA4F98DBF40FB
+- fact_id: FACT-9E4CB9E89CA44AF3
+  status: draft
+  title: 仓库的修改与交付归属唯一
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-EECFC91CAB03476E
+  content:
+    statement: 同一仓库在当前有效归属中只能由一个受管项目负责修改和交付。其他项目对其内容、接口或服务的依赖不产生第二个修改与交付归属，也不能用本项目的结果接受授权对方仓库改动。程序只核对可取得的归属声明与证据，不冒充跨机器全局发现、权限或互斥服务；无法确定时必须明确核对范围及未知。
+    protected_fact_ids:
+    - FACT-AD3A3604E30A4387
+    - FACT-12A47E948AC94AF2
+    - FACT-EECFC91CAB03476E
+    - FACT-B3D14DA096B94DD9
+- fact_id: FACT-ED05722401BA4708
+  status: draft
+  title: 部分仓库合入不等于整项完成
+  kind: domain_invariant
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B66A3271FAD74C65
+  - FACT-7A7AD19A842140AF
+  content:
+    statement: 正式交付事项只有在当前已接受结果对应的全部必要仓库交付均有真实落地与安全收尾事实、适用义务已按项目规则明确处置时，才能声明本地交付完成。部分成功、计划或取消不代替完成。部分合入后可以取消整体事项并保留已合入、未交付及剩余处置；取消停止后续建设，不自动回滚，也不把整体记为完成。撤销或补救须有明确处置。仍在执行或结果未知时先保存取消意图、阻止新的建设副作用并收口外部事实，不提前宣称安全终止。不产生正式交付的调查事项沿用原有完成含义，不制造空交付证据。
+    protected_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-C81DA4F98DBF40FB
+    - FACT-B66A3271FAD74C65
+    - FACT-89383788CD9D4BB0

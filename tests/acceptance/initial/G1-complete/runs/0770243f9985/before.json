@@ -1,0 +1,185 @@
+{
+  "current_action": {
+    "action_type": "confirm_engineering_plan",
+    "actor": "user",
+    "blocking_facts": [],
+    "conditional_record_refs": [],
+    "confirmation_challenge": {
+      "candidate_fingerprint": "sha256:3e50e03c1a956e1cb89ee7abc6d0f4475d603c367ff6cc9aa3b8cf5b7db82e64",
+      "candidate_kind": "engineering_plan",
+      "decision_interpreter": "coding_agent",
+      "decision_label": "当前展示的工程方案",
+      "schema_version": "strixnova.confirmation-challenge.v1"
+    },
+    "input_contract_ref": "input.contract:confirm_engineering_plan",
+    "input_kind": "engineering_plan_confirmation",
+    "intent": "confirm",
+    "record_refs": [
+      "engineering.plan",
+      "repository_deliveries"
+    ],
+    "schema_version": "strixnova.current-action.v1",
+    "work_item_id": "WI-20260928-9CA7291C",
+    "work_item_version": 4
+  },
+  "reading": {
+    "complete": false,
+    "max_output_bytes": 4096,
+    "schema_version": "strixnova.record-reading.v1",
+    "unread_refs": []
+  },
+  "record_pages": {
+    "engineering.plan": {
+      "entries": [
+        {
+          "key": "actual_result_requirements",
+          "ref": "engineering.plan#/actual_result_requirements",
+          "type": "object",
+          "value": {
+            "domain_fact_changes": []
+          }
+        },
+        {
+          "key": "applicable_rules",
+          "ref": "engineering.plan#/applicable_rules",
+          "type": "array",
+          "value": [
+            {
+              "evidence_refs": [
+                "direction"
+              ],
+              "minimum_assurance": "A1",
+              "required_information_kinds": [
+                "requirement",
+                "acceptance",
+                "constraint"
+              ],
+              "rule_id": "STRIXNOVA-GOV-REQ-001",
+              "source_ids": [
+                "ISO-29148-2018",
+                "ISO-15289-2019"
+              ],
+              "topic": "requirements_and_acceptance",
+              "triggered_by": [
+                "formal_implementation"
+              ]
+            },
+            {
+              "evidence_refs": [
+                "direction"
+              ],
+              "minimum_assurance": "A1",
+              "required_information_kinds": [
+                "operation",
+                "delivery"
+              ],
+              "rule_id": "STRIXNOVA-GOV-LIFE-001",
+              "source_ids": [
+                "ISO-12207-2026"
+              ],
+              "topic": "life_cycle_and_configuration",
+              "triggered_by": [
+                "formal_implementation"
+              ]
+            },
+            {
+              "evidence_refs": [
+                "SRC-002"
+              ],
+              "minimum_assurance": "A1",
+              "required_information_kinds": [
+                "verification"
+              ],
+              "rule_id": "STRIXNOVA-GOV-TEST-001",
+              "source_ids": [
+                "ISO-29119-2-2021",
+                "ISO-25010-2023"
+              ],
+              "topic": "verification_and_testing",
+              "triggered_by": [
+                "impact_scope.testing:affected"
+              ]
+            }
+          ]
+        },
+        {
+          "key": "assessment_ref",
+          "ref": "engineering.plan#/assessment_ref",
+          "type": "object",
+          "value": {
+            "assessment_id": "EA-20260928-11111111",
+            "assessment_revision": 1,
+            "work_item_id": "WI-20260928-9CA7291C"
+          }
+        },
+        {
+          "key": "assurance_band",
+          "ref": "engineering.plan#/assurance_band",
+          "type": "string",
+          "value": "A1"
+        },
+        {
+          "key": "authority_change_set",
+          "ref": "engineering.plan#/authority_change_set",
+          "type": "object",
+          "value_omitted": true
+        },
+        {
+          "key": "behavior_examples",
+          "ref": "engineering.plan#/behavior_examples",
+          "type": "object",
+          "value_omitted": true
+        },
+        {
+          "key": "change_context",
+          "ref": "engineering.plan#/change_context",
+          "type": "object",
+          "value": {
+            "change_kind": "modify_existing",
+            "formal_implementation": true
+          }
+        },
+        {
+          "key": "delivery_plan",
+          "ref": "engineering.plan#/delivery_plan",
+          "type": "object",
+          "value": {
+            "evidence_refs": [
+              "SRC-001",
+              "SRC-002"
+            ],
+            "expected_outcome": "src.py 完成边界校验，tests/test_duration.py 覆盖异常分支，实现对齐更新闭环。",
+            "limitations": [],
+            "repository_order": [
+              "REPO-1111111111111111"
+            ],
+            "rollback_or_recovery": "git checkout 恢复修改。"
+          }
+        }
+      ],
+      "next_cursor": "eyJiaW5kaW5nIjoiYzE2NmU0YTQ2ODhhZWM1NDBmOTM1NzVhYWZkYTU5Njc3NGU1YjE4ODVmZmVlMjYzNmVkYzg3NTY1NDliMjdmYyIsIm9mZnNldCI6OH0",
+      "start": 0,
+      "total_count": 27,
+      "type": "object",
+      "unexpanded_refs": [
+        "engineering.plan#/authority_change_set",
+        "engineering.plan#/behavior_examples"
+      ]
+    }
+  },
+  "record_sources": {
+    "engineering.plan": {
+      "root_ref": "engineering.plan",
+      "source_sha256": "4e78d2913ad7c50f3a8d8d58cad944060ca6aea52f46c5a2e32efb74744294b6"
+    }
+  },
+  "records": {},
+  "relations": {
+    "declared": [],
+    "referenced_by": []
+  },
+  "schema_version": "strixnova.next-step.v1",
+  "work_item_id": "WI-20260928-9CA7291C",
+  "work_item_status": "awaiting_plan_confirmation",
+  "work_item_version": 4
+}

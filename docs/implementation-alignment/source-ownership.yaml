@@ -1,0 +1,1720 @@
+schema_version: strixnova.implementation-source-ownership.v1
+alignment_model_id: ALIGNMODEL-7BC755CF18D1404C
+alignment_revision_id: ALIGNREV-D15EBF40D6074A7C
+governed_source_scopes:
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  root: strixnova/src/strixnova
+  included_path_patterns:
+  - '*.py'
+  - '**/*.py'
+  - '*.json'
+  - '**/*.json'
+  - '*.md'
+  - '**/*.md'
+  - '*.yaml'
+  - '**/*.yaml'
+  included_node_kinds:
+  - Python（编程语言）生产文件
+  - 随安装包提供且影响运行合同的结构化资源
+  - 随安装包提供且影响智能编码代理使用行为的引导资源
+  exclusion_policy: 只有纯包标记、生成内容或第三方内容可以显式排除；本快照的排除项均在逐文件记录中说明。
+  repository_id: REPO-284FDA042B2A4ABD
+records:
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/__init__.py
+  sha256: 962be616ecfb296bdb43c87e071a6afa65b95d6f5d2f98505e823c4dbcbba78d
+  language_id: python
+  node_kind: package_metadata
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Package init with __version__; owned by the query module as the package entry point. 4 lines, contains
+    version constant used by WorkItemReadModel.overview(). 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/actual_result.py
+  sha256: b8a274149766dd93904e0b1b35b0801758b9d7107e26687073b1ec1a68e7c8d5
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件名和模块归属合同对应实际结果接受职责，属于建设事项权威模块。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/agent_setup.py
+  sha256: 96da7c81ff16369ca06dbad9e77be87f7bc7973c44c7cafc4d65d8f9d7e127fc
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-159AE7957218470C
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（129行）：install_agent_skill 被 ApplicationCoordinator.install_agent_guidance 直接调用，完整实现 agent skill
+    安装职责；不修改 Agent 配置文件，与合同子职责一致。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/application_coordinator.py
+  sha256: e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-159AE7957218470C
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 直接读取关键方法（_public_use_case L225-303、verify L2441-2715、cancel L2878-2990、confirm L3456-3606、complete_implementation_slice
+    L3184-3293、request_replan L3295-3327 等），合计覆盖约95%。ApplicationCoordinator 作为唯一应用入口的归属已充分验证。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/behavior_examples.py
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: f9b64c20ff9bdaebfde373faa3fd9d65c3e08c1c4725be37d08fea1614375600
+  target_module_id: MODULE-5CEF109E340C469F
+  deviation_ids: []
+  current_status: aligned
+  rationale: 实现 normalize_behavior、example_catalog、example_ids、example_parents，直接支持工程评估治理中方向行为例子的校验与父子关系维护。 评价及独立复核见
+    tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/cli.py
+  sha256: 4590c3f3599049252c68699c4c2d31754425d4a9729c02037754493aeea43dc8
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-333FEE8F8A1B491E
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（1180行）：完整实现命令路由、_command_errors 统一错误格式、_emit 稳定输出、_load_object 多输入方式；所有命令覆盖合同操作范围 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/confirmation_protocol.py
+  sha256: 8608c5ba58248a5d490f66c3078207d561ce27f4eefafaac239038f2084abbbe
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现挑战-应答确认协议，对应普通确认保存用户自然语言原文与 Agent 显式决定和依据职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/current_action.py
+  sha256: 7acc77fad25b00702f6122e879bb28db342d108ecfaadbfefb9db0e169e51863
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现当前行动计算（current_action_for 和 direction_revision_action_for），与计算当前行动接口操作直接对应。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/delivery_activity.py
+  sha256: 2cfd848a03a962ca201ab106ee9a8ad085f743449bf835b7cf46ef5a2b9adde4
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-BB121DB52CFE47D1
+  implementation_stage_id: ARCHSTAGE-3A40145E290D4B62
+  current_status: aligned
+  deviation_ids: []
+  rationale: 该文件完整实现交付运行活动治理：DeliveryActivityAuthority 类提供 plan/authorize/record_external_receipt/cancel_planned/get/list/history
+    方法，覆盖合同三项操作；validate_activity_plan/validate_activity_receipt 负责输入校验；capabilities() 显式声明不执行外部活动；_connect 实现格式准入保护。归属
+    MODULE-BB121DB52CFE47D1 可观察，sha256=2cfd848a... (packet.json)。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-6/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/engineering_change_planning.py
+  sha256: 01a4d2efa7328af25b5896af818953e407d0e0ec5c801fb1343992e449b2111d
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现 validate_change_planning、compile_implementation_slices、validate_semantic_review，及 implementation_slice_reportability（含
+    terminal_slice_issue 未执行切片列表生成 L2194-2212）；直接支持权威变更集、切片、语义复核和停止条件职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/engineering_governance.py
+  sha256: 862e5820eaef41a56e544ac98fe7c2b2468e095a8b8ba84b24fb997c06e49730
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 模块核心，实现 validate_assessment 和 compile_engineering_plan；补充核对 investigation_commit 派生（L1788-1809）和文件存在性校验条件（L2292-2341），确认准入分层正确。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/engineering_trace_projection.py
+  sha256: 31930ca70cc027d784013da07409d58b4256a0d23072488c3c03d37be2d78060
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Implements EngineeringTraceProjection with for_work_item/for_fact/for_artifact, directly mapping to
+    '读取工程追溯' operation. 681 lines fully read. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/execution_context.py
+  sha256: 397b4eb62e0260d5f58ac498d1ba23b1de220b31ad552b45e78ab2ee506aa15c
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: execution_context() assembles execution material from work item and plan, supporting the query layer's
+    focused view. 121 lines fully read. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/execution_stop_evidence.py
+  sha256: 2a8cbf8ccb7bedfd8172032f8f336e6c3e4f6fa9bb39d8ec18ba43b65edc197e
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（71行）：实现 validate_stop_evidence 校验外部停机证据的 Schema、scope、时间和文件一致性。'失败终止时列出未执行后续切片'由 engineering_change_planning.py
+    的 implementation_slice_reportability 负责，不要求此文件独自生成。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/follow_ups.py
+  sha256: dd39636a242dd71ed213003ccafeda3d3623c3948d6c879a13d5e101bb435f89
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现后续事项管理，属于建设事项权威的从属事项追踪职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/git_project_reader.py
+  sha256: 83e73350c3c2be53e8b28964d0cb33d9004eb6fce63b628c13813d3502c62433
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-B558AA14F6004AC0
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件通过 GitProjectReader/_ReadOnlyGit 实现「读取当前/精确版本文件」「批量读取」「解析精确版本」。只读 Git 实行隔离、路径安全检查、仓库身份绑定与合同制约一致 评价及独立复核见
+    tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/git_workspace.py
+  sha256: cca6947ef9de561f4f2f83edf1077402f12a0959ebe14759a515b0bc1bb3ad80
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-CB284ED0FE4040DE
+  implementation_stage_id: ARCHSTAGE-3A40145E290D4B62
+  current_status: aligned
+  deviation_ids: []
+  rationale: 该文件实现本地变更交付模块全部核心职责：create_work_area/result_commits/integrate/commit_prepared_integration/integration_result/cleanup/rollback_empty_work_area/cancellation_state/discard_cancelled_work，覆盖合同五项操作；ProcessPolicy.exact
+    限制只允许本地 Git，无远程操作。归属 MODULE-CB284ED0FE4040DE 可观察，sha256=cca6947e... (packet.json)。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-6/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/host_adapter.py
+  sha256: ee4098490b2c81c4ef399ed4e26a861fd2b06de53c7b3042912bd0ab5dc5ccb7
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-333FEE8F8A1B491E
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（689行）：LocalHostAdapter 薄代理实现写请求转换（委托 ApplicationCoordinator）和只读查询包裹（_adapter_use_case + coordinator.read_operation()）；next_step
+    集成 bounded_next 实现有界记录读取；describe() 明确声明无会话和凭证管理 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/implementation_alignment_artifacts.py
+  sha256: b24ad4bcf2d1602d253369690d901998bebec6d71e2c278c0f87a85ca88952bc
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-159AE7957218470C
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（682行）：ImplementationAlignmentArtifactStore 实现内容寻址分页存储和基于清单可达性的 GC；被 ImplementationAlignmentPreparation
+    导入使用。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/implementation_alignment_preparation.py
+  sha256: 3613ffb9b475878113b92ae0ec861a19c21952ae93db39ad65a8cbf561900f61
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-159AE7957218470C
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（2347行）：当前变更删除 import subprocess、_git 函数定义（12行）和 write_candidate 中两次 _git 调用（fix.diff L26-L54）；write_candidate
+    L2155-2156 改用 packet['repository_content_refs'] 记录按仓库绑定版本。prepare()（L1650-1792）、inspect()（L1505-1551）有界分页、write_candidate()（L1971-2347）持久事务、capture_external()（L1794-1870）provider
+    授权——与合同对齐复核用例完全对应。删除的 _git 包装和 subprocess 导入仅服务于已被 repository_content_refs 取代的旧格式 head/worktree_state 字段，当前
+    v1 schema 不使用。SHA-256 与 packet ownership_candidates 中声明的 3613ffb9 一致。评价为代码职责核对，不是整体产品或真人接受。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/current-contract-cleanup/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/implementation_candidate_evidence.py
+  sha256: 0363fceb76a2b5a65fee7ea525e950bef2aff999e7ca2276a728b68dcdeb94e9
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-159AE7957218470C
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（716行）：operation_realization/path_snapshot/candidate_snapshot/conflict_candidate_snapshot/require_candidate_snapshot
+    直接支撑 present_actual_result 和 delivery 用例中的文件完整性校验。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/implementation_observation.py
+  sha256: 122cd07e8273ceb36689c3c6d4881b02a7815a929827dc6d50fa502af43b4e65
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-BED07DF20C2A4493
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 该文件实现实现事实观察模块全部核心职责：observe_implementation 和 observe_project_implementation 公共接口、六个内置语言适配器、外部提供者完整流程、失败统一保留、能力矩阵声明不主张完整项目语义。归属
+    MODULE-BED07DF20C2A4493 可观察，sha256=122cd07e... (packet.json)。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-6/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/initial_installation.py
+  sha256: 2d95c14df97fd9e490e82dfb90dd1a4a6b5b802a622def3fe084a4d7958144e1
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-1CDA1D66DA409B5A
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现 install_initial_runtime()，封装首次离线安装逻辑，调用 ManagedInstallation，阻断已有数据的升级场景，不修改系统 Python，与模块「首次离线安装」职责对应。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/managed_installation.py
+  sha256: 5a469911f1bcd2e99aba85e923b365a45da0f5b857eb61d24f3b49374dacc2d5
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-1CDA1D66DA409B5A
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现 ManagedInstallation 类，涵盖 inspect、prepare（隔离 venv，pip install --no-index）、select、active、run、validate_project
+    等操作，与「受管安装」核心职责对应，通过 ProjectMaintenance 封装并发控制。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/persistent_evidence.py
+  sha256: 1a5648287b6d40f58d5b2abf9f0278fcf3d0849b640c9c472032fcbcbac138d9
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现持久化证据寻址，对应集中隐藏当前持久格式与写入保护、证据寻址职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/process_supervisor.py
+  sha256: 00b5b41f935844c2b8761426ece225061a33af7a2f333fb082fbdffd5d9e3b96
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-6DEF61048B394531
+  implementation_stage_id: ARCHSTAGE-3A40145E290D4B62
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件是受限进程监督模块唯一源文件。修复仅在 _FORBIDDEN_AGENT_PROGRAM_NAMES（L19-30）中新增 agy，其余 672 行代码全部保持不变，完整实现 run_process、ProcessPolicy、ProcessLimits、ProcessResult
+    等全部公开接口。新增测试 test_known_antigravity_entry_is_rejected_before_process_start（4 个参数化用例 run_id 30b2d951c8f4 均 passed）验证拒绝先于进程创建。sha256
+    从 9e2db10c 变为 00b5b41f，变化精确限于禁止集合扩展。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/known-agent-guard/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_architecture_description.py
+  sha256: c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-525F73C6C189406A
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: ProjectArchitectureDescription类实现多artifact架构读取、全量结构校验（无环/唯一性/引用/处置）、决策目录和模块选择；_validate_no_current_implementation()主动拒绝含实现字段的架构文件，符合合同not_responsible_for约束
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_authority_consistency.py
+  sha256: a121c867daae465f3be61ea42c889e20eb5e4722f4da35573c037a0a161bd731
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-09B10A7EF967494D
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（2529行）：当前变更仅删除 _review_state 中旧版 base_commit/worktree_state 回退和多仓库接管提示（fix.diff L64-L85），改为只比较当前
+    repositories 列表。合同三项操作（检查采用链、形成治理上下文、计算失效范围）的全部主体逻辑在当前源码中可观察验证：_check_available_chain L2431-L2444 核对4条引用链；governance_context/engineering_governance_context/direction_context
+    提供只读上下文；invalidation_scope 经 _DOWNSTREAM 图传播；所有方法输出 semantic_content_machine_proven=False。not_responsible_for
+    约束（不修改权威、不判断语义、不反向定义上游）在源码中可观察。SHA-256 与 packet ownership_candidates 中声明的 a121c867 一致。评价为代码职责核对，不是整体产品或真人接受。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/current-contract-cleanup/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_authority_decision.py
+  sha256: decf507d0fb2b61817bf6fbc39b31c7466777760927505649414cbf319ba2714
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-159AE7957218470C
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（1192行）：实现 project_authority_candidate 等五个关键函数，直接支撑 confirm_project_authorities 用例。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_authority_progress.py
+  sha256: 2f4b10a50325989c0efd54185f9348567412f7eb0e18ebda1a90109df06ae691
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（851行）：project_authority_stage（L601-731）完整投影四种权威的 author/review/confirm 阶段边界，覆盖全部 PROJECT_AUTHORITY_ORDER
+    种类。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_content_snapshot.py
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-9114032F543D46B2
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 6c5eb471db146905393601d6b3077ccb97863da5e690e206d2fa26533a4c204f
+  target_module_id: MODULE-B558AA14F6004AC0
+  deviation_ids: []
+  current_status: aligned
+  rationale: 文件实现「采集与比对声明内容组合」，不写项目文件、仅组合声明依据、不探测服务。与合同制约一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_context.py
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 8bf3cc68533dfbe26cda638e9a434dc5c743f20b2810a4aa8d365cdd3df43766
+  target_module_id: MODULE-F55E33D530DD42A8
+  deviation_ids: []
+  current_status: aligned
+  rationale: 实现 ProjectContextResolver 和 ProjectContext，覆盖合同 4 项操作：解析项目入口、取得操作仓库上下文、绑定仓库内容引用、只读内容读取，不写入事项或工程目标不形成第二份归属权威。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_domain_model.py
+  sha256: 0650e9123db55ee3b104d421d6235d9c077f28cf37b1effffe079e1905755251
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-BA5C6A8095B6484E
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: ProjectDomainModel类实现渐进目录读取、事实闭包、来源/集合层级导航、谱系和类型化引用校验；不包含源码路径或测试证据字段，不修改产品定义 评价及独立复核见 tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_engineering_assurance.py
+  sha256: fbe8aa8939d3f997acaad76cb773d43937443a207126c7ca1925680e781a0c03
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现项目工程保障评估的校验（规则、证据、权威绑定），对应合同校验项目工程保障评估候选操作。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_engineering_baseline.py
+  sha256: 421f5184fe7b1f9cbee30bf685c1e2f7f20d248584c76208a5908f0ab71ad485
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-E74F1900EDCA43AE
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件实现 ProjectEngineeringBaseline 类，直接对应「项目工程基线」模块的三项合同操作（读取/校验/更新采用定位），通过 ProjectContextResolver 取得已选范围而不自行扫描仓库，不复制产品或领域正文，与模块合同职责完全一致。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_engineering_policy.py
+  sha256: 827909708c13e2d65d9939e07084c17b737a3f366350f4a1360c61a7e018673d
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-8205A05A6F5E48A8
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件是项目工程政策权威模块主源文件。修复仅将 REQUIRED_FORBIDDEN_AGENT_PROGRAM_NAMES（L58-60）从 7 项扩展为含 agy 的 8 项，其余 536 行代码全部保持不变，完整实现
+    load()、governance_profile()、obligations() 三个合同操作。新增测试 test_policy_requires_known_antigravity_entry_in_agent_denials（run_id
+    30b2d951c8f4 passed）验证移除 agy 后校验拒绝。sha256 从 1704dff4 变为 82790970。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/known-agent-guard/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_implementation_alignment.py
+  sha256: 4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-97978EF8747F4A02
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: ProjectImplementationAlignment implements load() with validation, drift(), review_status_at(), observe
+    methods, and comprehensive validation helpers mapping to all 5 contract operations. 1549 lines fully read. 评价及独立复核见
+    tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_maintenance.py
+  sha256: 65fa490170379f9c2bcd32feea3b5bbeb5a4d1a1fb78be089adeff65d1d959b1
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现维护操作协调，对应模块集中隐藏维护操作协调职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_product_definition.py
+  sha256: 23f4e499092417c1447769ea39ba7a194f81dc2c3ea86a3c059b59a2d595f09b
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-361DDA9576FF4C16
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件内容与合同职责直接对应：ProjectProductDefinition.load()实现读取和校验，project_direction_context/validate_direction_context_binding实现能力目录和护栏目录投影；无越界实现（不读取实现或领域代码，不生成产品语义）
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/project_repository_scope.py
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: cf5c40d028e0fa30c9b78ccd88269b8696e91d706e53bcc2b01b3cba039ea6d2
+  target_module_id: MODULE-F55E33D530DD42A8
+  deviation_ids: []
+  current_status: aligned
+  rationale: 实现 prepare_repository_scope()/scope_for_candidate()/select_repository()/qualify_candidate()，专门负责「限定一次工程读取范围」：校验仓库身份和
+    investigation_ref，补齐省略身份，返回范围值和只读事实，不评价工程语义不读取事项库不执行命令。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/public_input_contract.py
+  sha256: 54efca30ac3bfba78d6344c19067c0936ed728964d9b4de87010921df6c680a1
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: input_contract_for() generates exact public payload contracts per action type with schemas and instructions.
+    677 lines fully read. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/record_reading.py
+  sha256: ed3f8441a8f63d2cc0952b165de015c4dd15f4627e29721e93fec67e9ae97e64
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-333FEE8F8A1B491E
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 全文读取（197行）：bounded_next、split_reference、select 完整实现命令适配器有界记录读取职责的核心算法；直接被 host_adapter.next_step 调用
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/recoverable_document_transaction.py
+  sha256: a825bfd48fb8c77274f291bfc590db36b762da02e8451de5fe5a4f06040ecd9e
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-992560C2560A4013
+  implementation_stage_id: ARCHSTAGE-EC5E2DF72673491B
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件通过 replace_documents()/recover_document_transactions() 完整实现模块合同的「原子应用或恢复事务」和「替换精确文档组合」的底层崩溃恢复机制。公开接口、错误类、散列绑定与合同一致，无越权或漂移的明确兆候
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/__init__.py
+  sha256: 550c4d812086fc6649ff31fe46fcec5282409348d033d9d5b7b5aa83015ef7f6
+  language_id: python
+  node_kind: package_metadata
+  disposition: excluded
+  target_module_id: null
+  implementation_stage_id: null
+  current_status: not_applicable
+  deviation_ids: []
+  rationale: 本次按实际文件字节、职责与静态依赖重新观察；原观察另行保全。行为验证与结果接受见最终候选复核，不由内容哈希推导。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/actual-result-v1.schema.json
+  sha256: 896b45e27bbd3acedcb761ec63b380470dec265db834361a2d01122088ff6947
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实际结果 JSON Schema，属于建设事项权威模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md
+  sha256: 9be977051221e8dbc1459cb953497c137322d8e22fd05fe1c0a36fd360d8d52b
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill documentation resource owned by the query module. Static reference material. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+    本次仍是同一静态指引资源，归属和状态沿用既有评价；仅刷新实际观察字节。入口优先级的实际复验及独立适用性复核见 tests/acceptance/initial/intake-route-change/index.json，不冒充重做整个查询模块验收。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/agents/openai.yaml
+  sha256: 73c1e72b77e4991dc581803cf97b90a579ef2c81c301d345cea2eb78c34e883c
+  language_id: yaml
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent configuration resource owned by the query module. Static reference material. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/architecture-artifact-contracts.md
+  sha256: b55b0844776eacc262c68f9def1a5223280232e6284dc9e4b438ad2e43b993cc
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-documentation.md
+  sha256: 8c79fe7e34f1ba3353480a75116223f7f741f7f358d29e901e8b34e3ef396aec
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-formation.md
+  sha256: adfa5c80f01c628531a746f09d7a7bfcdb11f1c73b6131a1f2ad0897d79af0f8
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md
+  sha256: 322df678e6a8e8f241f3551f6342baa6f80282e2ed4faaded3fca12fbd6f6ddb
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 该文件为引导查询模块拥有的 Agent skill 参考文档。修复仅将 L273 的 forbidden_agent_program_names 示例列表从 7 项扩展为含 agy 的 8 项，其余
+    607 行指引内容不变。sha256 从 f7fb8200 变为 322df678。文件仍为静态 agent_guidance 资源，归属和职责不变。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/known-agent-guard/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-contracts.md
+  sha256: 82d9ea535aa7065ad69084506826f2a7c7e3634ad070a2036796dc1fabea233e
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-examples.md
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-865AD1FCCBD349E0
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 16d0b734b7c616b181ede74159edaefb6b92119288972eba52d44afe7a9be17c
+  target_module_id: MODULE-159AE7957218470C
+  deviation_ids: []
+  current_status: aligned
+  rationale: 全文读取（127行）：纯指导文档，通过 install_agent_skill 作为 packaged resource 部署，归属 MODULE-159AE7957218470C 的 agent
+    guidance 子职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/code-review.md
+  sha256: 8c8ca86dc5bf2a2bc732d3c45b4f5b01c30faff7cd38e8d6158bc72749c05450
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/confirmation-and-cancel.md
+  sha256: 0a202ce100972026f39fd2c817e85b8ec2bff6f9d4c32b9ef1d7855c033e8505
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/cross-artifact-review.md
+  sha256: 2f9adfe1af8fd58e19f1ed867f02b93a6779c61d10e927008663c7c3e2a55c57
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/delivery.md
+  sha256: 2a7de28ee2f2846f0f4f09ead1c3454ccb4065b2dcca09b80f6c46784d4e4ba6
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/direction.md
+  sha256: 21286fd083dc1a2e8fb09998032923e942aa210c4eb1e50083c03f708c76ed50
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-documentation.md
+  sha256: fde6ad334447d03028fde3b48f573841014a99018c6c270594415f67be0a63d2
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-fact-contracts.md
+  sha256: 35eecf2b2aa24323ac20eb14d1cb619b320174a1726ca6cd40d0fb5114fd2a55
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-modeling-and-alignment.md
+  sha256: 3fd03b1751ef067519e58722818961eb1429a8e930d9d34aade11f91102e4c30
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-assessment.md
+  sha256: 8334ad7d1b5de6711925e178a50c40059fe95b478d0d3f1bccf944e4ec4314a0
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-methods.md
+  sha256: 23de9aaa563e6fb8a38a3ddce10e0c42e85aceeac2113868f055b0bf9b602337
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md
+  sha256: ff3f10c5419d7e804f5472c1285247690cee0cf0a2512ad05ff16743fed0218d
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 该文件为引导查询模块拥有的工程政策精确结构合同参考文档。修复在 L141 规范文本和 L159 示例 YAML 中将 forbidden_agent_program_names 从 7 项扩展为含
+    agy 的 8 项，其余 194 行合同规范内容不变。sha256 从 e22aad33 变为 ff3f10c5。文件仍为静态 agent_guidance 资源，归属和职责不变。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/known-agent-guard/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/follow-ups.md
+  sha256: fafad83649ba48ed22dc47bbc47681bbb046b1eff5918401546165aa6255ff1d
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/history-and-upgrade.md
+  sha256: e93178d699689e6454096851d8a606550fc59a2363b827cd5d5ad96c3c306ed0
+  language_id: resource
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-artifact-contracts.md
+  sha256: 909b7267bae561234c86c87c9661c2f3ad1a0681c81b8633e99b920007824f3b
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-workflow.md
+  sha256: 67fd4a9ede32238f099fe865f20dc07fa2ce2de7420742b20af44d7842847154
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-practices.md
+  sha256: ff0c9245973f39570f38d1b96f76fe217069c9f9328dc54e4670551315b28c58
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/prd-authoring.md
+  sha256: e4a73d36897ade6b85100461561fe5a83031fe4683ba9de07bc86665d2c82f6d
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/product-discovery.md
+  sha256: 62b5c7f2afb923f832d574239ecc041389dc7dca549be1f62c98652ad9e19447
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+    本次仍是同一静态指引资源，归属和状态沿用既有评价；仅刷新实际观察字节。入口优先级的实际复验及独立适用性复核见 tests/acceptance/initial/intake-route-change/index.json，不冒充重做整个查询模块验收。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/replanning.md
+  sha256: e00c6fb74d89026f8798fe866718a569fedf8b7ae683e757d7be9ab2a9456ba5
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/spec-authoring.md
+  sha256: f9352b9d9732cda51a1544f357edd058ff77ed02592c8e8161dd4512dc9c2b8c
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/ux-design.md
+  sha256: e11781aee4d87aaf1367c86733e48b5bbff6450504dfcf6eddfcf64e377ef643
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/agent-skill/strixnova/references/verification.md
+  sha256: 29e07e783c217172191913a596fb390e3e5551c70d5653791501dd8d5e717da4
+  language_id: markdown
+  node_kind: agent_guidance
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Agent skill reference documentation. Static resource owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/authority-change-set-v1.schema.json
+  sha256: 73f8f0a7184a0c58662dfd823690e4b7a9f81ea0522ab28f7e981bb0bf7d1afa
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 权威变更集 JSON Schema，被 engineering_change_planning.py 引用，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/behavior-example-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: d11d6a7d730819c30e3ce70c56e9f5ed5b64d55fb9986d77ce35e781ef541433
+  target_module_id: MODULE-5CEF109E340C469F
+  deviation_ids: []
+  current_status: aligned
+  rationale: 行为例子 JSON Schema，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-9114032F543D46B2
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: a5f82c906c183b99da8491af3ad9a9bc4d37d01cea360391fc541fb2f1f0c1d5
+  target_module_id: MODULE-B558AA14F6004AC0
+  deviation_ids: []
+  current_status: aligned
+  rationale: 文件不 import Striznovatest 代码，实现 pytest_runtest_logreport（全阶段结果收集）、pytest_testnodedown（worker collection
+    元数据获取）、worker 的 pytest_sessionfinish（collection 元数据写出）、controller 的 pytest_sessionfinish（报告原子写入）。adapter_sha256
+    自己哈希设计已确认；test_xdist_controller_owns_one_complete_report (-n 2) passed 确认 xdist 路径完整性 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/current-action-v1.schema.json
+  sha256: db32b0dabe2660bb7220646d4a80f986e987dc756300a7a8e272a80d1f09cebe
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 当前行动 JSON Schema，属于建设事项权威模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/direction-decision-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-865AD1FCCBD349E0
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 5fd9595b2fb17233340d8cd5fab128420f0f906a5a4615663e3193fbc4deba3d
+  target_module_id: MODULE-684D0E7D2345445D
+  deviation_ids: []
+  current_status: aligned
+  rationale: 方向决定 JSON Schema，被 workflow_authority.py 中方向校验逻辑引用。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/domain-fact-reference-v1.schema.json
+  sha256: cdc0566d4df5a2011758019a063aca6dbdfb138442e802442ad7c33a84266dd9
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-BA5C6A8095B6484E
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: Schema定义不可变事实引用结构（schema_version/authority_kind/model_id/fact_id/observed_commit），与validate_domain_fact_reference()实现一致
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/engineering-assessment-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: a3392768574cb6cfee78b756696dff1297683c2fe806e91085cf08b603439d1a
+  target_module_id: MODULE-5CEF109E340C469F
+  deviation_ids: []
+  current_status: aligned
+  rationale: 工程评估 JSON Schema，被 validate_assessment 间接引用，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/engineering-plan-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: b283d2d63376e376cb3bf9396fa963a640da82d75103995f3e9c14000951796b
+  target_module_id: MODULE-5CEF109E340C469F
+  deviation_ids: []
+  current_status: aligned
+  rationale: 工程方案 JSON Schema，被 compile_engineering_plan 输出遵循，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/execution-stop-evidence-v1.schema.json
+  sha256: 2ad763e3305d0421fa1e42dafefce2270467a68df9940e6f124edd99dca69ac5
+  language_id: resource
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 执行终止证据 JSON Schema，被 execution_stop_evidence.py validate_stop_evidence 引用。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/follow-up-records-v1.schema.json
+  sha256: ce4e89832ecb6a908ae1ee7743d0b1c9e94ddb1b68d812435d4c87d8e5dcfe82
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 后续记录 JSON Schema，属于建设事项权威模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/git-work-area-v1.schema.json
+  sha256: cd04559c85dc16ff8f6b2473457774644067ae72737f9a061fb4cec1eddf3aae
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-CB284ED0FE4040DE
+  implementation_stage_id: ARCHSTAGE-3A40145E290D4B62
+  current_status: aligned
+  deviation_ids: []
+  rationale: 该 JSON Schema 定义 git-work-area 结构合同，所有字段 required, worktree_mode/merge_strategy 为 enum，work_ref pattern
+    要求 strixnova/ 前缀，与代码 _binding() 校验逻辑一致，GIT_WORK_AREA_SCHEMA 常量与 schema $id 对应。归属 MODULE-CB284ED0FE4040DE，sha256=cd04559c...
+    (packet.json)。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-6/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/governance-profile-v1.json
+  sha256: 42c16d05f2a5ac35eac6c691d3677e6e2d3bfd248af4d35468976a83f7067c23
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-8205A05A6F5E48A8
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: Shipped base governance profile loaded by load_base_governance_profile(). Runtime schema resource for
+    the policy module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/implementation-alignment-candidate-decisions-v1.schema.json
+  sha256: 26f51e2fdccf935e6a7a5f2c423f43aaf634e968ede48d1b745d5756b03dc9a7
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-97978EF8747F4A02
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: JSON Schema for alignment candidate decisions. Runtime schema resource for the alignment module. 评价及独立复核见
+    tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/implementation-alignment-preparation-request-v1.schema.json
+  sha256: 6fea58856ae02cce20dd26d24ce403f513bb6b601957359eb812e59da6123f7c
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-97978EF8747F4A02
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: JSON Schema for alignment preparation requests. Runtime schema resource for the alignment module. 评价及独立复核见
+    tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/implementation-observation-provider-v1.schema.json
+  sha256: a3a05b6728df2e46957cc780e3f423d4ea672c2de673615dc19be939c92c0efc
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-BED07DF20C2A4493
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 该 JSON Schema 定义外部提供者输出合同，所有字段 required, additionalProperties:false，Schema ID 与代码常量 IMPLEMENTATION_OBSERVATION_PROVIDER_SCHEMA
+    对应，由 _external_provider_schema() 加载并用于校验外部提供者输出。归属 MODULE-BED07DF20C2A4493，sha256=a3a05b67... (packet.json)。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-6/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/implementation-slice-v1.schema.json
+  sha256: e30ac5d2d26034e9eadef0645999579a5bb5a290a9de96977ae4066a877ee95c
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实施切片 JSON Schema，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/input-contract-v1.schema.json
+  sha256: 106bbaf8f877316a429a0db27481c0300506e13e5b00a03f46611cbdc36881a2
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: JSON schema resource used by public_input_contract.py for input contract validation. Owned by query
+    module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/owner-view-v1.schema.json
+  sha256: b5e2abe63b39a1ed6bc387d8e4f3c2c32c340c7c2ab9f1653fa598154378b2bf
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 负责人视图 JSON Schema，对应 compile_engineering_plan 中 owner_view 字段，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-architecture-description-v1.schema.json
+  sha256: 402592dc9900c703db89e2b14fef4057c64d21791f8590fcde14fe1341c967d5
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-525F73C6C189406A
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: Schema通过oneOf分支覆盖全部6类架构artifact，与_ARTIFACT_SCHEMAS字典和_SCHEMA_BRANCHES映射一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-authority-review-submission-v1.schema.json
+  sha256: 8ddccf47e89e4e5fc104e15f7a895b5f85bfa37fcb128bfbc1cb535edce29cbd
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 项目权威审阅提交 JSON Schema，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-bindings-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 2e70aa5bb17b460a31abe27067831a8ea6e57982d0cb2c96afac0e2dfcc84dfb
+  target_module_id: MODULE-F55E33D530DD42A8
+  deviation_ids: []
+  current_status: aligned
+  rationale: 被 project_context.py 的 _configured() 和 management_binding() 直接加载，定义显式本机绑定结构约束，是「解析项目入口」操作的输入验证资源。 评价及独立复核见
+    tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-config-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 12dec05ee3c7d9b9961878724b421c8fad2e3ee2b5eb9a0a720cc0e9f44013d4
+  target_module_id: MODULE-F55E33D530DD42A8
+  deviation_ids: []
+  current_status: aligned
+  rationale: 被 read_project_configuration() 加载验证项目配置文件结构，定义 project_id、repository_id、repositories、engineering_baseline
+    等必要字段，是「解析项目入口」中读取和验证配置的运行时依据。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-context-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 96187a0205b7d476a35163ec44231e0af2290dcc6f368d50298ade295f4da2e9
+  target_module_id: MODULE-F55E33D530DD42A8
+  deviation_ids: []
+  current_status: aligned
+  rationale: 被 _validated_request() 和 project_context_contract() 加载，定义 inspect_request 和 read_request 两种接口输入合同，是「解析项目入口」和「绑定仓库内容引用」操作的输入校验资源。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-direction-context-v1.schema.json
+  sha256: 0edd83764c945a83adc0c147ca28a2a74f35e8378cc195ffae2e62034c3c89b4
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: JSON schema resource for direction context validation. Owned by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-domain-collection-v1.schema.json
+  sha256: 2b1b7f22ae898026e5fdb1d864d48f4f0bb6ab6829ca216b815b47788ec0db53
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-BA5C6A8095B6484E
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: Schema定义领域集合结构，被_routing_index()通过_schema_issues()加载验证 评价及独立复核见 tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-domain-model-v1.schema.json
+  sha256: 1d5e7fbd79471184206a630e6bdf2b97e3eda239c15e7f1b601e491efc2eb2c4
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-BA5C6A8095B6484E
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: Schema定义领域模型manifest结构，被_manifest()通过_schema_issues()加载验证 评价及独立复核见 tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-domain-source-v1.schema.json
+  sha256: 0685dedd5ca5a138729c16c308190101f4cdae5f5464402753ec374296ff3ec7
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-BA5C6A8095B6484E
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: Schema定义领域来源和事实结构（含各kind的content约束），被_load_source()通过_schema_issues()加载验证 评价及独立复核见 tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-engineering-assurance-v1.schema.json
+  sha256: 49e3d5c0615c3bcb03f1315d0d06234672ef10e6c7670bcbb120842fe5c94ddf
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 项目工程保障评估 JSON Schema，被 ProjectEngineeringAssurance._schema_issues 引用。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-engineering-baseline-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-93D95B6555E54FEB
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 3763d079ec386038a204294868d6e251d35726ddaf686091be11effcf11e8b49
+  target_module_id: MODULE-E74F1900EDCA43AE
+  deviation_ids: []
+  current_status: aligned
+  rationale: 被 project_engineering_baseline.py 的 _schema_issues() 直接加载，定义基线文件的全部结构约束，是「校验项目基线自身结构」操作的核心运行时资源，归属
+    MODULE-E74F1900EDCA43AE。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-engineering-policy-v1.schema.json
+  sha256: 9bdd4e1c26ef33975aa84415ec669c61f43c3ce4c7e94891b01481d43aa13af7
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-8205A05A6F5E48A8
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: JSON Schema for policy validation used by ProjectEngineeringPolicy.load(). Runtime schema resource
+    for the policy module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-implementation-alignment-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-9114032F543D46B2
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: b3817fb9ad3837dfd66265e6a83478611978b137a7c87f21bb4ccaee389efc20
+  target_module_id: MODULE-97978EF8747F4A02
+  deviation_ids: []
+  current_status: aligned
+  rationale: JSON Schema for implementation alignment validation used by ProjectImplementationAlignment.load().
+    Runtime schema resource for the alignment module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/project-product-definition-v1.schema.json
+  sha256: c7d5d0a6bc36ebb9bcdbb4bf3cadebe58fd38a9603bfbfd57e4e9b6d548ac543
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-361DDA9576FF4C16
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: Schema结构与源码校验逻辑一致，additionalProperties:false阻止额外字段，identity模式与py正则一致，生命周期条件通过allOf/if/then表达 评价及独立复核见
+    tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/replan-request-v1.schema.json
+  sha256: 7420cbc4fbd076c9f8de9c9fee2608fdd68c60c0a75ac708ba646daf68fa5807
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 重规划请求 JSON Schema，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/repository-delivery-responsibility-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-865AD1FCCBD349E0
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: bfd3ece21ff19278af3b0df2dde747820869007aa7190efd775e9e4d139d071b
+  target_module_id: MODULE-684D0E7D2345445D
+  deviation_ids: []
+  current_status: aligned
+  rationale: 仓库交付责任 JSON Schema，对应在同一事项中保存各仓库交付责任职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/review-context-v1.schema.json
+  sha256: 4a270bc19f7a4425d868b474bd5d7f374e02fce26ec9d3c4d08ed25a100a5e34
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: JSON schema resource used by review_context_projection.py for review context input validation. Owned
+    by query module. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/runtime-compatibility-v1.json
+  sha256: 685451fdb39f1e8316b4f6f473e40ee8986d15b35be20bb432f3cd0827a84187
+  language_id: resource
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-1CDA1D66DA409B5A
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 随包运行兼容清单，声明 Python 版本、数据格式版本和依赖锁，被 validate_compatibility() 在 inspect() 和 runtime_identity() 中加载验证，是「识别运行组合」操作的直接依据。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/semantic-review-v1.schema.json
+  sha256: a37e73c056073329a6a8a94d008a4333969518d0a9d73b58592503eeca5b924e
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 语义复核声明 JSON Schema，被 engineering_change_planning.validate_semantic_review 引用。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/target-advance-assessment-v1.schema.json
+  sha256: d3b4bdf5f24643fbd276a9f444eeae8314fcd2c6a8b820bf7ad820ac93894000
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 目标推进评估 JSON Schema，属于模块运行时结构约束资源。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/test-case-config-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-9114032F543D46B2
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: a2ff1c13a0c4b4222359f2b9745adf2c1ea15d188810059885e4291346742e9e
+  target_module_id: MODULE-B558AA14F6004AC0
+  deviation_ids: []
+  current_status: aligned
+  rationale: Schema 定义（adapter/test_root/input_paths/bindings/example_fingerprints）与 test_case_evidence.py 的 normalize_config()
+    使用的字段集一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-9114032F543D46B2
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: bae706c10bcc8e70b0c802fd582638b2f03c3af386c4ab7c51585bf94de252bc
+  target_module_id: MODULE-B558AA14F6004AC0
+  deviation_ids: []
+  current_status: aligned
+  rationale: Schema 定义（input_snapshot/example_results/adapter_sha256/status 等）与 test_case_evidence.py 的 validate_evidence()
+    和 verification_runner.py 的 _validated_receipt() 使用的字段集一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/test-case-report-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-9114032F543D46B2
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 5b02ab12e46a3fb51a65c424ae85bb263ea50eb29d3ba9ce2e826ec84c7df8cb
+  target_module_id: MODULE-B558AA14F6004AC0
+  deviation_ids: []
+  current_status: aligned
+  rationale: Schema 定义（schema_version/run_id/adapter/collected_test_ids/results 等）与 test_case_evidence.py 的 report_results()
+    和 striznovabuiltin_pytest_cases.py 的输出 JSON 一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/verification-summary-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-865AD1FCCBD349E0
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: fc13d70cd2b4e124cfef21ecf605d97b111e5521a5a93d26850f8dfdb780fbf8
+  target_module_id: MODULE-A94EF8E733E64205
+  deviation_ids: []
+  current_status: aligned
+  rationale: Schema 定义回执结构制约（approval_ref/limitations/result/code_change_assessment/allOf 条件），与 verification_runner.py
+    的 _validated_receipt() 实现一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/verification-targets-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-4537A8D12415428C
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 44e8fd1284c899d288acbb87836c84d23d99d68d91f8008852ae3d5f5785d0e5
+  target_module_id: MODULE-5CEF109E340C469F
+  deviation_ids: []
+  current_status: aligned
+  rationale: 核验目标 JSON Schema，与 verification_targets.py 的 compile_targets 输出对应。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/work-item-relation-v1.schema.json
+  sha256: fa1cf1a7754d3a35d2e1172f98d9d646e65de57b428d337de81f5797c5298176
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: WorkItem 关系 JSON Schema，对应保存描述性关系职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/resources/work-item-v1.schema.json
+  language_id: json
+  node_kind: runtime_schema
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-865AD1FCCBD349E0
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 287cc0d971b977d7df28188c91113320e766b4a30aa7e6cbdf87d87138ffd79e
+  target_module_id: MODULE-684D0E7D2345445D
+  deviation_ids: []
+  current_status: aligned
+  rationale: WorkItem JSON Schema，是建设事项权威核心数据结构。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/review_context_projection.py
+  sha256: d6bab3613654e63b43278447344093f55785d82717b484228ec6a6cb6fe90093
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: ReviewContextProjection implements '读取审阅上下文' operation. 394 lines fully read. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/runtime_identity.py
+  sha256: c9f35be4a1df8388d1dfa7bcadde23f1a4f7834d66148040b6cb1f05e2e03aa5
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-1CDA1D66DA409B5A
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现 runtime_identity()、content_identities()、validate_compatibility()、file_sha256()、locked_dependencies()
+    等，专门用于识别运行组合（build_sha256、skill_sha256、dependency_lock_sha256），被 managed_installation.py 和 runtime_upgrade.py
+    调用。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/runtime_upgrade.py
+  sha256: bb791e1ee23d4b7aeb43cba9401dcc868996d3ee54e9d472ccb5c33ef1fde9a2
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-1CDA1D66DA409B5A
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现 RuntimeUpgrade 类，覆盖合同全部 7 项操作：识别运行组合、只读预检、执行维护升级、查询维护进度、恢复一致组合、运行已选组合（通过 ManagedInstallation.run）、核验未收口执行。
+    评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-7/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/schema_error_reporting.py
+  sha256: e56e7151f1b13640cd8d157c3c6836ff50409b9b832cf8fb4dbebe061184a887
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-B558AA14F6004AC0
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件实现「呼现结构校验错误」，将 JSON Schema 验证器错误转换为中文说明，不解释项目语义。与合同制约一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/storage_formats.py
+  sha256: a3252838f5289a4f37e574af6a545c6b8814eb65967a82a94b212261d2b56448
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现 SQLite 表结构保护和格式版本检查，对应集中隐藏当前持久格式与写入保护职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/test_case_evidence.py
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-9114032F543D46B2
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 5d2ff99b1f63b7499681355494495ce4cd25a7226b5422ddc17544ba34e6115a
+  target_module_id: MODULE-B558AA14F6004AC0
+  deviation_ids: []
+  current_status: aligned
+  rationale: 文件实现「校验声明输入和已记录证据」，不修改业务文件、不判断断言充分性。与合同制约一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/verification_dependencies.py
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-9114032F543D46B2
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: aa40ce909ffa55f7a0b9e32ecc69cef8169a5736e09eeeebf1391b83dc5aa1a0
+  target_module_id: MODULE-B558AA14F6004AC0
+  deviation_ids: []
+  current_status: aligned
+  rationale: 文件实现外部依赖版本证据的采集、核对、时效检查，作为「校验声明输入和已记录证据」的外部依赖子集，与合同一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/verification_runner.py
+  sha256: fdf89217cd1bf384b3ffdc0c0db066f2fe7c14a370c3787a112306443563cef0
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-A94EF8E733E64205
+  implementation_stage_id: ARCHSTAGE-3A40145E290D4B62
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件实现模块合同的「校验执行请求」「运行已批准验证」「汇总验证回执」三项公开操作。project_input_snapshot 由调用方负责，符合合同分层设计，不构成本文件的职责漠洞 评价及独立复核见
+    tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/verification_targets.py
+  sha256: 20ff4a75aa83bb06012ed04370727b8a7577e782a774c5372c27cfe953b9dc40
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-5CEF109E340C469F
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现 validate_reviews 和 compile_targets，直接支持工程方案中验证计划和核验安排的校验。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/work_item_history.py
+  sha256: 67c83a27ca03f35f6eb1bba7b5b26deee683958a04932a94bc64c90a6c2fd001
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-B3F5D04C39204E08
+  current_status: aligned
+  deviation_ids: []
+  rationale: WorkItemHistory provides bounded, paginated, cursor-based historical projections supporting the query
+    layer. 411 lines fully read. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/work_item_read_model.py
+  sha256: 24379f6f9bbb708a4dbd4537027d0ccad2898d5b12333c4e303b816908ddebd7
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-71687954FB1E4DFD
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: Central read model implementing overview, focused_work_item, project_status, project_direction_context,
+    project_engineering_assurance, engineering_trace_for_*, verification, decisions, impact, history, and other
+    query operations. 2070 lines fully read. 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-4/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/work_item_relations.py
+  sha256: dbb77f1c3f0366f185201a36e42d05bd67b4c1ac1c1865e89e49aa10ca4b96b2
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 实现 WorkItem 关系规范化，对应保存描述性关系职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/work_item_repositories.py
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  implementation_stage_id: ARCHSTAGE-865AD1FCCBD349E0
+  repository_id: REPO-284FDA042B2A4ABD
+  sha256: 1d318a6867ee2b7b1022c8aa236e23a9ab62bee7d1cc2904219e8ff618a28d1f
+  target_module_id: MODULE-684D0E7D2345445D
+  deviation_ids: []
+  current_status: aligned
+  rationale: 实现仓库交付责任记录与多仓库顺序执行，对应保存逐仓执行意图、实际提交、集成内容职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/workflow_authority.py
+  sha256: af17e70b2beb4226e572ae0d433d99b13f9e9cca6cf62e41cdab96f6e3206395
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-684D0E7D2345445D
+  implementation_stage_id: ARCHSTAGE-855FE8B2614840F4
+  current_status: aligned
+  deviation_ids: []
+  rationale: 模块核心，实现 WorkflowAuthority 类，包含状态转换、确认协议、方向校验、SQLite 原子写入等主要职责。 评价及独立复核见 tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD
+- scope_id: OBSCOPE-A4E3EC1A6BC8404A
+  path: strixnova/src/strixnova/yaml_metadata_patch.py
+  sha256: fcd0ff9335c2a99234878c7d89a049113de632b59f72f6774f81f619a00e88d2
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-992560C2560A4013
+  implementation_stage_id: ARCHSTAGE-92EC5D26F28042EB
+  current_status: aligned
+  deviation_ids: []
+  rationale: 文件实现「构建精确元数据事务」「预演授权元数据变化」「原子应用或恢复（YAML 层）」。apply_yaml_patch_transaction 使用 atomic_write_bytes 是 YAML
+    事务的独立实现路径，合同范围内；_transaction_target() 的 symlink/junction 检查代码完整存在 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-5/assessment.json；本状态不表示整体产品或真人接受。
+  repository_id: REPO-284FDA042B2A4ABD

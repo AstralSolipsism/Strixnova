@@ -1,0 +1,134 @@
+schema_version: strixnova.implementation-target-responsibilities.v1
+alignment_model_id: ALIGNMODEL-1111111111111111
+alignment_revision_id: ALIGNREV-3333333333333333
+records:
+# ── 模块 ──
+- target_id: MODULE-A000000000000001
+  target_kind: module
+  status: partially_implemented
+  satisfied:
+  - 区间校验（duration 函数）已存在且行为正确。
+  missing:
+  - 申请实体、生命周期状态转换尚未实现。
+  - 撤回逻辑尚未实现。
+  - 审计条目生成尚未实现。
+  - 乐观并发控制尚未实现。
+  evidence:
+  - kind: source
+    ref: src.py
+    claim: src.py 包含 duration 函数，属于申请域模块的区间校验部分。
+  deviation_ids: []
+  resolution_plan:
+  - 本轮实施中完成申请实体和撤回逻辑。
+
+- target_id: MODULE-A000000000000002
+  target_kind: module
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 成员服务模块尚未实现。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 本轮实施中创建成员服务模块。
+
+- target_id: MODULE-A000000000000003
+  target_kind: module
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 运营汇总模块尚未实现。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 周报方向待确认，独立事项后续交付。
+
+- target_id: MODULE-A000000000000004
+  target_kind: module
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 终端适配模块尚未实现。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 本轮实施中创建终端适配模块。
+
+# ── 关系 ──
+- target_id: RELATION-A000000000000001
+  target_kind: relationship
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 成员服务调用申请域的依赖关系尚未建立。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 本轮实施中建立。
+
+- target_id: RELATION-A000000000000002
+  target_kind: relationship
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 运营汇总只读申请域的依赖关系尚未建立。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 周报方向待确认后建立。
+
+- target_id: RELATION-A000000000000003
+  target_kind: relationship
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 终端适配调用成员服务的依赖关系尚未建立。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 本轮实施中建立。
+
+- target_id: RELATION-A000000000000004
+  target_kind: relationship
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 终端适配调用运营汇总的依赖关系尚未建立。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 周报方向待确认后建立。
+
+# ── 约束 ──
+- target_id: CONSTRAINT-A000000000000001
+  target_kind: constraint
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 身份来源约束的实现验证尚未完成。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 本轮实施中通过身份校验实现。
+
+- target_id: CONSTRAINT-A000000000000002
+  target_kind: constraint
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 并发安全约束的实现验证尚未完成。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 本轮实施中通过乐观并发控制实现。
+
+- target_id: CONSTRAINT-A000000000000003
+  target_kind: constraint
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 本地终端约束的实现验证尚未完成。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 本轮实施中仅创建终端接口。

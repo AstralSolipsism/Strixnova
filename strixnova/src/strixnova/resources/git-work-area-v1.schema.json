@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.git-work-area.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "repository",
+    "work_item_id",
+    "target_ref",
+    "base_commit",
+    "work_ref",
+    "worktree_path",
+    "worktree_mode",
+    "created_by_strixnova",
+    "merge_strategy"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.git-work-area.v1"
+    },
+    "repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "work_item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40,64}$"
+    },
+    "work_ref": {
+      "type": "string",
+      "pattern": "^strixnova/"
+    },
+    "worktree_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "worktree_mode": {
+      "enum": [
+        "in_place",
+        "linked"
+      ]
+    },
+    "created_by_strixnova": {
+      "const": true
+    },
+    "merge_strategy": {
+      "enum": [
+        "no_ff",
+        "ff_only"
+      ]
+    },
+    "target_advance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "target_ref",
+        "target_commit",
+        "investigation_commit",
+        "assessment"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.target-advance.v1"
+        },
+        "target_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "target_commit": {
+          "type": "string",
+          "minLength": 40
+        },
+        "investigation_commit": {
+          "type": "string",
+          "minLength": 40
+        },
+        "assessment": {
+          "$ref": "#/$defs/targetAdvanceAssessment"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "targetAdvanceAssessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "semantic_impact",
+        "reason"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.target-advance-assessment.v1"
+        },
+        "semantic_impact": {
+          "enum": [
+            "affected",
+            "unaffected"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

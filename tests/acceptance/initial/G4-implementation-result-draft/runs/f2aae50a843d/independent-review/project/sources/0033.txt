@@ -1,0 +1,82 @@
+1: schema_version: strixnova.architecture-modules.v1
+2: architecture_id: ARCH-1111111111111111
+3: architecture_revision_id: ARCHREV-3333333333333333
+4: modules:
+5:   - module_id: MODULE-A000000000000001
+6:     title: 申请域
+7:     layer: domain
+8:     responsibility: >-
+9:       承载预约申请实体、生命周期状态转换、区间校验、领域规则、
+10:       不变量和审计条目的完整领域逻辑。
+11:     not_responsible_for:
+12:       - 不负责终端展示。
+13:       - 不负责统计报表生成。
+14:       - 不负责宿主会话管理。
+15:     public_interface:
+16:       interface_id: INTERFACE-A000000000000001
+17:       title: 申请域接口
+18:       operations:
+19:         - name: 校验区间
+20:           meaning: 校验整数分钟区间的顺序并返回时长或拒绝。
+21:         - name: 创建申请
+22:           meaning: 从合法区间创建一份待审核预约申请。
+23:         - name: 撤回申请
+24:           meaning: 尝试将待审核申请状态转为已撤回。
+25:         - name: 审批申请
+26:           meaning: 尝试将待审核申请状态转为已批准或已拒绝。
+27:         - name: 查询申请状态
+28:           meaning: 返回指定申请的当前状态。
+29: 
+30:   - module_id: MODULE-A000000000000002
+31:     title: 成员服务
+32:     layer: application
+33:     responsibility: >-
+34:       协调成员的撤回操作，执行身份校验和归属校验，
+35:       调用申请域完成状态转换。
+36:     not_responsible_for:
+37:       - 不负责定义申请生命周期规则。
+38:       - 不负责终端展示。
+39:       - 不负责周报统计。
+40:     public_interface:
+41:       interface_id: INTERFACE-A000000000000002
+42:       title: 成员服务接口
+43:       operations:
+44:         - name: 撤回本人申请
+45:           meaning: 接收可信身份和申请标识，协调撤回流程并返回结果。
+46:         - name: 查询本人申请
+47:           meaning: 接收可信身份和申请标识，返回该申请的当前状态。
+48: 
+49:   - module_id: MODULE-A000000000000003
+50:     title: 运营汇总
+51:     layer: query
+52:     responsibility: >-
+53:       按自然周统计预约申请的当前状态分布，
+54:       生成不含成员私人联系方式的周报。
+55:     not_responsible_for:
+56:       - 不负责修改申请状态。
+57:       - 不负责定义申请身份或状态含义。
+58:       - 不负责终端展示。
+59:     public_interface:
+60:       interface_id: INTERFACE-A000000000000003
+61:       title: 运营汇总接口
+62:       operations:
+63:         - name: 读取周报
+64:           meaning: >-
+65:             接收可信身份和自然周参数，返回该周申请状态分布统计。
+66: 
+67:   - module_id: MODULE-A000000000000004
+68:     title: 终端适配
+69:     layer: adapter
+70:     responsibility: >-
+71:       提供本地终端命令行交互界面，将用户输入转化为
+72:       成员服务或运营汇总调用，将结果格式化输出。
+73:     not_responsible_for:
+74:       - 不负责领域规则。
+75:       - 不负责网页或网络服务。
+76:       - 不负责持久化决策。
+77:     public_interface:
+78:       interface_id: INTERFACE-A000000000000004
+79:       title: 终端适配接口
+80:       operations:
+81:         - name: 处理终端命令
+82:           meaning: 解析命令行输入，路由到对应的应用服务。

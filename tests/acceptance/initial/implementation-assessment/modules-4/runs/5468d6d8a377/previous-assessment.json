@@ -1,0 +1,640 @@
+{
+  "assessments": [
+    {
+      "target_id": "MODULE-71687954FB1E4DFD",
+      "target_kind": "module",
+      "status": "partially_implemented",
+      "satisfied": [
+        "EngineeringTraceProjection（engineering_trace_projection.py）实现了按工作事项、领域事实、长期产物重建只读追溯投影，覆盖 for_work_item / for_fact / for_artifact 三类查询入口",
+        "追溯投影明确输出 persisted_cache=False / write_interface=False / semantic_content_machine_proven=False，符合只读无写权威约束",
+        "mode 参数支持 current（当前）和 audit（审计）两种分离，replanning_required 等状态在 current 模式下返回空 edges，audit 模式保留历史事件 payload 边",
+        "历史查询使用 at_commit / 可移动集成引用版本边界，不初始化持久状态，各查询独立返回快照",
+        "execution_context.py 实现了从单一 WorkItem 重建实施材料，输出当前实施切片、方案操作、适用规则、评估材料、开放发现和验证命令，不生成自然语言说明",
+        "public_input_contract.py 实现了按当前动作 action_type 返回公开输入合同（payload_schema + instructions），覆盖超过 25 种 action_type",
+        "review_context_projection.py 实现了审阅上下文投影（ReviewContextProjection.read），按明确范围或目标模块读取版本、权威、源码归属和显式事实闭包，不创建状态，JSON 与 Markdown 来自同一结果",
+        "work_item_history.py（WorkItemHistory.query）实现了有界分页读取原记录，支持 work_item_id / events / verifications / candidates / delivery / artifacts / relations / decisions 多类记录，含分页游标，明确标记 semantic_content_machine_proven=False",
+        "work_item_read_model.py 聚合上述投影，提供 project_direction_context、project_status、execution_context、history_query 等只读接口，分开呈现产品、领域、架构、对齐、门禁状态",
+        "follow_ups 方法从已接受原结果及后续接受事件派生延期跟进，按快照有界查询，不初始化项目或形成第二套持久状态",
+        "三份 Schema 文件（input-contract-v1、project-direction-context-v1、review-context-v1）作为运行时约束已存在",
+        "SKILL.md 及 references/ 下的 agent guidance 文件存在，提供给 Agent 的行为指引覆盖大量操作场景",
+        "录得测试执行记录（run_id d0856323c4b6 / f5e20647248e）显示所有 13 项关联测试用例在两次运行中均 passed，包括：追溯投影移动引用、current/audit 分离、拒绝未知 mode、执行材料保留原始文本、方案变化改变执行身份、公开输入合同路由覆盖、确认合同约束，以及审阅上下文 12 项"
+      ],
+      "missing": [
+        "读取标准锚定与内部符合性矩阵（读取逐项治理规则状态、证据、缺口、纠偏和外部认证/合规回执状态）：在可观察源码中未发现专用 compliance_matrix 或 assurance_matrix 查询入口作为该操作的直接实现；project_engineering_assurance 方法调用的是 ProjectEngineeringAssurance.matrix()，但该方法属于 PROJECT-ENGINEERING-ASSURANCE 路径，不在本模块归属文件中，且测试集中无针对"标准锚定与内部符合性矩阵"操作的单元测试断言",
+        "合同要求"报告候选处分与内容可用性"并同时保留取消后的已合入与未交付事实：work_item_history 的 result / delivery 记录覆盖该语义，但测试未针对取消场景的历史查询形成断言",
+        "合同要求"逐项核验区分命令证据与 Agent 结论"是 Agent 行为层面的语义约束，静态代码只提供 semantic_content_machine_proven=False 标记，无法通过源码检查证明 Agent 实际行为符合此约束",
+        "工作事项实施切片、方案版本组合与跨权威状态的整体焦点视图（"读取当前聚焦视图"操作）：execution_context 返回结构涵盖切片、规则、命令，但"首个依赖已满足实施切片"的自动选择逻辑依赖 focused_slice（来自 engineering_change_planning），在本模块文件中无独立测试断言证明切片优先级语义正确"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_trace_projection.py#L46-L681",
+          "claim": "EngineeringTraceProjection 类实现 for_work_item、for_fact、for_artifact 三个查询方法，以及 current/audit 模式分离，persisted_cache=False，write_interface=False"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/execution_context.py#L49-L120",
+          "claim": "execution_context 函数从 WorkItem 重建实施材料，含切片选择、操作解析、未闭合发现收集，输出 semantic_content_machine_proven=False"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/public_input_contract.py#L338-L590",
+          "claim": "_contract_schema_for 覆盖超过 25 种 action_type，input_contract_for 返回 payload_schema + instructions，校验 input_contract_ref 格式"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/review_context_projection.py#L56-L371",
+          "claim": "ReviewContextProjection.read 按请求范围、依据版本组合代码、规则、源码归属，输出审阅上下文，不写状态"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/work_item_history.py#L62-L262",
+          "claim": "WorkItemHistory.query 实现有界分页、多类记录、游标续页，语义独立于当前动作"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/work_item_read_model.py#L183-L708",
+          "claim": "WorkItemReadModel 聚合 overview、work_item、project_direction_context、project_status、execution_context、follow_ups 等只读视图"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_engineering_trace_projection.py::test_projection_resolves_a_moving_integration_ref_for_every_query",
+          "claim": "测试证明 for_fact / for_artifact 在集成引用前进后返回新 at_commit，recorded_executions: run_id d0856323c4b6 passed, run_id f5e20647248e passed"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_engineering_trace_projection.py::test_trace_separates_current_records_audit_history_and_adoption_claims",
+          "claim": "测试证明 current 模式对 replanning_required 状态返回空 edges，audit 模式保留 authority_event 源类型，记录 persisted_cache=False；recorded_executions: 两次运行均 passed"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_engineering_trace_projection.py::test_trace_rejects_unknown_mode_and_missing_version_binding",
+          "claim": "测试证明无效 mode 引发 invalid_trace_mode，缺少集成引用引发 integration_ref_required；两次运行均 passed"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_execution_context.py::test_execution_material_preserves_source_text_and_unresolved_findings",
+          "claim": "测试断言执行材料保留 source_text 和未解决发现；两次运行均 passed"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_public_input_contract.py::test_every_current_input_kind_has_one_direct_guidance_route",
+          "claim": "测试断言每种 input_kind 有且仅有一条直接指引路由；两次运行均 passed"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_review_context_projection.py::test_changes_collect_rules_and_stale_sources_without_creating_state",
+          "claim": "测试断言审阅上下文收集规则和过期源码，不创建状态；两次运行均 passed"
+        },
+        {
+          "kind": "inspection",
+          "ref": "inputs/packet.json#L901-L668",
+          "claim": "source_at_execution_hash 注明'not independently captured by the JUnit receipt'，故测试通过不能证明精确字节级覆盖"
+        }
+      ],
+      "resolution_plan": [
+        "在本模块归属文件中补充或链接"标准锚定与内部符合性矩阵"读取操作的直接入口，并形成针对该操作的单元测试断言，区分治理规则状态、证据、缺口和外部认证回执状态",
+        "为取消场景的历史记录保留语义补充测试用例断言，证明取消后已合入与未交付事实同时可读取",
+        "针对"首个依赖已满足实施切片"自动选择逻辑，在本模块边界补充能证明切片优先级语义的测试断言",
+        "Agent 行为层面的约束（区分命令证据与 Agent 结论）需通过集成或 E2E 测试场景体现，静态代码检查无法代替"
+      ],
+      "limitations": [
+        "SKILL.md 及 references/ 文件的存在只证明 Agent 行为指引的静态内容，不证明 Agent 实际执行时遵循了这些约束",
+        "测试通过记录（JUnit receipt）不证明与当前源码字节精确一致（source_at_execution_hash 注明未独立捕获）",
+        "合同中"供智能编码代理解释的候选资料、下一步和审计追溯"涉及 Agent 语义效果，静态源码和测试结果不能证明该语义",
+        "无 Git 提交绑定，源码已读取但无法证明采集时源码与特定独立运行版本一字节一致",
+        "work_item_read_model.py 是多个子模块的聚合适配层，部分功能依赖其他模块实现，本模块边界内的可观察职责与跨模块协调职责需分开"
+      ]
+    },
+    {
+      "target_id": "MODULE-8205A05A6F5E48A8",
+      "target_kind": "module",
+      "status": "partially_implemented",
+      "satisfied": [
+        "ProjectEngineeringPolicy.load() 实现了读取并校验指定工程政策修订，验证结构合同（project-engineering-policy-v1.schema.json）、基础治理档案版本绑定、方法采用、规则裁剪、验证政策、来源完整性",
+        "ProjectEngineeringPolicy.governance_profile() 实现合并基础治理档案与项目裁剪、扩展规则，返回确定性治理档案，对应'读取精确工程政策'操作",
+        "ProjectEngineeringPolicy.obligations() 实现从已提供影响分类和保障等级返回确定性规则明确要求的工程义务，对应'评估确定性义务'操作",
+        "load_base_governance_profile() 实现加载随包基础治理档案并验证结构，可作为政策校验基础",
+        "_schema_issues() 实现基于 Draft202012Validator 的结构校验，覆盖政策格式验证",
+        "验证政策中 REQUIRED_FORBIDDEN_AGENT_PROGRAM_NAMES 强制检查，来源 ID 冲突、重复裁剪、未知方法引用均报错",
+        "governance-profile-v1.json 和 project-engineering-policy-v1.schema.json 作为运行时数据存在",
+        "录得测试执行记录显示 4 项核心测试在两次运行均 passed：test_repository_policy_is_the_current_independent_candidate、test_policy_profile_applies_method_adoption_and_owner_tailoring、test_policy_projects_only_deterministic_obligations_from_supplied_impacts、test_policy_rejects_unknown_method_and_weakened_strengthening"
+      ],
+      "missing": [
+        "'校验工程政策候选'操作：合同定义为'检查结构、引用、规则冲突和生命周期，不生成政策内容'，现有 load() 包含部分校验，但无独立的候选校验入口或测试断言区分'候选校验'与'加载已确认政策'的语义边界",
+        "合同要求'明确多仓库执行目录、内容组合证据、逐仓库落地和恢复目标的确定性约束'：governance_profile / obligations 方法在本模块未见针对多仓库执行目录和恢复目标的结构性约束逻辑，该部分依赖其他模块（工程基线/对齐）",
+        "test_behavior_verification 和 test_engineering_assessment_contract 中的 7 个测试用例被归入本模块，但这些测试文件测试的模块边界（BehaviorVerification、EngineeringAssessmentContract）在 source_paths 中未列出，无法确认这些测试是直接验证本模块职责还是通过中介模块"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L191-L521",
+          "claim": "ProjectEngineeringPolicy 类实现 load()、governance_profile()、obligations() 三个方法，覆盖政策加载、治理档案合并和义务计算"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L113-L188",
+          "claim": "load_base_governance_profile() 加载随包基础治理档案并验证必需字段、来源引用完整性"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L90-L110",
+          "claim": "_schema_issues() 使用 Draft202012Validator 对政策文件进行结构校验"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_policy.py#L481-L521",
+          "claim": "obligations() 按影响维度和保障等级过滤规则，返回确定性义务集，输出 semantic_content_machine_proven=False"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_project_engineering_policy.py::test_repository_policy_is_the_current_independent_candidate",
+          "claim": "测试验证 load() 返回正确 schema_version、revision.status 和 product_definition_ref；两次运行均 passed（run_id d0856323c4b6, f5e20647248e）"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_project_engineering_policy.py::test_policy_profile_applies_method_adoption_and_owner_tailoring",
+          "claim": "测试验证 governance_profile() 正确应用 DDD 方法采用、规则裁剪和验证政策绑定；两次运行均 passed"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_project_engineering_policy.py::test_policy_projects_only_deterministic_obligations_from_supplied_impacts",
+          "claim": "测试验证 obligations([architecture, testing], A1) 返回正确 minimum_required_assurance_band=A3 和规则集合；两次运行均 passed"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_project_engineering_policy.py::test_policy_rejects_unknown_method_and_weakened_strengthening",
+          "claim": "测试验证 load() 对未知方法和弱化强化引发 ProjectEngineeringPolicyError；两次运行均 passed"
+        },
+        {
+          "kind": "inspection",
+          "ref": "inputs/packet.json#L757-L774",
+          "claim": "test_behavior_verification 和 test_engineering_assessment_contract 的 7 个测试用例归属此模块，但其对应源文件不在本模块 source_paths 中，无法确认直接归属"
+        }
+      ],
+      "resolution_plan": [
+        "确认 test_behavior_verification 和 test_engineering_assessment_contract 测试用例对应的源文件是否属于本模块职责，或明确归属至其他模块",
+        "在本模块边界中补充独立的'校验工程政策候选'入口，区分候选校验与已确认政策加载的语义，并形成对应测试断言",
+        "对多仓库执行目录和恢复目标约束的职责归属进行澄清，若属于本模块需补充相应实现"
+      ],
+      "limitations": [
+        "测试通过记录不能证明精确字节覆盖（source_at_execution_hash 未独立捕获）",
+        "governance_profile() 和 obligations() 的语义正确性（治理规则是否准确反映项目工程方法语义）不能由静态代码检查证明",
+        "test_behavior_verification 和 test_engineering_assessment_contract 所属测试文件对应的源模块不在本模块 source_paths 中，这些测试是否直接验证本模块职责存在证据边界",
+        "无 Git 提交绑定，无法证明当前代码与历史测试执行时字节一致"
+      ]
+    },
+    {
+      "target_id": "MODULE-97978EF8747F4A02",
+      "target_kind": "module",
+      "status": "partially_implemented",
+      "satisfied": [
+        "ProjectImplementationAlignment.load() 实现了读取并校验实现对齐主文件及四份底账（source_ownership / actual_dependencies / target_responsibilities / deviations），返回合并后的完整对齐快照",
+        "drift() 方法实现了将可重复且覆盖状态明确的实现观察与已有对齐逐项比较（受管文件散列、清单散列、祖先验证、观察覆盖），对应'计算架构漂移'操作",
+        "observe_normalized_snapshot / observe_candidate_snapshot 静态方法实现了委托实现观察并标准化关系数据，覆盖多语言观察归并",
+        "is_behavior_path() 静态方法判断路径是否在受管实现范围，被 review_context_projection 等模块引用",
+        "engineering_candidate_code_facts() 实现了从候选读取代码事实（investigation_ref / source_references / operation_paths），不决定候选语义",
+        "四份 Schema 文件（project-implementation-alignment-v1、source_ownership、actual_dependencies / preparation_request）作为运行时约束存在",
+        "_validate_bindings / _validate_authority_chain / _validate_coverage 内部方法验证文件归属唯一性、权威链和覆盖完整性",
+        "录得测试执行记录显示关联的 11 个测试用例两次运行均 passed"
+      ],
+      "missing": [
+        "'机械确认实现对齐修订'操作：合同要求'只在应用用例携带已接受实际结果、候选正文快照和确认事件时，原子写入精确修订状态、负责人和事件日期'。project_implementation_alignment.py 中未观察到原子写入修订确认的方法，该职责可能在调用方（workflow_authority 或 work_item 提交流程）实现，但本模块文件中无直接可观察的实现，无法以源码证明",
+        "'读取精确实现对齐'操作中'接口证据不能替代对端源码观察'的约束：load() 返回静态记录数据，但测试未针对接口证据与对端源码观察的区分形成断言",
+        "合同要求'保留旧观察基点和未实现责任，新增目标不能只换引用或指纹后标为完整'：drift() 进行了散列比对，但专门针对'不能只换引用标为完整'约束的测试断言在已录测试中未见",
+        "'评估建设增量'操作：source_paths 中未见专用的 increment_assessment 方法，test_implementation_alignment_preparation.py 中的相关测试可能覆盖该语义，但该文件不在 source_paths 中"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_implementation_alignment.py#L500-L650",
+          "claim": "ProjectImplementationAlignment.__init__ 和 load() 实现读取主文件和四份底账，验证结构、绑定、权威链和覆盖，合并为完整对齐快照"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_implementation_alignment.py#L652-L800",
+          "claim": "drift() 实现受管文件散列比对、清单散列验证、祖先提交验证和观察覆盖比对"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_implementation_alignment.py#L258-L298",
+          "claim": "observe_normalized_snapshot 和 observe_candidate_snapshot 静态方法委托实现观察"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_implementation_alignment.py#L299-L317",
+          "claim": "is_behavior_path() 判断路径是否在已归属集合或受管范围内"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_implementation_alignment.py#L352-L498",
+          "claim": "engineering_candidate_code_facts() 读取候选代码事实，不决定候选语义，输出 semantic_content_machine_proven=False"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_composite_implementation_alignment.py::test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift",
+          "claim": "测试验证对齐区分同路径不同仓库归属并检测后端漂移；两次运行均 passed（run_id d0856323c4b6, f5e20647248e）"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_implementation_alignment_preparation.py::test_alignment_cli_writes_a_schema_valid_nonempty_decision",
+          "claim": "测试验证对齐 CLI 写入 Schema 合法的非空决定；两次运行均 passed"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_implementation_alignment_preparation.py::test_alignment_inspection_pages_every_logical_record_without_layout_leak",
+          "claim": "测试验证对齐检视分页不泄露布局；两次运行均 passed"
+        },
+        {
+          "kind": "inspection",
+          "ref": "inputs/packet.json#L886-L898",
+          "claim": "test_implementation_alignment_preparation 测试文件不在本模块 source_paths 中，其测试覆盖的实现准备/增量评估操作归属边界待核实"
+        }
+      ],
+      "resolution_plan": [
+        "在本模块 source_paths 中明确或补充'机械确认实现对齐修订'的原子写入实现（或指向实际承担该职责的模块），并形成针对写入确认流程的测试断言",
+        "补充针对'保留旧观察基点'约束的专项测试，断言新增目标不能只换引用或指纹后标为完整",
+        "澄清'评估建设增量'操作的实现位置，若在本模块 source_paths 之外实现，在合同层面明确声明"
+      ],
+      "limitations": [
+        "drift() 的语义正确性（比对逻辑是否准确反映架构漂移判断）不能由静态代码检查证明",
+        "test_implementation_alignment_preparation.py 和 test_composite_implementation_alignment.py 所对应的源文件不全在本模块 source_paths 中，这些测试是否直接验证本模块职责存在证据边界",
+        "测试通过记录不能证明精确字节覆盖（source_at_execution_hash 未独立捕获）",
+        "无 Git 提交绑定，无法证明当前代码与历史测试执行时字节一致",
+        "observe_project_implementation 实际观察逻辑在 implementation_observation 子模块中，drift() 通过委托调用，本模块只验证对比结果而不实现观察本身"
+      ]
+    }
+  ],
+  "source_ownership": [
+    {
+      "path": "strixnova/src/strixnova/__init__.py",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "未读取该文件内容（包元数据文件），无法通过内容确认其职责对齐程度；不以未读归属推断对齐",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/engineering_trace_projection.py",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件内容已读取，EngineeringTraceProjection 实现 for_work_item / for_fact / for_artifact 追溯投影，明确标记 persisted_cache=False / write_interface=False，与'引导查询与追溯投影'模块职责直接对应",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/execution_context.py",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件内容已读取，execution_context 函数从 WorkItem 重建只读实施材料，不生成或评价自然语言说明，符合模块只读投影职责",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/public_input_contract.py",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件内容已读取，input_contract_for 按当前动作类型返回公开输入合同，为 Agent 提供引导材料，符合模块向智能编码代理提供候选资料和下一步的职责",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件作为 agent_guidance 存在，为 Agent 行为提供引导；文件内容未详细读取但存在于归属候选列表，node_kind 为 agent_guidance",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/agents/openai.yaml",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估具体职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/architecture-artifact-contracts.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，作为 agent_guidance 文件存在，无法评估具体职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-documentation.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，作为 agent_guidance 文件存在，无法评估具体职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/artifact-formation.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/authority-authoring.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-contracts.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/code-review.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/confirmation-and-cancel.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/cross-artifact-review.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/delivery.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/direction.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-documentation.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-fact-contracts.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/domain-modeling-and-alignment.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-assessment.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-methods.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/engineering-policy-contracts.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/follow-ups.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/history-and-upgrade.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-artifact-contracts.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-alignment-workflow.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/implementation-practices.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/prd-authoring.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/product-discovery.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/replanning.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/spec-authoring.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/ux-design.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/verification.md",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "unknown",
+      "rationale": "文件未读取内容，无法评估职责对齐程度",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/input-contract-v1.schema.json",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件作为 runtime_schema 存在，被 public_input_contract.py 中 _load_schema 引用，与模块输入合同职责直接相关",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-direction-context-v1.schema.json",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "partially_aligned",
+      "rationale": "文件作为 runtime_schema 存在，对应'读取方向决定上下文'操作的输出结构，但文件内容未读取，无法完全确认",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/review-context-v1.schema.json",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件被 review_context_projection.py 中 review_context_contract() 直接加载并用于 Draft202012Validator 验证，与审阅上下文操作直接对应",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/review_context_projection.py",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件内容已读取，ReviewContextProjection 实现按范围读取审阅上下文，不创建状态，JSON 与 Markdown 来自同一结果，符合'读取审阅上下文'操作职责",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/work_item_history.py",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件内容已读取，WorkItemHistory.query 实现有界分页历史查询，不初始化状态，与合同中历史查询独立于当前动作的要求对应",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/work_item_read_model.py",
+      "target_module_id": "MODULE-71687954FB1E4DFD",
+      "current_status": "aligned",
+      "rationale": "文件内容已读取（前 800 行），WorkItemReadModel 聚合多类只读投影，提供 project_direction_context、project_status 等接口，符合模块分开呈现各类状态的职责；但该文件规模大，仅读取前 800 行",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/project_engineering_policy.py",
+      "target_module_id": "MODULE-8205A05A6F5E48A8",
+      "current_status": "aligned",
+      "rationale": "文件内容已读取，ProjectEngineeringPolicy 实现校验政策结构、合并治理档案和计算义务，直接对应'读取精确工程政策'和'评估确定性义务'操作",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/governance-profile-v1.json",
+      "target_module_id": "MODULE-8205A05A6F5E48A8",
+      "current_status": "aligned",
+      "rationale": "文件被 load_base_governance_profile() 直接加载，是政策校验和义务计算的基础数据，与模块职责直接相关",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-engineering-policy-v1.schema.json",
+      "target_module_id": "MODULE-8205A05A6F5E48A8",
+      "current_status": "aligned",
+      "rationale": "文件被 _schema_issues() 通过 jsonschema 加载用于政策结构校验，与模块职责直接相关",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/project_implementation_alignment.py",
+      "target_module_id": "MODULE-97978EF8747F4A02",
+      "current_status": "aligned",
+      "rationale": "文件内容已读取（前 800 行），ProjectImplementationAlignment 实现对齐加载、校验、漂移计算和观察标准化，直接对应模块核心操作",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/implementation-alignment-candidate-decisions-v1.schema.json",
+      "target_module_id": "MODULE-97978EF8747F4A02",
+      "current_status": "partially_aligned",
+      "rationale": "文件作为 runtime_schema 存在，但文件内容未读取，无法完全确认与候选决定对齐操作的直接关联",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/implementation-alignment-preparation-request-v1.schema.json",
+      "target_module_id": "MODULE-97978EF8747F4A02",
+      "current_status": "partially_aligned",
+      "rationale": "文件作为 runtime_schema 存在，与对齐准备请求操作相关，但文件内容未读取，无法完全确认",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-implementation-alignment-v1.schema.json",
+      "target_module_id": "MODULE-97978EF8747F4A02",
+      "current_status": "aligned",
+      "rationale": "文件被 project_implementation_alignment.py 中 _schema() 直接加载用于 Draft202012Validator 验证，与对齐结构校验职责直接相关",
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false
+    }
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false
+}

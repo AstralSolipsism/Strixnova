@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.test-case-evidence.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "run_id",
+    "plan_id",
+    "adapter",
+    "adapter_sha256",
+    "binding_sha256",
+    "input_snapshot",
+    "status",
+    "report_ref",
+    "report_sha256",
+    "report_size_bytes",
+    "example_results",
+    "limitations"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.test-case-evidence.v1"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 16000
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 16000
+    },
+    "adapter": {
+      "const": "pytest"
+    },
+    "adapter_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "binding_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "input_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "files",
+        "sha256",
+        "scope"
+      ],
+      "properties": {
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "sha256",
+              "size_bytes"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 16000
+              },
+              "sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              },
+              "size_bytes": {
+                "type": "integer",
+                "minimum": 0
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 4096
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "scope": {
+          "const": "declared_inputs_only"
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "recorded",
+        "report_missing",
+        "report_invalid",
+        "inputs_changed"
+      ]
+    },
+    "report_ref": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 16000
+    },
+    "report_sha256": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "report_size_bytes": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "example_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "example_ref",
+          "example_sha256",
+          "status",
+          "tests"
+        ],
+        "properties": {
+          "example_ref": {
+            "type": "string",
+            "pattern": "^direction\\.example:DIREX-[0-9A-F]{16}$"
+          },
+          "example_sha256": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "with_gaps"
+            ]
+          },
+          "tests": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "test_id",
+                "status"
+              ],
+              "properties": {
+                "test_id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 16000
+                },
+                "status": {
+                  "enum": [
+                    "passed",
+                    "failed",
+                    "error",
+                    "skipped",
+                    "xfailed",
+                    "xpassed",
+                    "deselected",
+                    "not_collected",
+                    "not_run"
+                  ]
+                }
+              }
+            },
+            "minItems": 1,
+            "maxItems": 256
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 256
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 16000
+      },
+      "minItems": 0
+    }
+  }
+}

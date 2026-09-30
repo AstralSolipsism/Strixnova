@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="11.023" timestamp="2026-09-29T08:39:09.677851+08:00" hostname="DESKTOP-FUTDPFH"><testcase classname="tests.unit.test_implementation_alignment_preparation" name="test_prepare_and_write_candidate_form_a_valid_recoverable_draft[True]" time="2.990"><failure message="subprocess.CalledProcessError: Command '['git', 'rev-parse', 'HEAD']' returned non-zero exit status 128.">tmp_path = WindowsPath('D:/AboutDEV/Strixnova/.artifacts/validation/a550d2d8a214/work/pytest/popen-gw1/test_prepare_and_write_candida0')
+monkeypatch = &lt;_pytest.monkeypatch.MonkeyPatch object at 0x000002A56EDE3B60&gt;
+ambient_git_override = True
+
+    @pytest.mark.parametrize("ambient_git_override", [False, True])
+    def test_prepare_and_write_candidate_form_a_valid_recoverable_draft(
+        tmp_path: Path,
+        monkeypatch: pytest.MonkeyPatch,
+        ambient_git_override: bool,
+    ) -&gt; None:
+        current, baseline = _complete_project(tmp_path)
+        alignment_path = tmp_path / baseline["authority_refs"][
+            "implementation_alignment"
+        ]["path"]
+        alignment = yaml.safe_load(alignment_path.read_text(encoding="utf-8"))
+        request = {
+            "schema_version": ALIGNMENT_PREPARATION_REQUEST_SCHEMA,
+            "alignment_revision_id": "ALIGNREV-2222222222222222",
+            "supersedes_revision_id": TEST_ALIGNMENT_REVISION_ID,
+        }
+        module = ImplementationAlignmentPreparation(tmp_path)
+    
+        prepared = module.prepare(current, request)
+        packet = module._load_preparation(prepared["preparation_ref"])
+        assert all(
+            re.fullmatch(r"ALIGNDECISION-[0-9A-F]{16}", item["decision_ref"])
+            for item in packet["decision_catalog"]
+        )
+        before_version = current["version"]
+        before_status = current["status"]
+        if ambient_git_override:
+            # Observation is already bound to the declared repositories. Ambient
+            # Git routing must not replace that binding during candidate writing.
+            monkeypatch.setenv("GIT_DIR", str(tmp_path / "unrelated-git-directory"))
+&gt;       result = module.write_candidate(
+            current,
+            {
+                "schema_version": ALIGNMENT_CANDIDATE_DECISIONS_SCHEMA,
+                "preparation_ref": prepared["preparation_ref"],
+                "decisions": [],
+                "deviations": [],
+                "unresolved_items": [],
+            },
+        )
+
+tests\unit\test_implementation_alignment_preparation.py:904: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+strixnova\src\strixnova\implementation_alignment_preparation.py:2160: in write_candidate
+    head = _git(project, "rev-parse", "HEAD")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+strixnova\src\strixnova\implementation_alignment_preparation.py:96: in _git
+    return subprocess.run(
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+input = None, capture_output = True, timeout = None, check = True
+popenargs = (['git', 'rev-parse', 'HEAD'],)
+kwargs = {'cwd': WindowsPath('D:/AboutDEV/Strixnova/.artifacts/validation/a550d2d8a214/work/pytest/popen-gw1/test_prepare_and_write_candida0'), 'text': True, 'encoding': 'utf-8', 'errors': 'replace', ...}
+
+    def run(*popenargs,
+            input=None, capture_output=False, timeout=None, check=False, **kwargs):
+        """Run command with arguments and return a CompletedProcess instance.
+    
+        The returned instance will have attributes args, returncode, stdout and
+        stderr. By default, stdout and stderr are not captured, and those attributes
+        will be None. Pass stdout=PIPE and/or stderr=PIPE in order to capture them,
+        or pass capture_output=True to capture both.
+    
+        If check is True and the exit code was non-zero, it raises a
+        CalledProcessError. The CalledProcessError object will have the return code
+        in the returncode attribute, and output &amp; stderr attributes if those streams
+        were captured.
+    
+        If timeout (seconds) is given and the process takes too long,
+         a TimeoutExpired exception will be raised.
+    
+        There is an optional argument "input", allowing you to
+        pass bytes or a string to the subprocess's stdin.  If you use this argument
+        you may not also use the Popen constructor's "stdin" argument, as
+        it will be used internally.
+    
+        By default, all communication is in bytes, and therefore any "input" should
+        be bytes, and the stdout and stderr will be bytes. If in text mode, any
+        "input" should be a string, and stdout and stderr will be strings decoded
+        according to locale encoding, or by "encoding" if set. Text mode is
+        triggered by setting any of text, encoding, errors or universal_newlines.
+    
+        The other arguments are the same as for the Popen constructor.
+        """
+        if input is not None:
+            if kwargs.get('stdin') is not None:
+                raise ValueError('stdin and input arguments may not both be used.')
+            kwargs['stdin'] = PIPE
+    
+        if capture_output:
+            if kwargs.get('stdout') is not None or kwargs.get('stderr') is not None:
+                raise ValueError('stdout and stderr arguments may not be used '
+                                 'with capture_output.')
+            kwargs['stdout'] = PIPE
+            kwargs['stderr'] = PIPE
+    
+        with Popen(*popenargs, **kwargs) as process:
+            try:
+                stdout, stderr = process.communicate(input, timeout=timeout)
+            except TimeoutExpired as exc:
+                process.kill()
+                if _mswindows:
+                    # Windows accumulates the output in a single blocking
+                    # read() call run on child threads, with the timeout
+                    # being done in a join() on those threads.  communicate()
+                    # _after_ kill() is required to collect that and add it
+                    # to the exception.
+                    exc.stdout, exc.stderr = process.communicate()
+                else:
+                    # POSIX _communicate already populated the output so
+                    # far into the TimeoutExpired exception.
+                    process.wait()
+                raise
+            except:  # Including KeyboardInterrupt, communicate handled that.
+                process.kill()
+                # We don't call process.wait() as .__exit__ does that for us.
+                raise
+            retcode = process.poll()
+            if check and retcode:
+&gt;               raise CalledProcessError(retcode, process.args,
+                                         output=stdout, stderr=stderr)
+E               subprocess.CalledProcessError: Command '['git', 'rev-parse', 'HEAD']' returned non-zero exit status 128.
+
+C:\Users\柳州局\AppData\Roaming\uv\python\cpython-3.12.12-windows-x86_64-none\Lib\subprocess.py:571: CalledProcessError</failure></testcase><testcase classname="tests.unit.test_implementation_alignment_preparation" name="test_prepare_and_write_candidate_form_a_valid_recoverable_draft[False]" time="6.952" /></testsuite></testsuites>

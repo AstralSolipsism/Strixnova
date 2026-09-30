@@ -1,0 +1,182 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "optional_text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "ref",
+        "claim"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "source",
+            "test",
+            "artifact",
+            "command",
+            "inspection"
+          ]
+        },
+        "ref": {
+          "$ref": "#/$defs/text"
+        },
+        "claim": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "deviation_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/deviation_id"
+      }
+    },
+    "deviation_id": {
+      "type": "string",
+      "pattern": "^DEVIATION-[0-9A-F]{16}$"
+    }
+  },
+  "required": [
+    "assessments",
+    "source_ownership",
+    "owner_accepted",
+    "semantic_content_machine_proven"
+  ],
+  "properties": {
+    "assessments": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_kind",
+          "target_id",
+          "status",
+          "satisfied",
+          "missing",
+          "evidence",
+          "deviation_ids",
+          "resolution_plan",
+          "limitations"
+        ],
+        "properties": {
+          "target_kind": {
+            "type": "string",
+            "enum": [
+              "relationship"
+            ]
+          },
+          "target_id": {
+            "type": "string",
+            "enum": [
+              "RELATION-5931451B2CA64732",
+              "RELATION-5D813FE5770641AB",
+              "RELATION-828FE7F3EC3F4528",
+              "RELATION-B14FB62EAD704B9C",
+              "RELATION-C0C190AA0BD94137",
+              "RELATION-D34BA899A1F04493",
+              "RELATION-69215BA308034F07",
+              "RELATION-EDD05730461949AD",
+              "RELATION-84E10852A2F640CE",
+              "RELATION-2AE048DB902247DB",
+              "RELATION-C1DD0851C7DB4E17"
+            ]
+          },
+          "status": {
+            "enum": [
+              "implemented",
+              "partially_implemented",
+              "not_implemented",
+              "drifted",
+              "unknown"
+            ]
+          },
+          "satisfied": {
+            "$ref": "#/$defs/optional_text_list"
+          },
+          "missing": {
+            "$ref": "#/$defs/optional_text_list"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/evidence"
+            },
+            "minItems": 1
+          },
+          "deviation_ids": {
+            "$ref": "#/$defs/deviation_id_list"
+          },
+          "resolution_plan": {
+            "$ref": "#/$defs/optional_text_list"
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "implemented"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "missing": {
+                  "maxItems": 0
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "missing": {
+                  "minItems": 1
+                },
+                "resolution_plan": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "source_ownership": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 0,
+      "items": {
+        "type": "object"
+      }
+    },
+    "owner_accepted": {
+      "const": false
+    },
+    "semantic_content_machine_proven": {
+      "const": false
+    }
+  }
+}

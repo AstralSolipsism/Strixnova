@@ -1,0 +1,5 @@
+读取AGENTS.md、inputs/packet.json，并按其中导航实际阅读相关代码、Schema、测试断言与记录结果。请独立评价这三个当前程序模块承担其目标职责的程度，并在assessment.json写出可复核候选。不要运行程序或测试，不把测试名称、文件存在或通过数量当充分证据；不要因新仓库尚无Git提交就忽略可直接观察的代码职责，也不得冒充正式Git绑定。
+
+输出一个JSON对象：assessments数组每个目标恰好一次，字段为target_id、target_kind、status（implemented/partially_implemented/not_implemented/unknown）、satisfied（具体已支持职责列表）、missing（真实缺口列表）、evidence（每项kind为source/test/artifact/command/inspection，ref为复制来源的原仓库相对路径加可定位行号或真实运行ID/测试node，claim精确限定支持内容）、resolution_plan、limitations。source_ownership数组对packet列出的每个归属候选文件恰好一次，字段为path、target_module_id、current_status（aligned/partially_aligned/drifted/unknown/not_applicable）、rationale。另加owner_accepted=false、semantic_content_machine_proven=false。
+
+源码/断言支持哪些机制，实际运行证明哪些输入结果，Agent/负责人语义哪些尚未证明，必须分开。implemented不等于无缺陷或完整产品验收；若职责本身仍缺必要支持就用部分或未知，并给出真实依据。不要为消除unknown而编造覆盖。只写assessment.json，完成后说明关键结论与局限。

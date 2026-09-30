@@ -1,0 +1,699 @@
+1: schema_version: strixnova.project-domain-source.v1
+2: model_id: MODEL-1111111111111111
+3: model_revision_id: MODELREV-3333333333333333
+4: source_id: SRC-1111111111111111
+5: scope_fact_ids: [FACT-A000000000000001]
+6: facts:
+7:   # ── 旧事实：被替代 ──────────────────────────────
+8:   - fact_id: FACT-2222222222222222
+9:     status: superseded
+10:     title: 预约区间校验上下文（已替代）
+11:     kind: bounded_context
+12:     product_capability_ids: [CAPABILITY-1111111111111111]
+13:     scope_fact_ids: []
+14:     dependency_fact_ids: []
+15:     lineage:
+16:       - relation: superseded_by
+17:         target_fact_id: FACT-A000000000000001
+18:     retirement_reason: >-
+19:       责任范围从纯区间校验扩展为预约申请域；
+20:       由 FACT-A000000000000001 替代。
+21: 
+22:   # ── 旧事实：保留 ──────────────────────────────
+23:   - fact_id: FACT-3333333333333333
+24:     status: "confirmed"
+25:     title: 合法区间必须有正时长
+26:     kind: domain_invariant
+27:     product_capability_ids: [CAPABILITY-1111111111111111]
+28:     scope_fact_ids: [FACT-A000000000000001]
+29:     dependency_fact_ids: [FACT-A000000000000001]
+30:     content:
+31:       statement: end 必须严格大于 start；合法时长为 end-start，不合法顺序抛出 ValueError。
+32:       protected_fact_ids: [FACT-A000000000000001]
+33: 
+34:   # ── 限界上下文 ──────────────────────────────
+35:   - fact_id: FACT-A000000000000001
+36:     status: "confirmed"
+37:     title: 预约申请域
+38:     kind: bounded_context
+39:     product_capability_ids:
+40:       - CAPABILITY-1111111111111111
+41:       - CAPABILITY-2222222222222222
+42:       - CAPABILITY-3333333333333333
+43:     scope_fact_ids: []
+44:     dependency_fact_ids: []
+45:     content:
+46:       responsibility: >-
+47:         管理预约申请的区间校验、生命周期状态、成员撤回、
+48:         审计记录和负责人周报读取。
+49:       decisions:
+50:         - 申请身份、状态含义和决定权在所有单元中统一定义。
+51:         - 身份来自可信宿主会话，不信任传入角色或所有者字段。
+52:         - 只允许待审核状态撤回。
+53:         - 撤回与审批并发时只允许一个版本成功。
+54:       excluded_responsibilities:
+55:         - 不负责已批准预约的取消。
+56:         - 不负责缴费。
+57:         - 不负责自动发送周报。
+58:         - 不负责日期转换或时区处理。
+59: 
+60:   # ── 参与者 ──────────────────────────────
+61:   - fact_id: FACT-A000000000000002
+62:     status: "confirmed"
+63:     title: 申请成员
+64:     kind: actor
+65:     product_capability_ids:
+66:       - CAPABILITY-1111111111111111
+67:       - CAPABILITY-2222222222222222
+68:     scope_fact_ids: [FACT-A000000000000001]
+69:     dependency_fact_ids: []
+70:     content:
+71:       role: 提交预约申请，管理本人申请，包括撤回待审核申请。
+72:       responsibilities:
+73:         - 提交预约申请。
+74:         - 撤回本人待审核申请。
+75:         - 查询本人申请的实际状态。
+76:       not_responsible_for:
+77:         - 撤回他人申请。
+78:         - 审批任何申请。
+79:         - 撤回非待审核状态的申请。
+80: 
+81:   - fact_id: FACT-A000000000000003
+82:     status: "confirmed"
+83:     title: 负责人
+84:     kind: actor
+85:     product_capability_ids:
+86:       - CAPABILITY-2222222222222222
+87:       - CAPABILITY-3333333333333333
+88:     scope_fact_ids: [FACT-A000000000000001]
+89:     dependency_fact_ids: []
+90:     content:
+91:       role: 审批预约申请并查看运营汇总。
+92:       responsibilities:
+93:         - 审批或拒绝待审核申请。
+94:         - 读取按自然周统计的预约申请周报。
+95:       not_responsible_for:
+96:         - 提交预约申请。
+97:         - 代成员撤回申请。
+98: 
+99:   - fact_id: FACT-A000000000000004
+100:     status: "confirmed"
+101:     title: 调用组件的业务开发者
+102:     kind: actor
+103:     product_capability_ids: [CAPABILITY-1111111111111111]
+104:     scope_fact_ids: [FACT-A000000000000001]
+105:     dependency_fact_ids: []
+106:     content:
+107:       role: 在登记预约申请前取得合法的区间时长或明确拒绝。
+108:       responsibilities:
+109:         - 调用区间校验获取时长或错误。
+110:       not_responsible_for:
+111:         - 管理申请生命周期。
+112:         - 撤回或审批申请。
+113: 
+114:   # ── 决定权 ──────────────────────────────
+115:   - fact_id: FACT-A000000000000005
+116:     status: "confirmed"
+117:     title: 申请审批决定权
+118:     kind: decision_authority
+119:     product_capability_ids: [CAPABILITY-2222222222222222]
+120:     scope_fact_ids: [FACT-A000000000000001]
+121:     dependency_fact_ids:
+122:       - FACT-A000000000000002
+123:       - FACT-A000000000000003
+124:     content:
+125:       decision: 决定一份待审核申请是批准还是拒绝。
+126:       authority_actor_fact_id: FACT-A000000000000003
+127:       candidate_provider_actor_fact_ids: [FACT-A000000000000002]
+128:       non_authority_actor_fact_ids: [FACT-A000000000000002]
+129: 
+130:   - fact_id: FACT-A000000000000006
+131:     status: "confirmed"
+132:     title: 申请撤回决定权
+133:     kind: decision_authority
+134:     product_capability_ids: [CAPABILITY-2222222222222222]
+135:     scope_fact_ids: [FACT-A000000000000001]
+136:     dependency_fact_ids:
+137:       - FACT-A000000000000002
+138:     content:
+139:       decision: 决定撤回一份本人的待审核申请。
+140:       authority_actor_fact_id: FACT-A000000000000002
+141:       candidate_provider_actor_fact_ids: []
+142:       non_authority_actor_fact_ids: [FACT-A000000000000003]
+143: 
+144:   # ── 术语 ──────────────────────────────
+145:   - fact_id: FACT-A000000000000007
+146:     status: "confirmed"
+147:     title: 术语-预约申请
+148:     kind: term
+149:     product_capability_ids:
+150:       - CAPABILITY-1111111111111111
+151:       - CAPABILITY-2222222222222222
+152:       - CAPABILITY-3333333333333333
+153:     scope_fact_ids: [FACT-A000000000000001]
+154:     dependency_fact_ids: []
+155:     content:
+156:       term: 预约申请
+157:       definition: >-
+158:         成员提交的对特定时间区间的预约请求，具有独立身份和生命周期状态。
+159:         不同于已生效预约：申请需经审批后才产生预约。
+160: 
+161:   - fact_id: FACT-A000000000000008
+162:     status: "confirmed"
+163:     title: 术语-已生效预约
+164:     kind: term
+165:     product_capability_ids: [CAPABILITY-2222222222222222]
+166:     scope_fact_ids: [FACT-A000000000000001]
+167:     dependency_fact_ids: [FACT-A000000000000007]
+168:     content:
+169:       term: 已生效预约
+170:       definition: >-
+171:         预约申请经负责人批准后产生的预约记录。
+172:         本轮不实现已生效预约的取消；取消已生效预约由审批人另行处理。
+173: 
+174:   # ── 值对象 ──────────────────────────────
+175:   - fact_id: FACT-A000000000000009
+176:     status: "confirmed"
+177:     title: 预约区间
+178:     kind: value_object
+179:     product_capability_ids: [CAPABILITY-1111111111111111]
+180:     scope_fact_ids: [FACT-A000000000000001]
+181:     dependency_fact_ids: []
+182:     content:
+183:       meaning: 由开始刻度和结束刻度组成的整数分钟区间，表示预约申请的时间范围。
+184:       components:
+185:         - name: start
+186:           meaning: 开始整数分钟刻度。
+187:         - name: end
+188:           meaning: 结束整数分钟刻度，必须严格大于 start。
+189:       invariants:
+190:         - end 严格大于 start。
+191: 
+192:   - fact_id: FACT-A00000000000000A
+193:     status: "confirmed"
+194:     title: 审计条目
+195:     kind: value_object
+196:     product_capability_ids: [CAPABILITY-2222222222222222]
+197:     scope_fact_ids: [FACT-A000000000000001]
+198:     dependency_fact_ids: []
+199:     content:
+200:       meaning: 一次状态变更操作的不可变记录。
+201:       components:
+202:         - name: operator_id
+203:           meaning: 执行操作的成员身份（来自可信宿主会话）。
+204:         - name: original_status
+205:           meaning: 操作前的申请状态。
+206:         - name: new_status
+207:           meaning: 操作后的申请状态。
+208:         - name: operation_identity
+209:           meaning: 操作身份（如撤回、审批、拒绝）。
+210:       invariants:
+211:         - 每条审计条目创建后不可修改。
+212: 
+213:   # ── 领域实体 ──────────────────────────────
+214:   - fact_id: FACT-A00000000000000B
+215:     status: "confirmed"
+216:     title: 预约申请
+217:     kind: domain_entity
+218:     product_capability_ids:
+219:       - CAPABILITY-1111111111111111
+220:       - CAPABILITY-2222222222222222
+221:       - CAPABILITY-3333333333333333
+222:     scope_fact_ids: [FACT-A000000000000001]
+223:     dependency_fact_ids:
+224:       - FACT-A000000000000009
+225:       - FACT-A000000000000002
+226:     content:
+227:       identity: >-
+228:         每份预约申请有全局唯一的申请标识，该标识在所有单元中统一使用。
+229:       responsibilities:
+230:         - 持有预约区间、申请成员身份、当前状态和审计历史。
+231:         - 执行状态转换规则。
+232:       lifecycle_fact_id: FACT-A00000000000000C
+233: 
+234:   # ── 生命周期 ──────────────────────────────
+235:   - fact_id: FACT-A00000000000000C
+236:     status: "confirmed"
+237:     title: 预约申请生命周期
+238:     kind: lifecycle
+239:     product_capability_ids: [CAPABILITY-2222222222222222]
+240:     scope_fact_ids: [FACT-A000000000000001]
+241:     dependency_fact_ids:
+242:       - FACT-A00000000000000B
+243:     content:
+244:       subject_fact_id: FACT-A00000000000000B
+245:       states:
+246:         - state: 待审核
+247:           meaning: 申请已提交，等待负责人审批决定。
+248:         - state: 已批准
+249:           meaning: 负责人已批准该申请，产生已生效预约。
+250:         - state: 已拒绝
+251:           meaning: 负责人已拒绝该申请。
+252:         - state: 已撤回
+253:           meaning: 申请成员已主动撤回该待审核申请。
+254:       transitions:
+255:         - from_state: 待审核
+256:           to_state: 已批准
+257:           trigger: 负责人批准该申请。
+258:           guards: [申请仍处于待审核状态]
+259:           resulting_event_fact_ids: [FACT-A00000000000000D]
+260:         - from_state: 待审核
+261:           to_state: 已拒绝
+262:           trigger: 负责人拒绝该申请。
+263:           guards: [申请仍处于待审核状态]
+264:           resulting_event_fact_ids: [FACT-A00000000000000D]
+265:         - from_state: 待审核
+266:           to_state: 已撤回
+267:           trigger: 申请成员撤回本人申请。
+268:           guards:
+269:             - 操作者是申请的提交成员。
+270:             - 申请仍处于待审核状态。
+271:           resulting_event_fact_ids: [FACT-A00000000000000D]
+272: 
+273:   # ── 领域事件 ──────────────────────────────
+274:   - fact_id: FACT-A00000000000000D
+275:     status: "confirmed"
+276:     title: 申请状态变更事件
+277:     kind: domain_event
+278:     product_capability_ids: [CAPABILITY-2222222222222222]
+279:     scope_fact_ids: [FACT-A000000000000001]
+280:     dependency_fact_ids:
+281:       - FACT-A00000000000000B
+282:       - FACT-A00000000000000A
+283:     content:
+284:       meaning: 一份预约申请的状态发生了变更。
+285:       occurs_when: 预约申请经历任何合法状态转换。
+286:       subject_fact_ids: [FACT-A00000000000000B]
+287:       information:
+288:         - 申请标识。
+289:         - 原状态。
+290:         - 新状态。
+291:         - 操作者身份。
+292:         - 操作身份。
+293: 
+294:   # ── 领域规则 ──────────────────────────────
+295:   - fact_id: FACT-A00000000000000E
+296:     status: "confirmed"
+297:     title: 只允许操作本人申请
+298:     kind: domain_rule
+299:     product_capability_ids: [CAPABILITY-2222222222222222]
+300:     scope_fact_ids: [FACT-A000000000000001]
+301:     dependency_fact_ids:
+302:       - FACT-A000000000000002
+303:       - FACT-A00000000000000B
+304:     content:
+305:       statement: 一名成员只能操作本人提交的预约申请，不能操作他人申请。
+306:       applies_when: 成员尝试对预约申请执行撤回操作时。
+307: 
+308:   - fact_id: FACT-A00000000000000F
+309:     status: "confirmed"
+310:     title: 只允许待审核状态撤回
+311:     kind: domain_rule
+312:     product_capability_ids: [CAPABILITY-2222222222222222]
+313:     scope_fact_ids: [FACT-A000000000000001]
+314:     dependency_fact_ids:
+315:       - FACT-A00000000000000B
+316:       - FACT-A00000000000000C
+317:     content:
+318:       statement: 只有处于待审核状态的申请才允许撤回；其他状态的撤回请求被拒绝。
+319:       applies_when: 成员尝试撤回一份预约申请时。
+320: 
+321:   - fact_id: FACT-A000000000000010
+322:     status: "confirmed"
+323:     title: 重复撤回幂等规则
+324:     kind: domain_rule
+325:     product_capability_ids: [CAPABILITY-2222222222222222]
+326:     scope_fact_ids: [FACT-A000000000000001]
+327:     dependency_fact_ids:
+328:       - FACT-A00000000000000B
+329:       - FACT-A00000000000000C
+330:       - FACT-A00000000000000A
+331:     content:
+332:       statement: >-
+333:         对已处于已撤回状态的申请再次撤回，返回相同结果（已撤回），
+334:         且不重复记录审计条目。
+335:       applies_when: 成员对已撤回的本人申请再次执行撤回操作时。
+336: 
+337:   - fact_id: FACT-A000000000000011
+338:     status: "confirmed"
+339:     title: 身份信任规则
+340:     kind: domain_rule
+341:     product_capability_ids:
+342:       - CAPABILITY-2222222222222222
+343:       - CAPABILITY-3333333333333333
+344:     scope_fact_ids: [FACT-A000000000000001]
+345:     dependency_fact_ids:
+346:       - FACT-A000000000000002
+347:       - FACT-A000000000000003
+348:     content:
+349:       statement: >-
+350:         操作者身份来自可信宿主会话，不信任请求中传入的角色或所有者字段。
+351:       applies_when: 任何涉及身份判断的操作执行时。
+352: 
+353:   - fact_id: FACT-A000000000000012
+354:     status: "confirmed"
+355:     title: 周报仅负责人可读
+356:     kind: domain_rule
+357:     product_capability_ids: [CAPABILITY-3333333333333333]
+358:     scope_fact_ids: [FACT-A000000000000001]
+359:     dependency_fact_ids:
+360:       - FACT-A000000000000003
+361:     content:
+362:       statement: 周报仅负责人可读，不向申请成员或其他角色公开。
+363:       applies_when: 任何主体尝试读取周报时。
+364: 
+365:   # ── 领域不变量 ──────────────────────────────
+366:   - fact_id: FACT-A000000000000013
+367:     status: "confirmed"
+368:     title: 并发安全不变量
+369:     kind: domain_invariant
+370:     product_capability_ids: [CAPABILITY-2222222222222222]
+371:     scope_fact_ids: [FACT-A000000000000001]
+372:     dependency_fact_ids:
+373:       - FACT-A00000000000000B
+374:       - FACT-A00000000000000C
+375:     content:
+376:       statement: >-
+377:         撤回与审批并发时，只允许一个版本成功。
+378:         一份申请在同一时刻只能有一个合法的状态转换生效。
+379:       protected_fact_ids:
+380:         - FACT-A00000000000000B
+381:         - FACT-A00000000000000C
+382: 
+383:   - fact_id: FACT-A000000000000014
+384:     status: "confirmed"
+385:     title: 审计完整性不变量
+386:     kind: domain_invariant
+387:     product_capability_ids: [CAPABILITY-2222222222222222]
+388:     scope_fact_ids: [FACT-A000000000000001]
+389:     dependency_fact_ids:
+390:       - FACT-A00000000000000A
+391:       - FACT-A00000000000000B
+392:     content:
+393:       statement: >-
+394:         每次成功的状态变更都恰好产生一条审计条目，
+395:         包含操作者、原状态、新状态和操作身份。
+396:         幂等重复操作不额外产生审计条目。
+397:       protected_fact_ids:
+398:         - FACT-A00000000000000A
+399:         - FACT-A00000000000000B
+400: 
+401:   - fact_id: FACT-A000000000000015
+402:     status: "confirmed"
+403:     title: 统一申请身份不变量
+404:     kind: domain_invariant
+405:     product_capability_ids:
+406:       - CAPABILITY-2222222222222222
+407:       - CAPABILITY-3333333333333333
+408:     scope_fact_ids: [FACT-A000000000000001]
+409:     dependency_fact_ids:
+410:       - FACT-A00000000000000B
+411:     content:
+412:       statement: >-
+413:         成员服务与运营汇总两个单元使用统一的申请身份、状态含义和决定权，
+414:         不能各自定义独立的申请模型。
+415:       protected_fact_ids:
+416:         - FACT-A00000000000000B
+417: 
+418:   # ── 领域中的产品能力 ──────────────────────────
+419:   - fact_id: FACT-A000000000000016
+420:     status: "confirmed"
+421:     title: 领域-预约区间校验
+422:     kind: product_capability
+423:     product_capability_ids: [CAPABILITY-1111111111111111]
+424:     scope_fact_ids: [FACT-A000000000000001]
+425:     dependency_fact_ids:
+426:       - FACT-A000000000000004
+427:       - FACT-A000000000000009
+428:     content:
+429:       definition: 对给定整数分钟区间校验顺序并返回时长或拒绝。
+430:       primary_actor_fact_ids: [FACT-A000000000000004]
+431:       supporting_actor_fact_ids: []
+432:       scenario_requirements:
+433:         - scenario_type: normal
+434:           applicability: required
+435:           reason: 必须说明合法区间返回时长的正常路径。
+436:         - scenario_type: blocking
+437:           applicability: required
+438:           reason: 必须说明不合法顺序被拒绝。
+439:         - scenario_type: correction
+440:           applicability: not_applicable
+441:           reason: 纯函数校验无中间状态可纠正，调用方传入新参数重试。
+442:         - scenario_type: cancellation
+443:           applicability: not_applicable
+444:           reason: 纯函数不持有状态，没有取消含义。
+445: 
+446:   - fact_id: FACT-A000000000000017
+447:     status: "confirmed"
+448:     title: 领域-撤回待审核申请
+449:     kind: product_capability
+450:     product_capability_ids: [CAPABILITY-2222222222222222]
+451:     scope_fact_ids: [FACT-A000000000000001]
+452:     dependency_fact_ids:
+453:       - FACT-A000000000000002
+454:       - FACT-A000000000000003
+455:       - FACT-A00000000000000B
+456:     content:
+457:       definition: 申请成员撤回本人仍处于待审核状态的预约申请。
+458:       primary_actor_fact_ids: [FACT-A000000000000002]
+459:       supporting_actor_fact_ids: []
+460:       scenario_requirements:
+461:         - scenario_type: normal
+462:           applicability: required
+463:           reason: 必须说明成功撤回待审核申请的完整路径。
+464:         - scenario_type: blocking
+465:           applicability: required
+466:           reason: 必须说明何时阻断撤回（非本人、非待审核、并发冲突）。
+467:         - scenario_type: correction
+468:           applicability: required
+469:           reason: 必须说明响应丢失后如何通过查询确认实际状态。
+470:         - scenario_type: cancellation
+471:           applicability: not_applicable
+472:           reason: 撤回本身就是取消操作，没有对撤回的取消。
+473: 
+474:   - fact_id: FACT-A000000000000018
+475:     status: "confirmed"
+476:     title: 领域-读取周报
+477:     kind: product_capability
+478:     product_capability_ids: [CAPABILITY-3333333333333333]
+479:     scope_fact_ids: [FACT-A000000000000001]
+480:     dependency_fact_ids:
+481:       - FACT-A000000000000003
+482:       - FACT-A00000000000000B
+483:     content:
+484:       definition: 负责人按本地已指定的自然周统计预约申请的当前状态分布。
+485:       primary_actor_fact_ids: [FACT-A000000000000003]
+486:       supporting_actor_fact_ids: []
+487:       scenario_requirements:
+488:         - scenario_type: normal
+489:           applicability: required
+490:           reason: 必须说明负责人成功读取周报的路径。
+491:         - scenario_type: blocking
+492:           applicability: required
+493:           reason: 必须说明非负责人被拒绝读取周报。
+494:         - scenario_type: correction
+495:           applicability: not_applicable
+496:           reason: 周报是只读统计，没有需要纠正的中间状态。
+497:         - scenario_type: cancellation
+498:           applicability: not_applicable
+499:           reason: 读取操作没有持久副作用，没有取消含义。
+500: 
+501:   # ── 领域场景 ──────────────────────────────
+502:   - fact_id: FACT-A000000000000019
+503:     status: "confirmed"
+504:     title: 正常-区间校验
+505:     kind: domain_scenario
+506:     product_capability_ids: [CAPABILITY-1111111111111111]
+507:     scope_fact_ids: [FACT-A000000000000001]
+508:     dependency_fact_ids:
+509:       - FACT-A000000000000016
+510:       - FACT-A000000000000004
+511:       - FACT-A000000000000009
+512:     content:
+513:       scenario_type: normal
+514:       capability_fact_id: FACT-A000000000000016
+515:       actor_fact_ids: [FACT-A000000000000004]
+516:       preconditions:
+517:         - 调用方持有两个整数分钟刻度。
+518:       trigger: 调用 duration(start, end)。
+519:       steps:
+520:         - 校验 end 是否严格大于 start。
+521:         - 计算 end - start 作为时长。
+522:       outcome: 返回整数时长。
+523:       postconditions:
+524:         - 无状态变更，纯函数行为保持不变。
+525: 
+526:   - fact_id: FACT-A00000000000001A
+527:     status: "confirmed"
+528:     title: 阻断-区间校验
+529:     kind: domain_scenario
+530:     product_capability_ids: [CAPABILITY-1111111111111111]
+531:     scope_fact_ids: [FACT-A000000000000001]
+532:     dependency_fact_ids:
+533:       - FACT-A000000000000016
+534:       - FACT-A000000000000004
+535:     content:
+536:       scenario_type: blocking
+537:       capability_fact_id: FACT-A000000000000016
+538:       actor_fact_ids: [FACT-A000000000000004]
+539:       preconditions:
+540:         - 调用方持有两个整数分钟刻度。
+541:       trigger: 调用 duration(start, end)，其中 end <= start。
+542:       steps:
+543:         - 校验 end 是否严格大于 start，结果为否。
+544:       outcome: 抛出 ValueError，不返回时长。
+545:       postconditions:
+546:         - 无状态变更。
+547: 
+548:   - fact_id: FACT-A00000000000001B
+549:     status: "confirmed"
+550:     title: 正常-撤回待审核申请
+551:     kind: domain_scenario
+552:     product_capability_ids: [CAPABILITY-2222222222222222]
+553:     scope_fact_ids: [FACT-A000000000000001]
+554:     dependency_fact_ids:
+555:       - FACT-A000000000000017
+556:       - FACT-A000000000000002
+557:       - FACT-A00000000000000B
+558:       - FACT-A00000000000000C
+559:       - FACT-A00000000000000A
+560:     content:
+561:       scenario_type: normal
+562:       capability_fact_id: FACT-A000000000000017
+563:       actor_fact_ids: [FACT-A000000000000002]
+564:       preconditions:
+565:         - 成员已通过可信宿主会话认证。
+566:         - 该成员有一份本人提交的待审核预约申请。
+567:       trigger: 成员请求撤回指定申请。
+568:       steps:
+569:         - 从可信宿主会话获取操作者身份。
+570:         - 校验申请归属于操作者本人。
+571:         - 校验申请当前处于待审核状态。
+572:         - 使用乐观并发控制尝试将状态从待审核转为已撤回。
+573:         - 记录一条审计条目（操作者、待审核→已撤回、撤回）。
+574:       outcome: 申请状态变为已撤回，操作成功。
+575:       postconditions:
+576:         - 该申请不可再被审批或再次撤回（幂等重复除外）。
+577:         - 审计记录完整保留。
+578: 
+579:   - fact_id: FACT-A00000000000001C
+580:     status: "confirmed"
+581:     title: 阻断-撤回待审核申请
+582:     kind: domain_scenario
+583:     product_capability_ids: [CAPABILITY-2222222222222222]
+584:     scope_fact_ids: [FACT-A000000000000001]
+585:     dependency_fact_ids:
+586:       - FACT-A000000000000017
+587:       - FACT-A000000000000002
+588:       - FACT-A00000000000000E
+589:       - FACT-A00000000000000F
+590:       - FACT-A000000000000013
+591:     content:
+592:       scenario_type: blocking
+593:       capability_fact_id: FACT-A000000000000017
+594:       actor_fact_ids: [FACT-A000000000000002]
+595:       preconditions:
+596:         - 成员已通过可信宿主会话认证。
+597:       trigger: 成员请求撤回一份申请，但该申请不满足撤回条件。
+598:       steps:
+599:         - 校验归属：若申请不属于操作者本人，拒绝。
+600:         - 校验状态：若申请不处于待审核状态，拒绝。
+601:         - 校验并发：若撤回与审批并发冲突，只让一个成功，另一个拒绝。
+602:       outcome: 撤回被拒绝，申请状态不变。
+603:       postconditions:
+604:         - 不产生审计条目。
+605:         - 申请保持原状态。
+606: 
+607:   - fact_id: FACT-A00000000000001D
+608:     status: "confirmed"
+609:     title: 纠正-撤回待审核申请
+610:     kind: domain_scenario
+611:     product_capability_ids: [CAPABILITY-2222222222222222]
+612:     scope_fact_ids: [FACT-A000000000000001]
+613:     dependency_fact_ids:
+614:       - FACT-A000000000000017
+615:       - FACT-A000000000000002
+616:       - FACT-A000000000000010
+617:     content:
+618:       scenario_type: correction
+619:       capability_fact_id: FACT-A000000000000017
+620:       actor_fact_ids: [FACT-A000000000000002]
+621:       preconditions:
+622:         - 成员之前发起过撤回请求但未收到明确响应。
+623:       trigger: 成员再次发起撤回或查询申请状态。
+624:       steps:
+625:         - 查询该申请的实际当前状态。
+626:         - 若已处于已撤回状态（之前的撤回实际成功），返回已撤回结果，不重复记审计。
+627:         - 若仍处于待审核状态（之前的撤回实际未成功），按正常流程执行撤回。
+628:         - 若已被审批或拒绝（并发竞争失败），返回当前实际状态。
+629:       outcome: 成员确认了申请的实际状态。
+630:       postconditions:
+631:         - 系统状态与审计始终一致，不因重试产生不一致。
+632: 
+633:   - fact_id: FACT-A00000000000001E
+634:     status: "confirmed"
+635:     title: 正常-读取周报
+636:     kind: domain_scenario
+637:     product_capability_ids: [CAPABILITY-3333333333333333]
+638:     scope_fact_ids: [FACT-A000000000000001]
+639:     dependency_fact_ids:
+640:       - FACT-A000000000000018
+641:       - FACT-A000000000000003
+642:       - FACT-A00000000000000B
+643:     content:
+644:       scenario_type: normal
+645:       capability_fact_id: FACT-A000000000000018
+646:       actor_fact_ids: [FACT-A000000000000003]
+647:       preconditions:
+648:         - 操作者已通过可信宿主会话认证为负责人。
+649:       trigger: 负责人请求读取某自然周的周报。
+650:       steps:
+651:         - 确认操作者为负责人。
+652:         - 按本地已指定的自然周边界确定统计范围。
+653:         - 统计该周内预约申请的当前状态分布。
+654:         - 排除成员私人联系方式。
+655:       outcome: 返回该自然周的申请状态分布统计。
+656:       postconditions:
+657:         - 无状态变更，只读操作。
+658: 
+659:   - fact_id: FACT-A00000000000001F
+660:     status: "confirmed"
+661:     title: 阻断-读取周报
+662:     kind: domain_scenario
+663:     product_capability_ids: [CAPABILITY-3333333333333333]
+664:     scope_fact_ids: [FACT-A000000000000001]
+665:     dependency_fact_ids:
+666:       - FACT-A000000000000018
+667:       - FACT-A000000000000002
+668:       - FACT-A000000000000012
+669:     content:
+670:       scenario_type: blocking
+671:       capability_fact_id: FACT-A000000000000018
+672:       actor_fact_ids: [FACT-A000000000000002]
+673:       preconditions:
+674:         - 操作者已通过可信宿主会话认证，但身份为申请成员而非负责人。
+675:       trigger: 非负责人尝试读取周报。
+676:       steps:
+677:         - 校验操作者身份不是负责人。
+678:       outcome: 拒绝读取，不返回任何周报数据。
+679:       postconditions:
+680:         - 无状态变更，无数据泄露。
+681: 
+682:   # ── 外部系统 ──────────────────────────────
+683:   - fact_id: FACT-A000000000000020
+684:     status: "confirmed"
+685:     title: 可信宿主会话
+686:     kind: external_system
+687:     product_capability_ids:
+688:       - CAPABILITY-2222222222222222
+689:       - CAPABILITY-3333333333333333
+690:     scope_fact_ids: [FACT-A000000000000001]
+691:     dependency_fact_ids: []
+692:     content:
+693:       responsibility: 提供已认证的操作者身份。
+694:       provides_facts:
+695:         - 操作者的唯一身份标识。
+696:         - 操作者的角色（成员或负责人）。
+697:       does_not_decide:
+698:         - 不决定申请的审批结果。
+699:         - 不决定周报的统计范围。

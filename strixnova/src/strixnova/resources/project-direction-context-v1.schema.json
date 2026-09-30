@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-direction-context.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authority_scope",
+    "observed_commit",
+    "context_ref",
+    "product",
+    "capability_catalog",
+    "guardrails",
+    "semantic_relevance_machine_proven"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-direction-context.v1"
+    },
+    "authority_scope": {
+      "enum": [
+        "adopted_integration_commit",
+        "unadopted_project"
+      ]
+    },
+    "observed_commit": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[0-9a-f]{40,64}$"
+    },
+    "context_ref": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "minLength": 1
+    },
+    "product": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/product"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "capability_catalog": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/capability"
+      }
+    },
+    "guardrails": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/guardrail"
+      }
+    },
+    "semantic_relevance_machine_proven": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "product": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_id",
+        "revision_id",
+        "title",
+        "purpose",
+        "current_stage"
+      ],
+      "properties": {
+        "product_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "purpose": {
+          "type": "string",
+          "minLength": 1
+        },
+        "current_stage": {
+          "$ref": "#/$defs/current_stage"
+        }
+      }
+    },
+    "current_stage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stage_id",
+        "title",
+        "description"
+      ],
+      "properties": {
+        "stage_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "capability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "capability_ref",
+        "capability_id",
+        "title",
+        "description"
+      ],
+      "properties": {
+        "capability_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "capability_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "guardrail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_ref",
+        "kind",
+        "stable_id",
+        "statement"
+      ],
+      "properties": {
+        "decision_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "non_goal",
+            "constraint"
+          ]
+        },
+        "stable_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statement": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "authority_scope": {
+            "const": "unadopted_project"
+          }
+        },
+        "required": [
+          "authority_scope"
+        ]
+      },
+      "then": {
+        "properties": {
+          "observed_commit": {
+            "type": "null"
+          },
+          "context_ref": {
+            "type": "null"
+          },
+          "product": {
+            "type": "null"
+          },
+          "capability_catalog": {
+            "maxItems": 0
+          },
+          "guardrails": {
+            "maxItems": 0
+          }
+        }
+      },
+      "else": {
+        "properties": {
+          "observed_commit": {
+            "type": "string"
+          },
+          "context_ref": {
+            "type": "string"
+          },
+          "product": {
+            "$ref": "#/$defs/product"
+          },
+          "capability_catalog": {
+            "minItems": 1
+          },
+          "guardrails": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,317 @@
+{
+  "assessments": [
+    {
+      "target_id": "MODULE-361DDA9576FF4C16",
+      "target_kind": "module",
+      "status": "implemented",
+      "satisfied": [
+        "读取精确产品定义（合同operation: 从指定位置和精确版本读取并返回结构有效的产品定义）：ProjectProductDefinition.load()从指定路径读取YAML，校验全部15个必填字段（schema_version/product_id/revision/title/purpose/product_owner/primary_users/problems/desired_outcomes/capabilities/non_goals/constraints/success_criteria/delivery_stages/unresolved_decisions），返回deepcopy(dict(value))含全部字段",
+        "校验产品定义候选（合同operation: 检查身份、引用、覆盖、生命周期和确认字段，不判断内容是否正确）：load()执行身份格式正则验证（_PRODUCT_ID/_USER_ID/_OUTCOME_ID等）、跨字段引用完整性（user_ids/outcome_ids/capability_ids）、重复身份检测、生命周期约束（ready_for_confirmation/confirmed状态约束）、确认字段约束（confirmed_by_owner_id必须匹配product_owner.owner_id）；不判断内容语义",
+        "提供产品能力目录（合同operation: 返回供下游精确追溯的能力身份和范围元数据）：load()返回完整capabilities列表（含capability_id/title/description/outcome_ids）供任何有效修订的调用方直接使用；project_direction_context()为confirmed修订提供capability_catalog格式化投影（含stable capability_ref），满足下游精确追溯需求",
+        "提供产品护栏目录（合同operation: 返回当前修订全部非目标和约束的稳定身份与原文，不根据事项判断哪些适用）：load()返回完整non_goals和constraints列表（含stable id和statement）；project_direction_context()为confirmed修订投影所有non_goals+constraints为guardrails（kind/decision_ref/statement），不过滤、不按事项判断适用性",
+        "unadopted_project_direction_context()：为未采用项目显式返回空上下文，authority_scope=unadopted_project",
+        "validate_direction_context_binding()：校验context_ref新鲜度、capability引用有效性与唯一性、guardrail全覆盖与无重复，不判断语义",
+        "not_responsible_for全部遵守：不生成产品目标/范围/非目标/成功判断（load()只校验，不生成）；不读取实现文件；不校验领域/架构/对齐正文",
+        "接收调用方已绑定的仓库读取范围（project_reader_for_scope），不自行发现仓库"
+      ],
+      "missing": [],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L372-L400",
+          "claim": "load()通过required集合验证全部15个必填字段，_fields()同时检查未知字段（额外字段报错）"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L777-L785",
+          "claim": "load()返回deepcopy(dict(value))——即完整YAML结构的深拷贝，含non_goals/constraints/capabilities/delivery_stages等全部字段，附加_manifest_path/_observed_commit/_semantic_content_machine_proven"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L68-L165",
+          "claim": "project_direction_context()接受任何已通过load()的Mapping类型product_definition，confirmed+唯一current_target才能投影capability_catalog和guardrails；合同'提供产品能力/护栏目录'的下游使用场景恰好需要confirmed修订，行为与contract一致"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L168-L227",
+          "claim": "validate_direction_context_binding()校验context_ref新鲜度、capability_refs有效性/唯一性、guardrail_dispositions全覆盖/无重复"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_product_definition.py#L53-L65",
+          "claim": "unadopted_project_direction_context()返回显式空上下文，authority_scope=unadopted_project，所有catalog字段为空列表"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/resources/project-product-definition-v1.schema.json#L1-L493",
+          "claim": "JSON Schema结构与Python校验逻辑一致，additionalProperties:false阻止额外字段（含实现路径字段），identity正则模式、生命周期allOf/if/then与load()逻辑对应"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_product_definition.py::test_direction_context_projects_every_capability_and_guardrail_without_ranking#L126-L141",
+          "claim": "断言capability_catalog和guardrails投影完整性及schema_version/authority_scope/semantic_relevance_machine_proven=False；run_id d0856323c4b6/f5e20647248e均passed（source_at_execution_hash未独立采集）"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_product_definition.py::test_direction_context_binding_checks_refs_coverage_and_staleness_only#L144-L186",
+          "claim": "覆盖freshness检查、guardrail缺失、过期context_ref、重复处置四个负向分支；两次recorded_executions均passed"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_product_definition.py::test_definition_rejects_implementation_or_architecture_fields#L236-L248",
+          "claim": "断言implementation_paths等未知字段被精确拒绝；两次recorded_executions均passed"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_product_definition.py::test_definition_can_be_read_at_an_exact_git_revision#L349-L371",
+          "claim": "测试通过subprocess初始化git repo并提交，验证observed_ref=initial读取历史版本与工作树读取内容不同，_observed_commit=commit hash；两次recorded_executions均passed"
+        }
+      ],
+      "resolution_plan": [
+        "全部合同操作已由现有代码覆盖，无需修复实现缺口",
+        "Git绑定（新仓库阶段限制）：首次仓库提交后_observed_commit将自动绑定，代码路径已就绪",
+        "跨权威一致性校验属MODULE-09B10A7EF967494D职责，不在本模块范围内"
+      ],
+      "limitations": [
+        "代码结构检查不证明Agent语义效果或真人产品接受",
+        "执行记录source_at_execution_hash未独立采集，recorded test passes不等于精确字节覆盖证明",
+        "新仓库尚无Git提交，observed_commit当前为None（工作树读取），不代表代码缺陷——代码行为正确",
+        "implemented表示当前可观察代码满足合同操作，不等于无缺陷或完整产品验收",
+        "全部评价候选待独立复核"
+      ]
+    },
+    {
+      "target_id": "MODULE-BA5C6A8095B6484E",
+      "target_kind": "module",
+      "status": "implemented",
+      "satisfied": [
+        "读取领域目录（合同operation: 渐进返回集合、来源和事实路由，不默认倾倒全部正文）：routing_catalog()返回集合路由不含事实正文（fact_bodies_included=False）；collection_catalog()返回单集合及其子集合路由；source_catalog()返回事实路由简报（_fact_brief不含content字段）；fact_body()按需返回单事实完整正文",
+        "读取事实闭包（合同operation: 返回选定事实及其显式依赖的规范正文和谱系）：required_closure()通过BFS展开scope_fact_ids/dependency_fact_ids及各kind的content内引用，返回规范deepcopy事实正文列表，bodies_loaded=True，semantic_content_machine_proven=False",
+        "校验领域模型候选（合同operation: 检查结构、类型、引用、产品追溯、场景闭环和生命周期，不判断语义正确性）：_manifest()验证schema_version和project-domain-model-v1.schema.json结构（含product_definition_ref产品追溯字段）；_routing_index()校验collection跨模型绑定一致性；_scan()校验事实状态与模型修订一致性、引用闭包存在性；_check_lineage_cycles()检测谱系自指与循环；_check_typed_references()验证类型化引用约束；_check_scenario_closure()验证场景闭环（required恰好一个，not_applicable无正文）",
+        "fact_reference()从不可变版本提交生成领域事实引用（无commit时主动拒绝，代码级正确保护）",
+        "validate_domain_fact_reference()：验证引用格式五字段，拒绝额外字段（如meaning）和非十六进制commit",
+        "resolve_reference()：校验model_id和observed_commit一致性后返回事实正文",
+        "多层Schema验证：project-domain-model/collection/source-v1.schema.json、domain-fact-reference-v1.schema.json均通过Draft202012Validator验证",
+        "not_responsible_for全部遵守：不生成/裁决领域语义；不保存源码路径/测试证据/实现状态；不推导目标模块/修改产品定义",
+        "接收仓库限定读取范围，不自行跨仓库发现（project_reader_for_scope）"
+      ],
+      "missing": [],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_domain_model.py#L219-L277",
+          "claim": "catalog()和routing_catalog()实现渐进路由；routing_catalog()返回fact_bodies_included=False，不暴露fact content；catalog()返回counts但不额外过滤"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_domain_model.py#L398-L443",
+          "claim": "required_closure()通过BFS展开_fact_references()（scope/dependency/kind-specific content引用），返回ordered fact列表和full bodies"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_domain_model.py#L628-L705",
+          "claim": "_scan()全量校验：事实状态与模型修订一致性、scope_fact_ids引用有效性、_fact_references引用闭包、_check_lineage_cycles/_check_typed_references/_check_scenario_closure"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_domain_model.py#L445-L459",
+          "claim": "fact_reference()在observed_commit为None时显式raises('正式领域事实引用必须从不可变版本提交读取')——合同'精确修订'要求的正确保护，不是缺口"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_domain_model.py#L108-L150",
+          "claim": "validate_domain_fact_reference()校验5个必填字段，拒绝额外字段（extra=sorted(set(value)-required)→issues），拒绝非十六进制commit（_COMMIT.fullmatch）"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_domain_model.py#L153-L187",
+          "claim": "_fact_references()按fact的kind（product_capability/domain_scenario/domain_entity/lifecycle/domain_event/domain_invariant/decision_authority/context_relationship）提取content内的所有引用字段，用于BFS闭包展开"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_domain_model.py::test_second_version_model_routes_without_dumping_fact_bodies#L155-L178",
+          "claim": "断言routing和collection中不含FACT_ID（repr不含），source_catalog返回fact_brief不含content字段，fact_body()才返回content；两次recorded_executions均passed"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_domain_model.py::test_fact_reference_requires_and_resolves_one_immutable_revision#L181-L202",
+          "claim": "断言工作树读取时fact_reference()抛出异常，git commit后observed_ref读取时成功生成引用并解析；两次recorded_executions均passed"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_domain_model.py::test_fact_reference_contract_rejects_unpinned_or_unknown_fields#L205-L216",
+          "claim": "断言含额外字段meaning的引用被拒绝；两次recorded_executions均passed"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_authority_contracts.py::test_domain_runtime_reads_the_current_formal_authority#L42-L58",
+          "claim": "对PROJECT_ROOT实际domain model执行catalog()，断言284 active_facts/6 collections/17 sources/semantic_content_machine_proven=False；两次recorded_executions均passed"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_authority_contracts.py::test_domain_runtime_routes_progressively_and_returns_typed_fact_closure#L61-L89",
+          "claim": "断言routing无facts字段、source facts无content字段、required_closure返回选定事实及依赖；两次recorded_executions均passed"
+        }
+      ],
+      "resolution_plan": [
+        "全部合同操作已由现有代码覆盖，无需修复实现缺口",
+        "Git绑定（新仓库阶段限制）：首次仓库提交后fact_reference()自动可用，代码路径已就绪",
+        "跨仓库权威唯一性校验属MODULE-09B10A7EF967494D（跨权威一致性检查）职责，不在本模块范围内"
+      ],
+      "limitations": [
+        "代码结构检查不证明领域事实内容业务正确性",
+        "执行记录source_at_execution_hash未独立采集，recorded test passes不等于精确字节覆盖证明",
+        "新仓库尚无Git提交，fact_reference()在工作树下正确拒绝（代码保护正确），不代表代码缺陷",
+        "跨仓库同model_id唯一性、domain_fact_dispositions覆盖全量域事实由MODULE-09B10A7EF967494D负责，不在本模块职责内",
+        "implemented表示当前可观察代码满足合同操作，不等于无缺陷或完整产品验收",
+        "全部评价候选待独立复核"
+      ]
+    },
+    {
+      "target_id": "MODULE-525F73C6C189406A",
+      "target_kind": "module",
+      "status": "implemented",
+      "satisfied": [
+        "读取目标架构（合同operation: 返回选定精确修订的模块、接口、关系、约束、处置和阶段）：load()从description_path读取主manifest和5类artifact（modules/relationships/constraints/domain_fact_dispositions/implementation_stages），合并为包含modules/relationships/constraints/domain_fact_dispositions/implementation_stages的完整返回值；_validate_bindings()确保每个artifact绑定到相同architecture_id和revision_id",
+        "校验目标架构候选（合同operation: 检查唯一身份、全量处置、引用、直接依赖无环、验证方法和生命周期）：_validate_graph()检查模块身份唯一性/接口身份唯一性/操作名称唯一性/关系身份唯一性/关系端点有效性/自指/中介关系直接边存在性；_acyclic()Kahn算法验证直接依赖无环；约束/处置/阶段的引用有效性；disposition_type=='unallocated'时报错（全量处置要求无未分配项）；Schema验证覆盖验证方法字段和生命周期字段",
+        "direct_dependency_graph_acyclic=True是已验证不变量：控制流确认load()在L211调用_validate_graph()后L213-L214 if issues:raise，只有issues为空时才到L240-L241完成缓存和返回；decision_catalog()在L246调用self.load()必须成功（否则传播异常），因此返回True时循环检测已通过，该字段是已验证不变量的正确断言",
+        "_validate_bindings()：校验各artifact与主描述文件的architecture_id、revision_id；校验domain_fact_dispositions中的domain_model_ref与主manifest一致",
+        "_validate_no_current_implementation()：检测_FORBIDDEN_TARGET_KEYS（paths/source_path/test_paths等）和当前实现路径模式（strixnova/src/、tests/、.py后缀），防止架构文件污染实现字段",
+        "提供架构判定目录（合同operation: 返回供实现对齐和漂移门禁使用的确定性允许关系、禁止关系和责任身份）：decision_catalog()返回allowed/mediated/forbidden关系分类、默认关系政策、module_ids/responsibility_ids",
+        "选择显式架构资料（合同operation: 按明确模块身份返回适用约束、默认关系政策、涉及端点或中介的关系及其必要定义和领域事实处置；不从源码推导业务语义，也不无限展开全部关联）：select_modules()返回selected+referenced modules定义、涉及选定模块的关系（from/to/mediator）、适用约束、相关domain_fact_dispositions；不展开全部关联",
+        "schema文件（project-architecture-description-v1.schema.json）通过oneOf六分支覆盖全部6类架构artifact完整结构约束",
+        "not_responsible_for全部遵守：不保存当前源码路径/实际依赖/实现证据；不从当前代码反推目标架构；不自行决定领域事实应当表示什么"
+      ],
+      "missing": [],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L145-L241",
+          "claim": "load()加载5类artifact、验证schema_version和bindings，调用_validate_bindings()→_validate_graph()→_validate_no_current_implementation()→if issues:raise；仅在issues为空时self._cache=result返回"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L209-L214",
+          "claim": "控制流关键：L209 if len(artifacts)==len(_ARTIFACT_SCHEMAS)，L210-212三次validate调用，L213 if issues: L214 raise——load()只在无issues时返回，因此decision_catalog()调用self.load()成功即意味着无环"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L243-L288",
+          "claim": "decision_catalog()在L246 self.load()成功后，L286返回direct_dependency_graph_acyclic=True——此为已通过_acyclic()检验的不变量断言，非硬编码字面量"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L358-L472",
+          "claim": "_validate_graph()：唯一性检查（模块/接口/操作/关系/约束/处置/阶段）；引用完整性；L440-L441 disposition_type=='unallocated'时报错（全量处置=无unallocated项）；阶段完整覆盖全部模块"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L290-L339",
+          "claim": "select_modules()返回selected+referenced modules定义、from/to/mediator涉及selected的关系、适用约束（global或applies_to_module_ids交集）、相关domain_fact_dispositions"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_architecture_description.py#L496-L511",
+          "claim": "_validate_no_current_implementation()：_walk()递归所有key和str值，拒绝_FORBIDDEN_TARGET_KEYS（11个禁止字段名）及含strixnova/src/、tests/、.py后缀的路径字符串"
+        },
+        {
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/resources/project-architecture-description-v1.schema.json#L1-L23",
+          "claim": "oneOf六分支（model/module_catalog/relationship_catalog/constraint_catalog/disposition_catalog/stage_catalog）覆盖全部6类架构artifact，与_ARTIFACT_SCHEMAS和_SCHEMA_BRANCHES映射一致"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_authority_contracts.py::test_architecture_runtime_reads_and_validates_the_complete_target#L116-L139",
+          "claim": "对PROJECT_ROOT实际架构文件执行load()和decision_catalog()，断言21个模块/83个关系/33个约束/284个domain_fact_dispositions/semantic_content_machine_proven=False/direct_dependency_graph_acyclic=True；两次recorded_executions均passed"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_authority_contracts.py::test_architecture_runtime_reports_exact_subordinate_field_errors#L169-L200",
+          "claim": "断言修改modules.yaml字段名后错误精确定位到modules.modules.0，不暴露'not valid under any'；两次recorded_executions均passed"
+        },
+        {
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_authority_contracts.py::test_architecture_runtime_rejects_an_unknown_contract#L142-L166",
+          "claim": "断言错误schema_version被拒绝；两次recorded_executions均passed"
+        },
+        {
+          "kind": "inspection",
+          "ref": "inputs/files/docs/architecture/modules.yaml#L90-L93",
+          "claim": "MODULE-525F73C6C189406A的not_responsible_for明确排除：不保存当前源码路径、不从代码反推目标架构、不自行决定领域事实语义——跨权威一致性校验和domain_fact覆盖全量检查均不在本模块合同范围内"
+        }
+      ],
+      "resolution_plan": [
+        "全部合同操作已由现有代码覆盖，无需修复实现缺口",
+        "direct_dependency_graph_acyclic=True已确认为已验证不变量的正确断言，无需修改",
+        "domain_fact_dispositions覆盖全量领域事实的跨权威一致性校验属MODULE-09B10A7EF967494D职责，不在本模块范围内",
+        "Git绑定（新仓库阶段限制）：首次仓库提交后observed_commit自动可用，代码路径已就绪"
+      ],
+      "limitations": [
+        "代码结构检查不证明架构设计业务正确性",
+        "执行记录source_at_execution_hash未独立采集，recorded test passes不等于精确字节覆盖证明",
+        "新仓库尚无Git提交，observed_commit当前为None，不代表代码缺陷",
+        "domain_fact_dispositions是否覆盖全部领域模型事实的跨权威一致性属MODULE-09B10A7EF967494D职责，已在实际数据（284处置=284 active_facts）中对齐，但代码层不跨模块强制验证",
+        "implemented表示当前可观察代码满足合同操作，不等于无缺陷或完整产品验收",
+        "全部评价候选待独立复核"
+      ]
+    }
+  ],
+  "source_ownership": [
+    {
+      "path": "strixnova/src/strixnova/project_product_definition.py",
+      "target_module_id": "MODULE-361DDA9576FF4C16",
+      "current_status": "aligned",
+      "rationale": "文件内容与合同职责直接对应：ProjectProductDefinition.load()实现读取和校验，project_direction_context/validate_direction_context_binding实现能力目录和护栏目录投影；无越界实现（不读取实现或领域代码，不生成产品语义）"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-product-definition-v1.schema.json",
+      "target_module_id": "MODULE-361DDA9576FF4C16",
+      "current_status": "aligned",
+      "rationale": "Schema结构与源码校验逻辑一致，additionalProperties:false阻止额外字段，identity模式与py正则一致，生命周期条件通过allOf/if/then表达"
+    },
+    {
+      "path": "strixnova/src/strixnova/project_domain_model.py",
+      "target_module_id": "MODULE-BA5C6A8095B6484E",
+      "current_status": "aligned",
+      "rationale": "ProjectDomainModel类实现渐进目录读取、事实闭包、来源/集合层级导航、谱系和类型化引用校验；不包含源码路径或测试证据字段，不修改产品定义"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/domain-fact-reference-v1.schema.json",
+      "target_module_id": "MODULE-BA5C6A8095B6484E",
+      "current_status": "aligned",
+      "rationale": "Schema定义不可变事实引用结构（schema_version/authority_kind/model_id/fact_id/observed_commit），与validate_domain_fact_reference()实现一致"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-domain-collection-v1.schema.json",
+      "target_module_id": "MODULE-BA5C6A8095B6484E",
+      "current_status": "aligned",
+      "rationale": "Schema定义领域集合结构，被_routing_index()通过_schema_issues()加载验证"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-domain-model-v1.schema.json",
+      "target_module_id": "MODULE-BA5C6A8095B6484E",
+      "current_status": "aligned",
+      "rationale": "Schema定义领域模型manifest结构，被_manifest()通过_schema_issues()加载验证"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-domain-source-v1.schema.json",
+      "target_module_id": "MODULE-BA5C6A8095B6484E",
+      "current_status": "aligned",
+      "rationale": "Schema定义领域来源和事实结构（含各kind的content约束），被_load_source()通过_schema_issues()加载验证"
+    },
+    {
+      "path": "strixnova/src/strixnova/project_architecture_description.py",
+      "target_module_id": "MODULE-525F73C6C189406A",
+      "current_status": "aligned",
+      "rationale": "ProjectArchitectureDescription类实现多artifact架构读取、全量结构校验（无环/唯一性/引用/处置）、决策目录和模块选择；_validate_no_current_implementation()主动拒绝含实现字段的架构文件，符合合同not_responsible_for约束"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/project-architecture-description-v1.schema.json",
+      "target_module_id": "MODULE-525F73C6C189406A",
+      "current_status": "aligned",
+      "rationale": "Schema通过oneOf分支覆盖全部6类架构artifact，与_ARTIFACT_SCHEMAS字典和_SCHEMA_BRANCHES映射一致"
+    }
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false
+}

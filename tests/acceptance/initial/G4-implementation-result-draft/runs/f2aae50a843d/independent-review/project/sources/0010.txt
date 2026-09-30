@@ -1,0 +1,730 @@
+1: {
+2:   "scope": "Unregistered author-written draft; no result presentation or acceptance readiness claim.",
+3:   "draft_sha256": "a38514bddeed9daef084bfcd68f1f3ff94d10bd67a1cb318cdb58ccb36ce9acc",
+4:   "payload": {
+5:     "schema_version": "strixnova.actual-result.v1",
+6:     "review_subject_ref": "review-subject:0289e15b375b9d03a4c50d9233344c103bb411a9cbfa68c5aa803b3a9c0481ba",
+7:     "semantic_content_machine_proven": false,
+8:     "effect_summary": "实现了成员通过本地终端撤回本人待审核预约申请的完整能力。包含申请域模型（实体、状态枚举、乐观并发控制）、审计日志模块、成员服务层（身份校验、归属检查、撤回执行）和CLI入口。5个方向行为例子全部通过测试验证（VC-001），duration回归测试通过（VC-002）。编码后实现对齐已刷新，记录了真实模块结构。运营汇总模块因周报方向待确认而未实现，是已公开的范围限制。",
+9:     "delivered_outcomes": [
+10:       "成员可通过本地终端撤回本人待审核的预约申请（src/application/domain.py, service.py, cli.py）",
+11:       "撤回他人申请被拒绝，申请状态不变，不产生审计（身份校验）",
+12:       "重复撤回幂等，返回已撤回结果且不重复审计",
+13:       "并发撤回与审批通过乐观并发控制确保只有一个操作成功",
+14:       "响应丢失后可查询申请实际当前状态",
+15:       "审计记录保留操作者、原状态、新状态和操作身份",
+16:       "产品定义、领域模型、架构和工程政策的首次修订已形成候选（draft）",
+17:       "编码后实现对齐已刷新，反映真实模块实现状态",
+18:       "duration函数既有行为保持不变（回归验证通过）"
+19:     ],
+20:     "deviations": [],
+21:     "limitations": [
+22:       "用例报告测试根与方案声明的绑定路径不同（类嵌套），case_evidence.status 为 report_invalid；命令层面 result 为 passed，6个测试全部通过",
+23:       "运营汇总模块（MODULE-A000000000000003）和相关关系（RELATION-A000000000000002/004）因周报方向待确认而未实现，complete_alignment 为 false",
+24:       "四类长期权威候选均为 draft/not_adopted 状态，confirmed 标记是合成测试前提，实际采用待负责人接受后独立完成",
+25:       "src/cli.py 不在计划操作列表的 governed source scope 中（governed scope 仅含 src.py），source_ownership 仅记录 src.py"
+26:     ],
+27:     "verification_receipt_ids": [
+28:       "VR-WI-20260929-DEC61550-40D8054752",
+29:       "VR-WI-20260929-DEC61550-E667F74F9C"
+30:     ],
+31:     "verification_review_results": [
+32:       {
+33:         "target_ref": "direction.example:DIREX-A000000000000001",
+34:         "outcome": "supported",
+35:         "rationale": "断言充分性审查：测试 test_member_withdraws_own_pending_application 断言了 result==SUCCESS、current_status==WITHDRAWN、实体状态==WITHDRAWN，以及审计记录数量为1、操作者身份、前后状态和操作类型。覆盖了方向例子的全部 then 条件。",
+36:         "evidence_refs": [
+37:           "VR-WI-20260929-DEC61550-40D8054752"
+38:         ]
+39:       },
+40:       {
+41:         "target_ref": "direction.example:DIREX-A000000000000002",
+42:         "outcome": "supported",
+43:         "rationale": "断言充分性审查：测试 test_withdraw_other_member_application_rejected 断言了 result==NOT_OWNER、状态未变（与 original_status 比较）、审计记录为空（len==0）。覆盖了方向例子的全部 then 条件。",
+44:         "evidence_refs": [
+45:           "VR-WI-20260929-DEC61550-40D8054752"
+46:         ]
+47:       },
+48:       {
+49:         "target_ref": "direction.example:DIREX-A000000000000003",
+50:         "outcome": "supported",
+51:         "rationale": "断言充分性审查：测试 test_repeated_withdrawal_idempotent 先执行成功撤回并断言审计数=1，再次撤回后断言 result==ALREADY_WITHDRAWN、current_status==WITHDRAWN、审计数不变。覆盖了方向例子的全部 then 条件。",
+52:         "evidence_refs": [
+53:           "VR-WI-20260929-DEC61550-40D8054752"
+54:         ]
+55:       },
+56:       {
+57:         "target_ref": "direction.example:DIREX-A000000000000004",
+58:         "outcome": "supported",
+59:         "rationale": "断言充分性审查：测试 test_concurrent_withdrawal_and_approval 模拟两方同时读取版本后顺序执行，断言第一个成功第二个失败，并验证了反方向（审批先执行）场景。通过乐观并发版本号实现'只有一个操作成功，另一个被拒绝'。",
+60:         "evidence_refs": [
+61:           "VR-WI-20260929-DEC61550-40D8054752"
+62:         ]
+63:       },
+64:       {
+65:         "target_ref": "direction.example:DIREX-A000000000000005",
+66:         "outcome": "supported",
+67:         "rationale": "断言充分性审查：测试 test_query_actual_status_after_lost_response 在撤回后通过 query_status 查询并断言返回 WITHDRAWN。额外测试验证了 PENDING 状态下也能查询。覆盖了方向例子的 then 条件。",
+68:         "evidence_refs": [
+69:           "VR-WI-20260929-DEC61550-40D8054752"
+70:         ]
+71:       },
+72:       {
+73:         "target_ref": "direction.example:DIREX-A000000000000006",
+74:         "outcome": "supported",
+75:         "rationale": "Agent审查（统一申请身份）：产品定义中 application_identity_and_status 声明为成员服务和运营汇总的统一模型。架构 CONSTRAINT-A000000000000001 要求身份来自可信宿主。领域模型 core.yaml 定义了唯一的 Application 实体和 ApplicationStatus 枚举。src/application/domain.py 实现了唯一的 Application 类，service.py 和 cli.py 均通过此唯一定义操作，不存在各自定义。运营汇总虽未实现，但架构中的 RELATION-A000000000000002 声明为只读依赖，共享相同实体定义。",
+76:         "evidence_refs": [
+77:           "VR-WI-20260929-DEC61550-40D8054752",
+78:           "artifact:PRODUCT-1111111111111111",
+79:           "artifact:ARCH-1111111111111111"
+80:         ]
+81:       },
+82:       {
+83:         "target_ref": "direction.example:DIREX-A000000000000007",
+84:         "outcome": "supported",
+85:         "rationale": "Agent审查（终端交互）：src/cli.py 使用 argparse 实现本地终端命令行接口，提供 withdraw 和 status 子命令。不依赖网络库或 HTTP 服务。全部操作通过本地终端命令行完成。",
+86:         "evidence_refs": [
+87:           "VR-WI-20260929-DEC61550-40D8054752"
+88:         ]
+89:       },
+90:       {
+91:         "target_ref": "risk_assessments[1]",
+92:         "outcome": "supported",
+93:         "rationale": "Agent审查（权威候选绑定一致性）：(1) 产品定义引入撤回能力 → 领域模型新增 Application 实体和状态枚举 → 一致；(2) 领域模型状态转换规则 → 架构 domain.py 模块职责 → 一致；(3) 架构 service 模块 → 领域 service 关系 → 一致；(4) 架构约束身份来源 → service.py authenticated_member_id → 一致；(5) 架构约束并发安全 → domain.py version 字段 → 一致；(6) 架构约束终端交互 → cli.py argparse → 一致；(7) 工程政策验证命令策略 → 实际 VC-001/002 命令 → 一致；(8) 实现对齐候选 → 编码后刷新反映 implemented 状态 → 一致。",
+94:         "evidence_refs": [
+95:           "VR-WI-20260929-DEC61550-40D8054752",
+96:           "artifact:PRODUCT-1111111111111111",
+97:           "artifact:MODEL-1111111111111111",
+98:           "artifact:ARCH-1111111111111111",
+99:           "artifact:ALIGNMODEL-1111111111111111"
+100:         ]
+101:       },
+102:       {
+103:         "rationale": "方向约束要求方向确认后需完成产品、领域、架构和工程政策的首次修订并确认才能开始实施。SLICE-001 在业务编码前完成了四类上游候选（产品定义 REVISION-3333333333333333、领域模型 MODELREV-3333333333333333、架构 ARCHREV-3333333333333333、工程政策 POLICYREV-3333333333333333）的形成和程序确认。实施在确认完成后开始。",
+104:         "evidence_refs": [
+105:           "VR-WI-20260929-DEC61550-40D8054752",
+106:           "artifact:PRODUCT-1111111111111111",
+107:           "artifact:MODEL-1111111111111111",
+108:           "artifact:ARCH-1111111111111111"
+109:         ],
+110:         "outcome": "supported",
+111:         "target_ref": "direction.constraint:DIRCON-A000000000000002"
+112:       }
+113:     ],
+114:     "long_lived_refs": [
+115:       {
+116:         "artifact_id": "PRODUCT-1111111111111111",
+117:         "artifact_type": "product_governance",
+118:         "path": "docs/product/definition.yaml",
+119:         "relation": "introduced",
+120:         "repository_id": "REPO-1111111111111111"
+121:       },
+122:       {
+123:         "artifact_id": "MODEL-1111111111111111",
+124:         "artifact_type": "domain_model",
+125:         "path": "docs/domain/model.yaml",
+126:         "relation": "introduced",
+127:         "repository_id": "REPO-1111111111111111"
+128:       },
+129:       {
+130:         "artifact_id": "ARCH-1111111111111111",
+131:         "artifact_type": "architecture",
+132:         "path": "docs/architecture/model.yaml",
+133:         "relation": "introduced",
+134:         "repository_id": "REPO-1111111111111111"
+135:       },
+136:       {
+137:         "artifact_id": "ALIGNMODEL-1111111111111111",
+138:         "artifact_type": "domain_alignment",
+139:         "path": "docs/engineering/alignment.yaml",
+140:         "relation": "introduced",
+141:         "repository_id": "REPO-1111111111111111"
+142:       },
+143:       {
+144:         "artifact_type": "quality_policy",
+145:         "relation": "introduced",
+146:         "repository_id": "REPO-1111111111111111",
+147:         "artifact_id": "POLICY-1111111111111111",
+148:         "path": "docs/engineering/policy.yaml"
+149:       }
+150:     ],
+151:     "domain_fact_change_results": [
+152:       {
+153:         "target_ref": {
+154:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+155:           "schema_version": "strixnova.domain-fact-reference.v1",
+156:           "fact_id": "FACT-2222222222222222",
+157:           "authority_kind": "project_domain_model",
+158:           "model_id": "MODEL-1111111111111111"
+159:         },
+160:         "evidence_refs": [
+161:           "VR-WI-20260929-DEC61550-40D8054752"
+162:         ],
+163:         "limitations": [],
+164:         "outcome": "realized"
+165:       },
+166:       {
+167:         "target_ref": {
+168:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+169:           "schema_version": "strixnova.domain-fact-reference.v1",
+170:           "fact_id": "FACT-3333333333333333",
+171:           "authority_kind": "project_domain_model",
+172:           "model_id": "MODEL-1111111111111111"
+173:         },
+174:         "evidence_refs": [
+175:           "VR-WI-20260929-DEC61550-40D8054752"
+176:         ],
+177:         "limitations": [],
+178:         "outcome": "realized"
+179:       },
+180:       {
+181:         "target_ref": {
+182:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+183:           "schema_version": "strixnova.domain-fact-reference.v1",
+184:           "fact_id": "FACT-A000000000000001",
+185:           "authority_kind": "project_domain_model",
+186:           "model_id": "MODEL-1111111111111111"
+187:         },
+188:         "evidence_refs": [
+189:           "VR-WI-20260929-DEC61550-40D8054752"
+190:         ],
+191:         "limitations": [],
+192:         "outcome": "realized"
+193:       },
+194:       {
+195:         "target_ref": {
+196:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+197:           "schema_version": "strixnova.domain-fact-reference.v1",
+198:           "fact_id": "FACT-A000000000000002",
+199:           "authority_kind": "project_domain_model",
+200:           "model_id": "MODEL-1111111111111111"
+201:         },
+202:         "evidence_refs": [
+203:           "VR-WI-20260929-DEC61550-40D8054752"
+204:         ],
+205:         "limitations": [],
+206:         "outcome": "realized"
+207:       },
+208:       {
+209:         "target_ref": {
+210:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+211:           "schema_version": "strixnova.domain-fact-reference.v1",
+212:           "fact_id": "FACT-A000000000000003",
+213:           "authority_kind": "project_domain_model",
+214:           "model_id": "MODEL-1111111111111111"
+215:         },
+216:         "evidence_refs": [
+217:           "VR-WI-20260929-DEC61550-40D8054752"
+218:         ],
+219:         "limitations": [],
+220:         "outcome": "realized"
+221:       },
+222:       {
+223:         "target_ref": {
+224:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+225:           "schema_version": "strixnova.domain-fact-reference.v1",
+226:           "fact_id": "FACT-A000000000000004",
+227:           "authority_kind": "project_domain_model",
+228:           "model_id": "MODEL-1111111111111111"
+229:         },
+230:         "evidence_refs": [
+231:           "VR-WI-20260929-DEC61550-40D8054752"
+232:         ],
+233:         "limitations": [],
+234:         "outcome": "realized"
+235:       },
+236:       {
+237:         "target_ref": {
+238:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+239:           "schema_version": "strixnova.domain-fact-reference.v1",
+240:           "fact_id": "FACT-A000000000000005",
+241:           "authority_kind": "project_domain_model",
+242:           "model_id": "MODEL-1111111111111111"
+243:         },
+244:         "evidence_refs": [
+245:           "VR-WI-20260929-DEC61550-40D8054752"
+246:         ],
+247:         "limitations": [],
+248:         "outcome": "realized"
+249:       },
+250:       {
+251:         "target_ref": {
+252:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+253:           "schema_version": "strixnova.domain-fact-reference.v1",
+254:           "fact_id": "FACT-A000000000000006",
+255:           "authority_kind": "project_domain_model",
+256:           "model_id": "MODEL-1111111111111111"
+257:         },
+258:         "evidence_refs": [
+259:           "VR-WI-20260929-DEC61550-40D8054752"
+260:         ],
+261:         "limitations": [],
+262:         "outcome": "realized"
+263:       },
+264:       {
+265:         "target_ref": {
+266:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+267:           "schema_version": "strixnova.domain-fact-reference.v1",
+268:           "fact_id": "FACT-A000000000000007",
+269:           "authority_kind": "project_domain_model",
+270:           "model_id": "MODEL-1111111111111111"
+271:         },
+272:         "evidence_refs": [
+273:           "VR-WI-20260929-DEC61550-40D8054752"
+274:         ],
+275:         "limitations": [],
+276:         "outcome": "realized"
+277:       },
+278:       {
+279:         "target_ref": {
+280:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+281:           "schema_version": "strixnova.domain-fact-reference.v1",
+282:           "fact_id": "FACT-A000000000000008",
+283:           "authority_kind": "project_domain_model",
+284:           "model_id": "MODEL-1111111111111111"
+285:         },
+286:         "evidence_refs": [
+287:           "VR-WI-20260929-DEC61550-40D8054752"
+288:         ],
+289:         "limitations": [],
+290:         "outcome": "realized"
+291:       },
+292:       {
+293:         "target_ref": {
+294:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+295:           "schema_version": "strixnova.domain-fact-reference.v1",
+296:           "fact_id": "FACT-A000000000000009",
+297:           "authority_kind": "project_domain_model",
+298:           "model_id": "MODEL-1111111111111111"
+299:         },
+300:         "evidence_refs": [
+301:           "VR-WI-20260929-DEC61550-40D8054752"
+302:         ],
+303:         "limitations": [],
+304:         "outcome": "realized"
+305:       },
+306:       {
+307:         "target_ref": {
+308:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+309:           "schema_version": "strixnova.domain-fact-reference.v1",
+310:           "fact_id": "FACT-A00000000000000A",
+311:           "authority_kind": "project_domain_model",
+312:           "model_id": "MODEL-1111111111111111"
+313:         },
+314:         "evidence_refs": [
+315:           "VR-WI-20260929-DEC61550-40D8054752"
+316:         ],
+317:         "limitations": [],
+318:         "outcome": "realized"
+319:       },
+320:       {
+321:         "target_ref": {
+322:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644",
+323:           "schema_version": "strixnova.domain-fact-reference.v1",
+324:           "fact_id": "FACT-A00000000000000B",
+325:           "authority_kind": "project_domain_model",
+326:           "model_id": "MODEL-1111111111111111"
+327:         },
+328:         "evidence_refs": [
+329:           "VR-WI-20260929-DEC61550-40D8054752"
+330:         ],
+331:         "limitations": [],
+332:         "outcome": "realized"
+333:       },
+334:       {
+335:         "target_ref": {
+336:           "schema_version": "strixnova.domain-fact-reference.v1",
+337:           "authority_kind": "project_domain_model",
+338:           "model_id": "MODEL-1111111111111111",
+339:           "fact_id": "FACT-A00000000000000C",
+340:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+341:         },
+342:         "outcome": "realized",
+343:         "evidence_refs": [
+344:           "VR-WI-20260929-DEC61550-40D8054752"
+345:         ],
+346:         "limitations": []
+347:       },
+348:       {
+349:         "target_ref": {
+350:           "schema_version": "strixnova.domain-fact-reference.v1",
+351:           "authority_kind": "project_domain_model",
+352:           "model_id": "MODEL-1111111111111111",
+353:           "fact_id": "FACT-A00000000000000D",
+354:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+355:         },
+356:         "outcome": "realized",
+357:         "evidence_refs": [
+358:           "VR-WI-20260929-DEC61550-40D8054752"
+359:         ],
+360:         "limitations": []
+361:       },
+362:       {
+363:         "target_ref": {
+364:           "schema_version": "strixnova.domain-fact-reference.v1",
+365:           "authority_kind": "project_domain_model",
+366:           "model_id": "MODEL-1111111111111111",
+367:           "fact_id": "FACT-A00000000000000E",
+368:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+369:         },
+370:         "outcome": "realized",
+371:         "evidence_refs": [
+372:           "VR-WI-20260929-DEC61550-40D8054752"
+373:         ],
+374:         "limitations": []
+375:       },
+376:       {
+377:         "target_ref": {
+378:           "schema_version": "strixnova.domain-fact-reference.v1",
+379:           "authority_kind": "project_domain_model",
+380:           "model_id": "MODEL-1111111111111111",
+381:           "fact_id": "FACT-A00000000000000F",
+382:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+383:         },
+384:         "outcome": "realized",
+385:         "evidence_refs": [
+386:           "VR-WI-20260929-DEC61550-40D8054752"
+387:         ],
+388:         "limitations": []
+389:       },
+390:       {
+391:         "target_ref": {
+392:           "schema_version": "strixnova.domain-fact-reference.v1",
+393:           "authority_kind": "project_domain_model",
+394:           "model_id": "MODEL-1111111111111111",
+395:           "fact_id": "FACT-A000000000000010",
+396:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+397:         },
+398:         "outcome": "realized",
+399:         "evidence_refs": [
+400:           "VR-WI-20260929-DEC61550-40D8054752"
+401:         ],
+402:         "limitations": []
+403:       },
+404:       {
+405:         "target_ref": {
+406:           "schema_version": "strixnova.domain-fact-reference.v1",
+407:           "authority_kind": "project_domain_model",
+408:           "model_id": "MODEL-1111111111111111",
+409:           "fact_id": "FACT-A000000000000011",
+410:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+411:         },
+412:         "outcome": "realized",
+413:         "evidence_refs": [
+414:           "VR-WI-20260929-DEC61550-40D8054752"
+415:         ],
+416:         "limitations": []
+417:       },
+418:       {
+419:         "target_ref": {
+420:           "schema_version": "strixnova.domain-fact-reference.v1",
+421:           "authority_kind": "project_domain_model",
+422:           "model_id": "MODEL-1111111111111111",
+423:           "fact_id": "FACT-A000000000000012",
+424:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+425:         },
+426:         "outcome": "realized",
+427:         "evidence_refs": [
+428:           "VR-WI-20260929-DEC61550-40D8054752"
+429:         ],
+430:         "limitations": []
+431:       },
+432:       {
+433:         "target_ref": {
+434:           "schema_version": "strixnova.domain-fact-reference.v1",
+435:           "authority_kind": "project_domain_model",
+436:           "model_id": "MODEL-1111111111111111",
+437:           "fact_id": "FACT-A000000000000013",
+438:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+439:         },
+440:         "outcome": "realized",
+441:         "evidence_refs": [
+442:           "VR-WI-20260929-DEC61550-40D8054752"
+443:         ],
+444:         "limitations": []
+445:       },
+446:       {
+447:         "target_ref": {
+448:           "schema_version": "strixnova.domain-fact-reference.v1",
+449:           "authority_kind": "project_domain_model",
+450:           "model_id": "MODEL-1111111111111111",
+451:           "fact_id": "FACT-A000000000000014",
+452:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+453:         },
+454:         "outcome": "realized",
+455:         "evidence_refs": [
+456:           "VR-WI-20260929-DEC61550-40D8054752"
+457:         ],
+458:         "limitations": []
+459:       },
+460:       {
+461:         "target_ref": {
+462:           "schema_version": "strixnova.domain-fact-reference.v1",
+463:           "authority_kind": "project_domain_model",
+464:           "model_id": "MODEL-1111111111111111",
+465:           "fact_id": "FACT-A000000000000015",
+466:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+467:         },
+468:         "outcome": "realized",
+469:         "evidence_refs": [
+470:           "VR-WI-20260929-DEC61550-40D8054752"
+471:         ],
+472:         "limitations": []
+473:       },
+474:       {
+475:         "target_ref": {
+476:           "schema_version": "strixnova.domain-fact-reference.v1",
+477:           "authority_kind": "project_domain_model",
+478:           "model_id": "MODEL-1111111111111111",
+479:           "fact_id": "FACT-A000000000000016",
+480:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+481:         },
+482:         "outcome": "realized",
+483:         "evidence_refs": [
+484:           "VR-WI-20260929-DEC61550-40D8054752"
+485:         ],
+486:         "limitations": []
+487:       },
+488:       {
+489:         "target_ref": {
+490:           "schema_version": "strixnova.domain-fact-reference.v1",
+491:           "authority_kind": "project_domain_model",
+492:           "model_id": "MODEL-1111111111111111",
+493:           "fact_id": "FACT-A000000000000017",
+494:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+495:         },
+496:         "outcome": "realized",
+497:         "evidence_refs": [
+498:           "VR-WI-20260929-DEC61550-40D8054752"
+499:         ],
+500:         "limitations": []
+501:       },
+502:       {
+503:         "target_ref": {
+504:           "schema_version": "strixnova.domain-fact-reference.v1",
+505:           "authority_kind": "project_domain_model",
+506:           "model_id": "MODEL-1111111111111111",
+507:           "fact_id": "FACT-A000000000000018",
+508:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+509:         },
+510:         "outcome": "realized",
+511:         "evidence_refs": [
+512:           "VR-WI-20260929-DEC61550-40D8054752"
+513:         ],
+514:         "limitations": []
+515:       },
+516:       {
+517:         "target_ref": {
+518:           "schema_version": "strixnova.domain-fact-reference.v1",
+519:           "authority_kind": "project_domain_model",
+520:           "model_id": "MODEL-1111111111111111",
+521:           "fact_id": "FACT-A000000000000019",
+522:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+523:         },
+524:         "outcome": "realized",
+525:         "evidence_refs": [
+526:           "VR-WI-20260929-DEC61550-40D8054752"
+527:         ],
+528:         "limitations": []
+529:       },
+530:       {
+531:         "target_ref": {
+532:           "schema_version": "strixnova.domain-fact-reference.v1",
+533:           "authority_kind": "project_domain_model",
+534:           "model_id": "MODEL-1111111111111111",
+535:           "fact_id": "FACT-A00000000000001A",
+536:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+537:         },
+538:         "outcome": "realized",
+539:         "evidence_refs": [
+540:           "VR-WI-20260929-DEC61550-40D8054752"
+541:         ],
+542:         "limitations": []
+543:       },
+544:       {
+545:         "target_ref": {
+546:           "schema_version": "strixnova.domain-fact-reference.v1",
+547:           "authority_kind": "project_domain_model",
+548:           "model_id": "MODEL-1111111111111111",
+549:           "fact_id": "FACT-A00000000000001B",
+550:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+551:         },
+552:         "outcome": "realized",
+553:         "evidence_refs": [
+554:           "VR-WI-20260929-DEC61550-40D8054752"
+555:         ],
+556:         "limitations": []
+557:       },
+558:       {
+559:         "target_ref": {
+560:           "schema_version": "strixnova.domain-fact-reference.v1",
+561:           "authority_kind": "project_domain_model",
+562:           "model_id": "MODEL-1111111111111111",
+563:           "fact_id": "FACT-A00000000000001C",
+564:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+565:         },
+566:         "outcome": "realized",
+567:         "evidence_refs": [
+568:           "VR-WI-20260929-DEC61550-40D8054752"
+569:         ],
+570:         "limitations": []
+571:       },
+572:       {
+573:         "target_ref": {
+574:           "schema_version": "strixnova.domain-fact-reference.v1",
+575:           "authority_kind": "project_domain_model",
+576:           "model_id": "MODEL-1111111111111111",
+577:           "fact_id": "FACT-A00000000000001D",
+578:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+579:         },
+580:         "outcome": "realized",
+581:         "evidence_refs": [
+582:           "VR-WI-20260929-DEC61550-40D8054752"
+583:         ],
+584:         "limitations": []
+585:       },
+586:       {
+587:         "target_ref": {
+588:           "schema_version": "strixnova.domain-fact-reference.v1",
+589:           "authority_kind": "project_domain_model",
+590:           "model_id": "MODEL-1111111111111111",
+591:           "fact_id": "FACT-A00000000000001E",
+592:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+593:         },
+594:         "outcome": "realized",
+595:         "evidence_refs": [
+596:           "VR-WI-20260929-DEC61550-40D8054752"
+597:         ],
+598:         "limitations": []
+599:       },
+600:       {
+601:         "target_ref": {
+602:           "schema_version": "strixnova.domain-fact-reference.v1",
+603:           "authority_kind": "project_domain_model",
+604:           "model_id": "MODEL-1111111111111111",
+605:           "fact_id": "FACT-A00000000000001F",
+606:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+607:         },
+608:         "outcome": "realized",
+609:         "evidence_refs": [
+610:           "VR-WI-20260929-DEC61550-40D8054752"
+611:         ],
+612:         "limitations": []
+613:       },
+614:       {
+615:         "target_ref": {
+616:           "schema_version": "strixnova.domain-fact-reference.v1",
+617:           "authority_kind": "project_domain_model",
+618:           "model_id": "MODEL-1111111111111111",
+619:           "fact_id": "FACT-A000000000000020",
+620:           "observed_commit": "45b1b5cef4bd66ae967994f8373a11f362d20644"
+621:         },
+622:         "outcome": "realized",
+623:         "evidence_refs": [
+624:           "VR-WI-20260929-DEC61550-40D8054752"
+625:         ],
+626:         "limitations": []
+627:       }
+628:     ],
+629:     "method_application_results": [],
+630:     "governance_rule_results": [
+631:       {
+632:         "rule_id": "STRIXNOVA-GOV-REQ-001",
+633:         "status": "satisfied",
+634:         "evidence_refs": [
+635:           "VR-WI-20260929-DEC61550-40D8054752"
+636:         ],
+637:         "gaps": [],
+638:         "remediation_actions": [],
+639:         "limitations": []
+640:       },
+641:       {
+642:         "rule_id": "STRIXNOVA-GOV-LIFE-001",
+643:         "status": "satisfied",
+644:         "evidence_refs": [
+645:           "VR-WI-20260929-DEC61550-40D8054752",
+646:           "VR-WI-20260929-DEC61550-E667F74F9C"
+647:         ],
+648:         "gaps": [],
+649:         "remediation_actions": [],
+650:         "limitations": []
+651:       },
+652:       {
+653:         "rule_id": "STRIXNOVA-GOV-QUALITY-001",
+654:         "status": "satisfied",
+655:         "evidence_refs": [
+656:           "VR-WI-20260929-DEC61550-40D8054752"
+657:         ],
+658:         "gaps": [],
+659:         "remediation_actions": [],
+660:         "limitations": []
+661:       },
+662:       {
+663:         "rule_id": "STRIXNOVA-GOV-TEST-001",
+664:         "status": "satisfied",
+665:         "evidence_refs": [
+666:           "VR-WI-20260929-DEC61550-40D8054752",
+667:           "VR-WI-20260929-DEC61550-E667F74F9C"
+668:         ],
+669:         "gaps": [],
+670:         "remediation_actions": [],
+671:         "limitations": []
+672:       },
+673:       {
+674:         "rule_id": "STRIXNOVA-GOV-ARCH-001",
+675:         "status": "satisfied",
+676:         "evidence_refs": [
+677:           "VR-WI-20260929-DEC61550-40D8054752"
+678:         ],
+679:         "gaps": [],
+680:         "remediation_actions": [],
+681:         "limitations": []
+682:       },
+683:       {
+684:         "rule_id": "STRIXNOVA-GOV-SEC-001",
+685:         "status": "satisfied",
+686:         "evidence_refs": [
+687:           "VR-WI-20260929-DEC61550-40D8054752"
+688:         ],
+689:         "gaps": [],
+690:         "remediation_actions": [],
+691:         "limitations": []
+692:       }
+693:     ],
+694:     "semantic_finding_results": [
+695:       {
+696:         "review_id": "SEMREVIEW-DEC6155000000001",
+697:         "finding_id": "FINDING-001",
+698:         "outcome": "carried_as_limitation",
+699:         "evidence_refs": [
+700:           "VR-WI-20260929-DEC61550-40D8054752"
+701:         ],
+702:         "limitation_refs": [
+703:           "limitations[1]"
+704:         ]
+705:       },
+706:       {
+707:         "review_id": "SEMREVIEW-DEC6155000000002",
+708:         "finding_id": "FINDING-001",
+709:         "outcome": "carried_as_limitation",
+710:         "evidence_refs": [
+711:           "VR-WI-20260929-DEC61550-40D8054752"
+712:         ],
+713:         "limitation_refs": [
+714:           "limitations[1]"
+715:         ]
+716:       },
+717:       {
+718:         "review_id": "SEMREVIEW-DEC6155000000002",
+719:         "finding_id": "FINDING-002",
+720:         "outcome": "carried_as_limitation",
+721:         "evidence_refs": [
+722:           "VR-WI-20260929-DEC61550-40D8054752"
+723:         ],
+724:         "limitation_refs": [
+725:           "limitations[3]"
+726:         ]
+727:       }
+728:     ]
+729:   }
+730: }

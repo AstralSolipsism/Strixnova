@@ -1,0 +1,2389 @@
+{
+  "rules": [
+    {
+      "rule_id": "STRIXNOVA-GOV-REQ-001",
+      "topic": "requirements_and_acceptance",
+      "source_ids": [
+        "ISO-29148-2018",
+        "ISO-15289-2019"
+      ],
+      "always_for_formal_implementation": true,
+      "impact_dimensions": [],
+      "minimum_assurance": "A1",
+      "required_information_kinds": [
+        "requirement",
+        "acceptance",
+        "constraint"
+      ],
+      "strixnova_interpretation": "正式实施必须说明目标、范围、非目标、约束和可观察验收，并保持相互追溯。",
+      "evidence_expectations": [
+        "用户已确认方向",
+        "需求与验收信息项",
+        "约束及来源"
+      ]
+    },
+    {
+      "rule_id": "STRIXNOVA-GOV-LIFE-001",
+      "topic": "life_cycle_and_configuration",
+      "source_ids": [
+        "ISO-12207-2026"
+      ],
+      "always_for_formal_implementation": true,
+      "impact_dimensions": [],
+      "minimum_assurance": "A1",
+      "required_information_kinds": [
+        "operation",
+        "delivery"
+      ],
+      "strixnova_interpretation": "正式实施必须说明变更操作、本地配置管理、验证、集成、回退和完成方式。",
+      "evidence_expectations": [
+        "操作信息项",
+        "Git 生命周期",
+        "交付或回退说明"
+      ]
+    },
+    {
+      "rule_id": "STRIXNOVA-GOV-QUALITY-001",
+      "topic": "product_quality",
+      "source_ids": [
+        "ISO-25010-2023"
+      ],
+      "always_for_formal_implementation": false,
+      "impact_dimensions": [
+        "quality_performance"
+      ],
+      "minimum_assurance": "A2",
+      "required_information_kinds": [
+        "impact",
+        "risk",
+        "verification"
+      ],
+      "strixnova_interpretation": "必须评估与本次结果有关的质量属性，并把适用质量目标连接到风险、验收和验证。",
+      "evidence_expectations": [
+        "ImpactScope",
+        "质量风险",
+        "验证覆盖关系"
+      ]
+    },
+    {
+      "rule_id": "STRIXNOVA-GOV-TEST-001",
+      "topic": "verification_and_testing",
+      "source_ids": [
+        "ISO-29119-2-2021",
+        "ISO-25010-2023"
+      ],
+      "always_for_formal_implementation": false,
+      "impact_dimensions": [
+        "testing"
+      ],
+      "minimum_assurance": "A1",
+      "required_information_kinds": [
+        "verification"
+      ],
+      "strixnova_interpretation": "验证必须由真实测试影响、其他适用治理规则或项目政策驱动；没有验证命令时必须说明理由，不得伪造命令。",
+      "evidence_expectations": [
+        "明确命令",
+        "覆盖信息项",
+        "实际回执"
+      ]
+    },
+    {
+      "rule_id": "STRIXNOVA-GOV-ARCH-001",
+      "topic": "architecture_and_long_lived_decisions",
+      "source_ids": [
+        "ISO-42010-2022",
+        "ISO-15289-2019"
+      ],
+      "always_for_formal_implementation": false,
+      "impact_dimensions": [
+        "architecture",
+        "interface",
+        "data"
+      ],
+      "minimum_assurance": "A3",
+      "required_information_kinds": [
+        "option",
+        "design",
+        "adr_candidate"
+      ],
+      "strixnova_interpretation": "架构、公共接口或数据受影响时，必须表达关注点、真实取舍、推荐设计及是否形成长期 ADR。",
+      "evidence_expectations": [
+        "架构影响",
+        "真实方案取舍",
+        "ADR 适用性结论"
+      ]
+    },
+    {
+      "rule_id": "STRIXNOVA-GOV-SEC-001",
+      "topic": "secure_software_development",
+      "source_ids": [
+        "NIST-SP-800-218-1.1",
+        "ISO-12207-2026"
+      ],
+      "always_for_formal_implementation": false,
+      "impact_dimensions": [
+        "security_privacy"
+      ],
+      "minimum_assurance": "A3",
+      "required_information_kinds": [
+        "risk",
+        "design",
+        "verification",
+        "delivery"
+      ],
+      "strixnova_interpretation": "安全、隐私或软件供应链受影响时，必须说明安全要求、风险、设计控制、验证和处置责任。",
+      "evidence_expectations": [
+        "安全风险",
+        "设计控制",
+        "安全验证或限制"
+      ]
+    },
+    {
+      "rule_id": "STRIXNOVA-GOV-OPS-001",
+      "topic": "operation_release_and_maintenance",
+      "source_ids": [
+        "ISO-12207-2026",
+        "ISO-25010-2023"
+      ],
+      "always_for_formal_implementation": false,
+      "impact_dimensions": [
+        "operations_deployment",
+        "compatibility_migration"
+      ],
+      "minimum_assurance": "A3",
+      "required_information_kinds": [
+        "delivery",
+        "risk",
+        "verification"
+      ],
+      "strixnova_interpretation": "部署、运行、兼容或迁移受影响时，必须说明进入条件、回退、观察、支持和维护后果。",
+      "evidence_expectations": [
+        "运行或迁移影响",
+        "回退办法",
+        "验证和限制"
+      ]
+    }
+  ],
+  "current_assurance": {
+    "schema_version": "strixnova.project-engineering-assurance.v1",
+    "assurance_id": "ASSURANCE-7A1EB58D182B4113",
+    "assurance_revision_id": "ASSURANCEREV-73FE2A666D0148DD",
+    "supersedes_revision_id": null,
+    "scope": "Strixnova 初始候选的工程保障。当前证据正在按真实执行重建，Git 绑定待首次提交；不构成完整候选、Agent 或负责人接受。",
+    "authority_refs": {
+      "product_definition": {
+        "path": "docs/product/definition.yaml",
+        "product_id": "PRODUCT-8312417768A84DE4",
+        "revision_id": "REVISION-59EB5B9A3F3F46C0",
+        "repository_id": "REPO-284FDA042B2A4ABD",
+        "ref": null
+      },
+      "domain_model": {
+        "path": "docs/domain/model.yaml",
+        "model_id": "MODEL-2F8356E6752B4CC6",
+        "revision_id": "MODELREV-D90FA05044CD4310",
+        "repository_id": "REPO-284FDA042B2A4ABD",
+        "ref": null
+      },
+      "target_architecture": {
+        "path": "docs/architecture/model.yaml",
+        "architecture_id": "ARCH-963827FB26C94363",
+        "revision_id": "ARCHREV-8D00B950BAAD458F",
+        "repository_id": "REPO-284FDA042B2A4ABD",
+        "ref": null
+      },
+      "engineering_policy": {
+        "path": "docs/engineering/policy.yaml",
+        "policy_id": "POLICY-464E891F2CE841AA",
+        "revision_id": "POLICYREV-6151D5CB5D3D4E51",
+        "repository_id": "REPO-284FDA042B2A4ABD",
+        "ref": null
+      },
+      "implementation_alignment": {
+        "path": "docs/implementation-alignment/model.yaml",
+        "alignment_model_id": "ALIGNMODEL-7BC755CF18D1404C",
+        "revision_id": "ALIGNREV-D15EBF40D6074A7C",
+        "repository_id": "REPO-284FDA042B2A4ABD",
+        "ref": null
+      }
+    },
+    "governance_profile_ref": {
+      "profile_id": "strixnova-general-software-engineering+POLICY-464E891F2CE841AA",
+      "profile_version": "2026-08-23",
+      "policy_id": "POLICY-464E891F2CE841AA",
+      "policy_revision_id": "POLICYREV-6151D5CB5D3D4E51"
+    },
+    "evidence_base_commit": null,
+    "evidence": [],
+    "rule_assessments": [
+      {
+        "rule_id": "STRIXNOVA-GOV-REQ-001",
+        "source_ids": [
+          "ISO-29148-2018",
+          "ISO-15289-2019"
+        ],
+        "applicability": "applicable",
+        "applicability_reason": "该工程规则适用于当前完整重构；结构、证据和语义判断边界继续保留，适用依据随本轮实际审阅进一步细化。",
+        "status": "unknown",
+        "evidence_ids": [],
+        "gaps": [
+          "初始候选的适用证据、语义审阅和真实 Git 绑定尚未全部完成。"
+        ],
+        "remediation_actions": [
+          "依据本轮实际源码、测试、制品及 Agent 原始记录逐项重新评价；实际结果接受后补齐新仓库提交绑定。"
+        ],
+        "limitations": [
+          "本地证据只覆盖明确的输入、版本与环境；不表示外部标准认证、用户语义接受或宿主自动加载。"
+        ]
+      },
+      {
+        "rule_id": "STRIXNOVA-GOV-LIFE-001",
+        "source_ids": [
+          "ISO-12207-2026"
+        ],
+        "applicability": "applicable",
+        "applicability_reason": "该工程规则适用于当前完整重构；结构、证据和语义判断边界继续保留，适用依据随本轮实际审阅进一步细化。",
+        "status": "unknown",
+        "evidence_ids": [],
+        "gaps": [
+          "初始候选的适用证据、语义审阅和真实 Git 绑定尚未全部完成。"
+        ],
+        "remediation_actions": [
+          "依据本轮实际源码、测试、制品及 Agent 原始记录逐项重新评价；实际结果接受后补齐新仓库提交绑定。"
+        ],
+        "limitations": [
+          "本地证据只覆盖明确的输入、版本与环境；不表示外部标准认证、用户语义接受或宿主自动加载。"
+        ]
+      },
+      {
+        "rule_id": "STRIXNOVA-GOV-QUALITY-001",
+        "source_ids": [
+          "ISO-25010-2023"
+        ],
+        "applicability": "applicable",
+        "applicability_reason": "该工程规则适用于当前完整重构；结构、证据和语义判断边界继续保留，适用依据随本轮实际审阅进一步细化。",
+        "status": "unknown",
+        "evidence_ids": [],
+        "gaps": [
+          "初始候选的适用证据、语义审阅和真实 Git 绑定尚未全部完成。"
+        ],
+        "remediation_actions": [
+          "依据本轮实际源码、测试、制品及 Agent 原始记录逐项重新评价；实际结果接受后补齐新仓库提交绑定。"
+        ],
+        "limitations": [
+          "本地证据只覆盖明确的输入、版本与环境；不表示外部标准认证、用户语义接受或宿主自动加载。"
+        ]
+      },
+      {
+        "rule_id": "STRIXNOVA-GOV-TEST-001",
+        "source_ids": [
+          "ISO-29119-2-2021",
+          "ISO-25010-2023"
+        ],
+        "applicability": "applicable",
+        "applicability_reason": "该工程规则适用于当前完整重构；结构、证据和语义判断边界继续保留，适用依据随本轮实际审阅进一步细化。",
+        "status": "unknown",
+        "evidence_ids": [],
+        "gaps": [
+          "初始候选的适用证据、语义审阅和真实 Git 绑定尚未全部完成。"
+        ],
+        "remediation_actions": [
+          "依据本轮实际源码、测试、制品及 Agent 原始记录逐项重新评价；实际结果接受后补齐新仓库提交绑定。"
+        ],
+        "limitations": [
+          "本地证据只覆盖明确的输入、版本与环境；不表示外部标准认证、用户语义接受或宿主自动加载。"
+        ]
+      },
+      {
+        "rule_id": "STRIXNOVA-GOV-ARCH-001",
+        "source_ids": [
+          "ISO-42010-2022",
+          "ISO-15289-2019"
+        ],
+        "applicability": "applicable",
+        "applicability_reason": "该工程规则适用于当前完整重构；结构、证据和语义判断边界继续保留，适用依据随本轮实际审阅进一步细化。",
+        "status": "unknown",
+        "evidence_ids": [],
+        "gaps": [
+          "初始候选的适用证据、语义审阅和真实 Git 绑定尚未全部完成。"
+        ],
+        "remediation_actions": [
+          "依据本轮实际源码、测试、制品及 Agent 原始记录逐项重新评价；实际结果接受后补齐新仓库提交绑定。"
+        ],
+        "limitations": [
+          "本地证据只覆盖明确的输入、版本与环境；不表示外部标准认证、用户语义接受或宿主自动加载。"
+        ]
+      },
+      {
+        "rule_id": "STRIXNOVA-GOV-SEC-001",
+        "source_ids": [
+          "NIST-SP-800-218-1.1",
+          "ISO-12207-2026"
+        ],
+        "applicability": "applicable",
+        "applicability_reason": "该工程规则适用于当前完整重构；结构、证据和语义判断边界继续保留，适用依据随本轮实际审阅进一步细化。",
+        "status": "unknown",
+        "evidence_ids": [],
+        "gaps": [
+          "初始候选的适用证据、语义审阅和真实 Git 绑定尚未全部完成。"
+        ],
+        "remediation_actions": [
+          "依据本轮实际源码、测试、制品及 Agent 原始记录逐项重新评价；实际结果接受后补齐新仓库提交绑定。"
+        ],
+        "limitations": [
+          "本地证据只覆盖明确的输入、版本与环境；不表示外部标准认证、用户语义接受或宿主自动加载。"
+        ]
+      },
+      {
+        "rule_id": "STRIXNOVA-GOV-OPS-001",
+        "source_ids": [
+          "ISO-12207-2026",
+          "ISO-25010-2023"
+        ],
+        "applicability": "applicable",
+        "applicability_reason": "该工程规则适用于当前完整重构；结构、证据和语义判断边界继续保留，适用依据随本轮实际审阅进一步细化。",
+        "status": "unknown",
+        "evidence_ids": [],
+        "gaps": [
+          "初始候选的适用证据、语义审阅和真实 Git 绑定尚未全部完成。"
+        ],
+        "remediation_actions": [
+          "依据本轮实际源码、测试、制品及 Agent 原始记录逐项重新评价；实际结果接受后补齐新仓库提交绑定。"
+        ],
+        "limitations": [
+          "本地证据只覆盖明确的输入、版本与环境；不表示外部标准认证、用户语义接受或宿主自动加载。"
+        ]
+      }
+    ],
+    "external_assurance": {
+      "status": "not_claimed",
+      "receipt_evidence_ids": [],
+      "limitations": [
+        "没有外部认证机构、标准组织或独立审计方回执。",
+        "内部来源锚定和逐项评估不得表述为通过外部认证或符合性审计。"
+      ]
+    },
+    "unresolved_items": [
+      "当前候选的确定性检查、制品安装和真实 Agent 场景分别进行，尚未形成完整接受结论。",
+      "本仓库未形成首次提交，三份正式 Git 绑定待实际结果审阅后补齐，当前空值明确表示草稿未完备。"
+    ],
+    "semantic_content_machine_proven": false
+  },
+  "files": [
+    {
+      "evidence_id": "EVIDENCE-A54FF182C7E8ACF5",
+      "evidence_kind": "repository_file",
+      "path": "AGENTS.md",
+      "read_path": "inputs/files/AGENTS.md",
+      "sha256": "c914f5f01ada0b98a240b3bb8deaa90aab5bd322ec1624a6fcc62d538973a986",
+      "receipt_id": null,
+      "line_count": 75
+    },
+    {
+      "evidence_id": "EVIDENCE-B335630551682C19",
+      "evidence_kind": "repository_file",
+      "path": "README.md",
+      "read_path": "inputs/files/README.md",
+      "sha256": "1686223f94d92ae31d395571c0bd7c16e250ead49a182ea68c8b8815b565908c",
+      "receipt_id": null,
+      "line_count": 328
+    },
+    {
+      "evidence_id": "EVIDENCE-0B5CA119D2BE595A",
+      "evidence_kind": "repository_file",
+      "path": "docs/README.md",
+      "read_path": "inputs/files/docs/README.md",
+      "sha256": "9ba02701e19528ffb33a3bbfdcaa11992a8a34ba816d5fa5c92d1073370a6a11",
+      "receipt_id": null,
+      "line_count": 11
+    },
+    {
+      "evidence_id": "EVIDENCE-3132B7C07FD8F395",
+      "evidence_kind": "repository_file",
+      "path": "docs/architecture/constraints.yaml",
+      "read_path": "inputs/files/docs/architecture/constraints.yaml",
+      "sha256": "c2918d3d92f16a447411d8598d5c1487fcb0d211b5118f382f4b630a909bf4d5",
+      "receipt_id": null,
+      "line_count": 420
+    },
+    {
+      "evidence_id": "EVIDENCE-3B7BE4931246BB01",
+      "evidence_kind": "repository_file",
+      "path": "docs/architecture/contracts/project-architecture-description-v1.schema.json",
+      "read_path": "inputs/files/docs/architecture/contracts/project-architecture-description-v1.schema.json",
+      "sha256": "402592dc9900c703db89e2b14fef4057c64d21791f8590fcde14fe1341c967d5",
+      "receipt_id": null,
+      "line_count": 819
+    },
+    {
+      "evidence_id": "EVIDENCE-FBAC19697A4025F2",
+      "evidence_kind": "repository_file",
+      "path": "docs/architecture/domain-fact-dispositions.yaml",
+      "read_path": "inputs/files/docs/architecture/domain-fact-dispositions.yaml",
+      "sha256": "c8e783dddb60e44212c6be94eb41b74cea2779e9cb7fe6374afe775cb1427b4c",
+      "receipt_id": null,
+      "line_count": 2438
+    },
+    {
+      "evidence_id": "EVIDENCE-E63BE8D007CEC91F",
+      "evidence_kind": "repository_file",
+      "path": "docs/architecture/implementation-stages.yaml",
+      "read_path": "inputs/files/docs/architecture/implementation-stages.yaml",
+      "sha256": "9da8e298cf9b8aefb750a4aa611ba554c72b323a088778778709f213c9faa1d4",
+      "receipt_id": null,
+      "line_count": 213
+    },
+    {
+      "evidence_id": "EVIDENCE-AF3B52480084A3AE",
+      "evidence_kind": "repository_file",
+      "path": "docs/architecture/model.yaml",
+      "read_path": "inputs/files/docs/architecture/model.yaml",
+      "sha256": "82e54e73aa2926fa80a15746d2d3d17b35a7441524e4da419c783d90ec4832f8",
+      "receipt_id": null,
+      "line_count": 20
+    },
+    {
+      "evidence_id": "EVIDENCE-365F417C98A32F56",
+      "evidence_kind": "repository_file",
+      "path": "docs/architecture/modules.yaml",
+      "read_path": "inputs/files/docs/architecture/modules.yaml",
+      "sha256": "f6c3efe6120580193a5a1b9dafa0897dbfd3fe55145cf270248ed60c640c2b74",
+      "receipt_id": null,
+      "line_count": 442
+    },
+    {
+      "evidence_id": "EVIDENCE-233B7D5F46455FB7",
+      "evidence_kind": "repository_file",
+      "path": "docs/architecture/relationships.yaml",
+      "read_path": "inputs/files/docs/architecture/relationships.yaml",
+      "sha256": "0d1ff5c00e1e0bafa8abe9a4d85299cf1932d0bc76f363e45e88d2a44f883334",
+      "receipt_id": null,
+      "line_count": 587
+    },
+    {
+      "evidence_id": "EVIDENCE-5863EA912BBE7B7F",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/collections/actors-and-authorities.yaml",
+      "read_path": "inputs/files/docs/domain/collections/actors-and-authorities.yaml",
+      "sha256": "1b48cfc4f29b153bd96210aa80f513d1cc214b5f6063bf0e0612ab102eb8d7e1",
+      "receipt_id": null,
+      "line_count": 16
+    },
+    {
+      "evidence_id": "EVIDENCE-4F13C76EDAC01FE8",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/collections/capabilities-and-scenarios.yaml",
+      "read_path": "inputs/files/docs/domain/collections/capabilities-and-scenarios.yaml",
+      "sha256": "15e10e05306b76584fab5f35b0f153c9b0408fab8900bf4615fd2f9c44678e02",
+      "receipt_id": null,
+      "line_count": 28
+    },
+    {
+      "evidence_id": "EVIDENCE-55EE30D6AAA10E2A",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/collections/contexts-and-external-systems.yaml",
+      "read_path": "inputs/files/docs/domain/collections/contexts-and-external-systems.yaml",
+      "sha256": "3a5591c5b1147236d88e39750423af326a2811be9503caff4f5681d36f1816ef",
+      "receipt_id": null,
+      "line_count": 20
+    },
+    {
+      "evidence_id": "EVIDENCE-B88EAEDA5B90ABC2",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/collections/objects-and-lifecycles.yaml",
+      "read_path": "inputs/files/docs/domain/collections/objects-and-lifecycles.yaml",
+      "sha256": "bd76e1f00c9808cb0f9280894972e8d2b5cb15054b6d04e6ce0f5ad8cba29253",
+      "receipt_id": null,
+      "line_count": 24
+    },
+    {
+      "evidence_id": "EVIDENCE-0B750447AC2EA614",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/collections/rules-and-invariants.yaml",
+      "read_path": "inputs/files/docs/domain/collections/rules-and-invariants.yaml",
+      "sha256": "c3359213f2a2164a370bf7ebbbbcfd28dcd1ee4afd068e434afad27425c3e3b1",
+      "receipt_id": null,
+      "line_count": 16
+    },
+    {
+      "evidence_id": "EVIDENCE-9926A5440413C0CD",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/collections/terms.yaml",
+      "read_path": "inputs/files/docs/domain/collections/terms.yaml",
+      "sha256": "5b4e6bf3ae206c954d074d800ee59794d3e132a61ad6a22ded2dd1fb7fd3599e",
+      "receipt_id": null,
+      "line_count": 12
+    },
+    {
+      "evidence_id": "EVIDENCE-642C045981FB38AC",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/contracts/project-domain-collection-v1.schema.json",
+      "read_path": "inputs/files/docs/domain/contracts/project-domain-collection-v1.schema.json",
+      "sha256": "2b1b7f22ae898026e5fdb1d864d48f4f0bb6ab6829ca216b815b47788ec0db53",
+      "receipt_id": null,
+      "line_count": 100
+    },
+    {
+      "evidence_id": "EVIDENCE-D1232C0F252C4E88",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/contracts/project-domain-model-v1.schema.json",
+      "read_path": "inputs/files/docs/domain/contracts/project-domain-model-v1.schema.json",
+      "sha256": "1d5e7fbd79471184206a630e6bdf2b97e3eda239c15e7f1b601e491efc2eb2c4",
+      "receipt_id": null,
+      "line_count": 233
+    },
+    {
+      "evidence_id": "EVIDENCE-563FE1B7405160D5",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/contracts/project-domain-source-v1.schema.json",
+      "read_path": "inputs/files/docs/domain/contracts/project-domain-source-v1.schema.json",
+      "sha256": "0685dedd5ca5a138729c16c308190101f4cdae5f5464402753ec374296ff3ec7",
+      "receipt_id": null,
+      "line_count": 921
+    },
+    {
+      "evidence_id": "EVIDENCE-2146D3D97FFC3B2D",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/model.yaml",
+      "read_path": "inputs/files/docs/domain/model.yaml",
+      "sha256": "cb13650772404aa1b182e74c3332f27dc2e1775f0ab14c0900d3909608ec7262",
+      "receipt_id": null,
+      "line_count": 22
+    },
+    {
+      "evidence_id": "EVIDENCE-54ACFCD404F3BA19",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/actors.yaml",
+      "read_path": "inputs/files/docs/domain/sources/actors.yaml",
+      "sha256": "d95b0942337f796c50a7627bf39d15edf8fe84b8b2fb1e36afa5eca559138ff8",
+      "receipt_id": null,
+      "line_count": 134
+    },
+    {
+      "evidence_id": "EVIDENCE-1314F6873EDF0B25",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/capabilities.yaml",
+      "read_path": "inputs/files/docs/domain/sources/capabilities.yaml",
+      "sha256": "499482373f12b2c7844606cb121861ec0a339cf9a0f5ed4e51b614e67120ba58",
+      "receipt_id": null,
+      "line_count": 427
+    },
+    {
+      "evidence_id": "EVIDENCE-3AAA5DED6DBCA2ED",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/context-relationships.yaml",
+      "read_path": "inputs/files/docs/domain/sources/context-relationships.yaml",
+      "sha256": "a37e47d532755a0ff3a26d25e0820b93c031c6d9c595e53ec697cb6254095654",
+      "receipt_id": null,
+      "line_count": 214
+    },
+    {
+      "evidence_id": "EVIDENCE-BE5297A643A2ABF1",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/contexts.yaml",
+      "read_path": "inputs/files/docs/domain/sources/contexts.yaml",
+      "sha256": "347113dcb345c80abf2c0847b0bb4a5ab6a92980cd58906c75ebecb62872155d",
+      "receipt_id": null,
+      "line_count": 230
+    },
+    {
+      "evidence_id": "EVIDENCE-18F82D810F504517",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/decision-authorities.yaml",
+      "read_path": "inputs/files/docs/domain/sources/decision-authorities.yaml",
+      "sha256": "b2a56199945bae2d7abd4800f3708cddf831ff8b41deb1c9b303cd0d21b3c5c0",
+      "receipt_id": null,
+      "line_count": 171
+    },
+    {
+      "evidence_id": "EVIDENCE-CCE4B6D261AB67B7",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/entities.yaml",
+      "read_path": "inputs/files/docs/domain/sources/entities.yaml",
+      "sha256": "3d2f6d56e0fe836b32614e10ea4ec20ebda0f33d9d26ecec0b1709a85412f258",
+      "receipt_id": null,
+      "line_count": 324
+    },
+    {
+      "evidence_id": "EVIDENCE-ACF1E6A464D1C66F",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/events.yaml",
+      "read_path": "inputs/files/docs/domain/sources/events.yaml",
+      "sha256": "27e0931c44b06cf839dfa2ecbe5b441ac56ab78d5be35cc2effbd9b874033c99",
+      "receipt_id": null,
+      "line_count": 308
+    },
+    {
+      "evidence_id": "EVIDENCE-3D608648904D1028",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/external-systems.yaml",
+      "read_path": "inputs/files/docs/domain/sources/external-systems.yaml",
+      "sha256": "b9cd427a5853fb88816b84d765e3584c60ff3acbb6b39dfead7bb64e0d76346e",
+      "receipt_id": null,
+      "line_count": 74
+    },
+    {
+      "evidence_id": "EVIDENCE-2B15D55A19A1A140",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/invariants.yaml",
+      "read_path": "inputs/files/docs/domain/sources/invariants.yaml",
+      "sha256": "d037b139ffe6f6ec1f57cefb12974f76696a6de5847d6768df57e701a9476ad7",
+      "receipt_id": null,
+      "line_count": 562
+    },
+    {
+      "evidence_id": "EVIDENCE-B8100F6D446AE4E6",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/lifecycles.yaml",
+      "read_path": "inputs/files/docs/domain/sources/lifecycles.yaml",
+      "sha256": "76a5789d31723df52ba338503d7805a81e1a07a52a9e257f15c00b245a80bd71",
+      "receipt_id": null,
+      "line_count": 621
+    },
+    {
+      "evidence_id": "EVIDENCE-70A16C2A5B76ED0C",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/rules.yaml",
+      "read_path": "inputs/files/docs/domain/sources/rules.yaml",
+      "sha256": "df139539a0c228b70a45641b4ad12ee2b35ee9989f5811346349e0832923f85f",
+      "receipt_id": null,
+      "line_count": 734
+    },
+    {
+      "evidence_id": "EVIDENCE-123FAC0EDB7FF310",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/scenarios-authority.yaml",
+      "read_path": "inputs/files/docs/domain/sources/scenarios-authority.yaml",
+      "sha256": "1982cc533c39e367509f8e414a8209d908b9183c1220e45fb06a176c291b57f0",
+      "receipt_id": null,
+      "line_count": 459
+    },
+    {
+      "evidence_id": "EVIDENCE-3E9E651078AEA0B9",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/scenarios-delivery.yaml",
+      "read_path": "inputs/files/docs/domain/sources/scenarios-delivery.yaml",
+      "sha256": "b6ec88a4c79e56606ab90fa4004043493f6b42f6f0ddad50459abe8a22e0a0c0",
+      "receipt_id": null,
+      "line_count": 394
+    },
+    {
+      "evidence_id": "EVIDENCE-9C51F0620EABFB41",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/scenarios-governance.yaml",
+      "read_path": "inputs/files/docs/domain/sources/scenarios-governance.yaml",
+      "sha256": "b5c8ad44eb76aac5e66894462e7cfc59ae1cb8fb438ec812520b08e989e24c7e",
+      "receipt_id": null,
+      "line_count": 366
+    },
+    {
+      "evidence_id": "EVIDENCE-FC34CD9CA982F5F1",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/scenarios-interface.yaml",
+      "read_path": "inputs/files/docs/domain/sources/scenarios-interface.yaml",
+      "sha256": "30c22cba3a1bd9bcb7b9c1e4e0fec95fdd0309e7bd9d00f102ef8b589a3c277d",
+      "receipt_id": null,
+      "line_count": 382
+    },
+    {
+      "evidence_id": "EVIDENCE-DB031455B887B115",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/terms.yaml",
+      "read_path": "inputs/files/docs/domain/sources/terms.yaml",
+      "sha256": "ddcbfe3856814d50b9ef5f8cd47f34b4a52c179d5a44470ce37506952b96fea3",
+      "receipt_id": null,
+      "line_count": 523
+    },
+    {
+      "evidence_id": "EVIDENCE-DD5A1225B6AF86C6",
+      "evidence_kind": "repository_file",
+      "path": "docs/domain/sources/value-objects.yaml",
+      "read_path": "inputs/files/docs/domain/sources/value-objects.yaml",
+      "sha256": "75c854e2d170c263b9df1eb529b7817a76f37e3e16452dad2e2d2923132f1c7a",
+      "receipt_id": null,
+      "line_count": 510
+    },
+    {
+      "evidence_id": "EVIDENCE-64BD0AC70E33B3B3",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/agent-acceptance.md",
+      "read_path": "inputs/files/docs/engineering/agent-acceptance.md",
+      "sha256": "5f3978d560148d716982372e9e732badfc9c4cccf3351cb474d4a84e07bdd0c3",
+      "receipt_id": null,
+      "line_count": 27
+    },
+    {
+      "evidence_id": "EVIDENCE-EE5389466EB38D53",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/assurance/model.yaml",
+      "read_path": "inputs/files/docs/engineering/assurance/model.yaml",
+      "sha256": "dd0255c3ec27afde115056a9dba95bb35137c92249f68e378ca3cf08672d4891",
+      "receipt_id": null,
+      "line_count": 150
+    },
+    {
+      "evidence_id": "EVIDENCE-005707332E5A2FB6",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/baseline.yaml",
+      "read_path": "inputs/files/docs/engineering/baseline.yaml",
+      "sha256": "2d8c4f0725902fc670913c9fa724f000f9414feef58e572c9a37f5fe35370bea",
+      "receipt_id": null,
+      "line_count": 70
+    },
+    {
+      "evidence_id": "EVIDENCE-DABD40932CC7E4EF",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/contracts/project-engineering-policy-v1.schema.json",
+      "read_path": "inputs/files/docs/engineering/contracts/project-engineering-policy-v1.schema.json",
+      "sha256": "d8e5a159a7b65ea18c5e0ff55a54d1dfa4b5a58aed9a6e9307c26fcd85241f43",
+      "receipt_id": null,
+      "line_count": 4
+    },
+    {
+      "evidence_id": "EVIDENCE-8047C68009D3709A",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/delivery-requirements.md",
+      "read_path": "inputs/files/docs/engineering/delivery-requirements.md",
+      "sha256": "8a8a2e27340d54f1ef94ca2a9b3b2e0a316e4522a831dc0966fa25639a4b7683",
+      "receipt_id": null,
+      "line_count": 27
+    },
+    {
+      "evidence_id": "EVIDENCE-C0F52712AA3F227F",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/initial-baseline-design.md",
+      "read_path": "inputs/files/docs/engineering/initial-baseline-design.md",
+      "sha256": "74b81c8e531b779836c7ed668b7aaa75b7d929c5116f4d2b2188fee13b57bd57",
+      "receipt_id": null,
+      "line_count": 50
+    },
+    {
+      "evidence_id": "EVIDENCE-011ED4D19019B58F",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/method-sources.md",
+      "read_path": "inputs/files/docs/engineering/method-sources.md",
+      "sha256": "10c276498645b371a0c963f25273d1569a85b77a42a493d148759d23346346a8",
+      "receipt_id": null,
+      "line_count": 17
+    },
+    {
+      "evidence_id": "EVIDENCE-778AAA36AF9ADA11",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/policy.yaml",
+      "read_path": "inputs/files/docs/engineering/policy.yaml",
+      "sha256": "1c232deaccb31ac2a75cd40830a4fb01b17edd1746af98422d1d274f8dff9183",
+      "receipt_id": null,
+      "line_count": 193
+    },
+    {
+      "evidence_id": "EVIDENCE-4D29953BF23C354C",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/repository-conventions.md",
+      "read_path": "inputs/files/docs/engineering/repository-conventions.md",
+      "sha256": "c274b0a95a7e2ef4ecca55298fd77be5d0d69a56761e434a8794b900394e017a",
+      "receipt_id": null,
+      "line_count": 45
+    },
+    {
+      "evidence_id": "EVIDENCE-3BEA85A280AD8EB4",
+      "evidence_kind": "repository_file",
+      "path": "docs/engineering/validation-status.md",
+      "read_path": "inputs/files/docs/engineering/validation-status.md",
+      "sha256": "b8aeaac0af8f8cb90d52b7f45478e6fba1a36c53911bd5f40582cfdee950e1db",
+      "receipt_id": null,
+      "line_count": 104
+    },
+    {
+      "evidence_id": "EVIDENCE-5B56F60BF38A59CF",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/actual-dependencies.yaml",
+      "read_path": "inputs/files/docs/implementation-alignment/actual-dependencies.yaml",
+      "sha256": "20560a4c04de9648c34435f5ea9f6ed288600cec0ed2ce3fcc91168b2846493d",
+      "receipt_id": null,
+      "line_count": 14619
+    },
+    {
+      "evidence_id": "EVIDENCE-AC365A41FF2E40D0",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/contracts/implementation-observation-provider-v1.schema.json",
+      "read_path": "inputs/files/docs/implementation-alignment/contracts/implementation-observation-provider-v1.schema.json",
+      "sha256": "a3a05b6728df2e46957cc780e3f423d4ea672c2de673615dc19be939c92c0efc",
+      "receipt_id": null,
+      "line_count": 267
+    },
+    {
+      "evidence_id": "EVIDENCE-33BB88A362CEED6F",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/contracts/project-implementation-alignment-v1.schema.json",
+      "read_path": "inputs/files/docs/implementation-alignment/contracts/project-implementation-alignment-v1.schema.json",
+      "sha256": "b3817fb9ad3837dfd66265e6a83478611978b137a7c87f21bb4ccaee389efc20",
+      "receipt_id": null,
+      "line_count": 1331
+    },
+    {
+      "evidence_id": "EVIDENCE-7EB23BF1F6F27186",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/contracts/target-architecture-implementation-plan-v1.schema.json",
+      "read_path": "inputs/files/docs/implementation-alignment/contracts/target-architecture-implementation-plan-v1.schema.json",
+      "sha256": "b38a752af2ba9f681fa5f27b65a44ff8e7dd24e980848e8629a06d90047a1661",
+      "receipt_id": null,
+      "line_count": 112
+    },
+    {
+      "evidence_id": "EVIDENCE-9A0B6AA2AE19E6D6",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/deviations.yaml",
+      "read_path": "inputs/files/docs/implementation-alignment/deviations.yaml",
+      "sha256": "c16df4a56566122974ede62b659fd5dc183385ac49e60d79e90219121fcd1490",
+      "receipt_id": null,
+      "line_count": 4
+    },
+    {
+      "evidence_id": "EVIDENCE-F8A691C6F53987B2",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/model.yaml",
+      "read_path": "inputs/files/docs/implementation-alignment/model.yaml",
+      "sha256": "36c08b09fa7b4b2b6f6d5084ac31786eabb8170fabbb3d5d31f9e240f401d283",
+      "receipt_id": null,
+      "line_count": 144
+    },
+    {
+      "evidence_id": "EVIDENCE-E87A1B391D6E5BD6",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/source-ownership.yaml",
+      "read_path": "inputs/files/docs/implementation-alignment/source-ownership.yaml",
+      "sha256": "a75ce30dd2a881b65fbfe6f3abf5288af88a03715fe78649412d32c75206f781",
+      "receipt_id": null,
+      "line_count": 1718
+    },
+    {
+      "evidence_id": "EVIDENCE-7B56C73104431045",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/target-responsibilities.yaml",
+      "read_path": "inputs/files/docs/implementation-alignment/target-responsibilities.yaml",
+      "sha256": "3d18804f317498eee7845145f1f5d520ea265b594b3fcbedca6a786ec683f692",
+      "receipt_id": null,
+      "line_count": 5426
+    },
+    {
+      "evidence_id": "EVIDENCE-EE17223B8EBC05C9",
+      "evidence_kind": "repository_file",
+      "path": "docs/implementation-alignment/实现观察提供者能力矩阵.md",
+      "read_path": "inputs/files/docs/implementation-alignment/实现观察提供者能力矩阵.md",
+      "sha256": "536bd388a8b8f3f5013afe2c6aa0b96f373d11de575260a2bbba577a87ddb1fe",
+      "receipt_id": null,
+      "line_count": 84
+    },
+    {
+      "evidence_id": "EVIDENCE-26615D3E04DF3364",
+      "evidence_kind": "repository_file",
+      "path": "docs/product/definition.yaml",
+      "read_path": "inputs/files/docs/product/definition.yaml",
+      "sha256": "91c80b879f97284ce585757eecff0189a8762d8148890484ecaccd91983faa8e",
+      "receipt_id": null,
+      "line_count": 323
+    },
+    {
+      "evidence_id": "EVIDENCE-3882F4FCB41A37B9",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/5分钟快速开始.md",
+      "read_path": "inputs/files/docs/使用说明/5分钟快速开始.md",
+      "sha256": "b70da4c28a20b851fd47ca8c52db92d11b161120ab1a8b26cb924e956de8ab11",
+      "receipt_id": null,
+      "line_count": 51
+    },
+    {
+      "evidence_id": "EVIDENCE-24422E2D5F0430B7",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/Antigravity手动验收.md",
+      "read_path": "inputs/files/docs/使用说明/Antigravity手动验收.md",
+      "sha256": "902f87bfa7e99c802c7c354bef68332fc4c7ef05d99d7e3a93c82cf39c737b0b",
+      "receipt_id": null,
+      "line_count": 49
+    },
+    {
+      "evidence_id": "EVIDENCE-4974325B60CB5E88",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/Coding Agent 命令手册.md",
+      "read_path": "inputs/files/docs/使用说明/Coding Agent 命令手册.md",
+      "sha256": "092fcfee49dd1907eda9a2d44239862b5e8a3c9d0bcaa5224871aef5367e6fd1",
+      "receipt_id": null,
+      "line_count": 242
+    },
+    {
+      "evidence_id": "EVIDENCE-B7AC4CBA368DE645",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/installation-and-first-use.md",
+      "read_path": "inputs/files/docs/使用说明/installation-and-first-use.md",
+      "sha256": "631ae7fc6b43fdc2d664062f23fd12fb91f224513e88dfdb03be158f8d68fa37",
+      "receipt_id": null,
+      "line_count": 57
+    },
+    {
+      "evidence_id": "EVIDENCE-90D50E814AEB94EF",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/历史查询与自身升级.md",
+      "read_path": "inputs/files/docs/使用说明/历史查询与自身升级.md",
+      "sha256": "f475f486926c087fb2b32b27061d11df0c493b2249ebecc696803207fe3fe948",
+      "receipt_id": null,
+      "line_count": 72
+    },
+    {
+      "evidence_id": "EVIDENCE-6024B7C3C562C68B",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/多仓库事项与整体方案.md",
+      "read_path": "inputs/files/docs/使用说明/多仓库事项与整体方案.md",
+      "sha256": "e5b6872c8c885396079afef0ae37fd7549590fac066a3df262a31d562e9a9b28",
+      "receipt_id": null,
+      "line_count": 78
+    },
+    {
+      "evidence_id": "EVIDENCE-FABC3F1D39999AB0",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/审阅上下文只读查询.md",
+      "read_path": "inputs/files/docs/使用说明/审阅上下文只读查询.md",
+      "sha256": "e48ef80cf746ef971bdce61accf1cf9b10b452bcb243ac0c0d03c16b78474967",
+      "receipt_id": null,
+      "line_count": 68
+    },
+    {
+      "evidence_id": "EVIDENCE-85A99FEEA548B181",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/当前行动材料有界读取.md",
+      "read_path": "inputs/files/docs/使用说明/当前行动材料有界读取.md",
+      "sha256": "2967af33e6257fb5a99c82cbcf2dbf13f18a795b5132dd48905277ecaf9a2a7f",
+      "receipt_id": null,
+      "line_count": 98
+    },
+    {
+      "evidence_id": "EVIDENCE-5ADFD8597D251F69",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/故障处理说明.md",
+      "read_path": "inputs/files/docs/使用说明/故障处理说明.md",
+      "sha256": "b26517473470451fbe43422109db93d92aa411f72b4dbb3fbaa05456e61a1f86",
+      "receipt_id": null,
+      "line_count": 78
+    },
+    {
+      "evidence_id": "EVIDENCE-825BDE544D7FF01A",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/本地验证与临时产物管理.md",
+      "read_path": "inputs/files/docs/使用说明/本地验证与临时产物管理.md",
+      "sha256": "c8b12398739b5d6237e851236f5c217d4b49cf0cb203e1a76900e7b60af321d9",
+      "receipt_id": null,
+      "line_count": 78
+    },
+    {
+      "evidence_id": "EVIDENCE-C4D3FC6CD4A7F7CE",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/用户使用指南.md",
+      "read_path": "inputs/files/docs/使用说明/用户使用指南.md",
+      "sha256": "5a39cf8f48774723dce416767d1f113a8ff4018a27e55ff582f30b05ff7ad96d",
+      "receipt_id": null,
+      "line_count": 125
+    },
+    {
+      "evidence_id": "EVIDENCE-D0CCCD02590D814A",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/行为例子与测试结果.md",
+      "read_path": "inputs/files/docs/使用说明/行为例子与测试结果.md",
+      "sha256": "aaff632ed79b67547fad6bc8a734668e7859fa7ec12ffe6832adda52004d2047",
+      "receipt_id": null,
+      "line_count": 63
+    },
+    {
+      "evidence_id": "EVIDENCE-09416A73DC8C8BC5",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/逐项核验与延期跟进.md",
+      "read_path": "inputs/files/docs/使用说明/逐项核验与延期跟进.md",
+      "sha256": "726b87ef0619a5a5d46c2b7b6b37d28fcb6e79ca1d1571cd11579fab4b1fe119",
+      "receipt_id": null,
+      "line_count": 31
+    },
+    {
+      "evidence_id": "EVIDENCE-8DF67F31F4F188DB",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/项目上下文只读查询.md",
+      "read_path": "inputs/files/docs/使用说明/项目上下文只读查询.md",
+      "sha256": "161ce91d85a4f07e8e85799ed3a4e02d8c1ec7eb6e271c85322cb6d62193c5e7",
+      "receipt_id": null,
+      "line_count": 109
+    },
+    {
+      "evidence_id": "EVIDENCE-0CC901559AFE59C6",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/项目配置与跨仓库权威读取.md",
+      "read_path": "inputs/files/docs/使用说明/项目配置与跨仓库权威读取.md",
+      "sha256": "9cfaaa453399f75bd83ad9ecdff0c02b2a5a580bca5488700dcf2378de584467",
+      "receipt_id": null,
+      "line_count": 110
+    },
+    {
+      "evidence_id": "EVIDENCE-7C9E6970A2C1AB8B",
+      "evidence_kind": "repository_file",
+      "path": "docs/使用说明/验收目录依赖与当前性.md",
+      "read_path": "inputs/files/docs/使用说明/验收目录依赖与当前性.md",
+      "sha256": "4d21902b027c5164aa63188d5e01de876103323991d3b2138dcd86cccba84a3c",
+      "receipt_id": null,
+      "line_count": 31
+    },
+    {
+      "evidence_id": "EVIDENCE-514540CEF787F85B",
+      "evidence_kind": "repository_file",
+      "path": "docs/正式规则/完成归属与轻量收尾合同.md",
+      "read_path": "inputs/files/docs/正式规则/完成归属与轻量收尾合同.md",
+      "sha256": "e1e256aa93a68d5640d2d05c0547f30004cd3cb58f8869905129e366ba74f23d",
+      "receipt_id": null,
+      "line_count": 103
+    },
+    {
+      "evidence_id": "EVIDENCE-1F7B00E94A800C10",
+      "evidence_kind": "repository_file",
+      "path": "docs/正式规则/工程评估与项目证据合同.md",
+      "read_path": "inputs/files/docs/正式规则/工程评估与项目证据合同.md",
+      "sha256": "69613b59e384fcb7d498cbcb862155a7b10bebbd6adb8a55c27ad91d635c6673",
+      "receipt_id": null,
+      "line_count": 259
+    },
+    {
+      "evidence_id": "EVIDENCE-2878EF299108CE32",
+      "evidence_kind": "repository_file",
+      "path": "docs/正式规则/开发环境根本法.md",
+      "read_path": "inputs/files/docs/正式规则/开发环境根本法.md",
+      "sha256": "b5b8dac3ee265fc4f4153a67536931ec0c8b4fc66e8d49b348c3b6ba6b2b17b4",
+      "receipt_id": null,
+      "line_count": 42
+    },
+    {
+      "evidence_id": "EVIDENCE-3824A2FD1F0373C8",
+      "evidence_kind": "repository_file",
+      "path": "docs/正式规则/项目领域模型与工程追溯合同.md",
+      "read_path": "inputs/files/docs/正式规则/项目领域模型与工程追溯合同.md",
+      "sha256": "8dd0a38662cb89c5f9e674fe10e7fa6d7c5db472df54e204861c874c424748ff",
+      "receipt_id": null,
+      "line_count": 171
+    },
+    {
+      "evidence_id": "EVIDENCE-325415B039890A6A",
+      "evidence_kind": "repository_file",
+      "path": "docs/领域模型阅读版/Strixnova领域模型完整阅读版.md",
+      "read_path": "inputs/files/docs/领域模型阅读版/Strixnova领域模型完整阅读版.md",
+      "sha256": "12302bc0dffd58505cba39079c9147d0b2647724ee177489663650c6ea0a8f4c",
+      "receipt_id": null,
+      "line_count": 7358
+    },
+    {
+      "evidence_id": "EVIDENCE-45CB602A7EE1C139",
+      "evidence_kind": "repository_file",
+      "path": "requirements-dev-win-py312.txt",
+      "read_path": "inputs/files/requirements-dev-win-py312.txt",
+      "sha256": "f95c6e27784215c4f8a2fe3d20e3e62980f55f12e74b43a9c7883f7c8b3337d2",
+      "receipt_id": null,
+      "line_count": 61
+    },
+    {
+      "evidence_id": "EVIDENCE-CCD17D3CCBFEBD3B",
+      "evidence_kind": "repository_file",
+      "path": "strixnova-project.yaml",
+      "read_path": "inputs/files/strixnova-project.yaml",
+      "sha256": "30ca60481ca3aa1a9747bb7b81699f0531c0ce5cd713103615ef1fe960b8602d",
+      "receipt_id": null,
+      "line_count": 12
+    },
+    {
+      "evidence_id": "EVIDENCE-C51A28FCA57C46C9",
+      "evidence_kind": "repository_file",
+      "path": "strixnova/pyproject.toml",
+      "read_path": "inputs/files/strixnova/pyproject.toml",
+      "sha256": "ebbe9c5855954ee4def95154931339ea7b0a78efc8b6a553100e57906978ac24",
+      "receipt_id": null,
+      "line_count": 30
+    },
+    {
+      "evidence_id": "EVIDENCE-E384C92383921574",
+      "evidence_kind": "repository_file",
+      "path": "strixnova/requirements-lock-win-py312.txt",
+      "read_path": "inputs/files/strixnova/requirements-lock-win-py312.txt",
+      "sha256": "e5fab015ccb16969251e22a734ee5f8dbce0fc1c13f7aeb6554c6389484dc2f6",
+      "receipt_id": null,
+      "line_count": 233
+    },
+    {
+      "evidence_id": "EVIDENCE-BE2FA581BF7DF320",
+      "evidence_kind": "repository_file",
+      "path": "strixnova/src/strixnova/resources/governance-profile-v1.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/governance-profile-v1.json",
+      "sha256": "42c16d05f2a5ac35eac6c691d3677e6e2d3bfd248af4d35468976a83f7067c23",
+      "receipt_id": null,
+      "line_count": 264
+    },
+    {
+      "evidence_id": "EVIDENCE-DF4D4D7B27409203",
+      "evidence_kind": "repository_file",
+      "path": "strixnova/src/strixnova/resources/project-engineering-assurance-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/project-engineering-assurance-v1.schema.json",
+      "sha256": "49e3d5c0615c3bcb03f1315d0d06234672ef10e6c7670bcbb120842fe5c94ddf",
+      "receipt_id": null,
+      "line_count": 467
+    },
+    {
+      "evidence_id": "EVIDENCE-C0979D3713EAC8CF",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/guided-formation-cases.yaml",
+      "read_path": "inputs/files/tests/acceptance/guided-formation-cases.yaml",
+      "sha256": "6d4fbbcb2b9b6a4b30187e35568ab59d283f6a72b0bdb1c738b963ff1fecd080",
+      "receipt_id": null,
+      "line_count": 13044
+    },
+    {
+      "evidence_id": "EVIDENCE-AACD811124381ADE",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G1-current-confirmation/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G1-current-confirmation/evidence.json",
+      "sha256": "4faa7a55791d809a90992d13b8cd052f47db098920daf8aa777a438a4d33f9e0",
+      "receipt_id": null,
+      "line_count": 185
+    },
+    {
+      "evidence_id": "EVIDENCE-32570BC981C5E410",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G1-targeted/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G1-targeted/evidence.json",
+      "sha256": "7485991a8198a1df19784d0d6a56a69a68ec8b1bd25bde72ead19565600ebe51",
+      "receipt_id": null,
+      "line_count": 132
+    },
+    {
+      "evidence_id": "EVIDENCE-70B6F2C067E421B7",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G3-canonical/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G3-canonical/evidence.json",
+      "sha256": "d15d01960226f2995b75ed96bb20c15d4504d558a72e700d5a2933ce3b7e5188",
+      "receipt_id": null,
+      "line_count": 363
+    },
+    {
+      "evidence_id": "EVIDENCE-66A6B160F45AEC9F",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G4-G2-stopped/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G4-G2-stopped/index.json",
+      "sha256": "4a4307fe759fe035c2fa894e781f26798c0c784e0b5b26f00ebe9ab9b9a42f3c",
+      "receipt_id": null,
+      "line_count": 812
+    },
+    {
+      "evidence_id": "EVIDENCE-F1104F39D154B71E",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G4-G2-stopped/runs/f36774893e76/gate-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G4-G2-stopped/runs/f36774893e76/gate-binding.json",
+      "sha256": "d747858e5992aa80d7edc594210d97719419efbafdaf177da10c2b6e4d9c3884",
+      "receipt_id": null,
+      "line_count": 14
+    },
+    {
+      "evidence_id": "EVIDENCE-425DF9326858378B",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G4-G2-stopped/runs/f36774893e76/independent-review/review.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G4-G2-stopped/runs/f36774893e76/independent-review/review.json",
+      "sha256": "632f4d067cc427082979e8116002206d82d62c7886a9971b044401800c464281",
+      "receipt_id": null,
+      "line_count": 186
+    },
+    {
+      "evidence_id": "EVIDENCE-DB41CDE528C28C49",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G4-current-formation-content/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G4-current-formation-content/evidence.json",
+      "sha256": "59aac957a4b328b96f38092e5c767c5109ce309f6d646c757a8415883ee4ec1b",
+      "receipt_id": null,
+      "line_count": 428
+    },
+    {
+      "evidence_id": "EVIDENCE-784A418E55EB2E14",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G5-reading/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G5-reading/evidence.json",
+      "sha256": "ed52d1a067c1668b00ed350c9c4dcd042ba133e69bae4666bf74dad446d109a4",
+      "receipt_id": null,
+      "line_count": 118
+    },
+    {
+      "evidence_id": "EVIDENCE-4457EA41A8F8BA89",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G5-spec-prd-review/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G5-spec-prd-review/evidence.json",
+      "sha256": "80dae8b7532c31d4ffd83cdbb4a6b58cbbefc8ef25a1f7d3c4c552abaf502605",
+      "receipt_id": null,
+      "line_count": 110
+    },
+    {
+      "evidence_id": "EVIDENCE-5693851984248FD4",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G5-spec-update/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G5-spec-update/evidence.json",
+      "sha256": "31b0b17f276eb587e7a9b8c9206e520424be3b098fc081cdbf6a3be2790a074d",
+      "receipt_id": null,
+      "line_count": 122
+    },
+    {
+      "evidence_id": "EVIDENCE-F6A20E1395DC3E47",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G6-canonical/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G6-canonical/evidence.json",
+      "sha256": "f52601e6bb71cb33f461b40fda2d37e74ffbdcd620746480a3ccdaa643a68915",
+      "receipt_id": null,
+      "line_count": 102
+    },
+    {
+      "evidence_id": "EVIDENCE-67C3C6CF65BD1559",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/G7-failure-communication/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/G7-failure-communication/evidence.json",
+      "sha256": "12be06abb750dd203da438b86154b21d095e3e8e0c515d660fa905f287024883",
+      "receipt_id": null,
+      "line_count": 88
+    },
+    {
+      "evidence_id": "EVIDENCE-6F77E861CBCD9170",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/confirmation-reassessment/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/confirmation-reassessment/evidence.json",
+      "sha256": "17afa896b663d5b9819d78ca45e13748c822ed065311eb4cbe8e0ca5a449f6ab",
+      "receipt_id": null,
+      "line_count": 345
+    },
+    {
+      "evidence_id": "EVIDENCE-17CE4AB452ACB998",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-communication-reassessment/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-communication-reassessment/evidence.json",
+      "sha256": "ba6f79be31420b177a1e7351e61feff1db5d93e711ae54b6e19434ddf4a33f60",
+      "receipt_id": null,
+      "line_count": 645
+    },
+    {
+      "evidence_id": "EVIDENCE-68F4E7E5B9FDE84A",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-contract-cleanup/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-contract-cleanup/index.json",
+      "sha256": "69d11e0599a8000f15fae556e8702b724af9c3e4a843a2129c90620842eb17ea",
+      "receipt_id": null,
+      "line_count": 204
+    },
+    {
+      "evidence_id": "EVIDENCE-A17C5B431F622B53",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-contract-cleanup/runs/131734e155c7/evidence/offline-installation.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-contract-cleanup/runs/131734e155c7/evidence/offline-installation.json",
+      "sha256": "7ec4dce4a2761de1f43b28ebc55c418ec2c6cb6010d7ffbf880c2cf60c01f6b7",
+      "receipt_id": null,
+      "line_count": 57
+    },
+    {
+      "evidence_id": "EVIDENCE-B16DF2CD425C6AF9",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-contract-cleanup/runs/2bd4afd98719/evidence/candidate-content.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-contract-cleanup/runs/2bd4afd98719/evidence/candidate-content.json",
+      "sha256": "f0080edfd1a98037c26af6926d7fab27c833fd057f8576b201cb72299ce65dbb",
+      "receipt_id": null,
+      "line_count": 18
+    },
+    {
+      "evidence_id": "EVIDENCE-7C0E469F467B7733",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-governance-corrections/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-governance-corrections/index.json",
+      "sha256": "fbc72e1e4b6507f9a436f1ead7e35ef3283b2ff36d2ebad3b56c46ee8507b480",
+      "receipt_id": null,
+      "line_count": 489
+    },
+    {
+      "evidence_id": "EVIDENCE-BFC101292E1BBD1C",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-plan-review/independent-review/review.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-plan-review/independent-review/review.json",
+      "sha256": "e25eee3c23372cc6cd9cb3ba2ecf950c60691b25624c46ccb2c539de71b32f77",
+      "receipt_id": null,
+      "line_count": 213
+    },
+    {
+      "evidence_id": "EVIDENCE-39A93972BFDF1357",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-plan-review/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-plan-review/index.json",
+      "sha256": "9f6375b962918645f4feac7531d7b574903273a250f5ec5b893d76fe56d93428",
+      "receipt_id": null,
+      "line_count": 90
+    },
+    {
+      "evidence_id": "EVIDENCE-77252090EDDFFD96",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-plan-submission/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-plan-submission/index.json",
+      "sha256": "3f373f733c1d75335b21d6809fb0b00949af214281943b5113b5c0f39f7dde26",
+      "receipt_id": null,
+      "line_count": 141
+    },
+    {
+      "evidence_id": "EVIDENCE-D4A3C274B2D8117C",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-stateful-reassessment/evidence.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-stateful-reassessment/evidence.json",
+      "sha256": "d1e58dbfc5685c14523dd3f10d266519fa5063ca2c0eabceb189557d1087cd61",
+      "receipt_id": null,
+      "line_count": 452
+    },
+    {
+      "evidence_id": "EVIDENCE-935FC9B6B1D5F573",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-v3-review-findings/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-v3-review-findings/index.json",
+      "sha256": "d8f0612c2797ac3e7d5d9e6c25a057a597f5d9b7983aa1f0aafddde5bc8a4e42",
+      "receipt_id": null,
+      "line_count": 112
+    },
+    {
+      "evidence_id": "EVIDENCE-27FBCE0A8D084EB1",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/current-v3-review-findings/runs/8033aae5c2e9/review.json",
+      "read_path": "inputs/files/tests/acceptance/initial/current-v3-review-findings/runs/8033aae5c2e9/review.json",
+      "sha256": "ed1a1bfe24c0fb2f38f2d6a8a72220ca7a75f58ef0aed793f60d97065b0e5659",
+      "receipt_id": null,
+      "line_count": 155
+    },
+    {
+      "evidence_id": "EVIDENCE-3B995DFFE7D6050D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/first-intake-recheck-stopped/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/first-intake-recheck-stopped/index.json",
+      "sha256": "d718c91453c86c075fefc1b7015a96a9b2f2b11bad71a5d219947aeb502be6fe",
+      "receipt_id": null,
+      "line_count": 64
+    },
+    {
+      "evidence_id": "EVIDENCE-5B6911332C7F5CF0",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/authority-readers/assessment.json",
+      "sha256": "e1b46aafd2d4b27d7ef1bf21ee18dbe89f43874e760790ff9db4c0a8ec5b7ab2",
+      "receipt_id": null,
+      "line_count": 317
+    },
+    {
+      "evidence_id": "EVIDENCE-A657FEA3CB9A5424",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/authority-readers/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/authority-readers/evaluation-binding.json",
+      "sha256": "4427e532c56fa09ce367f9404cd5c2996725b0247f36daea55448c7b38143030",
+      "receipt_id": null,
+      "line_count": 24
+    },
+    {
+      "evidence_id": "EVIDENCE-92A0E271EC1967B6",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-1/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-1/assessment.json",
+      "sha256": "14567d69324fc703bbea726311a43789d33a3ebb00756a35e84d72337a9f1fe0",
+      "receipt_id": null,
+      "line_count": 323
+    },
+    {
+      "evidence_id": "EVIDENCE-05F179B3D02DB706",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-1/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-1/evaluation-binding.json",
+      "sha256": "4999a138217b3ce9433ade4c1f647f1cf9f6fe94fc90fefb34106cd42e070c52",
+      "receipt_id": null,
+      "line_count": 38
+    },
+    {
+      "evidence_id": "EVIDENCE-B939C1342FDBC10F",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-2/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-2/assessment.json",
+      "sha256": "6083d7a866ffd9aab24730ee13d38fc300d4831c69335680199dc5fb836ab024",
+      "receipt_id": null,
+      "line_count": 578
+    },
+    {
+      "evidence_id": "EVIDENCE-8EBB19F9B4C0DC14",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-2/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-2/evaluation-binding.json",
+      "sha256": "7d88102f80c2a847af13202a7477626361c0f502b09f8b469808c2ac2379212c",
+      "receipt_id": null,
+      "line_count": 38
+    },
+    {
+      "evidence_id": "EVIDENCE-52F3E5DDF4D32C00",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-3/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-3/assessment.json",
+      "sha256": "d9fc6786d8f1bd190acaadf8203c02b19bc5dc341638e2d7cf611cab0deec56e",
+      "receipt_id": null,
+      "line_count": 311
+    },
+    {
+      "evidence_id": "EVIDENCE-D235FA92BDC50F4F",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-3/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-3/evaluation-binding.json",
+      "sha256": "15a1dba4f31a2b99b96f28e8c93d19653843f2b1649b0c4a3f2f0bf87a9ccec2",
+      "receipt_id": null,
+      "line_count": 38
+    },
+    {
+      "evidence_id": "EVIDENCE-A138239C1F3EAD12",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-4/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-4/assessment.json",
+      "sha256": "d6c531671d21ec90a4a18be6001babddaab22f57b77cdc42a7428d10c3e3dc8d",
+      "receipt_id": null,
+      "line_count": 393
+    },
+    {
+      "evidence_id": "EVIDENCE-15FF7B480F035CA2",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-4/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-4/evaluation-binding.json",
+      "sha256": "f16b540894f1e2402abf7fa45604afa44db65eb86e0a0e17d0c48ebdccf5c5ae",
+      "receipt_id": null,
+      "line_count": 38
+    },
+    {
+      "evidence_id": "EVIDENCE-0A3C3513840B6937",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-final/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-final/assessment.json",
+      "sha256": "e5584b223f60d896e8b3c6bc7b256654aec48a2086d4c42af299439a86f98d67",
+      "receipt_id": null,
+      "line_count": 525
+    },
+    {
+      "evidence_id": "EVIDENCE-3F4057E14B0DB74D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/constraints-final/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/constraints-final/evaluation-binding.json",
+      "sha256": "b4495d75dc6483bcc0e70715744dc5820c3f4cedee3aaba20d47d0b1daf7b593",
+      "receipt_id": null,
+      "line_count": 50
+    },
+    {
+      "evidence_id": "EVIDENCE-C4D05D57636E9415",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/current-contract-cleanup/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/current-contract-cleanup/assessment.json",
+      "sha256": "2dc372ccdeb031cb6273b33dc7fef6f473fc52ccc22e7b4d22390f82a0ac365b",
+      "receipt_id": null,
+      "line_count": 644
+    },
+    {
+      "evidence_id": "EVIDENCE-D2DBD071B060A854",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/current-contract-cleanup/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/current-contract-cleanup/evaluation-binding.json",
+      "sha256": "0631681ccd5616ed63152bf68ba23af1012f72f8ea06a8066bbc5c86d1cfcd82",
+      "receipt_id": null,
+      "line_count": 70
+    },
+    {
+      "evidence_id": "EVIDENCE-4371CDB2A15E115A",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/known-agent-guard/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/known-agent-guard/assessment.json",
+      "sha256": "eb609a4b847b1c7bceb830ad85d04ce97e3faf4e6ee848b0cc94b79b5bef2e08",
+      "receipt_id": null,
+      "line_count": 288
+    },
+    {
+      "evidence_id": "EVIDENCE-8CDF89439E2CD4E9",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/known-agent-guard/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/known-agent-guard/evaluation-binding.json",
+      "sha256": "0457bb496a9116b6f3b3837b40629a39c86425cb02bb613c4ccd3202d1b22497",
+      "receipt_id": null,
+      "line_count": 26
+    },
+    {
+      "evidence_id": "EVIDENCE-96C6AD7DE501F0C5",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-2/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-2/assessment.json",
+      "sha256": "eed7c01ce481d104cc79ed371165e52b4948ae7514188db220cf680d6171c5e2",
+      "receipt_id": null,
+      "line_count": 336
+    },
+    {
+      "evidence_id": "EVIDENCE-889557F9F4035C7F",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-2/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-2/evaluation-binding.json",
+      "sha256": "8103022b47393b25db78dfaff5a28f195856f7101d140502c72ad9fa30adf370",
+      "receipt_id": null,
+      "line_count": 36
+    },
+    {
+      "evidence_id": "EVIDENCE-62CFB5E53CF7EBB6",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-3/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-3/assessment.json",
+      "sha256": "8e2895091051afc8507094d1d43c8e4ed403a97c32c61502a9bca83b4079551d",
+      "receipt_id": null,
+      "line_count": 511
+    },
+    {
+      "evidence_id": "EVIDENCE-710982B0B154316D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-3/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-3/evaluation-binding.json",
+      "sha256": "31b992b766105df717f5838e5ac0bf9796d2fb6fc394b09c17ec731d50c651e7",
+      "receipt_id": null,
+      "line_count": 25
+    },
+    {
+      "evidence_id": "EVIDENCE-17B1929862A3A4ED",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-4/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-4/assessment.json",
+      "sha256": "41679728800c0180a522d2e2823484dc6d2b600e382eed091d1657167b30ca53",
+      "receipt_id": null,
+      "line_count": 468
+    },
+    {
+      "evidence_id": "EVIDENCE-5267679ABD454795",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-4/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-4/evaluation-binding.json",
+      "sha256": "aeb999630923a5553920f20dcfc0e0b026eaad6f91e16c8d1e4b6c8505f67304",
+      "receipt_id": null,
+      "line_count": 42
+    },
+    {
+      "evidence_id": "EVIDENCE-8A0495ACF638BC67",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-5/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-5/assessment.json",
+      "sha256": "26ac766bf80c2674455b420fda244bf5b3caa959e310c3fb50dcbd48aaa700dd",
+      "receipt_id": null,
+      "line_count": 450
+    },
+    {
+      "evidence_id": "EVIDENCE-3BFFFA8002F34AE1",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-5/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-5/evaluation-binding.json",
+      "sha256": "b7b8c6ba4815a8e383fccd0772ddd4fc73726bf19609ff0cca0d4b1ba7d0f452",
+      "receipt_id": null,
+      "line_count": 31
+    },
+    {
+      "evidence_id": "EVIDENCE-3DE2A607F2BC4E81",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-6/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-6/assessment.json",
+      "sha256": "630d557843202998141b5e95037c90cd3fdca060751285b35a180bb108cafba6",
+      "receipt_id": null,
+      "line_count": 197
+    },
+    {
+      "evidence_id": "EVIDENCE-A1EDEA2F5915DE07",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-6/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-6/evaluation-binding.json",
+      "sha256": "a9ebcdfa9ea06458d813b6d232ca5587d50c16604734d2e32652093229639ae2",
+      "receipt_id": null,
+      "line_count": 41
+    },
+    {
+      "evidence_id": "EVIDENCE-E9CBD56FEDF9D1F0",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-7/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-7/assessment.json",
+      "sha256": "305d28903744f5e26521b01a469f9d16441346e6b150374d22aba69f72cfc645",
+      "receipt_id": null,
+      "line_count": 232
+    },
+    {
+      "evidence_id": "EVIDENCE-FFB1C8621A7D7203",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/modules-7/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/modules-7/evaluation-binding.json",
+      "sha256": "c818aa4d176f2e6700773dc9dc2ca0cec9ade47393b8c610ef8ad998f038dba2",
+      "receipt_id": null,
+      "line_count": 36
+    },
+    {
+      "evidence_id": "EVIDENCE-BEDF99BDB5E71E10",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/partial-core-closure/assessment.json",
+      "sha256": "3c7658a483c39b3edb1f5e61a5c48b81905cb1c9e02993c93a99b1baf5d193cb",
+      "receipt_id": null,
+      "line_count": 603
+    },
+    {
+      "evidence_id": "EVIDENCE-170EEA732328E439",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/partial-core-closure/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/partial-core-closure/evaluation-binding.json",
+      "sha256": "fc59495e716d0c82210cf6614bd00293e5b8a55ad6b3efa0288ee5a03449eb69",
+      "receipt_id": null,
+      "line_count": 62
+    },
+    {
+      "evidence_id": "EVIDENCE-B67BA6B919E6BB4D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-1/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-1/assessment.json",
+      "sha256": "bb367118815673bee3fb5abd1dae623a3c37cb8983f45dd050f06bec31b17843",
+      "receipt_id": null,
+      "line_count": 504
+    },
+    {
+      "evidence_id": "EVIDENCE-23905FB2D447F6C6",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-1/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-1/evaluation-binding.json",
+      "sha256": "b7596dae201f19d6b84d707281a801874c8f4c9d8e13ea6d1b2e55108dd94a3c",
+      "receipt_id": null,
+      "line_count": 62
+    },
+    {
+      "evidence_id": "EVIDENCE-773E6C17025B49ED",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-2/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-2/assessment.json",
+      "sha256": "d918244cd8b0f8757b3a15fef8211d521eba7a1e790141789a6e65f002268b83",
+      "receipt_id": null,
+      "line_count": 412
+    },
+    {
+      "evidence_id": "EVIDENCE-E96F161F828468A2",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-2/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-2/evaluation-binding.json",
+      "sha256": "6fcf3752439dac2137bf950efa38844dc80192bfef05ddfea864beb350b093ee",
+      "receipt_id": null,
+      "line_count": 62
+    },
+    {
+      "evidence_id": "EVIDENCE-0DA63524288669DE",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-3/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-3/assessment.json",
+      "sha256": "af3e5b7ebc1eac7b48d0532dad307854877c331586d41c4323d17ad66a0c9b4a",
+      "receipt_id": null,
+      "line_count": 522
+    },
+    {
+      "evidence_id": "EVIDENCE-7A71AA0C63DDE376",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-3/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-3/evaluation-binding.json",
+      "sha256": "c3df9ef64d3e6edc56b7cb35231accad9d0ccd2c0cb47dae454ce9f8fb70436b",
+      "receipt_id": null,
+      "line_count": 62
+    },
+    {
+      "evidence_id": "EVIDENCE-D47B3321A69F29E0",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-4/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-4/assessment.json",
+      "sha256": "856beb350071fbbe76b99f6ceb2e7790ede486b46fe08017a9dd6caef336996f",
+      "receipt_id": null,
+      "line_count": 533
+    },
+    {
+      "evidence_id": "EVIDENCE-429A15DA9CD57601",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-4/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-4/evaluation-binding.json",
+      "sha256": "7a7319b7d701e2c8c3d47d259cbdadbd0406e8a6fef931be310b0dd8762071c6",
+      "receipt_id": null,
+      "line_count": 62
+    },
+    {
+      "evidence_id": "EVIDENCE-90C5AD49B1A9AC51",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-5/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-5/assessment.json",
+      "sha256": "dc1f77649b0496acd035a90d2725d1ad6ddc41188ce17525c91b9da886c262c1",
+      "receipt_id": null,
+      "line_count": 500
+    },
+    {
+      "evidence_id": "EVIDENCE-3440A3D40CF5165C",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-5/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-5/evaluation-binding.json",
+      "sha256": "6dd24033b0612ef96a81b3b1d1824b588b89b4fc3f70a86eedd09906fc939cac",
+      "receipt_id": null,
+      "line_count": 62
+    },
+    {
+      "evidence_id": "EVIDENCE-E90912BC1F117202",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-6/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-6/assessment.json",
+      "sha256": "e04ed05bacb5ce64760336f5f2a036745c1a1c35f543faef0be28c9d41b42680",
+      "receipt_id": null,
+      "line_count": 599
+    },
+    {
+      "evidence_id": "EVIDENCE-E0398EAA1D0525B1",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-6/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-6/evaluation-binding.json",
+      "sha256": "481855a71bcbb01c65e5773416cc159e4ee0fbd8d9c55246cafc0c3c39531668",
+      "receipt_id": null,
+      "line_count": 62
+    },
+    {
+      "evidence_id": "EVIDENCE-F633439C15F89166",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-7/assessment.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-7/assessment.json",
+      "sha256": "50b7334ec6b05005045a7df8e200a48acb501dddcb71d96030be6b41273936ea",
+      "receipt_id": null,
+      "line_count": 466
+    },
+    {
+      "evidence_id": "EVIDENCE-A4D051ED57F7E5B7",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/implementation-assessment/relations-7/evaluation-binding.json",
+      "read_path": "inputs/files/tests/acceptance/initial/implementation-assessment/relations-7/evaluation-binding.json",
+      "sha256": "edf1b3c4ce2cd98487de9d1ac0fc63bc75eac189c9d330a1fc6e93a35fa941a8",
+      "receipt_id": null,
+      "line_count": 64
+    },
+    {
+      "evidence_id": "EVIDENCE-8FEFA10F775CCDE2",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/late-plan-attempt/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/late-plan-attempt/index.json",
+      "sha256": "fb5a3490eb08bdd31bcb69d9858d698cabe53e71af17d323a7fac4f46b652cd2",
+      "receipt_id": null,
+      "line_count": 264
+    },
+    {
+      "evidence_id": "EVIDENCE-70F9F1EDB88776D0",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/19621d5bd348/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/19621d5bd348/result.json",
+      "sha256": "d5205ccd0666afde5293661d99e316ad111e89fe54d5471977011d3802ddeb5b",
+      "receipt_id": null,
+      "line_count": 19
+    },
+    {
+      "evidence_id": "EVIDENCE-30EC669326C6F7BE",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/19621d5bd348/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/19621d5bd348/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-36A55F1F85941C70",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/19621d5bd348/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/19621d5bd348/stdout.log",
+      "sha256": "6948e0106971cf5f6e2eef7b9256bdf62fe1e96527e0970296180389c8ebe217",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-24CFE08A7BCCAE07",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/first-intake.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/first-intake.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-8A853EE58636EB39",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/first-intake.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/first-intake.stdout.txt",
+      "sha256": "ab56f0de26edeba8eeab87f4dbd867aa01197e8512685e140f1edf6b21b054ad",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-E626BFF4BAF477F5",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/initial-install.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/initial-install.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-F0C1088C19392A8B",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/initial-install.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/initial-install.stdout.txt",
+      "sha256": "abd48c8525db8895a6ccce8d3618e836ffd55127ff723effc968579ac2356a0a",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-076FCFF22552DA31",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/installed-identity.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/installed-identity.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-7DF018ADD8650B76",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/installed-identity.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/installed-identity.stdout.txt",
+      "sha256": "bd5124030c90f8ff3535582e315b8564563fd1bdb2b77eeda04316975996fdb6",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-80BF5A0DB28A1CDC",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/native-follow-up-query.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/native-follow-up-query.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-53851FBC59868A86",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/native-follow-up-query.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/native-follow-up-query.stdout.txt",
+      "sha256": "5ec07c791778b11fec60b49a93dc059056491a0c799a93360b426c5c4d3dae6d",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-0662E9B3F4371405",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/native-help.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/native-help.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-E8F4DC4A650FD0E5",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/native-help.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/native-help.stdout.txt",
+      "sha256": "59e4419119decc574f63ca641d6296e56c698d036a2f805262ed2f9977e70e52",
+      "receipt_id": null,
+      "line_count": 25
+    },
+    {
+      "evidence_id": "EVIDENCE-38F90C372BFE3E1B",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/offline-installation.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/offline-installation.json",
+      "sha256": "5d6a3e1b1c8a7f4bb026bead9725ed19ffdcb021d9f101a911560d476fc7e586",
+      "receipt_id": null,
+      "line_count": 57
+    },
+    {
+      "evidence_id": "EVIDENCE-3F376570A278D105",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/pip-check.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/pip-check.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-98B4076EE0208B72",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/pip-check.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/pip-check.stdout.txt",
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-24D8DEFDE54BAD3D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/read-first-item.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/read-first-item.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-57433E88284E0F8A",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/read-first-item.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/read-first-item.stdout.txt",
+      "sha256": "eac55a47cc5b709984c7959192412594d3472a9fd76a40adb874b504f7812ae9",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-351EEA2758BE7045",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/repeat-install.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/repeat-install.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-E81304B6F2DF896E",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/repeat-install.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/repeat-install.stdout.txt",
+      "sha256": "8f834009b62d68efd2ccb300d4eb313f2de22a4a8214df772b0e20514449d029",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-F492400488FA03C8",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/second-intake.stderr.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/second-intake.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-5569E0ACD6DC21AB",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/second-intake.stdout.txt",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/evidence/second-intake.stdout.txt",
+      "sha256": "52e0b045edc3c8d32d09a84df6fbe246d31b1a3b3a1bb99b1f5d901f653bbe2f",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-2714E199F9FE507F",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/result.json",
+      "sha256": "2a51ced5ea46b5ea1f8c0db0aa5fd3553e887f6b0b64c7385c79214f2f3b84a8",
+      "receipt_id": null,
+      "line_count": 21
+    },
+    {
+      "evidence_id": "EVIDENCE-C4CE0E83C2C8DEED",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-0589F9DEBCCB0D44",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/1dc202780cbc/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/1dc202780cbc/stdout.log",
+      "sha256": "98c7b7477f050603916c02a86f02d463c0b85ccce52c5f81f531e877f0855384",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-059F7BA8D61BBF43",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/30608175d9f5/evidence/pytest.xml",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/30608175d9f5/evidence/pytest.xml",
+      "sha256": "76f75be7aff53ccaf4401c9b881286281454c97020aa81c2097784c17aecd192",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-F08D0ACEDEFA64F1",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/30608175d9f5/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/30608175d9f5/result.json",
+      "sha256": "1605063726c38067c94df009079e37cce0594f16a2b1e56f33be7bc3b3e473b2",
+      "receipt_id": null,
+      "line_count": 41
+    },
+    {
+      "evidence_id": "EVIDENCE-7A2B9D8FC875E67A",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/30608175d9f5/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/30608175d9f5/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-9597CABC8BD1289B",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/30608175d9f5/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/30608175d9f5/stdout.log",
+      "sha256": "f1750e11afc2a85642eebe8a75a2eb49281fefc98b0c06906044cf059da56f46",
+      "receipt_id": null,
+      "line_count": 5
+    },
+    {
+      "evidence_id": "EVIDENCE-4C878FE623D4477B",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/308a4b4949e2/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/308a4b4949e2/result.json",
+      "sha256": "540fede652a1e24f70324f173a5bb8e25c3f486b4c500f46adc700b84936c5f3",
+      "receipt_id": null,
+      "line_count": 21
+    },
+    {
+      "evidence_id": "EVIDENCE-7B5949CFBFEAD6B0",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/308a4b4949e2/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/308a4b4949e2/stderr.log",
+      "sha256": "66c295e7d293de0f8cc2fd8a8188847a073594079755f8b1ce3f89778f62efec",
+      "receipt_id": null,
+      "line_count": 492
+    },
+    {
+      "evidence_id": "EVIDENCE-26DC690C3AC120CD",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/308a4b4949e2/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/308a4b4949e2/stdout.log",
+      "sha256": "2f3f6decab07cb4edd6b65a2afdb6ff9be4b4f6593de764c12b3f20cc3754380",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-B89FAE1C3FB9E4B9",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/63b2a9a23508/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/63b2a9a23508/result.json",
+      "sha256": "9806ed6a8f5d848954a88022960502fee0dd959eb9ac5b6a7925ad6b94d7abbf",
+      "receipt_id": null,
+      "line_count": 21
+    },
+    {
+      "evidence_id": "EVIDENCE-39C02CF2AC58792E",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/63b2a9a23508/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/63b2a9a23508/stderr.log",
+      "sha256": "6948e0106971cf5f6e2eef7b9256bdf62fe1e96527e0970296180389c8ebe217",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-5F4AB3F55FD1A998",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/63b2a9a23508/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/63b2a9a23508/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-B5D7E6F826C2BDFD",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/7aaf327a1ccb/evidence/pytest.xml",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/7aaf327a1ccb/evidence/pytest.xml",
+      "sha256": "57ea01a609fe927da5692b57175c6c55fa526735226a550c3feda2d2c2b87967",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-84FE967D17EA4E9D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/7aaf327a1ccb/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/7aaf327a1ccb/result.json",
+      "sha256": "60b53ee50a32797ef18a486f371ed761750a9bfa7750ac8114a393b81ec109cb",
+      "receipt_id": null,
+      "line_count": 42
+    },
+    {
+      "evidence_id": "EVIDENCE-C5A19062669A4E70",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/7aaf327a1ccb/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/7aaf327a1ccb/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-3553ADE5BD3C3B4D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/7aaf327a1ccb/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/7aaf327a1ccb/stdout.log",
+      "sha256": "b01bb8a8a7c567a59786d9e5035748ae72574e6fd7205d73f38916368cbca464",
+      "receipt_id": null,
+      "line_count": 5
+    },
+    {
+      "evidence_id": "EVIDENCE-754F2E33B9C91EB6",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8216d2c84e13/evidence/current-observation.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8216d2c84e13/evidence/current-observation.json",
+      "sha256": "360a21068e7753c9f9e7cc115b236fe60b4b415be2b5a82fd955551b7fe02017",
+      "receipt_id": null,
+      "line_count": 25764
+    },
+    {
+      "evidence_id": "EVIDENCE-CA16CEE7474907CD",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8216d2c84e13/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8216d2c84e13/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-C9D217E2FD9F0389",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8a1262000350/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8a1262000350/result.json",
+      "sha256": "b05a1b294364b71e48e80e1fe39ab5b1101cf299de190fb81276d473f8d51d81",
+      "receipt_id": null,
+      "line_count": 23
+    },
+    {
+      "evidence_id": "EVIDENCE-0757A23B2E111911",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8a1262000350/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8a1262000350/stderr.log",
+      "sha256": "26f743fe9b5aaed45d70a2cf21a1be4b86880b5ce4e07c4d1e120b7c5712f04d",
+      "receipt_id": null,
+      "line_count": 13
+    },
+    {
+      "evidence_id": "EVIDENCE-0AB0623E7BB5240D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8a1262000350/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8a1262000350/stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-B1ADBF9E3F85F389",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8b07f3a022b4/evidence/pytest.xml",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8b07f3a022b4/evidence/pytest.xml",
+      "sha256": "46b1d71d87c6686eb4e495d20d27d4a189581fe9446a3f1e78d99b06362448fa",
+      "receipt_id": null,
+      "line_count": 63
+    },
+    {
+      "evidence_id": "EVIDENCE-89C77AFE58990642",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8b07f3a022b4/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8b07f3a022b4/result.json",
+      "sha256": "1bbfcd1ac1b7d8626b2fa8295fb1a9e30a08d5d26b52ce58e6de430afa672a16",
+      "receipt_id": null,
+      "line_count": 36
+    },
+    {
+      "evidence_id": "EVIDENCE-7AEAF4885E5EFF0D",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8b07f3a022b4/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8b07f3a022b4/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-3AF6B6DD7555BFC2",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/8b07f3a022b4/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/8b07f3a022b4/stdout.log",
+      "sha256": "dcf1323339a1f9ef67851749784b596c80dd4a0ce14eb5d3b1e37a5e49d6bf23",
+      "receipt_id": null,
+      "line_count": 101
+    },
+    {
+      "evidence_id": "EVIDENCE-B3479A3677429CB4",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/bd3a091de169/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/bd3a091de169/result.json",
+      "sha256": "4b792228b9952920c26b3cf3f69f248bd9cab362a6191aed9c4915cc4ebba633",
+      "receipt_id": null,
+      "line_count": 20
+    },
+    {
+      "evidence_id": "EVIDENCE-FD1EF36783101C96",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/bd3a091de169/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/bd3a091de169/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-A9073187703BEC53",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/bd3a091de169/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/bd3a091de169/stdout.log",
+      "sha256": "5455d161cecbed2a53c6b798fab617de171f6a5b65d5c4d64dd249049e434a32",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-D91A39BECE4887A8",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/c1dfd12d2187/evidence/pytest.xml",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/c1dfd12d2187/evidence/pytest.xml",
+      "sha256": "325fb441edba95af6e42ec579f6f2c06cbc1f803cf5cc8e3f662243e1f75c8cc",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-6EF6B1032706C204",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/c1dfd12d2187/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/c1dfd12d2187/result.json",
+      "sha256": "9bb9664fabb65b7c549aacec3ddc4ada7bb5cf3f668b2560e1c00a70ed3d8fbd",
+      "receipt_id": null,
+      "line_count": 41
+    },
+    {
+      "evidence_id": "EVIDENCE-307F2D2ACD8D2C3A",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/c1dfd12d2187/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/c1dfd12d2187/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-4EB91CA1F706EB50",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/c1dfd12d2187/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/c1dfd12d2187/stdout.log",
+      "sha256": "44763981e1aa305e8be38605aa04bb4cf645b43bd6dfac6a3c0d024cd74d4d1c",
+      "receipt_id": null,
+      "line_count": 5
+    },
+    {
+      "evidence_id": "EVIDENCE-FF76CEB43B62F5E4",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/d0856323c4b6/evidence/pytest.xml",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/d0856323c4b6/evidence/pytest.xml",
+      "sha256": "62480ce4357eceacd5e030f5e1134360c9635709be4fa74d40fbb3a6a6cd90c2",
+      "receipt_id": null,
+      "line_count": 29
+    },
+    {
+      "evidence_id": "EVIDENCE-E3DB102C95ACBEE4",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/d0856323c4b6/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/d0856323c4b6/result.json",
+      "sha256": "f1f57b4f9d639e0088927f1da4ebcf9c9837826887e13c422f6755f2fc1ce6a4",
+      "receipt_id": null,
+      "line_count": 35
+    },
+    {
+      "evidence_id": "EVIDENCE-57DAA19E8D86ACEB",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/d0856323c4b6/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/d0856323c4b6/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-52DC4E243B478214",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/d0856323c4b6/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/d0856323c4b6/stdout.log",
+      "sha256": "e96f99391ba937769923234da6d9b141c11509d5cd6b20b29a42c6faae83dff0",
+      "receipt_id": null,
+      "line_count": 83
+    },
+    {
+      "evidence_id": "EVIDENCE-6B7218B97489006E",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/f5e20647248e/evidence/pytest.xml",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/f5e20647248e/evidence/pytest.xml",
+      "sha256": "59d46549baa479d8dc352ba9c48648bc16c08754aa2ef2cbfc0928a8e3ded41e",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-85896A80A6C80CE5",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/f5e20647248e/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/f5e20647248e/result.json",
+      "sha256": "d6a53e367ca8c6d0d2092de3dfe0de15c0c7e2e5e4a6ea50c82bd4af88ed0dde",
+      "receipt_id": null,
+      "line_count": 37
+    },
+    {
+      "evidence_id": "EVIDENCE-C9FE687A3EFD1DC0",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/f5e20647248e/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/f5e20647248e/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-AD1B01869ED32369",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/f5e20647248e/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/f5e20647248e/stdout.log",
+      "sha256": "1b7dacdada19df6ed916c6d2ab851a587f3498abfb453adcbda146d5e6b037b0",
+      "receipt_id": null,
+      "line_count": 36
+    },
+    {
+      "evidence_id": "EVIDENCE-EEA9B0380A01DED9",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/f88e7668b02e/evidence/candidate-content.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/f88e7668b02e/evidence/candidate-content.json",
+      "sha256": "79e4625f2c3c9f9a6949a5524505170f11a6b778692ce53c934cfc6e87a7c376",
+      "receipt_id": null,
+      "line_count": 18
+    },
+    {
+      "evidence_id": "EVIDENCE-7C740BB302812148",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/f88e7668b02e/result.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/f88e7668b02e/result.json",
+      "sha256": "ff93eb2544eb563e7e789048ba1a8faf9545ccdbbc8ca023e2f473810f87b28d",
+      "receipt_id": null,
+      "line_count": 19
+    },
+    {
+      "evidence_id": "EVIDENCE-4810C47C7846A0D3",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/f88e7668b02e/stderr.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/f88e7668b02e/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "receipt_id": null,
+      "line_count": 0
+    },
+    {
+      "evidence_id": "EVIDENCE-8641BCE6EFF4E0BD",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/f88e7668b02e/stdout.log",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/f88e7668b02e/stdout.log",
+      "sha256": "ca8ad5f7f0e63a66dba403bbf332981e83806098c5b91b98d1dbcd17ffa7e663",
+      "receipt_id": null,
+      "line_count": 1
+    },
+    {
+      "evidence_id": "EVIDENCE-0FBE5731BD4BD276",
+      "evidence_kind": "repository_file",
+      "path": "tests/acceptance/initial/machine-checks/index.json",
+      "read_path": "inputs/files/tests/acceptance/initial/machine-checks/index.json",
+      "sha256": "8c9f90e54d933082e1ecd1782e7943a78bbd7c8fa2381c881260deaa4a075461",
+      "receipt_id": null,
+      "line_count": 399
+    }
+  ],
+  "scope": "Evaluate this initial candidate against the exact internal rule interpretations, not against inferred clauses of external standards. Files and counts are navigation, not proof of semantic sufficiency.",
+  "limitations": [
+    "The project remains unborn and authorities are draft; do not fabricate Git bindings or owner acceptance.",
+    "Use actual current and stopped evidence. Do not convert pending scenarios into successes or count old failures as first-pass success.",
+    "Implementation, local command results, Agent behavior and owner acceptance remain separate claims. JUnit alone does not capture source-at-execution hashes."
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false
+}

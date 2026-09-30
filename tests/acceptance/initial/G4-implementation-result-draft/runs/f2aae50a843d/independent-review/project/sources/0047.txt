@@ -1,0 +1,106 @@
+1: schema_version: strixnova.project-product-definition.v1
+2: product_id: PRODUCT-1111111111111111
+3: revision:
+4:   revision_id: REVISION-3333333333333333
+5:   status: "confirmed"
+6:   supersedes_revision_id: REVISION-1111111111111111
+7:   confirmed_by_owner_id: "OWNER-1111111111111111"
+8:   confirmed_on: "2026-09-29"
+9: title: 预约申请工具
+10: purpose: >-
+11:   提供预约申请的区间校验、成员撤回待审核申请和负责人查看每周汇总的本地终端工具。
+12: product_owner:
+13:   owner_id: OWNER-1111111111111111
+14:   display_name: 项目负责人
+15: primary_users:
+16:   - user_id: USER-1111111111111111
+17:     title: 调用组件的业务开发者
+18:     description: 在登记预约申请前取得合法的区间时长或明确拒绝。
+19:   - user_id: USER-2222222222222222
+20:     title: 申请成员
+21:     description: 提交并管理本人的预约申请，可撤回仍处于待审核状态的申请。
+22:   - user_id: USER-3333333333333333
+23:     title: 负责人
+24:     description: 审批预约申请并查看每周汇总报告。
+25: problems:
+26:   - problem_id: PROBLEM-1111111111111111
+27:     user_ids: [USER-1111111111111111]
+28:     statement: 不合法的时间顺序不能作为有效预约区间继续使用。
+29:   - problem_id: PROBLEM-2222222222222222
+30:     user_ids: [USER-2222222222222222]
+31:     statement: 成员无法撤回仍待审核的预约申请，只能等审批人处理。
+32:   - problem_id: PROBLEM-3333333333333333
+33:     user_ids: [USER-3333333333333333]
+34:     statement: 负责人无法快速了解本周预约申请的整体状态。
+35: desired_outcomes:
+36:   - outcome_id: OUTCOME-1111111111111111
+37:     statement: 合法区间返回原有时长，不合法顺序得到 ValueError。
+38:   - outcome_id: OUTCOME-2222222222222222
+39:     statement: 成员可撤回本人待审核的申请，操作有审计记录。
+40:   - outcome_id: OUTCOME-3333333333333333
+41:     statement: 负责人能按自然周查看当前状态的汇总，不含成员私人联系方式。
+42: capabilities:
+43:   - capability_id: CAPABILITY-1111111111111111
+44:     title: 预约区间校验
+45:     description: 通过 duration(start, end) 校验整数刻度顺序并返回时长。
+46:     outcome_ids: [OUTCOME-1111111111111111]
+47:   - capability_id: CAPABILITY-2222222222222222
+48:     title: 撤回待审核申请
+49:     description: 申请成员撤回本人仍处于待审核状态的预约申请。
+50:     outcome_ids: [OUTCOME-2222222222222222]
+51:   - capability_id: CAPABILITY-3333333333333333
+52:     title: 读取周报
+53:     description: 负责人按本地已指定的自然周统计预约申请的当前状态分布。
+54:     outcome_ids: [OUTCOME-3333333333333333]
+55: non_goals:
+56:   - non_goal_id: NONGOAL-1111111111111111
+57:     statement: 不增加日期转换或时区处理。
+58:   - non_goal_id: NONGOAL-2222222222222222
+59:     statement: 不实现网页或网络服务界面；界面限定为本地终端交互。
+60:   - non_goal_id: NONGOAL-3333333333333333
+61:     statement: 不实现自动发送周报。
+62:   - non_goal_id: NONGOAL-4444444444444444
+63:     statement: 不实现缴费功能。
+64:   - non_goal_id: NONGOAL-5555555555555555
+65:     statement: 不实现已批准预约的取消（已批准预约由审批人另行处理，不在本轮范围）。
+66:   - non_goal_id: NONGOAL-6666666666666666
+67:     statement: 周报不含成员私人联系方式。
+68: constraints:
+69:   - constraint_id: CONSTRAINT-AAAAAAAAAAAAAAAA
+70:     statement: 保持 duration 函数签名和合法区间的既有返回行为。
+71:   - constraint_id: CONSTRAINT-BBBBBBBBBBBBBBBB
+72:     statement: >-
+73:       身份来自可信宿主会话，不信任传入角色或所有者字段。
+74:       一名成员只能操作本人申请。
+75:   - constraint_id: CONSTRAINT-CCCCCCCCCCCCCCCC
+76:     statement: >-
+77:       撤回与审批并发时只允许一个版本成功；响应丢失后可查询实际状态。
+78:   - constraint_id: CONSTRAINT-DDDDDDDDDDDDDDDD
+79:     statement: >-
+80:       审计保留操作者、原状态、新状态和操作身份；重复撤回返回相同结果且不重复记审计。
+81:   - constraint_id: CONSTRAINT-EEEEEEEEEEEEEEEE
+82:     statement: >-
+83:       两个产品单元（成员服务与运营汇总）必须共用申请身份、状态含义和决定权，不能各自定义。
+84: success_criteria:
+85:   - criterion_id: CRITERION-1111111111111111
+86:     statement: 合法区间仍返回 end-start；结束不晚于开始时稳定拒绝。
+87:     outcome_ids: [OUTCOME-1111111111111111]
+88:   - criterion_id: CRITERION-2222222222222222
+89:     statement: >-
+90:       成员撤回本人待审核申请后，该申请状态变为已撤回，且审计记录完整。
+91:       对非待审核状态的申请尝试撤回被拒绝。
+92:       对他人申请的撤回被拒绝。
+93:     outcome_ids: [OUTCOME-2222222222222222]
+94:   - criterion_id: CRITERION-3333333333333333
+95:     statement: >-
+96:       负责人读取周报后，得到按指定自然周的申请状态分布统计，
+97:       不包含成员私人联系方式，不包含本人不可见的数据。
+98:     outcome_ids: [OUTCOME-3333333333333333]
+99: delivery_stages:
+100:   - stage_id: STAGE-1111111111111111
+101:     title: 核心申请域与撤回
+102:     commitment: current_target
+103:     description: >-
+104:       覆盖区间校验（保持不变）、申请生命周期、成员撤回和审计。
+105:       本地终端交互。
+106: unresolved_decisions: []

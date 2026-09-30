@@ -1,0 +1,141 @@
+schema_version: strixnova.implementation-target-responsibilities.v1
+alignment_model_id: ALIGNMODEL-1111111111111111
+alignment_revision_id: ALIGNREV-3333333333333333
+records:
+- target_id: CONSTRAINT-A000000000000001
+  target_kind: constraint
+  status: implemented
+  satisfied:
+  - withdraw 方法接受 authenticated_member_id，校验归属。
+  missing: []
+  evidence:
+  - kind: source
+    ref: src/application/service.py
+    claim: owner_member_id != authenticated_member_id 时拒绝
+  deviation_ids: []
+  resolution_plan: []
+- target_id: CONSTRAINT-A000000000000002
+  target_kind: constraint
+  status: implemented
+  satisfied:
+  - domain.py 使用 version 字段实现乐观并发控制。
+  missing: []
+  evidence:
+  - kind: source
+    ref: src/application/domain.py
+    claim: withdraw/approve 检查 expected_version
+  deviation_ids: []
+  resolution_plan: []
+- target_id: CONSTRAINT-A000000000000003
+  target_kind: constraint
+  status: implemented
+  satisfied:
+  - cli.py 提供本地终端命令行接口。
+  missing: []
+  evidence:
+  - kind: source
+    ref: src/cli.py
+    claim: argparse 本地终端 CLI
+  deviation_ids: []
+  resolution_plan: []
+- target_id: MODULE-A000000000000001
+  target_kind: module
+  status: partially_implemented
+  satisfied:
+  - 区间校验（duration 函数）已存在且行为正确。
+  - 申请实体定义、状态枚举和生命周期转换已在 src/application/domain.py 实现。
+  - 撤回逻辑（can_withdraw/withdraw 方法）已实现，含乐观并发控制。
+  - 审计条目生成已在 src/application/audit.py 实现。
+  missing:
+  - 周报相关的申请域统计查询尚未实现（周报方向待确认）。
+  evidence:
+  - kind: source
+    ref: src.py
+    claim: duration 函数保持不变。
+  - kind: source
+    ref: src/application/domain.py
+    claim: 申请实体、状态枚举、撤回和审批方法已实现。
+  - kind: source
+    ref: src/application/audit.py
+    claim: 审计记录模块已实现。
+  deviation_ids: []
+  resolution_plan:
+  - 周报相关查询待方向确认后在独立事项中实现。
+- target_id: MODULE-A000000000000002
+  target_kind: module
+  status: implemented
+  satisfied:
+  - 成员服务模块已在 src/application/service.py 实现。
+  missing: []
+  evidence:
+  - kind: source
+    ref: src/application/service.py
+    claim: MemberService 类实现了 withdraw 和 query_status。
+  deviation_ids: []
+  resolution_plan: []
+- target_id: MODULE-A000000000000003
+  target_kind: module
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 运营汇总模块尚未实现。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 周报方向待确认，独立事项后续交付。
+- target_id: MODULE-A000000000000004
+  target_kind: module
+  status: implemented
+  satisfied:
+  - 终端适配模块已在 src/cli.py 实现。
+  missing: []
+  evidence:
+  - kind: source
+    ref: src/cli.py
+    claim: CLI 入口提供 withdraw 和 status 子命令。
+  deviation_ids: []
+  resolution_plan: []
+- target_id: RELATION-A000000000000001
+  target_kind: relationship
+  status: implemented
+  satisfied:
+  - service.py 从 domain.py 和 audit.py 导入并使用申请域。
+  missing: []
+  evidence:
+  - kind: source
+    ref: src/application/service.py
+    claim: from .domain import; from .audit import
+  deviation_ids: []
+  resolution_plan: []
+- target_id: RELATION-A000000000000002
+  target_kind: relationship
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 运营汇总只读申请域的依赖关系尚未建立。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 周报方向待确认后建立。
+- target_id: RELATION-A000000000000003
+  target_kind: relationship
+  status: implemented
+  satisfied:
+  - cli.py 导入并调用 MemberService。
+  missing: []
+  evidence:
+  - kind: source
+    ref: src/cli.py
+    claim: from application.service import MemberService
+  deviation_ids: []
+  resolution_plan: []
+- target_id: RELATION-A000000000000004
+  target_kind: relationship
+  status: not_implemented
+  satisfied: []
+  missing:
+  - 终端适配调用运营汇总的依赖关系尚未建立。
+  evidence: []
+  deviation_ids: []
+  resolution_plan:
+  - 周报方向待确认后建立。

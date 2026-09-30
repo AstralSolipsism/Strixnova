@@ -1,0 +1,1100 @@
+1: {
+2:   "current_action": {
+3:     "action_type": "confirm_engineering_plan",
+4:     "actor": "user",
+5:     "blocking_facts": [],
+6:     "conditional_record_refs": [],
+7:     "confirmation_challenge": {
+8:       "candidate_fingerprint": "sha256:a749d25d6e22f1941e459c6bcdeb2759936ad7ecba39f7c2752067d1d07c63df",
+9:       "candidate_kind": "engineering_plan",
+10:       "decision_interpreter": "coding_agent",
+11:       "decision_label": "当前展示的工程方案",
+12:       "schema_version": "strixnova.confirmation-challenge.v1"
+13:     },
+14:     "input_contract_ref": "input.contract:confirm_engineering_plan",
+15:     "input_kind": "engineering_plan_confirmation",
+16:     "intent": "confirm",
+17:     "record_refs": [
+18:       "engineering.plan",
+19:       "repository_deliveries"
+20:     ],
+21:     "schema_version": "strixnova.current-action.v1",
+22:     "work_item_id": "WI-20260928-9A2A1BC1",
+23:     "work_item_version": 9
+24:   },
+25:   "reading": {
+26:     "complete": true,
+27:     "max_output_bytes": 1048576,
+28:     "schema_version": "strixnova.record-reading.v1",
+29:     "unread_refs": []
+30:   },
+31:   "record_pages": {},
+32:   "record_sources": {
+33:     "engineering.plan": {
+34:       "root_ref": "engineering.plan",
+35:       "source_sha256": "eb15e804f1bd562a494d9fb00b9b5785b7bf54d7b3d5e67aa6d68eff63246e1a"
+36:     },
+37:     "repository_deliveries": {
+38:       "root_ref": "repository_deliveries",
+39:       "source_sha256": "4edf94465b530bdf573272546c88bf6dfeb76324d987d5ff941d6c21f359c71c"
+40:     }
+41:   },
+42:   "records": {
+43:     "engineering.plan": {
+44:       "actual_result_requirements": {
+45:         "domain_fact_changes": [
+46:           {
+47:             "planned_disposition": "update",
+48:             "target_ref": {
+49:               "authority_kind": "project_domain_model",
+50:               "fact_id": "FACT-2222222222222222",
+51:               "model_id": "MODEL-1111111111111111",
+52:               "observed_commit": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+53:               "schema_version": "strixnova.domain-fact-reference.v1"
+54:             }
+55:           }
+56:         ]
+57:       },
+58:       "applicable_rules": [
+59:         {
+60:           "evidence_refs": [
+61:             "direction"
+62:           ],
+63:           "minimum_assurance": "A1",
+64:           "required_information_kinds": [
+65:             "requirement",
+66:             "acceptance",
+67:             "constraint"
+68:           ],
+69:           "rule_id": "STRIXNOVA-GOV-REQ-001",
+70:           "source_ids": [
+71:             "ISO-29148-2018",
+72:             "ISO-15289-2019"
+73:           ],
+74:           "topic": "requirements_and_acceptance",
+75:           "triggered_by": [
+76:             "formal_implementation"
+77:           ]
+78:         },
+79:         {
+80:           "evidence_refs": [
+81:             "direction"
+82:           ],
+83:           "minimum_assurance": "A1",
+84:           "required_information_kinds": [
+85:             "operation",
+86:             "delivery"
+87:           ],
+88:           "rule_id": "STRIXNOVA-GOV-LIFE-001",
+89:           "source_ids": [
+90:             "ISO-12207-2026"
+91:           ],
+92:           "topic": "life_cycle_and_configuration",
+93:           "triggered_by": [
+94:             "formal_implementation"
+95:           ]
+96:         },
+97:         {
+98:           "evidence_refs": [
+99:             "direction"
+100:           ],
+101:           "minimum_assurance": "A3",
+102:           "required_information_kinds": [
+103:             "option",
+104:             "design",
+105:             "adr_candidate"
+106:           ],
+107:           "rule_id": "STRIXNOVA-GOV-ARCH-001",
+108:           "source_ids": [
+109:             "ISO-42010-2022",
+110:             "ISO-15289-2019"
+111:           ],
+112:           "topic": "architecture_and_long_lived_decisions",
+113:           "triggered_by": [
+114:             "impact_scope.architecture:affected"
+115:           ]
+116:         }
+117:       ],
+118:       "assessment_ref": {
+119:         "assessment_id": "EA-20260928-1",
+120:         "assessment_revision": 2,
+121:         "work_item_id": "WI-20260928-9A2A1BC1"
+122:       },
+123:       "assurance_band": "A3",
+124:       "authority_change_set": {
+125:         "base_authorities": [
+126:           {
+127:             "artifact_id": "PRODUCT-1111111111111111",
+128:             "authority_kind": "product_definition",
+129:             "observed_commit": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+130:             "path": "docs/product/definition.yaml",
+131:             "repository_id": "REPO-1111111111111111",
+132:             "revision_id": "REVISION-1111111111111111",
+133:             "status": "confirmed"
+134:           },
+135:           {
+136:             "artifact_id": "MODEL-1111111111111111",
+137:             "authority_kind": "domain_model",
+138:             "observed_commit": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+139:             "path": "docs/domain/model.yaml",
+140:             "repository_id": "REPO-1111111111111111",
+141:             "revision_id": "MODELREV-1111111111111111",
+142:             "status": "confirmed"
+143:           },
+144:           {
+145:             "artifact_id": "ARCH-1111111111111111",
+146:             "authority_kind": "target_architecture",
+147:             "observed_commit": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+148:             "path": "docs/architecture/model.yaml",
+149:             "repository_id": "REPO-1111111111111111",
+150:             "revision_id": "ARCHREV-1111111111111111",
+151:             "status": "confirmed"
+152:           },
+153:           {
+154:             "artifact_id": "ALIGNMODEL-1111111111111111",
+155:             "authority_kind": "implementation_alignment",
+156:             "observed_commit": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+157:             "path": "docs/engineering/alignment.yaml",
+158:             "repository_id": "REPO-1111111111111111",
+159:             "revision_id": "ALIGNREV-2222222222222222",
+160:             "status": "confirmed"
+161:           }
+162:         ],
+163:         "candidate_authorities": [
+164:           {
+165:             "adoption_effect": "not_adopted",
+166:             "artifact_id": "MODEL-1111111111111111",
+167:             "authority_kind": "domain_model",
+168:             "path": "docs/domain/model.yaml",
+169:             "repository_id": "REPO-1111111111111111",
+170:             "revision_id": "MODELREV-2222222222222222",
+171:             "status": "draft",
+172:             "supersedes_revision_id": "MODELREV-1111111111111111"
+173:           },
+174:           {
+175:             "adoption_effect": "not_adopted",
+176:             "artifact_id": "ARCH-1111111111111111",
+177:             "authority_kind": "target_architecture",
+178:             "path": "docs/architecture/model.yaml",
+179:             "repository_id": "REPO-1111111111111111",
+180:             "revision_id": "ARCHREV-2222222222222222",
+181:             "status": "draft",
+182:             "supersedes_revision_id": "ARCHREV-1111111111111111"
+183:           },
+184:           {
+185:             "adoption_effect": "not_adopted",
+186:             "artifact_id": "ALIGNMODEL-1111111111111111",
+187:             "authority_kind": "implementation_alignment",
+188:             "path": "docs/engineering/alignment.yaml",
+189:             "repository_id": "REPO-1111111111111111",
+190:             "revision_id": "ALIGNREV-3333333333333333",
+191:             "status": "draft",
+192:             "supersedes_revision_id": "ALIGNREV-2222222222222222"
+193:           },
+194:           {
+195:             "adoption_effect": "not_adopted",
+196:             "artifact_id": "PRODUCT-1111111111111111",
+197:             "authority_kind": "product_definition",
+198:             "path": "docs/product/definition.yaml",
+199:             "repository_id": "REPO-1111111111111111",
+200:             "revision_id": "REVISION-2222222222222222",
+201:             "status": "draft",
+202:             "supersedes_revision_id": "REVISION-1111111111111111"
+203:           }
+204:         ],
+205:         "change_set_id": "AUTHCHANGE-0000000000000001",
+206:         "changes": [
+207:           {
+208:             "authority_kind": "domain_model",
+209:             "change_id": "AUTHOP-001",
+210:             "evidence_refs": [
+211:               "direction"
+212:             ],
+213:             "operation": "modify",
+214:             "summary": "增加状态枚举",
+215:             "target_ref": "FACT-2222222222222222"
+216:           },
+217:           {
+218:             "authority_kind": "target_architecture",
+219:             "change_id": "AUTHOP-002",
+220:             "evidence_refs": [
+221:               "direction"
+222:             ],
+223:             "operation": "modify",
+224:             "summary": "增加并发控制职责",
+225:             "target_ref": "MODULE-1111111111111111"
+226:           },
+227:           {
+228:             "authority_kind": "implementation_alignment",
+229:             "change_id": "AUTHOP-003",
+230:             "evidence_refs": [
+231:               "direction"
+232:             ],
+233:             "operation": "modify",
+234:             "summary": "更新src.py职责",
+235:             "target_ref": "ALIGNMODEL-1111111111111111"
+236:           },
+237:           {
+238:             "authority_kind": "product_definition",
+239:             "change_id": "AUTHOP-004",
+240:             "evidence_refs": [
+241:               "direction"
+242:             ],
+243:             "operation": "modify",
+244:             "summary": "增加撤回功能",
+245:             "target_ref": "CAPABILITY-1111111111111111"
+246:           }
+247:         ],
+248:         "downstream_dispositions": [
+249:           {
+250:             "disposition": "revise",
+251:             "reason": "领域模型增加了新实体，架构需要增加相应的模块职责",
+252:             "source_authority_kind": "domain_model",
+253:             "target_authority_kind": "target_architecture"
+254:           },
+255:           {
+256:             "disposition": "revise",
+257:             "reason": "架构模块增加了职责，需要映射到源码",
+258:             "source_authority_kind": "target_architecture",
+259:             "target_authority_kind": "implementation_alignment"
+260:           },
+261:           {
+262:             "disposition": "revise",
+263:             "reason": "领域模型的变化最终映射到源码实现",
+264:             "source_authority_kind": "domain_model",
+265:             "target_authority_kind": "implementation_alignment"
+266:           },
+267:           {
+268:             "disposition": "revise",
+269:             "reason": "产品增加新功能，需要增加领域实体",
+270:             "source_authority_kind": "product_definition",
+271:             "target_authority_kind": "domain_model"
+272:           },
+273:           {
+274:             "disposition": "revise",
+275:             "reason": "产品功能变化直接影响实现对齐",
+276:             "source_authority_kind": "product_definition",
+277:             "target_authority_kind": "implementation_alignment"
+278:           },
+279:           {
+280:             "disposition": "revise",
+281:             "reason": "产品功能变化直接影响目标架构",
+282:             "source_authority_kind": "product_definition",
+283:             "target_authority_kind": "target_architecture"
+284:           }
+285:         ],
+286:         "schema_version": "strixnova.authority-change-set.v1",
+287:         "semantic_content_machine_proven": false,
+288:         "work_item_id": "WI-20260928-9A2A1BC1"
+289:       },
+290:       "behavior_examples": {
+291:         "direction.example:DIREX-0000000000000001": {
+292:           "basis_refs": [
+293:             "direction.requirement:DIRREQ-A100000000000001"
+294:           ],
+295:           "example_id": "DIREX-0000000000000001",
+296:           "example_sha256": "40ec335eeb2172505e91e2e5ec4a868b630a195146e8804e122a5d7b340b8d24",
+297:           "given": [
+298:             "可信会话身份为成员 M1",
+299:             "存在 M1 发起且状态为待审核的申请 A1"
+300:           ],
+301:           "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000001",
+302:           "target_ref": "direction.example:DIREX-0000000000000001",
+303:           "then": [
+304:             "申请 A1 状态更新为已撤回",
+305:             "生成包含操作者 M1、原状态待审核、新状态已撤回的审计记录"
+306:           ],
+307:           "title": "成员正常撤回本人待审核预约申请",
+308:           "when": "M1 提交撤回申请 A1"
+309:         },
+310:         "direction.example:DIREX-0000000000000002": {
+311:           "basis_refs": [
+312:             "direction.requirement:DIRREQ-A100000000000001"
+313:           ],
+314:           "example_id": "DIREX-0000000000000002",
+315:           "example_sha256": "6a6efccc432ffe1756a8d292921101cd40b864f6d9b3938b434b4a73a8472e8f",
+316:           "given": [
+317:             "可信会话身份为成员 M2",
+318:             "存在 M1 发起且状态为待审核的申请 A1"
+319:           ],
+320:           "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000001",
+321:           "target_ref": "direction.example:DIREX-0000000000000002",
+322:           "then": [
+323:             "操作被拒绝",
+324:             "申请 A1 状态保持待审核不变"
+325:           ],
+326:           "title": "成员尝试撤回他人申请被拒绝",
+327:           "when": "M2 提交撤回申请 A1"
+328:         },
+329:         "direction.example:DIREX-0000000000000003": {
+330:           "basis_refs": [
+331:             "direction.requirement:DIRREQ-A100000000000002"
+332:           ],
+333:           "example_id": "DIREX-0000000000000003",
+334:           "example_sha256": "a4e88b452c92e530c70c24fac316c54e56aed1975e60715f045e4639b63f304f",
+335:           "given": [
+336:             "申请 A1 已被 M1 撤回"
+337:           ],
+338:           "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000002",
+339:           "target_ref": "direction.example:DIREX-0000000000000003",
+340:           "then": [
+341:             "返回已撤回成功结果",
+342:             "不产生重复的审计日志"
+343:           ],
+344:           "title": "已撤回申请重复撤回幂等返回",
+345:           "when": "M1 再次提交撤回 A1"
+346:         }
+347:       },
+348:       "change_context": {
+349:         "change_kind": "modify_existing",
+350:         "formal_implementation": true
+351:       },
+352:       "delivery_plan": {
+353:         "evidence_refs": [
+354:           "direction"
+355:         ],
+356:         "expected_outcome": "支持撤回操作的命令行版本发布",
+357:         "limitations": [
+358:           "仅本地交互"
+359:         ],
+360:         "repository_order": [
+361:           "REPO-1111111111111111"
+362:         ],
+363:         "rollback_or_recovery": "回退代码仓库版本"
+364:       },
+365:       "direction_ref": {
+366:         "direction_version": 6,
+367:         "work_item_id": "WI-20260928-9A2A1BC1"
+368:       },
+369:       "domain_fact_change_refs": [
+370:         "domain_fact_changes[0]"
+371:       ],
+372:       "external_observation_provider_plans": [],
+373:       "governance_profile": {
+374:         "profile_id": "strixnova-general-software-engineering+POLICY-1111111111111111",
+375:         "profile_version": "2026-08-23",
+376:         "project_tailoring": []
+377:       },
+378:       "impact_scope": {
+379:         "affected": [
+380:           {
+381:             "dimension": "user_behavior",
+382:             "evidence_refs": [
+383:               "direction"
+384:             ],
+385:             "reason": "支持用户撤回待审核申请"
+386:           },
+387:           {
+388:             "dimension": "domain",
+389:             "evidence_refs": [
+390:               "direction"
+391:             ],
+392:             "reason": "新增状态"
+393:           },
+394:           {
+395:             "dimension": "architecture",
+396:             "evidence_refs": [
+397:               "direction"
+398:             ],
+399:             "reason": "更新目标架构"
+400:           }
+401:         ],
+402:         "unaffected": [
+403:           "product_scope",
+404:           "interface",
+405:           "data",
+406:           "security_privacy",
+407:           "quality_performance",
+408:           "operations_deployment",
+409:           "compatibility_migration",
+410:           "testing",
+411:           "documentation_support"
+412:         ],
+413:         "unknown": []
+414:       },
+415:       "implementation_slices": [
+416:         {
+417:           "completion_criteria": [
+418:             "正确流转并拦截非本人操作"
+419:           ],
+420:           "continued_operation_refs": [],
+421:           "depends_on": [],
+422:           "implements": [
+423:             "direction.requirement:DIRREQ-A100000000000001",
+424:             "direction.requirement:DIRREQ-A100000000000002",
+425:             "direction.requirement:DIRREQ-A100000000000003"
+426:           ],
+427:           "machine_validated": true,
+428:           "operation_refs": [
+429:             "operations[0]",
+430:             "operations[1]",
+431:             "operations[2]",
+432:             "operations[3]",
+433:             "operations[4]",
+434:             "operations[5]",
+435:             "operations[6]",
+436:             "operations[7]",
+437:             "operations[8]",
+438:             "operations[9]",
+439:             "operations[10]",
+440:             "operations[11]"
+441:           ],
+442:           "parallel_safe_with": [],
+443:           "purpose": "完整实现身份、状态、并发等",
+444:           "repository_ids": [
+445:             "REPO-1111111111111111"
+446:           ],
+447:           "rollback_or_recovery": "代码回滚",
+448:           "schema_version": "strixnova.implementation-slice-plan.v1",
+449:           "slice_id": "SLICE-001",
+450:           "source_slice_ref": "implementation_slices[0]",
+451:           "verification_command_ids": [
+452:             "VC-001"
+453:           ]
+454:         }
+455:       ],
+456:       "investigation_ref": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+457:       "method_applications": [],
+458:       "operations": [
+459:         {
+460:           "action": "modify",
+461:           "evidence_refs": [
+462:             "direction"
+463:           ],
+464:           "implements": [
+465:             "direction.requirement:DIRREQ-A100000000000001",
+466:             "direction.requirement:DIRREQ-A100000000000002",
+467:             "direction.requirement:DIRREQ-A100000000000003"
+468:           ],
+469:           "path": "src.py",
+470:           "reason": "补齐身份与归属、状态、幂等审计、并发冲突和响应丢失后查询的实现",
+471:           "repository_id": "REPO-1111111111111111"
+472:         },
+473:         {
+474:           "action": "modify",
+475:           "evidence_refs": [
+476:             "direction"
+477:           ],
+478:           "implements": [
+479:             "direction.requirement:DIRREQ-A100000000000001"
+480:           ],
+481:           "long_lived_artifact": {
+482:             "artifact_id": "ARCH-1111111111111111",
+483:             "artifact_type": "architecture"
+484:           },
+485:           "path": "docs/architecture/model.yaml",
+486:           "reason": "更新跨单元目标架构",
+487:           "repository_id": "REPO-1111111111111111"
+488:         },
+489:         {
+490:           "action": "modify",
+491:           "evidence_refs": [
+492:             "direction"
+493:           ],
+494:           "implements": [
+495:             "direction.requirement:DIRREQ-A100000000000001"
+496:           ],
+497:           "long_lived_artifact": {
+498:             "artifact_id": "MODEL-1111111111111111",
+499:             "artifact_type": "domain_model"
+500:           },
+501:           "path": "docs/domain/model.yaml",
+502:           "reason": "更新领域模型实体",
+503:           "repository_id": "REPO-1111111111111111"
+504:         },
+505:         {
+506:           "action": "modify",
+507:           "evidence_refs": [
+508:             "direction"
+509:           ],
+510:           "implements": [
+511:             "direction.requirement:DIRREQ-A100000000000001"
+512:           ],
+513:           "long_lived_artifact": {
+514:             "artifact_id": "ALIGNMODEL-1111111111111111",
+515:             "artifact_type": "domain_alignment"
+516:           },
+517:           "path": "docs/engineering/alignment.yaml",
+518:           "reason": "更新实现对齐",
+519:           "repository_id": "REPO-1111111111111111"
+520:         },
+521:         {
+522:           "action": "modify",
+523:           "evidence_refs": [
+524:             "direction"
+525:           ],
+526:           "implements": [
+527:             "direction.requirement:DIRREQ-A100000000000001"
+528:           ],
+529:           "path": "docs/engineering/actual-dependencies.yaml",
+530:           "reason": "更新底账",
+531:           "repository_id": "REPO-1111111111111111"
+532:         },
+533:         {
+534:           "action": "modify",
+535:           "evidence_refs": [
+536:             "direction"
+537:           ],
+538:           "implements": [
+539:             "direction.requirement:DIRREQ-A100000000000001"
+540:           ],
+541:           "path": "docs/engineering/deviations.yaml",
+542:           "reason": "更新底账",
+543:           "repository_id": "REPO-1111111111111111"
+544:         },
+545:         {
+546:           "action": "modify",
+547:           "evidence_refs": [
+548:             "direction"
+549:           ],
+550:           "implements": [
+551:             "direction.requirement:DIRREQ-A100000000000001"
+552:           ],
+553:           "path": "docs/engineering/source-ownership.yaml",
+554:           "reason": "更新底账",
+555:           "repository_id": "REPO-1111111111111111"
+556:         },
+557:         {
+558:           "action": "modify",
+559:           "evidence_refs": [
+560:             "direction"
+561:           ],
+562:           "implements": [
+563:             "direction.requirement:DIRREQ-A100000000000001"
+564:           ],
+565:           "path": "docs/engineering/target-responsibilities.yaml",
+566:           "reason": "更新底账",
+567:           "repository_id": "REPO-1111111111111111"
+568:         },
+569:         {
+570:           "action": "modify",
+571:           "evidence_refs": [
+572:             "direction"
+573:           ],
+574:           "implements": [
+575:             "direction.requirement:DIRREQ-A100000000000001"
+576:           ],
+577:           "path": "docs/engineering/baseline.yaml",
+578:           "reason": "更新基线",
+579:           "repository_id": "REPO-1111111111111111"
+580:         },
+581:         {
+582:           "action": "modify",
+583:           "evidence_refs": [
+584:             "direction"
+585:           ],
+586:           "implements": [
+587:             "direction.requirement:DIRREQ-A100000000000001"
+588:           ],
+589:           "path": "docs/architecture/architecture-modules.yaml",
+590:           "reason": "更新跨单元目标架构模块",
+591:           "repository_id": "REPO-1111111111111111"
+592:         },
+593:         {
+594:           "action": "modify",
+595:           "evidence_refs": [
+596:             "direction"
+597:           ],
+598:           "implements": [
+599:             "direction.requirement:DIRREQ-A100000000000001"
+600:           ],
+601:           "path": "docs/domain/sources/core.yaml",
+602:           "reason": "添加Reservation实体与状态",
+603:           "repository_id": "REPO-1111111111111111"
+604:         },
+605:         {
+606:           "action": "modify",
+607:           "evidence_refs": [
+608:             "direction"
+609:           ],
+610:           "implements": [
+611:             "direction.requirement:DIRREQ-A100000000000001"
+612:           ],
+613:           "long_lived_artifact": {
+614:             "artifact_id": "PRODUCT-1111111111111111",
+615:             "artifact_type": "product_governance"
+616:           },
+617:           "path": "docs/product/definition.yaml",
+618:           "reason": "更新产品定义，增加撤回功能",
+619:           "repository_id": "REPO-1111111111111111"
+620:         }
+621:       ],
+622:       "owner_view": {
+623:         "current_decision": "确认成员撤回待审核申请的工程方案",
+624:         "decision_support": {
+625:           "alternatives": [
+626:             "引入外部数据库锁"
+627:           ],
+628:           "current_problem": "现有工程仅提供时长计算，缺乏成员自主撤回与并发安全控制。",
+629:           "impact": "将建立预约状态机，控制撤回与审批的并发。",
+630:           "necessary_questions": [],
+631:           "next_step": "等待负责人审查并确认本工程方案。",
+632:           "no_action_consequence": "无法满足成员撤回的业务需求，阻挡第一期成果交付。",
+633:           "recommendation": "在核心模块引入实体与内存版本号控制。",
+634:           "why_it_matters": "满足方向决策，使用户能独立撤回预约，避免依赖外部干预，同时解耦周报功能的实现风险。"
+635:         },
+636:         "engineering_context": {
+637:           "architecture_responsibilities": "构建终端CLI命令，实现身份与版本并发控制。",
+638:           "highest_impact_risks": "并发控制失效。",
+639:           "implementation_order": "1. 实体逻辑补充 2. 内存版本控制 3. CLI集成",
+640:           "product_and_domain_change": "无需改变上层领域模型定义，仅补充终端入口。",
+641:           "uncertainties": "无",
+642:           "verification_and_observation": "单元测试覆盖。"
+643:         },
+644:         "schema_version": "strixnova.owner-view.v1",
+645:         "semantic_content_machine_proven": false
+646:       },
+647:       "plan_id": "PLAN-EA-20260928-1-R2",
+648:       "repository_scope": {
+649:         "project_id": "PROJECT-1111111111111111",
+650:         "repositories": [
+651:           {
+652:             "investigation_ref": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+653:             "repository_id": "REPO-1111111111111111",
+654:             "role": "modify",
+655:             "target_ref": null
+656:           }
+657:         ]
+658:       },
+659:       "schema_version": "strixnova.engineering-plan.v1",
+660:       "semantic_content_machine_proven": false,
+661:       "semantic_review": {
+662:         "checks": [
+663:           {
+664:             "evidence_refs": [
+665:               "direction"
+666:             ],
+667:             "finding_ids": [],
+668:             "perspective": "product_to_domain_coverage",
+669:             "status": "aligned",
+670:             "summary": "产品需求中的撤回功能已完全映射到领域模型的Reservation状态枚举。"
+671:           },
+672:           {
+673:             "evidence_refs": [
+674:               "direction"
+675:             ],
+676:             "finding_ids": [],
+677:             "perspective": "terminology_authority_rules_invariants",
+678:             "status": "aligned",
+679:             "summary": "所有实体命名和规则均符合业务定义。"
+680:           },
+681:           {
+682:             "evidence_refs": [
+683:               "direction"
+684:             ],
+685:             "finding_ids": [],
+686:             "perspective": "domain_to_architecture_disposition",
+687:             "status": "aligned",
+688:             "summary": "领域模型的Reservation已由架构模块承接。"
+689:           },
+690:           {
+691:             "evidence_refs": [
+692:               "direction"
+693:             ],
+694:             "finding_ids": [],
+695:             "perspective": "plan_and_slice_coverage",
+696:             "status": "aligned",
+697:             "summary": "已规划实现切片并包含在评估中。"
+698:           },
+699:           {
+700:             "evidence_refs": [
+701:               "direction"
+702:             ],
+703:             "finding_ids": [],
+704:             "perspective": "orphan_and_authority_inversion",
+705:             "status": "aligned",
+706:             "summary": "无孤立代码或违背架构的行为。"
+707:           },
+708:           {
+709:             "evidence_refs": [
+710:               "direction"
+711:             ],
+712:             "finding_ids": [],
+713:             "perspective": "scenario_coverage",
+714:             "status": "aligned",
+715:             "summary": "测试用例覆盖了撤回和并发场景。"
+716:           },
+717:           {
+718:             "evidence_refs": [
+719:               "direction"
+720:             ],
+721:             "finding_ids": [],
+722:             "perspective": "nonfunctional_and_risk_coverage",
+723:             "status": "aligned",
+724:             "summary": "并发冲突已处理，安全风险可控。"
+725:           },
+726:           {
+727:             "evidence_refs": [
+728:               "direction"
+729:             ],
+730:             "finding_ids": [],
+731:             "perspective": "evidence_and_claim_boundaries",
+732:             "status": "aligned",
+733:             "summary": "所需权威变更已如实提供。"
+734:           }
+735:         ],
+736:         "findings": [],
+737:         "question_budget": {
+738:           "maximum_questions": 5,
+739:           "questions_asked": 0,
+740:           "remaining_high_impact_decisions": [],
+741:           "resolved_decision_refs": []
+742:         },
+743:         "review_id": "SEMREVIEW-0000000000000001",
+744:         "reviewed_refs": [
+745:           "direction"
+746:         ],
+747:         "schema_version": "strixnova.semantic-review.v1",
+748:         "semantic_content_machine_proven": false
+749:       },
+750:       "trace_refs": [
+751:         "alternatives_and_tradeoffs[0]",
+752:         "design_decisions[0]",
+753:         "operations[0]",
+754:         "operations[10]",
+755:         "operations[11]",
+756:         "operations[1]",
+757:         "operations[2]",
+758:         "operations[3]",
+759:         "operations[4]",
+760:         "operations[5]",
+761:         "operations[6]",
+762:         "operations[7]",
+763:         "operations[8]",
+764:         "operations[9]",
+765:         "adr_plans[0]",
+766:         "domain_fact_changes[0]",
+767:         "implementation_slices[0]",
+768:         "impact_scope.affected[0]",
+769:         "impact_scope.affected[1]",
+770:         "impact_scope.affected[2]",
+771:         "impact_scope.unaffected[0]",
+772:         "impact_scope.unaffected[1]",
+773:         "impact_scope.unaffected[2]",
+774:         "impact_scope.unaffected[3]",
+775:         "impact_scope.unaffected[4]",
+776:         "impact_scope.unaffected[5]",
+777:         "impact_scope.unaffected[6]",
+778:         "impact_scope.unaffected[7]",
+779:         "impact_scope.unaffected[8]",
+780:         "direction.acceptance:DIRACC-A100000000000001",
+781:         "direction.acceptance:DIRACC-A100000000000002",
+782:         "direction.constraint:DIRCON-A100000000000001",
+783:         "direction.constraint:DIRCON-A100000000000002",
+784:         "direction.constraint:DIRCON-A100000000000003",
+785:         "direction.requirement:DIRREQ-A100000000000001",
+786:         "direction.requirement:DIRREQ-A100000000000002",
+787:         "direction.requirement:DIRREQ-A100000000000003",
+788:         "delivery_plan",
+789:         "authority_change_set",
+790:         "semantic_review",
+791:         "owner_view"
+792:       ],
+793:       "verification_commands": [
+794:         {
+795:           "approved_program": {
+796:             "argument_policy": "exact_plan_only",
+797:             "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+798:             "purpose": "在本隔离工程运行已声明的 pytest 验证。",
+799:             "resolved_program": "D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe"
+800:           },
+801:           "argv": [
+802:             "D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe",
+803:             "-m",
+804:             "pytest",
+805:             "test_reservation.py"
+806:           ],
+807:           "case_report": {
+808:             "adapter": "pytest",
+809:             "bindings": [
+810:               {
+811:                 "example_ref": "direction.example:DIREX-0000000000000001",
+812:                 "test_ids": [
+813:                   "test_reservation.py::test_withdraw_own"
+814:                 ]
+815:               },
+816:               {
+817:                 "example_ref": "direction.example:DIREX-0000000000000002",
+818:                 "test_ids": [
+819:                   "test_reservation.py::test_withdraw_others"
+820:                 ]
+821:               },
+822:               {
+823:                 "example_ref": "direction.example:DIREX-0000000000000003",
+824:                 "test_ids": [
+825:                   "test_reservation.py::test_withdraw_idempotent"
+826:                 ]
+827:               }
+828:             ],
+829:             "example_fingerprints": {
+830:               "direction.example:DIREX-0000000000000001": "40ec335eeb2172505e91e2e5ec4a868b630a195146e8804e122a5d7b340b8d24",
+831:               "direction.example:DIREX-0000000000000002": "6a6efccc432ffe1756a8d292921101cd40b864f6d9b3938b434b4a73a8472e8f",
+832:               "direction.example:DIREX-0000000000000003": "a4e88b452c92e530c70c24fac316c54e56aed1975e60715f045e4639b63f304f"
+833:             },
+834:             "input_paths": [
+835:               "tests/test_reservation.py"
+836:             ],
+837:             "test_root": "tests"
+838:           },
+839:           "command_id": "VC-001",
+840:           "covers": [
+841:             "direction.constraint:DIRCON-A100000000000001",
+842:             "direction.constraint:DIRCON-A100000000000002",
+843:             "direction.constraint:DIRCON-A100000000000003",
+844:             "direction.example:DIREX-0000000000000001",
+845:             "direction.example:DIREX-0000000000000002",
+846:             "direction.example:DIREX-0000000000000003",
+847:             "direction.acceptance:DIRACC-A100000000000001",
+848:             "direction.acceptance:DIRACC-A100000000000002"
+849:           ],
+850:           "cwd": "tests",
+851:           "optional_timeout": null,
+852:           "reasons": [
+853:             "验证状态机与并发"
+854:           ],
+855:           "repository_id": "REPO-1111111111111111",
+856:           "run_kind": "targeted_test",
+857:           "source_command_indexes": [
+858:             0
+859:           ]
+860:         }
+861:       ],
+862:       "verification_policy_decision": {
+863:         "forbidden_agent_program_names": [
+864:           "aider",
+865:           "claude",
+866:           "codex",
+867:           "cursor",
+868:           "gemini",
+869:           "opencode",
+870:           "windsurf"
+871:         ],
+872:         "observed_commit": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+873:         "plan_binding_required": true,
+874:         "policy_id": "POLICY-1111111111111111",
+875:         "policy_revision_id": "POLICYREV-1111111111111111",
+876:         "schema_version": "strixnova.verification-policy-decision.v1",
+877:         "source_kind": "project_engineering_policy",
+878:         "working_directory_policy": "project_or_authorized_worktree_only",
+879:         "wrapper_policy": "forbidden_unless_exactly_approved"
+880:       },
+881:       "verification_targets": [
+882:         {
+883:           "child_example_refs": [
+884:             "direction.example:DIREX-0000000000000001",
+885:             "direction.example:DIREX-0000000000000002"
+886:           ],
+887:           "command_ids": [],
+888:           "evidence_refs": [],
+889:           "method": "examples",
+890:           "reason": "验收结果由所属例子的实际证据与 Agent 审阅派生。",
+891:           "target_ref": "direction.acceptance:DIRACC-A100000000000001"
+892:         },
+893:         {
+894:           "child_example_refs": [
+895:             "direction.example:DIREX-0000000000000003"
+896:           ],
+897:           "command_ids": [],
+898:           "evidence_refs": [],
+899:           "method": "examples",
+900:           "reason": "验收结果由所属例子的实际证据与 Agent 审阅派生。",
+901:           "target_ref": "direction.acceptance:DIRACC-A100000000000002"
+902:         },
+903:         {
+904:           "command_ids": [
+905:             "VC-001"
+906:           ],
+907:           "evidence_refs": [],
+908:           "method": "command",
+909:           "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+910:           "target_ref": "direction.constraint:DIRCON-A100000000000001"
+911:         },
+912:         {
+913:           "command_ids": [
+914:             "VC-001"
+915:           ],
+916:           "evidence_refs": [],
+917:           "method": "command",
+918:           "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+919:           "target_ref": "direction.constraint:DIRCON-A100000000000002"
+920:         },
+921:         {
+922:           "command_ids": [
+923:             "VC-001"
+924:           ],
+925:           "evidence_refs": [],
+926:           "method": "command",
+927:           "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+928:           "target_ref": "direction.constraint:DIRCON-A100000000000003"
+929:         },
+930:         {
+931:           "assertion_review_required": true,
+932:           "case_bindings": [
+933:             {
+934:               "command_id": "VC-001",
+935:               "test_ids": [
+936:                 "test_reservation.py::test_withdraw_own"
+937:               ]
+938:             }
+939:           ],
+940:           "command_ids": [
+941:             "VC-001"
+942:           ],
+943:           "evidence_refs": [],
+944:           "example": {
+945:             "basis_refs": [
+946:               "direction.requirement:DIRREQ-A100000000000001"
+947:             ],
+948:             "example_id": "DIREX-0000000000000001",
+949:             "example_sha256": "40ec335eeb2172505e91e2e5ec4a868b630a195146e8804e122a5d7b340b8d24",
+950:             "given": [
+951:               "可信会话身份为成员 M1",
+952:               "存在 M1 发起且状态为待审核的申请 A1"
+953:             ],
+954:             "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000001",
+955:             "target_ref": "direction.example:DIREX-0000000000000001",
+956:             "then": [
+957:               "申请 A1 状态更新为已撤回",
+958:               "生成包含操作者 M1、原状态待审核、新状态已撤回的审计记录"
+959:             ],
+960:             "title": "成员正常撤回本人待审核预约申请",
+961:             "when": "M1 提交撤回申请 A1"
+962:           },
+963:           "method": "command",
+964:           "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+965:           "target_ref": "direction.example:DIREX-0000000000000001"
+966:         },
+967:         {
+968:           "assertion_review_required": true,
+969:           "case_bindings": [
+970:             {
+971:               "command_id": "VC-001",
+972:               "test_ids": [
+973:                 "test_reservation.py::test_withdraw_others"
+974:               ]
+975:             }
+976:           ],
+977:           "command_ids": [
+978:             "VC-001"
+979:           ],
+980:           "evidence_refs": [],
+981:           "example": {
+982:             "basis_refs": [
+983:               "direction.requirement:DIRREQ-A100000000000001"
+984:             ],
+985:             "example_id": "DIREX-0000000000000002",
+986:             "example_sha256": "6a6efccc432ffe1756a8d292921101cd40b864f6d9b3938b434b4a73a8472e8f",
+987:             "given": [
+988:               "可信会话身份为成员 M2",
+989:               "存在 M1 发起且状态为待审核的申请 A1"
+990:             ],
+991:             "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000001",
+992:             "target_ref": "direction.example:DIREX-0000000000000002",
+993:             "then": [
+994:               "操作被拒绝",
+995:               "申请 A1 状态保持待审核不变"
+996:             ],
+997:             "title": "成员尝试撤回他人申请被拒绝",
+998:             "when": "M2 提交撤回申请 A1"
+999:           },
+1000:           "method": "command",
+1001:           "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+1002:           "target_ref": "direction.example:DIREX-0000000000000002"
+1003:         },
+1004:         {
+1005:           "assertion_review_required": true,
+1006:           "case_bindings": [
+1007:             {
+1008:               "command_id": "VC-001",
+1009:               "test_ids": [
+1010:                 "test_reservation.py::test_withdraw_idempotent"
+1011:               ]
+1012:             }
+1013:           ],
+1014:           "command_ids": [
+1015:             "VC-001"
+1016:           ],
+1017:           "evidence_refs": [],
+1018:           "example": {
+1019:             "basis_refs": [
+1020:               "direction.requirement:DIRREQ-A100000000000002"
+1021:             ],
+1022:             "example_id": "DIREX-0000000000000003",
+1023:             "example_sha256": "a4e88b452c92e530c70c24fac316c54e56aed1975e60715f045e4639b63f304f",
+1024:             "given": [
+1025:               "申请 A1 已被 M1 撤回"
+1026:             ],
+1027:             "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000002",
+1028:             "target_ref": "direction.example:DIREX-0000000000000003",
+1029:             "then": [
+1030:               "返回已撤回成功结果",
+1031:               "不产生重复的审计日志"
+1032:             ],
+1033:             "title": "已撤回申请重复撤回幂等返回",
+1034:             "when": "M1 再次提交撤回 A1"
+1035:           },
+1036:           "method": "command",
+1037:           "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+1038:           "target_ref": "direction.example:DIREX-0000000000000003"
+1039:         }
+1040:       ]
+1041:     },
+1042:     "repository_deliveries": {
+1043:       "current_plan_id": "PLAN-EA-20260928-1-R2",
+1044:       "execution_facts_included": true,
+1045:       "overall_result_confirmation": null,
+1046:       "project_id": "PROJECT-1111111111111111",
+1047:       "responsibilities": [
+1048:         {
+1049:           "current_plan": true,
+1050:           "implementation_slice_ids": [
+1051:             "SLICE-001"
+1052:           ],
+1053:           "investigation_commit": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+1054:           "operation_refs": [
+1055:             "operations[0]",
+1056:             "operations[1]",
+1057:             "operations[2]",
+1058:             "operations[3]",
+1059:             "operations[4]",
+1060:             "operations[5]",
+1061:             "operations[6]",
+1062:             "operations[7]",
+1063:             "operations[8]",
+1064:             "operations[9]",
+1065:             "operations[10]",
+1066:             "operations[11]"
+1067:           ],
+1068:           "plan_id": "PLAN-EA-20260928-1-R2",
+1069:           "repository_id": "REPO-1111111111111111",
+1070:           "schema_version": "strixnova.repository-delivery-responsibility.v1",
+1071:           "target_ref": null
+1072:         }
+1073:       ],
+1074:       "schema_version": "strixnova.repository-delivery-responsibility-view.v1",
+1075:       "scope": "repository_responsibilities_and_execution",
+1076:       "work_item_id": "WI-20260928-9A2A1BC1",
+1077:       "work_item_version": 9
+1078:     }
+1079:   },
+1080:   "relations": {
+1081:     "declared": [
+1082:       {
+1083:         "reason": "共用同一预约申请领域上下文与底层时长组件，但作为独立结果分别交付。",
+1084:         "related_work_item": {
+1085:           "status": "awaiting_direction_confirmation",
+1086:           "title": "负责人下载每周预约汇总",
+1087:           "work_item_id": "WI-20260928-DB4C76AE"
+1088:         },
+1089:         "relation_type": "related_to",
+1090:         "source_work_item_id": "WI-20260928-9A2A1BC1",
+1091:         "target_work_item_id": "WI-20260928-DB4C76AE"
+1092:       }
+1093:     ],
+1094:     "referenced_by": []
+1095:   },
+1096:   "schema_version": "strixnova.next-step.v1",
+1097:   "work_item_id": "WI-20260928-9A2A1BC1",
+1098:   "work_item_status": "awaiting_plan_confirmation",
+1099:   "work_item_version": 9
+1100: }

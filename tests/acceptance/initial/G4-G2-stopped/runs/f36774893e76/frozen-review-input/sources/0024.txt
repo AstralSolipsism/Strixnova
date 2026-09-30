@@ -1,0 +1,65 @@
+1: schema_version: strixnova.project-engineering-policy.v1
+2: policy_id: POLICY-1111111111111111
+3: revision:
+4:   revision_id: POLICYREV-1111111111111111
+5:   status: confirmed
+6:   supersedes_revision_id: null
+7:   confirmed_by_owner_id: OWNER-1111111111111111
+8:   confirmed_on: '2026-09-28'
+9: product_definition_ref:
+10:   product_id: PRODUCT-1111111111111111
+11:   revision_id: REVISION-1111111111111111
+12: base_profile_ref:
+13:   profile_id: strixnova-general-software-engineering
+14:   profile_version: '2026-08-23'
+15: method_adoptions:
+16: - method_id: ddd
+17:   status: not_adopted
+18:   reason: 此固定小组件没有采用 DDD；不因方法名称扩大一次局部修复。
+19:   conditions: []
+20:   adopted_technique_ids: []
+21: policy_statements:
+22:   quality:
+23:   - 结构、语义和效果证据分开报告。
+24:   testing:
+25:   - 以真实断言检查函数行为；开发反馈与正式验证记录分别说明。
+26:   security:
+27:   - 不建立代理身份或会话。
+28:   release:
+29:   - 只验证本地交付。
+30:   operations:
+31:   - 外部操作必须有真实回执。
+32:   maintenance:
+33:   - 新接口接管后删除旧机制。
+34:   compatibility:
+35:   - 隔离测试不读取旧权威合同。
+36: project_sources: []
+37: rule_extensions: []
+38: rule_tailoring: []
+39: verification_command_policy:
+40:   allowed_programs:
+41:   - program: D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+42:     purpose: 在本隔离工程运行已声明的 pytest 验证。
+43:     argument_policy: exact_plan_only
+44:   forbidden_agent_program_names:
+45:   - aider
+46:   - claude
+47:   - codex
+48:   - cursor
+49:   - gemini
+50:   - opencode
+51:   - windsurf
+52:   wrapper_policy: forbidden_unless_exactly_approved
+53:   working_directory_policy: project_or_authorized_worktree_only
+54:   plan_binding_required: true
+55: delivery_gates:
+56:   result_acceptance_before_commit: true
+57:   local_integration_only: true
+58:   external_execution_requires_external_receipt: true
+59:   remote_operations_in_scope: false
+60: evidence_requirements:
+61:   separate_structure_semantics_confirmation_effect_and_conformance: true
+62:   unrun_items_visible: true
+63:   semantic_correctness_machine_proven: false
+64:   external_conformance_without_external_evidence: false
+65: unresolved_decisions: []

@@ -1,0 +1,1553 @@
+{
+  "schema_version": "strixnova.work-item.v1",
+  "work_item_id": "WI-20260928-AFEDF017",
+  "title": "前后端共同结果",
+  "status": "implementing",
+  "version": 10,
+  "data": {
+    "actual_result": null,
+    "actual_result_confirmation": null,
+    "authority_adoption": null,
+    "blockers": [],
+    "cancellation": null,
+    "direction": {
+      "acceptance": [
+        {
+          "acceptance_id": "DIRACC-3333333333333333",
+          "behavior": {
+            "applicability": "not_applicable",
+            "reason": "This fixture exercises workflow bookkeeping; behavior examples are covered separately."
+          },
+          "requirement_refs": [
+            "DIRREQ-1111111111111111"
+          ],
+          "statement": "快速与全量套件都报告真实耗时和覆盖。"
+        }
+      ],
+      "constraints": [
+        {
+          "constraint_id": "DIRCON-2222222222222222",
+          "statement": "只使用项目 Python 3.12 venv。"
+        }
+      ],
+      "decision_context": {
+        "assumptions": [],
+        "capability_refs": [
+          "product.capability:CAPABILITY-1111111111111111"
+        ],
+        "context_ref": "product-definition:PRODUCT-1111111111111111:REVISION-1111111111111111:sha256:6c6c7e8c26e7ebb1b6a7feeae06324acfa73682818ebce1b214deb7b9ddcdbf7",
+        "guardrail_dispositions": [
+          {
+            "decision_ref": "product.non_goal:NONGOAL-1111111111111111",
+            "disposition": "applies",
+            "reason": "本场景继续遵守现行护栏。"
+          },
+          {
+            "decision_ref": "product.constraint:CONSTRAINT-AAAAAAAAAAAAAAAA",
+            "disposition": "applies",
+            "reason": "本场景继续遵守现行护栏。"
+          }
+        ]
+      },
+      "goal": "缩短测试反馈，同时保留必要行为覆盖。",
+      "non_goals": [
+        "不删除具有独立行为价值的测试。"
+      ],
+      "schema_version": "strixnova.direction-decision.v1",
+      "scope": [
+        {
+          "requirement_id": "DIRREQ-1111111111111111",
+          "statement": "优化当前项目的测试结构。"
+        }
+      ],
+      "tradeoffs": [
+        "优先减少重复验证，不设置人为耗时门槛。"
+      ]
+    },
+    "direction_confirmation": {
+      "accepted": true,
+      "agent_decision": {
+        "decision": "accept",
+        "reason": "固定场景中负责人已接受所展示的完整候选。"
+      },
+      "candidate_fingerprint": "sha256:6b03a4cf74a6ef75031f32d8f2dd97721684359c18c583d8a4f0b00a38689318",
+      "candidate_kind": "direction",
+      "decision_interpreter": "coding_agent",
+      "decision_label": "当前展示的方向",
+      "direction_version": 3,
+      "schema_version": "strixnova.user-confirmation.v1",
+      "semantic_content_machine_proven": false,
+      "summary": "固定场景中负责人已接受所展示的完整候选。",
+      "user_confirmation": "接受这份完整候选。"
+    },
+    "direction_item_history": {
+      "active_ids": [
+        "DIRACC-3333333333333333",
+        "DIRCON-2222222222222222",
+        "DIRREQ-1111111111111111"
+      ],
+      "retired_ids": []
+    },
+    "engineering": {
+      "assessment": {
+        "adr_plans": [],
+        "alternatives_and_tradeoffs": [],
+        "assessment_id": "EA-TEST-001",
+        "assessment_revision": 1,
+        "authority_change_set": {
+          "base_authorities": [
+            {
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "authority_kind": "implementation_alignment",
+              "observed_commit": "400b3c8788993d737dd13c849e3c8521119e54b5",
+              "path": "docs/engineering/alignment.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ALIGNREV-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "PRODUCT-1111111111111111",
+              "authority_kind": "product_definition",
+              "observed_commit": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+              "path": "docs/product/definition.yaml",
+              "repository_id": "REPO-2222222222222222",
+              "revision_id": "REVISION-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "MODEL-1111111111111111",
+              "authority_kind": "domain_model",
+              "observed_commit": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+              "path": "docs/domain/model.yaml",
+              "repository_id": "REPO-2222222222222222",
+              "revision_id": "MODELREV-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "ARCH-1111111111111111",
+              "authority_kind": "target_architecture",
+              "observed_commit": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+              "path": "docs/architecture/model.yaml",
+              "repository_id": "REPO-2222222222222222",
+              "revision_id": "ARCHREV-1111111111111111",
+              "status": "confirmed"
+            }
+          ],
+          "candidate_authorities": [
+            {
+              "adoption_effect": "not_adopted",
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "authority_kind": "implementation_alignment",
+              "path": "docs/engineering/alignment.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ALIGNREV-7777777777777777",
+              "status": "draft",
+              "supersedes_revision_id": "ALIGNREV-1111111111111111"
+            }
+          ],
+          "change_set_id": "AUTHCHANGE-7777777777777777",
+          "changes": [
+            {
+              "authority_kind": "implementation_alignment",
+              "change_id": "AUTHOP-001",
+              "evidence_refs": [
+                "SRC-META-0"
+              ],
+              "operation": "modify",
+              "summary": "Review source ownership and exact observations for both repositories.",
+              "target_ref": "ALIGNMODEL-1111111111111111"
+            }
+          ],
+          "downstream_dispositions": [],
+          "schema_version": "strixnova.authority-change-set.v1",
+          "semantic_content_machine_proven": false,
+          "work_item_id": "WI-20260928-AFEDF017"
+        },
+        "change_context": {
+          "change_kind": "modify_existing",
+          "formal_implementation": true
+        },
+        "delivery_plan": {
+          "evidence_refs": [
+            "direction"
+          ],
+          "expected_outcome": "用户确认实际结果后形成原子提交并本地合入。",
+          "limitations": [],
+          "repository_order": [
+            "REPO-2222222222222222",
+            "REPO-1111111111111111"
+          ],
+          "rollback_or_recovery": "未确认前保留未提交改动，确认后由 Git 回退。"
+        },
+        "design_decisions": [
+          {
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "rationale": "避免重复组合，同时保留独立行为覆盖。",
+            "statement": "在最低有效测试层保留一次行为证明。"
+          }
+        ],
+        "direction_ref": {
+          "direction_version": 3,
+          "work_item_id": "WI-20260928-AFEDF017"
+        },
+        "domain_fact_changes": [],
+        "external_observation_provider_plans": [],
+        "impact_scope": {
+          "affected": [
+            {
+              "dimension": "user_behavior",
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "reason": "当前源码证明 user_behavior 会发生实际变化。"
+            },
+            {
+              "dimension": "testing",
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "reason": "当前源码证明 testing 会发生实际变化。"
+            }
+          ],
+          "unaffected": [
+            "product_scope",
+            "domain",
+            "architecture",
+            "interface",
+            "data",
+            "security_privacy",
+            "quality_performance",
+            "operations_deployment",
+            "compatibility_migration",
+            "documentation_support"
+          ],
+          "unknown": []
+        },
+        "implementation_slices": [
+          {
+            "completion_criteria": [
+              "计划文件操作全部完成且验证取得当前回执。"
+            ],
+            "continued_operation_refs": [],
+            "depends_on": [],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "operation_refs": [
+              "operations[0]",
+              "operations[1]",
+              "operations[2]",
+              "operations[3]",
+              "operations[4]",
+              "operations[5]",
+              "operations[6]",
+              "operations[7]"
+            ],
+            "parallel_safe_with": [],
+            "purpose": "完成当前工程方案中的全部文件操作并取得验证证据。",
+            "rollback_or_recovery": "验证失败时保留未提交改动并修正当前切片。",
+            "schema_version": "strixnova.implementation-slice.v1",
+            "slice_id": "SLICE-001",
+            "verification_command_refs": [
+              "verification_commands[0]",
+              "verification_commands[1]"
+            ]
+          }
+        ],
+        "investigation_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+        "method_applications": [],
+        "operations": [
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "src.py",
+            "reason": "修改测试分组并删除重复组合。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-002"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "src.py",
+            "reason": "修改测试分组并删除重复组合。",
+            "repository_id": "REPO-2222222222222222"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-0"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "long_lived_artifact": {
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "artifact_type": "domain_alignment"
+            },
+            "path": "docs/engineering/alignment.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-1"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/source-ownership.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-2"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/actual-dependencies.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-3"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/target-responsibilities.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-4"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/deviations.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-5"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/baseline.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          }
+        ],
+        "owner_view": {
+          "current_decision": "是否接受本工程方案并允许进入实施。",
+          "decision_support": {
+            "alternatives": [
+              "保留现状并接受较慢反馈。"
+            ],
+            "current_problem": "缩短测试反馈，同时保留必要行为覆盖。",
+            "impact": "只调整本事项声明的测试结构，不改变产品和领域行为。",
+            "necessary_questions": [],
+            "next_step": "确认方案后执行唯一实施切片。",
+            "no_action_consequence": "继续承担当前测试反馈成本。",
+            "recommendation": "采用单切片调整并运行针对性验证。",
+            "why_it_matters": "反馈过慢会增加建设成本，错误去重又可能漏掉回归。"
+          },
+          "engineering_context": {
+            "architecture_responsibilities": "保持现有职责，只调整测试结构。",
+            "highest_impact_risks": "错误去重可能遗漏必要回归覆盖。",
+            "implementation_order": "用一个实施切片完成源码调整，再执行针对性验证。",
+            "product_and_domain_change": "产品范围和领域含义不变。",
+            "uncertainties": "没有仍会改变方案方向的未知。",
+            "verification_and_observation": "运行已列出的针对性测试并保存真实回执。"
+          },
+          "schema_version": "strixnova.owner-view.v1",
+          "semantic_content_machine_proven": false
+        },
+        "repository_scope": {
+          "project_id": "PROJECT-1111111111111111",
+          "repositories": [
+            {
+              "investigation_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+              "repository_id": "REPO-1111111111111111",
+              "role": "modify",
+              "target_ref": "main"
+            },
+            {
+              "investigation_ref": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+              "repository_id": "REPO-2222222222222222",
+              "role": "modify",
+              "target_ref": "main"
+            }
+          ]
+        },
+        "requested_assurance": {
+          "band": "A1",
+          "reason": "局部、可逆且具备针对性验证。"
+        },
+        "risk_assessments": [
+          {
+            "consequence": "low",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "external_assurance_required": false,
+            "likelihood": "low",
+            "mitigation": "保留最低有效层行为验证。",
+            "reversibility": "easy",
+            "statement": "错误去重可能遗漏必要回归覆盖。",
+            "uncertainty": "low"
+          }
+        ],
+        "schema_version": "strixnova.engineering-assessment.v1",
+        "semantic_review": {
+          "checks": [
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "product_to_domain_coverage",
+              "status": "aligned",
+              "summary": "已从 product_to_domain_coverage 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "terminology_authority_rules_invariants",
+              "status": "aligned",
+              "summary": "已从 terminology_authority_rules_invariants 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "domain_to_architecture_disposition",
+              "status": "aligned",
+              "summary": "已从 domain_to_architecture_disposition 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "plan_and_slice_coverage",
+              "status": "aligned",
+              "summary": "已从 plan_and_slice_coverage 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "orphan_and_authority_inversion",
+              "status": "aligned",
+              "summary": "已从 orphan_and_authority_inversion 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "scenario_coverage",
+              "status": "aligned",
+              "summary": "已从 scenario_coverage 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "nonfunctional_and_risk_coverage",
+              "status": "aligned",
+              "summary": "已从 nonfunctional_and_risk_coverage 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "evidence_and_claim_boundaries",
+              "status": "aligned",
+              "summary": "已从 evidence_and_claim_boundaries 视角完成只读审查，未保留阻断发现。"
+            }
+          ],
+          "findings": [],
+          "question_budget": {
+            "maximum_questions": 5,
+            "questions_asked": 0,
+            "remaining_high_impact_decisions": [],
+            "resolved_decision_refs": []
+          },
+          "review_id": "SEMREVIEW-1111111111111111",
+          "reviewed_refs": [
+            "SRC-META-0",
+            "authority_change_set"
+          ],
+          "schema_version": "strixnova.semantic-review.v1",
+          "semantic_content_machine_proven": false
+        },
+        "source_references": [
+          {
+            "epistemic_status": "observed",
+            "line_end": 2,
+            "line_start": 1,
+            "observed_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+            "path": "src.py",
+            "reference_id": "SRC-001",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "epistemic_status": "observed",
+            "line_end": 2,
+            "line_start": 1,
+            "observed_ref": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+            "path": "src.py",
+            "reference_id": "SRC-002",
+            "repository_id": "REPO-2222222222222222"
+          },
+          {
+            "epistemic_status": "observed",
+            "line_end": null,
+            "line_start": null,
+            "observed_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+            "path": "docs/engineering/alignment.yaml",
+            "reference_id": "SRC-META-0",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "epistemic_status": "observed",
+            "line_end": null,
+            "line_start": null,
+            "observed_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+            "path": "docs/engineering/source-ownership.yaml",
+            "reference_id": "SRC-META-1",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "epistemic_status": "observed",
+            "line_end": null,
+            "line_start": null,
+            "observed_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+            "path": "docs/engineering/actual-dependencies.yaml",
+            "reference_id": "SRC-META-2",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "epistemic_status": "observed",
+            "line_end": null,
+            "line_start": null,
+            "observed_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+            "path": "docs/engineering/target-responsibilities.yaml",
+            "reference_id": "SRC-META-3",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "epistemic_status": "observed",
+            "line_end": null,
+            "line_start": null,
+            "observed_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+            "path": "docs/engineering/deviations.yaml",
+            "reference_id": "SRC-META-4",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "epistemic_status": "observed",
+            "line_end": null,
+            "line_start": null,
+            "observed_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+            "path": "docs/engineering/baseline.yaml",
+            "reference_id": "SRC-META-5",
+            "repository_id": "REPO-1111111111111111"
+          }
+        ],
+        "unknowns_and_limitations": [],
+        "verification_commands": [
+          {
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-c",
+              "from pathlib import Path; p=Path('D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\d18b25e5739d\\\\work\\\\fixture\\\\run-count.txt'); p.write_text(p.read_text()+\"run\\n\" if p.exists() else \"run\\n\"); print(\"fixed command completed\")"
+            ],
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333",
+              "risk_assessments[0]",
+              "direction.constraint:DIRCON-2222222222222222"
+            ],
+            "cwd": ".",
+            "reason": "直接验证本次验收并保护回归风险。",
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test"
+          },
+          {
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-m",
+              "pytest",
+              "tests/unit/test_workflow_authority.py",
+              "-q"
+            ],
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333",
+              "risk_assessments[0]",
+              "direction.constraint:DIRCON-2222222222222222"
+            ],
+            "cwd": ".",
+            "reason": "直接验证本次验收并保护回归风险。",
+            "repository_id": "REPO-2222222222222222",
+            "run_kind": "targeted_test"
+          }
+        ],
+        "verification_reviews": []
+      },
+      "plan": {
+        "actual_result_requirements": {
+          "domain_fact_changes": []
+        },
+        "applicable_rules": [
+          {
+            "evidence_refs": [
+              "direction"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "requirement",
+              "acceptance",
+              "constraint"
+            ],
+            "rule_id": "STRIXNOVA-GOV-REQ-001",
+            "source_ids": [
+              "ISO-29148-2018",
+              "ISO-15289-2019"
+            ],
+            "topic": "requirements_and_acceptance",
+            "triggered_by": [
+              "formal_implementation"
+            ]
+          },
+          {
+            "evidence_refs": [
+              "direction"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "operation",
+              "delivery"
+            ],
+            "rule_id": "STRIXNOVA-GOV-LIFE-001",
+            "source_ids": [
+              "ISO-12207-2026"
+            ],
+            "topic": "life_cycle_and_configuration",
+            "triggered_by": [
+              "formal_implementation"
+            ]
+          },
+          {
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "minimum_assurance": "A1",
+            "required_information_kinds": [
+              "verification"
+            ],
+            "rule_id": "STRIXNOVA-GOV-TEST-001",
+            "source_ids": [
+              "ISO-29119-2-2021",
+              "ISO-25010-2023"
+            ],
+            "topic": "verification_and_testing",
+            "triggered_by": [
+              "impact_scope.testing:affected"
+            ]
+          }
+        ],
+        "assessment_ref": {
+          "assessment_id": "EA-TEST-001",
+          "assessment_revision": 1,
+          "work_item_id": "WI-20260928-AFEDF017"
+        },
+        "assurance_band": "A1",
+        "authority_change_set": {
+          "base_authorities": [
+            {
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "authority_kind": "implementation_alignment",
+              "observed_commit": "400b3c8788993d737dd13c849e3c8521119e54b5",
+              "path": "docs/engineering/alignment.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ALIGNREV-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "PRODUCT-1111111111111111",
+              "authority_kind": "product_definition",
+              "observed_commit": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+              "path": "docs/product/definition.yaml",
+              "repository_id": "REPO-2222222222222222",
+              "revision_id": "REVISION-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "MODEL-1111111111111111",
+              "authority_kind": "domain_model",
+              "observed_commit": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+              "path": "docs/domain/model.yaml",
+              "repository_id": "REPO-2222222222222222",
+              "revision_id": "MODELREV-1111111111111111",
+              "status": "confirmed"
+            },
+            {
+              "artifact_id": "ARCH-1111111111111111",
+              "authority_kind": "target_architecture",
+              "observed_commit": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+              "path": "docs/architecture/model.yaml",
+              "repository_id": "REPO-2222222222222222",
+              "revision_id": "ARCHREV-1111111111111111",
+              "status": "confirmed"
+            }
+          ],
+          "candidate_authorities": [
+            {
+              "adoption_effect": "not_adopted",
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "authority_kind": "implementation_alignment",
+              "path": "docs/engineering/alignment.yaml",
+              "repository_id": "REPO-1111111111111111",
+              "revision_id": "ALIGNREV-7777777777777777",
+              "status": "draft",
+              "supersedes_revision_id": "ALIGNREV-1111111111111111"
+            }
+          ],
+          "change_set_id": "AUTHCHANGE-7777777777777777",
+          "changes": [
+            {
+              "authority_kind": "implementation_alignment",
+              "change_id": "AUTHOP-001",
+              "evidence_refs": [
+                "SRC-META-0"
+              ],
+              "operation": "modify",
+              "summary": "Review source ownership and exact observations for both repositories.",
+              "target_ref": "ALIGNMODEL-1111111111111111"
+            }
+          ],
+          "downstream_dispositions": [],
+          "schema_version": "strixnova.authority-change-set.v1",
+          "semantic_content_machine_proven": false,
+          "work_item_id": "WI-20260928-AFEDF017"
+        },
+        "behavior_examples": {},
+        "change_context": {
+          "change_kind": "modify_existing",
+          "formal_implementation": true
+        },
+        "delivery_plan": {
+          "evidence_refs": [
+            "direction"
+          ],
+          "expected_outcome": "用户确认实际结果后形成原子提交并本地合入。",
+          "limitations": [],
+          "repository_order": [
+            "REPO-2222222222222222",
+            "REPO-1111111111111111"
+          ],
+          "rollback_or_recovery": "未确认前保留未提交改动，确认后由 Git 回退。"
+        },
+        "direction_ref": {
+          "direction_version": 3,
+          "work_item_id": "WI-20260928-AFEDF017"
+        },
+        "domain_fact_change_refs": [],
+        "external_observation_provider_plans": [],
+        "governance_profile": {
+          "profile_id": "strixnova-general-software-engineering+POLICY-1111111111111111",
+          "profile_version": "2026-08-23",
+          "project_tailoring": []
+        },
+        "impact_scope": {
+          "affected": [
+            {
+              "dimension": "user_behavior",
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "reason": "当前源码证明 user_behavior 会发生实际变化。"
+            },
+            {
+              "dimension": "testing",
+              "evidence_refs": [
+                "SRC-001"
+              ],
+              "reason": "当前源码证明 testing 会发生实际变化。"
+            }
+          ],
+          "unaffected": [
+            "product_scope",
+            "domain",
+            "architecture",
+            "interface",
+            "data",
+            "security_privacy",
+            "quality_performance",
+            "operations_deployment",
+            "compatibility_migration",
+            "documentation_support"
+          ],
+          "unknown": []
+        },
+        "implementation_slices": [
+          {
+            "completion_criteria": [
+              "计划文件操作全部完成且验证取得当前回执。"
+            ],
+            "continued_operation_refs": [],
+            "depends_on": [],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "machine_validated": true,
+            "operation_refs": [
+              "operations[0]",
+              "operations[1]",
+              "operations[2]",
+              "operations[3]",
+              "operations[4]",
+              "operations[5]",
+              "operations[6]",
+              "operations[7]"
+            ],
+            "parallel_safe_with": [],
+            "purpose": "完成当前工程方案中的全部文件操作并取得验证证据。",
+            "repository_ids": [
+              "REPO-1111111111111111",
+              "REPO-2222222222222222"
+            ],
+            "rollback_or_recovery": "验证失败时保留未提交改动并修正当前切片。",
+            "schema_version": "strixnova.implementation-slice-plan.v1",
+            "slice_id": "SLICE-001",
+            "source_slice_ref": "implementation_slices[0]",
+            "verification_command_ids": [
+              "VC-001",
+              "VC-002"
+            ]
+          }
+        ],
+        "investigation_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+        "method_applications": [],
+        "operations": [
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-001"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "src.py",
+            "reason": "修改测试分组并删除重复组合。",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-002"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "src.py",
+            "reason": "修改测试分组并删除重复组合。",
+            "repository_id": "REPO-2222222222222222"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-0"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "long_lived_artifact": {
+              "artifact_id": "ALIGNMODEL-1111111111111111",
+              "artifact_type": "domain_alignment"
+            },
+            "path": "docs/engineering/alignment.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-1"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/source-ownership.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-2"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/actual-dependencies.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-3"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/target-responsibilities.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-4"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/deviations.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          },
+          {
+            "action": "modify",
+            "evidence_refs": [
+              "SRC-META-5"
+            ],
+            "implements": [
+              "design_decisions[0]"
+            ],
+            "path": "docs/engineering/baseline.yaml",
+            "reason": "Refresh the repository-qualified implementation evidence for the jointly changed sources.",
+            "repository_id": "REPO-1111111111111111"
+          }
+        ],
+        "owner_view": {
+          "current_decision": "是否接受本工程方案并允许进入实施。",
+          "decision_support": {
+            "alternatives": [
+              "保留现状并接受较慢反馈。"
+            ],
+            "current_problem": "缩短测试反馈，同时保留必要行为覆盖。",
+            "impact": "只调整本事项声明的测试结构，不改变产品和领域行为。",
+            "necessary_questions": [],
+            "next_step": "确认方案后执行唯一实施切片。",
+            "no_action_consequence": "继续承担当前测试反馈成本。",
+            "recommendation": "采用单切片调整并运行针对性验证。",
+            "why_it_matters": "反馈过慢会增加建设成本，错误去重又可能漏掉回归。"
+          },
+          "engineering_context": {
+            "architecture_responsibilities": "保持现有职责，只调整测试结构。",
+            "highest_impact_risks": "错误去重可能遗漏必要回归覆盖。",
+            "implementation_order": "用一个实施切片完成源码调整，再执行针对性验证。",
+            "product_and_domain_change": "产品范围和领域含义不变。",
+            "uncertainties": "没有仍会改变方案方向的未知。",
+            "verification_and_observation": "运行已列出的针对性测试并保存真实回执。"
+          },
+          "schema_version": "strixnova.owner-view.v1",
+          "semantic_content_machine_proven": false
+        },
+        "plan_id": "PLAN-EA-TEST-001-R1",
+        "repository_scope": {
+          "project_id": "PROJECT-1111111111111111",
+          "repositories": [
+            {
+              "investigation_ref": "400b3c8788993d737dd13c849e3c8521119e54b5",
+              "repository_id": "REPO-1111111111111111",
+              "role": "modify",
+              "target_ref": "main"
+            },
+            {
+              "investigation_ref": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+              "repository_id": "REPO-2222222222222222",
+              "role": "modify",
+              "target_ref": "main"
+            }
+          ]
+        },
+        "schema_version": "strixnova.engineering-plan.v1",
+        "semantic_content_machine_proven": false,
+        "semantic_review": {
+          "checks": [
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "product_to_domain_coverage",
+              "status": "aligned",
+              "summary": "已从 product_to_domain_coverage 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "terminology_authority_rules_invariants",
+              "status": "aligned",
+              "summary": "已从 terminology_authority_rules_invariants 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "domain_to_architecture_disposition",
+              "status": "aligned",
+              "summary": "已从 domain_to_architecture_disposition 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "plan_and_slice_coverage",
+              "status": "aligned",
+              "summary": "已从 plan_and_slice_coverage 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "orphan_and_authority_inversion",
+              "status": "aligned",
+              "summary": "已从 orphan_and_authority_inversion 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "scenario_coverage",
+              "status": "aligned",
+              "summary": "已从 scenario_coverage 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "nonfunctional_and_risk_coverage",
+              "status": "aligned",
+              "summary": "已从 nonfunctional_and_risk_coverage 视角完成只读审查，未保留阻断发现。"
+            },
+            {
+              "evidence_refs": [
+                "SRC-META-0",
+                "authority_change_set"
+              ],
+              "finding_ids": [],
+              "perspective": "evidence_and_claim_boundaries",
+              "status": "aligned",
+              "summary": "已从 evidence_and_claim_boundaries 视角完成只读审查，未保留阻断发现。"
+            }
+          ],
+          "findings": [],
+          "question_budget": {
+            "maximum_questions": 5,
+            "questions_asked": 0,
+            "remaining_high_impact_decisions": [],
+            "resolved_decision_refs": []
+          },
+          "review_id": "SEMREVIEW-1111111111111111",
+          "reviewed_refs": [
+            "SRC-META-0",
+            "authority_change_set"
+          ],
+          "schema_version": "strixnova.semantic-review.v1",
+          "semantic_content_machine_proven": false
+        },
+        "trace_refs": [
+          "risk_assessments[0]",
+          "design_decisions[0]",
+          "operations[0]",
+          "operations[1]",
+          "operations[2]",
+          "operations[3]",
+          "operations[4]",
+          "operations[5]",
+          "operations[6]",
+          "operations[7]",
+          "implementation_slices[0]",
+          "impact_scope.affected[0]",
+          "impact_scope.affected[1]",
+          "impact_scope.unaffected[0]",
+          "impact_scope.unaffected[1]",
+          "impact_scope.unaffected[2]",
+          "impact_scope.unaffected[3]",
+          "impact_scope.unaffected[4]",
+          "impact_scope.unaffected[5]",
+          "impact_scope.unaffected[6]",
+          "impact_scope.unaffected[7]",
+          "impact_scope.unaffected[8]",
+          "impact_scope.unaffected[9]",
+          "direction.acceptance:DIRACC-3333333333333333",
+          "direction.constraint:DIRCON-2222222222222222",
+          "direction.requirement:DIRREQ-1111111111111111",
+          "delivery_plan",
+          "authority_change_set",
+          "semantic_review",
+          "owner_view"
+        ],
+        "verification_commands": [
+          {
+            "approved_program": {
+              "argument_policy": "exact_plan_only",
+              "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "purpose": "运行隔离测试。",
+              "resolved_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe"
+            },
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-c",
+              "from pathlib import Path; p=Path('D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\d18b25e5739d\\\\work\\\\fixture\\\\run-count.txt'); p.write_text(p.read_text()+\"run\\n\" if p.exists() else \"run\\n\"); print(\"fixed command completed\")"
+            ],
+            "command_id": "VC-001",
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333",
+              "risk_assessments[0]",
+              "direction.constraint:DIRCON-2222222222222222"
+            ],
+            "cwd": ".",
+            "optional_timeout": null,
+            "reasons": [
+              "直接验证本次验收并保护回归风险。"
+            ],
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test",
+            "source_command_indexes": [
+              0
+            ]
+          },
+          {
+            "approved_program": {
+              "argument_policy": "exact_plan_only",
+              "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "purpose": "运行隔离测试。",
+              "resolved_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe"
+            },
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-m",
+              "pytest",
+              "tests/unit/test_workflow_authority.py",
+              "-q"
+            ],
+            "command_id": "VC-002",
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333",
+              "risk_assessments[0]",
+              "direction.constraint:DIRCON-2222222222222222"
+            ],
+            "cwd": ".",
+            "optional_timeout": null,
+            "reasons": [
+              "直接验证本次验收并保护回归风险。"
+            ],
+            "repository_id": "REPO-2222222222222222",
+            "run_kind": "targeted_test",
+            "source_command_indexes": [
+              1
+            ]
+          }
+        ],
+        "verification_policy_decision": {
+          "forbidden_agent_program_names": [
+            "aider",
+            "claude",
+            "codex",
+            "cursor",
+            "gemini",
+            "opencode",
+            "windsurf"
+          ],
+          "observed_commit": "400b3c8788993d737dd13c849e3c8521119e54b5",
+          "plan_binding_required": true,
+          "policy_id": "POLICY-1111111111111111",
+          "policy_revision_id": "POLICYREV-1111111111111111",
+          "schema_version": "strixnova.verification-policy-decision.v1",
+          "source_kind": "project_engineering_policy",
+          "working_directory_policy": "project_or_authorized_worktree_only",
+          "wrapper_policy": "forbidden_unless_exactly_approved"
+        },
+        "verification_targets": [
+          {
+            "command_ids": [
+              "VC-001",
+              "VC-002"
+            ],
+            "evidence_refs": [],
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.acceptance:DIRACC-3333333333333333"
+          },
+          {
+            "command_ids": [
+              "VC-001",
+              "VC-002"
+            ],
+            "evidence_refs": [],
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "direction.constraint:DIRCON-2222222222222222"
+          },
+          {
+            "command_ids": [
+              "VC-001",
+              "VC-002"
+            ],
+            "evidence_refs": [],
+            "method": "command",
+            "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+            "target_ref": "risk_assessments[0]"
+          }
+        ]
+      },
+      "plan_confirmation": {
+        "accepted": true,
+        "agent_decision": {
+          "decision": "accept",
+          "reason": "固定场景中负责人已接受所展示的完整候选。"
+        },
+        "candidate_fingerprint": "sha256:d306bb077f8961a19c4f09bfce0cda5e43a9873528cefe65ec335c0b41f4a2f3",
+        "candidate_kind": "engineering_plan",
+        "decision_interpreter": "coding_agent",
+        "decision_label": "当前展示的工程方案",
+        "schema_version": "strixnova.user-confirmation.v1",
+        "semantic_content_machine_proven": false,
+        "summary": "固定场景中负责人已接受所展示的完整候选。",
+        "user_confirmation": "接受这份完整候选。"
+      }
+    },
+    "implementation_slice_completions": [],
+    "pending_effect": {
+      "intent": {
+        "approved_request": {
+          "command": {
+            "approved_program": {
+              "argument_policy": "exact_plan_only",
+              "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "purpose": "运行隔离测试。",
+              "resolved_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe"
+            },
+            "argv": [
+              "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+              "-c",
+              "from pathlib import Path; p=Path('D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\d18b25e5739d\\\\work\\\\fixture\\\\run-count.txt'); p.write_text(p.read_text()+\"run\\n\" if p.exists() else \"run\\n\"); print(\"fixed command completed\")"
+            ],
+            "command_id": "VC-001",
+            "covers": [
+              "direction.acceptance:DIRACC-3333333333333333",
+              "risk_assessments[0]",
+              "direction.constraint:DIRCON-2222222222222222"
+            ],
+            "cwd": ".",
+            "optional_timeout": null,
+            "reasons": [
+              "直接验证本次验收并保护回归风险。"
+            ],
+            "repository_id": "REPO-1111111111111111",
+            "run_kind": "targeted_test",
+            "source_command_indexes": [
+              0
+            ]
+          },
+          "plan_confirmation": {
+            "accepted": true,
+            "plan_id": "PLAN-EA-TEST-001-R1"
+          },
+          "plan_id": "PLAN-EA-TEST-001-R1",
+          "policy_decision": {
+            "forbidden_agent_program_names": [
+              "aider",
+              "claude",
+              "codex",
+              "cursor",
+              "gemini",
+              "opencode",
+              "windsurf"
+            ],
+            "observed_commit": "400b3c8788993d737dd13c849e3c8521119e54b5",
+            "plan_binding_required": true,
+            "policy_id": "POLICY-1111111111111111",
+            "policy_revision_id": "POLICYREV-1111111111111111",
+            "schema_version": "strixnova.verification-policy-decision.v1",
+            "source_kind": "project_engineering_policy",
+            "working_directory_policy": "project_or_authorized_worktree_only",
+            "wrapper_policy": "forbidden_unless_exactly_approved"
+          },
+          "schema_version": "strixnova.approved-verification-request.v1",
+          "work_item_id": "WI-20260928-AFEDF017",
+          "work_item_version": 10
+        },
+        "execution_area": "worktree",
+        "project_input_snapshot": {
+          "content_sha256": "569051e03a330dcfc6329916497e64837e7f37625759f407ebb36d64eba4ea12",
+          "dependencies": [],
+          "plan_id": "PLAN-EA-TEST-001-R1",
+          "repositories": [
+            {
+              "content_sha256": "1cca6b46951bcb77f596a20db10f3dbf37d93f6b0b2d9dff09122396490c6695",
+              "paths": [
+                {
+                  "path": "docs/architecture/architecture-constraints.yaml",
+                  "sha256": "3acb946bdb7485663c168f44ee8341d48d10b2c6eb2c3534d1ee1e7d98177107",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-domain-facts.yaml",
+                  "sha256": "84c4c4b7c1418bbff703445debe8bd1426a25afaef1e925e5179b5c60f4dc10f",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-modules.yaml",
+                  "sha256": "fa24731b961becf02f90bfa4c932d0c24860671ba66c4ea84a98cf880a09daca",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-relationships.yaml",
+                  "sha256": "3058f0aac598e79cb8c59f26acee628434a24267b40425370f88f4f16fce3994",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/architecture-stages.yaml",
+                  "sha256": "f836afd25d1af4617f3fb174a32c502adec63205f3501f63609a917923497153",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/architecture/model.yaml",
+                  "sha256": "709fc8f2939c1a7d11f499870a38c691779f308236d5eb48912a61b77a6f6bd4",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/collections/core.yaml",
+                  "sha256": "7172ae6c627a137e7cf314272e55050c36e96970a255fe9488af4f7f5c78301a",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/model.yaml",
+                  "sha256": "55e1e54b1ddb197e9b820e04ea584f8a0891b8077f48c39c118e3b52c1e28d4f",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/domain/sources/core.yaml",
+                  "sha256": "b23ad18bd30ecd04dc7827107f6729092157083aef446b4c069a2bd551c28256",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/actual-dependencies.yaml",
+                  "sha256": "be796f4a2293a227a458724362022270355876423509c38580e1812a39facca6",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/alignment.yaml",
+                  "sha256": "af3b46ce58ddf3ffb6caedf6deb6d2814cffd2cf6ea2a7c9597cb336cadecb49",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/baseline.yaml",
+                  "sha256": "7cd9e7b3ffa8befa763612524557b9065d375cb250c0ba835adb565d50f95dd8",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/deviations.yaml",
+                  "sha256": "9946d23fb927e3dbbd9843480ab87fe9c0583734e8053059fd0c7cfa8da6f4c5",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/policy.yaml",
+                  "sha256": "293db981850b258d17e256e499d175c95e1b10cab3a3b041ac83eb5f3c396329",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/source-ownership.yaml",
+                  "sha256": "54dabb971691fea1509b1de00685d480f7827df3ff4a91890fd51f11eaea3f7a",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/engineering/target-responsibilities.yaml",
+                  "sha256": "31c73ca3480a5ea130b5053a2fe526d3309c6cd98e0bac7c185fdf4b091cfccc",
+                  "state": "file"
+                },
+                {
+                  "path": "docs/product/definition.yaml",
+                  "sha256": "9b5734765fb3896f2ec2e16b46a13f371a7cc957df5418a69d7cd022f73b7b1c",
+                  "state": "file"
+                },
+                {
+                  "path": "src.py",
+                  "sha256": "81c39670c4b19842f26b519fe197fe5406ed038ecfb8d605297076ef3dbda9ba",
+                  "state": "file"
+                },
+                {
+                  "path": "strixnova-project.yaml",
+                  "sha256": "29a805d430fea7e5d5b6c03557ef41251b5ad6d658b08a491024fd30ca519c56",
+                  "state": "file"
+                }
+              ],
+              "repository_id": "REPO-1111111111111111"
+            }
+          ],
+          "schema_version": "strixnova.project-content-snapshot.v1",
+          "semantic_content_machine_proven": false
+        },
+        "receipt_id": "VR-WI-20260928-AFEDF017-9D5FEBB1D6",
+        "started_at": "2026-09-28T09:05:01.510576+00:00"
+      },
+      "kind": "verification",
+      "repository_id": "REPO-1111111111111111"
+    },
+    "project_authority_decisions": [],
+    "project_authority_presentations": [],
+    "project_authority_reviews": [],
+    "project_id": "PROJECT-1111111111111111",
+    "raw_request": "同一目标包含前端和后端，整体接受后交付。",
+    "repository_deliveries": [
+      {
+        "git": {
+          "base_commit": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+          "created_by_strixnova": true,
+          "merge_strategy": "no_ff",
+          "repository": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d18b25e5739d\\work\\fixture\\back",
+          "schema_version": "strixnova.git-work-area.v1",
+          "target_ref": "main",
+          "work_item_id": "WI-20260928-AFEDF017",
+          "work_ref": "strixnova/WI-20260928-AFEDF017",
+          "worktree_mode": "linked",
+          "worktree_path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d18b25e5739d\\work\\fixture\\backend-work"
+        },
+        "implementation_slice_ids": [
+          "SLICE-001"
+        ],
+        "investigation_commit": "ab40b463e4a8ccc869e448c5f9518223f0cb88f2",
+        "operation_refs": [
+          "operations[1]"
+        ],
+        "plan_id": "PLAN-EA-TEST-001-R1",
+        "repository_id": "REPO-2222222222222222",
+        "schema_version": "strixnova.repository-delivery-responsibility.v1",
+        "target_ref": "main"
+      },
+      {
+        "git": {
+          "base_commit": "400b3c8788993d737dd13c849e3c8521119e54b5",
+          "created_by_strixnova": true,
+          "merge_strategy": "no_ff",
+          "repository": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d18b25e5739d\\work\\fixture\\front",
+          "schema_version": "strixnova.git-work-area.v1",
+          "target_ref": "main",
+          "work_item_id": "WI-20260928-AFEDF017",
+          "work_ref": "strixnova/WI-20260928-AFEDF017",
+          "worktree_mode": "linked",
+          "worktree_path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d18b25e5739d\\work\\fixture\\frontend-work"
+        },
+        "implementation_slice_ids": [
+          "SLICE-001"
+        ],
+        "investigation_commit": "400b3c8788993d737dd13c849e3c8521119e54b5",
+        "operation_refs": [
+          "operations[0]",
+          "operations[2]",
+          "operations[3]",
+          "operations[4]",
+          "operations[5]",
+          "operations[6]",
+          "operations[7]"
+        ],
+        "plan_id": "PLAN-EA-TEST-001-R1",
+        "repository_id": "REPO-1111111111111111",
+        "schema_version": "strixnova.repository-delivery-responsibility.v1",
+        "target_ref": "main"
+      }
+    ],
+    "verifications": [],
+    "selected_repository_id": "REPO-1111111111111111",
+    "git": {
+      "base_commit": "400b3c8788993d737dd13c849e3c8521119e54b5",
+      "created_by_strixnova": true,
+      "merge_strategy": "no_ff",
+      "repository": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d18b25e5739d\\work\\fixture\\front",
+      "schema_version": "strixnova.git-work-area.v1",
+      "target_ref": "main",
+      "work_item_id": "WI-20260928-AFEDF017",
+      "work_ref": "strixnova/WI-20260928-AFEDF017",
+      "worktree_mode": "linked",
+      "worktree_path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d18b25e5739d\\work\\fixture\\frontend-work"
+    }
+  },
+  "created_at": "2026-09-28T09:04:20.918553Z",
+  "updated_at": "2026-09-28T09:05:01.530154Z",
+  "current_action": {
+    "schema_version": "strixnova.current-action.v1",
+    "work_item_id": "WI-20260928-AFEDF017",
+    "work_item_version": 10,
+    "action_type": "resume_verification",
+    "actor": "strixnova",
+    "intent": "verify",
+    "input_kind": "resume_external_effect",
+    "input_contract_ref": "input.contract:resume_verification",
+    "record_refs": [
+      "pending_effect",
+      "git",
+      "repository_deliveries"
+    ],
+    "conditional_record_refs": [],
+    "blocking_facts": [],
+    "repository_id": "REPO-1111111111111111"
+  }
+}

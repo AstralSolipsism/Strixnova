@@ -1,0 +1,74 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-369CC2BE05094E02
+scope_fact_ids: []
+facts:
+- fact_id: FACT-8C6CC8AD9DCD4310
+  status: draft
+  title: 外部版本管理系统
+  kind: external_system
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids: []
+  content:
+    responsibility: 执行文件版本化、分支、提交、差异、合入、冲突处理和历史查询。
+    provides_facts:
+    - 精确版本、工作区、差异、提交、分支和合入回执。
+    - 冲突、脏状态、领先落后和历史关系。
+    does_not_decide:
+    - 不决定产品、领域、架构或工程方案含义。
+    - 不表示项目负责人已接受实际结果。
+- fact_id: FACT-E006363B710D433B
+  status: draft
+  title: 外部测试与构建工具
+  kind: external_system
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids: []
+  content:
+    responsibility: 按明确范围和命令观察源码与构建模型，或运行测试、静态检查、构建、打包和安装验收，并返回真实过程结果。
+    provides_facts:
+    - 实际观察的源码范围、项目、构建目标、配置、关系、解析状态、能力覆盖和限制。
+    - 命令、环境、开始结束、退出状态、标准输出、错误输出和产物摘要。
+    - 通过、失败、取消、超时、未运行和环境限制事实。
+    does_not_decide:
+    - 不决定观察范围是否足以支持完整实现对齐，也不把无法观察解释为不存在关系。
+    - 不决定验证是否足以覆盖全部业务风险。
+    - 不得被Strixnova用来启动智能编码代理。
+- fact_id: FACT-0BE164423C8D4C90
+  status: draft
+  title: 外部交付与部署系统
+  kind: external_system
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids: []
+  dependency_fact_ids: []
+  content:
+    responsibility: 在外部授权和环境中执行制品传递、发布、部署、回退或撤销操作。
+    provides_facts:
+    - 目标环境、制品版本、执行主体、步骤结果、失败位置和回退结果。
+    - 外部审批、权限、可达性和环境约束。
+    does_not_decide:
+    - 不决定项目建设事项是否完成。
+    - 不决定部署后的业务效果是否可接受。
+- fact_id: FACT-BBEEBE36CB0F40CF
+  status: draft
+  title: 外部监控与运行系统
+  kind: external_system
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids: []
+  dependency_fact_ids: []
+  content:
+    responsibility: 采集和提供软件运行、健康、性能、告警、事故与恢复的外部事实。
+    provides_facts:
+    - 观测时间窗、指标、日志、告警、事故、健康检查和恢复回执。
+    - 数据缺失、采样、延迟和可观测范围限制。
+    does_not_decide:
+    - 不定义产品目标或领域规则。
+    - 不以单一指标替代项目负责人的结果判断。

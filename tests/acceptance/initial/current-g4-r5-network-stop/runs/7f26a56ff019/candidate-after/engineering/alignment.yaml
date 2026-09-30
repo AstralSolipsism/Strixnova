@@ -1,0 +1,75 @@
+alignment_model_id: ALIGNMODEL-1111111111111111
+architecture_ref:
+  architecture_id: ARCH-1111111111111111
+  revision_id: ARCHREV-1111111111111111
+artifact_paths:
+  actual_dependencies: docs/engineering/actual-dependencies.yaml
+  deviations: docs/engineering/deviations.yaml
+  source_ownership: docs/engineering/source-ownership.yaml
+  target_responsibilities: docs/engineering/target-responsibilities.yaml
+code_snapshot:
+  repositories:
+  - base_commit: 55feddc57b815bd835c9b9a5005cd3067c875d20
+    repository_id: REPO-1111111111111111
+    worktree_state: dirty
+  governed_source_manifest_sha256: ac41c7dceede8e44e34c7dc84c3372edfb15421a5f92715e9af8e9b28eb97a85
+  observed_on: '2026-09-29'
+domain_model_ref:
+  model_id: MODEL-1111111111111111
+  revision_id: MODELREV-1111111111111111
+observation_coverage:
+  contract_version: strixnova.project-implementation-observation.v1
+  overall_status: complete
+  source_manifest_sha256: b0ba59d251e725e4846a6135d006ae76ad39982370b5448aa8cfff668bb8a15d
+  observation_snapshot_sha256: 57a39740711841b855c3764723304624083b943dd6b75fe84814a8dcc7a188f7
+  observed_paths:
+    REPO-1111111111111111:src.py: 9a9927302b84e575e3a4b987819732263cc7af0c72483bed6ff3ba54d0f0ae67
+  records:
+  - configurations:
+    - default
+    execution_mode: builtin_static
+    gaps: []
+    language_id: python
+    limitations: []
+    observed_relation_kinds: []
+    provider_id: strixnova.python-static.v1
+    provider_version: '1'
+    relation_count: 0
+    repository_id: REPO-1111111111111111
+    required_relation_kinds:
+    - source_import
+    scope_id: OBSCOPE-1111111111111111
+    source_file_count: 1
+    status: complete
+    supported_relation_kinds:
+    - source_import
+  provider_receipts:
+  - execution_mode: builtin_static
+    language_id: python
+    provider_id: strixnova.python-static.v1
+    provider_version: '1'
+    repository_id: REPO-1111111111111111
+    result_sha256: 3030dbaa2b0bcb630f6c2fe51f0cb24dc31856b180ce9748aad0c61cb64fc57f
+    scope_id: OBSCOPE-1111111111111111
+    status: complete
+observation_scopes:
+- configurations:
+  - default
+  exclusions: []
+  languages:
+  - python
+  provider_options:
+    python_package_name: src
+  repository_id: REPO-1111111111111111
+  required_relation_kinds:
+  - source_import
+  root: src.py
+  scope_id: OBSCOPE-1111111111111111
+revision:
+  confirmed_by_owner_id: "OWNER-1111111111111111"
+  confirmed_on: "2026-09-29"
+  revision_id: ALIGNREV-2222222222222222
+  status: "confirmed"
+  supersedes_revision_id: ALIGNREV-1111111111111111
+schema_version: strixnova.project-implementation-alignment.v1
+unresolved_items: []

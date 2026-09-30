@@ -1,0 +1,267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.implementation-observation-provider.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope_id",
+    "language_id",
+    "provider_id",
+    "provider_version",
+    "status",
+    "supported_relation_kinds",
+    "nodes",
+    "relations",
+    "observed_paths",
+    "limitations",
+    "gaps"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.implementation-observation-provider.v1"
+    },
+    "scope_id": {
+      "type": "string",
+      "pattern": "^OBSCOPE-[0-9A-F]{16}$"
+    },
+    "language_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9+.#_-]*$"
+    },
+    "provider_id": {
+      "$ref": "#/$defs/text"
+    },
+    "provider_version": {
+      "$ref": "#/$defs/text"
+    },
+    "status": {
+      "enum": [
+        "complete",
+        "partial",
+        "failed"
+      ]
+    },
+    "supported_relation_kinds": {
+      "$ref": "#/$defs/optional_text_list"
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/node"
+      }
+    },
+    "relations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relation"
+      }
+    },
+    "observed_paths": {
+      "type": "object",
+      "propertyNames": {
+        "minLength": 1
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/sha256"
+      }
+    },
+    "limitations": {
+      "$ref": "#/$defs/optional_text_list"
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/gap"
+      }
+    }
+  },
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "optional_text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "node": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "node_key",
+        "node_kind",
+        "path",
+        "external_name",
+        "display_name"
+      ],
+      "properties": {
+        "node_key": {
+          "$ref": "#/$defs/text"
+        },
+        "node_kind": {
+          "$ref": "#/$defs/text"
+        },
+        "path": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "external_name": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "display_name": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "oneOf": [
+        {
+          "properties": {
+            "path": {
+              "$ref": "#/$defs/text"
+            },
+            "external_name": {
+              "type": "null"
+            }
+          }
+        },
+        {
+          "properties": {
+            "path": {
+              "type": "null"
+            },
+            "external_name": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        }
+      ]
+    },
+    "evidence_location": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "line"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/text"
+        },
+        "line": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_node_key",
+        "target_node_key",
+        "relation_kind",
+        "observed_name",
+        "resolution_status",
+        "conditions",
+        "evidence_locations"
+      ],
+      "properties": {
+        "source_node_key": {
+          "$ref": "#/$defs/text"
+        },
+        "target_node_key": {
+          "$ref": "#/$defs/text"
+        },
+        "relation_kind": {
+          "$ref": "#/$defs/text"
+        },
+        "observed_name": {
+          "$ref": "#/$defs/text"
+        },
+        "resolution_status": {
+          "enum": [
+            "resolved_internal",
+            "external",
+            "unresolved",
+            "ambiguous"
+          ]
+        },
+        "conditions": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "evidence_locations": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/evidence_location"
+          }
+        }
+      }
+    },
+    "gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "paths",
+        "relation_kind"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/text"
+        },
+        "message": {
+          "$ref": "#/$defs/text"
+        },
+        "paths": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "relation_kind": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

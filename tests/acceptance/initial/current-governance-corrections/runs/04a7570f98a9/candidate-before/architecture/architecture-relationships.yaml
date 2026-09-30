@@ -1,0 +1,36 @@
+schema_version: strixnova.architecture-relationships.v1
+architecture_id: ARCH-1111111111111111
+architecture_revision_id: ARCHREV-2222222222222222
+default_relationship_policy: forbidden
+relationships:
+  - relationship_id: RELATION-A000000000000001
+    from_module_id: MODULE-A000000000000002
+    to_module_id: MODULE-A000000000000001
+    mode: direct
+    mediator_module_id: null
+    contract: 成员服务通过申请域公开接口执行撤回和查询，不绕过领域规则。
+    reason: 成员服务是应用协调层，领域规则集中在申请域。
+
+  - relationship_id: RELATION-A000000000000002
+    from_module_id: MODULE-A000000000000003
+    to_module_id: MODULE-A000000000000001
+    mode: read_only_projection
+    mediator_module_id: null
+    contract: 运营汇总只读取申请域的申请状态数据用于统计，不修改任何申请状态。
+    reason: 周报是只读统计，必须使用统一的申请身份和状态含义。
+
+  - relationship_id: RELATION-A000000000000003
+    from_module_id: MODULE-A000000000000004
+    to_module_id: MODULE-A000000000000002
+    mode: direct
+    mediator_module_id: null
+    contract: 终端适配将成员操作路由到成员服务接口。
+    reason: 终端层不直接调用领域，通过应用层协调。
+
+  - relationship_id: RELATION-A000000000000004
+    from_module_id: MODULE-A000000000000004
+    to_module_id: MODULE-A000000000000003
+    mode: direct
+    mediator_module_id: null
+    contract: 终端适配将负责人周报请求路由到运营汇总接口。
+    reason: 终端层不直接调用领域，通过查询层获取统计结果。

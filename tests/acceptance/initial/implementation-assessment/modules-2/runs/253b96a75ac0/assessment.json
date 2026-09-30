@@ -1,0 +1,318 @@
+{
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "assessments": [
+    {
+      "target_id": "MODULE-09B10A7EF967494D",
+      "target_kind": "module",
+      "status": "implemented",
+      "satisfied": [
+        "检查采用链（_check_baseline_bindings + _check_authority_chain）：读取并交叉校验产品定义、领域模型、目标架构、工程政策和实现对齐的精确版本与身份绑定，包括多仓库场景下的独立提交引用",
+        "形成治理上下文（governance_context, engineering_governance_context, direction_context）：向调用方提供已校验的只读身份、状态、约束和领域事实目录；所有方法均显式返回 semantic_content_machine_proven=False",
+        "计算失效范围（invalidation_scope）：按路径或已知权威种类变化，经 _DOWNSTREAM 图传播，输出 directly_changed_authority_kinds 和 affected_authority_kinds；以 is_behavior_path 区分行为路径，输出 changed_behavior_paths",
+        "形成候选快照（authority_candidate_snapshot, _build_authority_candidate_snapshot）：将候选权威正文和基线文件的 SHA-256 哈希绑定到已展示内容，支持机械归一化元数据字段",
+        "验证候选快照（verify_working_tree_candidate_snapshot, verify_integrated_candidate_snapshot）：在确认或集成提交时重新验证快照，检测权威正文被替换",
+        "形成采用记录（authority_adoption_record）：根据已确认实际结果和候选快照输出精确元数据更新与阻断问题列表，明确声明 '不决定权威是否语义正确'",
+        "不修改任何长期权威或项目基线（所有写入均由外部事务或调用方执行，本模块只计算并返回授权集合）",
+        "load() 返回 structurally_consistent 和 semantic_content_machine_proven 常量，与合同规定的证据边界一致",
+        "confirmed_execution_materials 使用同一已确认内容字节核对，不接受执行后更新版本",
+        "execution_materials 对 authority_not_current 状态明确标注 gap",
+        "review_basis, select_review_materials, review_policy_materials 按显式输入依赖暴露审阅材料"
+      ],
+      "missing": [
+        "实际执行结果未独立记录：所有测试的 source_at_execution_hash 均注明 'not independently captured by the JUnit receipt'，无法机械证明执行时覆盖的字节与当前 project_authority_consistency.py 字节相同",
+        "多仓库场景下仓库操作语义（_authority_readers 的初始化逻辑）在读取超过 1200 行后才完全可见，当前所见代码结构支持多仓库 reader，但初始化细节（_read_authorities 内部）未完整阅读",
+        "aligned_drift 中 external_providers 和 external_execution_authorized 参数传递给 _alignment_reader.drift()；该路径的完整行为取决于 ProjectImplementationAlignment，不在本模块内"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_consistency.py#L2143-L2191",
+          "claim": "invalidation_scope 方法完整实现：按 changed_paths 或 changed_authority_kinds 经 _DOWNSTREAM 图传播，区分 directly_changed 与 affected，输出 semantic_impact_machine_proven=False"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_consistency.py#L2416-L2444",
+          "claim": "_check_authority_chain / _check_available_chain 对 5 条跨权威引用链（领域→产品、架构→领域、对齐→领域、对齐→架构、政策→产品）做精确 revision_id 匹配"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_consistency.py#L621-L709",
+          "claim": "load() 调用 _load_baseline，依次执行 _check_baseline_bindings 和 _check_authority_chain，所有失败累积为 issues 列表后统一抛 ProjectAuthorityConsistencyError"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_consistency.py#L1667-L1790",
+          "claim": "_build_authority_candidate_snapshot 对每个 reported_kind 读取正文 SHA-256 并支持机械归一化元数据；输出 authority_content_sha256 字典和 baseline_content_sha256"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_consistency.py#L1551-L1665",
+          "claim": "_accepted_candidate_snapshot_verified 对比快照记录与当前哈希，检测正文替换并追加 blocking_issues"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_project_authority_consistency.py#L185-L234",
+          "claim": "test_domain_source_change_invalidates_only_known_downstream_chain 断言 directly_changed_authority_kinds==['domain_model']，affected_authority_kinds 含 code_version/domain_model/implementation_alignment/target_architecture；test_behavior_path_remains_code_and_requires_alignment_refresh 断言行为路径归入 code_version 并出现在 changed_behavior_paths"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_project_authority_consistency.py#L95-L156",
+          "claim": "test_baseline_identity_must_match_the_loaded_authority 断言 domain_model revision_id 不符时抛错；test_confirmed_policy_must_still_belong_to_the_same_stable_product 断言政策所属产品 ID 不符时抛错"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_project_authority_consistency.py#L596-L641",
+          "claim": "test_actual_result_confirmation_snapshot_detects_authority_body_swap 断言确认后修改产品文件会导致 verify_working_tree_candidate_snapshot 抛 ProjectAuthorityConsistencyError"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/integration/test_configured_project_context.py#L63-L86",
+          "claim": "test_split_authorities_use_one_context_and_exact_independent_commits 断言多仓库场景下 product_definition 的 repository_id 正确指向 BACKEND 仓库的 back_commit，且操作不创建任何本地状态"
+        },
+        {
+          "kind": "inspection",
+          "ref": "strixnova/src/strixnova/project_authority_consistency.py#L100",
+          "claim": "_ACTUAL_RESULT_ADOPTABLE_KINDS = frozenset({'implementation_alignment'}) — 只有 implementation_alignment 可通过实际结果机械定档"
+        }
+      ],
+      "resolution_plan": [
+        "独立记录测试执行时的源码 SHA-256，以证明当前字节已被测试覆盖",
+        "补充阅读 _read_authorities 内部（约 1500-2100 行中间段），确认多仓库 reader 初始化路径的完整边界"
+      ],
+      "limitations": [
+        "所有测试的 source_at_execution_hash 字段均注明 'not independently captured by the JUnit receipt'，无法从测试通过记录推断当前字节覆盖范围",
+        "implemented 状态仅指代码结构与合同描述职责可观察对应；不代表无缺陷或已通过人类语义验收",
+        "多仓库 _authority_readers 初始化逻辑（_read_authorities 方法）在本次阅读中未完整覆盖（约 2100 行范围），以下结论基于已读到的调用侧行为"
+      ]
+    },
+    {
+      "target_id": "MODULE-159AE7957218470C",
+      "target_kind": "module",
+      "status": "implemented",
+      "satisfied": [
+        "执行目标权威用例（project_authority_candidate, project_authority_review_candidate, review_project_authorities, confirm_project_authorities）：按 WorkItem 当前动作校验候选、记录八视角复核、原子提交完整确认包，并验证确认后候选未变化",
+        "执行普通事项用例（intake, submit_direction, submit_engineering_assessment, confirm, submit, complete_implementation_slice, deliver/delivery, cancel, request_replan, present_actual_result）：通过 _public_use_case 装饰器统一错误边界，协调方向确认、工程方案、切片依赖、验证、实际结果和合入流程",
+        "执行对齐复核用例（prepare_implementation_alignment, inspect_implementation_alignment, garbage_collect_implementation_alignment, capture_external_implementation_alignment, write_implementation_alignment_candidate）：生成私有可分页内容寻址观察清单，支持有界逻辑记录和不透明游标",
+        "执行交付运行用例（plan_delivery_activity, authorize_delivery_activity, record_delivery_activity_receipt, cancel_planned_delivery_activity）：通过 LocalHostAdapter 代理，仅治理计划和外部回执",
+        "install_agent_guidance 委托 install_agent_skill，不修改 Agent 配置",
+        "_exclusive_effect_lock 用平台原生文件锁（msvcrt/fcntl）序列化可恢复事务，防止并发权威文件替换",
+        "单一应用入口：ApplicationCoordinator 是写操作的唯一入口，所有内部错误通过 _public_use_case 统一转化为 ApplicationCoordinatorError",
+        "路由到 ImplementationAlignmentPreparation 模块，不在 coordinator 内复制对齐算法",
+        "ProjectAuthorityConsistency.review_subject_for 用于构建审阅对象，复用一致性检查模块的路径，不在此处重复目录解析",
+        "恢复意图存储于 pending_effect.intent，在 _confirm_project_authorities_locked 中完整支持恢复路径"
+      ],
+      "missing": [
+        "implementation_alignment_artifacts.py、implementation_alignment_preparation.py、implementation_candidate_evidence.py、project_authority_decision.py 四个文件本轮未完整读取；部分对齐复核用例（prepare/inspect/write）的具体实现存在于这些文件中，此处只能通过 application_coordinator.py 的委托调用推断其行为边界",
+        "behavior-examples.md（agent skill 指导文档）未读取，无法评价行为示例与代码合同的一致程度",
+        "test_project_authority_decision.py 等模块特定测试未读取，缺乏对目标权威用例具体断言的直接证据",
+        "合同要求 '首次正式仓库交付若未使用 create_project 完整规划...必须在工程方案形成前解释并阻断'；此阻断逻辑在源码中有 _prepare_project_use_case 和 require_project_identity 相关检查，但此处未能逐行验证该路径是否覆盖合同描述的全部前提条件",
+        "实际执行结果未独立记录（source_at_execution_hash 缺失）"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L225-L303",
+          "claim": "_public_use_case 装饰器：统一捕获所有领域异常并转化为 ApplicationCoordinatorError，是单一应用入口的机械保障"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L136-L169",
+          "claim": "_exclusive_effect_lock 使用 msvcrt.locking/fcntl.flock 序列化可恢复文件和权威事务"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L536-L631",
+          "claim": "project_authority_candidate 按当前动作（author/review/confirm）校验候选展示资格，记录 presented_at 和 semantic_content_machine_proven=False，返回确认挑战"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L823-L1147",
+          "claim": "confirm_project_authorities 原子事务：verify bundle SHA, validate decisions order, apply_project_authority_confirmation_transaction, restore_yaml_patch_originals on failure"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L1274-L1386",
+          "claim": "prepare/inspect/garbage_collect/capture_external/write_implementation_alignment_candidate 均委托给 ImplementationAlignmentPreparation，coordinator 不复制对齐算法"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L1163-L1198",
+          "claim": "intake：初始化权威存储、更新 Git local excludes，最终调用 authority.create；错误边界在 _public_use_case 内"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/agent_setup.py#L54-L129",
+          "claim": "install_agent_skill：从 importlib.resources 复制打包 skill 到 skills_dir，不修改 Agent 配置文件；已有不同内容时需 replace=True 才覆盖"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_host_adapter.py#L295-L311",
+          "claim": "test_host_adapter_is_explicit_intent_transport_not_session_authority 断言 describe() 返回 issues_credentials=False, owns_sessions=False, controls_remote_git=False"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_host_adapter.py#L546-L597",
+          "claim": "test_verification_cannot_skip_the_current_implementation_slice 断言跳过切片时 code==verification_slice_not_ready"
+        }
+      ],
+      "resolution_plan": [
+        "阅读 implementation_alignment_preparation.py、implementation_alignment_artifacts.py、implementation_candidate_evidence.py、project_authority_decision.py 以补充对齐复核用例和目标权威决策用例的直接证据",
+        "阅读 behavior-examples.md 评价行为指导文档与代码合同的一致程度",
+        "阅读 test_project_authority_decision.py 以获取目标权威用例断言"
+      ],
+      "limitations": [
+        "application_coordinator.py 共 5587 行，本轮仅读取至约第 1400 行（约 25%），submit_direction、verify、delivery、report_verification、present_actual_result 等用例的完整实现未覆盖",
+        "四个被委托的对齐/决策子文件未读取，评估基于 application_coordinator.py 调用侧推断",
+        "所有测试的 source_at_execution_hash 均注明 'not independently captured'，测试通过不能证明当前字节覆盖",
+        "implemented 不代表无缺陷；合同中 '协调仓库内容与可恢复执行' 等细节涉及多个未读源文件"
+      ]
+    },
+    {
+      "target_id": "MODULE-333FEE8F8A1B491E",
+      "target_kind": "module",
+      "status": "implemented",
+      "satisfied": [
+        "命令路由（cli.py）：使用 click 框架将所有公开操作映射到 LocalHostAdapter 或 ApplicationCoordinator 的对应方法；涵盖 context、status、authority、alignment、intake、history、next、submit、confirm、delivery、verify、activity、cancel、setup-agent、upgrade 等子命令",
+        "结构化错误输出（_command_errors）：捕获 ApplicationCoordinatorError、HostAdapterError、MaintenanceError、OSError，统一输出 {'ok': False, 'error': {...}} JSON",
+        "稳定机器可读输出（_emit）：json.dumps(ensure_ascii=True, sort_keys=True)，保证输出确定性",
+        "多种输入方式（_load_object）：支持 @-（stdin）、@文件 和内联 JSON，UTF-8-sig 感知",
+        "执行只读查询（LocalHostAdapter._adapter_use_case）：所有只读操作包裹在 coordinator.read_operation() 上下文中，统一从 ApplicationCoordinatorError 映射至 HostAdapterError",
+        "转换写请求（LocalHostAdapter 的写操作方法群）：present_actual_result, submit_direction, submit_engineering_assessment, confirm, report_verification, assess_verification 等均委托 ApplicationCoordinator，不重复业务逻辑",
+        "有界记录读取（record_reading.py）：bounded_next 实现内容寻址分页；validate 预算（512-1MB）；cursor 为不透明 base64 JSON；expected_sha256 防源变化；split_reference 支持 JSON Pointer 子路径",
+        "LocalHostAdapter.next_step 集成 bounded_next：按 max_output_bytes 预算分页，验证 record_refs 仅限当前动作声明的引用集",
+        "describe() 明确声明 issues_credentials=False, owns_sessions=False, controls_remote_git=False",
+        "activity 命令：对 plan/authorize/record/cancel/get/list 六个 action 做字段白名单校验，防止未知字段透传"
+      ],
+      "missing": [
+        "cli.py 中 upgrade 命令组（runtime/stop-evidence-contract/operations/recover-operation/check/run/apply/status/validate/recover）路由到 RuntimeUpgrade 和 ManagedInstallation，这两个类不在本模块的 source_paths 中；此处的角色是路由而非实现，不应计为本模块缺失，但交互合同边界未单独验证",
+        "record_reading.py 的 bounded_next 对 '续读和内容核对每次必须指定一个记录' 有强制校验；但当调用方同时请求多个 ref 时，记录分页是否能完整覆盖大型树状结构的所有边界，源码证据充分但缺乏实际执行的字节级验证",
+        "实际执行结果未独立记录（source_at_execution_hash 缺失）"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/cli.py#L100-L130",
+          "claim": "_command_errors 捕获 4 类异常并输出 {'ok': False, 'error': {'code': ..., 'message': ...}} 结构"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/cli.py#L57-L68",
+          "claim": "_emit 使用 json.dumps(ensure_ascii=True, sort_keys=True) 输出，保证确定性"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/cli.py#L71-L97",
+          "claim": "_load_object 支持 @-、@文件、内联 JSON，使用 open(..., encoding='utf-8-sig')"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/host_adapter.py#L41-L56",
+          "claim": "_adapter_use_case 将 coordinator.read_operation() 包裹所有只读查询，统一映射 ApplicationCoordinatorError -> HostAdapterError"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/host_adapter.py#L229-L321",
+          "claim": "next_step 实现：验证 record_refs 在当前动作声明集中，分离 project_at_commit 计算，调用 bounded_next 或 select"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/record_reading.py#L69-L196",
+          "claim": "bounded_next 完整实现：预算校验（512-1MB）、cursor base64 解码与 binding 验证、SHA-256 源哈希比对、对象/数组/字符串三种分页策略"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/host_adapter.py#L107-L119",
+          "claim": "describe() 返回 issues_credentials=False, owns_sessions=False, controls_remote_git=False"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_host_adapter.py#L314-L366",
+          "claim": "test_next_step_discloses_only_records_requested_by_the_current_action 断言：未请求的 record_refs 返回 code==record_not_available_for_action；请求合法 record 时返回完整结构"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_host_adapter.py#L538-L543",
+          "claim": "test_verification_action_discloses_exact_confirmed_command_record 中 expected_sha256='0'*64 时触发 code==record_read_source_changed"
+        }
+      ],
+      "resolution_plan": [
+        "阅读 test_bounded_records.py 以获取 bounded_next 的具体边界断言",
+        "独立记录测试执行时的源码 SHA-256"
+      ],
+      "limitations": [
+        "upgrade 子命令组路由到 RuntimeUpgrade/ManagedInstallation，这些类不在本模块 source_paths，无法通过本模块代码评估其行为",
+        "所有测试的 source_at_execution_hash 均注明 'not independently captured'",
+        "cli.py 800-1180 行已读取，涵盖 history/next/submit/confirm/delivery/verify/activity/cancel 命令，coverage 充分，但 upgrade 命令组内部路由细节未完整评估"
+      ]
+    }
+  ],
+  "source_ownership": [
+    {
+      "path": "strixnova/src/strixnova/project_authority_consistency.py",
+      "target_module_id": "MODULE-09B10A7EF967494D",
+      "current_status": "aligned",
+      "rationale": "文件实现了 ProjectAuthorityConsistency 类，其公开操作（load, invalidation_scope, authority_candidate_snapshot, authority_adoption_record, governance_context, engineering_governance_context 等）与合同中三项操作（检查采用链、形成治理上下文、计算失效范围）直接对应；文件自身的文档字符串也明确声明 '不存储项目含义、不把结构一致性升级为语义正确性主张'，与合同 not_responsible_for 一致。"
+    },
+    {
+      "path": "strixnova/src/strixnova/agent_setup.py",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "current_status": "aligned",
+      "rationale": "install_agent_skill 被 ApplicationCoordinator.install_agent_guidance 直接调用；agent_setup.py 只负责 skill 文件的幂等安装，不修改 Agent 配置，符合合同中 '安装 Agent 技能指导' 子职责。"
+    },
+    {
+      "path": "strixnova/src/strixnova/application_coordinator.py",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "current_status": "aligned",
+      "rationale": "ApplicationCoordinator 是所有状态变更用例的唯一应用入口，通过 _public_use_case 统一边界；已读到的 1400 行涵盖权威用例、对齐委托、锁机制和路由逻辑，与合同五类操作（目标权威用例、普通事项用例、对齐复核用例、交付运行用例、仓库内容与可恢复执行）高度吻合。未读部分存在细节未完全验证，但整体归属判断稳定。"
+    },
+    {
+      "path": "strixnova/src/strixnova/implementation_alignment_artifacts.py",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "current_status": "unknown",
+      "rationale": "文件未在本轮读取；根据命名推断与对齐复核用例（produce/persist alignment artifacts）相关，被 application_coordinator.py 间接引用，归属至 MODULE-159AE7957218470C 有合理性但缺乏直接源码证据。"
+    },
+    {
+      "path": "strixnova/src/strixnova/implementation_alignment_preparation.py",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "current_status": "unknown",
+      "rationale": "文件未在本轮读取；application_coordinator.py 中多处调用 ImplementationAlignmentPreparation(self.management_project).prepare/inspect/capture_external/write_candidate/garbage_collect_artifacts，归属至 MODULE-159AE7957218470C 有合理性但缺乏直接源码证据。"
+    },
+    {
+      "path": "strixnova/src/strixnova/implementation_candidate_evidence.py",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "current_status": "unknown",
+      "rationale": "文件未在本轮读取；application_coordinator.py 中 self.implementation_evidence = ImplementationCandidateEvidence(self.management_project)，归属合理但无直接证据。"
+    },
+    {
+      "path": "strixnova/src/strixnova/project_authority_decision.py",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "current_status": "unknown",
+      "rationale": "文件未在本轮读取；application_coordinator.py 从中导入 build_project_authority_confirmation_transaction, apply_project_authority_confirmation_transaction, confirmed_project_authority_snapshot 等，这些函数在 confirm_project_authorities 中被直接调用，归属合理但缺乏直接证据。"
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-examples.md",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "current_status": "unknown",
+      "rationale": "文件未在本轮读取；为 agent skill 资源文件，通过 install_agent_skill 作为 packaged resource 部署，归属 MODULE-159AE7957218470C 符合 agent guidance 子职责，但文件内容与代码合同的一致程度未验证。"
+    },
+    {
+      "path": "strixnova/src/strixnova/cli.py",
+      "target_module_id": "MODULE-333FEE8F8A1B491E",
+      "current_status": "aligned",
+      "rationale": "cli.py 完整实现了命令适配器职责：通过 click 路由到 LocalHostAdapter 和 ApplicationCoordinator，_command_errors 统一错误格式，_emit 保证稳定输出，_load_object 支持多种输入方式；所有命令已在本轮全文读取并确认覆盖合同操作范围。"
+    },
+    {
+      "path": "strixnova/src/strixnova/host_adapter.py",
+      "target_module_id": "MODULE-333FEE8F8A1B491E",
+      "current_status": "aligned",
+      "rationale": "LocalHostAdapter 实现了写请求到 coordinator 的转换和只读查询包裹（_adapter_use_case + coordinator.read_operation()）；next_step 集成 bounded_next 实现有界记录读取；describe() 明确声明无会话和凭证管理；文件已全文读取（689 行）。"
+    },
+    {
+      "path": "strixnova/src/strixnova/record_reading.py",
+      "target_module_id": "MODULE-333FEE8F8A1B491E",
+      "current_status": "aligned",
+      "rationale": "record_reading.py 实现 bounded_next（内容寻址分页）、split_reference（JSON Pointer 解析）、select（子路径导航）；文件已全文读取（197 行），是命令适配器有界记录读取职责的核心实现，与 host_adapter.next_step 直接耦合。"
+    }
+  ]
+}

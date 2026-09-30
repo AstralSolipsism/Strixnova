@@ -1,0 +1,818 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "path": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(?!.*\\\\)(?![A-Za-z]:)(?!/)(?!.*(?:^|/)\\.\\.(?:/|$))(?!\\.git(?:/|$))(?!\\.strixnova(?:/|$)).+$"
+    },
+    "product_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "product_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "product_id": {
+          "type": "string",
+          "pattern": "^PRODUCT-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^REVISION-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "domain_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "model_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "model_id": {
+          "type": "string",
+          "pattern": "^MODEL-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^MODELREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "architecture_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "architecture_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "architecture_id": {
+          "type": "string",
+          "pattern": "^ARCH-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^ARCHREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "policy_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "policy_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "policy_id": {
+          "type": "string",
+          "pattern": "^POLICY-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^POLICYREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "alignment_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "alignment_model_id",
+        "revision_id"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "alignment_model_id": {
+          "type": "string",
+          "pattern": "^ALIGNMODEL-[0-9A-F]{16}$"
+        },
+        "repository_id": {
+          "type": "string",
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        },
+        "ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        "revision_id": {
+          "type": "string",
+          "pattern": "^ALIGNREV-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_kind",
+        "path",
+        "sha256",
+        "receipt_id",
+        "claim",
+        "limitations"
+      ],
+      "properties": {
+        "evidence_id": {
+          "type": "string",
+          "pattern": "^EVIDENCE-[0-9A-F]{16}$"
+        },
+        "evidence_kind": {
+          "enum": [
+            "repository_file",
+            "verification_receipt",
+            "external_assurance_receipt"
+          ]
+        },
+        "path": {
+          "$ref": "#/$defs/path"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "receipt_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "claim": {
+          "type": "string",
+          "minLength": 1
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "rule_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "source_ids",
+        "applicability",
+        "applicability_reason",
+        "status",
+        "evidence_ids",
+        "gaps",
+        "remediation_actions",
+        "limitations"
+      ],
+      "properties": {
+        "rule_id": {
+          "enum": [
+            "STRIXNOVA-GOV-REQ-001",
+            "STRIXNOVA-GOV-LIFE-001",
+            "STRIXNOVA-GOV-QUALITY-001",
+            "STRIXNOVA-GOV-TEST-001",
+            "STRIXNOVA-GOV-ARCH-001",
+            "STRIXNOVA-GOV-SEC-001",
+            "STRIXNOVA-GOV-OPS-001"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "applicability": {
+          "enum": [
+            "applicable",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "applicability_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "satisfied",
+            "partially_satisfied",
+            "not_satisfied",
+            "not_applicable",
+            "unknown"
+          ]
+        },
+        "evidence_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "EVIDENCE-A54FF182C7E8ACF5",
+              "EVIDENCE-B335630551682C19",
+              "EVIDENCE-0B5CA119D2BE595A",
+              "EVIDENCE-3132B7C07FD8F395",
+              "EVIDENCE-3B7BE4931246BB01",
+              "EVIDENCE-FBAC19697A4025F2",
+              "EVIDENCE-E63BE8D007CEC91F",
+              "EVIDENCE-AF3B52480084A3AE",
+              "EVIDENCE-365F417C98A32F56",
+              "EVIDENCE-233B7D5F46455FB7",
+              "EVIDENCE-5863EA912BBE7B7F",
+              "EVIDENCE-4F13C76EDAC01FE8",
+              "EVIDENCE-55EE30D6AAA10E2A",
+              "EVIDENCE-B88EAEDA5B90ABC2",
+              "EVIDENCE-0B750447AC2EA614",
+              "EVIDENCE-9926A5440413C0CD",
+              "EVIDENCE-642C045981FB38AC",
+              "EVIDENCE-D1232C0F252C4E88",
+              "EVIDENCE-563FE1B7405160D5",
+              "EVIDENCE-2146D3D97FFC3B2D",
+              "EVIDENCE-54ACFCD404F3BA19",
+              "EVIDENCE-1314F6873EDF0B25",
+              "EVIDENCE-3AAA5DED6DBCA2ED",
+              "EVIDENCE-BE5297A643A2ABF1",
+              "EVIDENCE-18F82D810F504517",
+              "EVIDENCE-CCE4B6D261AB67B7",
+              "EVIDENCE-ACF1E6A464D1C66F",
+              "EVIDENCE-3D608648904D1028",
+              "EVIDENCE-2B15D55A19A1A140",
+              "EVIDENCE-B8100F6D446AE4E6",
+              "EVIDENCE-70A16C2A5B76ED0C",
+              "EVIDENCE-123FAC0EDB7FF310",
+              "EVIDENCE-3E9E651078AEA0B9",
+              "EVIDENCE-9C51F0620EABFB41",
+              "EVIDENCE-FC34CD9CA982F5F1",
+              "EVIDENCE-DB031455B887B115",
+              "EVIDENCE-DD5A1225B6AF86C6",
+              "EVIDENCE-64BD0AC70E33B3B3",
+              "EVIDENCE-EE5389466EB38D53",
+              "EVIDENCE-005707332E5A2FB6",
+              "EVIDENCE-DABD40932CC7E4EF",
+              "EVIDENCE-8047C68009D3709A",
+              "EVIDENCE-C0F52712AA3F227F",
+              "EVIDENCE-011ED4D19019B58F",
+              "EVIDENCE-778AAA36AF9ADA11",
+              "EVIDENCE-4D29953BF23C354C",
+              "EVIDENCE-3BEA85A280AD8EB4",
+              "EVIDENCE-5B56F60BF38A59CF",
+              "EVIDENCE-AC365A41FF2E40D0",
+              "EVIDENCE-33BB88A362CEED6F",
+              "EVIDENCE-7EB23BF1F6F27186",
+              "EVIDENCE-9A0B6AA2AE19E6D6",
+              "EVIDENCE-F8A691C6F53987B2",
+              "EVIDENCE-E87A1B391D6E5BD6",
+              "EVIDENCE-7B56C73104431045",
+              "EVIDENCE-EE17223B8EBC05C9",
+              "EVIDENCE-26615D3E04DF3364",
+              "EVIDENCE-3882F4FCB41A37B9",
+              "EVIDENCE-24422E2D5F0430B7",
+              "EVIDENCE-4974325B60CB5E88",
+              "EVIDENCE-B7AC4CBA368DE645",
+              "EVIDENCE-90D50E814AEB94EF",
+              "EVIDENCE-6024B7C3C562C68B",
+              "EVIDENCE-FABC3F1D39999AB0",
+              "EVIDENCE-85A99FEEA548B181",
+              "EVIDENCE-5ADFD8597D251F69",
+              "EVIDENCE-825BDE544D7FF01A",
+              "EVIDENCE-C4D3FC6CD4A7F7CE",
+              "EVIDENCE-D0CCCD02590D814A",
+              "EVIDENCE-09416A73DC8C8BC5",
+              "EVIDENCE-8DF67F31F4F188DB",
+              "EVIDENCE-0CC901559AFE59C6",
+              "EVIDENCE-7C9E6970A2C1AB8B",
+              "EVIDENCE-514540CEF787F85B",
+              "EVIDENCE-1F7B00E94A800C10",
+              "EVIDENCE-2878EF299108CE32",
+              "EVIDENCE-3824A2FD1F0373C8",
+              "EVIDENCE-325415B039890A6A",
+              "EVIDENCE-45CB602A7EE1C139",
+              "EVIDENCE-CCD17D3CCBFEBD3B",
+              "EVIDENCE-C51A28FCA57C46C9",
+              "EVIDENCE-E384C92383921574",
+              "EVIDENCE-BE2FA581BF7DF320",
+              "EVIDENCE-DF4D4D7B27409203",
+              "EVIDENCE-C0979D3713EAC8CF",
+              "EVIDENCE-AACD811124381ADE",
+              "EVIDENCE-32570BC981C5E410",
+              "EVIDENCE-70B6F2C067E421B7",
+              "EVIDENCE-66A6B160F45AEC9F",
+              "EVIDENCE-F1104F39D154B71E",
+              "EVIDENCE-425DF9326858378B",
+              "EVIDENCE-DB41CDE528C28C49",
+              "EVIDENCE-784A418E55EB2E14",
+              "EVIDENCE-4457EA41A8F8BA89",
+              "EVIDENCE-5693851984248FD4",
+              "EVIDENCE-F6A20E1395DC3E47",
+              "EVIDENCE-67C3C6CF65BD1559",
+              "EVIDENCE-6F77E861CBCD9170",
+              "EVIDENCE-17CE4AB452ACB998",
+              "EVIDENCE-68F4E7E5B9FDE84A",
+              "EVIDENCE-A17C5B431F622B53",
+              "EVIDENCE-B16DF2CD425C6AF9",
+              "EVIDENCE-7C0E469F467B7733",
+              "EVIDENCE-BFC101292E1BBD1C",
+              "EVIDENCE-39A93972BFDF1357",
+              "EVIDENCE-77252090EDDFFD96",
+              "EVIDENCE-D4A3C274B2D8117C",
+              "EVIDENCE-935FC9B6B1D5F573",
+              "EVIDENCE-27FBCE0A8D084EB1",
+              "EVIDENCE-3B995DFFE7D6050D",
+              "EVIDENCE-5B6911332C7F5CF0",
+              "EVIDENCE-A657FEA3CB9A5424",
+              "EVIDENCE-92A0E271EC1967B6",
+              "EVIDENCE-05F179B3D02DB706",
+              "EVIDENCE-B939C1342FDBC10F",
+              "EVIDENCE-8EBB19F9B4C0DC14",
+              "EVIDENCE-52F3E5DDF4D32C00",
+              "EVIDENCE-D235FA92BDC50F4F",
+              "EVIDENCE-A138239C1F3EAD12",
+              "EVIDENCE-15FF7B480F035CA2",
+              "EVIDENCE-0A3C3513840B6937",
+              "EVIDENCE-3F4057E14B0DB74D",
+              "EVIDENCE-C4D05D57636E9415",
+              "EVIDENCE-D2DBD071B060A854",
+              "EVIDENCE-4371CDB2A15E115A",
+              "EVIDENCE-8CDF89439E2CD4E9",
+              "EVIDENCE-96C6AD7DE501F0C5",
+              "EVIDENCE-889557F9F4035C7F",
+              "EVIDENCE-62CFB5E53CF7EBB6",
+              "EVIDENCE-710982B0B154316D",
+              "EVIDENCE-17B1929862A3A4ED",
+              "EVIDENCE-5267679ABD454795",
+              "EVIDENCE-8A0495ACF638BC67",
+              "EVIDENCE-3BFFFA8002F34AE1",
+              "EVIDENCE-3DE2A607F2BC4E81",
+              "EVIDENCE-A1EDEA2F5915DE07",
+              "EVIDENCE-E9CBD56FEDF9D1F0",
+              "EVIDENCE-FFB1C8621A7D7203",
+              "EVIDENCE-BEDF99BDB5E71E10",
+              "EVIDENCE-170EEA732328E439",
+              "EVIDENCE-B67BA6B919E6BB4D",
+              "EVIDENCE-23905FB2D447F6C6",
+              "EVIDENCE-773E6C17025B49ED",
+              "EVIDENCE-E96F161F828468A2",
+              "EVIDENCE-0DA63524288669DE",
+              "EVIDENCE-7A71AA0C63DDE376",
+              "EVIDENCE-D47B3321A69F29E0",
+              "EVIDENCE-429A15DA9CD57601",
+              "EVIDENCE-90C5AD49B1A9AC51",
+              "EVIDENCE-3440A3D40CF5165C",
+              "EVIDENCE-E90912BC1F117202",
+              "EVIDENCE-E0398EAA1D0525B1",
+              "EVIDENCE-F633439C15F89166",
+              "EVIDENCE-A4D051ED57F7E5B7",
+              "EVIDENCE-8FEFA10F775CCDE2",
+              "EVIDENCE-70F9F1EDB88776D0",
+              "EVIDENCE-30EC669326C6F7BE",
+              "EVIDENCE-36A55F1F85941C70",
+              "EVIDENCE-24CFE08A7BCCAE07",
+              "EVIDENCE-8A853EE58636EB39",
+              "EVIDENCE-E626BFF4BAF477F5",
+              "EVIDENCE-F0C1088C19392A8B",
+              "EVIDENCE-076FCFF22552DA31",
+              "EVIDENCE-7DF018ADD8650B76",
+              "EVIDENCE-80BF5A0DB28A1CDC",
+              "EVIDENCE-53851FBC59868A86",
+              "EVIDENCE-0662E9B3F4371405",
+              "EVIDENCE-E8F4DC4A650FD0E5",
+              "EVIDENCE-38F90C372BFE3E1B",
+              "EVIDENCE-3F376570A278D105",
+              "EVIDENCE-98B4076EE0208B72",
+              "EVIDENCE-24D8DEFDE54BAD3D",
+              "EVIDENCE-57433E88284E0F8A",
+              "EVIDENCE-351EEA2758BE7045",
+              "EVIDENCE-E81304B6F2DF896E",
+              "EVIDENCE-F492400488FA03C8",
+              "EVIDENCE-5569E0ACD6DC21AB",
+              "EVIDENCE-2714E199F9FE507F",
+              "EVIDENCE-C4CE0E83C2C8DEED",
+              "EVIDENCE-0589F9DEBCCB0D44",
+              "EVIDENCE-059F7BA8D61BBF43",
+              "EVIDENCE-F08D0ACEDEFA64F1",
+              "EVIDENCE-7A2B9D8FC875E67A",
+              "EVIDENCE-9597CABC8BD1289B",
+              "EVIDENCE-4C878FE623D4477B",
+              "EVIDENCE-7B5949CFBFEAD6B0",
+              "EVIDENCE-26DC690C3AC120CD",
+              "EVIDENCE-B89FAE1C3FB9E4B9",
+              "EVIDENCE-39C02CF2AC58792E",
+              "EVIDENCE-5F4AB3F55FD1A998",
+              "EVIDENCE-B5D7E6F826C2BDFD",
+              "EVIDENCE-84FE967D17EA4E9D",
+              "EVIDENCE-C5A19062669A4E70",
+              "EVIDENCE-3553ADE5BD3C3B4D",
+              "EVIDENCE-754F2E33B9C91EB6",
+              "EVIDENCE-CA16CEE7474907CD",
+              "EVIDENCE-C9D217E2FD9F0389",
+              "EVIDENCE-0757A23B2E111911",
+              "EVIDENCE-0AB0623E7BB5240D",
+              "EVIDENCE-B1ADBF9E3F85F389",
+              "EVIDENCE-89C77AFE58990642",
+              "EVIDENCE-7AEAF4885E5EFF0D",
+              "EVIDENCE-3AF6B6DD7555BFC2",
+              "EVIDENCE-B3479A3677429CB4",
+              "EVIDENCE-FD1EF36783101C96",
+              "EVIDENCE-A9073187703BEC53",
+              "EVIDENCE-D91A39BECE4887A8",
+              "EVIDENCE-6EF6B1032706C204",
+              "EVIDENCE-307F2D2ACD8D2C3A",
+              "EVIDENCE-4EB91CA1F706EB50",
+              "EVIDENCE-FF76CEB43B62F5E4",
+              "EVIDENCE-E3DB102C95ACBEE4",
+              "EVIDENCE-57DAA19E8D86ACEB",
+              "EVIDENCE-52DC4E243B478214",
+              "EVIDENCE-6B7218B97489006E",
+              "EVIDENCE-85896A80A6C80CE5",
+              "EVIDENCE-C9FE687A3EFD1DC0",
+              "EVIDENCE-AD1B01869ED32369",
+              "EVIDENCE-EEA9B0380A01DED9",
+              "EVIDENCE-7C740BB302812148",
+              "EVIDENCE-4810C47C7846A0D3",
+              "EVIDENCE-8641BCE6EFF4E0BD",
+              "EVIDENCE-0FBE5731BD4BD276"
+            ]
+          }
+        },
+        "gaps": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "remediation_actions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "rule_assessments",
+    "evidence_claims",
+    "unresolved_items",
+    "owner_accepted",
+    "semantic_content_machine_proven"
+  ],
+  "properties": {
+    "rule_assessments": {
+      "type": "array",
+      "minItems": 7,
+      "maxItems": 7,
+      "items": {
+        "$ref": "#/$defs/rule_assessment"
+      }
+    },
+    "evidence_claims": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "claim",
+          "limitations"
+        ],
+        "properties": {
+          "evidence_id": {
+            "enum": [
+              "EVIDENCE-A54FF182C7E8ACF5",
+              "EVIDENCE-B335630551682C19",
+              "EVIDENCE-0B5CA119D2BE595A",
+              "EVIDENCE-3132B7C07FD8F395",
+              "EVIDENCE-3B7BE4931246BB01",
+              "EVIDENCE-FBAC19697A4025F2",
+              "EVIDENCE-E63BE8D007CEC91F",
+              "EVIDENCE-AF3B52480084A3AE",
+              "EVIDENCE-365F417C98A32F56",
+              "EVIDENCE-233B7D5F46455FB7",
+              "EVIDENCE-5863EA912BBE7B7F",
+              "EVIDENCE-4F13C76EDAC01FE8",
+              "EVIDENCE-55EE30D6AAA10E2A",
+              "EVIDENCE-B88EAEDA5B90ABC2",
+              "EVIDENCE-0B750447AC2EA614",
+              "EVIDENCE-9926A5440413C0CD",
+              "EVIDENCE-642C045981FB38AC",
+              "EVIDENCE-D1232C0F252C4E88",
+              "EVIDENCE-563FE1B7405160D5",
+              "EVIDENCE-2146D3D97FFC3B2D",
+              "EVIDENCE-54ACFCD404F3BA19",
+              "EVIDENCE-1314F6873EDF0B25",
+              "EVIDENCE-3AAA5DED6DBCA2ED",
+              "EVIDENCE-BE5297A643A2ABF1",
+              "EVIDENCE-18F82D810F504517",
+              "EVIDENCE-CCE4B6D261AB67B7",
+              "EVIDENCE-ACF1E6A464D1C66F",
+              "EVIDENCE-3D608648904D1028",
+              "EVIDENCE-2B15D55A19A1A140",
+              "EVIDENCE-B8100F6D446AE4E6",
+              "EVIDENCE-70A16C2A5B76ED0C",
+              "EVIDENCE-123FAC0EDB7FF310",
+              "EVIDENCE-3E9E651078AEA0B9",
+              "EVIDENCE-9C51F0620EABFB41",
+              "EVIDENCE-FC34CD9CA982F5F1",
+              "EVIDENCE-DB031455B887B115",
+              "EVIDENCE-DD5A1225B6AF86C6",
+              "EVIDENCE-64BD0AC70E33B3B3",
+              "EVIDENCE-EE5389466EB38D53",
+              "EVIDENCE-005707332E5A2FB6",
+              "EVIDENCE-DABD40932CC7E4EF",
+              "EVIDENCE-8047C68009D3709A",
+              "EVIDENCE-C0F52712AA3F227F",
+              "EVIDENCE-011ED4D19019B58F",
+              "EVIDENCE-778AAA36AF9ADA11",
+              "EVIDENCE-4D29953BF23C354C",
+              "EVIDENCE-3BEA85A280AD8EB4",
+              "EVIDENCE-5B56F60BF38A59CF",
+              "EVIDENCE-AC365A41FF2E40D0",
+              "EVIDENCE-33BB88A362CEED6F",
+              "EVIDENCE-7EB23BF1F6F27186",
+              "EVIDENCE-9A0B6AA2AE19E6D6",
+              "EVIDENCE-F8A691C6F53987B2",
+              "EVIDENCE-E87A1B391D6E5BD6",
+              "EVIDENCE-7B56C73104431045",
+              "EVIDENCE-EE17223B8EBC05C9",
+              "EVIDENCE-26615D3E04DF3364",
+              "EVIDENCE-3882F4FCB41A37B9",
+              "EVIDENCE-24422E2D5F0430B7",
+              "EVIDENCE-4974325B60CB5E88",
+              "EVIDENCE-B7AC4CBA368DE645",
+              "EVIDENCE-90D50E814AEB94EF",
+              "EVIDENCE-6024B7C3C562C68B",
+              "EVIDENCE-FABC3F1D39999AB0",
+              "EVIDENCE-85A99FEEA548B181",
+              "EVIDENCE-5ADFD8597D251F69",
+              "EVIDENCE-825BDE544D7FF01A",
+              "EVIDENCE-C4D3FC6CD4A7F7CE",
+              "EVIDENCE-D0CCCD02590D814A",
+              "EVIDENCE-09416A73DC8C8BC5",
+              "EVIDENCE-8DF67F31F4F188DB",
+              "EVIDENCE-0CC901559AFE59C6",
+              "EVIDENCE-7C9E6970A2C1AB8B",
+              "EVIDENCE-514540CEF787F85B",
+              "EVIDENCE-1F7B00E94A800C10",
+              "EVIDENCE-2878EF299108CE32",
+              "EVIDENCE-3824A2FD1F0373C8",
+              "EVIDENCE-325415B039890A6A",
+              "EVIDENCE-45CB602A7EE1C139",
+              "EVIDENCE-CCD17D3CCBFEBD3B",
+              "EVIDENCE-C51A28FCA57C46C9",
+              "EVIDENCE-E384C92383921574",
+              "EVIDENCE-BE2FA581BF7DF320",
+              "EVIDENCE-DF4D4D7B27409203",
+              "EVIDENCE-C0979D3713EAC8CF",
+              "EVIDENCE-AACD811124381ADE",
+              "EVIDENCE-32570BC981C5E410",
+              "EVIDENCE-70B6F2C067E421B7",
+              "EVIDENCE-66A6B160F45AEC9F",
+              "EVIDENCE-F1104F39D154B71E",
+              "EVIDENCE-425DF9326858378B",
+              "EVIDENCE-DB41CDE528C28C49",
+              "EVIDENCE-784A418E55EB2E14",
+              "EVIDENCE-4457EA41A8F8BA89",
+              "EVIDENCE-5693851984248FD4",
+              "EVIDENCE-F6A20E1395DC3E47",
+              "EVIDENCE-67C3C6CF65BD1559",
+              "EVIDENCE-6F77E861CBCD9170",
+              "EVIDENCE-17CE4AB452ACB998",
+              "EVIDENCE-68F4E7E5B9FDE84A",
+              "EVIDENCE-A17C5B431F622B53",
+              "EVIDENCE-B16DF2CD425C6AF9",
+              "EVIDENCE-7C0E469F467B7733",
+              "EVIDENCE-BFC101292E1BBD1C",
+              "EVIDENCE-39A93972BFDF1357",
+              "EVIDENCE-77252090EDDFFD96",
+              "EVIDENCE-D4A3C274B2D8117C",
+              "EVIDENCE-935FC9B6B1D5F573",
+              "EVIDENCE-27FBCE0A8D084EB1",
+              "EVIDENCE-3B995DFFE7D6050D",
+              "EVIDENCE-5B6911332C7F5CF0",
+              "EVIDENCE-A657FEA3CB9A5424",
+              "EVIDENCE-92A0E271EC1967B6",
+              "EVIDENCE-05F179B3D02DB706",
+              "EVIDENCE-B939C1342FDBC10F",
+              "EVIDENCE-8EBB19F9B4C0DC14",
+              "EVIDENCE-52F3E5DDF4D32C00",
+              "EVIDENCE-D235FA92BDC50F4F",
+              "EVIDENCE-A138239C1F3EAD12",
+              "EVIDENCE-15FF7B480F035CA2",
+              "EVIDENCE-0A3C3513840B6937",
+              "EVIDENCE-3F4057E14B0DB74D",
+              "EVIDENCE-C4D05D57636E9415",
+              "EVIDENCE-D2DBD071B060A854",
+              "EVIDENCE-4371CDB2A15E115A",
+              "EVIDENCE-8CDF89439E2CD4E9",
+              "EVIDENCE-96C6AD7DE501F0C5",
+              "EVIDENCE-889557F9F4035C7F",
+              "EVIDENCE-62CFB5E53CF7EBB6",
+              "EVIDENCE-710982B0B154316D",
+              "EVIDENCE-17B1929862A3A4ED",
+              "EVIDENCE-5267679ABD454795",
+              "EVIDENCE-8A0495ACF638BC67",
+              "EVIDENCE-3BFFFA8002F34AE1",
+              "EVIDENCE-3DE2A607F2BC4E81",
+              "EVIDENCE-A1EDEA2F5915DE07",
+              "EVIDENCE-E9CBD56FEDF9D1F0",
+              "EVIDENCE-FFB1C8621A7D7203",
+              "EVIDENCE-BEDF99BDB5E71E10",
+              "EVIDENCE-170EEA732328E439",
+              "EVIDENCE-B67BA6B919E6BB4D",
+              "EVIDENCE-23905FB2D447F6C6",
+              "EVIDENCE-773E6C17025B49ED",
+              "EVIDENCE-E96F161F828468A2",
+              "EVIDENCE-0DA63524288669DE",
+              "EVIDENCE-7A71AA0C63DDE376",
+              "EVIDENCE-D47B3321A69F29E0",
+              "EVIDENCE-429A15DA9CD57601",
+              "EVIDENCE-90C5AD49B1A9AC51",
+              "EVIDENCE-3440A3D40CF5165C",
+              "EVIDENCE-E90912BC1F117202",
+              "EVIDENCE-E0398EAA1D0525B1",
+              "EVIDENCE-F633439C15F89166",
+              "EVIDENCE-A4D051ED57F7E5B7",
+              "EVIDENCE-8FEFA10F775CCDE2",
+              "EVIDENCE-70F9F1EDB88776D0",
+              "EVIDENCE-30EC669326C6F7BE",
+              "EVIDENCE-36A55F1F85941C70",
+              "EVIDENCE-24CFE08A7BCCAE07",
+              "EVIDENCE-8A853EE58636EB39",
+              "EVIDENCE-E626BFF4BAF477F5",
+              "EVIDENCE-F0C1088C19392A8B",
+              "EVIDENCE-076FCFF22552DA31",
+              "EVIDENCE-7DF018ADD8650B76",
+              "EVIDENCE-80BF5A0DB28A1CDC",
+              "EVIDENCE-53851FBC59868A86",
+              "EVIDENCE-0662E9B3F4371405",
+              "EVIDENCE-E8F4DC4A650FD0E5",
+              "EVIDENCE-38F90C372BFE3E1B",
+              "EVIDENCE-3F376570A278D105",
+              "EVIDENCE-98B4076EE0208B72",
+              "EVIDENCE-24D8DEFDE54BAD3D",
+              "EVIDENCE-57433E88284E0F8A",
+              "EVIDENCE-351EEA2758BE7045",
+              "EVIDENCE-E81304B6F2DF896E",
+              "EVIDENCE-F492400488FA03C8",
+              "EVIDENCE-5569E0ACD6DC21AB",
+              "EVIDENCE-2714E199F9FE507F",
+              "EVIDENCE-C4CE0E83C2C8DEED",
+              "EVIDENCE-0589F9DEBCCB0D44",
+              "EVIDENCE-059F7BA8D61BBF43",
+              "EVIDENCE-F08D0ACEDEFA64F1",
+              "EVIDENCE-7A2B9D8FC875E67A",
+              "EVIDENCE-9597CABC8BD1289B",
+              "EVIDENCE-4C878FE623D4477B",
+              "EVIDENCE-7B5949CFBFEAD6B0",
+              "EVIDENCE-26DC690C3AC120CD",
+              "EVIDENCE-B89FAE1C3FB9E4B9",
+              "EVIDENCE-39C02CF2AC58792E",
+              "EVIDENCE-5F4AB3F55FD1A998",
+              "EVIDENCE-B5D7E6F826C2BDFD",
+              "EVIDENCE-84FE967D17EA4E9D",
+              "EVIDENCE-C5A19062669A4E70",
+              "EVIDENCE-3553ADE5BD3C3B4D",
+              "EVIDENCE-754F2E33B9C91EB6",
+              "EVIDENCE-CA16CEE7474907CD",
+              "EVIDENCE-C9D217E2FD9F0389",
+              "EVIDENCE-0757A23B2E111911",
+              "EVIDENCE-0AB0623E7BB5240D",
+              "EVIDENCE-B1ADBF9E3F85F389",
+              "EVIDENCE-89C77AFE58990642",
+              "EVIDENCE-7AEAF4885E5EFF0D",
+              "EVIDENCE-3AF6B6DD7555BFC2",
+              "EVIDENCE-B3479A3677429CB4",
+              "EVIDENCE-FD1EF36783101C96",
+              "EVIDENCE-A9073187703BEC53",
+              "EVIDENCE-D91A39BECE4887A8",
+              "EVIDENCE-6EF6B1032706C204",
+              "EVIDENCE-307F2D2ACD8D2C3A",
+              "EVIDENCE-4EB91CA1F706EB50",
+              "EVIDENCE-FF76CEB43B62F5E4",
+              "EVIDENCE-E3DB102C95ACBEE4",
+              "EVIDENCE-57DAA19E8D86ACEB",
+              "EVIDENCE-52DC4E243B478214",
+              "EVIDENCE-6B7218B97489006E",
+              "EVIDENCE-85896A80A6C80CE5",
+              "EVIDENCE-C9FE687A3EFD1DC0",
+              "EVIDENCE-AD1B01869ED32369",
+              "EVIDENCE-EEA9B0380A01DED9",
+              "EVIDENCE-7C740BB302812148",
+              "EVIDENCE-4810C47C7846A0D3",
+              "EVIDENCE-8641BCE6EFF4E0BD",
+              "EVIDENCE-0FBE5731BD4BD276"
+            ]
+          },
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "owner_accepted": {
+      "const": false
+    },
+    "semantic_content_machine_proven": {
+      "const": false
+    }
+  }
+}

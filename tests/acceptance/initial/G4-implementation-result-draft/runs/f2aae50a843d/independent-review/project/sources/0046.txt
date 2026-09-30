@@ -1,0 +1,141 @@
+1: schema_version: strixnova.implementation-target-responsibilities.v1
+2: alignment_model_id: ALIGNMODEL-1111111111111111
+3: alignment_revision_id: ALIGNREV-3333333333333333
+4: records:
+5: - target_id: CONSTRAINT-A000000000000001
+6:   target_kind: constraint
+7:   status: implemented
+8:   satisfied:
+9:   - withdraw 方法接受 authenticated_member_id，校验归属。
+10:   missing: []
+11:   evidence:
+12:   - kind: source
+13:     ref: src/application/service.py
+14:     claim: owner_member_id != authenticated_member_id 时拒绝
+15:   deviation_ids: []
+16:   resolution_plan: []
+17: - target_id: CONSTRAINT-A000000000000002
+18:   target_kind: constraint
+19:   status: implemented
+20:   satisfied:
+21:   - domain.py 使用 version 字段实现乐观并发控制。
+22:   missing: []
+23:   evidence:
+24:   - kind: source
+25:     ref: src/application/domain.py
+26:     claim: withdraw/approve 检查 expected_version
+27:   deviation_ids: []
+28:   resolution_plan: []
+29: - target_id: CONSTRAINT-A000000000000003
+30:   target_kind: constraint
+31:   status: implemented
+32:   satisfied:
+33:   - cli.py 提供本地终端命令行接口。
+34:   missing: []
+35:   evidence:
+36:   - kind: source
+37:     ref: src/cli.py
+38:     claim: argparse 本地终端 CLI
+39:   deviation_ids: []
+40:   resolution_plan: []
+41: - target_id: MODULE-A000000000000001
+42:   target_kind: module
+43:   status: partially_implemented
+44:   satisfied:
+45:   - 区间校验（duration 函数）已存在且行为正确。
+46:   - 申请实体定义、状态枚举和生命周期转换已在 src/application/domain.py 实现。
+47:   - 撤回逻辑（can_withdraw/withdraw 方法）已实现，含乐观并发控制。
+48:   - 审计条目生成已在 src/application/audit.py 实现。
+49:   missing:
+50:   - 周报相关的申请域统计查询尚未实现（周报方向待确认）。
+51:   evidence:
+52:   - kind: source
+53:     ref: src.py
+54:     claim: duration 函数保持不变。
+55:   - kind: source
+56:     ref: src/application/domain.py
+57:     claim: 申请实体、状态枚举、撤回和审批方法已实现。
+58:   - kind: source
+59:     ref: src/application/audit.py
+60:     claim: 审计记录模块已实现。
+61:   deviation_ids: []
+62:   resolution_plan:
+63:   - 周报相关查询待方向确认后在独立事项中实现。
+64: - target_id: MODULE-A000000000000002
+65:   target_kind: module
+66:   status: implemented
+67:   satisfied:
+68:   - 成员服务模块已在 src/application/service.py 实现。
+69:   missing: []
+70:   evidence:
+71:   - kind: source
+72:     ref: src/application/service.py
+73:     claim: MemberService 类实现了 withdraw 和 query_status。
+74:   deviation_ids: []
+75:   resolution_plan: []
+76: - target_id: MODULE-A000000000000003
+77:   target_kind: module
+78:   status: not_implemented
+79:   satisfied: []
+80:   missing:
+81:   - 运营汇总模块尚未实现。
+82:   evidence: []
+83:   deviation_ids: []
+84:   resolution_plan:
+85:   - 周报方向待确认，独立事项后续交付。
+86: - target_id: MODULE-A000000000000004
+87:   target_kind: module
+88:   status: implemented
+89:   satisfied:
+90:   - 终端适配模块已在 src/cli.py 实现。
+91:   missing: []
+92:   evidence:
+93:   - kind: source
+94:     ref: src/cli.py
+95:     claim: CLI 入口提供 withdraw 和 status 子命令。
+96:   deviation_ids: []
+97:   resolution_plan: []
+98: - target_id: RELATION-A000000000000001
+99:   target_kind: relationship
+100:   status: implemented
+101:   satisfied:
+102:   - service.py 从 domain.py 和 audit.py 导入并使用申请域。
+103:   missing: []
+104:   evidence:
+105:   - kind: source
+106:     ref: src/application/service.py
+107:     claim: from .domain import; from .audit import
+108:   deviation_ids: []
+109:   resolution_plan: []
+110: - target_id: RELATION-A000000000000002
+111:   target_kind: relationship
+112:   status: not_implemented
+113:   satisfied: []
+114:   missing:
+115:   - 运营汇总只读申请域的依赖关系尚未建立。
+116:   evidence: []
+117:   deviation_ids: []
+118:   resolution_plan:
+119:   - 周报方向待确认后建立。
+120: - target_id: RELATION-A000000000000003
+121:   target_kind: relationship
+122:   status: implemented
+123:   satisfied:
+124:   - cli.py 导入并调用 MemberService。
+125:   missing: []
+126:   evidence:
+127:   - kind: source
+128:     ref: src/cli.py
+129:     claim: from application.service import MemberService
+130:   deviation_ids: []
+131:   resolution_plan: []
+132: - target_id: RELATION-A000000000000004
+133:   target_kind: relationship
+134:   status: not_implemented
+135:   satisfied: []
+136:   missing:
+137:   - 终端适配调用运营汇总的依赖关系尚未建立。
+138:   evidence: []
+139:   deviation_ids: []
+140:   resolution_plan:
+141:   - 周报方向待确认后建立。

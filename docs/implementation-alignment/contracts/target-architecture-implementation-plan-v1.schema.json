@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.target-architecture-implementation-plan.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "plan_id",
+    "status",
+    "authority_bindings",
+    "target_confirmation_preconditions",
+    "increments",
+    "final_acceptance_commands",
+    "global_forbidden_actions"
+  ],
+  "properties": {
+    "schema_version": {"const": "strixnova.target-architecture-implementation-plan.v1"},
+    "plan_id": {"type": "string", "pattern": "^PLAN-[0-9A-F]{16}$"},
+    "status": {"enum": ["awaiting_target_confirmation", "ready", "implementing", "complete"]},
+    "authority_bindings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_revision_id",
+        "domain_model_revision_id",
+        "architecture_revision_id",
+        "alignment_revision_id"
+      ],
+      "properties": {
+        "product_revision_id": {"type": "string", "pattern": "^REVISION-[0-9A-F]{16}$"},
+        "domain_model_revision_id": {"type": "string", "pattern": "^MODELREV-[0-9A-F]{16}$"},
+        "architecture_revision_id": {"type": "string", "pattern": "^ARCHREV-[0-9A-F]{16}$"},
+        "alignment_revision_id": {"type": "string", "pattern": "^ALIGNREV-[0-9A-F]{16}$"}
+      }
+    },
+    "target_confirmation_preconditions": {"$ref": "#/$defs/text_list"},
+    "increments": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/increment"}
+    },
+    "final_acceptance_commands": {"$ref": "#/$defs/text_list"},
+    "global_forbidden_actions": {"$ref": "#/$defs/text_list"}
+  },
+  "$defs": {
+    "text": {"type": "string", "minLength": 1},
+    "text_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/text"}
+    },
+    "optional_text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/text"}
+    },
+    "increment_id": {"type": "string", "pattern": "^INCREMENT-[0-9A-F]{16}$"},
+    "increment_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/increment_id"}
+    },
+    "module_id_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^MODULE-[0-9A-F]{16}$"}
+    },
+    "deviation_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^DEVIATION-[0-9A-F]{16}$"}
+    },
+    "increment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "increment_id",
+        "order",
+        "title",
+        "intent",
+        "prerequisite_increment_ids",
+        "target_module_ids",
+        "closes_deviation_ids",
+        "affected_current_paths",
+        "actions",
+        "forbidden_actions",
+        "affected_tests",
+        "completion_conditions",
+        "alignment_refresh_required",
+        "user_owned_overlap_policy"
+      ],
+      "properties": {
+        "increment_id": {"$ref": "#/$defs/increment_id"},
+        "order": {"type": "integer", "minimum": 1},
+        "title": {"$ref": "#/$defs/text"},
+        "intent": {"$ref": "#/$defs/text"},
+        "prerequisite_increment_ids": {"$ref": "#/$defs/increment_id_list"},
+        "target_module_ids": {"$ref": "#/$defs/module_id_list"},
+        "closes_deviation_ids": {"$ref": "#/$defs/deviation_id_list"},
+        "affected_current_paths": {"$ref": "#/$defs/optional_text_list"},
+        "actions": {"$ref": "#/$defs/text_list"},
+        "forbidden_actions": {"$ref": "#/$defs/text_list"},
+        "affected_tests": {"$ref": "#/$defs/optional_text_list"},
+        "completion_conditions": {"$ref": "#/$defs/text_list"},
+        "alignment_refresh_required": {"const": true},
+        "user_owned_overlap_policy": {"$ref": "#/$defs/text"}
+      }
+    }
+  }
+}

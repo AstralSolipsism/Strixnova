@@ -1,0 +1,155 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "G4-G2-ENGINEERING-PLAN-READY",
+      "issues": [
+        {
+          "category": "agent_output",
+          "description": "领域模型根文件（docs/domain/model.yaml）中的 product_definition_ref 错误指向 REVISION-2222222222222222，而非当前准备确认的候选版本 REVISION-3333333333333333（且 PRD 只读视图 prd.md 中同样残留指向 REVISION-2222222222222222 与 MODELREV-2222222222222222），存在跨权威候选版本引用不一致缺陷。"
+        },
+        {
+          "category": "agent_output",
+          "description": "在方案的实施切片 SLICE-001 中，仅安排了权威文件及 baseline.yaml 与 alignment.yaml 的修订，未将 source-ownership.yaml、target-responsibilities.yaml、actual-dependencies.yaml、deviations.yaml 等四份底账的同步纳入首个切片或清晰交代其实质落地边界，存在计划执行落地边界缺陷。"
+        }
+      ],
+      "limitations": [
+        "本审阅严格限定于当前冻结夹具中工程方案、决策记录、作者工具调用日志及评估载荷的独立内容审阅与投递条件检查；本次不修复候选，不代执行工作流，不代表真人所有者最终接受。"
+      ],
+      "reason": "当前工程方案在结构和治理约束上相比前序被拒版本有显著修正：作者在修订评估载荷过程中未再出现裸 python 命令行调用，执行边界合规；方案明确划分为 SLICE-001（权威候选修订）、SLICE-002（业务实现与测试）与 SLICE-003（实现对齐刷新）三个切片；将固定业务事实（可信会话身份提取、待审核状态限制、幂等审计、并发互斥、响应丢失查询、本地终端交互）以及 duration 既有行为回归通过 VC-001 与 VC-002 完整绑定到 direction 的 7 个行为例子上；周报功能明确划归独立交付事项。然而，在权威候选的跨文档引用一致性上，领域模型根文件中的 product_definition_ref 仍然残留指向已被取代的草稿版本 REVISION-2222222222222222，未与产品定义候选 REVISION-3333333333333333 保持完全闭合；此外 PRD 组合视图也残留旧版本号。因此方案尚未达到完全合格的投递状态，判定为 needs_revision。",
+      "references": [
+        {
+          "end_line": 1822,
+          "source_id": "plan",
+          "start_line": 1742,
+          "original_text": "        {\n          \"completion_criteria\": [\n            \"产品定义、领域模型、目标架构、工程政策和工程基线的候选修订已写入对应路径\",\n            \"实现对齐的编码前诚实快照已记录当前缺口\"\n          ],\n          \"continued_operation_refs\": [],\n          \"depends_on\": [],\n          \"implements\": [\n            \"direction.requirement:DIRREQ-A000000000000001\",\n            \"direction.requirement:DIRREQ-A000000000000008\",\n            \"direction.constraint:DIRCON-A000000000000002\"\n          ],\n          \"machine_validated\": true,\n          \"operation_refs\": [\n            \"operations[0]\",\n            \"operations[1]\",\n            \"operations[2]\",\n            \"operations[3]\",\n            \"operations[4]\",\n            \"operations[5]\",\n            \"operations[16]\",\n            \"operations[17]\",\n            \"operations[18]\",\n            \"operations[19]\",\n            \"operations[20]\",\n            \"operations[21]\",\n            \"operations[22]\"\n          ],\n          \"parallel_safe_with\": [],\n          \"purpose\": \"权威候选修订：完成产品定义、领域模型、目标架构、工程政策、工程基线和实现对齐的候选修订，供负责人统一确认\",\n          \"repository_ids\": [\n            \"REPO-1111111111111111\"\n          ],\n          \"rollback_or_recovery\": \"候选文件均为治理文档，写入失败时恢复到调查提交状态即可\",\n          \"schema_version\": \"strixnova.implementation-slice-plan.v1\",\n          \"slice_id\": \"SLICE-001\",\n          \"source_slice_ref\": \"implementation_slices[0]\",\n          \"verification_command_ids\": []\n        },\n        {\n          \"completion_criteria\": [\n            \"撤回命令通过CLI可执行\",\n            \"全部方向行为例子的测试通过\",\n            \"duration回归测试通过\"\n          ],\n          \"continued_operation_refs\": [],\n          \"depends_on\": [\n            \"SLICE-001\"\n          ],\n          \"implements\": [\n            \"direction.acceptance:DIRACC-A000000000000001\",\n            \"direction.acceptance:DIRACC-A000000000000002\",\n            \"direction.acceptance:DIRACC-A000000000000003\",\n            \"direction.acceptance:DIRACC-A000000000000004\",\n            \"direction.acceptance:DIRACC-A000000000000005\",\n            \"direction.acceptance:DIRACC-A000000000000006\",\n            \"direction.acceptance:DIRACC-A000000000000007\"\n          ],\n          \"machine_validated\": true,\n          \"operation_refs\": [\n            \"operations[6]\",\n            \"operations[7]\",\n            \"operations[8]\",\n            \"operations[9]\",\n            \"operations[10]\",\n            \"operations[11]\"\n          ],\n          \"parallel_safe_with\": [],\n          \"purpose\": \"实现撤回业务核心：创建申请域模块、审计模块、成员服务模块和CLI入口，以及对应的测试\",\n          \"repository_ids\": [\n            \"REPO-1111111111111111\"\n          ],\n          \"rollback_or_recovery\": \"失败时保留未提交改动并修正当前切片内的业务代码或测试\",\n          \"schema_version\": \"strixnova.implementation-slice-plan.v1\",\n          \"slice_id\": \"SLICE-002\",\n          \"source_slice_ref\": \"implementation_slices[1]\",\n          \"verification_command_ids\": [\n            \"VC-001\",\n            \"VC-002\"\n          ]\n        },\n",
+          "source_sha256": "e84545a62d41d80509d61f349d8dcf9baa6332d7350264993a5cf5508971a2af",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 2562,
+          "source_id": "plan",
+          "start_line": 2448,
+          "original_text": "      \"verification_commands\": [\n        {\n          \"approved_program\": {\n            \"argument_policy\": \"exact_plan_only\",\n            \"declared_program\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n            \"purpose\": \"在本隔离工程运行已声明的 pytest 验证。\",\n            \"resolved_program\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\"\n          },\n          \"argv\": [\n            \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n            \"-m\",\n            \"pytest\",\n            \"tests/test_withdrawal.py\",\n            \"-q\"\n          ],\n          \"case_report\": {\n            \"adapter\": \"pytest\",\n            \"bindings\": [\n              {\n                \"example_ref\": \"direction.example:DIREX-A000000000000001\",\n                \"test_ids\": [\n                  \"tests/test_withdrawal.py::test_member_withdraws_own_pending_application\"\n                ]\n              },\n              {\n                \"example_ref\": \"direction.example:DIREX-A000000000000002\",\n                \"test_ids\": [\n                  \"tests/test_withdrawal.py::test_withdraw_other_member_application_rejected\"\n                ]\n              },\n              {\n                \"example_ref\": \"direction.example:DIREX-A000000000000003\",\n                \"test_ids\": [\n                  \"tests/test_withdrawal.py::test_repeated_withdrawal_idempotent\"\n                ]\n              },\n              {\n                \"example_ref\": \"direction.example:DIREX-A000000000000004\",\n                \"test_ids\": [\n                  \"tests/test_withdrawal.py::test_concurrent_withdrawal_and_approval\"\n                ]\n              },\n              {\n                \"example_ref\": \"direction.example:DIREX-A000000000000005\",\n                \"test_ids\": [\n                  \"tests/test_withdrawal.py::test_query_actual_status_after_lost_response\"\n                ]\n              }\n            ],\n            \"example_fingerprints\": {\n              \"direction.example:DIREX-A000000000000001\": \"933c18e0d73c8f5114b428d2feae7902d8ebb69b334fd9b351001f997491a841\",\n              \"direction.example:DIREX-A000000000000002\": \"b2f2a9025194b16c582a55737af5c0890146642acb44962dc3921185fb5b29af\",\n              \"direction.example:DIREX-A000000000000003\": \"ce3ac3b56f23f7070c45abbca0b6deb465590cd6b20ad7691c4dd0c1c06af5c2\",\n              \"direction.example:DIREX-A000000000000004\": \"71f8037617caa807912aca9437f3d4382d42f335762934b872231284caed315e\",\n              \"direction.example:DIREX-A000000000000005\": \"0046c32ffe5545d212ff71edfd1af61f8f5b1bcaed9f1c7c5f912420823c1ae3\"\n            },\n            \"input_paths\": [\n              \"src/application/__init__.py\",\n              \"src/application/audit.py\",\n              \"src/application/domain.py\",\n              \"src/application/service.py\",\n              \"tests/test_withdrawal.py\"\n            ],\n            \"test_root\": \".\"\n          },\n          \"command_id\": \"VC-001\",\n          \"covers\": [\n            \"direction.example:DIREX-A000000000000001\",\n            \"direction.example:DIREX-A000000000000002\",\n            \"direction.example:DIREX-A000000000000003\",\n            \"direction.example:DIREX-A000000000000004\",\n            \"direction.example:DIREX-A000000000000005\",\n            \"risk_assessments[0]\"\n          ],\n          \"cwd\": \".\",\n          \"optional_timeout\": null,\n          \"reasons\": [\n            \"验证撤回行为的全部方向例子：本人撤回成功、他人撤回拒绝、重复撤回幂等、并发冲突、响应丢失后查询\"\n          ],\n          \"repository_id\": \"REPO-1111111111111111\",\n          \"run_kind\": \"targeted_test\",\n          \"source_command_indexes\": [\n            0\n          ]\n        },\n        {\n          \"approved_program\": {\n            \"argument_policy\": \"exact_plan_only\",\n            \"declared_program\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n            \"purpose\": \"在本隔离工程运行已声明的 pytest 验证。\",\n            \"resolved_program\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\"\n          },\n          \"argv\": [\n            \"D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe\",\n            \"-m\",\n            \"pytest\",\n            \"tests/test_duration.py\",\n            \"-q\"\n          ],\n          \"command_id\": \"VC-002\",\n          \"covers\": [\n            \"direction.constraint:DIRCON-A000000000000001\"\n          ],\n          \"cwd\": \".\",\n          \"optional_timeout\": null,\n          \"reasons\": [\n            \"回归验证duration函数的既有行为保持不变\"\n          ],\n          \"repository_id\": \"REPO-1111111111111111\",\n          \"run_kind\": \"targeted_test\",\n          \"source_command_indexes\": [\n            1\n          ]\n        }\n      ],\n",
+          "source_sha256": "e84545a62d41d80509d61f349d8dcf9baa6332d7350264993a5cf5508971a2af",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 10,
+          "source_id": "execution-boundaries",
+          "start_line": 1,
+          "original_text": "{\n  \"original_mechanical_passed\": true,\n  \"latest_author_run\": \"04a7570f98a9\",\n  \"prior_author_run\": \"02c672b89029\",\n  \"prior_author_outcome\": \"continuation_limit\",\n  \"prior_author_mechanical_passed\": false,\n  \"original_failed_steps\": [],\n  \"unsettled_steps\": [],\n  \"bare_python_commands_observed\": [],\n  \"no_system_python_test_claim\": true,\n",
+          "source_sha256": "185f6d9b9f89e42773a19cc37cfc72adef1a2cf61b879fe960d1587f108d514f",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 106,
+          "source_id": "author-response",
+          "start_line": 91,
+          "original_text": "## 评估修订 v3 已提交成功\n\n**当前状态**：`awaiting_plan_confirmation`，版本 12，等待负责人确认。\n\n### 诊断反馈修正摘要\n\n根据您提供的四项候选结构诊断，所有问题已修正并通过校验：\n\n| 权威类型 | 诊断问题 | 修正措施 |\n|---------|---------|---------|\n| **领域模型** | facts[0] 非法字段 `lineage`/`retirement_reason`、缺 `content` | 状态从 `draft` 改为 `superseded`（退役事实允许这些字段，不需要 content） |\n| **目标架构** | 17 undeclared additions, 4 undeclared removals, revision mismatch | 修订号→`ARCHREV-3333333333333333`，状态→`ready_for_confirmation`，变更集中 17 add + 4 retire 精确声明 |\n| **工程政策** | DDD 缺少 4 个必要技术 | 添加 `bounded_context`, `context_map`, `domain_invariant_trace`, `ubiquitous_language` |\n| **评估结构** | 领域事实变化未用 `domain_fact_changes` 字段 | 新增 34 条 domain_fact_changes 精确对应领域来源 |\n\n额外修正：change_id 格式（纯数字 16 位）、`operations` 补全 `evidence_refs`/`implements` 字段并归入 SLICE-001。\n",
+          "source_sha256": "9fa5632a8c9739406efee4e3071bb6fd26142e8d8ebcf7ca140fdda12220908c",
+          "source_role": "author_response"
+        }
+      ],
+      "verdict": "needs_revision",
+      "verification_scope": "当前实际方案的独立内容审阅和投递条件检查；本次不修复候选、不追认初轮工具错误或违反环境约束，也不代表真人接受。",
+      "summary": {
+        "status": "needs_revision",
+        "failure_layer": "reviewer_reported",
+        "machine_checks": {
+          "complete_public_plan_captured": true,
+          "confirmation_still_pending": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "needs_revision",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "G4-CURRENT-AUTHORITY-CONTENT-READY",
+      "issues": [
+        {
+          "category": "agent_output",
+          "description": "领域模型根文件 docs/domain/model.yaml 的 product_definition_ref.revision_id 记录为 REVISION-2222222222222222，与当前产品定义实际候选 REVISION-3333333333333333 产生版本引用断裂；同时 docs/product/prd.md 作为 PRD 组合视图，其来源声明中仍引用 REVISION-2222222222222222 与 MODELREV-2222222222222222。"
+        }
+      ],
+      "limitations": [
+        "仅当前实际候选内容的独立就绪检查。之后仍须完成公开展示和程序要求的复核，核对文件字节与实际确认挑战后，才允许转交已登记的测试接受输入。"
+      ],
+      "reason": "四类长期权威候选文档（产品定义 docs/product/definition.yaml、领域模型 docs/domain/model.yaml 及 sources/core.yaml、目标架构 docs/architecture/model.yaml 及其分文件、工程政策 docs/engineering/policy.yaml）已全部就绪并处于 ready_for_confirmation 状态；业务事实完整覆盖了成员撤回本人待审核申请、可信宿主会话身份提取、并发互斥乐观控制、丢失响应状态查询、不可变审计日志、本地终端交互限制，并将周报独立性与跨单元共享申请实体等要求准确体现；工程政策也规范采纳了 DDD 4项必要技术与验证命令控制；实现对齐如实保留了 ALIGNREV-2222222222222222 的 confirmed 基线与 dirty 工作树草稿状态。但审阅发现文档间存在实质版本引用不一致：领域模型根文件 docs/domain/model.yaml 中的 product_definition_ref.revision_id 记录为旧版本 REVISION-2222222222222222，而非当前准备确认的 REVISION-3333333333333333，同时 prd.md 也引用了旧版本。因此候选内容在跨文档引用一致性上尚未完全就绪，判定为 needs_revision。",
+      "references": [
+        {
+          "end_line": 12,
+          "source_id": "current-project/docs/domain/model.yaml",
+          "start_line": 9,
+          "original_text": "product_definition_ref:\n  product_id: PRODUCT-1111111111111111\n  revision_id: REVISION-2222222222222222\ntitle: 预约申请领域\n",
+          "source_sha256": "fd5dcf1d2a60817eec7be073faacfb545c8486598d2603ba9171acb236892a5c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 8,
+          "source_id": "current-project/docs/product/definition.yaml",
+          "start_line": 3,
+          "original_text": "revision:\n  revision_id: REVISION-3333333333333333\n  status: ready_for_confirmation\n  supersedes_revision_id: REVISION-1111111111111111\n  confirmed_by_owner_id: null\n  confirmed_on: null\n",
+          "source_sha256": "ebac2db33991bbcf84c8759b20b76f8cc57a3982362e3e51abcb5d4ce1ccb800",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 9,
+          "source_id": "current-project/docs/product/prd.md",
+          "start_line": 6,
+          "original_text": "**来源修订：**\n- 产品定义 `REVISION-2222222222222222`（draft）\n- 领域模型 `MODELREV-2222222222222222`（draft）\n\n",
+          "source_sha256": "fa47a3c79aeaa29ad2ed36aa749cdb76112a5ca7a940a6a32d1ff64800d4ce2e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 12,
+          "source_id": "current-project/docs/architecture/model.yaml",
+          "start_line": 9,
+          "original_text": "domain_model_ref:\n  model_id: MODEL-1111111111111111\n  revision_id: MODELREV-3333333333333333\ntitle: 预约申请工具架构\n",
+          "source_sha256": "6692cc131593cdbd551c8e2dea42964e61f6c00c18154d98f9e16368e6efd302",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 12,
+          "source_id": "current-project/docs/engineering/policy.yaml",
+          "start_line": 9,
+          "original_text": "product_definition_ref:\n  product_id: PRODUCT-1111111111111111\n  revision_id: REVISION-3333333333333333\nbase_profile_ref:\n",
+          "source_sha256": "918ceef7a5bb608bb52d509e930a3e4bb9db284c5ff0002c725d7467f0533fd4",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "needs_revision",
+      "verification_scope": "仅当前实际候选内容的独立就绪检查。之后仍须完成公开展示和程序要求的复核，核对文件字节与实际确认挑战后，才允许转交已登记的测试接受输入。",
+      "summary": {
+        "status": "needs_revision",
+        "failure_layer": "reviewer_reported",
+        "machine_checks": {
+          "full_current_candidate_readers_passed": true,
+          "declared_identity_differences_match": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "needs_revision",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 6,
+    "records": [],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false,
+  "supersedes_review": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\26a14ab34807\\evidence\\independent-review\\review.json",
+  "mechanical_correction_only": true
+}

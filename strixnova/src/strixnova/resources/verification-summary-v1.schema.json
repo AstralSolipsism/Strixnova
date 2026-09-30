@@ -1,0 +1,291 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.verification-summary.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "work_item_id",
+    "receipt_id",
+    "command_id",
+    "argv",
+    "cwd",
+    "run_kind",
+    "covers",
+    "reasons",
+    "started_at",
+    "duration_seconds",
+    "exit_code",
+    "result",
+    "output_summary",
+    "raw_output_refs",
+    "limitations",
+    "code_change_assessment",
+    "approval_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.verification-summary.v1"
+    },
+    "work_item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "receipt_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "command_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "argv": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "cwd": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_kind": {
+      "enum": [
+        "targeted_test",
+        "integration_test",
+        "acceptance_test",
+        "typecheck",
+        "build",
+        "lint",
+        "manual_check",
+        "full_regression"
+      ]
+    },
+    "covers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "reasons": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "started_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "duration_seconds": {
+      "type": "number",
+      "minimum": 0
+    },
+    "exit_code": {
+      "type": [
+        "integer",
+        "null"
+      ]
+    },
+    "result": {
+      "enum": [
+        "passed",
+        "failed",
+        "blocked",
+        "not_run"
+      ]
+    },
+    "not_run_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "output_summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stdout",
+        "stderr"
+      ],
+      "properties": {
+        "stdout": {
+          "type": "string"
+        },
+        "stderr": {
+          "type": "string"
+        }
+      }
+    },
+    "raw_output_refs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stdout",
+        "stderr"
+      ],
+      "properties": {
+        "stdout": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "stderr": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "approval_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "work_item_version",
+        "plan_id",
+        "policy_id",
+        "policy_revision_id",
+        "policy_observed_commit"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.verification-approval-ref.v1"
+        },
+        "work_item_version": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "plan_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_revision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policy_observed_commit": {
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "code_change_assessment": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "changed_after",
+            "needs_retest",
+            "rationale"
+          ],
+          "properties": {
+            "changed_after": {
+              "type": "boolean"
+            },
+            "needs_retest": {
+              "type": "boolean"
+            },
+            "rationale": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ]
+    },
+    "case_evidence": {
+      "$ref": "test-case-evidence-v1.schema.json"
+    },
+    "repository_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^REPO-[0-9A-F]{16}$"
+    },
+    "project_input_snapshot": {
+      "type": "object"
+    },
+    "inputs_changed_during_execution": {
+      "type": "boolean"
+    },
+    "execution_evidence_unavailable": {
+      "type": "boolean"
+    },
+    "dependency_evidence": {
+      "type": "object"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "result": {
+            "const": "not_run"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "not_run_reason"
+        ],
+        "properties": {
+          "limitations": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "execution_evidence_unavailable"
+        ],
+        "properties": {
+          "execution_evidence_unavailable": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "result": {
+            "const": "blocked"
+          },
+          "limitations": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}

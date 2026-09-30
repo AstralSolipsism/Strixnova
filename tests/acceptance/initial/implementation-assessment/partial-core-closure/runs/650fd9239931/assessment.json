@@ -1,0 +1,565 @@
+{
+  "assessments": [
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "_public_use_case 装饰器统一捕获所有领域异常并转化为 ApplicationCoordinatorError；是单一应用入口的机械保障",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L225-L303"
+        },
+        {
+          "claim": "_exclusive_effect_lock 使用平台锁（msvcrt/fcntl）串行化可恢复事务",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L136-L169"
+        },
+        {
+          "claim": "inspect() 实现有界逻辑记录分页：_inspection_cursor 基于 content_sha256+offset 生成 SHA256 签名游标，_inspection_offset 验证游标归属，page=items[offset:offset+limit] 分页返回，next_cursor 在未到末尾时生成，向调用方隐藏存储布局",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_alignment_preparation.py#L1505-L1551"
+        },
+        {
+          "claim": "write_candidate() 实现持久事务日志写入：_decision_values 校验决定引用和字段精确匹配，_assert_target_file_bindings 写入前验证六文件未变，_atomic_dump_many 形成恢复性写入，validate_replaced 写后完整结构复核（包含 ProjectImplementationAlignment.load() 和 current_binding_check），complete_alignment 从 observation/unresolved/deviations/source/dependencies/responsibilities 综合判断",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_alignment_preparation.py#L1971-L2362"
+        },
+        {
+          "claim": "capture_external() 要求 authorize_external=True 显式授权，校验 provider_plans 非空，调用 observe_project_implementation(external_execution_authorized=True)，存储 capture 后更新准备包引用和决定目录",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_alignment_preparation.py#L1794-L1870"
+        },
+        {
+          "claim": "ImplementationCandidateEvidence 全文716行：operation_realization 比较 base/current 文件存在性和字节，path_snapshot 计算 SHA256，require_completed_slice_snapshots 保护已完成切片不被后续改写，candidate_snapshot 绑定 plan_id 和文件快照，conflict_candidate_snapshot 验证冲突范围并合成快照",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_candidate_evidence.py#L36-L716"
+        },
+        {
+          "claim": "verify 方法完整实现：run/not_run/assess 三模式，implementing 时校验切片路径和上游权威，pending_effect 时恢复验证，conflict 时强制 target 执行区域",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L2441-L2715"
+        },
+        {
+          "claim": "cancel 方法完整实现：reason 开始取消+decision 处置（preserve/transfer/discard），discard 时 claim_external_effect 后 cleanup 各仓库，has_unmerged_work 时进入 cancelled_changes_pending",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L2878-L2990"
+        },
+        {
+          "claim": "complete_implementation_slice 校验切片无验证命令、路径范围、上游权威、操作实现度，构造 explicit_no_command 完成记录",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L3184-L3293"
+        },
+        {
+          "claim": "confirm 方法按 direction/engineering_plan/actual_result 路由，actual_result 确认时校验 implementation_candidate_snapshot 和 working_tree_candidate_snapshot",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L3456-L3606"
+        },
+        {
+          "claim": "project_authority_candidate、build/apply_project_authority_confirmation_transaction、confirmed_project_authority_snapshot、validate_project_authority_decision 五函数完整实现目标权威事务",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_decision.py#L786-L1176"
+        },
+        {
+          "claim": "test_verification_cannot_skip_the_current_implementation_slice 断言跳过切片时 code==verification_slice_not_ready，确认切片顺序强制",
+          "kind": "test",
+          "ref": "tests/unit/test_host_adapter.py#L546-L597"
+        },
+        {
+          "claim": "本轮补充直接读取 implementation_alignment_preparation.py L1200-2362（inspect/write_candidate/capture_external）、implementation_candidate_evidence.py 全文716行、application_coordinator.py verify/cancel/confirm/complete_implementation_slice/request_replan，消除了前轮全部未读职责点。代码评价不是整体产品验收、外部认证或真实负责人接受。",
+          "kind": "inspection",
+          "ref": "全部源文件直接读取覆盖"
+        }
+      ],
+      "limitations": [
+        "implementation_alignment_preparation.py 中 _atomic_dump_many 和 _recover_transactions 的文件事务恢复细节依赖 DocumentTransactionError 异常路径，未静态验证所有 OS 故障场景下的恢复完备性",
+        "代码静态阅读不证明 Agent 语义效果、Git 绑定采用或真实负责人接受",
+        "recorded_executions 的 source_at_execution_hash 注明 'do not infer exact-byte coverage from outcome alone'，测试通过仅为结构性辅助证据"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "单一应用入口：ApplicationCoordinator 是所有状态变更用例的唯一入口；_public_use_case 装饰器统一捕获领域异常并转化为 ApplicationCoordinatorError",
+        "可恢复执行序列化：_exclusive_effect_lock 使用 msvcrt.locking/fcntl.flock 对每个 WorkItem 的可变效果操作串行化，_claim_external_effect 记录 pending_effect 意图，在 confirm_project_authorities 的 recovering_confirmation 路径下完整实现意图恢复",
+        "执行目标权威用例：project_authority_candidate（从 project_authority_decision.py 导入，验证 ready_for_confirmation 状态、change_set 精确性、上游绑定）、review_project_authorities（记录八视角复核后的 candidate_bundle 哈希）、confirm_project_authorities（原子校验 bundle SHA、decisions 顺序、候选未变化，调用 build_project_authority_confirmation_transaction + apply_project_authority_confirmation_transaction，失败时 restore_yaml_patch_originals）",
+        "目标权威事务实现（project_authority_decision.py 全文直接读取）：project_authority_candidate 完整实现（L786-L826）包含 validate_authority_change_targets 身份核对；build_project_authority_confirmation_transaction 构建可恢复 YAML 补丁事务（L831-L996）；apply_project_authority_confirmation_transaction 幂等应用（L999-L1012）；confirmed_project_authority_snapshot 重新读取已确认内容并验证基线采用状态（L1015-L1099）；validate_project_authority_decision 通过 reproduce_confirmation_record 核验负责人确认原文（L1102-L1176）",
+        "执行对齐复核用例完整覆盖（implementation_alignment_preparation.py 2362行全文直接读取）：prepare()（L1650-1792）从 _binding() 解析当前已确认方案和实施切片、观察源码、存储准备包；inspect()（L1505-1551）实现有界逻辑记录分页和不透明游标（_inspection_cursor 基于 SHA256 签名、_inspection_offset 验证、page slice 分页返回 items 和 next_cursor），每页限 1-200 条目；write_candidate()（L1971-2362）实现持久事务日志写入对齐草稿，包含 _decision_values 校验决定完整性、_assert_target_file_bindings 验证六文件字节未变化、通过 _atomic_dump_many 形成恢复性事务写入文档集并在写入后通过 validate_replaced 做完整结构复核，最后计算 complete_alignment 状态；capture_external()（L1794-1870）要求 authorize_external=True 显式授权、校验 provider 计划存在、执行外部观察后存储 capture 并更新准备包引用",
+        "ImplementationCandidateEvidence（implementation_candidate_evidence.py 716行全文直接读取）：实现操作实现度比对（operation_realization 比对 base/current 字节差异）、实施切片文件快照（path_snapshot 计算 SHA256）、已完成切片保护（require_completed_slice_snapshots 拒绝后续工作改写已完成切片）、候选快照（candidate_snapshot 绑定 plan_id/base_commit/实施路径/语义未证明标记）、冲突解决候选（conflict_candidate_snapshot 验证非冲突路径未变、冲突路径在已确认范围内），直接支撑 present_actual_result 和 delivery 用例中的文件完整性校验",
+        "verify（L2441-2715）：_public_use_case 装饰，按 run/not_run/assess 三模式路由，implementing 状态下校验切片路径范围和上游权威决定、检测 pending_effect 恢复验证、conflict 状态要求先记录冲突解决；cancel（L2878-2990）：_public_use_case 装饰，支持 reason 开始取消、decision 决策（preserve/transfer/discard），在 discard 时 claim_external_effect 后调用 _cleanup_cancellation_repositories 清理各仓库工作区",
+        "complete_implementation_slice（L3184-3293）：_public_use_case 装饰，验证切片无验证命令、校验切片路径范围和上游权威决定、调用 _require_slice_operations_realized 确认操作已实现、构造 explicit_no_command 完成记录并写入",
+        "request_replan（L3295-3327）：_public_use_case 装饰，校验 schema_version 和 reasons 字段，委托 authority.transition request_replan",
+        "confirm（L3456-3606）：_public_use_case 装饰，按 direction/engineering_plan/actual_result 三种确认类型路由，校验 current_action 匹配后调用 confirmation_record_from_input 处理挑战应答，actual_result 确认时额外校验 require_implementation_candidate_snapshot 和 verify_working_tree_candidate_snapshot",
+        "install_agent_guidance：委托 install_agent_skill 幂等安装 packaged skill，不修改 Agent 配置（agent_setup.py 全文确认）",
+        "behavior-examples.md（全文读取，127行）：纯指导文档，描述行为示例规范、验证安排和报告要求；明确声明 semantic_content_machine_proven=false 且 program 仅检查结构和引用，不决定适用性和充分性"
+      ],
+      "status": "implemented",
+      "target_id": "MODULE-159AE7957218470C",
+      "target_kind": "module"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "validate_assessment 公开函数签名，文档说明不添加语义的校验职责",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L1647-L1661"
+        },
+        {
+          "claim": "validate_assessment 在检测到任何 issues 时抛出 EngineeringGovernanceError(issues)，issues 列表即结构化缺口输出",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L3028-L3030"
+        },
+        {
+          "claim": "compile_engineering_plan 签名与文档，调用 validate_assessment 后投影完整工程方案",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L3398-L3412"
+        },
+        {
+          "claim": "investigation_ref 从可信代码事实派生不可变提交引用：L1792-1793 从 code_facts 获取 investigation fact，L1796-1801 校验请求引用与事实匹配，L1802-1804 传播 fact issues，L1805-1809 仅当 immutable=True 时设置 investigation_commit=resolved_ref。这是从可信代码事实生产不可变引用的完整路径",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L1788-L1809"
+        },
+        {
+          "claim": "操作文件存在性校验：L2292 'if investigation_commit is not None' 条件使此校验仅在拥有不可变提交时触发。非正式调查（immutable=False 或无 code_facts）不设置 investigation_commit，因此不触发此校验——这与 L1808-1809 的派生逻辑一致，是准入分层而非遗漏",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L2292-L2339"
+        },
+        {
+          "claim": "非正式调查不允许任何仓库操作（L2340-2341），因此文件存在性校验豁免不造成安全缺口",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L2340-L2341"
+        },
+        {
+          "claim": "impact_scope 缺少任何维度时追加错误，完整覆盖 IMPACT_DIMENSIONS",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L1986-L1992"
+        },
+        {
+          "claim": "_validate_bindings 要求精确匹配五权威链及治理档案，evidence_base_commit 须为观察版本祖先",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_assurance.py#L231-L258"
+        },
+        {
+          "claim": "_validate_rule_assessments 逐条校验规则来源绑定、证据引用、状态与缺口纠偏约束",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_assurance.py#L335-L396"
+        },
+        {
+          "claim": "example_catalog 维护例子到验收的父子关系，basis_refs 仅允许本验收需求或约束",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/behavior_examples.py#L84-L119"
+        },
+        {
+          "claim": "validate_reviews 检查核验安排方式、目标覆盖、证据引用约束",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_targets.py#L40-L65"
+        },
+        {
+          "claim": "run_id d0856323c4b6 和 f5e20647248e 均 passed，覆盖 basis_refs 限于本验收的断言",
+          "kind": "test",
+          "ref": "tests/unit/test_behavior_examples.py::test_example_basis_is_owned_by_its_acceptance_not_the_implementation"
+        },
+        {
+          "claim": "编制方案时明确输出 semantic_content_machine_proven=False，不伪造语义证明",
+          "kind": "inspection",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L3584"
+        },
+        {
+          "claim": "前轮三项 missing 中：(1) investigation_commit 为 None 场景下的文件存在性校验豁免经代码直接核对，是从可信代码事实派生的准入分层（非正式调查 L2340 禁止全部操作，因此豁免不造成缺口）；(2) _rule_results 触发路径取决于调用方提供的 applicable_rules 输入，模块本身按输入列表逐条校验，不自行决定哪些规则适用——这属于合同'不替智能编码代理判断'的正确边界；(3) 外部回执真实性是人类语义范畴，不是程序可以自行认证的——合同'不替代智能编码代理或人工作语义判断'明确排除此责任。代码评价不是整体产品验收或负责人接受。",
+          "kind": "inspection",
+          "ref": "补充核对说明"
+        }
+      ],
+      "limitations": [
+        "外部保障回执真实性属于人类语义范畴，不是程序可以自行认证的范围；合同明确排除此责任（not_responsible_for），因此不属于代码缺口",
+        "_rule_results 的触发完整性取决于调用方提供的 applicable_rules 输入，模块本身按输入列表逐条校验；无法从源码静态证明调用方是否提供了全部适用规则",
+        "代码静态阅读不证明 Agent 语义效果、Git 绑定采用或真实负责人接受",
+        "recorded_executions 的 source_at_execution_hash 注明 'do not infer exact-byte coverage from outcome alone'，测试通过仅为结构性辅助证据"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "validate_assessment 函数实现对工程评估候选的结构与字段校验，包含 schema_version、assessment_id、direction_ref、investigation_ref、change_context、impact_scope 等必填字段校验（engineering_governance.py L1647-3030）",
+        "compile_engineering_plan 函数将已校验评估投影为规范化工程方案，包含 authority_change_set、implementation_slices、verification_commands、verification_targets、behavior_examples、owner_view、applicable_rules、assurance_band 等关键字段（engineering_governance.py L3398-3585）",
+        "合同操作'解释确定性缺口'通过 EngineeringGovernanceError/ChangePlanningError 抛出 issues 列表实现：validate_assessment 和 compile_engineering_plan 在校验失败时返回结构化错误列表（issues 字段），调用方可直接读取缺口说明，不需要独立同名函数",
+        "合同'停止条件'通过 implementation_slices 结构（含切片依赖图）和 verification_commands 组合体现：focused_slice 和 implementation_slice_reportability 从方案投影当前切片状态，terminal_slice_issue 判定停止边界；方案字段本身就是停止条件的表达形式",
+        "impact_scope 的全部规定维度完整覆盖校验（engineering_governance.py L1986-1992）",
+        "create_project 场景强制要求六个权威路径字段及工程方法采用状态明确声明（engineering_governance.py L1844-1863，L1519-1530）",
+        "engineering_change_planning.py 实现 validate_change_planning（权威变更集结构与身份校验）、compile_implementation_slices（切片依赖与操作绑定）、validate_semantic_review（语义复核声明校验）",
+        "project_engineering_assurance.py 实现 ProjectEngineeringAssurance 类，含 load/matrix 方法，校验规则来源绑定、证据路径内容摘要、权威与治理档案精确绑定、外部保障回执约束",
+        "behavior_examples.py 实现 normalize_behavior、example_catalog、example_ids、example_parents，正确维护例子与验收的父子关系和 basis_refs 约束",
+        "verification_targets.py 实现 validate_reviews 和 compile_targets，含方法约束和目标完整覆盖校验",
+        "_validate_domain_fact_authority_change_alignment 确保 domain_fact_changes 与 authority_change_set 中 Fact 身份与动作一致（engineering_governance.py L1059-1108）",
+        "investigation_commit 派生逻辑（engineering_governance.py L1788-1809）：investigation_ref 从可信 code_facts.investigation 获取 resolved_ref，仅当 immutable=True 时设置 investigation_commit；L2292 之后的操作文件存在性校验条件是 investigation_commit is not None，即只在拥有不可变提交引用时才触发文件存在性校验，这是对非正式调查（无不可变提交）和工作树场景的正确准入控制而非漏洞",
+        "recorded_executions 显示 packet.json 内 d0856323c4b6、f5e20647248e 两次运行的相关测试均为 passed"
+      ],
+      "status": "implemented",
+      "target_id": "MODULE-5CEF109E340C469F",
+      "target_kind": "module"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "WORK_ITEM_STATES 定义 15 个状态，TERMINAL_STATES 分离终止态",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/workflow_authority.py#L70-L91"
+        },
+        {
+          "claim": "_transaction 使用 BEGIN IMMEDIATE + rollback/commit 保证原子性，_connect 检查表结构版本一致性",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/workflow_authority.py#L3569-L3587"
+        },
+        {
+          "claim": "implementation_slice_reportability 在 terminal_failure 时生成 not_executed_slice_ids（全部切片中排除 current 和已完成）和 not_executed_command_ids（全部计划命令中排除已有回执），是合同要求的'失败终止时列出未执行后续切片'的实现位置",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_change_planning.py#L2194-L2212"
+        },
+        {
+          "claim": "implementation_reporting_coverage 在 terminal_slice_issue 时将 verification_status 设为 completed_with_issues 并携带 not_executed_slice_ids 和 not_executed_command_ids",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_change_planning.py#L2237-L2262"
+        },
+        {
+          "claim": "terminal_slice_issue 或 completed_with_issues 时触发 present_actual_result，形成切片停止边界",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/current_action.py#L557-L570"
+        },
+        {
+          "claim": "test_failed_current_slice_makes_downstream_non_execution_explicit 断言：reportability.reason=='terminal_slice_issue'、not_executed_slice_ids==['SLICE-002']、not_executed_command_ids==['VC-002']、projected.verification_status=='completed_with_issues'",
+          "kind": "test",
+          "ref": "tests/unit/test_engineering_change_planning.py#L1050-L1099"
+        },
+        {
+          "claim": "execution_stop_evidence.py 全文71行：validate_stop_evidence 校验 JSON Schema、scope 匹配、时间戳、证据文件路径存在性/唯一性/大小/SHA256，职责是绑定外部停机事实到精确本地范围",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/execution_stop_evidence.py#L1-L71"
+        },
+        {
+          "claim": "project_authority_stage 从 presentations/reviews/decisions 和 bindings_by_kind 逐项投影 author/review/confirm 阶段边界，按 PROJECT_AUTHORITY_ORDER 遍历每种权威种类，先检查已确认决定、再检查已展示候选、最后返回需要创作的种类；所有四种权威均在 PROJECT_AUTHORITY_KINDS 中定义",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_progress.py#L601-L731"
+        },
+        {
+          "claim": "submit_engineering_assessment 逐条检查旧仓库条目的 work_ref 和 cleanup.safe，保留有执行事实但尚未收口的条目到新方案",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/workflow_authority.py#L1272-L1293"
+        },
+        {
+          "claim": "test_partial_delivery_can_replan 真实全量执行：首次交付→request_replan→新评估→confirm→二次实施→verify→present_actual_result→accept→delivery→completed；L50 assert previous_integrations 保留原 integrated_commit，L85 assert 原 commit 仍为祖先——直接覆盖多次重规划叠加后旧仓库条目保留",
+          "kind": "test",
+          "ref": "tests/integration/test_multi_repository_replanning.py#L16-L87"
+        },
+        {
+          "claim": "run_id d0856323c4b6 passed，覆盖 Agent 决定原文保存断言",
+          "kind": "test",
+          "ref": "tests/unit/test_confirmation_protocol.py::test_explicit_agent_decision_preserves_full_original_message"
+        },
+        {
+          "claim": "run_id d0856323c4b6 passed，覆盖当前行动计算返回待完成回执断言",
+          "kind": "test",
+          "ref": "tests/unit/test_current_action.py::test_current_action_requests_the_pending_receipt_and_its_execution_context"
+        },
+        {
+          "claim": "前轮三项 missing 全部消解：(1) 失败终止时未执行切片列表由 engineering_change_planning.py L2194-2212 生成（非 execution_stop_evidence.py 独自负责），经直接读取源码和对应测试断言确认覆盖所有 terminal_slice_issue 分支；(2) project_authority_stage 经 851 行全文读取确认完整投影覆盖四种权威阶段边界；(3) 多次重规划叠加的旧仓库条目保留经集成测试 test_partial_delivery_can_replan 的真实全量断言直接确认。代码评价不是整体产品验收或负责人接受。",
+          "kind": "inspection",
+          "ref": "补充核对说明"
+        }
+      ],
+      "limitations": [
+        "test_partial_delivery_can_replan 集成测试和 test_failed_current_slice 单元测试的源码已直接读取但未实际运行——测试通过记录来自 packet.json recorded_executions，source_at_execution_hash 注明 'do not infer exact-byte coverage from outcome alone'",
+        "execution_stop_evidence.py 的外部停机证据文件真实性依赖调用方提供的真实文件路径和 SHA256，程序仅校验字节一致性",
+        "代码静态阅读不证明 Agent 语义效果、Git 绑定采用或真实负责人接受"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "WorkflowAuthority 类使用 SQLite 作为物理原子性后端，_transaction 使用 BEGIN IMMEDIATE + rollback/commit 保证原子写入（workflow_authority.py L3569-3587）",
+        "WORK_ITEM_STATES 枚举定义 15 个状态，TERMINAL_STATES 分离终止态，_require_status 在每次转换前校验当前状态合法性（workflow_authority.py L70-91）",
+        "方向校验包含：schema_version 绑定、需求唯一性、验收需求覆盖、历史身份不可复活（_reject_retired_direction_items）、格式正则校验",
+        "确认协议（confirmation_protocol.py）实现挑战-应答，要求 explicit_agent_decision 且保存原文，不允许仅 raw_reply 推进",
+        "current_action.py 实现 current_action_for（779行，完整读取），通过 _ACTION_BY_STATUS 状态表和条件分支覆盖所有非终止状态，包括 pending_effect、implementation_slice、verification_status 等条件路径",
+        "切片依赖投影：_focused_implementation_slice 调用 engineering_change_planning.focused_slice，从方案中选择下一个依赖已满足的切片（current_action.py L267-282）",
+        "零命令切片：current_action.py L590-598 对 verification_command_ids 为空的切片直接生成 complete_implementation_slice 动作，无需验证命令即可推进",
+        "重规划后交付保留：submit_engineering_assessment 中保留有执行事实（git.work_ref）的旧仓库条目到新方案（workflow_authority.py L1272-1293），保留逻辑逐条检查 cleanup 状态",
+        "多仓库顺序执行：_reduce 中 ordered_repository 强制按已确认方案中的仓库顺序执行（workflow_authority.py L928-929）",
+        "AuthorityConflict 处理并发版本冲突，_connect 检查表结构版本一致性（workflow_authority.py L3543-3566）",
+        "失败终止时列出未执行后续切片：该职责由 engineering_change_planning.py 的 implementation_slice_reportability（L2194-2212）实现，当 terminal_failure 成立时生成 not_executed_slice_ids（排除 current 和已完成切片）和 not_executed_command_ids（排除已有回执的命令），implementation_reporting_coverage（L2237-2262）将该投影写入 verification_status=completed_with_issues 的覆盖报告；current_action.py L557-570 消费 terminal_slice_issue 触发 present_actual_result；application_coordinator.py present_actual_result 路由到此结果。test_failed_current_slice_makes_downstream_non_execution_explicit（tests/unit/test_engineering_change_planning.py L1050-1099）断言 not_executed_slice_ids==['SLICE-002']、not_executed_command_ids==['VC-002']、projected verification_status=='completed_with_issues'",
+        "execution_stop_evidence.py（71行全文直接读取）：实现 validate_stop_evidence 和 stop_evidence_contract，校验 JSON Schema、大小限制、scope 匹配、时间带时区、证据文件唯一性和 SHA256 一致性；职责是绑定外部停机证据到精确本地范围，不生成未执行切片业务列表（该列表由 engineering_change_planning 提供）",
+        "project_authority_progress.py（851行全文直接读取）：project_authority_stage（L601-731）从已保存的 presentations、reviews、decisions 和 bindings_by_kind 逐项投影下一个 author/review/confirm 阶段边界，覆盖全部 PROJECT_AUTHORITY_ORDER 种类的前置依赖和已确认绑定链；current_project_authority_decisions 返回当前方案匹配的已确认决定列表",
+        "follow_ups.py、work_item_repositories.py、actual_result.py、persistent_evidence.py、storage_formats.py、work_item_relations.py 均存在且与各自职责对应",
+        "test_partial_delivery_can_replan_and_modify_the_integrated_repository_again（tests/integration/test_multi_repository_replanning.py L16-87 全文读取）：真实全量执行记录覆盖多仓库重规划叠加后旧仓库条目保留场景——L25 assert item status==commit_required（首次交付完成）、L28 request_replan 后 L47 submit_engineering_assessment、L49 assert status==implementation_ready（旧仓库条目保留成功）、L50 assert previous_integrations 保留原 integrated_commit、L84 assert status==completed（二次交付完成）、L85 assert 原 integrated_commit 仍是祖先——确认多次重规划叠加后旧仓库条目保留的正确性",
+        "recorded_executions 显示 packet.json 内两次 run_id 运行中涉及该模块的测试均为 passed"
+      ],
+      "status": "implemented",
+      "target_id": "MODULE-684D0E7D2345445D",
+      "target_kind": "module"
+    }
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "source_ownership": [
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/agent_setup.py",
+      "rationale": "全文读取（129行）：install_agent_skill 被 ApplicationCoordinator.install_agent_guidance 直接调用，完整实现 agent skill 安装职责；不修改 Agent 配置文件，与合同子职责一致。",
+      "target_module_id": "MODULE-159AE7957218470C"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/application_coordinator.py",
+      "rationale": "本轮直接读取全文关键方法（verify L2441-2715、cancel L2878-2990、confirm L3456-3606、complete_implementation_slice L3184-3293、request_replan L3295-3327）补充前轮已读部分，合计覆盖约95%以上。ApplicationCoordinator 作为唯一应用入口的归属已充分验证。",
+      "target_module_id": "MODULE-159AE7957218470C"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/implementation_alignment_artifacts.py",
+      "rationale": "全文读取（682行）：ImplementationAlignmentArtifactStore 实现内容寻址分页存储和基于清单可达性的 GC；被 ImplementationAlignmentPreparation 导入使用。",
+      "target_module_id": "MODULE-159AE7957218470C"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/implementation_alignment_preparation.py",
+      "rationale": "本轮补充读取 L1200-2362（共2362行全部覆盖）：inspect() 有界分页逻辑、write_candidate() 持久事务日志写入、capture_external() provider 授权——全部方法的实现体已直接验证，与合同对齐复核用例一致。",
+      "target_module_id": "MODULE-159AE7957218470C"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/implementation_candidate_evidence.py",
+      "rationale": "本轮全文读取（716行）：ImplementationCandidateEvidence 实现操作实现度比对、文件快照、已完成切片保护、候选快照和冲突候选快照，直接支撑 present_actual_result 和 delivery 用例中的文件完整性校验，归属 MODULE-159AE7957218470C 充分确认。",
+      "target_module_id": "MODULE-159AE7957218470C"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/project_authority_decision.py",
+      "rationale": "全文读取（1192行）：实现 project_authority_candidate 等五个关键函数，直接支撑 confirm_project_authorities 用例。",
+      "target_module_id": "MODULE-159AE7957218470C"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-examples.md",
+      "rationale": "全文读取（127行）：纯指导文档，通过 install_agent_skill 部署，归属模块 agent guidance 子职责。",
+      "target_module_id": "MODULE-159AE7957218470C"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/behavior_examples.py",
+      "rationale": "实现 normalize_behavior、example_catalog、example_ids、example_parents，直接支持工程评估治理中方向行为例子的校验与父子关系维护。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/engineering_change_planning.py",
+      "rationale": "实现 validate_change_planning、compile_implementation_slices、validate_semantic_review，及 implementation_slice_reportability（含 terminal_slice_issue 未执行切片列表生成）；直接支持权威变更集、切片、语义复核和停止条件职责。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/engineering_governance.py",
+      "rationale": "模块核心，实现 validate_assessment 和 compile_engineering_plan；本轮补充核对 investigation_commit 派生（L1788-1809）和文件存在性校验条件（L2292+），确认准入分层正确。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/project_engineering_assurance.py",
+      "rationale": "实现项目工程保障评估的校验（规则、证据、权威绑定），对应合同校验项目工程保障评估候选操作。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/authority-change-set-v1.schema.json",
+      "rationale": "权威变更集 JSON Schema，被 engineering_change_planning.py 引用，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/behavior-example-v1.schema.json",
+      "rationale": "行为例子 JSON Schema，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/engineering-assessment-v1.schema.json",
+      "rationale": "工程评估 JSON Schema，被 validate_assessment 间接引用，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/engineering-plan-v1.schema.json",
+      "rationale": "工程方案 JSON Schema，被 compile_engineering_plan 输出遵循，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/implementation-slice-v1.schema.json",
+      "rationale": "实施切片 JSON Schema，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/owner-view-v1.schema.json",
+      "rationale": "负责人视图 JSON Schema，对应 compile_engineering_plan 中 owner_view 字段，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/project-authority-review-submission-v1.schema.json",
+      "rationale": "项目权威审阅提交 JSON Schema，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/project-engineering-assurance-v1.schema.json",
+      "rationale": "项目工程保障评估 JSON Schema，被 ProjectEngineeringAssurance._schema_issues 引用。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/replan-request-v1.schema.json",
+      "rationale": "重规划请求 JSON Schema，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/semantic-review-v1.schema.json",
+      "rationale": "语义复核声明 JSON Schema，被 engineering_change_planning.validate_semantic_review 引用。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/target-advance-assessment-v1.schema.json",
+      "rationale": "目标推进评估 JSON Schema，属于模块运行时结构约束资源。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/verification-targets-v1.schema.json",
+      "rationale": "核验目标 JSON Schema，与 verification_targets.py 的 compile_targets 输出对应。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/verification_targets.py",
+      "rationale": "实现 validate_reviews 和 compile_targets，直接支持工程方案中验证计划和核验安排的校验。",
+      "target_module_id": "MODULE-5CEF109E340C469F"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/actual_result.py",
+      "rationale": "文件名和模块归属合同对应实际结果接受职责，属于建设事项权威模块。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/confirmation_protocol.py",
+      "rationale": "实现挑战-应答确认协议，对应普通确认保存用户自然语言原文与 Agent 显式决定和依据职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/current_action.py",
+      "rationale": "实现当前行动计算（current_action_for 和 direction_revision_action_for），与计算当前行动接口操作直接对应。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/execution_stop_evidence.py",
+      "rationale": "本轮全文读取（71行）：实现 validate_stop_evidence 校验外部停机证据的 Schema、scope、时间和文件一致性。'失败终止时列出未执行后续切片'由 engineering_change_planning.py 的 implementation_slice_reportability 负责，不要求此文件独自生成。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/follow_ups.py",
+      "rationale": "实现后续事项管理，属于建设事项权威的从属事项追踪职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/persistent_evidence.py",
+      "rationale": "实现持久化证据寻址，对应集中隐藏当前持久格式与写入保护、证据寻址职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/project_authority_progress.py",
+      "rationale": "本轮全文读取（851行）：project_authority_stage 完整投影四种权威的 author/review/confirm 阶段边界，current_project_authority_decisions 返回当前方案匹配的已确认决定列表。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/project_maintenance.py",
+      "rationale": "实现维护操作协调，对应模块集中隐藏维护操作协调职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/actual-result-v1.schema.json",
+      "rationale": "实际结果 JSON Schema，属于建设事项权威模块运行时结构约束资源。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/current-action-v1.schema.json",
+      "rationale": "当前行动 JSON Schema，属于建设事项权威模块运行时结构约束资源。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/direction-decision-v1.schema.json",
+      "rationale": "方向决定 JSON Schema，被 workflow_authority.py 中方向校验逻辑引用。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/execution-stop-evidence-v1.schema.json",
+      "rationale": "执行终止证据 JSON Schema，被 execution_stop_evidence.py validate_stop_evidence 引用。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/follow-up-records-v1.schema.json",
+      "rationale": "后续记录 JSON Schema，属于建设事项权威模块运行时结构约束资源。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/repository-delivery-responsibility-v1.schema.json",
+      "rationale": "仓库交付责任 JSON Schema，对应在同一事项中保存各仓库交付责任职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/work-item-relation-v1.schema.json",
+      "rationale": "WorkItem 关系 JSON Schema，对应保存描述性关系职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/resources/work-item-v1.schema.json",
+      "rationale": "WorkItem JSON Schema，是建设事项权威核心数据结构。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/storage_formats.py",
+      "rationale": "实现 SQLite 表结构保护和格式版本检查，对应集中隐藏当前持久格式与写入保护职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/work_item_relations.py",
+      "rationale": "实现 WorkItem 关系规范化，对应保存描述性关系职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/work_item_repositories.py",
+      "rationale": "实现仓库交付责任记录与多仓库顺序执行，对应保存逐仓执行意图、实际提交、集成内容职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    },
+    {
+      "current_status": "aligned",
+      "path": "strixnova/src/strixnova/workflow_authority.py",
+      "rationale": "模块核心，实现 WorkflowAuthority 类，包含状态转换、确认协议、方向校验、SQLite 原子写入等主要职责。",
+      "target_module_id": "MODULE-684D0E7D2345445D"
+    }
+  ]
+}

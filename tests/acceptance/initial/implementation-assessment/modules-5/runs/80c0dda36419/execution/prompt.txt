@@ -1,0 +1,9 @@
+宿主执行说明：若工具转为后台执行，查询状态不等于等待完成。请使用宿主提供的实际等待或唤醒工具（例如 schedule），收到真实完成结果后继续。不能仅用一段“正在等待”的回答代替等待。
+
+读取AGENTS.md、inputs/packet.json，并按其中导航实际阅读相关代码、Schema、测试断言与记录结果。请独立评价本组当前目标承担其目标职责的程度，并在assessment.json写出可复核候选。不要运行程序或测试，不把测试名称、文件存在或通过数量当充分证据；不要因新仓库尚无Git提交就忽略可直接观察的代码职责，也不得冒充正式Git绑定。
+
+输出一个JSON对象：assessments数组每个目标恰好一次，字段为target_id、target_kind（逐项使用packet中的module/relationship/constraint）、status（implemented/partially_implemented/not_implemented/unknown）、satisfied（具体已支持职责列表）、missing（真实缺口列表）、evidence（每项kind为source/test/artifact/command/inspection，ref为复制来源的原仓库相对路径加可定位行号或真实运行ID/测试node，claim精确限定支持内容）、resolution_plan（字符串数组，单条也用数组）、limitations（字符串数组）。source_ownership数组对packet列出的每个归属候选文件恰好一次，字段为path、target_module_id、current_status（aligned/partially_aligned/drifted/unknown/not_applicable）、rationale。另加owner_accepted=false、semantic_content_machine_proven=false。
+
+源码/断言支持哪些机制，实际运行证明哪些输入结果，Agent/负责人语义哪些尚未证明，必须分开。implemented不等于无缺陷或完整产品验收；若职责本身仍缺必要支持就用部分或未知，并给出真实依据。公开操作含义不自动要求每项都有独立同名方法；校验成功后返回的常量不自动是缺口；其他模块明确承担的协调或决定权不应列为本模块缺实现。未提交Git、未独立记录执行时源码摘要和未证明人类语义通常属于接线/证据边界，必须与实际未实现职责分开。不要为消除unknown而编造覆盖。原仓库路径一律从inputs/files/复制根读取。只写assessment.json，完成后说明关键结论与局限。
+现有底账合同还要求：implemented时missing必须为空；其他状态missing和resolution_plan都至少一条。证据局限放limitations，不冒充缺失职责；归属未读时保留unknown，同时不能无充分支持把其整模块直接评为implemented。
+对于关系或约束目标，source_ownership输出空数组。关系必须核对模式、方向、实际调用/委托与被依赖接口，不能仅凭有/无import断言全部成立；through_module检查中介两段调用，forbidden说明检查范围与动态调用局限。约束按实际要求区分程序机制、测试断言和真实Agent行为；没有行为证据不能用静态文字代替。

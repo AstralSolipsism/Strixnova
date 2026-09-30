@@ -1,0 +1,49 @@
+{
+  "original_mechanical_passed": true,
+  "original_failed_steps": [],
+  "unsettled_steps": [],
+  "bare_python_commands_observed": [
+    {
+      "step_index": 210,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\ndata['impact_scope']['affected'] = [\n  {'dimension': 'domain', 'reason': '新增状态', 'evidence_refs': ['direction']},\n  {'dimension': 'architecture', 'reason': '更新目标架构', 'evidence_refs': ['direction']},\n  {'dimension': 'user_behavior', 'reason': '支持用户撤回待审核申请', 'evidence_refs': ['direction']}\n]\ndata['impact_scope']['unaffected'] = ['product_scope', 'interface', 'data', 'security_privacy', 'qua…"
+    },
+    {
+      "step_index": 212,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\ndata['impact_scope']['affected'] = [\n  {'dimension': 'domain', 'reason': '新增状态', 'evidence_refs': ['direction']},\n  {'dimension': 'architecture', 'reason': '更新目标架构', 'evidence_refs': ['direction']},\n  {'dimension': 'user_behavior', 'reason': '支持用户撤回待审核申请', 'evidence_refs': ['direction']}\n]\ndata['impact_scope']['unaffected'] = ['product_scope', 'interface', 'data', 'security_privacy', 'qua…"
+    },
+    {
+      "step_index": 214,
+      "command": "python -c \"\nimport json\n\nauthority_change_set = {\n  'schema_version': 'strixnova.authority-change-set.v1',\n  'change_set_id': 'AUTHCHANGE-0000000000000001',\n  'work_item_id': 'WI-20260928-9A2A1BC1',\n  'semantic_content_machine_proven': False,\n  'base_authorities': [\n    {\n      'authority_kind': 'product_definition',\n      'artifact_id': 'PRODUCT-1111111111111111',\n      'revision_id': 'REVISION-1111111111111111',\n      'path': 'docs/product/definition.yaml',\n      'status': 'confirmed',\n      'observed_com…"
+    },
+    {
+      "step_index": 222,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\n# Fix operations\ndata['operations'][1]['long_lived_artifact'] = {\n    'artifact_id': 'ARCH-1111111111111111',\n    'artifact_type': 'architecture'\n}\ndata['operations'][2]['long_lived_artifact'] = {\n    'artifact_id': 'MODEL-1111111111111111',\n    'artifact_type': 'domain_model'\n}\n\n# Fix changes[0].target_ref\ndata['authority_change_set']['changes'][0]['target_ref'] = 'FACT-2222222222222222'…"
+    },
+    {
+      "step_index": 228,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\n# Change operations[1] to be model.yaml\ndata['operations'][1]['path'] = 'docs/architecture/model.yaml'\n\n# Add architecture-modules.yaml back\ndata['operations'].append({\n    'action': 'modify',\n    'path': 'docs/architecture/architecture-modules.yaml',\n    'reason': '更新跨单元目标架构模块',\n    'evidence_refs': ['direction'],\n    'implements': ['direction.requirement:DIRREQ-A100000000000001']\n})\n\nda…"
+    },
+    {
+      "step_index": 230,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\ndata['operations'].append({\n    'action': 'modify',\n    'path': 'docs/domain/sources/core.yaml',\n    'reason': '添加Reservation实体与状态',\n    'evidence_refs': ['direction'],\n    'implements': ['direction.requirement:DIRREQ-A100000000000001']\n})\n\ndata['implementation_slices'][0]['operation_refs'] = [f'operations[{i}]' for i in range(len(data['operations']))]\n\nwith open('.agent-inputs/assessment…"
+    },
+    {
+      "step_index": 234,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\n# Add to candidate_authorities\ndata['authority_change_set']['candidate_authorities'].append({\n    'authority_kind': 'product_definition',\n    'artifact_id': 'PRODUCT-1111111111111111',\n    'revision_id': 'REVISION-2222222222222222',\n    'supersedes_revision_id': 'REVISION-1111111111111111',\n    'path': 'docs/product/definition.yaml',\n    'status': 'draft',\n    'adoption_effect': 'not_adop…"
+    },
+    {
+      "step_index": 238,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\n# Fix artifact_type\ndata['operations'][11]['long_lived_artifact']['artifact_type'] = 'product_governance'\n\n# Add missing downstream dispositions\ndata['authority_change_set']['downstream_dispositions'].extend([\n    {\n        'source_authority_kind': 'product_definition',\n        'target_authority_kind': 'implementation_alignment',\n        'disposition': 'revise',\n        'reason': '产品功能变化直…"
+    },
+    {
+      "step_index": 245,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\ndata['domain_fact_changes'] = [\n    {\n        'disposition': 'update',\n        'target_ref': {\n            'schema_version': 'strixnova.domain-fact-reference.v1',\n            'authority_kind': 'project_domain_model',\n            'model_id': 'MODEL-1111111111111111',\n            'fact_id': 'FACT-2222222222222222',\n            'observed_commit': '30c96c7ea14df68b959043177eae03edba0f0a3a'\n  …"
+    },
+    {
+      "step_index": 249,
+      "command": "python -c \"\nimport json\nwith open('.agent-inputs/assessment.json', 'r', encoding='utf-8') as f:\n    data = json.load(f)\n\ndata['assessment_revision'] = 2\n\nwith open('.agent-inputs/assessment.json', 'w', encoding='utf-8') as f:\n    json.dump(data, f, ensure_ascii=False)\n\""
+    }
+  ],
+  "no_system_python_test_claim": true,
+  "scope": "Observed commands and transport facts only. A candidate reaching confirmation is not semantic readiness."
+}

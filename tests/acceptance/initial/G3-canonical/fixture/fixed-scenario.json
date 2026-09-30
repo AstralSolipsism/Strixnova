@@ -1,0 +1,65 @@
+{
+  "group_id": "G3",
+  "scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+  "case_ids": [
+    "GF-COMM-DETAIL-AND-CLOSURE",
+    "GF-VAGUE-DESIRE",
+    "GF-PD-SOLUTION-PROBLEM-ROLES",
+    "GF-PD-OPTION-EXPANSION",
+    "GF-PD-ASSUMPTION-REJECTION",
+    "GF-PD-CURRENT-EVIDENCE",
+    "GF-PD-TIMELY-STOP",
+    "GF-PD-NONBUILD-OUTCOME"
+  ],
+  "author_model": "gemini-3.8-flash-low",
+  "reviewer_model": "gemini-3.8-flash-low",
+  "permission_mode": "auto_approve",
+  "os_isolation_verified": false,
+  "settings_modified": false,
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "registration_status": "prepared_not_executed_candidate_binding_required",
+  "limits": {
+    "author_turn_timeout_seconds": 180,
+    "author_group_timeout_seconds": 900,
+    "max_continuations_per_turn": 0,
+    "independent_review_timeout_seconds": 600
+  },
+  "initial_files": {
+    "materials/README.md": "# 场地预约发现材料\n\n这是隔离验收的合成业务题面，不是真实经营记录。当前还没有正式产品定义、领域模型、项目配置或建设事项。目录内资料的日期、统计范围和未决问题分别说明，不能把过期资料当成今天的事实。\n\n现有材料：2024 年的一次预约查找投诉记录。新的运行记录尚未提供；是否仍存在问题、问题规模与真实受影响角色需要继续核对。\n",
+    "materials/archive-2024.md": "# 2024 年预约查找投诉摘录\n\n记录日期：2024-06-18。性质：隔离测试合成历史材料。\n\n当时有两名工作人员抱怨找不到预约纸条；一人建议做智能搜索。没有统计查找次数、耗时、遗漏率或来访者损失，没有查清谁保管纸条、谁使用预约、谁决定采购。这份记录只能证明当时有投诉和建议，不能证明现在仍然有同样问题。\n"
+  },
+  "turns": [
+    {
+      "turn_id": "discovery",
+      "input": "我想给我们的小型活动场地做一个智能预约系统，大家总说找不到预约。请先看 materials 里的资料，帮我弄清到底要解决什么、值不值得建设。现在只做分析。"
+    },
+    {
+      "turn_id": "roles_and_options",
+      "input": "补充一下：值班人员查预约，来访者只收到我们发的确认消息，不直接操作登记工具；经理决定采购，经费由场地运营方承担。我们其实只有一间场地。大家提过智能搜索，也可以整理登记流程、继续用共享表格，或者暂时不做改变。我还没决定选哪种。请比较这些方向，说明推荐和取舍，并找出最值得先验证、可能让我们放弃建设的假设；不要开始实施。"
+    },
+    {
+      "turn_id": "current_evidence",
+      "add_files": {
+        "materials/pilot-2026-09-28.md": "# 当前流程试行记录\n\n记录日期：2026-09-28。统计区间：2026-09-21 至 2026-09-27。性质：隔离验收合成的一手业务记录。\n\n这一周共处理 20 次预约查找。三名值班人员已在原共享表中统一使用日期和确认编号；20 次都在 30 秒内找到对应预约，没有漏登记，没有来访者因查找问题等待或错失预约。录入字段和整理方式没有新增收费软件或额外维护人员。\n\n局限：只有一周、一个场地和 20 次查找，未覆盖高峰期、大型团体及人员交接；没有证据说明以后规模扩大仍能维持效果。\n\n没有组织开展任何新系统采购、软件建设或工作项批准。\n"
+      },
+      "input": "我刚拿到这周的实际记录，放在 materials/pilot-2026-09-28.md。先前材料是两年前的，请以当前记录重新核对问题和建议。如果原先的建设理由不成立，就明确说出来，不必替智能系统寻找新的用途。"
+    },
+    {
+      "turn_id": "explanation",
+      "input": "请把取舍讲详细一些：为什么这份记录会改变是否建设的判断，继续用现有表格有什么风险，哪些仍未知，以及什么真实变化才值得重新考虑。请给出明确结论，区分事实和推断。仍然只分析。"
+    },
+    {
+      "turn_id": "close",
+      "input": "这次分析就到这里。请简要收束已经明确的结论和未确定的边界，然后停止；不启动后续任务，不创建建设事项，也不安排提醒。"
+    }
+  ],
+  "mechanical_checks": [
+    "each native turn settled without unresolved tools",
+    "all declared input and Skill bytes unchanged during author turns",
+    "controller-added evidence retained with its actual turn and hash",
+    "no product state or WorkItem created",
+    "no source project or external repository writes"
+  ],
+  "review_boundary": "独立 Antigravity 逐项对照固定输入、实际作者答复、真实工具事件及来源文件判定。传输成功、无写入、文件存在或作者自述均不产生语义通过。固定题面不代表真实业务调查或真人接受。"
+}

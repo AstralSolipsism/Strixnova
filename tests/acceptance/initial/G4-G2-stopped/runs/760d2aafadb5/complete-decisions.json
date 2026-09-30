@@ -1,0 +1,968 @@
+{
+  "history": {
+    "available_records": [
+      "request",
+      "result",
+      "decisions",
+      "events",
+      "candidates",
+      "verifications",
+      "delivery",
+      "artifacts",
+      "relations"
+    ],
+    "records": {
+      "decisions": {
+        "authority_adoption": null,
+        "cancellation": null,
+        "direction": {
+          "acceptance": [
+            {
+              "acceptance_id": "DIRACC-A100000000000001",
+              "behavior": {
+                "applicability": "required",
+                "examples": [
+                  {
+                    "basis_refs": [
+                      "direction.requirement:DIRREQ-A100000000000001"
+                    ],
+                    "example_id": "DIREX-0000000000000001",
+                    "given": [
+                      "可信会话身份为成员 M1",
+                      "存在 M1 发起且状态为待审核的申请 A1"
+                    ],
+                    "then": [
+                      "申请 A1 状态更新为已撤回",
+                      "生成包含操作者 M1、原状态待审核、新状态已撤回的审计记录"
+                    ],
+                    "title": "成员正常撤回本人待审核预约申请",
+                    "when": "M1 提交撤回申请 A1"
+                  },
+                  {
+                    "basis_refs": [
+                      "direction.requirement:DIRREQ-A100000000000001"
+                    ],
+                    "example_id": "DIREX-0000000000000002",
+                    "given": [
+                      "可信会话身份为成员 M2",
+                      "存在 M1 发起且状态为待审核的申请 A1"
+                    ],
+                    "then": [
+                      "操作被拒绝",
+                      "申请 A1 状态保持待审核不变"
+                    ],
+                    "title": "成员尝试撤回他人申请被拒绝",
+                    "when": "M2 提交撤回申请 A1"
+                  }
+                ]
+              },
+              "requirement_refs": [
+                "DIRREQ-A100000000000001",
+                "DIRREQ-A100000000000003"
+              ],
+              "statement": "成员能够成功撤回本人处于待审核状态的申请；非本人申请或非待审核状态的撤回被明确拒绝。"
+            },
+            {
+              "acceptance_id": "DIRACC-A100000000000002",
+              "behavior": {
+                "applicability": "required",
+                "examples": [
+                  {
+                    "basis_refs": [
+                      "direction.requirement:DIRREQ-A100000000000002"
+                    ],
+                    "example_id": "DIREX-0000000000000003",
+                    "given": [
+                      "申请 A1 已被 M1 撤回"
+                    ],
+                    "then": [
+                      "返回已撤回成功结果",
+                      "不产生重复的审计日志"
+                    ],
+                    "title": "已撤回申请重复撤回幂等返回",
+                    "when": "M1 再次提交撤回 A1"
+                  }
+                ]
+              },
+              "requirement_refs": [
+                "DIRREQ-A100000000000002"
+              ],
+              "statement": "撤回具备幂等性与版本并发一致性；审计记录完整。"
+            }
+          ],
+          "constraints": [
+            {
+              "constraint_id": "DIRCON-A100000000000001",
+              "statement": "只能由可信宿主会话提供操作者身份，严禁信任传入的角色或所有者字段。"
+            },
+            {
+              "constraint_id": "DIRCON-A100000000000002",
+              "statement": "成员撤回与运营审批必须有并发保护，只允许一个状态流转成功。"
+            },
+            {
+              "constraint_id": "DIRCON-A100000000000003",
+              "statement": "界面交互严格限定为本地终端交互，不引入Web或网络服务。"
+            }
+          ],
+          "decision_context": {
+            "assumptions": [
+              {
+                "reconsider_when": "运行环境要求完全匿名或无法提供可信会话身份。",
+                "statement": "可信宿主会话提供经过验证的操作者身份与角色，客户端或传入字段不能伪造。"
+              }
+            ],
+            "capability_refs": [],
+            "context_ref": null,
+            "guardrail_dispositions": []
+          },
+          "goal": "扩展预约申请工具：支持成员撤回本人处于待审核状态的预约申请（先行推进第一成果）",
+          "non_goals": [
+            "本轮不实现已批准预约的取消、变更或重新审批流程。",
+            "周报下载汇总作为独立待办事项（WI-20260928-DB4C76AE）分别交付，不在本事项实施业务代码。",
+            "不增加网页端或网络远程服务，不实现缴费或通知外发。"
+          ],
+          "schema_version": "strixnova.direction-decision.v1",
+          "scope": [
+            {
+              "requirement_id": "DIRREQ-A100000000000001",
+              "statement": "成员可撤回本人发起的处于待审核状态的预约申请，不信任传入角色或所有者字段。"
+            },
+            {
+              "requirement_id": "DIRREQ-A100000000000002",
+              "statement": "撤回操作具备幂等性（重复撤回返回相同结果且不重复记审计），并在与审批并发时通过版本并发控制只允许一个版本成功；响应丢失后可查询实际状态；审计记录操作者、原状态、新状态和操作身份。"
+            },
+            {
+              "requirement_id": "DIRREQ-A100000000000003",
+              "statement": "申请身份、状态含义和决定权作为与周报单元共享的核心规范；界面交互严格限定为本地终端交互。"
+            }
+          ],
+          "tradeoffs": [
+            "优先单点交付高确定性的成员撤回价值成果，周报汇总拆单独立跟进，解耦交付节奏并降低单次变更风险。"
+          ],
+          "work_item_relations": [
+            {
+              "reason": "共用同一预约申请领域上下文与底层时长组件，但作为独立结果分别交付。",
+              "relation_type": "related_to",
+              "target_work_item_id": "WI-20260928-DB4C76AE"
+            }
+          ]
+        },
+        "direction_confirmation": {
+          "accepted": true,
+          "agent_decision": {
+            "decision": "accept",
+            "reason": "负责人明确表示理解并同意当前展示的事项方向，授权继续制定工程方案。"
+          },
+          "candidate_fingerprint": "sha256:c4f73b64d54207b6b8fa25e1615997bab109a2dc56acdce54e2a4200dabb0647",
+          "candidate_kind": "direction",
+          "decision_interpreter": "coding_agent",
+          "decision_label": "当前展示的方向",
+          "direction_version": 6,
+          "schema_version": "strixnova.user-confirmation.v1",
+          "semantic_content_machine_proven": false,
+          "summary": "负责人明确表示理解并同意当前展示的事项方向，授权继续制定工程方案。",
+          "user_confirmation": "现在理解这份方向说明了，同意这个方向，请继续制定工程方案。"
+        },
+        "engineering": {
+          "assessment": {
+            "adr_plans": [
+              {
+                "disposition": "not_required",
+                "evidence_refs": [
+                  "direction"
+                ],
+                "reason": "无需架构变更"
+              }
+            ],
+            "alternatives_and_tradeoffs": [
+              {
+                "disposition": "rejected",
+                "evidence_refs": [
+                  "direction"
+                ],
+                "option": "外部数据库锁",
+                "reason": "违背仅本地交互的约束",
+                "tradeoffs": "增加复杂性不值得"
+              }
+            ],
+            "assessment_id": "EA-20260928-1",
+            "assessment_revision": 1,
+            "authority_change_set": null,
+            "change_context": {
+              "change_kind": "modify_existing",
+              "formal_implementation": true
+            },
+            "delivery_plan": {
+              "evidence_refs": [
+                "direction"
+              ],
+              "expected_outcome": "支持撤回操作的命令行版本发布",
+              "limitations": [
+                "仅本地交互"
+              ],
+              "repository_order": [
+                "REPO-1111111111111111"
+              ],
+              "rollback_or_recovery": "回退代码仓库版本"
+            },
+            "design_decisions": [
+              {
+                "evidence_refs": [
+                  "direction"
+                ],
+                "rationale": "满足本地交互的并发要求",
+                "statement": "在内存层引入版本号并发控制"
+              }
+            ],
+            "direction_ref": {
+              "direction_version": 6,
+              "work_item_id": "WI-20260928-9A2A1BC1"
+            },
+            "domain_fact_changes": [],
+            "external_observation_provider_plans": [],
+            "impact_scope": {
+              "affected": [
+                {
+                  "dimension": "user_behavior",
+                  "evidence_refs": [
+                    "direction"
+                  ],
+                  "reason": "支持用户撤回待审核申请"
+                },
+                {
+                  "dimension": "interface",
+                  "evidence_refs": [
+                    "direction"
+                  ],
+                  "reason": "增加本地终端命令撤回入口"
+                }
+              ],
+              "unaffected": [
+                "product_scope",
+                "domain",
+                "architecture",
+                "data",
+                "security_privacy",
+                "quality_performance",
+                "operations_deployment",
+                "compatibility_migration",
+                "testing",
+                "documentation_support"
+              ],
+              "unknown": []
+            },
+            "implementation_slices": [
+              {
+                "completion_criteria": [
+                  "正确流转并拦截非本人操作"
+                ],
+                "continued_operation_refs": [],
+                "depends_on": [],
+                "implements": [
+                  "direction.requirement:DIRREQ-A100000000000001",
+                  "direction.requirement:DIRREQ-A100000000000002",
+                  "direction.requirement:DIRREQ-A100000000000003"
+                ],
+                "operation_refs": [
+                  "operations[0]"
+                ],
+                "parallel_safe_with": [],
+                "purpose": "成员撤回支持",
+                "rollback_or_recovery": "代码回滚",
+                "schema_version": "strixnova.implementation-slice.v1",
+                "slice_id": "SLICE-001",
+                "verification_command_refs": [
+                  "verification_commands[0]"
+                ]
+              }
+            ],
+            "investigation_ref": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+            "method_applications": [],
+            "operations": [
+              {
+                "action": "create",
+                "evidence_refs": [
+                  "direction"
+                ],
+                "implements": [
+                  "direction.requirement:DIRREQ-A100000000000001",
+                  "direction.requirement:DIRREQ-A100000000000002",
+                  "direction.requirement:DIRREQ-A100000000000003"
+                ],
+                "path": "reservation.py",
+                "reason": "添加Reservation逻辑",
+                "repository_id": "REPO-1111111111111111"
+              }
+            ],
+            "owner_view": {
+              "current_decision": "确认成员撤回待审核申请的工程方案",
+              "decision_support": {
+                "alternatives": [
+                  "引入外部数据库锁"
+                ],
+                "current_problem": "现有工程仅提供时长计算，缺乏成员自主撤回与并发安全控制。",
+                "impact": "将建立预约状态机，控制撤回与审批的并发。",
+                "necessary_questions": [],
+                "next_step": "等待负责人审查并确认本工程方案。",
+                "no_action_consequence": "无法满足成员撤回的业务需求，阻挡第一期成果交付。",
+                "recommendation": "在核心模块引入实体与内存版本号控制。",
+                "why_it_matters": "满足方向决策，使用户能独立撤回预约，避免依赖外部干预，同时解耦周报功能的实现风险。"
+              },
+              "engineering_context": {
+                "architecture_responsibilities": "构建终端CLI命令，实现身份与版本并发控制。",
+                "highest_impact_risks": "并发控制失效。",
+                "implementation_order": "1. 实体逻辑补充 2. 内存版本控制 3. CLI集成",
+                "product_and_domain_change": "无需改变上层领域模型定义，仅补充终端入口。",
+                "uncertainties": "无",
+                "verification_and_observation": "单元测试覆盖。"
+              },
+              "schema_version": "strixnova.owner-view.v1",
+              "semantic_content_machine_proven": false
+            },
+            "repository_scope": {
+              "project_id": "PROJECT-1111111111111111",
+              "repositories": [
+                {
+                  "investigation_ref": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+                  "repository_id": "REPO-1111111111111111",
+                  "role": "modify",
+                  "target_ref": null
+                }
+              ]
+            },
+            "requested_assurance": {
+              "band": "A2",
+              "reason": "普通的业务功能扩展"
+            },
+            "risk_assessments": [],
+            "schema_version": "strixnova.engineering-assessment.v1",
+            "semantic_review": null,
+            "source_references": [],
+            "unknowns_and_limitations": [],
+            "verification_commands": [
+              {
+                "argv": [
+                  "D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe",
+                  "-m",
+                  "pytest",
+                  "test_reservation.py"
+                ],
+                "case_report": {
+                  "adapter": "pytest",
+                  "bindings": [
+                    {
+                      "example_ref": "direction.example:DIREX-0000000000000001",
+                      "test_ids": [
+                        "test_reservation.py::test_withdraw_own"
+                      ]
+                    },
+                    {
+                      "example_ref": "direction.example:DIREX-0000000000000002",
+                      "test_ids": [
+                        "test_reservation.py::test_withdraw_others"
+                      ]
+                    },
+                    {
+                      "example_ref": "direction.example:DIREX-0000000000000003",
+                      "test_ids": [
+                        "test_reservation.py::test_withdraw_idempotent"
+                      ]
+                    }
+                  ],
+                  "input_paths": [
+                    "tests/test_reservation.py"
+                  ],
+                  "test_root": "tests"
+                },
+                "covers": [
+                  "direction.constraint:DIRCON-A100000000000001",
+                  "direction.constraint:DIRCON-A100000000000002",
+                  "direction.constraint:DIRCON-A100000000000003",
+                  "direction.example:DIREX-0000000000000001",
+                  "direction.example:DIREX-0000000000000002",
+                  "direction.example:DIREX-0000000000000003",
+                  "direction.acceptance:DIRACC-A100000000000001",
+                  "direction.acceptance:DIRACC-A100000000000002"
+                ],
+                "cwd": "tests",
+                "reason": "验证状态机与并发",
+                "repository_id": "REPO-1111111111111111",
+                "run_kind": "targeted_test"
+              }
+            ],
+            "verification_reviews": []
+          },
+          "plan": {
+            "actual_result_requirements": {
+              "domain_fact_changes": []
+            },
+            "applicable_rules": [
+              {
+                "evidence_refs": [
+                  "direction"
+                ],
+                "minimum_assurance": "A1",
+                "required_information_kinds": [
+                  "requirement",
+                  "acceptance",
+                  "constraint"
+                ],
+                "rule_id": "STRIXNOVA-GOV-REQ-001",
+                "source_ids": [
+                  "ISO-29148-2018",
+                  "ISO-15289-2019"
+                ],
+                "topic": "requirements_and_acceptance",
+                "triggered_by": [
+                  "formal_implementation"
+                ]
+              },
+              {
+                "evidence_refs": [
+                  "direction"
+                ],
+                "minimum_assurance": "A1",
+                "required_information_kinds": [
+                  "operation",
+                  "delivery"
+                ],
+                "rule_id": "STRIXNOVA-GOV-LIFE-001",
+                "source_ids": [
+                  "ISO-12207-2026"
+                ],
+                "topic": "life_cycle_and_configuration",
+                "triggered_by": [
+                  "formal_implementation"
+                ]
+              },
+              {
+                "evidence_refs": [
+                  "direction"
+                ],
+                "minimum_assurance": "A3",
+                "required_information_kinds": [
+                  "option",
+                  "design",
+                  "adr_candidate"
+                ],
+                "rule_id": "STRIXNOVA-GOV-ARCH-001",
+                "source_ids": [
+                  "ISO-42010-2022",
+                  "ISO-15289-2019"
+                ],
+                "topic": "architecture_and_long_lived_decisions",
+                "triggered_by": [
+                  "impact_scope.interface:affected"
+                ]
+              }
+            ],
+            "assessment_ref": {
+              "assessment_id": "EA-20260928-1",
+              "assessment_revision": 1,
+              "work_item_id": "WI-20260928-9A2A1BC1"
+            },
+            "assurance_band": "A3",
+            "authority_change_set": null,
+            "behavior_examples": {
+              "direction.example:DIREX-0000000000000001": {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A100000000000001"
+                ],
+                "example_id": "DIREX-0000000000000001",
+                "example_sha256": "40ec335eeb2172505e91e2e5ec4a868b630a195146e8804e122a5d7b340b8d24",
+                "given": [
+                  "可信会话身份为成员 M1",
+                  "存在 M1 发起且状态为待审核的申请 A1"
+                ],
+                "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000001",
+                "target_ref": "direction.example:DIREX-0000000000000001",
+                "then": [
+                  "申请 A1 状态更新为已撤回",
+                  "生成包含操作者 M1、原状态待审核、新状态已撤回的审计记录"
+                ],
+                "title": "成员正常撤回本人待审核预约申请",
+                "when": "M1 提交撤回申请 A1"
+              },
+              "direction.example:DIREX-0000000000000002": {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A100000000000001"
+                ],
+                "example_id": "DIREX-0000000000000002",
+                "example_sha256": "6a6efccc432ffe1756a8d292921101cd40b864f6d9b3938b434b4a73a8472e8f",
+                "given": [
+                  "可信会话身份为成员 M2",
+                  "存在 M1 发起且状态为待审核的申请 A1"
+                ],
+                "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000001",
+                "target_ref": "direction.example:DIREX-0000000000000002",
+                "then": [
+                  "操作被拒绝",
+                  "申请 A1 状态保持待审核不变"
+                ],
+                "title": "成员尝试撤回他人申请被拒绝",
+                "when": "M2 提交撤回申请 A1"
+              },
+              "direction.example:DIREX-0000000000000003": {
+                "basis_refs": [
+                  "direction.requirement:DIRREQ-A100000000000002"
+                ],
+                "example_id": "DIREX-0000000000000003",
+                "example_sha256": "a4e88b452c92e530c70c24fac316c54e56aed1975e60715f045e4639b63f304f",
+                "given": [
+                  "申请 A1 已被 M1 撤回"
+                ],
+                "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000002",
+                "target_ref": "direction.example:DIREX-0000000000000003",
+                "then": [
+                  "返回已撤回成功结果",
+                  "不产生重复的审计日志"
+                ],
+                "title": "已撤回申请重复撤回幂等返回",
+                "when": "M1 再次提交撤回 A1"
+              }
+            },
+            "change_context": {
+              "change_kind": "modify_existing",
+              "formal_implementation": true
+            },
+            "delivery_plan": {
+              "evidence_refs": [
+                "direction"
+              ],
+              "expected_outcome": "支持撤回操作的命令行版本发布",
+              "limitations": [
+                "仅本地交互"
+              ],
+              "repository_order": [
+                "REPO-1111111111111111"
+              ],
+              "rollback_or_recovery": "回退代码仓库版本"
+            },
+            "direction_ref": {
+              "direction_version": 6,
+              "work_item_id": "WI-20260928-9A2A1BC1"
+            },
+            "domain_fact_change_refs": [],
+            "external_observation_provider_plans": [],
+            "governance_profile": {
+              "profile_id": "strixnova-general-software-engineering+POLICY-1111111111111111",
+              "profile_version": "2026-08-23",
+              "project_tailoring": []
+            },
+            "impact_scope": {
+              "affected": [
+                {
+                  "dimension": "user_behavior",
+                  "evidence_refs": [
+                    "direction"
+                  ],
+                  "reason": "支持用户撤回待审核申请"
+                },
+                {
+                  "dimension": "interface",
+                  "evidence_refs": [
+                    "direction"
+                  ],
+                  "reason": "增加本地终端命令撤回入口"
+                }
+              ],
+              "unaffected": [
+                "product_scope",
+                "domain",
+                "architecture",
+                "data",
+                "security_privacy",
+                "quality_performance",
+                "operations_deployment",
+                "compatibility_migration",
+                "testing",
+                "documentation_support"
+              ],
+              "unknown": []
+            },
+            "implementation_slices": [
+              {
+                "completion_criteria": [
+                  "正确流转并拦截非本人操作"
+                ],
+                "continued_operation_refs": [],
+                "depends_on": [],
+                "implements": [
+                  "direction.requirement:DIRREQ-A100000000000001",
+                  "direction.requirement:DIRREQ-A100000000000002",
+                  "direction.requirement:DIRREQ-A100000000000003"
+                ],
+                "machine_validated": true,
+                "operation_refs": [
+                  "operations[0]"
+                ],
+                "parallel_safe_with": [],
+                "purpose": "成员撤回支持",
+                "repository_ids": [
+                  "REPO-1111111111111111"
+                ],
+                "rollback_or_recovery": "代码回滚",
+                "schema_version": "strixnova.implementation-slice-plan.v1",
+                "slice_id": "SLICE-001",
+                "source_slice_ref": "implementation_slices[0]",
+                "verification_command_ids": [
+                  "VC-001"
+                ]
+              }
+            ],
+            "investigation_ref": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+            "method_applications": [],
+            "operations": [
+              {
+                "action": "create",
+                "evidence_refs": [
+                  "direction"
+                ],
+                "implements": [
+                  "direction.requirement:DIRREQ-A100000000000001",
+                  "direction.requirement:DIRREQ-A100000000000002",
+                  "direction.requirement:DIRREQ-A100000000000003"
+                ],
+                "path": "reservation.py",
+                "reason": "添加Reservation逻辑",
+                "repository_id": "REPO-1111111111111111"
+              }
+            ],
+            "owner_view": {
+              "current_decision": "确认成员撤回待审核申请的工程方案",
+              "decision_support": {
+                "alternatives": [
+                  "引入外部数据库锁"
+                ],
+                "current_problem": "现有工程仅提供时长计算，缺乏成员自主撤回与并发安全控制。",
+                "impact": "将建立预约状态机，控制撤回与审批的并发。",
+                "necessary_questions": [],
+                "next_step": "等待负责人审查并确认本工程方案。",
+                "no_action_consequence": "无法满足成员撤回的业务需求，阻挡第一期成果交付。",
+                "recommendation": "在核心模块引入实体与内存版本号控制。",
+                "why_it_matters": "满足方向决策，使用户能独立撤回预约，避免依赖外部干预，同时解耦周报功能的实现风险。"
+              },
+              "engineering_context": {
+                "architecture_responsibilities": "构建终端CLI命令，实现身份与版本并发控制。",
+                "highest_impact_risks": "并发控制失效。",
+                "implementation_order": "1. 实体逻辑补充 2. 内存版本控制 3. CLI集成",
+                "product_and_domain_change": "无需改变上层领域模型定义，仅补充终端入口。",
+                "uncertainties": "无",
+                "verification_and_observation": "单元测试覆盖。"
+              },
+              "schema_version": "strixnova.owner-view.v1",
+              "semantic_content_machine_proven": false
+            },
+            "plan_id": "PLAN-EA-20260928-1-R1",
+            "repository_scope": {
+              "project_id": "PROJECT-1111111111111111",
+              "repositories": [
+                {
+                  "investigation_ref": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+                  "repository_id": "REPO-1111111111111111",
+                  "role": "modify",
+                  "target_ref": null
+                }
+              ]
+            },
+            "schema_version": "strixnova.engineering-plan.v1",
+            "semantic_content_machine_proven": false,
+            "semantic_review": null,
+            "trace_refs": [
+              "alternatives_and_tradeoffs[0]",
+              "design_decisions[0]",
+              "operations[0]",
+              "adr_plans[0]",
+              "implementation_slices[0]",
+              "impact_scope.affected[0]",
+              "impact_scope.affected[1]",
+              "impact_scope.unaffected[0]",
+              "impact_scope.unaffected[1]",
+              "impact_scope.unaffected[2]",
+              "impact_scope.unaffected[3]",
+              "impact_scope.unaffected[4]",
+              "impact_scope.unaffected[5]",
+              "impact_scope.unaffected[6]",
+              "impact_scope.unaffected[7]",
+              "impact_scope.unaffected[8]",
+              "impact_scope.unaffected[9]",
+              "direction.acceptance:DIRACC-A100000000000001",
+              "direction.acceptance:DIRACC-A100000000000002",
+              "direction.constraint:DIRCON-A100000000000001",
+              "direction.constraint:DIRCON-A100000000000002",
+              "direction.constraint:DIRCON-A100000000000003",
+              "direction.requirement:DIRREQ-A100000000000001",
+              "direction.requirement:DIRREQ-A100000000000002",
+              "direction.requirement:DIRREQ-A100000000000003",
+              "delivery_plan",
+              "owner_view"
+            ],
+            "verification_commands": [
+              {
+                "approved_program": {
+                  "argument_policy": "exact_plan_only",
+                  "declared_program": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe",
+                  "purpose": "在本隔离工程运行已声明的 pytest 验证。",
+                  "resolved_program": "D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe"
+                },
+                "argv": [
+                  "D:\\\\AboutDEV\\\\Strixnova\\\\.venv\\\\Scripts\\\\python.exe",
+                  "-m",
+                  "pytest",
+                  "test_reservation.py"
+                ],
+                "case_report": {
+                  "adapter": "pytest",
+                  "bindings": [
+                    {
+                      "example_ref": "direction.example:DIREX-0000000000000001",
+                      "test_ids": [
+                        "test_reservation.py::test_withdraw_own"
+                      ]
+                    },
+                    {
+                      "example_ref": "direction.example:DIREX-0000000000000002",
+                      "test_ids": [
+                        "test_reservation.py::test_withdraw_others"
+                      ]
+                    },
+                    {
+                      "example_ref": "direction.example:DIREX-0000000000000003",
+                      "test_ids": [
+                        "test_reservation.py::test_withdraw_idempotent"
+                      ]
+                    }
+                  ],
+                  "example_fingerprints": {
+                    "direction.example:DIREX-0000000000000001": "40ec335eeb2172505e91e2e5ec4a868b630a195146e8804e122a5d7b340b8d24",
+                    "direction.example:DIREX-0000000000000002": "6a6efccc432ffe1756a8d292921101cd40b864f6d9b3938b434b4a73a8472e8f",
+                    "direction.example:DIREX-0000000000000003": "a4e88b452c92e530c70c24fac316c54e56aed1975e60715f045e4639b63f304f"
+                  },
+                  "input_paths": [
+                    "tests/test_reservation.py"
+                  ],
+                  "test_root": "tests"
+                },
+                "command_id": "VC-001",
+                "covers": [
+                  "direction.constraint:DIRCON-A100000000000001",
+                  "direction.constraint:DIRCON-A100000000000002",
+                  "direction.constraint:DIRCON-A100000000000003",
+                  "direction.example:DIREX-0000000000000001",
+                  "direction.example:DIREX-0000000000000002",
+                  "direction.example:DIREX-0000000000000003",
+                  "direction.acceptance:DIRACC-A100000000000001",
+                  "direction.acceptance:DIRACC-A100000000000002"
+                ],
+                "cwd": "tests",
+                "optional_timeout": null,
+                "reasons": [
+                  "验证状态机与并发"
+                ],
+                "repository_id": "REPO-1111111111111111",
+                "run_kind": "targeted_test",
+                "source_command_indexes": [
+                  0
+                ]
+              }
+            ],
+            "verification_policy_decision": {
+              "forbidden_agent_program_names": [
+                "aider",
+                "claude",
+                "codex",
+                "cursor",
+                "gemini",
+                "opencode",
+                "windsurf"
+              ],
+              "observed_commit": "30c96c7ea14df68b959043177eae03edba0f0a3a",
+              "plan_binding_required": true,
+              "policy_id": "POLICY-1111111111111111",
+              "policy_revision_id": "POLICYREV-1111111111111111",
+              "schema_version": "strixnova.verification-policy-decision.v1",
+              "source_kind": "project_engineering_policy",
+              "working_directory_policy": "project_or_authorized_worktree_only",
+              "wrapper_policy": "forbidden_unless_exactly_approved"
+            },
+            "verification_targets": [
+              {
+                "child_example_refs": [
+                  "direction.example:DIREX-0000000000000001",
+                  "direction.example:DIREX-0000000000000002"
+                ],
+                "command_ids": [],
+                "evidence_refs": [],
+                "method": "examples",
+                "reason": "验收结果由所属例子的实际证据与 Agent 审阅派生。",
+                "target_ref": "direction.acceptance:DIRACC-A100000000000001"
+              },
+              {
+                "child_example_refs": [
+                  "direction.example:DIREX-0000000000000003"
+                ],
+                "command_ids": [],
+                "evidence_refs": [],
+                "method": "examples",
+                "reason": "验收结果由所属例子的实际证据与 Agent 审阅派生。",
+                "target_ref": "direction.acceptance:DIRACC-A100000000000002"
+              },
+              {
+                "command_ids": [
+                  "VC-001"
+                ],
+                "evidence_refs": [],
+                "method": "command",
+                "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+                "target_ref": "direction.constraint:DIRCON-A100000000000001"
+              },
+              {
+                "command_ids": [
+                  "VC-001"
+                ],
+                "evidence_refs": [],
+                "method": "command",
+                "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+                "target_ref": "direction.constraint:DIRCON-A100000000000002"
+              },
+              {
+                "command_ids": [
+                  "VC-001"
+                ],
+                "evidence_refs": [],
+                "method": "command",
+                "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+                "target_ref": "direction.constraint:DIRCON-A100000000000003"
+              },
+              {
+                "assertion_review_required": true,
+                "case_bindings": [
+                  {
+                    "command_id": "VC-001",
+                    "test_ids": [
+                      "test_reservation.py::test_withdraw_own"
+                    ]
+                  }
+                ],
+                "command_ids": [
+                  "VC-001"
+                ],
+                "evidence_refs": [],
+                "example": {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A100000000000001"
+                  ],
+                  "example_id": "DIREX-0000000000000001",
+                  "example_sha256": "40ec335eeb2172505e91e2e5ec4a868b630a195146e8804e122a5d7b340b8d24",
+                  "given": [
+                    "可信会话身份为成员 M1",
+                    "存在 M1 发起且状态为待审核的申请 A1"
+                  ],
+                  "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000001",
+                  "target_ref": "direction.example:DIREX-0000000000000001",
+                  "then": [
+                    "申请 A1 状态更新为已撤回",
+                    "生成包含操作者 M1、原状态待审核、新状态已撤回的审计记录"
+                  ],
+                  "title": "成员正常撤回本人待审核预约申请",
+                  "when": "M1 提交撤回申请 A1"
+                },
+                "method": "command",
+                "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+                "target_ref": "direction.example:DIREX-0000000000000001"
+              },
+              {
+                "assertion_review_required": true,
+                "case_bindings": [
+                  {
+                    "command_id": "VC-001",
+                    "test_ids": [
+                      "test_reservation.py::test_withdraw_others"
+                    ]
+                  }
+                ],
+                "command_ids": [
+                  "VC-001"
+                ],
+                "evidence_refs": [],
+                "example": {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A100000000000001"
+                  ],
+                  "example_id": "DIREX-0000000000000002",
+                  "example_sha256": "6a6efccc432ffe1756a8d292921101cd40b864f6d9b3938b434b4a73a8472e8f",
+                  "given": [
+                    "可信会话身份为成员 M2",
+                    "存在 M1 发起且状态为待审核的申请 A1"
+                  ],
+                  "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000001",
+                  "target_ref": "direction.example:DIREX-0000000000000002",
+                  "then": [
+                    "操作被拒绝",
+                    "申请 A1 状态保持待审核不变"
+                  ],
+                  "title": "成员尝试撤回他人申请被拒绝",
+                  "when": "M2 提交撤回申请 A1"
+                },
+                "method": "command",
+                "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+                "target_ref": "direction.example:DIREX-0000000000000002"
+              },
+              {
+                "assertion_review_required": true,
+                "case_bindings": [
+                  {
+                    "command_id": "VC-001",
+                    "test_ids": [
+                      "test_reservation.py::test_withdraw_idempotent"
+                    ]
+                  }
+                ],
+                "command_ids": [
+                  "VC-001"
+                ],
+                "evidence_refs": [],
+                "example": {
+                  "basis_refs": [
+                    "direction.requirement:DIRREQ-A100000000000002"
+                  ],
+                  "example_id": "DIREX-0000000000000003",
+                  "example_sha256": "a4e88b452c92e530c70c24fac316c54e56aed1975e60715f045e4639b63f304f",
+                  "given": [
+                    "申请 A1 已被 M1 撤回"
+                  ],
+                  "parent_acceptance_ref": "direction.acceptance:DIRACC-A100000000000002",
+                  "target_ref": "direction.example:DIREX-0000000000000003",
+                  "then": [
+                    "返回已撤回成功结果",
+                    "不产生重复的审计日志"
+                  ],
+                  "title": "已撤回申请重复撤回幂等返回",
+                  "when": "M1 再次提交撤回 A1"
+                },
+                "method": "command",
+                "reason": "使用已确认命令的覆盖声明与实际回执；声明不证明测试充分。",
+                "target_ref": "direction.example:DIREX-0000000000000003"
+              }
+            ]
+          },
+          "plan_confirmation": null
+        },
+        "project_authority_decisions": [],
+        "raw_request": "把现有组件扩展为预约申请工具：成员能取消自己的申请，负责人能下载每周汇总。这两个结果都需要，但可以分别交付。"
+      }
+    },
+    "schema_version": "strixnova.work-item-history.v1",
+    "scope": "recorded_facts",
+    "semantic_content_machine_proven": false,
+    "work_item": {
+      "created_at": "2026-09-28T08:49:57.424864Z",
+      "status": "awaiting_plan_confirmation",
+      "title": "扩展预约申请工具：取消申请与周报下载",
+      "updated_at": "2026-09-28T10:14:21.236835Z",
+      "version": 7,
+      "work_item_id": "WI-20260928-9A2A1BC1"
+    }
+  },
+  "ok": true
+}

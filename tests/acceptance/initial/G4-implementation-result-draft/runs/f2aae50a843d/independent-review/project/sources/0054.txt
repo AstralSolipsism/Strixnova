@@ -1,0 +1,90 @@
+1: """本地终端CLI入口。
+2: 
+3: 通过命令行完成撤回操作和状态查询，不通过网页或网络服务。
+4: """
+5: 
+6: from __future__ import annotations
+7: 
+8: import argparse
+9: import sys
+10: 
+11: from application.domain import WithdrawalResult
+12: from application.service import MemberService
+13: 
+14: 
+15: def build_parser() -> argparse.ArgumentParser:
+16:     """构建CLI参数解析器。"""
+17:     parser = argparse.ArgumentParser(
+18:         prog="appointment-tool",
+19:         description="预约申请工具 — 本地终端交互",
+20:     )
+21:     subparsers = parser.add_subparsers(dest="command", help="可用命令")
+22: 
+23:     # 撤回命令
+24:     withdraw_parser = subparsers.add_parser("withdraw", help="撤回本人待审核的预约申请")
+25:     withdraw_parser.add_argument(
+26:         "--member-id", required=True, help="已认证的成员身份"
+27:     )
+28:     withdraw_parser.add_argument(
+29:         "--application-id", required=True, help="要撤回的申请身份"
+30:     )
+31: 
+32:     # 状态查询命令
+33:     status_parser = subparsers.add_parser("status", help="查询申请的当前状态")
+34:     status_parser.add_argument(
+35:         "--application-id", required=True, help="要查询的申请身份"
+36:     )
+37: 
+38:     return parser
+39: 
+40: 
+41: def run_cli(service: MemberService, argv: list[str] | None = None) -> int:
+42:     """执行CLI命令。
+43: 
+44:     Args:
+45:         service: 成员服务实例。
+46:         argv: 命令行参数（默认从 sys.argv 读取）。
+47: 
+48:     Returns:
+49:         退出码：0 成功，1 操作被拒绝或失败。
+50:     """
+51:     parser = build_parser()
+52:     args = parser.parse_args(argv)
+53: 
+54:     if args.command is None:
+55:         parser.print_help()
+56:         return 1
+57: 
+58:     if args.command == "withdraw":
+59:         response = service.withdraw(
+60:             authenticated_member_id=args.member_id,
+61:             application_id=args.application_id,
+62:         )
+63:         if response.result == WithdrawalResult.SUCCESS:
+64:             print(f"已撤回申请 {response.application_id}")
+65:             return 0
+66:         elif response.result == WithdrawalResult.ALREADY_WITHDRAWN:
+67:             print(f"申请 {response.application_id} 已处于已撤回状态")
+68:             return 0
+69:         elif response.result == WithdrawalResult.NOT_OWNER:
+70:             print(f"拒绝：无权撤回申请 {response.application_id}")
+71:             return 1
+72:         elif response.result == WithdrawalResult.INVALID_STATUS:
+73:             print(
+74:                 f"拒绝：申请 {response.application_id} "
+75:                 f"当前状态为{response.current_status.value}，不可撤回"
+76:             )
+77:             return 1
+78:         elif response.result == WithdrawalResult.CONFLICT:
+79:             print(f"冲突：申请 {response.application_id} 已被其他操作修改")
+80:             return 1
+81: 
+82:     elif args.command == "status":
+83:         status = service.query_status(application_id=args.application_id)
+84:         if status is None:
+85:             print(f"申请 {args.application_id} 不存在")
+86:             return 1
+87:         print(f"申请 {args.application_id} 当前状态：{status.value}")
+88:         return 0
+89: 
+90:     return 1

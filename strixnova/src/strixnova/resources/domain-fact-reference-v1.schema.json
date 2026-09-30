@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.domain-fact-reference.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "authority_kind",
+    "model_id",
+    "fact_id",
+    "observed_commit"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.domain-fact-reference.v1"
+    },
+    "authority_kind": {
+      "const": "project_domain_model"
+    },
+    "model_id": {
+      "type": "string",
+      "pattern": "^MODEL-[0-9A-F]{16}$"
+    },
+    "fact_id": {
+      "type": "string",
+      "pattern": "^FACT-[0-9A-F]{16}$"
+    },
+    "observed_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40,64}$"
+    }
+  }
+}

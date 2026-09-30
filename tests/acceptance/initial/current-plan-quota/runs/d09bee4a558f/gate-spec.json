@@ -1,0 +1,46 @@
+{
+  "sources": {
+    "registration": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\6bbae8a5d2e5\\evidence\\registration.json",
+      "role": "original_input"
+    },
+    "correction-feedback": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\086c1aa9c7ab\\evidence\\user-input.txt",
+      "role": "user_input"
+    },
+    "current-explanation": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\086c1aa9c7ab\\evidence\\author-response.md",
+      "role": "author_response"
+    },
+    "current-tools": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\086c1aa9c7ab\\evidence\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "actual-candidate": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\d09bee4a558f\\evidence\\actual-candidate.json",
+      "role": "author_artifact"
+    },
+    "current-prd": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\5cce0a8e359b\\work\\project\\docs\\product\\prd.md",
+      "role": "author_artifact"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "G4-DIRECTION-READY",
+      "expected_behavior": "当前展示和公开记录的方向一致且能进入工程方案：成员撤回本人待审申请为一个可独立接受结果，周报为关联的独立待办。完整交代身份来自可信会话、归属、状态限制、幂等与审计、并发互斥、响应丢失查询、本地终端限制，以及共享权威须修订的范围和候选当前实际形成及待接受状态。授权只及下一步方案，不把方向确认当实施或结果接受。",
+      "must_avoid": "候选内容与展示不符、缺失会改变决定的业务事实、冒充已写成权威，或在独立条件未满足时允许固定接受输入。本关口只检查当前投递条件，不抹去初轮未形成候选的记录。",
+      "evidence_source_ids": [
+        "current-explanation",
+        "current-tools",
+        "actual-candidate",
+        "current-prd"
+      ],
+      "verification_scope": "当前方向接受输入的投递条件；不代表完整G4/G2验收或真人接受。",
+      "machine_checks": {
+        "public_direction_waits_for_owner": true,
+        "business_source_and_git_unchanged": true
+      }
+    }
+  ]
+}

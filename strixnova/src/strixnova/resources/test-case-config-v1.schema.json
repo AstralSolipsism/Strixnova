@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.test-case-config.v1",
+  "$defs": {
+    "config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adapter",
+        "test_root",
+        "input_paths",
+        "bindings"
+      ],
+      "properties": {
+        "adapter": {
+          "const": "pytest"
+        },
+        "test_root": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        },
+        "input_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          },
+          "minItems": 1,
+          "maxItems": 4096,
+          "uniqueItems": true
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "example_ref",
+              "test_ids"
+            ],
+            "properties": {
+              "example_ref": {
+                "type": "string",
+                "pattern": "^direction\\.example:DIREX-[0-9A-F]{16}$"
+              },
+              "test_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 16000
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 256
+        }
+      }
+    },
+    "bound_config": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "adapter",
+        "test_root",
+        "input_paths",
+        "bindings",
+        "example_fingerprints"
+      ],
+      "properties": {
+        "adapter": {
+          "const": "pytest"
+        },
+        "test_root": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 16000
+        },
+        "input_paths": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16000
+          },
+          "minItems": 1,
+          "maxItems": 4096,
+          "uniqueItems": true
+        },
+        "bindings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "example_ref",
+              "test_ids"
+            ],
+            "properties": {
+              "example_ref": {
+                "type": "string",
+                "pattern": "^direction\\.example:DIREX-[0-9A-F]{16}$"
+              },
+              "test_ids": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 16000
+                },
+                "minItems": 1,
+                "maxItems": 256,
+                "uniqueItems": true
+              }
+            }
+          },
+          "minItems": 1,
+          "maxItems": 256
+        },
+        "example_fingerprints": {
+          "type": "object",
+          "propertyNames": {
+            "type": "string",
+            "pattern": "^direction\\.example:DIREX-[0-9A-F]{16}$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{64}$"
+          }
+        }
+      }
+    }
+  }
+}

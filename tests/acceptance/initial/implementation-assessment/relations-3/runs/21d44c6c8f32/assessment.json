@@ -1,0 +1,426 @@
+{
+  "assessments": [
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "capabilities() 返回 executes_external_activities=False，仅维护本地活动状态，外部执行由外部系统负责",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/delivery_activity.py#L289-L297"
+        },
+        {
+          "claim": "for_work_item 通过 DeliveryActivityAuthority.list() 只读取外部活动状态，置入 external_activities，write_interface=False",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_trace_projection.py#L84-L104"
+        },
+        {
+          "claim": "delivery_activities/delivery_activity 均为只读投射，不修改活动状态",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/work_item_read_model.py#L524-L553"
+        },
+        {
+          "claim": "断言 capability 不声明外部执行，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_delivery_activity.py::test_activity_capability_never_claims_external_execution"
+        }
+      ],
+      "limitations": [
+        "测试执行结果来自 JUnit 回执，source_at_execution_hash 未独立捕获，不能确认执行时源码字节与当前完全一致",
+        "actual-dependencies.yaml 记录仅为声明依赖，未直接读取 yaml 内容核实字段值"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "delivery_activity.py 仅维护本地活动状态（DeliveryActivityAuthority），capability() 方法明确声明 executes_external_activities=False、external_execution_required=True，对外交付属性只读不写",
+        "engineering_trace_projection.py 读取 DeliveryActivityAuthority 的状态（list/history），并将其投射到 external_activities 字段，仅读不写",
+        "work_item_read_model.py 通过 delivery_activities()/delivery_activity() 只读投射活动和回执，不发起外部执行",
+        "dependency_record_locators 记录 records/25 和 records/480 均确认依赖关系存在于 actual-dependencies.yaml"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-67DC7736ABF64D71",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "模块顶层 import GitProjectReader/project_reader_for_scope，及五项权威模块，不重复建立版本库读取进程",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_consistency.py#L15-L57"
+        },
+        {
+          "claim": "project_content_snapshot 仅 import GitProjectReader，不维护跨命令缓存，函数式调用",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_content_snapshot.py#L9"
+        },
+        {
+          "claim": "断言一次快照批量取得完整权威链，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_project_authority_consistency.py::test_immutable_full_authority_chain_uses_one_snapshot_and_bounded_batches"
+        }
+      ],
+      "limitations": [
+        "project_authority_consistency.py 超过 2500 行，仅读取了前 100 行，_load_authority_batch 的具体批次控制逻辑未全部核实",
+        "测试源码哈希未独立捕获，不能保证当前源码与测试执行时完全一致"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_authority_consistency.py 在 load() 中复用单一 GitProjectReader 实例（project_reader_for_scope），一次快照取得五项权威（product_definition、domain_model、target_architecture、engineering_policy、implementation_alignment）",
+        "project_authority_consistency.py 的 _load_authority_batch() 接收已解析的 reader，不独立回调项目解析或版本库进程",
+        "project_content_snapshot.py 复用上游传入的 GitProjectReader，不重新建立新的版本或路径语义",
+        "dependency_record_locators records/318 和 records/326 记录了从 project_authority_consistency 到 git_project_reader 和 project_content_snapshot 的实际依赖"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-6EAD97D4D62148C3",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "仅 import GitProjectReader、project_reader_for_scope、repository_relative_path，不导入项目解析器或版本库工厂",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_product_definition.py#L14-L19"
+        },
+        {
+          "claim": "测试断言读取产品定义只生成结构而非语义证明，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_project_product_definition.py::test_ready_definition_loads_as_structure_not_semantic_proof"
+        }
+      ],
+      "limitations": [
+        "project_product_definition.py 共 799 行，仅读取了前 60 行，具体读取方法的实现逻辑未全面核实",
+        "测试执行源码哈希未独立捕获"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_product_definition.py 顶层 import 仅引入 GitProjectReader/project_reader_for_scope/repository_relative_path，不回调项目解析或独立建立版本读取进程",
+        "ProjectProductDefinition 读取上游已绑定的 reader 提供的产品定义文件文本及来源元数据",
+        "依赖记录 records/620 记录 project_product_definition → git_project_reader 的实际依赖"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-70C02DA513464315",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "import 段不包含 project_product_definition 任何符号，forbidden 边界在静态 import 层面已满足",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_implementation_alignment.py#L1-L43"
+        },
+        {
+          "claim": "dependency_record_locators 为空数组，依赖台账无该关系的实际依赖记录",
+          "kind": "inspection",
+          "ref": "inputs/packet.json#/targets[3]/dependency_record_locators"
+        },
+        {
+          "claim": "架构依赖图测试断言无循环且默认禁止，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_target_architecture_contract.py::test_target_direct_dependency_graph_is_acyclic_and_default_denied"
+        }
+      ],
+      "limitations": [
+        "静态 import 检查不证明全部动态行为；若运行时通过字符串导入或反射调用则超出当前证据范围",
+        "project_implementation_alignment.py 共 1549 行，仅核实了前 100 行 import 段"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_implementation_alignment.py 的顶层 import 中不包含 project_product_definition 模块的任何符号",
+        "project_implementation_alignment.py 顶层 import 为 git_project_reader、implementation_observation、project_content_snapshot、project_architecture_description、project_domain_model、schema_error_reporting，无产品定义依赖",
+        "dependency_record_locators 中该关系为空数组，actual-dependencies.yaml 无对应记录",
+        "代码文本确认对齐模块通过领域和架构进入，不直接读取产品定义"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-724D5792704F4A15",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "import 段仅含 git_project_reader、schema_error_reporting、project_context、jsonschema，无工程治理模块",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_baseline.py#L1-L30"
+        },
+        {
+          "claim": "behavior_examples.py 不 import project_engineering_baseline",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/behavior_examples.py#L1-L18"
+        },
+        {
+          "claim": "engineering_change_planning.py 不 import project_engineering_baseline",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_change_planning.py#L1-L40"
+        },
+        {
+          "claim": "dependency_record_locators 空数组，依赖台账无该关系记录",
+          "kind": "inspection",
+          "ref": "inputs/packet.json#/targets[4]/dependency_record_locators"
+        }
+      ],
+      "limitations": [
+        "仅核实 import 层面；project_engineering_baseline 全文 370 行，未逐行确认内部实现",
+        "静态 import 不排除动态加载可能"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_engineering_baseline.py 顶层 import 不包含 engineering_governance、behavior_examples、engineering_change_planning、verification_targets 任何符号",
+        "project_engineering_baseline.py 仅 import git_project_reader、schema_error_reporting、project_context、jsonschema，职责限于定位和独立状态",
+        "behavior_examples.py、engineering_change_planning.py、engineering_governance.py 均不在 project_engineering_baseline.py 的 import 链中",
+        "dependency_record_locators 该关系为空数组，依赖台账无对应记录"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-7395E3C1708D4FC2",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "import GitProjectReader/project_reader_for_scope/repository_relative_path/repository_scope_root from git_project_reader",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_observation.py#L28-L34"
+        },
+        {
+          "claim": "capture_repository_content 接收 reader: GitProjectReader 参数，返回内容清单和哈希，不维护长期权威",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_content_snapshot.py#L186-L201"
+        },
+        {
+          "claim": "内容快照在工作树未改变时保持稳定，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_implementation_observation.py::test_content_snapshot_is_stable_when_unchanged_working_tree_is_committed"
+        }
+      ],
+      "limitations": [
+        "implementation_observation.py 共 2938 行，仅核实前 60 行 import 段",
+        "project_content_snapshot 214 行已全部读取"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "implementation_observation.py 顶层 import 从 git_project_reader 引入 GitProjectReader、project_reader_for_scope、repository_relative_path、repository_scope_root，复用统一仓库边界和精确版本读取",
+        "project_content_snapshot.py 接收 GitProjectReader 实例，通过 capture_repository_content 读取规范字节和路径清单，不回调项目解析",
+        "dependency_record_locators records/124 和 records/133 记录了 implementation_observation → git_project_reader 和 project_content_snapshot 的实际依赖"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-74419EB86BFF4394",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "import ProjectDomainModel、ProjectDomainModelError from project_domain_model，只读领域事实",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_implementation_alignment.py#L35-L38"
+        },
+        {
+          "claim": "ProjectDomainModel 仅 import git_project_reader，不引入对齐写操作",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_domain_model.py#L1-L26"
+        },
+        {
+          "claim": "测试断言领域事实闭包只读路由，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_project_authority_contracts.py::test_domain_runtime_routes_progressively_and_returns_typed_fact_closure"
+        }
+      ],
+      "limitations": [
+        "project_implementation_alignment.py 仅读取前 100 行，具体只读约束的执行机制未全面核实",
+        "测试执行源码哈希未独立捕获"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_implementation_alignment.py 从 project_domain_model 引入 ProjectDomainModel 以读取领域事实目录、类型和闭包",
+        "project_implementation_alignment.py 不包含 project_domain_model 的写操作，所有实现判断保留在对齐产物中",
+        "dependency_record_locators records/600 记录了该实际依赖"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-78931C91B5ED4A67",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "from strixnova.git_workspace import GitWorkspace, GitWorkspaceError，协调器持有 git_workspace 引用",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L56"
+        },
+        {
+          "claim": "host_adapter 仅 import ApplicationCoordinator，不直接 import git_workspace，中介路径成立",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/host_adapter.py#L11-L14"
+        },
+        {
+          "claim": "集成测试断言单工作项通过本地分支而非直接 worktree，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/integration/test_git_workspace.py::test_single_work_item_uses_a_local_branch_without_forcing_a_new_worktree"
+        }
+      ],
+      "limitations": [
+        "through_module 中介语义的完整两段路径：host_adapter→coordinator→git_workspace 仅通过 import 层验证；coordinator 调用 git_workspace 的授权前置条件未深入阅读全部 5587 行实现",
+        "dependency_record_locators 该关系为空，actual-dependencies.yaml 无对应记录，依赖仅由源码 import 推断"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "git_workspace.py 的 GitWorkspace 由 application_coordinator.py 导入并调用，application_coordinator 在工作项关口授权后才触发本地版本副作用",
+        "host_adapter.py 通过 ApplicationCoordinator 调用，不直接访问 GitWorkspace，满足 through_module 中介路径",
+        "application_coordinator.py 同时导入 git_workspace 和实现对齐相关模块，作为协调器中介两段路径"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-7A3BA2436725405C",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "from strixnova.project_implementation_alignment import ProjectImplementationAlignment",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/review_context_projection.py#L20"
+        },
+        {
+          "claim": "结果字段含 writes_performed=False、semantic_content_machine_proven=False，只读投射",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/review_context_projection.py#L86-L88"
+        },
+        {
+          "claim": "测试断言依据身份不匹配不降级为部分成功，只读语义已测试，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_review_context_projection.py::test_basis_identity_mismatch_is_not_downgraded_to_partial_success"
+        }
+      ],
+      "limitations": [
+        "review_context_projection.py 394 行，仅读取前 120 行，ProjectImplementationAlignment 在 _read 中的具体调用细节未全面核实"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "review_context_projection.py 从 project_implementation_alignment 引入 ProjectImplementationAlignment，只读对齐覆盖、漂移、差距等投射",
+        "review_context_projection.py 的 write_interface=False、writes_performed=False 明确声明只读",
+        "ReviewContextProjection.read() 调用 ProjectImplementationAlignment 读取实现对齐状态，不直接修改对齐产物",
+        "dependency_record_locators records/154 记录该实际依赖"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-7DFF1E0E5CD74294",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "import 段无 project_engineering_baseline 符号，验证执行只消费已批准计划，不读取基线",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_runner.py#L1-L60"
+        },
+        {
+          "claim": "dependency_record_locators 为空数组",
+          "kind": "inspection",
+          "ref": "inputs/packet.json#/targets[8]/dependency_record_locators"
+        },
+        {
+          "claim": "测试断言基线不加载下游权威体，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_project_engineering_baseline.py::test_baseline_does_not_load_or_validate_downstream_authority_bodies"
+        }
+      ],
+      "limitations": [
+        "verification_runner.py 共 1211 行，仅读取前 60 行 import 段；动态加载场景不在静态检查范围内",
+        "test_baseline_does_not_load_or_validate_downstream_authority_bodies 是对 baseline 单向约束的测试，verification_runner 侧的独立测试逻辑未全部核实"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "verification_runner.py 顶层 import 不包含 project_engineering_baseline 任何符号",
+        "verification_runner.py 仅 import verification_dependencies、test_case_evidence、process_supervisor，不从项目基线获取验证义务或命令",
+        "dependency_record_locators 该关系为空数组，依赖台账无对应记录",
+        "project_engineering_baseline.py 也不 import verification_runner"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-7E4EB885A1494685",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "from strixnova.git_project_reader import GitProjectReaderError, repository_path_from_git, repository_relative_path",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/git_workspace.py#L11-L14"
+        },
+        {
+          "claim": "_git_paths 函数调用 repository_path_from_git 统一解码 git 输出路径，错误映射到 GitWorkspaceError",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/git_workspace.py#L44-L58"
+        },
+        {
+          "claim": "集成测试验证现有未提交工作不被覆盖，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/integration/test_git_workspace.py::test_existing_uncommitted_work_is_never_stashed_or_adopted"
+        }
+      ],
+      "limitations": [
+        "git_workspace.py 共 1506 行，仅读取前 60 行 import 段，其余路径操作的完整实现未逐行核实"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "git_workspace.py 从 git_project_reader 引入 repository_path_from_git、repository_relative_path，复用 Git 返回路径的严格仓库身份解码",
+        "git_workspace.py 不 import 长期权威、工程语义解释模块，只使用 git_project_reader 和 process_supervisor",
+        "dependency_record_locators records/418 记录了 git_workspace → git_project_reader 的实际依赖",
+        "路径解码通过 _git_paths() 函数统一调用 repository_path_from_git，防止反斜杠文件名误判"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-7F4A91B2C3D4E5F6",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "from strixnova.project_authority_consistency import ProjectAuthorityConsistency, ProjectAuthorityConsistencyError",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_assurance.py#L22-L25"
+        },
+        {
+          "claim": "load() 调用 consistency.load() 和 consistency.governance_context()，不直接读取基线文件或验证执行模块",
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_assurance.py#L125-L134"
+        },
+        {
+          "claim": "测试断言内部证据与外部声明分开，有录得 passed 结果",
+          "kind": "test",
+          "ref": "tests/unit/test_project_engineering_assurance.py::test_assurance_matrix_keeps_internal_evidence_and_external_claims_apart"
+        }
+      ],
+      "limitations": [
+        "project_engineering_assurance.py 共 424 行，完整读取；project_authority_consistency 超 2500 行，governance_context() 的具体实现未读取，其中介语义由 import 层和 load() 调用推断",
+        "测试执行源码哈希未独立捕获"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_engineering_assurance.py 从 project_authority_consistency 引入 ProjectAuthorityConsistency，通过已校验一致性读取治理上下文摘要（governance_context）",
+        "project_engineering_assurance.py 不直接 import project_engineering_baseline 或 verification_runner",
+        "dependency_record_locators records/307 记录了 project_engineering_assurance → project_authority_consistency 的实际依赖",
+        "load() 通过 consistency.load() 和 consistency.governance_context() 读取，不直接操作基线或验证执行"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-8431BBE65FA54B8E",
+      "target_kind": "relationship"
+    }
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "source_ownership": []
+}

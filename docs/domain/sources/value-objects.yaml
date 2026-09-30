@@ -1,0 +1,510 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-5D85F77D3CF44B2E
+scope_fact_ids: []
+facts:
+- fact_id: FACT-8E8D0712BBF64AC3
+  status: draft
+  title: AuthorityReference（权威引用）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-01E58C1E2F3C4D9C
+  - FACT-ADDCB3B236194270
+  content:
+    meaning: 对一份长期或事项权威精确内容版本的不可猜测引用。
+    components:
+    - name: 权威种类
+      meaning: 区分产品、领域、目标架构、实现对齐、工程政策或事项事实。
+    - name: 稳定身份
+      meaning: 在同一权威演进中保持不变的随机身份。
+    - name: 修订或事项版本
+      meaning: 精确定位被确认和被观察的内容，不允许自动跟随最新版本。
+    - name: 仓库内容定位
+      meaning: 涉及版本化工程内容时，仓库身份与其精确内容范围共同定位来源；原权威或历史身份仍保持自身含义。
+    invariants:
+    - 引用缺失、悬空、种类不符或版本过期时不得降级为模糊匹配。
+    - 下游不得通过引用反向修改上游含义。
+- fact_id: FACT-D11A6942C2314E72
+  status: draft
+  title: ConfirmationBinding（确认绑定）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  content:
+    meaning: 项目负责人在智能编码代理主动解释后，对实际看到且能够理解的一份精确语义候选作出的显式决定记录；程序在内部绑定其精确内容版本，但该记录不表示身份认证、理解证明或独立展示快照。
+    components:
+    - name: 确认种类
+      meaning: 区分产品、领域、架构、方向、工程方案和实际结果确认。
+    - name: 语义决定文本
+      meaning: 项目负责人用于接受或退回当前唯一候选的简短明确原文，不包含要求其辨认的随机身份、版本、散列、Schema 名称或结果卡编号。
+    - name: 内容版本
+      meaning: 程序为负责人实际看到并决定的候选维护的精确修订、事项版本和内容身份；由智能编码代理机械传递，不转嫁给负责人识别。
+    - name: 负责人身份
+      meaning: 当前具有相应决定权的项目负责人引用。
+    - name: 确认日期
+      meaning: 负责人作出决定的公历日期。
+    invariants:
+    - 内容实质变化后原确认不得继续生效。
+    - 重新解释同一候选不写入确认记录，也不改变其内容身份。
+    - 用户原文表达语义决定，内部内容身份只负责阻断过期或被替换候选；两者不得互相冒充。
+    - 程序、智能编码代理、测试通过或命令成功不得代替负责人确认。
+- fact_id: FACT-73E63F97C5B64499
+  status: draft
+  title: DecisionContextBinding（决定上下文绑定）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-8BB9E8C279494481
+  - FACT-B3D14DA096B94DD9
+  content:
+    meaning: 一份方向在形成时所依据的当前产品修订、相关能力引用、全部产品护栏逐项处置以及可复查假设的不可变绑定；它不是第二份产品权威。
+    components:
+    - name: 当前决定上下文引用
+      meaning: 精确定位当时当前采用的产品定义修订；尚无产品权威的新项目明确使用空引用。
+    - name: 相关能力引用
+      meaning: 智能编码代理依据调查选择与当前事项相关的产品能力，程序只核对引用存在且不重复。
+    - name: 护栏处置
+      meaning: 对当前产品全部非目标和约束逐项标记适用、不适用或需要重新考虑，并由智能编码代理写出理由。
+    - name: 假设与重开条件
+      meaning: 记录方向暂时依赖的假设以及何时必须重新调查或向负责人提问。
+    invariants:
+    - 程序不得依据名称、关键词、路径或历史频率选择相关能力、生成理由或裁决护栏适用性。
+    - 当前产品修订变化、护栏集合变化、引用悬空、重复或遗漏时，该绑定及其下游方案必须失效。
+    - 需要重新考虑既有护栏只表示方向提出修订建议；在新的产品定义获得独立确认前，旧护栏仍然有效。
+- fact_id: FACT-3F99553572844A05
+  status: draft
+  title: ImpactScope（影响范围）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  content:
+    meaning: 智能编码代理对稳定工程维度完成的一次紧凑全量影响分类。
+    components:
+    - name: 受影响维度
+      meaning: 带项目针对理由和直接证据的真实影响。
+    - name: 未知维度
+      meaning: 尚不能可靠判断且带原因和解决方式的影响。
+    - name: 不受影响维度
+      meaning: 只列稳定维度身份、不要求空占位理由的分类。
+    invariants:
+    - 每个当前政策要求的稳定维度必须恰好出现一次。
+    - 程序不得根据文件名、关键词或数量猜测影响语义。
+- fact_id: FACT-361FDF7E6A6044C2
+  status: draft
+  title: AssuranceBand（保障等级）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    meaning: 同一建设生命周期中由真实后果、影响和项目政策共同决定的保障深度。
+    components:
+    - name: 候选等级
+      meaning: 智能编码代理基于项目事实提出并说明理由的等级。
+    - name: 确定性下限
+      meaning: 程序依据已声明政策和确定性风险事实计算的最低等级。
+    - name: 生效等级
+      meaning: 候选等级与确定性下限中更高的一个，负责人可以进一步提高。
+    invariants:
+    - 文件数量、后缀、活动名称和关键词不是保障等级依据。
+    - 降低项目通用底线必须由长期政策和负责人明确决定。
+- fact_id: FACT-577431AEBE214F66
+  status: draft
+  title: VerificationStatus（验证状态）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C33E74EC824D4AE0
+  content:
+    meaning: 对当前计划中命令执行事实的唯一公开汇总状态；逐项目标的核验安排和 Agent 审阅结论另在同一方案与实际结果中说明，不形成另一套工作流状态。
+    components:
+    - name: 状态值
+      meaning: 区分无需验证、等待验证、已通过和带问题完成等确定性状态。
+    - name: 依据回执
+      meaning: 形成该状态的真实运行、未运行、失败、受限和取消事实集合。
+    invariants:
+    - 同一事项同一版本只能有一个命令验证汇总状态；无命令不表示没有逐项审阅义务。
+    - 验证状态不等于产品正确、用户接受、可以继续或外部合规。
+- fact_id: FACT-32F33CAB000C4F0D
+  status: draft
+  title: CurrentAction（当前动作）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-4FD08D68267441B6
+  content:
+    meaning: 从当前确定性状态投影的唯一最小下一项公开操作指针。
+    components:
+    - name: 操作意图
+      meaning: 当前允许提交或读取的公开行为。
+    - name: 前置要求
+      meaning: 完成该行为需要复制的身份、版本、引用和结构要求。
+    - name: 聚焦记录
+      meaning: 只有当前决定或首个依赖已满足实施切片所需的按需只读信息入口。
+    invariants:
+    - 当前动作不得包含程序生成的工程语义或代理内部过程。
+    - 完成、取消或真实阻断状态不得投影虚假实施下一步。
+- fact_id: FACT-D4F5B61728395A6B
+  status: draft
+  title: OwnerView（负责人视图）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-C3E4A5061728395A
+  content:
+    meaning: 把完整工程方案压缩成项目负责人容易理解、能够直接决策的一组关注点。
+    components:
+    - name: 当前问题
+      meaning: 先用普通语言说明现在发生了什么以及为什么值得处理。
+    - name: 影响与建议
+      meaning: 说明推荐方向、会改善什么、还有哪些真实替代选择。
+    - name: 不处理后果
+      meaning: 说明继续维持现状会造成的具体风险或成本。
+    - name: 下一步与必要问题
+      meaning: 给出当前可以采取的最小动作，并只保留真正会改变方向的问题。
+    invariants:
+    - 负责人视图只是同一工程方案的展示方式，不新增用户确认点，也不取得语义决定权。
+    - 同一轮不得保留超过五个高影响问题；可由项目调查取得的事实不得转嫁给项目负责人。
+- fact_id: FACT-8AC9AE21345846DE
+  status: draft
+  title: EvidenceReceipt（证据回执）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-04A78FF5E02A48CF
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-2D3C638B3E92417A
+  - FACT-ADDCB3B236194270
+  content:
+    meaning: 一次真实外部操作产生的普通事实记录，不包含对产品语义的自动解释。
+    components:
+    - name: 操作请求
+      meaning: 实际执行的工具、参数、工作范围和运行种类。
+    - name: 执行环境
+      meaning: 与结果解释相关的版本、平台和条件。
+    - name: 原始结果
+      meaning: 输出、错误、退出状态、开始结束时间和取消事实。
+    - name: 限制
+      meaning: 未运行部分、截断、超时、外部依赖和不能证明的内容。
+    invariants:
+    - 计划、文档、零退出状态或人工录入不得冒充未发生的外部执行。
+    - 回执必须保持原始负面和限制事实。
+    - 联合验证只覆盖实际绑定的仓库内容和可核验外部版本；服务地址、契约预期和未检出源码各自的证明范围必须明确。
+- fact_id: FACT-EB11DC9B0C44464D
+  status: draft
+  title: SourceReference（来源引用）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-ADDCB3B236194270
+  content:
+    meaning: 工程语义候选所依据的可定位、可复核且范围明确的项目或外部事实引用。
+    components:
+    - name: 来源种类
+      meaning: 区分项目权威、源码版本、外部文档、命令回执或用户决定。
+    - name: 精确身份与版本
+      meaning: 定位被实际观察的内容而不是未来最新状态。
+    - name: 支持范围
+      meaning: 说明来源直接支持哪一项判断以及不支持什么。
+    - name: 仓库内容定位
+      meaning: 涉及版本化工程内容时，仓库身份与其精确内容范围共同定位来源；原权威或历史身份仍保持自身含义。
+    invariants:
+    - 引用存在不等于判断专业或语义正确。
+    - 无法定位或复核的来源不得作为已证明事实。
+- fact_id: FACT-7A9F98FC2BFE44E3
+  status: draft
+  title: ImplementationRelationObservation（实现关系观察）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ECC7967D187F4AA1
+  - FACT-2D3C638B3E92417A
+  content:
+    meaning: 外部工程工具在精确实现版本、观察范围和配置下报告的一条当前实现关系事实；它是可复核证据，不取得领域或架构语义决定权。
+    components:
+    - name: 关系端点与种类
+      meaning: 标识来源、目标以及导入、引用、调用、构建依赖或其他被声明的关系种类与粒度。
+    - name: 适用上下文
+      meaning: 标识语言、项目、构建目标、配置、特性、平台及其他影响关系成立的条件。
+    - name: 解析状态
+      meaning: 区分已解析、未解析、歧义、外部目标和不适用，不把未知目标伪装为不存在。
+    - name: 观察证据与限制
+      meaning: 记录观察能力、工具或提供者身份与版本、输入版本、回执、限制及失败事实。
+    invariants:
+    - 相同端点在不同适用上下文中可以形成不同关系观察，不得无条件合并。
+    - 关系观察不得直接决定目标架构归属、允许性或领域含义。
+    - 无法解析或存在歧义的关系必须保持原始观察和限制。
+- fact_id: FACT-84DF6E5CAB34446B
+  status: draft
+  title: ObservationCoverage（观察覆盖）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-ECC7967D187F4AA1
+  - FACT-7A9F98FC2BFE44E3
+  content:
+    meaning: 一次实现观察相对于已声明范围和配置的确定性覆盖结果，用于区分已经观察、明确排除、未解析、不支持、未执行和失败的部分。
+    components:
+    - name: 覆盖状态
+      meaning: 区分完整、部分、不可用和失败，不以单一通过值掩盖缺口。
+    - name: 已观察范围
+      meaning: 列出获得可复核结果的源码范围、项目、目标、配置和关系种类。
+    - name: 排除与缺口
+      meaning: 分别列出经判断的显式排除、未解析、不支持、未执行和失败范围及原因。
+    - name: 能力与回执
+      meaning: 绑定实际观察能力、提供者、版本、输入快照、执行方式、结果身份和限制。
+    invariants:
+    - 只有全部必需范围和配置均被观察且没有未解析、不支持、未执行或失败项时才能标记完整。
+    - 显式排除必须带有工程理由，不能由观察工具自行改变受管范围。
+    - 部分、不可用和失败必须保留可执行的补充观察或人工调查计划。
+- fact_id: FACT-B6D853E18DEB42F8
+  status: draft
+  title: ImplementationStatus（实现状态）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-84DF6E5CAB34446B
+  content:
+    meaning: 一个目标责任相对于精确当前代码和证据的显式工程判断。
+    components:
+    - name: 状态值
+      meaning: 区分已实现、部分实现、未实现、已偏离、未知和无需独立实现。
+    - name: 已满足内容
+      meaning: 当前代码和证据已经支持的目标部分。
+    - name: 缺失或偏离内容
+      meaning: 仍未满足、实现错误或提前实现未来阶段的部分。
+    - name: 依据与限制
+      meaning: 实现观察范围、关系与覆盖结果、验证证据、判断局限和未知解决计划。
+    invariants:
+    - 部分实现必须同时说明已满足和缺失内容。
+    - 未知必须附解决计划；无需独立实现只能用于真实不产生独立行为的事实。
+    - 观察缺失、部分、不支持、失败或歧义影响目标责任判断时必须使用未知或更保守状态，不能据此标记已实现。
+    - 文件存在、名称相似或测试存在不得单独证明目标已实现。
+- fact_id: FACT-D7351091E90D4C29
+  status: draft
+  title: GovernanceRuleAssessment（治理规则评估结果）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-296143B0C54B493D
+  - FACT-EB11DC9B0C44464D
+  - FACT-8AC9AE21345846DE
+  content:
+    meaning: 一项已采用治理规则在精确项目版本上的适用性、内部满足状态、依据、缺口、纠偏和证明范围。
+    components:
+    - name: 规则与来源绑定
+      meaning: 规则的稳定身份、采用依据、来源引用和适用范围。
+    - name: 适用性与内部状态
+      meaning: 区分满足、部分满足、不满足、不适用和未知，不计算掩盖缺口的总分。
+    - name: 证据与限制
+      meaning: 支持该状态的项目证据、实际覆盖范围和不能证明的内容。
+    - name: 缺口与纠偏
+      meaning: 未满足内容、责任边界、建议行动和需要人工决定的事项。
+    - name: 对外声明边界
+      meaning: 区分内部工程判断与需要独立外部回执才能成立的认证、合规或适用性声明。
+    invariants:
+    - 来源绑定只能证明采用依据可追溯，不能证明规则语义正确或项目已取得外部认证。
+    - 满足必须有覆盖对应规则的证据；部分满足和不满足必须保留缺口与纠偏行动。
+    - 不适用必须给出可复核理由；未知必须给出解决计划。
+- fact_id: FACT-A6AEAAD06C24D8F8
+  status: draft
+  title: RuntimeCombination（运行版本组合）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  dependency_fact_ids: []
+  content:
+    meaning: 同一项目在一个可用时刻的程序、Skill、持久格式及业务修订的明确组合。
+    components:
+    - name: 程序构建
+      meaning: 软件版本及程序资源的实际内容身份。
+    - name: 随包指引
+      meaning: 与程序构建匹配的 Skill 内容身份和实际位置。
+    - name: 持久格式
+      meaning: 事项、活动、证据与维护记录分别声明的格式。
+    - name: 业务修订
+      meaning: 原目标、事项、决定与确认依据的业务身份，升级不能任意改变。
+    invariants:
+    - 软件版本字符串相同不证明构建或 Skill 内容相同。
+    - 数据转换成功不证明宿主会话已经加载新版 Skill。
+- fact_id: FACT-C9C5B5C016D75999
+  status: draft
+  title: UpgradeBackup（升级备份）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  dependency_fact_ids: []
+  content:
+    meaning: 一次升级中受影响事实的一致且不可被同名覆盖的恢复材料。
+    components:
+    - name: 保护清单
+      meaning: 明确数据库、仍被引用的证据、受影响长期文件和旧运行组合。
+    - name: 一致性依据
+      meaning: 保存原始字节、内容身份、业务修订和可读核验结果。
+    - name: 恢复前提
+      meaning: 用于判定没有新事实被覆盖，以及当前文件仍属于本次尝试。
+    invariants:
+    - 备份和核验副本不递归进入自身保护清单。
+    - 备份缺失或内容不匹配不得作为可用恢复来源。
+- fact_id: FACT-1CAB6ACCB64BA995
+  status: draft
+  title: HistoricalEvidenceReference（历史证据引用）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-A6AEAAD06C24D8F8
+  - FACT-ADDCB3B236194270
+  content:
+    meaning: 带来源版本与明确核验范围的历史内容定位。
+    components:
+    - name: 原事实定位
+      meaning: 事项版本、事件顺序、回执身份或精确 Git 提交与仓库相对路径。
+    - name: 证据字节身份
+      meaning: 内容摘要、大小及采集时点；升级时补采不能冒称执行时已有。
+    - name: 可用性
+      meaning: 可读、缺失、不匹配、未锚定或原记录信息不足。
+    - name: 仓库内容定位
+      meaning: 涉及版本化工程内容时，仓库身份与其精确内容范围共同定位来源；原权威或历史身份仍保持自身含义。
+    invariants:
+    - 当前同名文件不能替代原版本内容。
+    - 无法取得一个证据不抹除其他记录和当时结论。
+- fact_id: FACT-EECFC91CAB03476E
+  status: draft
+  title: RepositoryMembership（项目仓库归属）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AD3A3604E30A4387
+  - FACT-12A47E948AC94AF2
+  content:
+    meaning: 某个仓库在明确项目修订中由哪个受管项目负责修改和交付，以及该仓库的工程用途。
+    components:
+    - name: 归属项目与仓库
+      meaning: 分别以稳定项目身份和仓库身份定位唯一修改与交付归属。
+    - name: 适用修订与用途
+      meaning: 在项目治理材料中保存适用的精确修订和仓库承担的工程用途。
+    invariants:
+    - 成员归属与依赖使用分别表达；消费共享服务、软件包或契约不产生第二个受管归属。
+    - 本机目录缺失不删除成员身份和历史，可访问目录也不单独证明修改授权。
+    - 矛盾归属先解决再执行相关修改；不能由路径变化推断归属迁移、拆仓或合仓。
+- fact_id: FACT-ADDCB3B236194270
+  status: draft
+  title: RepositoryContentReference（仓库内容引用）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-12A47E948AC94AF2
+  content:
+    meaning: 对明确仓库中实际被观察、修改或交付的内容的精确定位。
+    components:
+    - name: 仓库身份
+      meaning: 区分不同仓库中的同名路径，并能识别相关工程归属。
+    - name: 内容版本与范围
+      meaning: 绑定精确版本或实际捕获内容，以及本次所指文件或内容范围。
+    - name: 观察依据与可用性
+      meaning: 说明定位和核验所依据的事实，分别呈现可读、缺失、不匹配或信息不足。
+    invariants:
+    - 分支名和目录位置不单独证明不可变内容；当前同名文件不能替代历史引用。
+    - 提交前可以使用真实内容快照；提交后通过外部版本事实核对其与已接受内容的对应关系。
+    - 仓库位置不替代 AuthorityReference 中的权威身份和精确修订，缺失引用不能模糊匹配。
+- fact_id: FACT-E793FB9BC65A4ED0
+  status: draft
+  title: ProjectContentSnapshot（项目内容快照）
+  kind: value_object
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AD3A3604E30A4387
+  - FACT-ADDCB3B236194270
+  - FACT-8E8D0712BBF64AC3
+  - FACT-8AC9AE21345846DE
+  content:
+    meaning: 一项工程判断实际依据的、范围明确的项目权威、仓库内容及必要外部依赖的精确组合。
+    components:
+    - name: 判断与权威上下文
+      meaning: 绑定事项、方案和适用的长期权威精确版本。
+    - name: 仓库内容
+      meaning: 列出受影响仓库被实际捕获或观察的内容，不强制纳入无关仓库。
+    - name: 必要外部依赖
+      meaning: 保存所需契约、制品或服务的实际版本、环境及可核验依据。
+    - name: 证明范围与未知
+      meaning: 明确已捕获、已核验和仍未知的输入，以及每份证据实际覆盖的范围。
+    invariants:
+    - 快照存在不证明功能正确、输入完整或项目已交付；必要输入没有相应证据时不能支持完整验证结论。
+    - 提交前形成快照不要求提前产生结果提交；后续提交或合入以新事实核对对应关系，原快照及回执不回写。
+    - 各仓库最新分支状态不能自动拼成已共同验证或采用的版本组合。
+    - 项目内容组合不复用或改变 Strixnova 自身 RuntimeCombination 的事实身份和含义。

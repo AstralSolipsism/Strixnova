@@ -1,0 +1,466 @@
+{
+  "assessments": [
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "project_context.py imports only from strixnova.git_project_reader and strixnova.schema_error_reporting; no import from any MODULE-684D source file",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L19-L25"
+        },
+        {
+          "claim": "project_repository_scope.py imports from git_project_reader and project_context only; no MODULE-684D import",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_repository_scope.py#L1-L10"
+        },
+        {
+          "claim": "confirmation_protocol.py has no strixnova imports at all, fully self-contained",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/confirmation_protocol.py#L1-L10"
+        },
+        {
+          "claim": "27 test definitions, 39 recorded rows in both runs d0856323c4b6 and f5e20647248e, all passed",
+          "kind": "test",
+          "ref": "inputs/packet.json#L70-L97 (recorded_test_summary for RELATION-5931451B)"
+        }
+      ],
+      "limitations": [
+        "Dynamic import or runtime getattr patterns in F55E source files have not been exhaustively audited; only static import statements were inspected",
+        "Test assertions have not been read line-by-line; passing status taken from packet recorded_test_summary"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_context.py (MODULE-F55E) imports only from git_project_reader and schema_error_reporting (MODULE-B558), contains no import from any MODULE-684D file (workflow_authority, work_item_repositories, actual_result, current_action, follow_ups, persistent_evidence, project_authority_progress, project_maintenance, storage_formats, work_item_relations, confirmation_protocol, execution_stop_evidence)",
+        "project_repository_scope.py imports only from git_project_reader and project_context, no MODULE-684D imports",
+        "confirmation_protocol.py has zero strixnova imports — fully self-contained with hashlib/json/collections.abc only",
+        "current_action.py, follow_ups.py, work_item_repositories.py etc. are MODULE-684D files that do import from project_context (reverse direction), but that is the allowed direction, not the forbidden F55E→684D direction"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-5931451B2CA64732",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "project_context.py imports only git_project_reader and schema_error_reporting; no import of project_authority_consistency",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L19-L25"
+        },
+        {
+          "claim": "project_repository_scope.py has no import from project_authority_consistency",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_repository_scope.py#L1-L10"
+        },
+        {
+          "claim": "project_authority_consistency.py imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context — allowed reverse direction 09B1→F55E",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L40"
+        },
+        {
+          "claim": "23 definitions, all passed in runs d0856323c4b6 (30 rows), f5e20647248e (30 rows), 5bba08870241 (4 rows), 30608175d9f5 (2 rows)",
+          "kind": "test",
+          "ref": "inputs/packet.json#L149-L189 (recorded_test_summary for RELATION-5D813FE5)"
+        }
+      ],
+      "limitations": [
+        "Dynamic import or runtime access patterns not exhaustively audited beyond static import analysis",
+        "Individual test assertion code not read; passing status from packet recorded_test_summary"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_context.py contains no import from project_authority_consistency (MODULE-09B1); imports only git_project_reader and schema_error_reporting",
+        "project_repository_scope.py contains no import from project_authority_consistency; imports only git_project_reader and project_context",
+        "The reverse direction is observed: project_authority_consistency.py imports from project_context (L40) and project_repository_scope (L5), which is the allowed 09B1→F55E direction, not the forbidden F55E→09B1"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-5D813FE5770641AB",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "ApplicationCoordinator imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/application_coordinator.py#L58"
+        },
+        {
+          "claim": "ApplicationCoordinator.__init__ resolves project_context and stores as self.project_context for reuse by downstream modules",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/application_coordinator.py#L309-L326"
+        },
+        {
+          "claim": "implementation_candidate_evidence.py imports ProjectContextResolver from project_context",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/implementation_candidate_evidence.py#L22"
+        },
+        {
+          "claim": "project_authority_decision.py imports ProjectContextResolver from project_context",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_decision.py#L37"
+        },
+        {
+          "claim": "23 definitions, 24 recorded rows all passed in both runs d0856323c4b6 and f5e20647248e",
+          "kind": "test",
+          "ref": "inputs/packet.json#L264-L290 (recorded_test_summary for RELATION-828FE7F3)"
+        }
+      ],
+      "limitations": [
+        "The contract clause 'not treating resolution result as user authorization' is a semantic claim; code inspection shows no explicit authorization grant from resolution, but semantic effect is not machine-proven",
+        "Test assertions not individually inspected"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "application_coordinator.py (MODULE-159A) imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context (L58) — direct dependency as contract requires",
+        "ApplicationCoordinator.__init__ resolves context once via ProjectContextResolver(project).configured() at L318-L321 and passes it as shared_context/project_context to downstream modules",
+        "implementation_candidate_evidence.py imports ProjectContextResolver and ProjectEngineeringBaseline — uses context for baseline not for re-parsing",
+        "project_authority_decision.py imports ProjectContextResolver from project_context (L37) — uses already-resolved context for authority reads",
+        "Contract says 'resolve context once before loading authorities and executing use cases' — ApplicationCoordinator._prepare_project_use_case (L342-L356) re-resolves context per use case but does not treat resolution as user authorization"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-828FE7F3EC3F4528",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "project_context.py imports from git_project_reader (GitProjectReader, GitProjectReaderError, RepositoryReadScope, repository_relative_path) and schema_error_reporting (schema_error_message)",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L19-L25"
+        },
+        {
+          "claim": "GitProjectReaderError provides error boundary for safe read operations; GitProjectReader provides read-only Git access",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/git_project_reader.py#L101-L113"
+        },
+        {
+          "claim": "schema_error_reporting.py is a stateless utility module with no project authority imports",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/schema_error_reporting.py#L1-L119"
+        },
+        {
+          "claim": "22 definitions, 31 recorded rows all passed in both runs d0856323c4b6 and f5e20647248e",
+          "kind": "test",
+          "ref": "inputs/packet.json#L364-L390 (recorded_test_summary for RELATION-B14FB62E)"
+        }
+      ],
+      "limitations": [
+        "git_project_reader.py is 1565 lines; only the first 800 and import section were read; remaining methods assumed consistent with read-only pattern based on class docstrings and initial methods",
+        "Test assertion details not individually inspected"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_context.py imports GitProjectReader, GitProjectReaderError, RepositoryReadScope, repository_relative_path from git_project_reader (L19-L24) — direct dependency on MODULE-B558",
+        "project_context.py imports schema_error_message from schema_error_reporting (L25) — direct dependency on MODULE-B558",
+        "project_repository_scope.py imports from git_project_reader (safe read and scope operations)",
+        "ProjectContext.authority_reader method (project_context.py) requests read-only reader via git_project_reader facilities",
+        "git_project_reader.py provides RepositoryReadScope binding and read-only version verification via resolve_commit, path_exists_at, read_file_at",
+        "schema_error_reporting.py is a utility for JSON Schema error messages with no project/authority state"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-B14FB62EAD704B9C",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "project_context.py imports only git_project_reader and schema_error_reporting; no import of project_engineering_baseline",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L19-L25"
+        },
+        {
+          "claim": "project_repository_scope.py has no import from project_engineering_baseline",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_repository_scope.py#L1-L10"
+        },
+        {
+          "claim": "project_engineering_baseline.py imports ProjectContext, ProjectContextResolver, etc. from project_context — allowed reverse direction E74F→F55E",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_engineering_baseline.py#L22-L29"
+        },
+        {
+          "claim": "23 definitions; run d0856323c4b6 had 27 passed + 1 failed (test_baseline_does_not_load_or_validate_downstream_authority_bodies); subsequent runs f5e20647248e (28 passed), 7aaf327a1ccb (4 passed), 30608175d9f5 (2 passed) all passed",
+          "kind": "test",
+          "ref": "inputs/packet.json#L442-L489 (recorded_test_summary for RELATION-C0C190AA)"
+        }
+      ],
+      "limitations": [
+        "test_baseline_does_not_load_or_validate_downstream_authority_bodies failed in run d0856323c4b6 but passed in all later runs; the frozen source code matches the later-passing state, but the earlier failure may indicate a code change between runs",
+        "Dynamic import patterns not exhaustively audited"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_context.py contains no import from project_engineering_baseline (MODULE-E74F); imports only git_project_reader and schema_error_reporting",
+        "project_repository_scope.py contains no import from project_engineering_baseline; imports only git_project_reader and project_context",
+        "The reverse direction is confirmed: project_engineering_baseline.py imports from project_context (L22-L29) — this is the allowed E74F→F55E direction",
+        "project_engineering_baseline.py __init__ (L98-L100) uses ProjectContextResolver to configure context, confirming baseline uses already-resolved context rather than the other way around"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-C0C190AA0BD94137",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "review_context_projection.py imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/review_context_projection.py#L18"
+        },
+        {
+          "claim": "ReviewContextProjection._read uses ProjectContextResolver.configured() for read-only project/repository location without creating state",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/review_context_projection.py#L59-L75"
+        },
+        {
+          "claim": "work_item_read_model.py imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/work_item_read_model.py#L53-L58"
+        },
+        {
+          "claim": "WorkItemReadModel.__init__ resolves context and management root via ProjectContextResolver without creating work item state",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/work_item_read_model.py#L121-L136"
+        },
+        {
+          "claim": "27 definitions, all passed in runs d0856323c4b6 (32 rows), f5e20647248e (32 rows), 30608175d9f5 (2 rows)",
+          "kind": "test",
+          "ref": "inputs/packet.json#L561-L594 (recorded_test_summary for RELATION-D34BA899)"
+        }
+      ],
+      "limitations": [
+        "read_only_projection semantics verified structurally (no write calls observed) but not proven that no write could occur through downstream calls initiated by these classes",
+        "Test assertion details not individually inspected"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "review_context_projection.py (MODULE-7168) imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context (L18) — read_only_projection dependency",
+        "ReviewContextProjection.__init__ takes project_dir and uses ProjectContextResolver.configured() for read-only context resolution without creating work items or members",
+        "work_item_read_model.py (MODULE-7168) imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context (L53-L58) — read_only_projection dependency",
+        "WorkItemReadModel.__init__ uses ProjectContextResolver for management_binding and prepare_project_context but does not initialize work items or supplement missing members",
+        "Both consumer classes use ProjectContext/ProjectContextResolver read-only: they query project_id, repositories, management_root, configuration_reader — no project state writes"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-D34BA899A1F04493",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "project_engineering_baseline.py imports ProjectContext, ProjectContextError, ProjectContextResolver, DEFAULT_BASELINE_PATH, PROJECT_CONFIG_SCHEMA, read_project_configuration from project_context",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_engineering_baseline.py#L22-L29"
+        },
+        {
+          "claim": "ProjectEngineeringBaseline.__init__ uses shared_context or ProjectContextResolver.configured() for context resolution, then context.authority_reader() for reader selection — config locating is delegated",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_engineering_baseline.py#L85-L128"
+        },
+        {
+          "claim": "When context is None, baseline falls back to read_project_configuration(reader) and DEFAULT_BASELINE_PATH — still uses project_context's exported function, not its own parsing",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_engineering_baseline.py#L102-L106"
+        },
+        {
+          "claim": "23 definitions; run d0856323c4b6 had 27 passed + 1 failed (test_baseline_does_not_load_or_validate_downstream_authority_bodies); later runs f5e20647248e (28 passed), 7aaf327a1ccb (4 passed), 30608175d9f5 (2 passed) all passed",
+          "kind": "test",
+          "ref": "inputs/packet.json#L654-L702 (recorded_test_summary for RELATION-69215BA3)"
+        }
+      ],
+      "limitations": [
+        "test_baseline_does_not_load_or_validate_downstream_authority_bodies failed in one early run (d0856323c4b6) but passed in all subsequent runs; frozen source corresponds to passing state",
+        "read_project_configuration is imported and used as fallback (L105) which could be viewed as partial config parsing duplication, but it is the same function from project_context, not a copy"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_engineering_baseline.py (MODULE-E74F) imports ProjectContext, ProjectContextError, ProjectContextResolver, read_project_configuration, DEFAULT_BASELINE_PATH, PROJECT_CONFIG_SCHEMA from project_context (L22-L29)",
+        "ProjectEngineeringBaseline.__init__ (L85-L128) accepts shared_context or uses ProjectContextResolver.configured() to obtain context, then uses context.authority_reader() for baseline access — delegates configuration locating to context module",
+        "Baseline does not replicate config parsing, member declaration, or local path selection: it consumes context.configuration, context.configuration_reader, context.repositories, context.repository() — all from ProjectContext",
+        "Contract says 'delegate config locating or receive already-resolved context; do not copy config parsing, member declaration, local path selection' — confirmed in code"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-69215BA308034F07",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "project_authority_consistency.py imports prepare_repository_scope, qualify_candidate from project_repository_scope",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L5"
+        },
+        {
+          "claim": "project_authority_consistency.py imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L40"
+        },
+        {
+          "claim": "ProjectAuthorityConsistency.__init__ accepts shared_context (ProjectContext) and uses it to create baseline_reader, accessing context.repository() for scope binding",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L325-L354"
+        },
+        {
+          "claim": "_read_authorities uses context.authority_reader(reference, parent_reader) for per-kind binding, and GitProjectReader.for_repository with explicit observed_ref for cross-repository reads",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_authority_consistency.py#L358-L406"
+        },
+        {
+          "claim": "23 definitions, all passed in 4 runs: d0856323c4b6 (30 rows), f5e20647248e (30 rows), 5bba08870241 (4 rows), 30608175d9f5 (2 rows)",
+          "kind": "test",
+          "ref": "inputs/packet.json#L769-L808 (recorded_test_summary for RELATION-EDD05730)"
+        }
+      ],
+      "limitations": [
+        "Only first 800 lines of project_authority_consistency.py (2529 lines total) were read; authority binding logic is concentrated in the read portion but later methods were not inspected",
+        "Test assertion details not individually inspected; passing status from packet recorded_test_summary"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_authority_consistency.py (MODULE-09B1) imports ProjectContext, ProjectContextError, ProjectContextResolver from project_context (L40) — read_only_projection dependency on F55E",
+        "project_authority_consistency.py imports prepare_repository_scope, qualify_candidate from project_repository_scope (L5) — uses repository scope values from F55E",
+        "ProjectAuthorityConsistency.__init__ (L325-L354) accepts shared_context (ProjectContext) and creates baseline_reader from it; uses context.repository() and context.authority_reader() to bind each authority kind to specific member repository and version",
+        "_read_authorities method (L358-L439) uses context.authority_reader(reference, parent_reader) to obtain per-kind readers — binds authority root references to declared member repositories with specific commits",
+        "Cross-repository reads use GitProjectReader.for_repository(repository.scope, observed_ref=version) at L406 — inherits parent commit for same repository, uses explicit version for cross-repository, never implicitly selects latest branch"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-EDD05730461949AD",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "engineering_governance.py imports ProjectContextError from project_context — only the error type, not resolver or parsing functions",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/engineering_governance.py#L6"
+        },
+        {
+          "claim": "engineering_governance.py imports qualify_candidate, scope_for_candidate, repository_key from project_repository_scope — consuming prepared scope values",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/engineering_governance.py#L7"
+        },
+        {
+          "claim": "project_repository_scope.py exports qualify_candidate, scope_for_candidate, repository_key — pure identity/scope utilities without config parsing",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_repository_scope.py#L1-L10"
+        },
+        {
+          "claim": "19 definitions, all passed in 3 runs: d0856323c4b6 (25 rows), f5e20647248e (25 rows), 5bba08870241 (1 row)",
+          "kind": "test",
+          "ref": "inputs/packet.json#L872-L903 (recorded_test_summary for RELATION-84E10852)"
+        }
+      ],
+      "limitations": [
+        "Only first 50 lines of engineering_governance.py (3599 lines total) were read for imports; later code may contain additional access patterns not captured in the import section",
+        "Test assertion details not individually inspected"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "engineering_governance.py (MODULE-5CEF) imports ProjectContextError from project_context (L6) — uses only the error type, not the full resolver or parsing",
+        "engineering_governance.py imports qualify_candidate, scope_for_candidate, repository_key from project_repository_scope (L7) — consumes already-prepared repository scope values and identity-limiting operations",
+        "The contract says 'consume prepared repository scope values and pure identity operations, do not re-parse configuration or read project files' — engineering_governance imports only error types and scope utilities, not ProjectContextResolver or read_project_configuration",
+        "engineering_governance.py also imports normalize_dependency_checks from verification_dependencies (L4) — this is within MODULE-B558 scope, not a violation"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-84E10852A2F640CE",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "current_action.py imports dependency_evidence_stale from verification_dependencies",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/current_action.py#L12"
+        },
+        {
+          "claim": "dependency_evidence_stale is a pure function: checks evidence status, iterates records for max_age_seconds and observed_at, computes time difference against current moment, returns bool",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/verification_dependencies.py#L101-L115"
+        },
+        {
+          "claim": "verification_dependencies.py imports only from collections.abc, datetime, hashlib, json, re, typing — zero strixnova imports",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/verification_dependencies.py#L1-L8"
+        },
+        {
+          "claim": "16 definitions, 16 recorded rows all passed in both runs d0856323c4b6 and f5e20647248e",
+          "kind": "test",
+          "ref": "inputs/packet.json#L956-L980 (recorded_test_summary for RELATION-2AE048DB)"
+        }
+      ],
+      "limitations": [
+        "Test assertion bodies not individually read; passing status from packet recorded_test_summary"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "current_action.py (MODULE-684D) imports dependency_evidence_stale from verification_dependencies (L12) — the sole cross-module call for this relationship",
+        "dependency_evidence_stale function (verification_dependencies.py L101-L115) is a pure time-based staleness check: takes evidence Mapping and optional now datetime, returns bool; computes only from recorded observed_at timestamps, max_age_seconds, and current time",
+        "verification_dependencies.py has zero strixnova imports — no project files, no execution probing, no receipt rewriting, no status write authority",
+        "Contract says 'compute evidence expiry marks from recorded observation time, declared freshness window, and current moment only; do not read live project, probe execution, rewrite receipts, or acquire write authority' — fully matched by the stateless algorithm in dependency_evidence_stale"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-2AE048DB902247DB",
+      "target_kind": "relationship"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "implementation_alignment_preparation.py imports from git_project_reader, implementation_observation (observe_project_implementation, external_observation_providers_from_plans), project_engineering_baseline, project_implementation_alignment, and recoverable_document_transaction",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/implementation_alignment_preparation.py#L21-L47"
+        },
+        {
+          "claim": "Direct import: from strixnova.implementation_observation import observe_project_implementation, external_observation_providers_from_plans",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/implementation_alignment_preparation.py#L25"
+        },
+        {
+          "claim": "implementation_observation.py imports only from git_project_reader and process_supervisor (no workflow/authority state imports), confirming it receives explicit scopes and produces normalized observations",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/implementation_observation.py#L1-L41"
+        },
+        {
+          "claim": "22 definitions; run d0856323c4b6: 22 rows all passed; run f5e20647248e: 15 rows all passed; run 5bba08870241: 5 rows all passed",
+          "kind": "test",
+          "ref": "inputs/packet.json#L1039-L1072 (recorded_test_summary for RELATION-C1DD0851)"
+        }
+      ],
+      "limitations": [
+        "Only first 60 lines of implementation_alignment_preparation.py (2347 lines) and implementation_observation.py (2938 lines) were read; deeper method-level contract conformance was not verified",
+        "Run f5e20647248e had only 15 recorded rows vs 22 in d0856323c4b6 — fewer parameterized variants executed but all passed; the difference may reflect test selection or configuration, not a failure",
+        "External provider execution authorization semantics are a runtime/semantic property not fully machine-provable from static imports"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "implementation_alignment_preparation.py (MODULE-159A side, via application_coordinator) imports from git_project_reader, implementation_observation (observe_project_implementation, external_observation_providers_from_plans), project_engineering_baseline, and project_implementation_alignment — provides the bound repository/version/observation-scope interface",
+        "implementation_observation.py (MODULE-BED0) imports from git_project_reader and process_supervisor only — receives explicit source scopes and produces normalized observation snapshots",
+        "implementation_alignment_preparation.py imports observe_project_implementation and external_observation_providers_from_plans from implementation_observation (L25) — the direct 159A→BED0 dependency",
+        "Contract says 'submit bound repository, version, and explicit observation scope; receive normalized observation, coverage, and receipt for alignment preparation; external provider execution must bind confirmed plan, actual material bytes, and explicit authorization' — structurally confirmed by the import relationship and the external_observation_providers_from_plans pattern"
+      ],
+      "status": "implemented",
+      "target_id": "RELATION-C1DD0851C7DB4E17",
+      "target_kind": "relationship"
+    }
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "source_ownership": []
+}

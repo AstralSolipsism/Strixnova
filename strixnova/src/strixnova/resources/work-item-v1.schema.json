@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.work-item.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "work_item_id",
+    "title",
+    "status",
+    "version",
+    "data",
+    "created_at",
+    "updated_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.work-item.v1"
+    },
+    "work_item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "discussion",
+        "awaiting_direction_confirmation",
+        "needs_engineering_assessment",
+        "awaiting_plan_confirmation",
+        "implementation_ready",
+        "exploring",
+        "implementing",
+        "awaiting_actual_result",
+        "commit_required",
+        "integration_required",
+        "integration_conflict",
+        "cleanup_required",
+        "replanning_required",
+        "cancelled_changes_pending",
+        "cancelled",
+        "completed"
+      ]
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "data": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "raw_request",
+        "direction",
+        "direction_confirmation",
+        "direction_item_history",
+        "engineering",
+        "verifications",
+        "implementation_slice_completions",
+        "project_authority_presentations",
+        "project_authority_reviews",
+        "project_authority_decisions",
+        "actual_result",
+        "actual_result_confirmation",
+        "authority_adoption",
+        "cancellation",
+        "pending_effect",
+        "blockers"
+      ],
+      "properties": {
+        "raw_request": {
+          "type": "string",
+          "minLength": 1
+        },
+        "direction": {
+          "anyOf": [
+            {
+              "$ref": "direction-decision-v1.schema.json"
+            },
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "description": "当前讨论中的不完整方向；进入确认前由方向合同完成校验。",
+              "properties": {
+                "schema_version": {
+                  "const": "strixnova.direction-decision.v1"
+                }
+              }
+            }
+          ]
+        },
+        "direction_confirmation": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "direction_item_history": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "active_ids",
+            "retired_ids"
+          ],
+          "properties": {
+            "active_ids": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^DIR(REQ|CON|ACC|EX)-[0-9A-F]{16}$"
+              }
+            },
+            "retired_ids": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {
+                "type": "string",
+                "pattern": "^DIR(REQ|CON|ACC|EX)-[0-9A-F]{16}$"
+              }
+            }
+          }
+        },
+        "engineering": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "assessment",
+            "plan",
+            "plan_confirmation"
+          ],
+          "properties": {
+            "assessment": {
+              "oneOf": [
+                {
+                  "$ref": "engineering-assessment-v1.schema.json"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "plan": {
+              "oneOf": [
+                {
+                  "$ref": "engineering-plan-v1.schema.json"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "plan_confirmation": {
+              "type": [
+                "object",
+                "null"
+              ]
+            }
+          }
+        },
+        "git": {
+          "type": "object"
+        },
+        "verifications": {
+          "type": "array"
+        },
+        "implementation_slice_completions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "project_authority_presentations": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "project_authority_reviews": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "project_authority_decisions": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        },
+        "actual_result": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "actual_result_confirmation": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "authority_adoption": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "cancellation": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "pending_effect": {
+          "type": [
+            "object",
+            "null"
+          ]
+        },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "project_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^PROJECT-[0-9A-F]{16}$"
+        },
+        "repository_deliveries": {
+          "type": "array",
+          "items": {
+            "$ref": "repository-delivery-responsibility-v1.schema.json"
+          }
+        },
+        "selected_repository_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "git"
+          ]
+        },
+        {
+          "required": [
+            "repository_deliveries"
+          ]
+        }
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "updated_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "current_action": {
+      "oneOf": [
+        {
+          "$ref": "current-action-v1.schema.json"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,479 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "GF-CONCRETE-INCOMPLETE",
+      "issues": [
+        {
+          "category": "agent_output",
+          "description": "作者在初次响应中面对用户明确要求管理的具体受管事项，未先调用 strixnova intake 登记 WorkItem 并基于 CurrentAction 闭环缺口，而是先行展开影子问答流程要求用户回答业务细节。"
+        }
+      ],
+      "limitations": [],
+      "reason": "用户的初次请求是扩展现有组件为预约申请工具的具体受管请求，按规范应先执行 intake 创建 WorkItem，再在返回的方向阶段关闭实质缺口；实际执行中作者在初次响应中未先执行 intake，而是自行设计了针对关键事实的影子提问，推迟了事项登记。",
+      "references": [
+        {
+          "end_line": 42,
+          "source_id": "initial/author-response.md",
+          "start_line": 8,
+          "original_text": "按 SKILL.md，这属于\"开始一项具体的、用户请求的受管事项\"，应走 `strixnova intake`。你的请求提到两个可分别交付的结果，我先为第一个事项做 intake。\n\n但在登记之前，background.md 已明确指出了一个**关键业务含义缺口**，我需要你先澄清——这直接决定两个功能的领域边界：\n\n---\n让我直接以文本方式向你提出这些关键业务问题。\n\n---\n\n在登记 Strixnova 事项之前，[background.md](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/.agent-inputs/g4-fixed/background.md) 已明确标记了几个业务含义冲突和缺口。我需要你就以下三个关键事实做出明确决定，因为它们直接决定两个功能的领域边界和实现方向：\n\n### 问题 1：成员\"取消\"的对象到底是什么？\n\n成员服务方说\"成员可取消自己的申请\"，运营方说\"审批决定的结果不得由成员直接改写\"——两者存在冲突。请明确成员能取消的是：\n\n- **A.** 仅限尚未审批的待审核申请（审批后的预约由负责人管理，成员不能自行撤回）\n- **B.** 待审核的申请以及已审批生效的预约都可以取消（取消已生效预约需走额外确认/退出流程）\n- **C.** 其他情况（请描述）\n\n### 问题 2：负责人下载\"每周汇总\"的数据范围是什么？\n\n- **A.** 仅已生效预约的统计（不含待审核、已取消的记录）\n- **B.** 所有状态的申请/预约（待审核、已生效、已取消、已拒绝等）\n- **C.** 已生效预约 + 该周发生的取消记录（不含仍在待审核中的申请）\n- **D.** 其他（请描述）\n\n### 问题 3：每周汇总的\"周\"起止如何界定？\n\n- **A.** 自然周（周一 00:00 至周日 23:59）\n- **B.** 由负责人自行选择起止日期区间（不限于自然周）\n- **C.** 其他（请描述）\n\n---\n\n这三个回答确定后，我就可以为两个事项分别走 `strixnova intake` 登记。\n",
+          "source_sha256": "685e790639c99ae50e71a36f8e958285bf2eb4e5586685edffcc39b3ce0701ec",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 47,
+          "source_id": "initial/tool-steps.json",
+          "start_line": 1,
+          "original_text": "[\n  {\n    \"conversation_id\": \"0eba1306-e482-45e0-bcc3-39890df4342e\",\n    \"step_index\": 2,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\5cce0a8e359b\\\\work\\\\project\\\\AGENTS.md\"\n      },\n      \"output\": \"6 lines, 994 bytes\"\n    },\n    \"duration_seconds\": 1.4156667\n  },\n  {\n    \"conversation_id\": \"0eba1306-e482-45e0-bcc3-39890df4342e\",\n    \"step_index\": 3,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\5cce0a8e359b\\\\work\\\\project\\\\.agents\\\\skills\\\\strixnova\\\\SKILL.md\"\n      },\n      \"output\": \"317 lines, 22075 bytes\"\n    },\n    \"duration_seconds\": 0.7574304\n  },\n  {\n    \"conversation_id\": \"0eba1306-e482-45e0-bcc3-39890df4342e\",\n    \"step_index\": 4,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\5cce0a8e359b\\\\work\\\\project\\\\.agent-inputs\\\\g4-fixed\\\\background.md\"\n      },\n      \"output\": \"7 lines, 792 bytes\"\n    },\n    \"duration_seconds\": 0.1718247\n  }\n]\n",
+          "source_sha256": "dad6700ad725e48ac4aed68441df30da8a489df61110abfcd714b1cad23efadc",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "needs_revision",
+      "verification_scope": "实际初次形成、只读术语纠正及随后候选起草；当前尚未投递任何新接受输入，实际存在的文件与口头规划必须分开。",
+      "summary": {
+        "status": "needs_revision",
+        "failure_layer": "reviewer_reported",
+        "machine_checks": {
+          "native_phases_settled": true,
+          "source_and_git_boundaries_preserved": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "needs_revision",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GF-MULTIPLE-RESULTS",
+      "issues": [],
+      "limitations": [],
+      "reason": "作者在方案与登记中清晰指明了扩展为预约申请工具的共同产品目标，并将成员撤回本人待审核申请与负责人读取每周汇总明确拆分为两个可独立交付和验收的 WorkItem/Story 建设事项，未将底层技术切片充当业务故事。",
+      "references": [
+        {
+          "end_line": 40,
+          "source_id": "formation/author-response.md",
+          "start_line": 34,
+          "original_text": "### 事项登记（通过 strixnova intake）\n\n| 事项 | 标识 | 状态 | 方向 |\n|---|---|---|---|\n| 撤回待审核申请 | `WI-20260929-DEC61550` | `discussion`（blocked） | 已提交，blocked：上游权威候选尚未审阅接受 |\n| 负责人周报 | `WI-20260929-274215EA` | `discussion`（blocked） | 已提交，blocked：上游权威候选尚未审阅接受 + 依赖事项 A |\n\n",
+          "source_sha256": "d5d98174af9699c98f53609d450cb545cc86238b45fe681f01d5326902ae9aaf",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 74,
+          "source_id": "formation/tool-steps.json",
+          "start_line": 53,
+          "original_text": "    \"tool_info\": {\n      \"name\": \"run_command\",\n      \"parameters\": {\n        \"CommandLine\": \"$strixnovaInput = [IO.Path]::GetTempFileName()\\ntry {\\n  '{\\\"title\\\":\\\"撤回待审核申请\\\",\\\"request\\\":\\\"成员能通过本地终端撤回本人仍待审核的预约申请。身份来自可信宿主会话；只允许待审核状态撤回；重复撤回幂等；撤回与审批并发时只允许一个版本成功；审计保留操作者、原状态、新状态和操作身份。两个单元共用申请身份和状态含义。涉及上游产品、领域、架构和工程政策的首次修订。\\\"}' |\\n    Set-Content -LiteralPath $strixnovaInput -Encoding UTF8\\n  & \\\"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\131734e155c7\\\\work\\\\managed-installation\\\\versions\\\\f71c0e7d19da20db54ad64b2383c9d95d986b288299d13b71f9927953fe375e8\\\\venv\\\\Scripts\\\\strixnova.exe\\\" intake --input \\\"@$strixnovaInput\\\"\\n} fina…\"\n      },\n      \"output\": \"{\\\"next\\\": {\\\"current_action\\\": {\\\"action_type\\\": \\\"submit_direction\\\", \\\"actor\\\": \\\"coding_agent\\\", \\\"blocking_facts\\\": [], \\\"conditional_record_refs\\\": [], \\\"input_contract_ref\\\": \\\"input.contract:submit_direction\\\", \\\"input_kind\\\": \\\"direction\\\", \\\"intent\\\": \\\"submit\\\", \\\"record_refs\\\": [\\\"request\\\", \\\"project.direction_context\\\", \\\"project.follow_ups\\\"], \\\"schema_version\\\": \\\"strixnova.current-action.v1\\\", \\\"work_item_id\\\": \\\"WI-20260929-DEC61550\\\", \\\"work_item_version\\\": 1}, \\\"records\\\": {}, \\\"relations\\\": {\\\"declared\\\": [], \\\"referenced_by\\\": []}, \\\"schema_version\\\": \\\"strixnova.next-step.v1\\\", \\\"work_item_id\\\": \\\"WI-20260929-DEC61550\\\", \\\"work_item_status\\\": \\\"discussion\\\", \\\"work_item_version\\\": 1}, \\\"ok\\\": true}\\r\\n\"\n    },\n    \"duration_seconds\": 1.7165623\n  },\n  {\n    \"conversation_id\": \"409b1cfc-c106-4f41-b5f4-7202202c4970\",\n    \"step_index\": 55,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"run_command\",\n    \"tool_info\": {\n      \"name\": \"run_command\",\n      \"parameters\": {\n        \"CommandLine\": \"$strixnovaInput = [IO.Path]::GetTempFileName()\\ntry {\\n  '{\\\"title\\\":\\\"\\\\u8d1f\\\\u8d23\\\\u4eba\\\\u5468\\\\u62a5\\\",\\\"request\\\":\\\"\\\\u8d1f\\\\u8d23\\\\u4eba\\\\u80fd\\\\u901a\\\\u8fc7\\\\u672c\\\\u5730\\\\u7ec8\\\\u7aef\\\\u6309\\\\u81ea\\\\u7136\\\\u5468\\\\u8bfb\\\\u53d6\\\\u9884\\\\u7ea6\\\\u7533\\\\u8bf7\\\\u7684\\\\u5f53\\\\u524d\\\\u72b6\\\\u6001\\\\u5206\\\\u5e03\\\\u7edf\\\\u8ba1\\\\u3002\\\\u5468\\\\u62a5\\\\u4ec5\\\\u8d1f\\\\u8d23\\\\u4eba\\\\u53ef\\\\u8bfb\\\\uff0c\\\\u4e0d\\\\u542b\\\\u6210\\\\u5458\\\\u79c1\\\\u4eba\\\\u8054\\\\u7cfb\\\\u65b9\\\\u5f0f\\\\u3002\\\\u6682\\\\u4e0d\\\\u5b9e\\\\u73b0\\\\u81ea\\\\u52a8\\\\u53d1\\\\u9001\\\\u3002\\\\u4f9d\\\\u8d56\\\\u4e8b\\\\u9879 A \\\\u5efa\\\\u7acb\\\\u7684\\\\u75…\"\n      },\n      \"output\": \"{\\\"next\\\": {\\\"current_action\\\": {\\\"action_type\\\": \\\"submit_direction\\\", \\\"actor\\\": \\\"coding_agent\\\", \\\"blocking_facts\\\": [], \\\"conditional_record_refs\\\": [], \\\"input_contract_ref\\\": \\\"input.contract:submit_direction\\\", \\\"input_kind\\\": \\\"direction\\\", \\\"intent\\\": \\\"submit\\\", \\\"record_refs\\\": [\\\"request\\\", \\\"project.direction_context\\\", \\\"project.follow_ups\\\"], \\\"schema_version\\\": \\\"strixnova.current-action.v1\\\", \\\"work_item_id\\\": \\\"WI-20260929-274215EA\\\", \\\"work_item_version\\\": 1}, \\\"records\\\": {}, \\\"relations\\\": {\\\"declared\\\": [], \\\"referenced_by\\\": []}, \\\"schema_version\\\": \\\"strixnova.next-step.v1\\\", \\\"work_item_id\\\": \\\"WI-20260929-274215EA\\\", \\\"work_item_status\\\": \\\"discussion\\\", \\\"work_item_version\\\": 1}, \\\"ok\\\": true}\\r\\n\"\n    },\n",
+          "source_sha256": "d5248abdfaf0763b2a5c9fdad57090df16f43f5c25cf6152f86e29fe44040b0f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "实际初次形成、只读术语纠正及随后候选起草；当前尚未投递任何新接受输入，实际存在的文件与口头规划必须分开。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_phases_settled": true,
+          "source_and_git_boundaries_preserved": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GF-CROSS-UNIT-ARCHITECTURE",
+      "issues": [],
+      "limitations": [],
+      "reason": "作者在候选架构中预先确立了目标架构规范，包括核心申请域、成员服务、运营汇总与终端适配四个模块及接口关系与约束，明确两业务单元共用申请身份、状态生命周期与决定权，避免各单元各自发明冲突实现。",
+      "references": [
+        {
+          "end_line": 36,
+          "source_id": "candidate/architecture/architecture-constraints.yaml",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.architecture-constraints.v1\narchitecture_id: ARCH-1111111111111111\narchitecture_revision_id: ARCHREV-2222222222222222\nconstraints:\n  - constraint_id: CONSTRAINT-A000000000000001\n    title: 身份来源约束\n    statement: >-\n      操作者身份只从可信宿主会话获取，任何模块不得信任请求中\n      传入的角色或所有者字段。\n    applies_to_module_ids:\n      - MODULE-A000000000000002\n      - MODULE-A000000000000003\n      - MODULE-A000000000000004\n    verification_methods:\n      - method_type: behavior_acceptance\n        description: 验证使用传入角色字段的操作被拒绝。\n\n  - constraint_id: CONSTRAINT-A000000000000002\n    title: 并发安全约束\n    statement: >-\n      对同一申请的并发状态转换只允许一个版本成功。\n    applies_to_module_ids:\n      - MODULE-A000000000000001\n    verification_methods:\n      - method_type: behavior_acceptance\n        description: 验证并发撤回与审批只有一个成功。\n\n  - constraint_id: CONSTRAINT-A000000000000003\n    title: 本地终端约束\n    statement: >-\n      界面限定为本地终端交互，不增加网页或网络服务。\n    applies_to_module_ids:\n      - MODULE-A000000000000004\n    verification_methods:\n      - method_type: manual_review\n        description: 审查实现不包含 HTTP 服务或网页资源。\n",
+          "source_sha256": "cf5122b077f2c003b29607b17a84a36e4a2bd10182da63d5a8e4909d3628cc94",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 82,
+          "source_id": "candidate/architecture/architecture-modules.yaml",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.architecture-modules.v1\narchitecture_id: ARCH-1111111111111111\narchitecture_revision_id: ARCHREV-2222222222222222\nmodules:\n  - module_id: MODULE-A000000000000001\n    title: 申请域\n    layer: domain\n    responsibility: >-\n      承载预约申请实体、生命周期状态转换、区间校验、领域规则、\n      不变量和审计条目的完整领域逻辑。\n    not_responsible_for:\n      - 不负责终端展示。\n      - 不负责统计报表生成。\n      - 不负责宿主会话管理。\n    public_interface:\n      interface_id: INTERFACE-A000000000000001\n      title: 申请域接口\n      operations:\n        - name: 校验区间\n          meaning: 校验整数分钟区间的顺序并返回时长或拒绝。\n        - name: 创建申请\n          meaning: 从合法区间创建一份待审核预约申请。\n        - name: 撤回申请\n          meaning: 尝试将待审核申请状态转为已撤回。\n        - name: 审批申请\n          meaning: 尝试将待审核申请状态转为已批准或已拒绝。\n        - name: 查询申请状态\n          meaning: 返回指定申请的当前状态。\n\n  - module_id: MODULE-A000000000000002\n    title: 成员服务\n    layer: application\n    responsibility: >-\n      协调成员的撤回操作，执行身份校验和归属校验，\n      调用申请域完成状态转换。\n    not_responsible_for:\n      - 不负责定义申请生命周期规则。\n      - 不负责终端展示。\n      - 不负责周报统计。\n    public_interface:\n      interface_id: INTERFACE-A000000000000002\n      title: 成员服务接口\n      operations:\n        - name: 撤回本人申请\n          meaning: 接收可信身份和申请标识，协调撤回流程并返回结果。\n        - name: 查询本人申请\n          meaning: 接收可信身份和申请标识，返回该申请的当前状态。\n\n  - module_id: MODULE-A000000000000003\n    title: 运营汇总\n    layer: query\n    responsibility: >-\n      按自然周统计预约申请的当前状态分布，\n      生成不含成员私人联系方式的周报。\n    not_responsible_for:\n      - 不负责修改申请状态。\n      - 不负责定义申请身份或状态含义。\n      - 不负责终端展示。\n    public_interface:\n      interface_id: INTERFACE-A000000000000003\n      title: 运营汇总接口\n      operations:\n        - name: 读取周报\n          meaning: >-\n            接收可信身份和自然周参数，返回该周申请状态分布统计。\n\n  - module_id: MODULE-A000000000000004\n    title: 终端适配\n    layer: adapter\n    responsibility: >-\n      提供本地终端命令行交互界面，将用户输入转化为\n      成员服务或运营汇总调用，将结果格式化输出。\n    not_responsible_for:\n      - 不负责领域规则。\n      - 不负责网页或网络服务。\n      - 不负责持久化决策。\n    public_interface:\n      interface_id: INTERFACE-A000000000000004\n      title: 终端适配接口\n      operations:\n        - name: 处理终端命令\n          meaning: 解析命令行输入，路由到对应的应用服务。\n",
+          "source_sha256": "d5de29c67c3f903442170fe2e2d455b1b95205a27099c7a409fe1704984f678e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 36,
+          "source_id": "candidate/architecture/architecture-relationships.yaml",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.architecture-relationships.v1\narchitecture_id: ARCH-1111111111111111\narchitecture_revision_id: ARCHREV-2222222222222222\ndefault_relationship_policy: forbidden\nrelationships:\n  - relationship_id: RELATION-A000000000000001\n    from_module_id: MODULE-A000000000000002\n    to_module_id: MODULE-A000000000000001\n    mode: direct\n    mediator_module_id: null\n    contract: 成员服务通过申请域公开接口执行撤回和查询，不绕过领域规则。\n    reason: 成员服务是应用协调层，领域规则集中在申请域。\n\n  - relationship_id: RELATION-A000000000000002\n    from_module_id: MODULE-A000000000000003\n    to_module_id: MODULE-A000000000000001\n    mode: read_only_projection\n    mediator_module_id: null\n    contract: 运营汇总只读取申请域的申请状态数据用于统计，不修改任何申请状态。\n    reason: 周报是只读统计，必须使用统一的申请身份和状态含义。\n\n  - relationship_id: RELATION-A000000000000003\n    from_module_id: MODULE-A000000000000004\n    to_module_id: MODULE-A000000000000002\n    mode: direct\n    mediator_module_id: null\n    contract: 终端适配将成员操作路由到成员服务接口。\n    reason: 终端层不直接调用领域，通过应用层协调。\n\n  - relationship_id: RELATION-A000000000000004\n    from_module_id: MODULE-A000000000000004\n    to_module_id: MODULE-A000000000000003\n    mode: direct\n    mediator_module_id: null\n    contract: 终端适配将负责人周报请求路由到运营汇总接口。\n    reason: 终端层不直接调用领域，通过查询层获取统计结果。\n",
+          "source_sha256": "d3367a37c4cd1a37fa118b7886cbea4b729185036818de4d6115d820dccd0fd1",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "实际初次形成、只读术语纠正及随后候选起草；当前尚未投递任何新接受输入，实际存在的文件与口头规划必须分开。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_phases_settled": true,
+          "source_and_git_boundaries_preserved": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GF-UPSTREAM-CORRECTION",
+      "issues": [],
+      "limitations": [],
+      "reason": "在用户纠正申请与预约的定义后，作者深入修订了拥有核心业务含义的产品定义、领域模型、目标架构与工程政策等长期权威，并显式处置了被替代旧事实与受影响的下游阶段及模块。",
+      "references": [
+        {
+          "end_line": 56,
+          "source_id": "formation/author-response.md",
+          "start_line": 41,
+          "original_text": "### 已落盘的项目文件\n\n| 文件 | 候选修订 | 状态 |\n|---|---|---|\n| [definition.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/product/definition.yaml) | `REVISION-2222222222222222` | `draft` |\n| [model.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/model.yaml) | `MODELREV-2222222222222222` | `draft` |\n| [core.yaml (collection)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/collections/core.yaml) | 同修订 | `draft` |\n| [core.yaml (source)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/sources/core.yaml) | 同修订，30+ 条事实 | `draft` |\n| [model.yaml (arch)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/model.yaml) | `ARCHREV-2222222222222222` | `draft` |\n| [architecture-modules.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-modules.yaml) | 同修订，4 个模块 | `draft` |\n| [architecture-relationships.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-relationships.yaml) | 同修订，4 条关系 | `draft` |\n| [architecture-constraints.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-constraints.yaml) | 同修订，3 条约束 | `draft` |\n| [architecture-domain-facts.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-domain-facts.yaml) | 同修订，全部事实处置 | `draft` |\n| [architecture-stages.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-stages.yaml) | 同修订，2 个阶段 | `draft` |\n| [policy.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/engineering/policy.yaml) | `POLICYREV-2222222222222222` | `draft` |\n| [prd.md](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/product/prd.md) | 只读组合视图 | — |\n",
+          "source_sha256": "d5d98174af9699c98f53609d450cb545cc86238b45fe681f01d5326902ae9aaf",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 54,
+          "source_id": "candidate/product/definition.yaml",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-product-definition.v1\nproduct_id: PRODUCT-1111111111111111\nrevision:\n  revision_id: REVISION-2222222222222222\n  status: draft\n  supersedes_revision_id: REVISION-1111111111111111\n  confirmed_by_owner_id: null\n  confirmed_on: null\ntitle: 预约申请工具\npurpose: >-\n  提供预约申请的区间校验、成员撤回待审核申请和负责人查看每周汇总的本地终端工具。\nproduct_owner:\n  owner_id: OWNER-1111111111111111\n  display_name: 项目负责人\nprimary_users:\n  - user_id: USER-1111111111111111\n    title: 调用组件的业务开发者\n    description: 在登记预约申请前取得合法的区间时长或明确拒绝。\n  - user_id: USER-2222222222222222\n    title: 申请成员\n    description: 提交并管理本人的预约申请，可撤回仍处于待审核状态的申请。\n  - user_id: USER-3333333333333333\n    title: 负责人\n    description: 审批预约申请并查看每周汇总报告。\nproblems:\n  - problem_id: PROBLEM-1111111111111111\n    user_ids: [USER-1111111111111111]\n    statement: 不合法的时间顺序不能作为有效预约区间继续使用。\n  - problem_id: PROBLEM-2222222222222222\n    user_ids: [USER-2222222222222222]\n    statement: 成员无法撤回仍待审核的预约申请，只能等审批人处理。\n  - problem_id: PROBLEM-3333333333333333\n    user_ids: [USER-3333333333333333]\n    statement: 负责人无法快速了解本周预约申请的整体状态。\ndesired_outcomes:\n  - outcome_id: OUTCOME-1111111111111111\n    statement: 合法区间返回原有时长，不合法顺序得到 ValueError。\n  - outcome_id: OUTCOME-2222222222222222\n    statement: 成员可撤回本人待审核的申请，操作有审计记录。\n  - outcome_id: OUTCOME-3333333333333333\n    statement: 负责人能按自然周查看当前状态的汇总，不含成员私人联系方式。\ncapabilities:\n  - capability_id: CAPABILITY-1111111111111111\n    title: 预约区间校验\n    description: 通过 duration(start, end) 校验整数刻度顺序并返回时长。\n    outcome_ids: [OUTCOME-1111111111111111]\n  - capability_id: CAPABILITY-2222222222222222\n    title: 撤回待审核申请\n    description: 申请成员撤回本人仍处于待审核状态的预约申请。\n    outcome_ids: [OUTCOME-2222222222222222]\n  - capability_id: CAPABILITY-3333333333333333\n    title: 读取周报\n    description: 负责人按本地已指定的自然周统计预约申请的当前状态分布。\n    outcome_ids: [OUTCOME-3333333333333333]\n",
+          "source_sha256": "18f2e8efb3f81096336404c3b49c23573e1bb86d575b0801b18ef91ad59a3eda",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 33,
+          "source_id": "candidate/domain/sources/core.yaml",
+          "start_line": 7,
+          "original_text": "  # ── 旧事实：被替代 ──────────────────────────────\n  - fact_id: FACT-2222222222222222\n    status: draft\n    title: 预约区间校验上下文（已替代）\n    kind: bounded_context\n    product_capability_ids: [CAPABILITY-1111111111111111]\n    scope_fact_ids: []\n    dependency_fact_ids: []\n    lineage:\n      - relation: superseded_by\n        target_fact_id: FACT-A000000000000001\n    retirement_reason: >-\n      责任范围从纯区间校验扩展为预约申请域；\n      由 FACT-A000000000000001 替代。\n\n  # ── 旧事实：保留 ──────────────────────────────\n  - fact_id: FACT-3333333333333333\n    status: draft\n    title: 合法区间必须有正时长\n    kind: domain_invariant\n    product_capability_ids: [CAPABILITY-1111111111111111]\n    scope_fact_ids: [FACT-A000000000000001]\n    dependency_fact_ids: [FACT-A000000000000001]\n    content:\n      statement: end 必须严格大于 start；合法时长为 end-start，不合法顺序抛出 ValueError。\n      protected_fact_ids: [FACT-A000000000000001]\n\n",
+          "source_sha256": "794892a76efc8343144a8deb5e6af17c8f42986691e49f665ce657e809919bb6",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "实际初次形成、只读术语纠正及随后候选起草；当前尚未投递任何新接受输入，实际存在的文件与口头规划必须分开。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_phases_settled": true,
+          "source_and_git_boundaries_preserved": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GF-PD-AUTHORITY-CORRECTION",
+      "issues": [],
+      "limitations": [],
+      "reason": "用户纠正业务前提后，作者在只读响应中即刻撤回此前将已生效预约作为撤回对象等旧推断，在后续形成中沿着现有的产品、领域、架构和政策权威链进行 draft 修订，没有引入平行权威，并严格遵守确认边界。",
+      "references": [
+        {
+          "end_line": 21,
+          "source_id": "correction/author-response.md",
+          "start_line": 14,
+          "original_text": "### 受影响的旧推断\n\n| 项 | 之前我的推断 | 纠正后状态 |\n|---|---|---|\n| 问题 1 选项 B/C | 我列出了\"取消已生效预约\"作为可能选项 | **排除**——本轮取消对象仅为待审核申请；已生效预约的处置不在本轮范围 |\n| 问题 2 各选项中的\"已生效预约统计\" | 我假设汇总可能以已生效预约为主体 | **待核实**——你尚未回答汇总范围（问题 2、3 仍开放）；但既然申请和预约是独立阶段，汇总的数据维度需要重新界定 |\n| 隐含的申请-预约一体化模型 | 我的问题框架暗示\"申请\"与\"预约\"可能是同一对象的两种状态 | **修正**——它们是不同领域对象，申请经审批后产生预约，不能用同一对象的状态字段混为一谈 |\n\n",
+          "source_sha256": "8fdaf3ac7e5a47f169078118f708b17de206ade90d7730975892e4ae82f12c73",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 56,
+          "source_id": "formation/author-response.md",
+          "start_line": 41,
+          "original_text": "### 已落盘的项目文件\n\n| 文件 | 候选修订 | 状态 |\n|---|---|---|\n| [definition.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/product/definition.yaml) | `REVISION-2222222222222222` | `draft` |\n| [model.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/model.yaml) | `MODELREV-2222222222222222` | `draft` |\n| [core.yaml (collection)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/collections/core.yaml) | 同修订 | `draft` |\n| [core.yaml (source)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/sources/core.yaml) | 同修订，30+ 条事实 | `draft` |\n| [model.yaml (arch)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/model.yaml) | `ARCHREV-2222222222222222` | `draft` |\n| [architecture-modules.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-modules.yaml) | 同修订，4 个模块 | `draft` |\n| [architecture-relationships.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-relationships.yaml) | 同修订，4 条关系 | `draft` |\n| [architecture-constraints.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-constraints.yaml) | 同修订，3 条约束 | `draft` |\n| [architecture-domain-facts.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-domain-facts.yaml) | 同修订，全部事实处置 | `draft` |\n| [architecture-stages.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-stages.yaml) | 同修订，2 个阶段 | `draft` |\n| [policy.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/engineering/policy.yaml) | `POLICYREV-2222222222222222` | `draft` |\n| [prd.md](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/product/prd.md) | 只读组合视图 | — |\n",
+          "source_sha256": "d5d98174af9699c98f53609d450cb545cc86238b45fe681f01d5326902ae9aaf",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 8,
+          "source_id": "candidate/product/definition.yaml",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-product-definition.v1\nproduct_id: PRODUCT-1111111111111111\nrevision:\n  revision_id: REVISION-2222222222222222\n  status: draft\n  supersedes_revision_id: REVISION-1111111111111111\n  confirmed_by_owner_id: null\n  confirmed_on: null\n",
+          "source_sha256": "18f2e8efb3f81096336404c3b49c23573e1bb86d575b0801b18ef91ad59a3eda",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "实际初次形成、只读术语纠正及随后候选起草；当前尚未投递任何新接受输入，实际存在的文件与口头规划必须分开。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_phases_settled": true,
+          "source_and_git_boundaries_preserved": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GF-PRD-FORMATION",
+      "issues": [],
+      "limitations": [],
+      "reason": "作者在形成产物中输出了包含来源引用、范围边界、正常/阻断/纠正行为路径、验收标准、约束及排除项的完整 PRD，并将其定位为产品定义与领域模型的只读组合视图，标明为 draft 且未强加额外批准流程。",
+      "references": [
+        {
+          "end_line": 90,
+          "source_id": "candidate/product/prd.md",
+          "start_line": 1,
+          "original_text": "# 预约申请工具 — 产品需求文档（PRD 只读组合视图）\n\n> 本文件是上游候选修订的只读组合视图，不具有独立的确认或修改权力。\n> 任何含义变更必须回到对应的权威候选。\n\n**来源修订：**\n- 产品定义 `REVISION-2222222222222222`（draft）\n- 领域模型 `MODELREV-2222222222222222`（draft）\n\n## 1. 目的与受众\n\n**目的：** 将现有预约区间小组件扩展为预约申请工具，使成员能撤回自己的待审核申请，负责人能查看每周汇总。\n\n**受众：**\n- **调用组件的业务开发者** — 在登记预约申请前取得合法的区间时长或明确拒绝。\n- **申请成员** — 提交并管理本人的预约申请，可撤回仍处于待审核状态的申请。\n- **负责人** — 审批预约申请并查看每周汇总报告。\n\n## 2. 问题与预期结果\n\n| 问题 | 受影响用户 | 预期结果 |\n|---|---|---|\n| 不合法时间顺序不能作为有效区间 | 业务开发者 | 合法区间返回时长，不合法顺序得到 ValueError |\n| 成员无法撤回待审核申请 | 申请成员 | 成员可撤回本人待审核申请，有审计记录 |\n| 负责人无法快速了解每周状态 | 负责人 | 按自然周查看状态汇总，不含私人联系方式 |\n\n## 3. 产品能力\n\n**能力 1：预约区间校验（保持不变）**\n- 通过 `duration(start, end)` 校验整数刻度顺序并返回时长。\n- 正常路径：合法区间返回 end-start。\n- 阻断路径：end ≤ start 时抛出 ValueError。\n\n**能力 2：撤回待审核申请**\n- 申请成员撤回本人仍处于待审核状态的预约申请。\n- 正常路径：成员认证 → 校验归属 → 校验状态 → 乐观并发撤回 → 审计记录。\n- 阻断路径：非本人 / 非待审核 / 并发冲突时拒绝，不产生审计。\n- 纠正路径：响应丢失后查询实际状态确认结果；重复撤回幂等返回。\n\n**能力 3：读取周报**\n- 负责人按本地已指定的自然周统计申请当前状态分布。\n- 正常路径：负责人认证 → 统计 → 返回结果（不含私人联系方式）。\n- 阻断路径：非负责人被拒绝，不返回任何数据。\n\n## 4. 关键业务规则\n\n1. **身份信任：** 身份来自可信宿主会话，不信任传入角色或所有者字段。\n2. **本人操作：** 一名成员只能操作本人申请。\n3. **状态限制：** 只允许待审核状态撤回。\n4. **幂等性：** 重复撤回返回相同结果且不重复记审计。\n5. **并发安全：** 撤回与审批并发时只允许一个版本成功。\n6. **可查询：** 响应丢失后可查询实际状态。\n7. **审计完整：** 保留操作者、原状态、新状态和操作身份。\n8. **统一模型：** 两个单元共用申请身份、状态含义和决定权。\n\n## 5. 排除项\n\n- 不增加日期转换或时区处理。\n- 不实现网页或网络服务；界面限定为本地终端交互。\n- 不实现自动发送周报。\n- 不实现缴费。\n- 不实现已批准预约的取消。\n- 周报不含成员私人联系方式。\n\n## 6. 约束\n\n- 保持 `duration` 函数签名和合法区间的既有返回行为。\n- 身份信任、并发安全和审计完整性是硬约束。\n- 两个单元（成员服务与运营汇总）共用申请模型。\n\n## 7. 成功判断\n\n| 判断 | 验收要求 |\n|---|---|\n| 区间校验 | 合法区间返回 end-start；end ≤ start 时稳定拒绝 |\n| 撤回 | 本人待审核申请成功撤回，审计完整；非本人/非待审核被拒绝 |\n| 周报 | 负责人读取指定自然周状态分布；不含私人联系方式；非负责人被拒绝 |\n\n## 8. 交付阶段\n\n| 阶段 | 内容 | 承诺 |\n|---|---|---|\n| 核心申请域与撤回 | 区间校验（不变）+ 申请生命周期 + 撤回 + 审计 + 终端交互 | 当前目标 |\n| 负责人周报 | 按自然周的状态分布统计 + 终端交互 | 当前目标（可独立交付） |\n\n## 9. 术语\n\n- **预约申请：** 成员提交的预约请求，有独立身份和生命周期（待审核→已批准/已拒绝/已撤回），不等于已生效预约。\n- **已生效预约：** 申请经批准后产生的记录，本轮不实现其取消。\n- **周报：** 按自然周统计的申请状态分布，仅负责人可读。\n",
+          "source_sha256": "fa47a3c79aeaa29ad2ed36aa749cdb76112a5ca7a940a6a32d1ff64800d4ce2e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 54,
+          "source_id": "candidate/product/definition.yaml",
+          "start_line": 1,
+          "original_text": "schema_version: strixnova.project-product-definition.v1\nproduct_id: PRODUCT-1111111111111111\nrevision:\n  revision_id: REVISION-2222222222222222\n  status: draft\n  supersedes_revision_id: REVISION-1111111111111111\n  confirmed_by_owner_id: null\n  confirmed_on: null\ntitle: 预约申请工具\npurpose: >-\n  提供预约申请的区间校验、成员撤回待审核申请和负责人查看每周汇总的本地终端工具。\nproduct_owner:\n  owner_id: OWNER-1111111111111111\n  display_name: 项目负责人\nprimary_users:\n  - user_id: USER-1111111111111111\n    title: 调用组件的业务开发者\n    description: 在登记预约申请前取得合法的区间时长或明确拒绝。\n  - user_id: USER-2222222222222222\n    title: 申请成员\n    description: 提交并管理本人的预约申请，可撤回仍处于待审核状态的申请。\n  - user_id: USER-3333333333333333\n    title: 负责人\n    description: 审批预约申请并查看每周汇总报告。\nproblems:\n  - problem_id: PROBLEM-1111111111111111\n    user_ids: [USER-1111111111111111]\n    statement: 不合法的时间顺序不能作为有效预约区间继续使用。\n  - problem_id: PROBLEM-2222222222222222\n    user_ids: [USER-2222222222222222]\n    statement: 成员无法撤回仍待审核的预约申请，只能等审批人处理。\n  - problem_id: PROBLEM-3333333333333333\n    user_ids: [USER-3333333333333333]\n    statement: 负责人无法快速了解本周预约申请的整体状态。\ndesired_outcomes:\n  - outcome_id: OUTCOME-1111111111111111\n    statement: 合法区间返回原有时长，不合法顺序得到 ValueError。\n  - outcome_id: OUTCOME-2222222222222222\n    statement: 成员可撤回本人待审核的申请，操作有审计记录。\n  - outcome_id: OUTCOME-3333333333333333\n    statement: 负责人能按自然周查看当前状态的汇总，不含成员私人联系方式。\ncapabilities:\n  - capability_id: CAPABILITY-1111111111111111\n    title: 预约区间校验\n    description: 通过 duration(start, end) 校验整数刻度顺序并返回时长。\n    outcome_ids: [OUTCOME-1111111111111111]\n  - capability_id: CAPABILITY-2222222222222222\n    title: 撤回待审核申请\n    description: 申请成员撤回本人仍处于待审核状态的预约申请。\n    outcome_ids: [OUTCOME-2222222222222222]\n  - capability_id: CAPABILITY-3333333333333333\n    title: 读取周报\n    description: 负责人按本地已指定的自然周统计预约申请的当前状态分布。\n    outcome_ids: [OUTCOME-3333333333333333]\n",
+          "source_sha256": "18f2e8efb3f81096336404c3b49c23573e1bb86d575b0801b18ef91ad59a3eda",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "实际初次形成、只读术语纠正及随后候选起草；当前尚未投递任何新接受输入，实际存在的文件与口头规划必须分开。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_phases_settled": true,
+          "source_and_git_boundaries_preserved": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GF-PRD-CORRECTION",
+      "issues": [],
+      "limitations": [],
+      "reason": "面对用户的前提澄清，纠正内容真实贯穿到了产品定义、领域模型、架构规范及 PRD 组合表达中，保持了稳定的实体与模型身份，并逐项提供了旧含义废止与下游模块的处置说明，没有停留于表面文字修补。",
+      "references": [
+        {
+          "end_line": 49,
+          "source_id": "correction/author-response.md",
+          "start_line": 14,
+          "original_text": "### 受影响的旧推断\n\n| 项 | 之前我的推断 | 纠正后状态 |\n|---|---|---|\n| 问题 1 选项 B/C | 我列出了\"取消已生效预约\"作为可能选项 | **排除**——本轮取消对象仅为待审核申请；已生效预约的处置不在本轮范围 |\n| 问题 2 各选项中的\"已生效预约统计\" | 我假设汇总可能以已生效预约为主体 | **待核实**——你尚未回答汇总范围（问题 2、3 仍开放）；但既然申请和预约是独立阶段，汇总的数据维度需要重新界定 |\n| 隐含的申请-预约一体化模型 | 我的问题框架暗示\"申请\"与\"预约\"可能是同一对象的两种状态 | **修正**——它们是不同领域对象，申请经审批后产生预约，不能用同一对象的状态字段混为一谈 |\n\n### 源码样本 [request_projection.py](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/.agent-inputs/g4-fixed/request_projection.py) 的偏离\n\n该文件仅有一个函数：\n\n```python\ndef display_request(record):\n    return {\"label\": \"已生效预约\", \"id\": record[\"id\"]}\n```\n\n**代码偏离**（可由代码直接确认）：\n\n- 函数名为 `display_request`（显示\"申请\"），但输出 label 固定为 `\"已生效预约\"`。按你确立的事实，一条申请记录在待审核阶段应当显示为待审核申请，而非\"已生效预约\"——**该代码无条件地把所有申请投射为已生效预约，抹掉了审核状态的区分**。\n- 函数没有检查 `record` 的审核状态，不区分待审核 / 已批准 / 已撤回等状态，直接输出单一 label。\n\n**background.md 已记录的定性**（不是我新增的推断）：该文件\"把所有申请显示成已生效预约\"，\"不是经过验收的实现，也不构成领域权威\"。\n\n### 尚未核实的内容（不作断言）\n\n以下内容与本次纠正相关但**未被本次确立的事实覆盖**，仍需你后续明确：\n\n1. **每周汇总的数据范围**——汇总包含的是申请记录、预约记录、取消记录，还是全部？之前的问题 2 仍然开放。\n2. **每周汇总的\"周\"起止**——问题 3 仍然开放。\n3. **申请审批后产生预约的流程**——本轮不实现，但它界定了\"取消申请\"与\"取消预约\"的边界。当前只知道边界存在，不知道审批流程的具体形态。\n4. **\"下载请求\"的触发方式和格式**——确认它是传输动作后，其技术实现（HTTP 响应 / 文件导出 / 其他）尚无约定。\n\n---\n\n总结：本次纠正消除了\"申请\"与\"预约\"的混同风险，明确了取消功能的对象边界，并确认了源码样本 `request_projection.py` 的固定 label 与实际业务含义存在偏离。问题 2 和问题 3 仍然开放，在你回答后可以继续登记事项。\n",
+          "source_sha256": "8fdaf3ac7e5a47f169078118f708b17de206ade90d7730975892e4ae82f12c73",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 90,
+          "source_id": "candidate/product/prd.md",
+          "start_line": 1,
+          "original_text": "# 预约申请工具 — 产品需求文档（PRD 只读组合视图）\n\n> 本文件是上游候选修订的只读组合视图，不具有独立的确认或修改权力。\n> 任何含义变更必须回到对应的权威候选。\n\n**来源修订：**\n- 产品定义 `REVISION-2222222222222222`（draft）\n- 领域模型 `MODELREV-2222222222222222`（draft）\n\n## 1. 目的与受众\n\n**目的：** 将现有预约区间小组件扩展为预约申请工具，使成员能撤回自己的待审核申请，负责人能查看每周汇总。\n\n**受众：**\n- **调用组件的业务开发者** — 在登记预约申请前取得合法的区间时长或明确拒绝。\n- **申请成员** — 提交并管理本人的预约申请，可撤回仍处于待审核状态的申请。\n- **负责人** — 审批预约申请并查看每周汇总报告。\n\n## 2. 问题与预期结果\n\n| 问题 | 受影响用户 | 预期结果 |\n|---|---|---|\n| 不合法时间顺序不能作为有效区间 | 业务开发者 | 合法区间返回时长，不合法顺序得到 ValueError |\n| 成员无法撤回待审核申请 | 申请成员 | 成员可撤回本人待审核申请，有审计记录 |\n| 负责人无法快速了解每周状态 | 负责人 | 按自然周查看状态汇总，不含私人联系方式 |\n\n## 3. 产品能力\n\n**能力 1：预约区间校验（保持不变）**\n- 通过 `duration(start, end)` 校验整数刻度顺序并返回时长。\n- 正常路径：合法区间返回 end-start。\n- 阻断路径：end ≤ start 时抛出 ValueError。\n\n**能力 2：撤回待审核申请**\n- 申请成员撤回本人仍处于待审核状态的预约申请。\n- 正常路径：成员认证 → 校验归属 → 校验状态 → 乐观并发撤回 → 审计记录。\n- 阻断路径：非本人 / 非待审核 / 并发冲突时拒绝，不产生审计。\n- 纠正路径：响应丢失后查询实际状态确认结果；重复撤回幂等返回。\n\n**能力 3：读取周报**\n- 负责人按本地已指定的自然周统计申请当前状态分布。\n- 正常路径：负责人认证 → 统计 → 返回结果（不含私人联系方式）。\n- 阻断路径：非负责人被拒绝，不返回任何数据。\n\n## 4. 关键业务规则\n\n1. **身份信任：** 身份来自可信宿主会话，不信任传入角色或所有者字段。\n2. **本人操作：** 一名成员只能操作本人申请。\n3. **状态限制：** 只允许待审核状态撤回。\n4. **幂等性：** 重复撤回返回相同结果且不重复记审计。\n5. **并发安全：** 撤回与审批并发时只允许一个版本成功。\n6. **可查询：** 响应丢失后可查询实际状态。\n7. **审计完整：** 保留操作者、原状态、新状态和操作身份。\n8. **统一模型：** 两个单元共用申请身份、状态含义和决定权。\n\n## 5. 排除项\n\n- 不增加日期转换或时区处理。\n- 不实现网页或网络服务；界面限定为本地终端交互。\n- 不实现自动发送周报。\n- 不实现缴费。\n- 不实现已批准预约的取消。\n- 周报不含成员私人联系方式。\n\n## 6. 约束\n\n- 保持 `duration` 函数签名和合法区间的既有返回行为。\n- 身份信任、并发安全和审计完整性是硬约束。\n- 两个单元（成员服务与运营汇总）共用申请模型。\n\n## 7. 成功判断\n\n| 判断 | 验收要求 |\n|---|---|\n| 区间校验 | 合法区间返回 end-start；end ≤ start 时稳定拒绝 |\n| 撤回 | 本人待审核申请成功撤回，审计完整；非本人/非待审核被拒绝 |\n| 周报 | 负责人读取指定自然周状态分布；不含私人联系方式；非负责人被拒绝 |\n\n## 8. 交付阶段\n\n| 阶段 | 内容 | 承诺 |\n|---|---|---|\n| 核心申请域与撤回 | 区间校验（不变）+ 申请生命周期 + 撤回 + 审计 + 终端交互 | 当前目标 |\n| 负责人周报 | 按自然周的状态分布统计 + 终端交互 | 当前目标（可独立交付） |\n\n## 9. 术语\n\n- **预约申请：** 成员提交的预约请求，有独立身份和生命周期（待审核→已批准/已拒绝/已撤回），不等于已生效预约。\n- **已生效预约：** 申请经批准后产生的记录，本轮不实现其取消。\n- **周报：** 按自然周统计的申请状态分布，仅负责人可读。\n",
+          "source_sha256": "fa47a3c79aeaa29ad2ed36aa749cdb76112a5ca7a940a6a32d1ff64800d4ce2e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 33,
+          "source_id": "candidate/domain/sources/core.yaml",
+          "start_line": 7,
+          "original_text": "  # ── 旧事实：被替代 ──────────────────────────────\n  - fact_id: FACT-2222222222222222\n    status: draft\n    title: 预约区间校验上下文（已替代）\n    kind: bounded_context\n    product_capability_ids: [CAPABILITY-1111111111111111]\n    scope_fact_ids: []\n    dependency_fact_ids: []\n    lineage:\n      - relation: superseded_by\n        target_fact_id: FACT-A000000000000001\n    retirement_reason: >-\n      责任范围从纯区间校验扩展为预约申请域；\n      由 FACT-A000000000000001 替代。\n\n  # ── 旧事实：保留 ──────────────────────────────\n  - fact_id: FACT-3333333333333333\n    status: draft\n    title: 合法区间必须有正时长\n    kind: domain_invariant\n    product_capability_ids: [CAPABILITY-1111111111111111]\n    scope_fact_ids: [FACT-A000000000000001]\n    dependency_fact_ids: [FACT-A000000000000001]\n    content:\n      statement: end 必须严格大于 start；合法时长为 end-start，不合法顺序抛出 ValueError。\n      protected_fact_ids: [FACT-A000000000000001]\n\n",
+          "source_sha256": "794892a76efc8343144a8deb5e6af17c8f42986691e49f665ce657e809919bb6",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "实际初次形成、只读术语纠正及随后候选起草；当前尚未投递任何新接受输入，实际存在的文件与口头规划必须分开。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_phases_settled": true,
+          "source_and_git_boundaries_preserved": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GF-DOMAIN-LANGUAGE-CORRECTION",
+      "issues": [],
+      "limitations": [],
+      "reason": "作者在收到纠正后保持只读分析，准确指出了给定样本 request_projection.py 将申请无条件显示为已生效预约的代码偏离，严格区分了澄清事实、代码现状与尚未核实项，未在只读环节修改文件或将样本误认为权威。",
+      "references": [
+        {
+          "end_line": 37,
+          "source_id": "correction/author-response.md",
+          "start_line": 22,
+          "original_text": "### 源码样本 [request_projection.py](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/.agent-inputs/g4-fixed/request_projection.py) 的偏离\n\n该文件仅有一个函数：\n\n```python\ndef display_request(record):\n    return {\"label\": \"已生效预约\", \"id\": record[\"id\"]}\n```\n\n**代码偏离**（可由代码直接确认）：\n\n- 函数名为 `display_request`（显示\"申请\"），但输出 label 固定为 `\"已生效预约\"`。按你确立的事实，一条申请记录在待审核阶段应当显示为待审核申请，而非\"已生效预约\"——**该代码无条件地把所有申请投射为已生效预约，抹掉了审核状态的区分**。\n- 函数没有检查 `record` 的审核状态，不区分待审核 / 已批准 / 已撤回等状态，直接输出单一 label。\n\n**background.md 已记录的定性**（不是我新增的推断）：该文件\"把所有申请显示成已生效预约\"，\"不是经过验收的实现，也不构成领域权威\"。\n\n",
+          "source_sha256": "8fdaf3ac7e5a47f169078118f708b17de206ade90d7730975892e4ae82f12c73",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 46,
+          "source_id": "correction/author-response.md",
+          "start_line": 38,
+          "original_text": "### 尚未核实的内容（不作断言）\n\n以下内容与本次纠正相关但**未被本次确立的事实覆盖**，仍需你后续明确：\n\n1. **每周汇总的数据范围**——汇总包含的是申请记录、预约记录、取消记录，还是全部？之前的问题 2 仍然开放。\n2. **每周汇总的\"周\"起止**——问题 3 仍然开放。\n3. **申请审批后产生预约的流程**——本轮不实现，但它界定了\"取消申请\"与\"取消预约\"的边界。当前只知道边界存在，不知道审批流程的具体形态。\n4. **\"下载请求\"的触发方式和格式**——确认它是传输动作后，其技术实现（HTTP 响应 / 文件导出 / 其他）尚无约定。\n\n",
+          "source_sha256": "8fdaf3ac7e5a47f169078118f708b17de206ade90d7730975892e4ae82f12c73",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 32,
+          "source_id": "correction/tool-steps.json",
+          "start_line": 1,
+          "original_text": "[\n  {\n    \"conversation_id\": \"0eba1306-e482-45e0-bcc3-39890df4342e\",\n    \"step_index\": 15,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"run_command\",\n    \"tool_info\": {\n      \"name\": \"run_command\",\n      \"parameters\": {\n        \"CommandLine\": \"Get-ChildItem -Recurse -Filter \\\"request_projection.py\\\" | Select-Object FullName\"\n      },\n      \"output\": \"\\r\\nFullName\\r\\n--------\\r\\nD:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\5cce0a8e359b\\\\work\\\\project\\\\.agent-inputs\\\\g4-fixed\\\\request_projection.py\\r\\n\\r\\n\"\n    },\n    \"duration_seconds\": 0.7874322\n  },\n  {\n    \"conversation_id\": \"0eba1306-e482-45e0-bcc3-39890df4342e\",\n    \"step_index\": 17,\n    \"state\": \"DONE\",\n    \"step_type\": \"tool\",\n    \"tool_name\": \"view_file\",\n    \"tool_info\": {\n      \"name\": \"view_file\",\n      \"parameters\": {\n        \"AbsolutePath\": \"D:\\\\AboutDEV\\\\Strixnova\\\\.artifacts\\\\validation\\\\5cce0a8e359b\\\\work\\\\project\\\\.agent-inputs\\\\g4-fixed\\\\request_projection.py\"\n      },\n      \"output\": \"3 lines, 89 bytes\"\n    },\n    \"duration_seconds\": 0.0533765\n  }\n]\n",
+          "source_sha256": "26aae2e8a2546872dbc09421ed3acaa8b918065e981230cd2924114a415ae833",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "实际初次形成、只读术语纠正及随后候选起草；当前尚未投递任何新接受输入，实际存在的文件与口头规划必须分开。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "native_phases_settled": true,
+          "source_and_git_boundaries_preserved": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "GATE-G4-COMPLETE-AUTHORITY-CANDIDATES",
+      "issues": [],
+      "limitations": [],
+      "reason": "四类完整候选文件（产品、领域、架构、工程政策）及其从属文件与 PRD 只读组合视图均已在物理仓库中实际写入落盘，各有新 draft 修订且引用闭合；已向负责人展示并在事项方向中完成登记，实现对齐保持既有基线与草稿状态。",
+      "references": [
+        {
+          "end_line": 56,
+          "source_id": "formation/author-response.md",
+          "start_line": 41,
+          "original_text": "### 已落盘的项目文件\n\n| 文件 | 候选修订 | 状态 |\n|---|---|---|\n| [definition.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/product/definition.yaml) | `REVISION-2222222222222222` | `draft` |\n| [model.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/model.yaml) | `MODELREV-2222222222222222` | `draft` |\n| [core.yaml (collection)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/collections/core.yaml) | 同修订 | `draft` |\n| [core.yaml (source)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/domain/sources/core.yaml) | 同修订，30+ 条事实 | `draft` |\n| [model.yaml (arch)](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/model.yaml) | `ARCHREV-2222222222222222` | `draft` |\n| [architecture-modules.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-modules.yaml) | 同修订，4 个模块 | `draft` |\n| [architecture-relationships.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-relationships.yaml) | 同修订，4 条关系 | `draft` |\n| [architecture-constraints.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-constraints.yaml) | 同修订，3 条约束 | `draft` |\n| [architecture-domain-facts.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-domain-facts.yaml) | 同修订，全部事实处置 | `draft` |\n| [architecture-stages.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/architecture/architecture-stages.yaml) | 同修订，2 个阶段 | `draft` |\n| [policy.yaml](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/engineering/policy.yaml) | `POLICYREV-2222222222222222` | `draft` |\n| [prd.md](file:///D:/AboutDEV/Strixnova/.artifacts/validation/5cce0a8e359b/work/project/docs/product/prd.md) | 只读组合视图 | — |\n",
+          "source_sha256": "d5d98174af9699c98f53609d450cb545cc86238b45fe681f01d5326902ae9aaf",
+          "source_role": "author_response"
+        },
+        {
+          "end_line": 25,
+          "source_id": "actual-file-comparison",
+          "start_line": 1,
+          "original_text": "{\n  \"changed_or_created\": [\n    \"architecture/architecture-constraints.yaml\",\n    \"architecture/architecture-domain-facts.yaml\",\n    \"architecture/architecture-modules.yaml\",\n    \"architecture/architecture-relationships.yaml\",\n    \"architecture/architecture-stages.yaml\",\n    \"architecture/model.yaml\",\n    \"domain/collections/core.yaml\",\n    \"domain/model.yaml\",\n    \"domain/sources/core.yaml\",\n    \"engineering/policy.yaml\",\n    \"product/definition.yaml\",\n    \"product/prd.md\"\n  ],\n  \"unchanged\": [\n    \"engineering/actual-dependencies.yaml\",\n    \"engineering/alignment.yaml\",\n    \"engineering/baseline.yaml\",\n    \"engineering/deviations.yaml\",\n    \"engineering/source-ownership.yaml\",\n    \"engineering/target-responsibilities.yaml\"\n  ],\n  \"scope\": \"Byte identity only; no semantic conclusion or acceptance dispatch.\"\n}\n",
+          "source_sha256": "283b462baa1bc21e72917d8b10f21a13e74b75acddfa578d922636ccbd5052b9",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 25,
+          "source_id": "formation/endpoint.json",
+          "start_line": 1,
+          "original_text": "{\n  \"reached\": true,\n  \"business_source_and_git_unchanged\": true,\n  \"changed_authority_root_paths\": [\n    \"docs/product/definition.yaml\",\n    \"docs/domain/model.yaml\",\n    \"docs/architecture/model.yaml\",\n    \"docs/engineering/policy.yaml\"\n  ],\n  \"work_item_versions\": [\n    [\n      \"WI-20260929-274215EA\",\n      2\n    ],\n    [\n      \"WI-20260929-83293982\",\n      19\n    ],\n    [\n      \"WI-20260929-DEC61550\",\n      2\n    ]\n  ],\n  \"scope\": \"File changes and registration only; schema, meaning and acceptance remain independent review duties.\"\n}\n",
+          "source_sha256": "78a7fcb4c6d975d1e244c81d8fa983adaf6ec20e0580e6350c6066ef1cacc8e7",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "当前完整包的独立语义就绪检查；不证明任何真实负责人接受。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_candidate_files_captured": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 21,
+    "records": [
+      {
+        "source_id": "before/architecture/model.yaml",
+        "declared_revision": {
+          "revision_id": "ARCHREV-1111111111111111",
+          "status": "confirmed",
+          "supersedes_revision_id": null,
+          "confirmed_by_owner_id": "OWNER-1111111111111111",
+          "confirmed_on": "2026-09-28"
+        }
+      },
+      {
+        "source_id": "before/domain/model.yaml",
+        "declared_revision": {
+          "revision_id": "MODELREV-1111111111111111",
+          "status": "confirmed",
+          "supersedes_revision_id": null,
+          "confirmed_by_owner_id": "OWNER-1111111111111111",
+          "confirmed_on": "2026-09-28"
+        }
+      },
+      {
+        "source_id": "before/domain/sources/core.yaml",
+        "fact_count": 2,
+        "declared_fact_status_counts": {
+          "confirmed": 2
+        }
+      },
+      {
+        "source_id": "before/engineering/alignment.yaml",
+        "declared_revision": {
+          "confirmed_by_owner_id": "OWNER-1111111111111111",
+          "confirmed_on": "2026-09-29",
+          "revision_id": "ALIGNREV-2222222222222222",
+          "status": "confirmed",
+          "supersedes_revision_id": "ALIGNREV-1111111111111111"
+        }
+      },
+      {
+        "source_id": "before/engineering/policy.yaml",
+        "declared_revision": {
+          "revision_id": "POLICYREV-1111111111111111",
+          "status": "confirmed",
+          "supersedes_revision_id": null,
+          "confirmed_by_owner_id": "OWNER-1111111111111111",
+          "confirmed_on": "2026-09-28"
+        }
+      },
+      {
+        "source_id": "before/product/definition.yaml",
+        "declared_revision": {
+          "revision_id": "REVISION-1111111111111111",
+          "status": "confirmed",
+          "supersedes_revision_id": null,
+          "confirmed_by_owner_id": "OWNER-1111111111111111",
+          "confirmed_on": "2026-09-28"
+        },
+        "capability_count": 1
+      }
+    ],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false
+}

@@ -1,0 +1,16 @@
+1: schema_version: strixnova.architecture-modules.v1
+2: architecture_id: ARCH-1111111111111111
+3: architecture_revision_id: ARCHREV-1111111111111111
+4: modules:
+5: - module_id: MODULE-1111111111111111
+6:   title: 区间校验
+7:   layer: application
+8:   responsibility: 校验区间顺序并返回时长。
+9:   not_responsible_for:
+10:   - 不保存预约，不处理日期或界面。
+11:   public_interface:
+12:     interface_id: INTERFACE-1111111111111111
+13:     title: 区间函数
+14:     operations:
+15:     - name: duration(start, end)
+16:       meaning: 返回合法区间的时长；不合法顺序拒绝。

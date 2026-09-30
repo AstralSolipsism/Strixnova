@@ -1,0 +1,381 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.actual-result.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "effect_summary",
+    "delivered_outcomes",
+    "deviations",
+    "limitations",
+    "verification_receipt_ids",
+    "long_lived_refs",
+    "method_application_results",
+    "governance_rule_results",
+    "semantic_content_machine_proven",
+    "review_subject_ref"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.actual-result.v1"
+    },
+    "effect_summary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "delivered_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "deviations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "verification_receipt_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "domain_fact_change_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_ref",
+          "outcome",
+          "evidence_refs",
+          "limitations"
+        ],
+        "properties": {
+          "target_ref": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "schema_version",
+              "authority_kind",
+              "model_id",
+              "fact_id",
+              "observed_commit"
+            ],
+            "properties": {
+              "schema_version": {
+                "const": "strixnova.domain-fact-reference.v1"
+              },
+              "authority_kind": {
+                "const": "project_domain_model"
+              },
+              "model_id": {
+                "type": "string",
+                "pattern": "^MODEL-[0-9A-F]{16}$"
+              },
+              "fact_id": {
+                "type": "string",
+                "pattern": "^FACT-[0-9A-F]{16}$"
+              },
+              "observed_commit": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{40,64}$"
+              }
+            }
+          },
+          "outcome": {
+            "enum": [
+              "realized",
+              "deferred",
+              "deviated"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "semantic_finding_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "review_id",
+          "finding_id",
+          "outcome",
+          "evidence_refs",
+          "limitation_refs"
+        ],
+        "properties": {
+          "review_id": {
+            "type": "string",
+            "pattern": "^SEMREVIEW-[0-9A-F]{16}$"
+          },
+          "finding_id": {
+            "type": "string",
+            "pattern": "^FINDING-[0-9]{3,}$"
+          },
+          "outcome": {
+            "enum": [
+              "resolved",
+              "carried_as_limitation"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "limitation_refs": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "pattern": "^limitations\\[[0-9]+\\]$"
+            }
+          }
+        }
+      }
+    },
+    "method_application_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "method_id",
+          "use_results",
+          "deviations"
+        ],
+        "properties": {
+          "method_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "use_results": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "use_id",
+                "status",
+                "outcome",
+                "evidence_refs"
+              ],
+              "properties": {
+                "use_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "status": {
+                  "enum": [
+                    "realized",
+                    "not_realized"
+                  ]
+                },
+                "outcome": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "uniqueItems": true,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  }
+                }
+              }
+            }
+          },
+          "deviations": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "governance_rule_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rule_id",
+          "status",
+          "evidence_refs",
+          "gaps",
+          "remediation_actions",
+          "limitations"
+        ],
+        "properties": {
+          "rule_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "satisfied",
+              "partially_satisfied",
+              "not_satisfied",
+              "unknown"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "gaps": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "remediation_actions": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "limitations": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "long_lived_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "artifact_id",
+          "artifact_type",
+          "path",
+          "relation"
+        ],
+        "properties": {
+          "artifact_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "artifact_type": {
+            "enum": [
+              "adr",
+              "architecture",
+              "domain_model",
+              "domain_alignment",
+              "interface",
+              "data_policy",
+              "quality_policy",
+              "test_policy",
+              "security_policy",
+              "release_policy",
+              "operations_policy",
+              "maintenance_policy",
+              "glossary",
+              "product_governance",
+              "engineering_assurance"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "relation": {
+            "enum": [
+              "introduced",
+              "updated",
+              "realized",
+              "removed"
+            ]
+          },
+          "repository_id": {
+            "type": "string",
+            "pattern": "^REPO-[0-9A-F]{16}$"
+          }
+        }
+      }
+    },
+    "semantic_content_machine_proven": {
+      "const": false
+    },
+    "verification_review_results": {
+      "type": "array",
+      "items": {
+        "$ref": "verification-targets-v1.schema.json#/$defs/review_result"
+      }
+    },
+    "follow_up_items": {
+      "type": "array",
+      "items": {
+        "$ref": "follow-up-records-v1.schema.json#/$defs/item"
+      }
+    },
+    "follow_up_results": {
+      "type": "array",
+      "items": {
+        "$ref": "follow-up-records-v1.schema.json#/$defs/result"
+      }
+    },
+    "target_verification": {
+      "type": "object",
+      "readOnly": true
+    },
+    "review_subject_ref": {
+      "type": "string",
+      "pattern": "^review-subject:[0-9a-f]{64}$"
+    }
+  }
+}

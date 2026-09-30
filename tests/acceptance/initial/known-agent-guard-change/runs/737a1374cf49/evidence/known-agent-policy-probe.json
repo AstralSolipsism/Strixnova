@@ -1,0 +1,54 @@
+{
+  "scope": "Exact command policy validation only. No tested command or Agent process was started.",
+  "program_started": false,
+  "results": [
+    {
+      "command": [
+        "codex.exe",
+        "--version"
+      ],
+      "admitted": false,
+      "reason": "forbidden_agent_program"
+    },
+    {
+      "command": [
+        "C:\\Users\\柳州局\\AppData\\Local\\agy\\bin\\agy.exe",
+        "--version"
+      ],
+      "admitted": false,
+      "reason": "forbidden_agent_program"
+    },
+    {
+      "command": [
+        "powershell.exe",
+        "-NoProfile",
+        "-Command",
+        "C:\\Users\\柳州局\\AppData\\Local\\agy\\bin\\agy.exe",
+        "--version"
+      ],
+      "admitted": false,
+      "reason": "forbidden_agent_wrapper"
+    }
+  ],
+  "required_forbidden_agent_names": [
+    "agy",
+    "aider",
+    "claude",
+    "codex",
+    "cursor",
+    "gemini",
+    "opencode",
+    "windsurf"
+  ],
+  "source_files": [
+    {
+      "path": "strixnova/src/strixnova/process_supervisor.py",
+      "sha256": "00b5b41f935844c2b8761426ece225061a33af7a2f333fb082fbdffd5d9e3b96"
+    },
+    {
+      "path": "strixnova/src/strixnova/project_engineering_policy.py",
+      "sha256": "827909708c13e2d65d9939e07084c17b737a3f366350f4a1360c61a7e018673d"
+    }
+  ],
+  "semantic_content_machine_proven": false
+}

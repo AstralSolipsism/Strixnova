@@ -1,0 +1,932 @@
+{
+  "scope": "Replace exactly the three previously partial module evaluations after focused source reads and independent native review; preserve all original rows here.",
+  "target_ids": [
+    "MODULE-159AE7957218470C",
+    "MODULE-5CEF109E340C469F",
+    "MODULE-684D0E7D2345445D"
+  ],
+  "target_file_sha256": "11825f91dad6aefb6f030f6a3cb29532e21bcf662a1ec32f1bee31f44fe0528d",
+  "source_file_sha256": "588899a687c7a3d56f058f6cb81c3e7d02dd6c2c1b8579b01d5d3de748b864cd",
+  "target_records": [
+    {
+      "target_kind": "module",
+      "target_id": "MODULE-159AE7957218470C",
+      "status": "partially_implemented",
+      "satisfied": [
+        "单一应用入口：ApplicationCoordinator 是所有状态变更用例的唯一入口；_public_use_case 装饰器统一捕获领域异常并转化为 ApplicationCoordinatorError",
+        "可恢复执行序列化：_exclusive_effect_lock 使用 msvcrt.locking/fcntl.flock 对每个 WorkItem 的可变效果操作串行化，_claim_external_effect 记录 pending_effect 意图，在 confirm_project_authorities 的 recovering_confirmation 路径下完整实现意图恢复",
+        "执行目标权威用例：project_authority_candidate（从 project_authority_decision.py 导入，验证 ready_for_confirmation 状态、change_set 精确性、上游绑定）、review_project_authorities（记录八视角复核后的 candidate_bundle 哈希）、confirm_project_authorities（原子校验 bundle SHA、decisions 顺序、候选未变化，调用 build_project_authority_confirmation_transaction + apply_project_authority_confirmation_transaction，失败时 restore_yaml_patch_originals）",
+        "目标权威事务实现（project_authority_decision.py 全文直接读取）：project_authority_candidate 完整实现（L786-L826）包含 validate_authority_change_targets 身份核对；build_project_authority_confirmation_transaction 构建可恢复 YAML 补丁事务（L831-L996）；apply_project_authority_confirmation_transaction 幂等应用（L999-L1012）；confirmed_project_authority_snapshot 重新读取已确认内容并验证基线采用状态（L1015-L1099）；validate_project_authority_decision 通过 reproduce_confirmation_record 核验负责人确认原文（L1102-L1176）",
+        "执行对齐复核用例（prepare/inspect/garbage_collect/capture_external/write_candidate 委托给 ImplementationAlignmentPreparation）：prepare() 从 _binding() 解析当前已确认方案和实施切片，_documents() 读取或初始化对齐草稿文档集，_required_decisions() 构建决定目录（已直接读取至 L1200）；ImplementationAlignmentArtifactStore（全文读取）实现内容寻址分页存储（PAGE_TARGET_BYTES=512KB，MAX_CHUNK_BYTES=8MB，list_segments/map_pages 分块）和 GC（only deletes orphan components unreachable from immutable manifests，需 expected_orphan_set_sha256 校验）",
+        "install_agent_guidance：委托 install_agent_skill 幂等安装 packaged skill，不修改 Agent 配置（agent_setup.py 全文确认）",
+        "执行普通事项用例（intake、submit_direction、submit_engineering_assessment、present_actual_result 已直接读取关键路径）：intake（L1163）初始化权威存储并更新 Git local excludes；submit_direction（L3330）在 ready_for_confirmation=True 时强制验证方向上下文，在方向上下文失效时自动切换为 revise_direction；submit_engineering_assessment（L3361）校验已确认方向、编译工程方案、验证护栏规划和源码对齐；present_actual_result（L3898）校验切片完整性、未计划路径、权威候选快照，复用同一审阅对象构造，期间检测审阅对象变化并拒绝",
+        "delivery（L1591）：根据当前动作（present_actual_result）路由到 present_actual_result；在 implementation_ready 状态下恢复或建立工作区；检验 target_ref 与已确认仓库责任一致",
+        "behavior-examples.md（全文读取，127行）：纯指导文档，描述行为示例规范、验证安排和报告要求；明确声明 semantic_content_machine_proven=false 且 program 仅检查结构和引用，不决定适用性和充分性"
+      ],
+      "missing": [
+        "implementation_alignment_preparation.py 共2362行，本轮直接读取至第1200行（~51%）：inspect()（分页读取观察清单逻辑）和 write_candidate()（持久事务日志写入对齐草稿）方法的完整实现体未直接阅读，无法逐行验证有界逻辑记录和不透明游标、provider 字节一致性授权（capture_external 方法逻辑）等的代码路径",
+        "implementation_candidate_evidence.py 未读取：ImplementationCandidateEvidence 类（在 application_coordinator.py 初始化时引用）的具体实现未阅读，无法评价其在普通事项用例中的职责范围",
+        "verify（L2441）、cancel（L2878）、complete_implementation_slice、request_replan、confirm 等普通事项用例方法在 application_coordinator.py 中的具体实现未直接读取；仅知道这些方法存在且经 _public_use_case 路由"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L225-L303",
+          "claim": "_public_use_case 装饰器统一捕获所有领域异常并转化为 ApplicationCoordinatorError；是单一应用入口的机械保障"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L136-L169",
+          "claim": "_exclusive_effect_lock 使用平台锁（msvcrt/fcntl）串行化可恢复事务"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L823-L1147",
+          "claim": "confirm_project_authorities 原子事务：校验 bundle SHA、decisions 顺序、候选未变化；apply_project_authority_confirmation_transaction；失败时 restore_yaml_patch_originals"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_decision.py#L786-L826",
+          "claim": "project_authority_candidate 完整实现：验证 ready_for_confirmation 状态、validate_authority_change_targets 身份核对、_validated_upstream_authority_refs 上游绑定，返回包含 content_sha256 和 governed_paths 的候选结构"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_decision.py#L831-L996",
+          "claim": "build_project_authority_confirmation_transaction 构建可恢复 YAML 补丁事务：逐项验证候选未变化、不允许 immutable ref 写入、更新 baseline authority_refs 状态和 review_state；调用 build_yaml_patch_transaction 生成多路径原子更新"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_authority_decision.py#L1102-L1176",
+          "claim": "validate_project_authority_decision 通过 reproduce_confirmation_record 核验负责人确认原文不可伪造，再通过 confirmed_project_authority_snapshot 验证正文字节与确认哈希匹配"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_alignment_artifacts.py#L62-L212",
+          "claim": "ImplementationAlignmentArtifactStore._store_value 实现内容寻址分层分页（list_segments/map_pages），PAGE_TARGET_BYTES=512KB、MAX_CHUNK_BYTES=8MB、MAX_PAGE_ITEMS=256；_write_content 通过 tempfile+fsync+os.replace 保证写入原子性"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_alignment_artifacts.py#L580-L671",
+          "claim": "garbage_collect_orphan_components 从 preparations/captures 清单遍历所有可达组件，仅删除孤立组件（unreachable from any manifest）；apply 时需 expected_orphan_set_sha256 与 dry-run 结果一致"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_alignment_preparation.py#L558-L743",
+          "claim": "ImplementationAlignmentPreparation._binding() 解析当前已确认方案和唯一 domain_alignment 操作、implementation_root；_documents() 读取或初始化对齐草稿文档集，区分首次建立（需请求）和既有 draft 复用"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/implementation_alignment_preparation.py#L1099-L1200",
+          "claim": "_required_decisions() 构建源码归属决定目录（每个 governed path 生成 source_record 决定项，消失路径生成 remove_source_record）和依赖关系决定目录（每个 observed relation 生成 dependency_record）；使用 previous_record_ref 锁定旧记录内容哈希"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L3330-L3358",
+          "claim": "submit_direction 在 ready_for_confirmation=True 时强制验证方向上下文；在方向上下文失效时自动切换为 revise_direction action"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/application_coordinator.py#L3898-L4089",
+          "claim": "present_actual_result 校验：切片完整性（implementation_slice_reportability）、未计划路径（unplanned_repository_change）、权威候选快照（authority_candidate_snapshot）；在审阅对象在校验期间变化时拒绝（subject_ref 比对）；结果接受后用 authority_checker.authority_candidate_snapshot 绑定候选"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/agent_setup.py#L54-L128",
+          "claim": "install_agent_skill 从 importlib.resources 安装打包 skill；已有不同内容时需 replace=True 才覆盖，原目录先备份；不修改 Agent 配置文件"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-examples.md#L1-L126",
+          "claim": "behavior-examples.md 是纯指导文档（127行），描述行为示例规范、pytest case_report 配置、验证安排和断言充分性复核；明确声明 'The Agent decides applicability and sufficiency; the program checks structure and references' 和 'semantic_content_machine_proven stays false'，与合同不代替 Agent 作语义决定一致"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_host_adapter.py#L546-L597",
+          "claim": "test_verification_cannot_skip_the_current_implementation_slice 断言跳过切片时 code==verification_slice_not_ready，确认切片顺序强制"
+        },
+        {
+          "kind": "inspection",
+          "ref": "tests/acceptance/initial/implementation-assessment/modules-2/assessment.json",
+          "claim": "本条当前实现评价由真实Antigravity起草并经独立原生复核；完整输入摘要、首次错误、纠正及局限随记录保存。不是整体Agent效果、Git采用或负责人接受。"
+        }
+      ],
+      "deviation_ids": [],
+      "resolution_plan": [
+        "阅读 implementation_alignment_preparation.py 第1200-2362行，直接验证 inspect()（有界游标分页逻辑）、write_candidate()（持久事务日志写入）和 capture_external()（provider 字节一致性授权）的实现",
+        "阅读 implementation_candidate_evidence.py，确认 ImplementationCandidateEvidence 在普通事项用例中的职责范围",
+        "阅读 application_coordinator.py 的 verify（L2441）、cancel（L2878）、confirm、complete_implementation_slice 方法，直接验证这些普通事项用例的实现"
+      ]
+    },
+    {
+      "target_kind": "module",
+      "target_id": "MODULE-5CEF109E340C469F",
+      "status": "partially_implemented",
+      "satisfied": [
+        "validate_assessment 函数实现对工程评估候选的结构与字段校验，包含 schema_version、assessment_id、direction_ref、investigation_ref、change_context、impact_scope 等必填字段校验（engineering_governance.py L1647-3030）",
+        "compile_engineering_plan 函数将已校验评估投影为规范化工程方案，包含 authority_change_set、implementation_slices、verification_commands、verification_targets、behavior_examples、owner_view、applicable_rules、assurance_band 等关键字段（engineering_governance.py L3398-3585）",
+        "合同操作'解释确定性缺口'通过 EngineeringGovernanceError/ChangePlanningError 抛出 issues 列表实现：validate_assessment 和 compile_engineering_plan 在校验失败时返回结构化错误列表（issues 字段），调用方可直接读取缺口说明，不需要独立同名函数",
+        "合同'停止条件'通过 implementation_slices 结构（含切片依赖图）和 verification_commands 组合体现：focused_slice 和 implementation_slice_reportability 从方案投影当前切片状态，terminal_slice_issue 判定停止边界；方案字段本身就是停止条件的表达形式",
+        "impact_scope 的全部规定维度完整覆盖校验（engineering_governance.py L1986-1992）",
+        "create_project 场景强制要求六个权威路径字段及工程方法采用状态明确声明（engineering_governance.py L1844-1863，L1519-1530）",
+        "engineering_change_planning.py 实现 validate_change_planning（权威变更集结构与身份校验）、compile_implementation_slices（切片依赖与操作绑定）、validate_semantic_review（语义复核声明校验）",
+        "project_engineering_assurance.py 实现 ProjectEngineeringAssurance 类，含 load/matrix 方法，校验规则来源绑定、证据路径内容摘要、权威与治理档案精确绑定、外部保障回执约束",
+        "behavior_examples.py 实现 normalize_behavior、example_catalog、example_ids、example_parents，正确维护例子与验收的父子关系和 basis_refs 约束",
+        "verification_targets.py 实现 validate_reviews 和 compile_targets，含方法约束和目标完整覆盖校验",
+        "_validate_domain_fact_authority_change_alignment 确保 domain_fact_changes 与 authority_change_set 中 Fact 身份与动作一致（engineering_governance.py L1059-1108）",
+        "recorded_executions 显示 packet.json 内 d0856323c4b6、f5e20647248e 两次运行的相关测试均为 passed"
+      ],
+      "missing": [
+        "validate_assessment 在 formal_implementation=true 时对操作文件存在性的校验仅在 investigation_commit 不为 None 时触发（engineering_governance.py L2292）；若 resolved_ref 不是 immutable 提交则跳过此校验，存在可观察的分支豁免",
+        "政策义务完整覆盖校验中 _rule_results 仅在 formal_implementation 和 impact_dimensions 触发，无法从源码静态证明全部政策规则触发路径的完整性",
+        "project_engineering_assurance.py 中 _validate_external_assurance 的 claimed_with_receipt 路径对证据内容的额外校验仅检查 evidence_kind，外部回执真实性不能由代码本身证明"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L1647-L1661",
+          "claim": "validate_assessment 公开函数签名，文档说明不添加语义的校验职责"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L3028-L3030",
+          "claim": "validate_assessment 在检测到任何 issues 时抛出 EngineeringGovernanceError(issues)，issues 列表即结构化缺口输出"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L3398-L3412",
+          "claim": "compile_engineering_plan 签名与文档，调用 validate_assessment 后投影完整工程方案"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L3588-L3598",
+          "claim": "__all__ 导出 validate_assessment 和 compile_engineering_plan 为模块公开接口"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L1986-L1992",
+          "claim": "impact_scope 缺少任何维度时追加错误，完整覆盖 IMPACT_DIMENSIONS"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L1844-L1863",
+          "claim": "create_project 时强制校验六个权威路径字段"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/engineering_change_planning.py#L1-L6",
+          "claim": "模块顶注明确只检查 identity、exact baselines、references、dependency shape，不主张语义"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_assurance.py#L231-L258",
+          "claim": "_validate_bindings 要求精确匹配五权威链及治理档案，evidence_base_commit 须为观察版本祖先"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/project_engineering_assurance.py#L335-L396",
+          "claim": "_validate_rule_assessments 逐条校验规则来源绑定、证据引用、状态与缺口纠偏约束"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/behavior_examples.py#L84-L119",
+          "claim": "example_catalog 维护例子到验收的父子关系，basis_refs 仅允许本验收需求或约束"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/verification_targets.py#L40-L65",
+          "claim": "validate_reviews 检查核验安排方式、目标覆盖、证据引用约束"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_behavior_examples.py::test_example_basis_is_owned_by_its_acceptance_not_the_implementation",
+          "claim": "run_id d0856323c4b6 和 f5e20647248e 均 passed，覆盖 basis_refs 限于本验收的断言"
+        },
+        {
+          "kind": "inspection",
+          "ref": "strixnova/src/strixnova/engineering_governance.py#L3584",
+          "claim": "编制方案时明确输出 semantic_content_machine_proven=False，不伪造语义证明"
+        },
+        {
+          "kind": "inspection",
+          "ref": "tests/acceptance/initial/implementation-assessment/modules-3/assessment.json",
+          "claim": "本条当前实现评价由真实Antigravity起草并经独立原生复核；完整输入摘要、首次错误、纠正及局限随记录保存。不是整体Agent效果、Git采用或负责人接受。"
+        }
+      ],
+      "deviation_ids": [],
+      "resolution_plan": [
+        "补充对 investigation_commit 为 None 场景下操作文件存在性校验豁免的文档说明，明确调用方责任",
+        "对 _rule_results 中政策义务触发路径追加注释说明哪些组合不触发规则，以便独立复核"
+      ]
+    },
+    {
+      "target_kind": "module",
+      "target_id": "MODULE-684D0E7D2345445D",
+      "status": "partially_implemented",
+      "satisfied": [
+        "WorkflowAuthority 类使用 SQLite 作为物理原子性后端，_transaction 使用 BEGIN IMMEDIATE + rollback/commit 保证原子写入（workflow_authority.py L3569-3587）",
+        "WORK_ITEM_STATES 枚举定义 15 个状态，TERMINAL_STATES 分离终止态，_require_status 在每次转换前校验当前状态合法性（workflow_authority.py L70-91）",
+        "方向校验包含：schema_version 绑定、需求唯一性、验收需求覆盖、历史身份不可复活（_reject_retired_direction_items）、格式正则校验",
+        "确认协议（confirmation_protocol.py）实现挑战-应答，要求 explicit_agent_decision 且保存原文，不允许仅 raw_reply 推进",
+        "current_action.py 实现 current_action_for（779行，完整读取），通过 _ACTION_BY_STATUS 状态表和条件分支覆盖所有非终止状态，包括 pending_effect、implementation_slice、verification_status 等条件路径",
+        "切片依赖投影：_focused_implementation_slice 调用 engineering_change_planning.focused_slice，从方案中选择下一个依赖已满足的切片（current_action.py L267-282）",
+        "零命令切片：current_action.py L590-598 对 verification_command_ids 为空的切片直接生成 complete_implementation_slice 动作，无需验证命令即可推进",
+        "重规划后交付保留：submit_engineering_assessment 中保留有执行事实（git.work_ref）的旧仓库条目到新方案（workflow_authority.py L1272-1293），保留逻辑逐条检查 cleanup 状态",
+        "多仓库顺序执行：_reduce 中 ordered_repository 强制按已确认方案中的仓库顺序执行（workflow_authority.py L928-929）",
+        "AuthorityConflict 处理并发版本冲突，_connect 检查表结构版本一致性（workflow_authority.py L3543-3566）",
+        "follow_ups.py、work_item_repositories.py、actual_result.py、execution_stop_evidence.py、persistent_evidence.py、storage_formats.py、work_item_relations.py 均存在且与各自职责对应",
+        "recorded_executions 显示 packet.json 内两次 run_id 运行中涉及该模块的测试均为 passed"
+      ],
+      "missing": [
+        "replanning_required 状态下重规划时，旧仓库条目保留的精确语义完整性：workflow_authority.py L1292 的保留逻辑依赖 plan_id 比较和 cleanup.safe 判断，但完整覆盖所有历史执行保留场景（如多次重规划叠加）的正确性需运行验证，源码可观察结构支持但边界情形未被静态完全确认",
+        "project_authority_progress.py 中 project_authority_stage 的完整投影逻辑未阅读（仅通过 current_action.py 间接确认其存在与接口），该函数覆盖的权威阶段边界情形无法独立评价",
+        "execution_stop_evidence.py 的具体失败终止列表生成逻辑（未直接读取），无法确认合同要求的'失败终止时列出未执行后续切片'是否在所有 terminal_slice_issue 分支完整输出"
+      ],
+      "evidence": [
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/workflow_authority.py#L70-L91",
+          "claim": "WORK_ITEM_STATES 定义 15 个状态，TERMINAL_STATES 分离终止态"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/workflow_authority.py#L3569-L3587",
+          "claim": "_transaction 使用 BEGIN IMMEDIATE + rollback/commit 保证原子性，_connect 检查表结构版本一致性"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/workflow_authority.py#L1272-L1293",
+          "claim": "submit_engineering_assessment 逐条检查旧仓库条目的 work_ref 和 cleanup.safe，保留有执行事实但尚未收口的条目到新方案"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/current_action.py#L267-L282",
+          "claim": "_focused_implementation_slice 调用 focused_slice 投影下一个依赖已满足的切片，覆盖切片依赖判断"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/current_action.py#L590-L598",
+          "claim": "verification_command_ids 为空的切片直接生成 complete_implementation_slice 动作，零命令切片不需要验证命令即可推进"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/current_action.py#L557-L570",
+          "claim": "terminal_slice_issue 或 completed_with_issues 时触发 present_actual_result，形成切片停止边界"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/workflow_authority.py#L912-L962",
+          "claim": "_reduce 函数强制多仓库顺序（ordered_repository），并管理 pending_effect 状态"
+        },
+        {
+          "kind": "source",
+          "ref": "strixnova/src/strixnova/workflow_authority.py#L1-L6",
+          "claim": "模块注释明确 SQLite owns physical atomicity，调用方不协调文件、指针或哈希"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_confirmation_protocol.py::test_explicit_agent_decision_preserves_full_original_message",
+          "claim": "run_id d0856323c4b6 passed，覆盖 Agent 决定原文保存断言"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_current_action.py::test_current_action_requests_the_pending_receipt_and_its_execution_context",
+          "claim": "run_id d0856323c4b6 passed，覆盖当前行动计算返回待完成回执断言"
+        },
+        {
+          "kind": "test",
+          "ref": "tests/unit/test_follow_ups.py::test_only_accepted_results_publish_obligations_and_cli_query_is_read_only",
+          "claim": "run_id d0856323c4b6 passed，覆盖仅已接受结果发布义务的约束"
+        },
+        {
+          "kind": "inspection",
+          "ref": "tests/acceptance/initial/implementation-assessment/modules-3/assessment.json",
+          "claim": "本条当前实现评价由真实Antigravity起草并经独立原生复核；完整输入摘要、首次错误、纠正及局限随记录保存。不是整体Agent效果、Git采用或负责人接受。"
+        }
+      ],
+      "deviation_ids": [],
+      "resolution_plan": [
+        "补充阅读 execution_stop_evidence.py 全文，核实失败终止时未执行切片列表的完整输出逻辑",
+        "补充阅读 project_authority_progress.py 中 project_authority_stage，独立评价权威阶段投影覆盖范围",
+        "补充运行测试以覆盖多次重规划叠加后旧仓库条目保留的边界场景"
+      ]
+    }
+  ],
+  "source_records": [
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/agent_setup.py",
+      "sha256": "96da7c81ff16369ca06dbad9e77be87f7bc7973c44c7cafc4d65d8f9d7e127fc",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "全文读取（129行）：install_agent_skill 被 ApplicationCoordinator.install_agent_guidance 直接调用，完整实现 agent skill 安装职责；不修改 Agent 配置文件，与合同子职责一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/application_coordinator.py",
+      "sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "直接读取至约第4160行（共5587行，约74%）：ApplicationCoordinator 是所有状态变更用例的唯一入口；已读取 confirm_project_authorities、delivery、submit_direction、submit_engineering_assessment、present_actual_result、intake、prepare/inspect/garbage_collect_implementation_alignment 等核心用例；未读部分（verify、cancel 等约26%）不影响归属判断 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/implementation_alignment_artifacts.py",
+      "sha256": "b24ad4bcf2d1602d253369690d901998bebec6d71e2c278c0f87a85ca88952bc",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "全文读取（682行）：ImplementationAlignmentArtifactStore 实现内容寻址分页存储（preparations/captures/components 三级目录）和基于清单可达性的 GC；被 ImplementationAlignmentPreparation 导入使用，归属 MODULE-159AE7957218470C 的对齐复核用例子职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/implementation_alignment_preparation.py",
+      "sha256": "54ecb583e0b36574988aac584657662b650ca44ebd9d7ef7287eb1fce299a54e",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "partially_aligned",
+      "deviation_ids": [],
+      "rationale": "直接读取至第1200行（共2362行，约51%）：ImplementationAlignmentPreparation 类主体（__init__、_binding、_documents、_work_item_plan、_required_decisions、_initial_documents）已确认与合同对齐复核用例一致；inspect()、write_candidate()、capture_external() 方法体未直接读取，部分对齐状态反映此证据边界。归属至 MODULE-159AE7957218470C 有充分支撑，但未读部分阻止给出 aligned 定论 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/implementation_candidate_evidence.py",
+      "sha256": "0363fceb76a2b5a65fee7ea525e950bef2aff999e7ca2276a728b68dcdeb94e9",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "unknown",
+      "deviation_ids": [],
+      "rationale": "文件未读取：application_coordinator.py 中通过 self.implementation_evidence = ImplementationCandidateEvidence(self.management_project) 引用，归属 MODULE-159AE7957218470C 有合理性，但文件内容未直接阅读，无法评价其职责范围与合同的对应程度 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/project_authority_decision.py",
+      "sha256": "decf507d0fb2b61817bf6fbc39b31c7466777760927505649414cbf319ba2714",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "全文读取（1192行）：实现 project_authority_candidate、build_project_authority_confirmation_transaction、apply_project_authority_confirmation_transaction、confirmed_project_authority_snapshot、validate_project_authority_decision 五个关键函数，直接支撑 confirm_project_authorities 用例；project_authority_review_bundle 支撑 review_project_authorities 用例；归属 MODULE-159AE7957218470C 的执行目标权威用例职责直接可验证 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/agent-skill/strixnova/references/behavior-examples.md",
+      "language_id": "markdown",
+      "node_kind": "agent_guidance",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-865AD1FCCBD349E0",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "16d0b734b7c616b181ede74159edaefb6b92119288972eba52d44afe7a9be17c",
+      "target_module_id": "MODULE-159AE7957218470C",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "全文读取（127行）：纯指导文档，描述行为示例规范、验证安排和断言充分性要求；通过 install_agent_skill 作为 packaged resource 部署，归属 MODULE-159AE7957218470C 的 agent guidance 子职责；内容明确声明 'The Agent decides applicability and sufficiency; the program checks structure and references'，与合同不代替 Agent 作语义决定一致 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-2/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/behavior_examples.py",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "f9b64c20ff9bdaebfde373faa3fd9d65c3e08c1c4725be37d08fea1614375600",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "文件实现 normalize_behavior、example_catalog、example_ids、example_parents，直接支持工程评估治理中方向行为例子的校验与父子关系维护 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/engineering_change_planning.py",
+      "sha256": "01a4d2efa7328af25b5896af818953e407d0e0ec5c801fb1343992e449b2111d",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "文件实现 validate_change_planning、compile_implementation_slices、validate_semantic_review，直接支持权威变更集、实施切片、语义复核声明校验 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/engineering_governance.py",
+      "sha256": "862e5820eaef41a56e544ac98fe7c2b2468e095a8b8ba84b24fb997c06e49730",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "文件是模块核心，实现 validate_assessment 和 compile_engineering_plan，包含全部主要校验逻辑 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/project_engineering_assurance.py",
+      "sha256": "fbe8aa8939d3f997acaad76cb773d43937443a207126c7ca1925680e781a0c03",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "文件实现项目工程保障评估的校验（规则、证据、权威绑定），对应合同校验项目工程保障评估候选操作 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/authority-change-set-v1.schema.json",
+      "sha256": "73f8f0a7184a0c58662dfd823690e4b7a9f81ea0522ab28f7e981bb0bf7d1afa",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "权威变更集 JSON Schema，被 engineering_change_planning.py 引用，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/behavior-example-v1.schema.json",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "d11d6a7d730819c30e3ce70c56e9f5ed5b64d55fb9986d77ce35e781ef541433",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "行为例子 JSON Schema，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/engineering-assessment-v1.schema.json",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "a3392768574cb6cfee78b756696dff1297683c2fe806e91085cf08b603439d1a",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "工程评估 JSON Schema，被 validate_assessment 间接引用，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/engineering-plan-v1.schema.json",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "b283d2d63376e376cb3bf9396fa963a640da82d75103995f3e9c14000951796b",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "工程方案 JSON Schema，被 compile_engineering_plan 输出遵循，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/implementation-slice-v1.schema.json",
+      "sha256": "e30ac5d2d26034e9eadef0645999579a5bb5a290a9de96977ae4066a877ee95c",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实施切片 JSON Schema，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/owner-view-v1.schema.json",
+      "sha256": "b5e2abe63b39a1ed6bc387d8e4f3c2c32c340c7c2ab9f1653fa598154378b2bf",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "负责人视图 JSON Schema，对应 compile_engineering_plan 中 owner_view 字段，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/project-authority-review-submission-v1.schema.json",
+      "sha256": "8ddccf47e89e4e5fc104e15f7a895b5f85bfa37fcb128bfbc1cb535edce29cbd",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "项目权威审阅提交 JSON Schema，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/project-engineering-assurance-v1.schema.json",
+      "sha256": "49e3d5c0615c3bcb03f1315d0d06234672ef10e6c7670bcbb120842fe5c94ddf",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "项目工程保障评估 JSON Schema，被 ProjectEngineeringAssurance._schema_issues 引用 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/replan-request-v1.schema.json",
+      "sha256": "7420cbc4fbd076c9f8de9c9fee2608fdd68c60c0a75ac708ba646daf68fa5807",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "重规划请求 JSON Schema，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/semantic-review-v1.schema.json",
+      "sha256": "a37e73c056073329a6a8a94d008a4333969518d0a9d73b58592503eeca5b924e",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "语义复核声明 JSON Schema，被 engineering_change_planning.validate_semantic_review 引用 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/target-advance-assessment-v1.schema.json",
+      "sha256": "d3b4bdf5f24643fbd276a9f444eeae8314fcd2c6a8b820bf7ad820ac93894000",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "目标推进评估 JSON Schema，属于模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/verification-targets-v1.schema.json",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-4537A8D12415428C",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "44e8fd1284c899d288acbb87836c84d23d99d68d91f8008852ae3d5f5785d0e5",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "核验目标 JSON Schema，与 verification_targets.py 的 compile_targets 输出对应 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/verification_targets.py",
+      "sha256": "20ff4a75aa83bb06012ed04370727b8a7577e782a774c5372c27cfe953b9dc40",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-5CEF109E340C469F",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "文件实现 validate_reviews 和 compile_targets，直接支持工程方案中验证计划和核验安排的校验 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/actual_result.py",
+      "sha256": "b8a274149766dd93904e0b1b35b0801758b9d7107e26687073b1ec1a68e7c8d5",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "文件名和模块归属合同对应实际结果接受职责，属于建设事项权威模块 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/confirmation_protocol.py",
+      "sha256": "8608c5ba58248a5d490f66c3078207d561ce27f4eefafaac239038f2084abbbe",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现挑战-应答确认协议，对应普通确认保存用户自然语言原文与 Agent 显式决定和依据职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/current_action.py",
+      "sha256": "7acc77fad25b00702f6122e879bb28db342d108ecfaadbfefb9db0e169e51863",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现当前行动计算（current_action_for 和 direction_revision_action_for），与计算当前行动接口操作直接对应 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/execution_stop_evidence.py",
+      "sha256": "2a8cbf8ccb7bedfd8172032f8f336e6c3e4f6fa9bb39d8ec18ba43b65edc197e",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现执行终止证据格式，对应失败终止时列出未执行后续切片职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/follow_ups.py",
+      "sha256": "dd39636a242dd71ed213003ccafeda3d3623c3948d6c879a13d5e101bb435f89",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现后续事项管理，属于建设事项权威的从属事项追踪职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/persistent_evidence.py",
+      "sha256": "1a5648287b6d40f58d5b2abf9f0278fcf3d0849b640c9c472032fcbcbac138d9",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现持久化证据寻址，对应集中隐藏当前持久格式与写入保护、证据寻址职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/project_authority_progress.py",
+      "sha256": "2f4b10a50325989c0efd54185f9348567412f7eb0e18ebda1a90109df06ae691",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现项目权威进度追踪，对应建设事项权威中项目归属阶段管理 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/project_maintenance.py",
+      "sha256": "65fa490170379f9c2bcd32feea3b5bbeb5a4d1a1fb78be089adeff65d1d959b1",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现维护操作协调，对应模块集中隐藏维护操作协调职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/actual-result-v1.schema.json",
+      "sha256": "896b45e27bbd3acedcb761ec63b380470dec265db834361a2d01122088ff6947",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实际结果 JSON Schema，属于建设事项权威模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/current-action-v1.schema.json",
+      "sha256": "db32b0dabe2660bb7220646d4a80f986e987dc756300a7a8e272a80d1f09cebe",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "当前行动 JSON Schema，属于建设事项权威模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/direction-decision-v1.schema.json",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-865AD1FCCBD349E0",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "5fd9595b2fb17233340d8cd5fab128420f0f906a5a4615663e3193fbc4deba3d",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "方向决定 JSON Schema，被 workflow_authority.py 中方向校验逻辑引用 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/execution-stop-evidence-v1.schema.json",
+      "sha256": "2ad763e3305d0421fa1e42dafefce2270467a68df9940e6f124edd99dca69ac5",
+      "language_id": "resource",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "执行终止证据 JSON Schema，属于建设事项权威模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/follow-up-records-v1.schema.json",
+      "sha256": "ce4e89832ecb6a908ae1ee7743d0b1c9e94ddb1b68d812435d4c87d8e5dcfe82",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "后续记录 JSON Schema，属于建设事项权威模块运行时结构约束资源 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/repository-delivery-responsibility-v1.schema.json",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-865AD1FCCBD349E0",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "bfd3ece21ff19278af3b0df2dde747820869007aa7190efd775e9e4d139d071b",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "仓库交付责任 JSON Schema，对应在同一事项中保存各仓库交付责任职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/work-item-relation-v1.schema.json",
+      "sha256": "fa1cf1a7754d3a35d2e1172f98d9d646e65de57b428d337de81f5797c5298176",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "WorkItem 关系 JSON Schema，对应保存描述性关系职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/resources/work-item-v1.schema.json",
+      "language_id": "json",
+      "node_kind": "runtime_schema",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-865AD1FCCBD349E0",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "287cc0d971b977d7df28188c91113320e766b4a30aa7e6cbdf87d87138ffd79e",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "WorkItem JSON Schema，是建设事项权威核心数据结构 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/storage_formats.py",
+      "sha256": "a3252838f5289a4f37e574af6a545c6b8814eb65967a82a94b212261d2b56448",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-B3F5D04C39204E08",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现 SQLite 表结构保护和格式版本检查，对应集中隐藏当前持久格式与写入保护职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/work_item_relations.py",
+      "sha256": "dbb77f1c3f0366f185201a36e42d05bd67b4c1ac1c1865e89e49aa10ca4b96b2",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "实现 WorkItem 关系规范化，对应保存描述性关系职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/work_item_repositories.py",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "implementation_stage_id": "ARCHSTAGE-865AD1FCCBD349E0",
+      "repository_id": "REPO-284FDA042B2A4ABD",
+      "sha256": "1d318a6867ee2b7b1022c8aa236e23a9ab62bee7d1cc2904219e8ff618a28d1f",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "deviation_ids": [],
+      "current_status": "aligned",
+      "rationale": "实现仓库交付责任记录与多仓库顺序执行，对应保存逐仓执行意图、实际提交、集成内容职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。"
+    },
+    {
+      "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+      "path": "strixnova/src/strixnova/workflow_authority.py",
+      "sha256": "af17e70b2beb4226e572ae0d433d99b13f9e9cca6cf62e41cdab96f6e3206395",
+      "language_id": "python",
+      "node_kind": "source_file",
+      "disposition": "owned",
+      "target_module_id": "MODULE-684D0E7D2345445D",
+      "implementation_stage_id": "ARCHSTAGE-855FE8B2614840F4",
+      "current_status": "aligned",
+      "deviation_ids": [],
+      "rationale": "文件是模块核心，实现 WorkflowAuthority 类，包含状态转换、确认协议、方向校验、SQLite 原子写入等主要职责 评价及独立复核见 tests/acceptance/initial/implementation-assessment/modules-3/assessment.json；本状态不表示整体产品或真人接受。",
+      "repository_id": "REPO-284FDA042B2A4ABD"
+    }
+  ]
+}

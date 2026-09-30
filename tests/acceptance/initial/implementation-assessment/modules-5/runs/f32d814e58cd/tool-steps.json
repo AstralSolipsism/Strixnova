@@ -1,0 +1,462 @@
+[
+  {
+    "conversation_id": "4706ac56-10b0-44dd-a2f6-f4e8d4ea8165",
+    "step_index": 58,
+    "state": "ACTIVE",
+    "step_type": "tool",
+    "tool_name": "finish",
+    "tool_info": {
+      "name": "finish",
+      "parameters": {
+        "assessments": [
+          {
+            "deviation_ids": [],
+            "evidence": [
+              {
+                "claim": "replace_documents() 实现日志→备份→置换→commit→崩溃恢复完整流程，包括跨卷 tempfile fallback（L332-L467）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/recoverable_document_transaction.py#L332-L467"
+              },
+              {
+                "claim": "_recover_one() 实现 allowed_targets 范围核对、第三方变化拒絕视场、逆序恢复（L190-L291）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/recoverable_document_transaction.py#L190-L291"
+              },
+              {
+                "claim": "recover_document_transactions() 实现按 allowed_targets 限定全部 txn-* 目录的恢复（L294-L329）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/recoverable_document_transaction.py#L294-L329"
+              },
+              {
+                "claim": "build_yaml_patch_transaction() 实现「构建精确元数据事务」：before/after SHA-256 绑定、仅替换声明 YAML 节点（L222-L278）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L222-L278"
+              },
+              {
+                "claim": "render_yaml_value_patches() 实现「预演授权元数据变化」：纯内存渲染、回读校验、不写文件（L127-L183）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L127-L183"
+              },
+              {
+                "claim": "apply_yaml_patch_transaction() 实现幂等应用与失败时回滚，是 YAML 事务的独立实现路径（L281-L388）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L281-L388"
+              },
+              {
+                "claim": "restore_yaml_patch_originals() 实现第三方变化时保留现场并拒絕覆盖（L391-L406）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L391-L406"
+              },
+              {
+                "claim": "_transaction_target() 在 L204-L218 显式检查 is_symlink()/is_junction()，实现对符号链接与连接点的路径安全防御；同时拒絕 .git/.strixnova/仃库外路径/非规范化路径（L186-L218）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L186-L218"
+              },
+              {
+                "claim": "test_patch_yaml_values_changes_only_selected_metadata_spans passed (run_id d0856323c4b6, f5e20647248e)",
+                "kind": "test",
+                "ref": "tests/unit/test_yaml_metadata_patch.py#L16-L54"
+              },
+              {
+                "claim": "test_atomic_replacement_preserves_existing_file_mode passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_yaml_metadata_patch.py#L57-L69"
+              },
+              {
+                "claim": "test_yaml_patch_transaction_recovers_after_one_file_was_already_written passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_yaml_metadata_patch.py#L72-L101"
+              },
+              {
+                "claim": "test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails passed (两次 run_id)，code=yaml_transaction_write_failed_rolled_back",
+                "kind": "test",
+                "ref": "tests/unit/test_yaml_metadata_patch.py#L104-L142"
+              },
+              {
+                "claim": "test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths passed 6 参数化路径 (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_yaml_metadata_patch.py#L145-L164"
+              },
+              {
+                "claim": "test_yaml_patch_transaction_rejects_case_aliases_of_one_target passed (两次 run_id, Windows-only)，code=yaml_transaction_path_duplicate",
+                "kind": "test",
+                "ref": "tests/unit/test_yaml_metadata_patch.py#L171-L186"
+              },
+              {
+                "claim": "test_yaml_patch_transaction_rejects_internal_symlink: skipped 两次 run_id（宿主不允许创建符号链接）— 测试自身已通过 pytest.skip 优雅处理运行局限",
+                "kind": "test",
+                "ref": "tests/unit/test_yaml_metadata_patch.py#L189-L206"
+              },
+              {
+                "claim": "test_yaml_patch_transaction_rejects_external_symlink: skipped 两次 run_id（宿主不允许创建符号链接）— 测试自身已通过 pytest.skip 优雅处理运行局限",
+                "kind": "test",
+                "ref": "tests/unit/test_yaml_metadata_patch.py#L209-L228"
+              },
+              {
+                "claim": "test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_repository_document_transactions.py#L16-L48"
+              },
+              {
+                "claim": "test_document_replacement_and_rollback_work_across_real_volumes passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_repository_document_transactions.py#L102-L121"
+              },
+              {
+                "claim": "test_separated_document_recovery_requires_the_original_explicit_targets passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_repository_document_transactions.py#L67-L99"
+              },
+              {
+                "claim": "test_yaml_transaction_binds_equal_paths_to_exact_repository_roots passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_repository_document_transactions.py#L51-L64"
+              }
+            ],
+            "limitations": [
+              "全部 JUnit 记录的 source_at_execution_hash 均为 'not independently captured by the JUnit receipt'， passed 结果无法独立证明对应源文件精确字节版本",
+              "符号链接测试 2 件（test_yaml_patch_transaction_rejects_internal_symlink / test_yaml_patch_transaction_rejects_external_symlink）在两次已记录执行中均为 skipped，原因是宿主 Windows 无符号链接创建权限。_transaction_target() 中对 is_symlink()/is_junction() 的检查代码已存在（L204-L218），这是验证环境局限而非代码责任缺口",
+              "评价仅基于静态源码检查与 JUnit 摘要，所有结论均为待独立复核的候选评价"
+            ],
+            "missing": [],
+            "resolution_plan": [],
+            "satisfied": [
+              "「构建精确元数据事务」：build_yaml_patch_transaction() 读取全部目标原始字节，仅替换声明 YAML 节点，绑定 before/after SHA-256（L222-L278）",
+              "「预演授权元数据变化」：render_yaml_value_patches() 纯内存渲染、仅修改声明节点、回读校验、不写文件（L127-L183）",
+              "「原子应用或恢复事务（YAML 层）」：apply_yaml_patch_transaction() 实现幂等应用与失败时回滚，是 YAML 事务的独立实现路径（L281-L388）",
+              "「原子应用或恢复事务（文档层）」：replace_documents() + _recover_one() + recover_document_transactions() 实现持久日志和崩溃恢复（L190-L467）",
+              "「替换精确文档组合」：apply_yaml_patch_transaction() 写前散列核对，恢复时拒絕第三方变化（restore_yaml_patch_originals L391-L406）",
+              "「安全路径防御」：_transaction_target() 显式拒絕 .git/.strixnova/符号链接/连接点/仅库外路径/非规范化路径（L186-L218），代码完整存在",
+              "跨卷写入回滚已由 EXDEV 处理和 test_document_replacement_and_rollback_work_across_real_volumes passed 确认",
+              "快照正确性已由 test_yaml_patch_transaction_rejects_case_aliases_of_one_target (Windows) 和 test_separated_document_recovery_requires_the_original_explicit_targets passed 确认"
+            ],
+            "status": "implemented",
+            "target_id": "MODULE-992560C2560A4013",
+            "target_kind": "module"
+          },
+          {
+            "deviation_ids": [],
+            "evidence": [
+              {
+                "claim": "_approved_command() 对 schema_version/work_item_id/version/plan_id/plan_confirmation/policy_decision 进行完整核对，检查禁止 Agent 程序名和 approved_program.argument_policy=exact_plan_only（L955-L1138）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/verification_runner.py#L955-L1138"
+              },
+              {
+                "claim": "run() 经由 run_process() 执行精确命令，记录 started_at/duration_seconds/exit_code/result/output_summary/raw_output_refs（L582-L690）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/verification_runner.py#L582-L690"
+              },
+              {
+                "claim": "coverage_status() 仅从真实回执生成唯一的 verification_status，不向业务正确性扩展（L814-L912）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/verification_runner.py#L814-L912"
+              },
+              {
+                "claim": "save_receipt() 对同一 receipt_id 拒絕重复写入，内容不变时幂等（L702-L715）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/verification_runner.py#L702-L715"
+              },
+              {
+                "claim": "recover_receipt() 生成 execution_evidence_unavailable=True 的 blocked 回执（L717-L742）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/verification_runner.py#L717-L742"
+              },
+              {
+                "claim": "adapter_environment() 通过 PYTEST_PLUGINS/STRIXNOVA_CASE_REPORT_PATH/STRIXNOVA_CASE_RUN_ID 将随包报告器注入测试子进程（L181-L195）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/test_case_evidence.py#L181-L195"
+              },
+              {
+                "claim": "striznovabuiltin_pytest_cases.py: pytest_runtest_logreport(L48-L54) 收集全阶段结果；xdist 环境下 controller 通过 xdist 协议中继 logreport，_state['results'] 在 controller 进程中积累。pytest_testnodedown(L64-L73) 获取 worker 的收集元数据。worker 的 pytest_sessionfinish(L79-L85) 将 collected/deselected/errors 写入 workeroutput。controller 的 pytest_sessionfinish(L86-L113) 将 _state['results'] 写入报告 JSON",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py#L48-L113"
+              },
+              {
+                "claim": "CaseExecution.finish() 读取报告并核对 adapter_sha256/run_id/exit_status，校验例子绑定（L283-L324）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/test_case_evidence.py#L283-L324"
+              },
+              {
+                "claim": "collect_dependency_evidence()/validate_dependency_evidence()/dependency_evidence_stale() 实现依赖证据采集、核对和时效检查（L37-L115）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/verification_dependencies.py#L37-L115"
+              },
+              {
+                "claim": "application_coordinator.py L2638 调用 _verification_input_snapshot()，L2649 将快照持久化到执行意图，L2683 将 input_snapshot 写入 receipt，L2685 执行后重新比较。这是调用方分层装配责任，符合合同「共享底层内容采集而不另写快照算法」的边界约定；_verification_input_snapshot() 内部调用 project_content_snapshot.compose_content_snapshot()",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/application_coordinator.py#L2638-L2692"
+              },
+              {
+                "claim": "回执结构 Schema 定义 approval_ref/limitations/result/code_change_assessment/allOf 条件",
+                "kind": "artifact",
+                "ref": "strixnova/src/strixnova/resources/verification-summary-v1.schema.json#L1-L291"
+              },
+              {
+                "claim": "test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_verification_runner.py#L50-L62"
+              },
+              {
+                "claim": "test_deduplicates_only_by_argv_cwd_and_run_kind passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_verification_runner.py#L65-L89"
+              },
+              {
+                "claim": "test_verification_timeout_rejects_non_finite_numbers passed nan/inf/-inf (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_verification_runner.py#L96-L101"
+              },
+              {
+                "claim": "test_code_change_assessment_rejects_unknown_semantic_fields passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_verification_runner.py#L104-L119"
+              },
+              {
+                "claim": "test_xdist_controller_owns_one_complete_report passed (两次 run_id)，-n 2 下仅生成一份 .cases.json",
+                "kind": "test",
+                "ref": "tests/unit/test_test_case_evidence.py#L84-L90"
+              },
+              {
+                "claim": "test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits passed (两次 run_id)，含 evidence 和 report 的 JSON Schema 校验",
+                "kind": "test",
+                "ref": "tests/unit/test_test_case_evidence.py#L29-L48"
+              },
+              {
+                "claim": "test_xdist_loadgroup_keeps_exact_native_case_identity passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_test_case_evidence.py#L137-L143"
+              }
+            ],
+            "limitations": [
+              "全部 JUnit 记录的 source_at_execution_hash 均为 'not independently captured by the JUnit receipt'， passed 结果无法独立证明对应源文件精确字节版本",
+              "project_input_snapshot 的设置由调用方 application_coordinator 承担（L2638, L2683），而 application_coordinator.py 不在本模块 source_paths 中。调用方直接使用 project_content_snapshot.compose_content_snapshot() 原语义层采集、本模块不另写快照算法，符合合同分层设计。不列入缺口，存入此局限说明",
+              "code_change_assessment 由 Agent 在 run() 后填写（L677-L679 注释），Agent 判断质量不在本模块可观察职责范围内",
+              "评价仅基于静态源码检查与 JUnit 摘要，所有结论均为待独立复核的候选评价"
+            ],
+            "missing": [],
+            "resolution_plan": [],
+            "satisfied": [
+              "「校验执行请求」：_approved_command() 完整核对 schema/plan/policy/forbidden_program，包括 approved_program.argument_policy=exact_plan_only 和禁止 Agent 程序名检查（L955-L1138）",
+              "「运行已批准验证」：run() 通过 run_process() 执行精确命令，完整记录生命周期事实（L582-L690）",
+              "「汇总验证回执」：coverage_status() 仅从真实回执生成唯一 verification_status，不向业务正确性扩展（L814-L912）",
+              "「按明确配置在测试子进程加载随包框架报告器」：adapter_environment() 通过 PYTEST_PLUGINS 注入，适配器不 import Strixnova 代码，执行完成后写入 striznovatest-case-report.v1 JSON",
+              "xdist 汇总：controller 通过 xdist 协议中继收到 worker 的 pytest_runtest_logreport，_state['results'] 在 controller 进程积累；pytest_testnodedown 获取 worker 收集元数据；test_xdist_controller_owns_one_complete_report passed 与两次 run_id 确认",
+              "「依赖证据封装」：collect_dependency_evidence()/validate_dependency_evidence()/dependency_evidence_stale() 实现待测服务版本证据的采集、核对和时效检查",
+              "save_receipt() 保证每次命令仅增加一份原始用例报告，CaseExecution 确保报告路径不重用",
+              "project_input_snapshot 由调用方 application_coordinator 在 run() 前后采集并写入回执，符合合同「共享底层内容采集而不另写快照算法」的分层设计边界"
+            ],
+            "status": "implemented",
+            "target_id": "MODULE-A94EF8E733E64205",
+            "target_kind": "module"
+          },
+          {
+            "deviation_ids": [],
+            "evidence": [
+              {
+                "claim": "GitProjectReader.tracked_paths()/read_bytes()/read_text()/load_yaml()/exists() 实现「读取当前项目文件」，差彂单仓库范围内操作（L1272-L1533）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/git_project_reader.py#L1272-L1533"
+              },
+              {
+                "claim": "GitProjectReader(observed_ref=...) + _ReadOnlyGit.read_file_at() 实现「读取精确版本文件」，从不可变 Git 提交读取 blob（L1301-L1355）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/git_project_reader.py#L1301-L1355"
+              },
+              {
+                "claim": "_ReadOnlyGit.read_files_at()/prefetch()/iter_canonical_files() 实现「批量读取精确版本文件」，有界单批次（L273-L312，L1338-L1398）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/git_project_reader.py#L273-L312"
+              },
+              {
+                "claim": "_ReadOnlyGit.resolve_commit() 实现「解析精确版本」，将引用解析为不可变 commit hash（L239-L265）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/git_project_reader.py#L239-L265"
+              },
+              {
+                "claim": "schema_error_message()/one_of_branch_errors() 实现「呼现结构校验错误」，将 JSON Schema 验证器错误转换为稳定错误类别和中文说明（15 种）（L51-L115）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/schema_error_reporting.py#L51-L115"
+              },
+              {
+                "claim": "capture_repository_content()/compose_content_snapshot()/verification_snapshot_matches() 实现「采集与比对声明内容组合」，不写项目文件（L127-L213）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/project_content_snapshot.py#L127-L213"
+              },
+              {
+                "claim": "input_snapshot()/snapshot_matches()/validate_evidence()/CaseExecution 实现「校验声明输入和已记录证据」，不修改业务文件（L137-L367）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/test_case_evidence.py#L137-L367"
+              },
+              {
+                "claim": "_ReadOnlyGit._run() 通过 GIT_NO_LAZY_FETCH/GIT_OPTIONAL_LOCKS/GIT_TERMINAL_PROMPT 封隔网络访问和锁（L983-L1042）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/git_project_reader.py#L983-L1042"
+              },
+              {
+                "claim": "repository_relative_path() 拒絕 .git/.strixnova/绝对路径/../符号链接（L1044-L1072）",
+                "kind": "source",
+                "ref": "strixnova/src/strixnova/git_project_reader.py#L1044-L1072"
+              },
+              {
+                "claim": "3 个 JSON Schema 定义 case_report 配置、用例证据、pytest 报告结构",
+                "kind": "artifact",
+                "ref": "strixnova/src/strixnova/resources/test-case-config-v1.schema.json"
+              },
+              {
+                "claim": "test_git_for_windows_cmd_wrapper_resolves_to_direct_binary passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_git_project_reader.py::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary"
+              },
+              {
+                "claim": "test_unbound_directory_read_does_not_adopt_its_parent_repository passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_git_project_reader.py::test_unbound_directory_read_does_not_adopt_its_parent_repository"
+              },
+              {
+                "claim": "test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits passed (两次 run_id)，含 evidence 和 report 的 JSON Schema 校验",
+                "kind": "test",
+                "ref": "tests/unit/test_test_case_evidence.py#L29-L48"
+              },
+              {
+                "claim": "test_skip_xfail_xpass_and_missing_case_never_count_as_passed passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_test_case_evidence.py#L51-L65"
+              },
+              {
+                "claim": "test_xdist_controller_owns_one_complete_report passed (两次 run_id)，-n 2 下仅一份 .cases.json",
+                "kind": "test",
+                "ref": "tests/unit/test_test_case_evidence.py#L84-L90"
+              },
+              {
+                "claim": "test_xdist_loadgroup_keeps_exact_native_case_identity passed (两次 run_id)，@receivers 组 ID 保持",
+                "kind": "test",
+                "ref": "tests/unit/test_test_case_evidence.py#L137-L143"
+              },
+              {
+                "claim": "test_service_evidence_requires_actual_version_contract_and_environment passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_verification_dependencies.py::test_service_evidence_requires_actual_version_contract_and_environment"
+              },
+              {
+                "claim": "test_read_only_reader_distinguishes_ancestor_from_descendant passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_git_project_reader.py::test_read_only_reader_distinguishes_ancestor_from_descendant"
+              },
+              {
+                "claim": "test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files passed (两次 run_id)",
+                "kind": "test",
+                "ref": "tests/unit/test_git_project_reader.py::test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files"
+              }
+            ],
+            "limitations": [
+              "全部 JUnit 记录的 source_at_execution_hash 均为 'not independently captured by the JUnit receipt'， passed 结果无法独立证明对应源文件精确字节版本",
+              "test_composite_implementation_alignment.py（2 件）和 test_implementation_observation_drift.py（5 件）在 packet test_definition_ids 中列出，其对应源文件不在 source_paths 中。这些测试属于通过中介模块验证边界的正常集成模式，不构成代码责任缺口，但其验证内容本次未完整读取、不作独立断言",
+              "test_multi_repository_review_regressions.py（5 件）可能通过 project_content_snapshot.continued_verification_paths/verification_snapshot_matches 验证边界，本次未完整读取该测试文件、不作独立断言",
+              "评价仅基于静态源码检查与 JUnit 摘要，所有结论均为待独立复核的候选评价"
+            ],
+            "missing": [],
+            "resolution_plan": [],
+            "satisfied": [
+              "「读取当前项目文件」：GitProjectReader.tracked_paths()/read_bytes()/read_text()/load_yaml()/exists() 在已绑定单仓库范围内返回内容（L1272-L1533）",
+              "「读取精确版本文件」：GitProjectReader(observed_ref=...) + _ReadOnlyGit.read_file_at() 从不可变 Git 提交读取 blob（L1301-L1355）",
+              "「批量读取精确版本文件」：prefetch()/read_files_at()/iter_canonical_files() 实现有界单批次、逐文件身份保持",
+              "「解析精确版本」：resolve_commit() 将引用解析为不可变 commit hash",
+              "「呼现结构校验错误」：schema_error_message()/one_of_branch_errors() 将 15 种 JSON Schema 验证器错误转换为中文说明",
+              "「采集与比对声明内容组合」：capture_repository_content()/compose_content_snapshot()/verification_snapshot_matches() 不写项目文件、仅组合声明依据",
+              "「校验声明输入和已记录证据」：input_snapshot()/snapshot_matches()/validate_evidence()/CaseExecution 实现字节快照与证据结构核对",
+              "只读 Git 访问隔离：_ReadOnlyGit._run() 禁用网络、锁和补丁克隆，repository_relative_path() 拒絕越界路径",
+              "striznovabuiltin_pytest_cases.py 不 import Striznovatest 代码，实现 pytest_runtest_logreport/pytest_testnodedown/pytest_sessionfinish(worker+controller)，test_xdist_controller_owns_one_complete_report (-n 2) passed 确认",
+              "3 JSON Schema 定义 case_report 配置、用例证据、pytest 报告结构，与 test_case_evidence.py 和适配器输出一致"
+            ],
+            "status": "implemented",
+            "target_id": "MODULE-B558AA14F6004AC0",
+            "target_kind": "module"
+          }
+        ],
+        "owner_accepted": false,
+        "semantic_content_machine_proven": false,
+        "source_ownership": [
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/recoverable_document_transaction.py",
+            "rationale": "文件通过 replace_documents()/recover_document_transactions() 完整实现模块合同的「原子应用或恢复事务」和「替换精确文档组合」的底层崩溃恢复机制。公开接口、错误类、散列绑定与合同一致，无越权或漂移的明确兆候",
+            "target_module_id": "MODULE-992560C2560A4013"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/yaml_metadata_patch.py",
+            "rationale": "文件实现「构建精确元数据事务」「预演授权元数据变化」「原子应用或恢复（YAML 层）」。apply_yaml_patch_transaction 使用 atomic_write_bytes 是 YAML 事务的独立实现路径，合同范围内；_transaction_target() 的 symlink/junction 检查代码完整存在",
+            "target_module_id": "MODULE-992560C2560A4013"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/resources/verification-summary-v1.schema.json",
+            "rationale": "Schema 定义回执结构制约（approval_ref/limitations/result/code_change_assessment/allOf 条件），与 verification_runner.py 的 _validated_receipt() 实现一致",
+            "target_module_id": "MODULE-A94EF8E733E64205"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/verification_runner.py",
+            "rationale": "文件实现模块合同的「校验执行请求」「运行已批准验证」「汇总验证回执」三项公开操作。project_input_snapshot 由调用方负责，符合合同分层设计，不构成本文件的职责漠洞",
+            "target_module_id": "MODULE-A94EF8E733E64205"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/git_project_reader.py",
+            "rationale": "文件通过 GitProjectReader/_ReadOnlyGit 实现「读取当前/精确版本文件」「批量读取」「解析精确版本」。只读 Git 实行隔离、路径安全检查、仓库身份绑定与合同制约一致",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/project_content_snapshot.py",
+            "rationale": "文件实现「采集与比对声明内容组合」，不写项目文件、仅组合声明依据、不探测服务。与合同制约一致",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+            "rationale": "文件不 import Striznovatest 代码，实现 pytest_runtest_logreport（全阶段结果收集）、pytest_testnodedown（worker collection 元数据获取）、worker 的 pytest_sessionfinish（collection 元数据写出）、controller 的 pytest_sessionfinish（报告原子写入）。adapter_sha256 自己哈希设计已确认；test_xdist_controller_owns_one_complete_report (-n 2) passed 确认 xdist 路径完整性",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+            "rationale": "Schema 定义（adapter/test_root/input_paths/bindings/example_fingerprints）与 test_case_evidence.py 的 normalize_config() 使用的字段集一致",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json",
+            "rationale": "Schema 定义（input_snapshot/example_results/adapter_sha256/status 等）与 test_case_evidence.py 的 validate_evidence() 和 verification_runner.py 的 _validated_receipt() 使用的字段集一致",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/resources/test-case-report-v1.schema.json",
+            "rationale": "Schema 定义（schema_version/run_id/adapter/collected_test_ids/results 等）与 test_case_evidence.py 的 report_results() 和 striznovabuiltin_pytest_cases.py 的输出 JSON 一致",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/schema_error_reporting.py",
+            "rationale": "文件实现「呼现结构校验错误」，将 JSON Schema 验证器错误转换为中文说明，不解释项目语义。与合同制约一致",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/test_case_evidence.py",
+            "rationale": "文件实现「校验声明输入和已记录证据」，不修改业务文件、不判断断言充分性。与合同制约一致",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          },
+          {
+            "current_status": "aligned",
+            "path": "strixnova/src/strixnova/verification_dependencies.py",
+            "rationale": "文件实现外部依赖版本证据的采集、核对、时效检查，作为「校验声明输入和已记录证据」的外部依赖子集，与合同一致",
+            "target_module_id": "MODULE-B558AA14F6004AC0"
+          }
+        ]
+      }
+    }
+  }
+]

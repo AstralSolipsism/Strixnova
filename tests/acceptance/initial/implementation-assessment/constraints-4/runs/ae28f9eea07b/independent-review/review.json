@@ -1,0 +1,337 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "TARGET-CONSTRAINT-AE6EE9C762EF43D6",
+      "issues": [],
+      "limitations": [
+        "代码与结构检查证明了程序不提供自动生成语义或启发式语义评分机制，但未覆盖全仓5586行application_coordinator.py全部动态分支的详尽语义排查。",
+        "测试记录与断言验证了阻断和未证明标记，但未包含真人在真实项目中的主观接受。"
+      ],
+      "reason": "经对strixnova核心模块（engineering_change_planning.py、confirmation_protocol.py、behavior_examples.py、application_coordinator.py等）源码及单元测试断言的核查：程序严格遵循确定性结构校验，在确认记录与基线中显式置semantic_content_machine_proven=False；八视角复核只检验结构与声明完备性及阻断自洽性，不评判语义文本好坏或替代人类裁决；单元测试覆盖了禁止代签、禁止隐匿高影响风险及禁止绕过复核的边界，符合目标合同约束。",
+      "references": [
+        {
+          "end_line": 6,
+          "source_id": "strixnova/src/strixnova/engineering_change_planning.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Deterministic contracts for authority changes, reviews, and implementation slices.\n\nThe coding agent authors every semantic statement.  This module only checks\nidentity, exact baselines, references, dependency shape, declared coverage,\nand state claims that can be decided without understanding natural language.\n\"\"\"\n",
+          "source_sha256": "01a4d2efa7328af25b5896af818953e407d0e0ec5c801fb1343992e449b2111d",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 7,
+          "source_id": "strixnova/src/strixnova/confirmation_protocol.py",
+          "start_line": 1,
+          "original_text": "\"\"\"Deterministic candidate binding for the three user confirmation gates.\n\nThe protocol deliberately does not decide whether a candidate is good or\nwhether an explanation was understood. The Agent interprets the user's later\nmessage; the program binds that explicit interpretation and verbatim message\nto one candidate and WorkItem version.\n\"\"\"\n",
+          "source_sha256": "8608c5ba58248a5d490f66c3078207d561ce27f4eefafaac239038f2084abbbe",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 214,
+          "source_id": "strixnova/src/strixnova/confirmation_protocol.py",
+          "start_line": 210,
+          "original_text": "        \"summary\": reason,\n        \"agent_decision\": {\"decision\": decision, \"reason\": reason},\n        \"decision_interpreter\": \"coding_agent\",\n        \"semantic_content_machine_proven\": False,\n    }\n",
+          "source_sha256": "8608c5ba58248a5d490f66c3078207d561ce27f4eefafaac239038f2084abbbe",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 83,
+          "source_id": "assessment",
+          "start_line": 75,
+          "original_text": "      \"satisfied\": [\n        \"engineering_change_planning.py docstring L1-6 declares module only checks identity, baselines, references, dependency shape, declared coverage and state claims without understanding natural language\",\n        \"Semantic review validation (validate_semantic_review) checks only structural completeness of eight perspectives, finding count, status self-consistency, and owner-decision binding references — never evaluates review text quality, severity correctness, or whether a disposition is right\",\n        \"confirmation_protocol.py L1-7 docstring explicitly states the protocol does not decide whether a candidate is good or explanation was understood; agent interprets, program binds\",\n        \"behavior_examples.py L1 docstring declares identity and coverage only, never business interpretation; normalize_behavior checks structural fields, ID format, count bounds, and deduplication but never evaluates example content meaning\",\n        \"application_coordinator.py L1 declares deterministic coordination without semantic judgment\",\n        \"All semantic outputs set semantic_content_machine_proven=False (e.g. confirmation_protocol.py L213, project_architecture_description.py L237, project_engineering_baseline.py L332)\",\n        \"Tests verify program rejects incomplete structures and self-accepted owner decisions but program never fills in semantic answers (test_semantic_review_cannot_self_accept_an_owner_decision, test_semantic_review_cannot_hide_open_high_impact_finding, test_first_project_cannot_omit_semantic_review_by_marking_scope_unaffected)\"\n      ],\n",
+          "source_sha256": "df9e65c3f14deab615fe53565f018b01c81cd15c933a12e9ff3d6fe1ba9acf3f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-B194350ABDA04C04",
+      "issues": [],
+      "limitations": [
+        "随包Skill与引导规范虽然通过单元测试验证了命令面和可选性，但在复杂场景下Agent对模糊意图的澄清质量与假设否定仍依赖运行时代理由宿主驱动，非程序所能单独担保。",
+        "G4阶段部分复杂长流程测试用例（如GF-CONCRETE-INCOMPLETE）历史记录中曾存在因先行影子提问而触发的needs_revision，现有材料仅证明合同与规范机制的阻断有效性。"
+      ],
+      "reason": "随包Skill仅作为只读指引，通过agent_setup安装时严格保持只读且不侵入宿主配置或权限；产品发现与产物形成（PRD、SPEC等）仅映射至既有唯一权威候选或只读投影，未建立平行可写状态、计划CLI或额外关口；测试断言与验收记录表明程序不替代理论发现动作或自动生成路线，严格限定在只读上下文与确定性规则核验边界内。",
+      "references": [
+        {
+          "end_line": 63,
+          "source_id": "strixnova/src/strixnova/agent_setup.py",
+          "start_line": 54,
+          "original_text": "def install_agent_skill(\n    *,\n    skills_dir: Path | None = None,\n    replace: bool = False,\n) -> dict[str, Any]:\n    \"\"\"Install the packaged Skill as ``<skills_dir>/strixnova``.\n\n    Existing different content is never overwritten silently. With explicit\n    replacement it is moved to a recoverable sibling backup first.\n    \"\"\"\n",
+          "source_sha256": "96da7c81ff16369ca06dbad9e77be87f7bc7973c44c7cafc4d65d8f9d7e127fc",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 45,
+          "source_id": "strixnova/src/strixnova/resources/agent-skill/strixnova/SKILL.md",
+          "start_line": 17,
+          "original_text": "- For generating, reviewing, or correcting a reading document, read its specific\n  guide before writing or judging it: [prd-authoring.md](references/prd-authoring.md),\n  [spec-authoring.md](references/spec-authoring.md), or\n  [domain-documentation.md](references/domain-documentation.md), together with\n  [artifact-documentation.md](references/artifact-documentation.md). This applies\n  to existing documents too; their headings and source catalogs cannot replace\n  reading the underlying content.\n- Before a code review, read [code-review.md](references/code-review.md); before\n  judging cross-unit architecture or draft consistency, read\n  [cross-artifact-review.md](references/cross-artifact-review.md); before reviewing\n  interface, permission, uniqueness or retry rules, read\n  [behavior-contracts.md](references/behavior-contracts.md). This includes informal\n  read-only questions without a WorkItem. Read only the applicable method; it does\n  not require creating an item, a formal review record or a new confirmation.\n- Investigate and choose tools autonomously. Ordinary search, scratch work and\n  subagents remain Agent internals; they do not need a WorkItem or Strixnova log.\n- Use the current public input contract for commands and payloads. Copy returned\n  identities and references exactly. Do not inspect installed package internals\n  or tests to guess a field, or substitute code and examples for project decisions.\n- Keep one direction, engineering plan and actual-result acceptance per WorkItem,\n  including a result spanning several repositories. Subsequent repository delivery\n  reuses the unchanged overall acceptance; changed results use the existing\n  revision and acceptance route.\n- Follow the confirmed plan, current slice and CurrentAction. Accept the actual\n  result before local Git commits; Strixnova does not push, create remote resources\n  or manage CI. Do not use Strixnova to manage itself unless explicitly requested.\n- A0–A4 describe assurance depth within this lifecycle. Project methods come from\n  the engineering policy; names of files, documents or activities do not adopt a\n  method, choose assurance or authorize more work.\n",
+          "source_sha256": "a8f939fd74ccf886ca9e4ed282468196b49e44e7e395ec5c905a2bb628fc0574",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 60,
+          "source_id": "docs/正式规则/工程评估与项目证据合同.md",
+          "start_line": 35,
+          "original_text": "### 1.1 引导式形成与三个独立裁剪轴\n\nGuidedFormation（引导式形成）是贯穿产品与领域候选、建设事项方向、工程方案和结果纠偏的既有原则。Coding Agent（智能编码代理）先调查用户已经表达的意图、当前长期权威、项目资料、代码和环境事实，只逐步解决会实质改变结果的缺口；项目负责人可以随时纠正，候选已经足以下游在不发明关键决定的情况下继续时必须停止追问。它不建立新的持久化对象、工作模式、状态机、确认点或命令入口。\n\n形成下一步建议时，智能编码代理必须分别判断并说明三个互不替代的裁剪轴：\n\n| 裁剪轴 | 判断问题 | 主要依据 | 现有承载 |\n|---|---|---|---|\n| 需求形成深度 | 下游是否仍需猜测客户、问题、边界、关键取舍或成功判断？ | 用户意图、已确认权威、项目调查和仍未解决的决定 | 正常对话、长期权威候选或 DirectionDecision（方向决定）候选 |\n| DeliverySpan（交付跨度） | 最少需要几个可以分别获得价值并独立验收的结果？ | 独立价值、共享决定、先后依赖和跨单元协调范围 | 一个 WorkItem、多个有真实关系的 WorkItem，或项目级建设建议 |\n| 保障深度 | 每个可交付结果需要多深的调查、审查和验证？ | 真实影响、风险、可逆性、不确定性和项目工程政策 | EngineeringAssessment（工程评估）与 AssuranceBand（保障等级） |\n\n三个轴必须各自给出项目特定理由。单个文件的不可逆数据变化仍可能是“一个 WorkItem + 高保障”，大量机械且易恢复的文件改动也不自动成为高保障事项。关键词、文件数量、代码行数、预计会话数、活动名称和产物名称只能作为调查线索；程序不得用这些信号生成形成路线、拆分事项或选择保障等级，只校验智能编码代理写入现有合同的明确声明、引用和政策下限。\n\n目标、范围、产品护栏和验收已经足够明确时，智能编码代理使用快速起草节奏，调查后直接形成现有候选；客户、问题、边界、关键取舍或成功判断仍不清楚时，才逐项辅导。两种节奏使用同一 DirectionDecision、长期权威和确认合同，不要求用户预选模式，不增加状态或确认次数。\n\nDeliverySpan（交付跨度）按可验收结果判断，而不是按内部步骤或风险高低判断：一个可以独立接受的结果形成一个 WorkItem；多个能分别交付和接受、但共享上层目标的结果形成多个 WorkItem，并只在真实关系已经明确时使用 WorkItemRelation；涉及多个长期产品或跨单元架构决定、且这些决定尚未定档时，先形成项目级长期权威候选。ImplementationSlice（实施切片）只拆分一个 WorkItem 内部的实施顺序，不能冒充另一个用户价值或 Story（故事）。现有关系只用于追溯，不提供 Epic（史诗）聚合接受、进度汇总或智能编码代理调度。\n\n常见软件工程产物名称按以下方式映射，不能取得平行写权：\n\n| 形成方式或阅读名称 | 唯一正式承载 | 边界 |\n|---|---|---|\n| Product Brief（产品简述）、PRFAQ（新闻稿与常见问题） | ProjectProductDefinition（项目产品定义）与 ProjectDomainModel（项目领域模型）候选 | 只提供可选的思考顺序；需要长期保存的事实进入对应权威 |\n| PRD（产品需求文档） | 产品定义、领域模型及必要架构决定的组合阅读投影 | 必须绑定精确修订；修改含义要先修订来源权威 |\n| SPEC（规格） | DirectionDecision 及相关 EngineeringPlan（工程方案）的阅读投影 | 不建立独立状态、确认或可编辑真相 |\n| Architecture Spine（架构骨架） | ProjectArchitectureDescription（项目目标架构描述）或 ADR（架构决策记录）候选 | 只保留跨单元且存在真实取舍的决定；局部可逆选择留在工程方案 |\n",
+          "source_sha256": "69613b59e384fcb7d498cbcb862155a7b10bebbd6adb8a55c27ad91d635c6673",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 143,
+          "source_id": "assessment",
+          "start_line": 135,
+          "original_text": "      \"satisfied\": [\n        \"agent_setup.py installs the packaged Skill read-only without modifying Agent settings (L58-63 docstring, _result returns modifies_host_config=False, installs_hooks=False, installs_plugins=False, issues_credentials=False)\",\n        \"Product discovery guidance is declared optional in SKILL.md (test_product_discovery_guidance_is_optional_and_has_bounded_outcomes asserts 'Skip it for a clear bounded request' and bounded outcomes and no strixnova CLI commands)\",\n        \"Guided formation acceptance catalog validates completeness and separates agent_response from contract_structure verification kinds, with semantic_content_machine_proven=False (test_guided_formation_catalog_is_complete_and_explicit_about_proof)\",\n        \"test_agent_skill_routes_every_public_runtime_command validates Skill routes map to every runtime public command\",\n        \"Reference documents (architecture-artifact-contracts.md, artifact-formation.md, code-review.md, product-discovery.md, implementation-practices.md) are read-only references shipped as part of the Skill bundle\",\n        \"sync-manifest.v1.json exists for skill bundle content integrity tracking\"\n      ],\n      \"status\": \"implemented\",\n",
+          "source_sha256": "df9e65c3f14deab615fe53565f018b01c81cd15c933a12e9ff3d6fe1ba9acf3f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-BDB04232D44648A2",
+      "issues": [],
+      "limitations": [
+        "自动门禁与Schema能够验证模块单一稳定公共接口声明与依赖无环，但模块内部封装是否隐藏了足够复杂度仍属于架构人工审阅范畴。"
+      ],
+      "reason": "目标架构合同与描述实现（project_architecture_description.py）通过JSON Schema和图校验逻辑，严格确保每个模块仅声明一个稳定的public_interface及唯一的interface_id与操作列表；跨模块关系与依赖图执行无环检查与默认拒绝策略，测试覆盖了接口唯一性、操作封闭性及依赖合法性，符合单一稳定深接口约束。",
+      "references": [
+        {
+          "end_line": 120,
+          "source_id": "strixnova/src/strixnova/project_architecture_description.py",
+          "start_line": 118,
+          "original_text": "class ProjectArchitectureDescription:\n    \"\"\"Validate and expose one exact target-architecture revision.\"\"\"\n\n",
+          "source_sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 380,
+          "source_id": "strixnova/src/strixnova/project_architecture_description.py",
+          "start_line": 364,
+          "original_text": "        module_ids = [item[\"module_id\"] for item in modules]\n        interface_ids = [\n            item[\"public_interface\"][\"interface_id\"] for item in modules\n        ]\n        if len(module_ids) != len(set(module_ids)):\n            issues.append(\"目标架构模块身份重复\")\n        if len(interface_ids) != len(set(interface_ids)):\n            issues.append(\"目标架构稳定接口身份重复\")\n        known_modules = set(module_ids)\n        for module in modules:\n            operations = [\n                item[\"name\"]\n                for item in module[\"public_interface\"][\"operations\"]\n            ]\n            if len(operations) != len(set(operations)):\n                issues.append(f\"目标模块 {module['module_id']} 的操作名称重复\")\n\n",
+          "source_sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 204,
+          "source_id": "assessment",
+          "start_line": 198,
+          "original_text": "      \"satisfied\": [\n        \"project_architecture_description.py defines ProjectArchitectureDescription as the single deep interface for reading and validating one target architecture revision (L118-119 class/docstring)\",\n        \"Each module in the architecture has exactly one public_interface with a unique interface_id (validated in _validate_graph L364-371, tested by test_target_modules_have_unique_stable_interfaces_and_closed_references)\",\n        \"Operations within each module's public interface must be unique (L374-379)\",\n        \"Architecture description schema (v1.schema.json 819 lines) enforces structural requirements including oneOf branches for each artifact kind\",\n        \"Tests validate uniqueness of module IDs, interface IDs, relationship IDs, constraint IDs, acyclicity of dependency graph, mediated relationship direct-leg requirements, and coverage of all modules by implementation stages\"\n      ],\n",
+          "source_sha256": "df9e65c3f14deab615fe53565f018b01c81cd15c933a12e9ff3d6fe1ba9acf3f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-BEEDA451874F48CD",
+      "issues": [],
+      "limitations": [
+        "领域模型事实与处置的唯一性依赖当前已登记的领域权威定义文件与测试夹具的真实完整性。"
+      ],
+      "reason": "project_architecture_description.py中的_validate_graph方法对领域事实处置集合逐条核验，强制要求每个活跃领域事实必须且只能具有唯一非空处置，显式将disposition_type=='unallocated'判定为非法，且严格核对主要承载模块、协作模块、关系与约束的闭合引用；对应单元测试已验证覆盖集一致性并阻止可确认状态下的未分配，约束机制完备生效。",
+      "references": [
+        {
+          "end_line": 452,
+          "source_id": "strixnova/src/strixnova/project_architecture_description.py",
+          "start_line": 433,
+          "original_text": "        dispositions = artifacts[\"domain_fact_dispositions\"][\"dispositions\"]\n        fact_ids = [item[\"domain_fact_id\"] for item in dispositions]\n        if len(fact_ids) != len(set(fact_ids)):\n            issues.append(\"领域事实架构处置重复\")\n        for item in dispositions:\n            primary = item[\"primary_module_id\"]\n            collaborators = set(item[\"collaborator_module_ids\"])\n            if item[\"disposition_type\"] == \"unallocated\":\n                issues.append(f\"领域事实尚未分配：{item['domain_fact_id']}\")\n            if primary is not None and (\n                primary not in known_modules or primary in collaborators\n            ):\n                issues.append(f\"领域事实主要承载模块无效：{item['domain_fact_id']}\")\n            if not collaborators <= known_modules:\n                issues.append(f\"领域事实协作模块无效：{item['domain_fact_id']}\")\n            if not set(item[\"relationship_ids\"]) <= known_relationships:\n                issues.append(f\"领域事实关系引用无效：{item['domain_fact_id']}\")\n            if not set(item[\"constraint_ids\"]) <= known_constraints:\n                issues.append(f\"领域事实约束引用无效：{item['domain_fact_id']}\")\n\n",
+          "source_sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 257,
+          "source_id": "assessment",
+          "start_line": 250,
+          "original_text": "      \"satisfied\": [\n        \"project_architecture_description.py _validate_graph checks every domain fact disposition has exactly one entry per domain_fact_id (L434-436 deduplication check)\",\n        \"_validate_graph rejects disposition_type=='unallocated' for any fact (L440-441)\",\n        \"_validate_graph validates primary_module_id and collaborator_module_ids reference known modules, and relationship_ids and constraint_ids reference known relationships/constraints (L438-451)\",\n        \"test_every_active_domain_fact_has_one_nonempty_architecture_disposition confirms set of disposition fact_ids equals set of active domain facts from the domain model, and confirms no disposition has type 'unallocated'\",\n        \"test_architecture_cannot_be_confirmable_before_domain_confirmation enforces architecture cannot reach confirmable status before domain model is confirmed\",\n        \"project_domain_model.py provides active fact catalog used as the reference set for disposition coverage checks\"\n      ],\n",
+          "source_sha256": "df9e65c3f14deab615fe53565f018b01c81cd15c933a12e9ff3d6fe1ba9acf3f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-DEE883623C6A4008",
+      "issues": [],
+      "limitations": [
+        "依赖约束分析主要基于静态导入与架构图禁止边界声明，未进行全动态反射调用的穷尽监控。"
+      ],
+      "reason": "project_engineering_baseline.py仅依赖基础读取器、上下文与错误报告模块，未导入工程治理、验证运行器或各语义权威解析模块；其validate方法严格限定于自身元数据、仓库绑定与review_state自洽性校验，select方法仅暴露白名单节，不加载或裁决下游权威正文，测试亦证实即使下游正文路径不存在基线仍可独立加载校验。",
+      "references": [
+        {
+          "end_line": 30,
+          "source_id": "strixnova/src/strixnova/project_engineering_baseline.py",
+          "start_line": 15,
+          "original_text": "from strixnova.git_project_reader import (\n    GitProjectReader,\n    GitProjectReaderError,\n    project_reader_for_scope,\n    repository_relative_path,\n)\nfrom strixnova.schema_error_reporting import schema_error_message\nfrom strixnova.project_context import (\n    DEFAULT_BASELINE_PATH,\n    PROJECT_CONFIG_SCHEMA,\n    ProjectContext,\n    ProjectContextError,\n    ProjectContextResolver,\n    read_project_configuration,\n)\n\n",
+          "source_sha256": "421f5184fe7b1f9cbee30bf685c1e2f7f20d248584c76208a5908f0ab71ad485",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 333,
+          "source_id": "strixnova/src/strixnova/project_engineering_baseline.py",
+          "start_line": 225,
+          "original_text": "    def validate(\n        self,\n        value: Mapping[str, Any],\n        *,\n        manifest_path: str | None = None,\n        allow_candidate_refs: bool = False,\n    ) -> dict[str, Any]:\n        if value.get(\"schema_version\") != BASELINE_SCHEMA:\n            raise ProjectEngineeringBaselineError(\n                [\"项目工程基线必须使用当前仓库限定合同\"]\n            )\n        issues = _schema_issues(value)\n        components = value.get(\"code_version\", {}).get(\"repositories\", [])\n        identifiers = [entry.get(\"repository_id\") for entry in components if isinstance(entry, Mapping)]\n        if len(identifiers) != len(set(identifiers)):\n            issues.append(\"代码观察组合不能重复引用同一仓库\")\n        if self.context is not None:\n            declared = {entry.repository_id for entry in self.context.repositories}\n            if set(identifiers) - declared:\n                issues.append(\"代码观察组合引用了未声明仓库\")\n        authority_refs = value.get(\"authority_refs\")\n        normalized_paths: list[tuple[str, str]] = []\n        if isinstance(authority_refs, Mapping):\n            for kind in AUTHORITY_KINDS:\n                reference = authority_refs.get(kind)\n                if not isinstance(reference, Mapping):\n                    continue\n                try:\n                    normalized_paths.append((str(reference.get(\"repository_id\") or \"\"),\n                        repository_relative_path(\n                            reference.get(\"path\"),\n                            f\"authority_refs.{kind}.path\",\n                        )\n                    ))\n                except GitProjectReaderError as error:\n                    issues.append(str(error))\n                if self.context is not None and not any(\n                    item.repository_id == reference.get(\"repository_id\") and item.membership == \"member\"\n                    for item in self.context.repositories\n                ):\n                    issues.append(f\"authority_refs.{kind} 必须引用本项目声明的成员仓库\")\n                status = reference.get(\"status\")\n                if not isinstance(status, Mapping):\n                    continue\n                revision_status = status.get(\"revision_status\")\n                adoption_status = status.get(\"adoption_status\")\n                if not allow_candidate_refs and kind in UPSTREAM_AUTHORITY_KINDS:\n                    if (\n                        revision_status != \"confirmed\"\n                        or adoption_status != \"current\"\n                    ):\n                        issues.append(\n                            f\"authority_refs.{kind} 必须精确采用已确认的当前上游权威\"\n                        )\n                elif (\n                    not allow_candidate_refs\n                    and adoption_status == \"current\"\n                    and revision_status != \"confirmed\"\n                ):\n                    issues.append(\n                        f\"authority_refs.{kind} 只有已确认修订才能成为当前采用权威\"\n                    )\n                if (\n                    adoption_status == \"under_review\"\n                    and kind != \"implementation_alignment\"\n                    and not allow_candidate_refs\n                ):\n                    issues.append(\n                        f\"authority_refs.{kind} 不得以待复核状态替代当前上游权威\"\n                    )\n        if len(normalized_paths) != len(set(normalized_paths)):\n            issues.append(\"不同长期权威不得共享同一仓库中的同一文件路径\")\n        project = value.get(\"project\")\n        if isinstance(project, Mapping) and isinstance(authority_refs, Mapping):\n            owner_id = project.get(\"owner_id\")\n            product = authority_refs.get(\"product_definition\")\n            if (\n                not allow_candidate_refs\n                and isinstance(product, Mapping)\n                and product.get(\"status\", {}).get(\"adoption_status\")\n                != \"current\"\n            ):\n                issues.append(\"项目必须恰有一个当前采用的已确认产品定义\")\n            if not isinstance(owner_id, str):\n                issues.append(\"项目负责人身份无效\")\n            if self.context is not None and project.get(\"project_id\") != self.context.project_id:\n                issues.append(\"项目基线与项目配置身份不一致\")\n        review = value.get(\"review_state\")\n        if isinstance(review, Mapping):\n            required = review.get(\"required\")\n            alignment = (\n                authority_refs.get(\"implementation_alignment\")\n                if isinstance(authority_refs, Mapping)\n                else None\n            )\n            alignment_under_review = (\n                isinstance(alignment, Mapping)\n                and alignment.get(\"status\", {}).get(\"adoption_status\")\n                == \"under_review\"\n            )\n            if alignment_under_review and required is not True:\n                issues.append(\"实现对齐处于待复核状态时基线必须标记需要复核\")\n        if issues:\n            raise ProjectEngineeringBaselineError(issues)\n        normalized = deepcopy(dict(value))\n        normalized[\"_manifest_path\"] = manifest_path\n        normalized[\"_observed_commit\"] = self.observed_commit\n        normalized[\"semantic_content_machine_proven\"] = False\n        return normalized\n",
+          "source_sha256": "421f5184fe7b1f9cbee30bf685c1e2f7f20d248584c76208a5908f0ab71ad485",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 358,
+          "source_id": "strixnova/src/strixnova/project_engineering_baseline.py",
+          "start_line": 335,
+          "original_text": "    def select(self, section_names: Sequence[str]) -> dict[str, Any]:\n        baseline = self.load(required=True)\n        assert baseline is not None\n        allowed = {\n            \"project\",\n            \"authority_refs\",\n            \"current_architecture_stage_id\",\n            \"code_version\",\n            \"review_state\",\n        }\n        requested = [str(name) for name in section_names]\n        unknown = sorted(set(requested) - allowed)\n        if unknown:\n            raise ProjectEngineeringBaselineError(\n                [\"未知项目工程基线章节：\" + \", \".join(unknown)]\n            )\n        return {\n            \"schema_version\": baseline[\"schema_version\"],\n            \"baseline_id\": baseline[\"baseline_id\"],\n            \"sections\": {\n                name: deepcopy(baseline[name]) for name in requested\n            },\n            \"observed_commit\": self.observed_commit,\n        }\n",
+          "source_sha256": "421f5184fe7b1f9cbee30bf685c1e2f7f20d248584c76208a5908f0ab71ad485",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 315,
+          "source_id": "assessment",
+          "start_line": 308,
+          "original_text": "      \"satisfied\": [\n        \"project_engineering_baseline.py imports only git_project_reader, schema_error_reporting, and project_context — no imports of engineering_governance, verification_runner, or any semantic authority resolution module\",\n        \"ProjectEngineeringBaseline.validate checks only schema structure, authority_refs status/adoption, repository identifiers, review_state self-consistency, and sets semantic_content_machine_proven=False (L225-333)\",\n        \"ProjectEngineeringBaseline.select exposes only narrow whitelisted sections: project, authority_refs, current_architecture_stage_id, code_version, review_state (L335-358)\",\n        \"test_baseline_does_not_load_or_validate_downstream_authority_bodies confirms baseline loads successfully even with nonexistent authority body paths\",\n        \"test_select_exposes_only_narrow_baseline_sections confirms only declared sections are accessible and rejects unknown sections\",\n        \"Target architecture (test_high_risk_boundaries_are_explicit_in_the_target_graph L225-229) confirms baseline module (MODULE-E74F1900EDCA43AE) depends only on reader and project_context modules, with engineering (MODULE-5CEF109E340C469F) in its forbidden dependencies\"\n      ],\n",
+          "source_sha256": "df9e65c3f14deab615fe53565f018b01c81cd15c933a12e9ff3d6fe1ba9acf3f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-E12E58584EEB4F67",
+      "issues": [],
+      "limitations": [
+        "运行维护与升级代码分支针对当前格式进行了完整保护，但未覆盖历史多版本异构环境下的实际数据迁移场景（开发期策略即不维护兼容壳）。"
+      ],
+      "reason": "项目统一采用AUTHORITY_FORMAT=1、ACTIVITY_FORMAT=1与EVIDENCE_FORMAT=1常量，存储与持久化仅支持当前唯一v1版本，未保留新旧双轨机制或延迟导入转发壳；runtime_upgrade与runtime_identity显式拒绝非当前格式或非规范清单，测试验证了非规范格式与未知Schema被安全只读拒绝且不生成第二套可写状态。",
+      "references": [
+        {
+          "end_line": 11,
+          "source_id": "strixnova/src/strixnova/storage_formats.py",
+          "start_line": 9,
+          "original_text": "AUTHORITY_FORMAT = 1\nACTIVITY_FORMAT = 1\nEVIDENCE_FORMAT = 1\n",
+          "source_sha256": "a3252838f5289a4f37e574af6a545c6b8814eb65967a82a94b212261d2b56448",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 95,
+          "source_id": "strixnova/src/strixnova/runtime_identity.py",
+          "start_line": 93,
+          "original_text": "    formats = {\"authority\": AUTHORITY_FORMAT, \"delivery_activities\": ACTIVITY_FORMAT, \"evidence\": EVIDENCE_FORMAT}\n    if declared[\"formats\"] != formats:\n        raise RuntimeIdentityError(\"runtime_compatibility_invalid\", \"随包清单与实际运行代码的格式支持不一致\")\n",
+          "source_sha256": "c9f35be4a1df8388d1dfa7bcadde23f1a4f7834d66148040b6cb1f05e2e03aa5",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 228,
+          "source_id": "strixnova/src/strixnova/confirmation_protocol.py",
+          "start_line": 217,
+          "original_text": "def reproduce_confirmation_record(\n    challenge: Mapping[str, Any], record: Mapping[str, Any],\n) -> dict[str, Any]:\n    \"\"\"Recheck persisted decisions using their recorded interpretation contract.\"\"\"\n\n    payload = {key: record.get(key) for key in (\"candidate_fingerprint\", \"user_confirmation\")}\n    if record.get(\"schema_version\") == USER_CONFIRMATION_SCHEMA:\n        payload[\"agent_decision\"] = record.get(\"agent_decision\")\n        return confirmation_record_from_input(challenge, payload)\n    raise ConfirmationProtocolError(\n        \"confirmation_input_invalid\", \"不支持该确认记录版本\",\n    )\n",
+          "source_sha256": "8608c5ba58248a5d490f66c3078207d561ce27f4eefafaac239038f2084abbbe",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 384,
+          "source_id": "assessment",
+          "start_line": 376,
+          "original_text": "      \"satisfied\": [\n        \"runtime_identity.py validates shipped compatibility resource uses current format constants AUTHORITY_FORMAT/ACTIVITY_FORMAT/EVIDENCE_FORMAT and rejects mismatches (L93-95)\",\n        \"storage_formats.py declares single-value format constants (AUTHORITY_FORMAT=1, ACTIVITY_FORMAT=1, EVIDENCE_FORMAT=1) with write guards enforcing current format only (L9-11, L16-25)\",\n        \"runtime_upgrade.py only supports current declared formats, explicitly rejecting non-current format sources (L73-78) and verifying target formats match current (L268-269)\",\n        \"confirmation_protocol.py uses single current schema versions CONFIRMATION_CHALLENGE_SCHEMA and USER_CONFIRMATION_SCHEMA, with reproduce_confirmation_record rejecting unknown versions (L226-228)\",\n        \"test_only_current_first_version_contracts_are_shipped verifies all shipped schemas end with -v1.schema.json and no old-format schemas exist\",\n        \"test_precheck_rejects_noncanonical_format_without_changing_project_content verifies noncanonical format metadata is rejected without altering project content\",\n        \"test_domain_runtime_rejects_an_unknown_contract and test_architecture_runtime_rejects_an_unknown_contract verify unknown contract versions are rejected\"\n      ],\n",
+          "source_sha256": "df9e65c3f14deab615fe53565f018b01c81cd15c933a12e9ff3d6fe1ba9acf3f",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 2,
+    "records": [],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false
+}

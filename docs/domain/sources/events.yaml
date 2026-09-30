@@ -1,0 +1,308 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-7844833BF0DB4087
+scope_fact_ids: []
+facts:
+- fact_id: FACT-7508D8A111574696
+  status: draft
+  title: 长期目标候选已可确认
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-01E58C1E2F3C4D9C
+  content:
+    meaning: 一份长期目标修订已经完成声明范围内的结构、引用、覆盖和未知闭合，进入负责人确认点。
+    occurs_when: 草案通过全部确定性完整性检查且语义评估声明没有范围关键未知。
+    subject_fact_ids:
+    - FACT-01E58C1E2F3C4D9C
+    information:
+    - 权威种类、稳定身份和精确修订身份。
+    - 上游精确修订和演进关系。
+    - 结构检查结果、语义评估依据和声明限制。
+- fact_id: FACT-6843B2110EC845C2
+  status: draft
+  title: 长期目标修订已确认
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-01E58C1E2F3C4D9C
+  - FACT-C8E6F2891E194C50
+  content:
+    meaning: 项目负责人显式确认了一份精确长期目标修订。
+    occurs_when: 待确认内容未变化且当前项目负责人提交确认。
+    subject_fact_ids:
+    - FACT-01E58C1E2F3C4D9C
+    information:
+    - 被确认的精确修订身份。
+    - 项目负责人身份和确认日期。
+    - 确认种类及当前产品阶段。
+- fact_id: FACT-7D38374475FA4947
+  status: draft
+  title: 长期目标修订已被取代
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-44EB4FA0B1994587
+  - CAPABILITY-857E4CA751A34FA1
+  - CAPABILITY-386C88B6F742458B
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-01E58C1E2F3C4D9C
+  content:
+    meaning: 同一种长期权威的新修订已经确认，旧修订退出当前裁决但保留历史。
+    occurs_when: 新修订声明取代关系并完成负责人确认。
+    subject_fact_ids:
+    - FACT-01E58C1E2F3C4D9C
+    information:
+    - 旧修订和新修订身份。
+    - 取代关系生效日期。
+    - 需要复核的下游权威和事项范围。
+- fact_id: FACT-F4E493D03E8143F4
+  status: draft
+  title: 建设事项方向已确认
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-C8E6F2891E194C50
+  - FACT-ED05BCEB08B94F1E
+  content:
+    meaning: 项目负责人确认了当前建设事项的目标、带稳定身份的方向需求、非目标、带稳定身份的方向约束、取舍、带稳定身份及需求覆盖关系的验收条件，以及其中可理解的既有决定影响。
+    occurs_when: 完整方向绑定当前决定上下文、逐项覆盖全部产品护栏，通过条目身份、引用、需求覆盖、历史不可复用和结构校验，且负责人确认精确事项版本。
+    subject_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    information:
+    - 事项身份和方向版本。
+    - 负责人身份和确认日期。
+    - 绑定的项目产品修订、相关能力、护栏处置、理由、假设和重开条件。
+    - 三类方向条目身份、验收到需求的覆盖映射，以及相对历史方向保留、退出和新增的身份摘要。
+- fact_id: FACT-1D2DAF4D22184B44
+  status: draft
+  title: 建设事项工程方案已确认
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-47B266640F1840DA
+  - FACT-C8E6F2891E194C50
+  content:
+    meaning: 项目负责人确认了当前事项的完整工程评估投影和实施增量。
+    occurs_when: 方案通过结构、引用、政策和操作冲突检查且负责人确认精确版本。
+    subject_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-47B266640F1840DA
+    information:
+    - 事项、方向、评估和方案版本。
+    - 长期目标、实现对齐和代码基线引用。
+    - 负责人身份和确认日期。
+- fact_id: FACT-FFDE76EC22744438
+  status: draft
+  title: 验证运行事实已记录
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-C33E74EC824D4AE0
+  - FACT-2D3C638B3E92417A
+  content:
+    meaning: 一次已计划验证完成、失败、受限或取消并产生真实普通回执。
+    occurs_when: 外部工具返回可记录的执行结果或取消事实。
+    subject_fact_ids:
+    - FACT-C33E74EC824D4AE0
+    information:
+    - 实际命令、参数、工作范围和运行种类。
+    - 环境、输出、退出状态、时间和限制。
+    - 对应事项、方案和验证选择身份。
+- fact_id: FACT-3B7B22C4A1C247D9
+  status: draft
+  title: 实际结果已提交确认
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-C81DA4F98DBF40FB
+  - FACT-DF782F3974E94BCF
+  content:
+    meaning: 智能编码代理提交了供项目负责人判断的完整实际效果和证据解释候选。
+    occurs_when: 实施、验证和偏差已经按真实状态汇总且结构校验通过。
+    subject_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-C81DA4F98DBF40FB
+    information:
+    - 实际结果版本和对应方案版本。
+    - 已实施效果、回执、未运行项、偏差、方法落实和限制。
+    - 智能编码代理的解释依据和不能证明的内容。
+- fact_id: FACT-6EEB450EA68C4D79
+  status: draft
+  title: 实际结果已被接受
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-04A78FF5E02A48CF
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-C81DA4F98DBF40FB
+  - FACT-C8E6F2891E194C50
+  content:
+    meaning: 项目负责人接受了所见实际效果、验证事实、未运行项、偏差和限制。
+    occurs_when: 当前实际结果版本未变化且负责人显式提交接受决定。
+    subject_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    - FACT-C81DA4F98DBF40FB
+    information:
+    - 事项和实际结果精确版本。
+    - 负责人身份和接受日期。
+    - 仍存在的限制、延期和外部活动状态。
+- fact_id: FACT-CCEF92A5D2114880
+  status: draft
+  title: 目标或实现漂移已发现
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-859140B6A57D408A
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-AD3A3604E30A4387
+  - FACT-29A948A8B5364EB3
+  content:
+    meaning: 已确认目标、当前代码、实际依赖、证据或实现对齐之间出现需要复核的不一致。
+    occurs_when: 上游修订、代码变化或机械门禁检测到未归属、未声明、循环、入口绕过、阶段外建设或过期判断。
+    subject_fact_ids:
+    - FACT-AD3A3604E30A4387
+    - FACT-29A948A8B5364EB3
+    information:
+    - 受影响精确目标和代码版本。
+    - 可机械证明的差异及不能机械判断的范围。
+    - 阻断状态、受影响对齐和解决计划要求。
+- fact_id: FACT-B789F5869BA34D66
+  status: draft
+  title: 外部工程执行事实已记录
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  - CAPABILITY-04A78FF5E02A48CF
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B8155BDA282E4527
+  - FACT-C33E74EC824D4AE0
+  - FACT-2D3C638B3E92417A
+  content:
+    meaning: 一个外部工程工具对验证、构建、交付、发布、部署或监控操作返回了真实事实。
+    occurs_when: 外部工具开始、完成、失败、部分完成、取消或报告限制。
+    subject_fact_ids:
+    - FACT-B8155BDA282E4527
+    - FACT-C33E74EC824D4AE0
+    information:
+    - 外部工具和目标环境身份。
+    - 请求、状态、输出、时间、限制和不可逆影响。
+    - 相关项目、事项、计划和证据回执身份。
+- fact_id: FACT-0327B3690DAB4024
+  status: draft
+  title: 建设事项已取消
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  - CAPABILITY-FDB7B365AFC84F66
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-C8E6F2891E194C50
+  content:
+    meaning: 建设事项停止授权后续方向、方案、实施、验证、提交或交付操作。
+    occurs_when: 项目负责人明确取消，或满足预先确认的确定性取消条件。
+    subject_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    information:
+    - 事项身份、版本、取消主体、时间和原因。
+    - 当前阶段、已发生外部事实和不能清理的用户资料。
+    - 已执行清理和剩余责任。
+    - 取消时各仓库已合入、未交付、原接受及剩余处置事实；取消不自动撤销实际合入。
+- fact_id: FACT-956C060E82CD4797
+  status: draft
+  title: 建设事项结果已本地合入
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B3D14DA096B94DD9
+  - FACT-2D3C638B3E92417A
+  - FACT-88B33C50BECF4B1D
+  content:
+    meaning: 已接受实际结果对应的全部必要仓库结果提交，分别被外部版本历史证明进入各自本地目标版本；单仓库事项为一个仓库的情形。
+    occurs_when: 每个必要仓库的合入版本与结果提交均可追溯到同一已接受整体结果；仅一个仓库成功时不产生整项合入事实。
+    subject_fact_ids:
+    - FACT-B3D14DA096B94DD9
+    information:
+    - 事项、目标版本、合入提交和结果提交身份。
+    - 冲突解决、复测和用户可见结果是否变化。
+    - 安全清理状态和保留限制。
+    - 各必要仓库的精确合入依据及单仓库事件，安全收尾仍由相应事实证明。
+- fact_id: FACT-81EF50F2966ED4B6
+  status: draft
+  title: Strixnova 运行组合已切换
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-1CDA1D66DA409B5A
+  scope_fact_ids:
+  - FACT-3D2D74227A26E9A6
+  dependency_fact_ids:
+  - FACT-D0828206E1A6C60E
+  - FACT-A6AEAAD06C24D8F8
+  - FACT-C9C5B5C016D75999
+  content:
+    meaning: 一次明确升级或恢复在维护保护下完成匹配程序、Skill 与数据的切换及核验。
+    occurs_when: 原事实保全检查通过，目标实际入口可以读取指定项目，持久切换记录完整。
+    subject_fact_ids:
+    - FACT-D0828206E1A6C60E
+    information:
+    - 源与目标运行组合、格式路径与指定项目。
+    - 备份、转换、保全核验和实际入口试读结果。
+    - 切换与恢复阶段、失败原因及宿主 Skill 重新加载要求。
+- fact_id: FACT-88B33C50BECF4B1D
+  status: draft
+  title: 仓库结果已本地合入
+  kind: domain_event
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  - CAPABILITY-BCD586FBB6054556
+  scope_fact_ids: []
+  dependency_fact_ids:
+  - FACT-B66A3271FAD74C65
+  - FACT-C81DA4F98DBF40FB
+  content:
+    meaning: 同一事项中一个明确仓库的已接受结果内容被外部版本事实证明进入指定本地目标版本。
+    occurs_when: 外部版本事实证明该仓库的合入版本与当前接受结果、实际结果提交及适用冲突复核依据相符。
+    subject_fact_ids:
+    - FACT-B66A3271FAD74C65
+    information:
+    - 事项、仓库、整体实际结果版本与仓库交付身份。
+    - 原目标版本、结果提交、实际合入版本及与接受内容的对应依据。
+    - 冲突复核、受影响验证和仍待完成的收尾事实；本事件不独自证明整项完成。

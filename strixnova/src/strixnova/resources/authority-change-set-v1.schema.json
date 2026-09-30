@@ -1,0 +1,265 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.authority-change-set.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "change_set_id",
+    "work_item_id",
+    "base_authorities",
+    "candidate_authorities",
+    "changes",
+    "downstream_dispositions",
+    "semantic_content_machine_proven"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.authority-change-set.v1"
+    },
+    "change_set_id": {
+      "type": "string",
+      "pattern": "^AUTHCHANGE-[0-9A-F]{16}$"
+    },
+    "work_item_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_authorities": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "$ref": "#/$defs/base_authority"
+      }
+    },
+    "candidate_authorities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/candidate_authority"
+      }
+    },
+    "changes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/change"
+      }
+    },
+    "downstream_dispositions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/downstream_disposition"
+      }
+    },
+    "semantic_content_machine_proven": {
+      "const": false
+    }
+  },
+  "$defs": {
+    "authority_kind": {
+      "enum": [
+        "product_definition",
+        "domain_model",
+        "target_architecture",
+        "implementation_alignment"
+      ]
+    },
+    "base_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority_kind",
+        "artifact_id",
+        "revision_id",
+        "path",
+        "status",
+        "observed_commit"
+      ],
+      "properties": {
+        "authority_kind": {
+          "$ref": "#/$defs/authority_kind"
+        },
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "const": "confirmed"
+        },
+        "observed_commit": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{40,64}$"
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "candidate_authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "authority_kind",
+        "artifact_id",
+        "revision_id",
+        "path",
+        "status",
+        "supersedes_revision_id",
+        "adoption_effect"
+      ],
+      "properties": {
+        "authority_kind": {
+          "$ref": "#/$defs/authority_kind"
+        },
+        "artifact_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "revision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "ready_for_confirmation"
+          ]
+        },
+        "supersedes_revision_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "adoption_effect": {
+          "const": "not_adopted"
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "change": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "change_id",
+        "authority_kind",
+        "operation",
+        "target_ref",
+        "summary",
+        "evidence_refs"
+      ],
+      "properties": {
+        "change_id": {
+          "type": "string",
+          "pattern": "^AUTHOP-[0-9]{3,}$"
+        },
+        "authority_kind": {
+          "$ref": "#/$defs/authority_kind"
+        },
+        "operation": {
+          "enum": [
+            "add",
+            "modify",
+            "retire",
+            "rename"
+          ]
+        },
+        "target_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "replacement_ref": {
+          "type": "string",
+          "minLength": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "operation": {
+                "const": "rename"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "replacement_ref"
+            ]
+          },
+          "else": {
+            "not": {
+              "required": [
+                "replacement_ref"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "downstream_disposition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_authority_kind",
+        "target_authority_kind",
+        "disposition",
+        "reason"
+      ],
+      "properties": {
+        "source_authority_kind": {
+          "$ref": "#/$defs/authority_kind"
+        },
+        "target_authority_kind": {
+          "$ref": "#/$defs/authority_kind"
+        },
+        "disposition": {
+          "enum": [
+            "revise",
+            "unchanged",
+            "blocked"
+          ]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

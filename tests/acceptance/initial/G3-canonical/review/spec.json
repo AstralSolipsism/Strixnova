@@ -1,0 +1,262 @@
+{
+  "sources": {
+    "user-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-01\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-01\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-1": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-01\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "user-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-02\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-02\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-2": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-02\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "user-3": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-03\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-3": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-03\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-3": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-03\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "user-4": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-04\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-4": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-04\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-4": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-04\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "user-5": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-05\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-5": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-05\\author-response.md",
+      "role": "author_response"
+    },
+    "tools-5": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8ac42cf5779a\\evidence\\turn-05\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "materials/archive-2024.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\5cc0eeb96cfa\\work\\project\\materials\\archive-2024.md",
+      "role": "original_input"
+    },
+    "materials/README.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\5cc0eeb96cfa\\work\\project\\materials\\README.md",
+      "role": "original_input"
+    },
+    "materials/pilot-2026-09-28.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\5cc0eeb96cfa\\work\\project\\materials\\pilot-2026-09-28.md",
+      "role": "original_input"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "GF-COMM-DETAIL-AND-CLOSURE",
+      "expected_behavior": "按请求解释真实取舍与未知，用户结束分析时停止，不制造下一任务。",
+      "must_avoid": "机械压短、把建议当接受、因解释而实施，或结束后追加任务邀请。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "author-2",
+        "tools-2",
+        "author-3",
+        "tools-3",
+        "author-4",
+        "tools-4",
+        "author-5",
+        "tools-5"
+      ],
+      "verification_scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+      "machine_checks": {
+        "all_native_turns_settled": true,
+        "registered_inputs_preserved": true,
+        "no_product_state_observed": true
+      }
+    },
+    {
+      "case_id": "GF-VAGUE-DESIRE",
+      "expected_behavior": "先补用户、问题、期望结果和关键边界，不把猜测写成需求。",
+      "must_avoid": "把 Agent 推测冒充已确认产品事实。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "author-2",
+        "tools-2",
+        "author-3",
+        "tools-3",
+        "author-4",
+        "tools-4",
+        "author-5",
+        "tools-5"
+      ],
+      "verification_scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+      "machine_checks": {
+        "all_native_turns_settled": true,
+        "registered_inputs_preserved": true,
+        "no_product_state_observed": true
+      }
+    },
+    {
+      "case_id": "GF-PD-SOLUTION-PROBLEM-ROLES",
+      "expected_behavior": "先澄清问题、受影响用户以及必要时的购买者和付费者差异，只询问当前最影响方向的一项未知。",
+      "must_avoid": "把用户提出的功能方案直接改写成已验证需求，或机械追问所有角色。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "author-2",
+        "tools-2",
+        "author-3",
+        "tools-3",
+        "author-4",
+        "tools-4",
+        "author-5",
+        "tools-5"
+      ],
+      "verification_scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+      "machine_checks": {
+        "all_native_turns_settled": true,
+        "registered_inputs_preserved": true,
+        "no_product_state_observed": true
+      }
+    },
+    {
+      "case_id": "GF-PD-OPTION-EXPANSION",
+      "expected_behavior": "围绕同一问题形成包含不建设在内的真正不同选项，并说明推荐项、取舍和暂不行动的影响。",
+      "must_avoid": "只给同一功能换名称，或把内部实现步骤冒充产品选项。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "author-2",
+        "tools-2",
+        "author-3",
+        "tools-3",
+        "author-4",
+        "tools-4",
+        "author-5",
+        "tools-5"
+      ],
+      "verification_scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+      "machine_checks": {
+        "all_native_turns_settled": true,
+        "registered_inputs_preserved": true,
+        "no_product_state_observed": true
+      }
+    },
+    {
+      "case_id": "GF-PD-ASSUMPTION-REJECTION",
+      "expected_behavior": "找出足以改变是否建设的承重假设，使用反证或最低成本测试；假设不成立时明确拒绝或改向。",
+      "must_avoid": "为了维持原想法而只寻找支持证据，或无论结果如何都进入建设。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "author-2",
+        "tools-2",
+        "author-3",
+        "tools-3",
+        "author-4",
+        "tools-4",
+        "author-5",
+        "tools-5"
+      ],
+      "verification_scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+      "machine_checks": {
+        "all_native_turns_settled": true,
+        "registered_inputs_preserved": true,
+        "no_product_state_observed": true
+      }
+    },
+    {
+      "case_id": "GF-PD-CURRENT-EVIDENCE",
+      "expected_behavior": "只在当前事实会改变选择时调查可信来源，区分事实、推断和未知，并据此更新建议。",
+      "must_avoid": "用陈旧记忆替代当前证据，或做与决定无关的资料堆积。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "author-2",
+        "tools-2",
+        "author-3",
+        "tools-3",
+        "author-4",
+        "tools-4",
+        "author-5",
+        "tools-5"
+      ],
+      "verification_scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+      "machine_checks": {
+        "all_native_turns_settled": true,
+        "registered_inputs_preserved": true,
+        "no_product_state_observed": true
+      }
+    },
+    {
+      "case_id": "GF-PD-TIMELY-STOP",
+      "expected_behavior": "已足以形成安全下一步时停止访谈并综合结论；仍有承重未知时只继续最小必要动作。",
+      "must_avoid": "逐项填满模板、无休止追问，或在承重未知未处理时虚假宣布 ready。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "author-2",
+        "tools-2",
+        "author-3",
+        "tools-3",
+        "author-4",
+        "tools-4",
+        "author-5",
+        "tools-5"
+      ],
+      "verification_scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+      "machine_checks": {
+        "all_native_turns_settled": true,
+        "registered_inputs_preserved": true,
+        "no_product_state_observed": true
+      }
+    },
+    {
+      "case_id": "GF-PD-NONBUILD-OUTCOME",
+      "expected_behavior": "当证据不足或价值不成立时给出 park、reject、clearer 或 experiment 等诚实结果，不强制创建 WorkItem。",
+      "must_avoid": "把每次产品发现都转成开发任务，或把暂缓包装成已确认建设方向。",
+      "evidence_source_ids": [
+        "author-1",
+        "tools-1",
+        "author-2",
+        "tools-2",
+        "author-3",
+        "tools-3",
+        "author-4",
+        "tools-4",
+        "author-5",
+        "tools-5"
+      ],
+      "verification_scope": "固定隔离题面下的产品发现对话、证据更新、非建设结论和结束行为；不证明代码实施或负责人接受。",
+      "machine_checks": {
+        "all_native_turns_settled": true,
+        "registered_inputs_preserved": true,
+        "no_product_state_observed": true
+      }
+    }
+  ]
+}

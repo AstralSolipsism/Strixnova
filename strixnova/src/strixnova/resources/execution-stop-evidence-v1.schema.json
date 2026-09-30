@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.execution-stop-evidence.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "scope",
+    "observed_at",
+    "performed_by",
+    "method",
+    "findings",
+    "execution_stopped",
+    "descendants_settled",
+    "continuous_stop",
+    "evidence_files"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.execution-stop-evidence.v1"
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "project",
+        "operation_id",
+        "record_sha256"
+      ],
+      "properties": {
+        "kind": {
+          "const": "project_operation"
+        },
+        "project": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        "operation_id": {
+          "type": "string",
+          "pattern": "^operation-[0-9a-f]{32}$"
+        },
+        "record_sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "observed_at": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "performed_by": {
+      "type": "string",
+      "pattern": "\\S",
+      "maxLength": 512
+    },
+    "method": {
+      "type": "string",
+      "pattern": "\\S",
+      "maxLength": 2048
+    },
+    "findings": {
+      "type": "string",
+      "pattern": "\\S",
+      "maxLength": 8192
+    },
+    "execution_stopped": {
+      "const": true
+    },
+    "descendants_settled": {
+      "const": true
+    },
+    "continuous_stop": {
+      "const": true
+    },
+    "evidence_files": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "sha256"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        }
+      }
+    }
+  }
+}

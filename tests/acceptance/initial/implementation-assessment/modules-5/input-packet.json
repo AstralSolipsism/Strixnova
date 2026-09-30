@@ -1,0 +1,2423 @@
+{
+  "group": "modules-5",
+  "material_root": "inputs/files",
+  "targets": [
+    {
+      "target_id": "MODULE-992560C2560A4013",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-992560C2560A4013",
+        "title": "项目权威文档与元数据事务",
+        "layer": "infrastructure",
+        "responsibility": "承接应用用例或运行维护提供的精确文档目标、原字节及待写字节，执行可恢复替换。元数据修改保留原文格式，恢复材料保存精确原始字节。底层事务只绑定文件与散列，流程授权和升级进度由各调用方的唯一持久意图承担。恢复逐项核对仓库限定目标，不以共同父目录或扩大恢复根替代明确范围；不承诺多个 Git 仓库的原子提交或回滚已合入业务内容。",
+        "not_responsible_for": [
+          "不决定候选是否应当确认、采用、转换或退回，也不生成业务语义正文。",
+          "不把 .git、.strixnova、仓库外路径、符号链接或未列入精确事务的文件作为权威文档目标；事务日志位置由调用方明确指定并保护。",
+          "不绕过应用用例或运行维护的授权、待恢复意图、原字节与目标字节绑定。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-992560C2560A4013",
+          "title": "项目权威文档事务接口",
+          "operations": [
+            {
+              "name": "构建精确元数据事务",
+              "meaning": "读取全部目标原始字节，只替换声明的 YAML 值节点，并绑定每个文件的修改前后散列。"
+            },
+            {
+              "name": "原子应用或恢复事务",
+              "meaning": "写前核对全部仓库限定目标和预期字节，在受保护范围内逐文件替换并记录进度；失败或中断后只对日志列明且仍满足恢复条件的目标恢复，不声称跨仓库 Git 原子性。"
+            },
+            {
+              "name": "预演授权元数据变化",
+              "meaning": "只在内存中渲染精确元数据变化，供一致性检查证明机械变化范围，不写项目文件。"
+            },
+            {
+              "name": "替换精确文档组合",
+              "meaning": "复用持久文档日志逐项替换调用方已准备的完整字节，写前复核预期原内容；中断后按日志恢复，第三方变化时保留现场并拒绝覆盖。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/14",
+        "start_line": 297,
+        "end_line": 317
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/recoverable_document_transaction.py",
+        "strixnova/src/strixnova/yaml_metadata_patch.py"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/recoverable_document_transaction.py",
+          "sha256": "a825bfd48fb8c77274f291bfc590db36b762da02e8451de5fe5a4f06040ecd9e",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-992560C2560A4013",
+          "implementation_stage_id": "ARCHSTAGE-EC5E2DF72673491B",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目权威文档与元数据事务”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/yaml_metadata_patch.py",
+          "sha256": "fcd0ff9335c2a99234878c7d89a049113de632b59f72f6774f81f619a00e88d2",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-992560C2560A4013",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“项目权威文档与元数据事务”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_yaml_metadata_patch.py::test_patch_yaml_values_changes_only_selected_metadata_spans",
+        "tests/unit/test_yaml_metadata_patch.py::test_atomic_replacement_preserves_existing_file_mode",
+        "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_recovers_after_one_file_was_already_written",
+        "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails",
+        "tests/unit/test_repository_document_transactions.py::test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal",
+        "tests/unit/test_repository_document_transactions.py::test_document_replacement_and_rollback_work_across_real_volumes",
+        "tests/unit/test_repository_document_transactions.py::test_separated_document_recovery_requires_the_original_explicit_targets",
+        "tests/unit/test_repository_document_transactions.py::test_yaml_transaction_binds_equal_paths_to_exact_repository_roots",
+        "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_case_aliases_of_one_target",
+        "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_external_symlink",
+        "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths",
+        "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_internal_symlink"
+      ]
+    },
+    {
+      "target_id": "MODULE-A94EF8E733E64205",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-A94EF8E733E64205",
+        "title": "验证执行与证据记录",
+        "layer": "infrastructure",
+        "responsibility": "只执行工程方案中已编制且符合精确项目验证政策的命令，管理运行生命周期并保存命令、环境、输出、退出状态、未运行项和限制回执。按明确配置在测试子进程加载随包框架报告器，核对原生用例、报告身份、例子绑定及声明输入文件快照；每次命令仅增加一份原始用例报告，沿用持久证据、历史查询与维护保全边界，不替 Agent 判断断言充分性。 将明确执行仓库、声明内容组合和外部依赖的实际版本依据一并绑定回执；共享底层内容采集而不另写快照算法。服务访问或版本核验只能来自已批准验证安排，地址可达不能替代版本证据。",
+        "not_responsible_for": [
+          "不读取项目基线自行决定验证政策。",
+          "不编制验证方案或解释业务语义。",
+          "不启动智能编码代理、代理宿主或代理会话。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-50AEAEA70F94484A",
+          "title": "验证执行接口",
+          "operations": [
+            {
+              "name": "校验执行请求",
+              "meaning": "检查已确认计划、明确执行仓库、允许程序和工作目录，核对声明输入组合及外部依赖证据安排；验证器不回读基线替调用方选择政策。"
+            },
+            {
+              "name": "运行已批准验证",
+              "meaning": "通过进程监督执行精确命令并记录完整生命周期事实。"
+            },
+            {
+              "name": "汇总验证回执",
+              "meaning": "只按真实回执形成唯一验证状态和证据范围，不扩大为业务正确或完整可用。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/16",
+        "start_line": 340,
+        "end_line": 358
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/resources/verification-summary-v1.schema.json",
+        "strixnova/src/strixnova/verification_runner.py"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/verification-summary-v1.schema.json",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-865AD1FCCBD349E0",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "fc13d70cd2b4e124cfef21ecf605d97b111e5521a5a93d26850f8dfdb780fbf8",
+          "target_module_id": "MODULE-A94EF8E733E64205",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“验证执行与证据记录”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/verification_runner.py",
+          "sha256": "fdf89217cd1bf384b3ffdc0c0db066f2fe7c14a370c3787a112306443563cef0",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-A94EF8E733E64205",
+          "implementation_stage_id": "ARCHSTAGE-3A40145E290D4B62",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“验证执行与证据记录”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_verification_runner.py::test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt",
+        "tests/unit/test_verification_runner.py::test_deduplicates_only_by_argv_cwd_and_run_kind",
+        "tests/unit/test_verification_runner.py::test_verification_timeout_rejects_non_finite_numbers",
+        "tests/unit/test_verification_runner.py::test_code_change_assessment_rejects_unknown_semantic_fields",
+        "tests/integration/test_local_git_lifecycle.py::test_add_capability_records_public_interface_and_adr_through_full_lifecycle",
+        "tests/integration/test_local_git_lifecycle.py::test_cancel_cleans_only_safe_empty_work_and_preserves_dirty_work",
+        "tests/integration/test_local_git_lifecycle.py::test_complete_flow_tests_before_confirmation_then_commits_and_merges",
+        "tests/integration/test_local_git_lifecycle.py::test_conflict_reverification_waits_for_the_agent_merge_commit",
+        "tests/integration/test_local_git_lifecycle.py::test_new_project_baseline_and_adr_survive_the_complete_git_lifecycle",
+        "tests/integration/test_local_git_lifecycle.py::test_plain_language_work_item_completes_a_formal_domain_fact_change",
+        "tests/integration/test_local_git_lifecycle.py::test_two_non_overlapping_work_items_complete_from_parallel_worktrees",
+        "tests/unit/test_application_delivery_snapshots.py::test_actual_result_snapshot_rejects_an_added_unplanned_file",
+        "tests/unit/test_application_delivery_snapshots.py::test_actual_result_snapshot_rejects_file_swap_before_commit",
+        "tests/unit/test_application_delivery_snapshots.py::test_conflict_can_have_no_applicable_retest_command",
+        "tests/unit/test_application_delivery_snapshots.py::test_immutable_result_commit_must_equal_the_presented_file_snapshot",
+        "tests/unit/test_application_delivery_snapshots.py::test_prepared_in_place_merge_uses_the_target_tip_as_comparison_base"
+      ]
+    },
+    {
+      "target_id": "MODULE-B558AA14F6004AC0",
+      "target_kind": "module",
+      "contract": {
+        "module_id": "MODULE-B558AA14F6004AC0",
+        "title": "版本化项目文件读取",
+        "layer": "infrastructure",
+        "responsibility": "读取仓库限定内容，按已声明命令与切片机械展开输入范围，采集和比较内容快照；校验报告配置、原生回执、内容指纹与时效。仅准备调用方指定的证据目录和报告器环境，不执行验证命令或修改业务文件。仓库定位和成员选择由上层传入，不回调治理、事项或项目解析。",
+        "not_responsible_for": [
+          "不解释或校验产品、领域、架构和政策语义。",
+          "不修改业务文件、决定工程语义或建立平行历史；证据文件仅在调用方已指定目录内准备。",
+          "不执行交付、部署或任意用户命令。"
+        ],
+        "public_interface": {
+          "interface_id": "INTERFACE-18BF495BA0B34059",
+          "title": "版本化项目读取接口",
+          "operations": [
+            {
+              "name": "读取当前项目文件",
+              "meaning": "在调用方已绑定的单仓库范围内读取工作树内容，返回仓库身份、内容范围和来源元数据；不因收到路径就自行发现项目。"
+            },
+            {
+              "name": "读取精确版本文件",
+              "meaning": "从已绑定仓库的指定不可变版本读取内容，保持仓库身份，不回退到其他仓库或当前同名文件。"
+            },
+            {
+              "name": "批量读取精确版本文件",
+              "meaning": "按仓库及不可变版本分组批量读取声明范围，在一次用例内复用读取结果并保持逐文件身份和错误，不扩大为全项目扫描。"
+            },
+            {
+              "name": "解析精确版本",
+              "meaning": "将版本引用解析为不可变身份并报告不存在、歧义或仓库错误。"
+            },
+            {
+              "name": "呈现结构校验错误",
+              "meaning": "把结构校验器的确定性失败转换为稳定错误类别和可操作中文说明，不解释项目语义。"
+            },
+            {
+              "name": "采集与比对声明内容组合",
+              "meaning": "对调用方给出的仓库读取范围和已有外部证据引用采集不可变内容集合，记录采集边界并核对输入是否变化；只组合已声明依据，不主动执行服务探测或裁决证据充分性。"
+            },
+            {
+              "name": "校验声明输入和已记录证据",
+              "meaning": "对明确的仓库内容、报告配置、版本契约和时效作结构与字节比较，返回缺失、不匹配或过期事实；不自动探测服务或判断断言充分性。"
+            }
+          ]
+        }
+      },
+      "contract_location": {
+        "path": "docs/architecture/modules.yaml",
+        "pointer": "#/modules/13",
+        "start_line": 271,
+        "end_line": 296
+      },
+      "source_paths": [
+        "strixnova/src/strixnova/git_project_reader.py",
+        "strixnova/src/strixnova/project_content_snapshot.py",
+        "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+        "strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+        "strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json",
+        "strixnova/src/strixnova/resources/test-case-report-v1.schema.json",
+        "strixnova/src/strixnova/schema_error_reporting.py",
+        "strixnova/src/strixnova/test_case_evidence.py",
+        "strixnova/src/strixnova/verification_dependencies.py"
+      ],
+      "ownership_candidates": [
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/git_project_reader.py",
+          "sha256": "83e73350c3c2be53e8b28964d0cb33d9004eb6fce63b628c13813d3502c62433",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/project_content_snapshot.py",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-9114032F543D46B2",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "6c5eb471db146905393601d6b3077ccb97863da5e690e206d2fa26533a4c204f",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-9114032F543D46B2",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "a5f82c906c183b99da8491af3ad9a9bc4d37d01cea360391fc541fb2f1f0c1d5",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-9114032F543D46B2",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "a2ff1c13a0c4b4222359f2b9745adf2c1ea15d188810059885e4291346742e9e",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-9114032F543D46B2",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "bae706c10bcc8e70b0c802fd582638b2f03c3af386c4ab7c51585bf94de252bc",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/resources/test-case-report-v1.schema.json",
+          "language_id": "json",
+          "node_kind": "runtime_schema",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-9114032F543D46B2",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "5b02ab12e46a3fb51a65c424ae85bb263ea50eb29d3ba9ce2e826ec84c7df8cb",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/schema_error_reporting.py",
+          "sha256": "e56e7151f1b13640cd8d157c3c6836ff50409b9b832cf8fb4dbebe061184a887",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "implementation_stage_id": "ARCHSTAGE-92EC5D26F28042EB",
+          "current_status": "unknown",
+          "deviation_ids": [],
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。",
+          "repository_id": "REPO-284FDA042B2A4ABD"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/test_case_evidence.py",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-9114032F543D46B2",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "5d2ff99b1f63b7499681355494495ce4cd25a7226b5422ddc17544ba34e6115a",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        },
+        {
+          "scope_id": "OBSCOPE-A4E3EC1A6BC8404A",
+          "path": "strixnova/src/strixnova/verification_dependencies.py",
+          "language_id": "python",
+          "node_kind": "source_file",
+          "disposition": "owned",
+          "implementation_stage_id": "ARCHSTAGE-9114032F543D46B2",
+          "repository_id": "REPO-284FDA042B2A4ABD",
+          "sha256": "aa40ce909ffa55f7a0b9e32ecc69cef8169a5736e09eeeebf1391b83dc5aa1a0",
+          "target_module_id": "MODULE-B558AA14F6004AC0",
+          "deviation_ids": [],
+          "current_status": "unknown",
+          "rationale": "当前文件列入“版本化项目文件读取”模块归属候选；本轮采集实际 canonical 内容，职责与行为证据待独立复核，摘要不证明语义实现。"
+        }
+      ],
+      "test_definition_ids": [
+        "tests/unit/test_git_project_reader.py::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary",
+        "tests/unit/test_git_project_reader.py::test_read_only_reader_distinguishes_ancestor_from_descendant",
+        "tests/unit/test_git_project_reader.py::test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files",
+        "tests/unit/test_git_project_reader.py::test_unbound_directory_read_does_not_adopt_its_parent_repository",
+        "tests/unit/test_test_case_evidence.py::test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits",
+        "tests/unit/test_test_case_evidence.py::test_skip_xfail_xpass_and_missing_case_never_count_as_passed",
+        "tests/unit/test_test_case_evidence.py::test_selection_and_teardown_errors_are_observed_separately",
+        "tests/unit/test_test_case_evidence.py::test_xdist_controller_owns_one_complete_report",
+        "tests/unit/test_verification_dependencies.py::test_service_evidence_requires_actual_version_contract_and_environment",
+        "tests/unit/test_multi_repository_review_regressions.py::test_approved_continuation_keeps_preceding_slice_complete_in_both_views",
+        "tests/unit/test_multi_repository_review_regressions.py::test_continuation_cannot_hide_other_changes_or_missing_completion",
+        "tests/unit/test_multi_repository_review_regressions.py::test_continuation_exclusion_does_not_cover_equal_paths_in_another_repository",
+        "tests/unit/test_multi_repository_review_regressions.py::test_final_refresh_still_requires_its_own_current_verification",
+        "tests/unit/test_multi_repository_review_regressions.py::test_read_dependency_materializes_the_replanned_commit_after_prior_integration",
+        "tests/unit/test_composite_implementation_alignment.py::test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift",
+        "tests/unit/test_composite_implementation_alignment.py::test_source_repository_must_match_its_declared_scope",
+        "tests/unit/test_implementation_observation_drift.py::test_daily_drift_detects_new_dependency_in_a_fixed_project",
+        "tests/unit/test_implementation_observation_drift.py::test_daily_drift_reuses_only_unchanged_authorized_external_observation",
+        "tests/unit/test_implementation_observation_drift.py::test_external_observation_path_normalization_keeps_controlled_diagnostics",
+        "tests/unit/test_implementation_observation_drift.py::test_package_endpoint_ownership_resolves_only_one_module",
+        "tests/unit/test_implementation_observation_drift.py::test_target_responsibility_evidence_paths_are_checked"
+      ]
+    }
+  ],
+  "test_definitions": {
+    "tests/unit/test_yaml_metadata_patch.py::test_patch_yaml_values_changes_only_selected_metadata_spans": {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "qualified_name": "test_patch_yaml_values_changes_only_selected_metadata_spans",
+      "start_line": 16,
+      "end_line": 54,
+      "current_file_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "original_locator": "tests/unit/test_yaml_metadata_patch.py::test_patch_yaml_values_changes_only_selected_metadata_spans",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1024,
+          "node": "tests.unit.test_yaml_metadata_patch::test_patch_yaml_values_changes_only_selected_metadata_spans",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1028,
+          "node": "tests.unit.test_yaml_metadata_patch::test_patch_yaml_values_changes_only_selected_metadata_spans",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_yaml_metadata_patch.py::test_atomic_replacement_preserves_existing_file_mode": {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "qualified_name": "test_atomic_replacement_preserves_existing_file_mode",
+      "start_line": 57,
+      "end_line": 69,
+      "current_file_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "original_locator": "tests/unit/test_yaml_metadata_patch.py::test_atomic_replacement_preserves_existing_file_mode",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1015,
+          "node": "tests.unit.test_yaml_metadata_patch::test_atomic_replacement_preserves_existing_file_mode",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1030,
+          "node": "tests.unit.test_yaml_metadata_patch::test_atomic_replacement_preserves_existing_file_mode",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_recovers_after_one_file_was_already_written": {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "qualified_name": "test_yaml_patch_transaction_recovers_after_one_file_was_already_written",
+      "start_line": 72,
+      "end_line": 101,
+      "current_file_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "original_locator": "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_recovers_after_one_file_was_already_written",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1029,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_recovers_after_one_file_was_already_written",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1013,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_recovers_after_one_file_was_already_written",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails": {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "qualified_name": "test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails",
+      "start_line": 104,
+      "end_line": 142,
+      "current_file_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "original_locator": "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1027,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1014,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_repository_document_transactions.py::test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal": {
+      "path": "tests/unit/test_repository_document_transactions.py",
+      "qualified_name": "test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal",
+      "start_line": 16,
+      "end_line": 48,
+      "current_file_sha256": "6b5f88637fea66e737197eb6d5269f54fd181d393d8f4e028b39a736b10af0ae",
+      "original_locator": "tests/unit/test_repository_document_transactions.py::test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 772,
+          "node": "tests.unit.test_repository_document_transactions::test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 757,
+          "node": "tests.unit.test_repository_document_transactions::test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_repository_document_transactions.py::test_document_replacement_and_rollback_work_across_real_volumes": {
+      "path": "tests/unit/test_repository_document_transactions.py",
+      "qualified_name": "test_document_replacement_and_rollback_work_across_real_volumes",
+      "start_line": 102,
+      "end_line": 120,
+      "current_file_sha256": "6b5f88637fea66e737197eb6d5269f54fd181d393d8f4e028b39a736b10af0ae",
+      "original_locator": "tests/unit/test_repository_document_transactions.py::test_document_replacement_and_rollback_work_across_real_volumes",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 770,
+          "node": "tests.unit.test_repository_document_transactions::test_document_replacement_and_rollback_work_across_real_volumes",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 762,
+          "node": "tests.unit.test_repository_document_transactions::test_document_replacement_and_rollback_work_across_real_volumes",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_repository_document_transactions.py::test_separated_document_recovery_requires_the_original_explicit_targets": {
+      "path": "tests/unit/test_repository_document_transactions.py",
+      "qualified_name": "test_separated_document_recovery_requires_the_original_explicit_targets",
+      "start_line": 67,
+      "end_line": 99,
+      "current_file_sha256": "6b5f88637fea66e737197eb6d5269f54fd181d393d8f4e028b39a736b10af0ae",
+      "original_locator": "tests/unit/test_repository_document_transactions.py::test_separated_document_recovery_requires_the_original_explicit_targets",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 761,
+          "node": "tests.unit.test_repository_document_transactions::test_separated_document_recovery_requires_the_original_explicit_targets",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 758,
+          "node": "tests.unit.test_repository_document_transactions::test_separated_document_recovery_requires_the_original_explicit_targets",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_repository_document_transactions.py::test_yaml_transaction_binds_equal_paths_to_exact_repository_roots": {
+      "path": "tests/unit/test_repository_document_transactions.py",
+      "qualified_name": "test_yaml_transaction_binds_equal_paths_to_exact_repository_roots",
+      "start_line": 51,
+      "end_line": 64,
+      "current_file_sha256": "6b5f88637fea66e737197eb6d5269f54fd181d393d8f4e028b39a736b10af0ae",
+      "original_locator": "tests/unit/test_repository_document_transactions.py::test_yaml_transaction_binds_equal_paths_to_exact_repository_roots",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 764,
+          "node": "tests.unit.test_repository_document_transactions::test_yaml_transaction_binds_equal_paths_to_exact_repository_roots",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 769,
+          "node": "tests.unit.test_repository_document_transactions::test_yaml_transaction_binds_equal_paths_to_exact_repository_roots",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_case_aliases_of_one_target": {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "qualified_name": "test_yaml_patch_transaction_rejects_case_aliases_of_one_target",
+      "start_line": 171,
+      "end_line": 186,
+      "current_file_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "original_locator": "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_case_aliases_of_one_target",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1019,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_case_aliases_of_one_target",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1021,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_case_aliases_of_one_target",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_external_symlink": {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "qualified_name": "test_yaml_patch_transaction_rejects_external_symlink",
+      "start_line": 209,
+      "end_line": 228,
+      "current_file_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "original_locator": "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_external_symlink",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1021,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_external_symlink",
+          "outcome": "skipped"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1023,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_external_symlink",
+          "outcome": "skipped"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths": {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "qualified_name": "test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths",
+      "start_line": 156,
+      "end_line": 164,
+      "current_file_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "original_locator": "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1016,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[nested\\\\authority.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1018,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[nested\\\\authority.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1017,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[nested//authority.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1019,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[nested//authority.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1018,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[nested/./authority.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1020,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[nested/./authority.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1031,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[../outside.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1017,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[../outside.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1033,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[.git/config]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1015,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[.git/config]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1038,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[.strixnova/authority.yaml]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1016,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths[.strixnova/authority.yaml]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_internal_symlink": {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "qualified_name": "test_yaml_patch_transaction_rejects_internal_symlink",
+      "start_line": 189,
+      "end_line": 206,
+      "current_file_sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "original_locator": "tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_internal_symlink",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1020,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_symlink",
+          "outcome": "skipped"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1022,
+          "node": "tests.unit.test_yaml_metadata_patch::test_yaml_patch_transaction_rejects_internal_symlink",
+          "outcome": "skipped"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_verification_runner.py::test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt": {
+      "path": "tests/unit/test_verification_runner.py",
+      "qualified_name": "test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt",
+      "start_line": 50,
+      "end_line": 62,
+      "current_file_sha256": "9cb917418c244df8a24186dcf653c81806ca199ae70a363cc71fbf401cec2a1e",
+      "original_locator": "tests/unit/test_verification_runner.py::test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 944,
+          "node": "tests.unit.test_verification_runner::test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 907,
+          "node": "tests.unit.test_verification_runner::test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_verification_runner.py::test_deduplicates_only_by_argv_cwd_and_run_kind": {
+      "path": "tests/unit/test_verification_runner.py",
+      "qualified_name": "test_deduplicates_only_by_argv_cwd_and_run_kind",
+      "start_line": 65,
+      "end_line": 89,
+      "current_file_sha256": "9cb917418c244df8a24186dcf653c81806ca199ae70a363cc71fbf401cec2a1e",
+      "original_locator": "tests/unit/test_verification_runner.py::test_deduplicates_only_by_argv_cwd_and_run_kind",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 899,
+          "node": "tests.unit.test_verification_runner::test_deduplicates_only_by_argv_cwd_and_run_kind",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 901,
+          "node": "tests.unit.test_verification_runner::test_deduplicates_only_by_argv_cwd_and_run_kind",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_verification_runner.py::test_verification_timeout_rejects_non_finite_numbers": {
+      "path": "tests/unit/test_verification_runner.py",
+      "qualified_name": "test_verification_timeout_rejects_non_finite_numbers",
+      "start_line": 96,
+      "end_line": 101,
+      "current_file_sha256": "9cb917418c244df8a24186dcf653c81806ca199ae70a363cc71fbf401cec2a1e",
+      "original_locator": "tests/unit/test_verification_runner.py::test_verification_timeout_rejects_non_finite_numbers",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 900,
+          "node": "tests.unit.test_verification_runner::test_verification_timeout_rejects_non_finite_numbers[nan]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 902,
+          "node": "tests.unit.test_verification_runner::test_verification_timeout_rejects_non_finite_numbers[nan]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 901,
+          "node": "tests.unit.test_verification_runner::test_verification_timeout_rejects_non_finite_numbers[inf]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 903,
+          "node": "tests.unit.test_verification_runner::test_verification_timeout_rejects_non_finite_numbers[inf]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 902,
+          "node": "tests.unit.test_verification_runner::test_verification_timeout_rejects_non_finite_numbers[-inf]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 904,
+          "node": "tests.unit.test_verification_runner::test_verification_timeout_rejects_non_finite_numbers[-inf]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_verification_runner.py::test_code_change_assessment_rejects_unknown_semantic_fields": {
+      "path": "tests/unit/test_verification_runner.py",
+      "qualified_name": "test_code_change_assessment_rejects_unknown_semantic_fields",
+      "start_line": 104,
+      "end_line": 118,
+      "current_file_sha256": "9cb917418c244df8a24186dcf653c81806ca199ae70a363cc71fbf401cec2a1e",
+      "original_locator": "tests/unit/test_verification_runner.py::test_code_change_assessment_rejects_unknown_semantic_fields",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 903,
+          "node": "tests.unit.test_verification_runner::test_code_change_assessment_rejects_unknown_semantic_fields",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 905,
+          "node": "tests.unit.test_verification_runner::test_code_change_assessment_rejects_unknown_semantic_fields",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_local_git_lifecycle.py::test_add_capability_records_public_interface_and_adr_through_full_lifecycle": {
+      "path": "tests/integration/test_local_git_lifecycle.py",
+      "qualified_name": "test_add_capability_records_public_interface_and_adr_through_full_lifecycle",
+      "start_line": 1509,
+      "end_line": 1820,
+      "current_file_sha256": "30e8ff37ed8e4ea8e31fd8bc8180edc5cfdcfe1b72f80fbb4a5aa96a7912ce7c",
+      "original_locator": "tests/integration/test_local_git_lifecycle.py::test_add_capability_records_public_interface_and_adr_through_full_lifecycle",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1080,
+          "node": "tests.integration.test_local_git_lifecycle::test_add_capability_records_public_interface_and_adr_through_full_lifecycle",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_local_git_lifecycle.py::test_cancel_cleans_only_safe_empty_work_and_preserves_dirty_work": {
+      "path": "tests/integration/test_local_git_lifecycle.py",
+      "qualified_name": "test_cancel_cleans_only_safe_empty_work_and_preserves_dirty_work",
+      "start_line": 3074,
+      "end_line": 3152,
+      "current_file_sha256": "30e8ff37ed8e4ea8e31fd8bc8180edc5cfdcfe1b72f80fbb4a5aa96a7912ce7c",
+      "original_locator": "tests/integration/test_local_git_lifecycle.py::test_cancel_cleans_only_safe_empty_work_and_preserves_dirty_work",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1100,
+          "node": "tests.integration.test_local_git_lifecycle::test_cancel_cleans_only_safe_empty_work_and_preserves_dirty_work",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_local_git_lifecycle.py::test_complete_flow_tests_before_confirmation_then_commits_and_merges": {
+      "path": "tests/integration/test_local_git_lifecycle.py",
+      "qualified_name": "test_complete_flow_tests_before_confirmation_then_commits_and_merges",
+      "start_line": 924,
+      "end_line": 978,
+      "current_file_sha256": "30e8ff37ed8e4ea8e31fd8bc8180edc5cfdcfe1b72f80fbb4a5aa96a7912ce7c",
+      "original_locator": "tests/integration/test_local_git_lifecycle.py::test_complete_flow_tests_before_confirmation_then_commits_and_merges",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1074,
+          "node": "tests.integration.test_local_git_lifecycle::test_complete_flow_tests_before_confirmation_then_commits_and_merges",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_local_git_lifecycle.py::test_conflict_reverification_waits_for_the_agent_merge_commit": {
+      "path": "tests/integration/test_local_git_lifecycle.py",
+      "qualified_name": "test_conflict_reverification_waits_for_the_agent_merge_commit",
+      "start_line": 2464,
+      "end_line": 2742,
+      "current_file_sha256": "30e8ff37ed8e4ea8e31fd8bc8180edc5cfdcfe1b72f80fbb4a5aa96a7912ce7c",
+      "original_locator": "tests/integration/test_local_git_lifecycle.py::test_conflict_reverification_waits_for_the_agent_merge_commit",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1101,
+          "node": "tests.integration.test_local_git_lifecycle::test_conflict_reverification_waits_for_the_agent_merge_commit",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_local_git_lifecycle.py::test_new_project_baseline_and_adr_survive_the_complete_git_lifecycle": {
+      "path": "tests/integration/test_local_git_lifecycle.py",
+      "qualified_name": "test_new_project_baseline_and_adr_survive_the_complete_git_lifecycle",
+      "start_line": 981,
+      "end_line": 1506,
+      "current_file_sha256": "30e8ff37ed8e4ea8e31fd8bc8180edc5cfdcfe1b72f80fbb4a5aa96a7912ce7c",
+      "original_locator": "tests/integration/test_local_git_lifecycle.py::test_new_project_baseline_and_adr_survive_the_complete_git_lifecycle",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1098,
+          "node": "tests.integration.test_local_git_lifecycle::test_new_project_baseline_and_adr_survive_the_complete_git_lifecycle",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_local_git_lifecycle.py::test_plain_language_work_item_completes_a_formal_domain_fact_change": {
+      "path": "tests/integration/test_local_git_lifecycle.py",
+      "qualified_name": "test_plain_language_work_item_completes_a_formal_domain_fact_change",
+      "start_line": 1823,
+      "end_line": 2380,
+      "current_file_sha256": "30e8ff37ed8e4ea8e31fd8bc8180edc5cfdcfe1b72f80fbb4a5aa96a7912ce7c",
+      "original_locator": "tests/integration/test_local_git_lifecycle.py::test_plain_language_work_item_completes_a_formal_domain_fact_change",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1078,
+          "node": "tests.integration.test_local_git_lifecycle::test_plain_language_work_item_completes_a_formal_domain_fact_change",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_local_git_lifecycle.py::test_two_non_overlapping_work_items_complete_from_parallel_worktrees": {
+      "path": "tests/integration/test_local_git_lifecycle.py",
+      "qualified_name": "test_two_non_overlapping_work_items_complete_from_parallel_worktrees",
+      "start_line": 2383,
+      "end_line": 2461,
+      "current_file_sha256": "30e8ff37ed8e4ea8e31fd8bc8180edc5cfdcfe1b72f80fbb4a5aa96a7912ce7c",
+      "original_locator": "tests/integration/test_local_git_lifecycle.py::test_two_non_overlapping_work_items_complete_from_parallel_worktrees",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1079,
+          "node": "tests.integration.test_local_git_lifecycle::test_two_non_overlapping_work_items_complete_from_parallel_worktrees",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_application_delivery_snapshots.py::test_actual_result_snapshot_rejects_an_added_unplanned_file": {
+      "path": "tests/unit/test_application_delivery_snapshots.py",
+      "qualified_name": "test_actual_result_snapshot_rejects_an_added_unplanned_file",
+      "start_line": 329,
+      "end_line": 379,
+      "current_file_sha256": "505f68bb32615df2b745ebd64e795384bc6ff386d7ec8fcca34f8e3a89b8f8ab",
+      "original_locator": "tests/unit/test_application_delivery_snapshots.py::test_actual_result_snapshot_rejects_an_added_unplanned_file",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 114,
+          "node": "tests.unit.test_application_delivery_snapshots::test_actual_result_snapshot_rejects_an_added_unplanned_file",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 270,
+          "node": "tests.unit.test_application_delivery_snapshots::test_actual_result_snapshot_rejects_an_added_unplanned_file",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_application_delivery_snapshots.py::test_actual_result_snapshot_rejects_file_swap_before_commit": {
+      "path": "tests/unit/test_application_delivery_snapshots.py",
+      "qualified_name": "test_actual_result_snapshot_rejects_file_swap_before_commit",
+      "start_line": 286,
+      "end_line": 326,
+      "current_file_sha256": "505f68bb32615df2b745ebd64e795384bc6ff386d7ec8fcca34f8e3a89b8f8ab",
+      "original_locator": "tests/unit/test_application_delivery_snapshots.py::test_actual_result_snapshot_rejects_file_swap_before_commit",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 86,
+          "node": "tests.unit.test_application_delivery_snapshots::test_actual_result_snapshot_rejects_file_swap_before_commit",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 111,
+          "node": "tests.unit.test_application_delivery_snapshots::test_actual_result_snapshot_rejects_file_swap_before_commit",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_application_delivery_snapshots.py::test_conflict_can_have_no_applicable_retest_command": {
+      "path": "tests/unit/test_application_delivery_snapshots.py",
+      "qualified_name": "test_conflict_can_have_no_applicable_retest_command",
+      "start_line": 26,
+      "end_line": 118,
+      "current_file_sha256": "505f68bb32615df2b745ebd64e795384bc6ff386d7ec8fcca34f8e3a89b8f8ab",
+      "original_locator": "tests/unit/test_application_delivery_snapshots.py::test_conflict_can_have_no_applicable_retest_command",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 82,
+          "node": "tests.unit.test_application_delivery_snapshots::test_conflict_can_have_no_applicable_retest_command",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 82,
+          "node": "tests.unit.test_application_delivery_snapshots::test_conflict_can_have_no_applicable_retest_command",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_application_delivery_snapshots.py::test_immutable_result_commit_must_equal_the_presented_file_snapshot": {
+      "path": "tests/unit/test_application_delivery_snapshots.py",
+      "qualified_name": "test_immutable_result_commit_must_equal_the_presented_file_snapshot",
+      "start_line": 442,
+      "end_line": 513,
+      "current_file_sha256": "505f68bb32615df2b745ebd64e795384bc6ff386d7ec8fcca34f8e3a89b8f8ab",
+      "original_locator": "tests/unit/test_application_delivery_snapshots.py::test_immutable_result_commit_must_equal_the_presented_file_snapshot",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 188,
+          "node": "tests.unit.test_application_delivery_snapshots::test_immutable_result_commit_must_equal_the_presented_file_snapshot",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 105,
+          "node": "tests.unit.test_application_delivery_snapshots::test_immutable_result_commit_must_equal_the_presented_file_snapshot",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_application_delivery_snapshots.py::test_prepared_in_place_merge_uses_the_target_tip_as_comparison_base": {
+      "path": "tests/unit/test_application_delivery_snapshots.py",
+      "qualified_name": "test_prepared_in_place_merge_uses_the_target_tip_as_comparison_base",
+      "start_line": 382,
+      "end_line": 439,
+      "current_file_sha256": "505f68bb32615df2b745ebd64e795384bc6ff386d7ec8fcca34f8e3a89b8f8ab",
+      "original_locator": "tests/unit/test_application_delivery_snapshots.py::test_prepared_in_place_merge_uses_the_target_tip_as_comparison_base",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 269,
+          "node": "tests.unit.test_application_delivery_snapshots::test_prepared_in_place_merge_uses_the_target_tip_as_comparison_base",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 104,
+          "node": "tests.unit.test_application_delivery_snapshots::test_prepared_in_place_merge_uses_the_target_tip_as_comparison_base",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_git_project_reader.py::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary": {
+      "path": "tests/unit/test_git_project_reader.py",
+      "qualified_name": "test_git_for_windows_cmd_wrapper_resolves_to_direct_binary",
+      "start_line": 28,
+      "end_line": 41,
+      "current_file_sha256": "f38ce340b7236a421da4ce3ee8e9b58a7a934f004e69607050a973eaffaa46d1",
+      "original_locator": "tests/unit/test_git_project_reader.py::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 299,
+          "node": "tests.unit.test_git_project_reader::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 299,
+          "node": "tests.unit.test_git_project_reader::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_git_project_reader.py::test_read_only_reader_distinguishes_ancestor_from_descendant": {
+      "path": "tests/unit/test_git_project_reader.py",
+      "qualified_name": "test_read_only_reader_distinguishes_ancestor_from_descendant",
+      "start_line": 44,
+      "end_line": 63,
+      "current_file_sha256": "f38ce340b7236a421da4ce3ee8e9b58a7a934f004e69607050a973eaffaa46d1",
+      "original_locator": "tests/unit/test_git_project_reader.py::test_read_only_reader_distinguishes_ancestor_from_descendant",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 300,
+          "node": "tests.unit.test_git_project_reader::test_read_only_reader_distinguishes_ancestor_from_descendant",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 300,
+          "node": "tests.unit.test_git_project_reader::test_read_only_reader_distinguishes_ancestor_from_descendant",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_git_project_reader.py::test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files": {
+      "path": "tests/unit/test_git_project_reader.py",
+      "qualified_name": "test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files",
+      "start_line": 66,
+      "end_line": 88,
+      "current_file_sha256": "f38ce340b7236a421da4ce3ee8e9b58a7a934f004e69607050a973eaffaa46d1",
+      "original_locator": "tests/unit/test_git_project_reader.py::test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 309,
+          "node": "tests.unit.test_git_project_reader::test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 310,
+          "node": "tests.unit.test_git_project_reader::test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_git_project_reader.py::test_unbound_directory_read_does_not_adopt_its_parent_repository": {
+      "path": "tests/unit/test_git_project_reader.py",
+      "qualified_name": "test_unbound_directory_read_does_not_adopt_its_parent_repository",
+      "start_line": 91,
+      "end_line": 102,
+      "current_file_sha256": "f38ce340b7236a421da4ce3ee8e9b58a7a934f004e69607050a973eaffaa46d1",
+      "original_locator": "tests/unit/test_git_project_reader.py::test_unbound_directory_read_does_not_adopt_its_parent_repository",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 302,
+          "node": "tests.unit.test_git_project_reader::test_unbound_directory_read_does_not_adopt_its_parent_repository",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 318,
+          "node": "tests.unit.test_git_project_reader::test_unbound_directory_read_does_not_adopt_its_parent_repository",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_test_case_evidence.py::test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits": {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "qualified_name": "test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits",
+      "start_line": 29,
+      "end_line": 48,
+      "current_file_sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "original_locator": "tests/unit/test_test_case_evidence.py::test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 861,
+          "node": "tests.unit.test_test_case_evidence::test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 867,
+          "node": "tests.unit.test_test_case_evidence::test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_test_case_evidence.py::test_skip_xfail_xpass_and_missing_case_never_count_as_passed": {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "qualified_name": "test_skip_xfail_xpass_and_missing_case_never_count_as_passed",
+      "start_line": 51,
+      "end_line": 65,
+      "current_file_sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "original_locator": "tests/unit/test_test_case_evidence.py::test_skip_xfail_xpass_and_missing_case_never_count_as_passed",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 875,
+          "node": "tests.unit.test_test_case_evidence::test_skip_xfail_xpass_and_missing_case_never_count_as_passed",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 868,
+          "node": "tests.unit.test_test_case_evidence::test_skip_xfail_xpass_and_missing_case_never_count_as_passed",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_test_case_evidence.py::test_selection_and_teardown_errors_are_observed_separately": {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "qualified_name": "test_selection_and_teardown_errors_are_observed_separately",
+      "start_line": 68,
+      "end_line": 81,
+      "current_file_sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "original_locator": "tests/unit/test_test_case_evidence.py::test_selection_and_teardown_errors_are_observed_separately",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 863,
+          "node": "tests.unit.test_test_case_evidence::test_selection_and_teardown_errors_are_observed_separately",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 869,
+          "node": "tests.unit.test_test_case_evidence::test_selection_and_teardown_errors_are_observed_separately",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_test_case_evidence.py::test_xdist_controller_owns_one_complete_report": {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "qualified_name": "test_xdist_controller_owns_one_complete_report",
+      "start_line": 84,
+      "end_line": 90,
+      "current_file_sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "original_locator": "tests/unit/test_test_case_evidence.py::test_xdist_controller_owns_one_complete_report",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 890,
+          "node": "tests.unit.test_test_case_evidence::test_xdist_controller_owns_one_complete_report",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 866,
+          "node": "tests.unit.test_test_case_evidence::test_xdist_controller_owns_one_complete_report",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_verification_dependencies.py::test_service_evidence_requires_actual_version_contract_and_environment": {
+      "path": "tests/unit/test_verification_dependencies.py",
+      "qualified_name": "test_service_evidence_requires_actual_version_contract_and_environment",
+      "start_line": 14,
+      "end_line": 56,
+      "current_file_sha256": "2ae501c50e5e57246b91f92a427884e0b0dedaaee0ef41fa1695fc15a8316a70",
+      "original_locator": "tests/unit/test_verification_dependencies.py::test_service_evidence_requires_actual_version_contract_and_environment",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 897,
+          "node": "tests.unit.test_verification_dependencies::test_service_evidence_requires_actual_version_contract_and_environment",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 911,
+          "node": "tests.unit.test_verification_dependencies::test_service_evidence_requires_actual_version_contract_and_environment",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_multi_repository_review_regressions.py::test_approved_continuation_keeps_preceding_slice_complete_in_both_views": {
+      "path": "tests/unit/test_multi_repository_review_regressions.py",
+      "qualified_name": "test_approved_continuation_keeps_preceding_slice_complete_in_both_views",
+      "start_line": 56,
+      "end_line": 74,
+      "current_file_sha256": "828a19ecc518fc77169665afe910209ffa9626255c6070002f4f6c4d4eb94986",
+      "original_locator": "tests/unit/test_multi_repository_review_regressions.py::test_approved_continuation_keeps_preceding_slice_complete_in_both_views",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 510,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_approved_continuation_keeps_preceding_slice_complete_in_both_views[True]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 514,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_approved_continuation_keeps_preceding_slice_complete_in_both_views[True]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 517,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_approved_continuation_keeps_preceding_slice_complete_in_both_views[False]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 508,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_approved_continuation_keeps_preceding_slice_complete_in_both_views[False]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_multi_repository_review_regressions.py::test_continuation_cannot_hide_other_changes_or_missing_completion": {
+      "path": "tests/unit/test_multi_repository_review_regressions.py",
+      "qualified_name": "test_continuation_cannot_hide_other_changes_or_missing_completion",
+      "start_line": 114,
+      "end_line": 126,
+      "current_file_sha256": "828a19ecc518fc77169665afe910209ffa9626255c6070002f4f6c4d4eb94986",
+      "original_locator": "tests/unit/test_multi_repository_review_regressions.py::test_continuation_cannot_hide_other_changes_or_missing_completion",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 514,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_cannot_hide_other_changes_or_missing_completion[no_completion]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 525,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_cannot_hide_other_changes_or_missing_completion[no_completion]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 518,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_cannot_hide_other_changes_or_missing_completion[wrong_receipt]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 515,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_cannot_hide_other_changes_or_missing_completion[wrong_receipt]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 519,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_cannot_hide_other_changes_or_missing_completion[unrelated_input]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 511,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_cannot_hide_other_changes_or_missing_completion[unrelated_input]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 520,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_cannot_hide_other_changes_or_missing_completion[not_declared]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 513,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_cannot_hide_other_changes_or_missing_completion[not_declared]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_multi_repository_review_regressions.py::test_continuation_exclusion_does_not_cover_equal_paths_in_another_repository": {
+      "path": "tests/unit/test_multi_repository_review_regressions.py",
+      "qualified_name": "test_continuation_exclusion_does_not_cover_equal_paths_in_another_repository",
+      "start_line": 96,
+      "end_line": 110,
+      "current_file_sha256": "828a19ecc518fc77169665afe910209ffa9626255c6070002f4f6c4d4eb94986",
+      "original_locator": "tests/unit/test_multi_repository_review_regressions.py::test_continuation_exclusion_does_not_cover_equal_paths_in_another_repository",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 512,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_exclusion_does_not_cover_equal_paths_in_another_repository",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 517,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_continuation_exclusion_does_not_cover_equal_paths_in_another_repository",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_multi_repository_review_regressions.py::test_final_refresh_still_requires_its_own_current_verification": {
+      "path": "tests/unit/test_multi_repository_review_regressions.py",
+      "qualified_name": "test_final_refresh_still_requires_its_own_current_verification",
+      "start_line": 77,
+      "end_line": 93,
+      "current_file_sha256": "828a19ecc518fc77169665afe910209ffa9626255c6070002f4f6c4d4eb94986",
+      "original_locator": "tests/unit/test_multi_repository_review_regressions.py::test_final_refresh_still_requires_its_own_current_verification",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 522,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_final_refresh_still_requires_its_own_current_verification",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 510,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_final_refresh_still_requires_its_own_current_verification",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_multi_repository_review_regressions.py::test_read_dependency_materializes_the_replanned_commit_after_prior_integration": {
+      "path": "tests/unit/test_multi_repository_review_regressions.py",
+      "qualified_name": "test_read_dependency_materializes_the_replanned_commit_after_prior_integration",
+      "start_line": 130,
+      "end_line": 147,
+      "current_file_sha256": "828a19ecc518fc77169665afe910209ffa9626255c6070002f4f6c4d4eb94986",
+      "original_locator": "tests/unit/test_multi_repository_review_regressions.py::test_read_dependency_materializes_the_replanned_commit_after_prior_integration",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 521,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_read_dependency_materializes_the_replanned_commit_after_prior_integration[True]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 520,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_read_dependency_materializes_the_replanned_commit_after_prior_integration[True]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 529,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_read_dependency_materializes_the_replanned_commit_after_prior_integration[False]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 529,
+          "node": "tests.unit.test_multi_repository_review_regressions::test_read_dependency_materializes_the_replanned_commit_after_prior_integration[False]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_composite_implementation_alignment.py::test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift": {
+      "path": "tests/unit/test_composite_implementation_alignment.py",
+      "qualified_name": "test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift",
+      "start_line": 67,
+      "end_line": 75,
+      "current_file_sha256": "6852e1c23c92d3bdeeb353f2e296ac96b1b6fe75598fb157df931d74d7b6aae7",
+      "original_locator": "tests/unit/test_composite_implementation_alignment.py::test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 141,
+          "node": "tests.unit.test_composite_implementation_alignment::test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 141,
+          "node": "tests.unit.test_composite_implementation_alignment::test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_composite_implementation_alignment.py::test_source_repository_must_match_its_declared_scope": {
+      "path": "tests/unit/test_composite_implementation_alignment.py",
+      "qualified_name": "test_source_repository_must_match_its_declared_scope",
+      "start_line": 78,
+      "end_line": 85,
+      "current_file_sha256": "6852e1c23c92d3bdeeb353f2e296ac96b1b6fe75598fb157df931d74d7b6aae7",
+      "original_locator": "tests/unit/test_composite_implementation_alignment.py::test_source_repository_must_match_its_declared_scope",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 274,
+          "node": "tests.unit.test_composite_implementation_alignment::test_source_repository_must_match_its_declared_scope",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 275,
+          "node": "tests.unit.test_composite_implementation_alignment::test_source_repository_must_match_its_declared_scope",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation_drift.py::test_daily_drift_detects_new_dependency_in_a_fixed_project": {
+      "path": "tests/unit/test_implementation_observation_drift.py",
+      "qualified_name": "test_daily_drift_detects_new_dependency_in_a_fixed_project",
+      "start_line": 63,
+      "end_line": 71,
+      "current_file_sha256": "f4fabb249ea5c41ee703fac334dac6809f6fefadecdb49dfdf731566ece9df84",
+      "original_locator": "tests/unit/test_implementation_observation_drift.py::test_daily_drift_detects_new_dependency_in_a_fixed_project",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 448,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_detects_new_dependency_in_a_fixed_project",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 459,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_detects_new_dependency_in_a_fixed_project",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation_drift.py::test_daily_drift_reuses_only_unchanged_authorized_external_observation": {
+      "path": "tests/unit/test_implementation_observation_drift.py",
+      "qualified_name": "test_daily_drift_reuses_only_unchanged_authorized_external_observation",
+      "start_line": 31,
+      "end_line": 60,
+      "current_file_sha256": "f4fabb249ea5c41ee703fac334dac6809f6fefadecdb49dfdf731566ece9df84",
+      "original_locator": "tests/unit/test_implementation_observation_drift.py::test_daily_drift_reuses_only_unchanged_authorized_external_observation",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 440,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[none]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 437,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[none]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 443,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[comment]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 441,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[comment]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 444,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[source]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 440,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[source]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 445,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[unrelated]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 442,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[unrelated]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 447,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[deleted]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 444,
+          "node": "tests.unit.test_implementation_observation_drift::test_daily_drift_reuses_only_unchanged_authorized_external_observation[deleted]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation_drift.py::test_external_observation_path_normalization_keeps_controlled_diagnostics": {
+      "path": "tests/unit/test_implementation_observation_drift.py",
+      "qualified_name": "test_external_observation_path_normalization_keeps_controlled_diagnostics",
+      "start_line": 74,
+      "end_line": 101,
+      "current_file_sha256": "f4fabb249ea5c41ee703fac334dac6809f6fefadecdb49dfdf731566ece9df84",
+      "original_locator": "tests/unit/test_implementation_observation_drift.py::test_external_observation_path_normalization_keeps_controlled_diagnostics",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 449,
+          "node": "tests.unit.test_implementation_observation_drift::test_external_observation_path_normalization_keeps_controlled_diagnostics",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 461,
+          "node": "tests.unit.test_implementation_observation_drift::test_external_observation_path_normalization_keeps_controlled_diagnostics",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation_drift.py::test_package_endpoint_ownership_resolves_only_one_module": {
+      "path": "tests/unit/test_implementation_observation_drift.py",
+      "qualified_name": "test_package_endpoint_ownership_resolves_only_one_module",
+      "start_line": 105,
+      "end_line": 134,
+      "current_file_sha256": "f4fabb249ea5c41ee703fac334dac6809f6fefadecdb49dfdf731566ece9df84",
+      "original_locator": "tests/unit/test_implementation_observation_drift.py::test_package_endpoint_ownership_resolves_only_one_module",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 513,
+          "node": "tests.unit.test_implementation_observation_drift::test_package_endpoint_ownership_resolves_only_one_module",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 445,
+          "node": "tests.unit.test_implementation_observation_drift::test_package_endpoint_ownership_resolves_only_one_module",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/unit/test_implementation_observation_drift.py::test_target_responsibility_evidence_paths_are_checked": {
+      "path": "tests/unit/test_implementation_observation_drift.py",
+      "qualified_name": "test_target_responsibility_evidence_paths_are_checked",
+      "start_line": 20,
+      "end_line": 27,
+      "current_file_sha256": "f4fabb249ea5c41ee703fac334dac6809f6fefadecdb49dfdf731566ece9df84",
+      "original_locator": "tests/unit/test_implementation_observation_drift.py::test_target_responsibility_evidence_paths_are_checked",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 442,
+          "node": "tests.unit.test_implementation_observation_drift::test_target_responsibility_evidence_paths_are_checked",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 438,
+          "node": "tests.unit.test_implementation_observation_drift::test_target_responsibility_evidence_paths_are_checked",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by the JUnit receipt; do not infer exact-byte coverage from outcome alone"
+    },
+    "tests/integration/test_multi_repository_execution.py::test_preparation_owns_two_worktrees_and_only_one_persisted_execution_collection": {
+      "path": "tests/integration/test_multi_repository_execution.py",
+      "qualified_name": "test_preparation_owns_two_worktrees_and_only_one_persisted_execution_collection",
+      "start_line": 39,
+      "end_line": 53,
+      "current_file_sha256": "05de2b68ab3cddae685154242723d66fca1fe89c152b25e5177edbf5a5ddf99d",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1085,
+          "node": "tests.integration.test_multi_repository_execution::test_preparation_owns_two_worktrees_and_only_one_persisted_execution_collection",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1086,
+          "node": "tests.integration.test_multi_repository_execution::test_preparation_owns_two_worktrees_and_only_one_persisted_execution_collection",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_multi_repository_execution.py::test_work_area_creation_recovers_after_native_success_before_authority_writeback": {
+      "path": "tests/integration/test_multi_repository_execution.py",
+      "qualified_name": "test_work_area_creation_recovers_after_native_success_before_authority_writeback",
+      "start_line": 56,
+      "end_line": 80,
+      "current_file_sha256": "05de2b68ab3cddae685154242723d66fca1fe89c152b25e5177edbf5a5ddf99d",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1092,
+          "node": "tests.integration.test_multi_repository_execution::test_work_area_creation_recovers_after_native_success_before_authority_writeback",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1088,
+          "node": "tests.integration.test_multi_repository_execution::test_work_area_creation_recovers_after_native_success_before_authority_writeback",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_multi_repository_execution.py::test_cancellation_accounts_for_unmerged_work_in_the_other_repository": {
+      "path": "tests/integration/test_multi_repository_execution.py",
+      "qualified_name": "test_cancellation_accounts_for_unmerged_work_in_the_other_repository",
+      "start_line": 84,
+      "end_line": 105,
+      "current_file_sha256": "05de2b68ab3cddae685154242723d66fca1fe89c152b25e5177edbf5a5ddf99d",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1090,
+          "node": "tests.integration.test_multi_repository_execution::test_cancellation_accounts_for_unmerged_work_in_the_other_repository[discard]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1093,
+          "node": "tests.integration.test_multi_repository_execution::test_cancellation_accounts_for_unmerged_work_in_the_other_repository[discard]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1091,
+          "node": "tests.integration.test_multi_repository_execution::test_cancellation_accounts_for_unmerged_work_in_the_other_repository[preserve]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1081,
+          "node": "tests.integration.test_multi_repository_execution::test_cancellation_accounts_for_unmerged_work_in_the_other_repository[preserve]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_multi_repository_execution.py::test_verification_writeback_recovery_does_not_run_the_command_twice": {
+      "path": "tests/integration/test_multi_repository_execution.py",
+      "qualified_name": "test_verification_writeback_recovery_does_not_run_the_command_twice",
+      "start_line": 108,
+      "end_line": 136,
+      "current_file_sha256": "05de2b68ab3cddae685154242723d66fca1fe89c152b25e5177edbf5a5ddf99d",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1087,
+          "node": "tests.integration.test_multi_repository_execution::test_verification_writeback_recovery_does_not_run_the_command_twice",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1102,
+          "node": "tests.integration.test_multi_repository_execution::test_verification_writeback_recovery_does_not_run_the_command_twice",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_multi_repository_execution.py::test_read_only_repository_command_runs_at_the_declared_commit_without_changing_its_checkout": {
+      "path": "tests/integration/test_multi_repository_execution.py",
+      "qualified_name": "test_read_only_repository_command_runs_at_the_declared_commit_without_changing_its_checkout",
+      "start_line": 139,
+      "end_line": 164,
+      "current_file_sha256": "05de2b68ab3cddae685154242723d66fca1fe89c152b25e5177edbf5a5ddf99d",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1095,
+          "node": "tests.integration.test_multi_repository_execution::test_read_only_repository_command_runs_at_the_declared_commit_without_changing_its_checkout",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1084,
+          "node": "tests.integration.test_multi_repository_execution::test_read_only_repository_command_runs_at_the_declared_commit_without_changing_its_checkout",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_multi_repository_execution.py::test_commands_execute_in_their_repository_and_complete_one_combined_slice": {
+      "path": "tests/integration/test_multi_repository_execution.py",
+      "qualified_name": "test_commands_execute_in_their_repository_and_complete_one_combined_slice",
+      "start_line": 220,
+      "end_line": 229,
+      "current_file_sha256": "05de2b68ab3cddae685154242723d66fca1fe89c152b25e5177edbf5a5ddf99d",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1093,
+          "node": "tests.integration.test_multi_repository_execution::test_commands_execute_in_their_repository_and_complete_one_combined_slice",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1085,
+          "node": "tests.integration.test_multi_repository_execution::test_commands_execute_in_their_repository_and_complete_one_combined_slice",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order": {
+      "path": "tests/integration/test_multi_repository_execution.py",
+      "qualified_name": "test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order",
+      "start_line": 252,
+      "end_line": 306,
+      "current_file_sha256": "05de2b68ab3cddae685154242723d66fca1fe89c152b25e5177edbf5a5ddf99d",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1094,
+          "node": "tests.integration.test_multi_repository_execution::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[finish]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1096,
+          "node": "tests.integration.test_multi_repository_execution::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[cancel_after_first]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1097,
+          "node": "tests.integration.test_multi_repository_execution::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[authorities_first_conflict_second]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1099,
+          "node": "tests.integration.test_multi_repository_execution::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[conflict_first]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1112,
+          "node": "tests.integration.test_multi_repository_execution::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[conflict_second]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/unit/test_test_case_evidence.py::test_report_from_a_different_run_or_duplicate_phase_is_rejected": {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "qualified_name": "test_report_from_a_different_run_or_duplicate_phase_is_rejected",
+      "start_line": 93,
+      "end_line": 104,
+      "current_file_sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 872,
+          "node": "tests.unit.test_test_case_evidence::test_report_from_a_different_run_or_duplicate_phase_is_rejected",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 936,
+          "node": "tests.unit.test_test_case_evidence::test_report_from_a_different_run_or_duplicate_phase_is_rejected",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/unit/test_test_case_evidence.py::test_case_inputs_cannot_escape_the_declared_workspace": {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "qualified_name": "test_case_inputs_cannot_escape_the_declared_workspace",
+      "start_line": 108,
+      "end_line": 112,
+      "current_file_sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 867,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[/outside.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 882,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[/outside.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 868,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[C:/outside.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 894,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[C:/outside.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 869,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[.strixnova/private.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 942,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[.strixnova/private.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 870,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[a/../b.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 872,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[a/../b.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 873,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[../outside.py]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 876,
+          "node": "tests.unit.test_test_case_evidence::test_case_inputs_cannot_escape_the_declared_workspace[../outside.py]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/unit/test_test_case_evidence.py::test_success_claim_requires_a_complete_report_and_unchanged_inputs": {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "qualified_name": "test_success_claim_requires_a_complete_report_and_unchanged_inputs",
+      "start_line": 116,
+      "end_line": 134,
+      "current_file_sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 871,
+          "node": "tests.unit.test_test_case_evidence::test_success_claim_requires_a_complete_report_and_unchanged_inputs[missing_report]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 873,
+          "node": "tests.unit.test_test_case_evidence::test_success_claim_requires_a_complete_report_and_unchanged_inputs[missing_report]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 892,
+          "node": "tests.unit.test_test_case_evidence::test_success_claim_requires_a_complete_report_and_unchanged_inputs[collection_error]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 896,
+          "node": "tests.unit.test_test_case_evidence::test_success_claim_requires_a_complete_report_and_unchanged_inputs[collection_error]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 895,
+          "node": "tests.unit.test_test_case_evidence::test_success_claim_requires_a_complete_report_and_unchanged_inputs[changed_inputs]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 875,
+          "node": "tests.unit.test_test_case_evidence::test_success_claim_requires_a_complete_report_and_unchanged_inputs[changed_inputs]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/unit/test_test_case_evidence.py::test_xdist_loadgroup_keeps_exact_native_case_identity": {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "qualified_name": "test_xdist_loadgroup_keeps_exact_native_case_identity",
+      "start_line": 137,
+      "end_line": 143,
+      "current_file_sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 874,
+          "node": "tests.unit.test_test_case_evidence::test_xdist_loadgroup_keeps_exact_native_case_identity",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 934,
+          "node": "tests.unit.test_test_case_evidence::test_xdist_loadgroup_keeps_exact_native_case_identity",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_behavior_example_cli.py::test_public_example_to_report_result_and_historical_artifact": {
+      "path": "tests/integration/test_behavior_example_cli.py",
+      "qualified_name": "test_public_example_to_report_result_and_historical_artifact",
+      "start_line": 75,
+      "end_line": 113,
+      "current_file_sha256": "d8b5629b4b43be0ecb7c39fc97ee8cf880b07a445177a9703a2a49bee6e1c56a",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1023,
+          "node": "tests.integration.test_behavior_example_cli::test_public_example_to_report_result_and_historical_artifact[False]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1024,
+          "node": "tests.integration.test_behavior_example_cli::test_public_example_to_report_result_and_historical_artifact[False]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1025,
+          "node": "tests.integration.test_behavior_example_cli::test_public_example_to_report_result_and_historical_artifact[True]",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1041,
+          "node": "tests.integration.test_behavior_example_cli::test_public_example_to_report_result_and_historical_artifact[True]",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_behavior_example_cli.py::test_changed_uncommitted_input_returns_to_verification_without_reconfirming_direction": {
+      "path": "tests/integration/test_behavior_example_cli.py",
+      "qualified_name": "test_changed_uncommitted_input_returns_to_verification_without_reconfirming_direction",
+      "start_line": 116,
+      "end_line": 127,
+      "current_file_sha256": "d8b5629b4b43be0ecb7c39fc97ee8cf880b07a445177a9703a2a49bee6e1c56a",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1041,
+          "node": "tests.integration.test_behavior_example_cli::test_changed_uncommitted_input_returns_to_verification_without_reconfirming_direction",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1032,
+          "node": "tests.integration.test_behavior_example_cli::test_changed_uncommitted_input_returns_to_verification_without_reconfirming_direction",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    },
+    "tests/integration/test_behavior_example_cli.py::test_case_report_is_preserved_by_maintenance_backup_and_restore": {
+      "path": "tests/integration/test_behavior_example_cli.py",
+      "qualified_name": "test_case_report_is_preserved_by_maintenance_backup_and_restore",
+      "start_line": 130,
+      "end_line": 146,
+      "current_file_sha256": "d8b5629b4b43be0ecb7c39fc97ee8cf880b07a445177a9703a2a49bee6e1c56a",
+      "recorded_executions": [
+        {
+          "run_id": "d0856323c4b6",
+          "junit_testcase_index": 1026,
+          "node": "tests.integration.test_behavior_example_cli::test_case_report_is_preserved_by_maintenance_backup_and_restore",
+          "outcome": "passed"
+        },
+        {
+          "run_id": "f5e20647248e",
+          "junit_testcase_index": 1033,
+          "node": "tests.integration.test_behavior_example_cli::test_case_report_is_preserved_by_maintenance_backup_and_restore",
+          "outcome": "passed"
+        }
+      ],
+      "source_at_execution_hash": "not independently captured by JUnit; no exact-byte coverage inference"
+    }
+  },
+  "files": [
+    {
+      "path": "docs/architecture/modules.yaml",
+      "read_path": "inputs/files/docs/architecture/modules.yaml",
+      "sha256": "f6c3efe6120580193a5a1b9dafa0897dbfd3fe55145cf270248ed60c640c2b74",
+      "line_count": 442,
+      "bytes": 38835
+    },
+    {
+      "path": "strixnova/src/strixnova/git_project_reader.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/git_project_reader.py",
+      "sha256": "83e73350c3c2be53e8b28964d0cb33d9004eb6fce63b628c13813d3502c62433",
+      "line_count": 1564,
+      "bytes": 63387
+    },
+    {
+      "path": "strixnova/src/strixnova/project_content_snapshot.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_content_snapshot.py",
+      "sha256": "6c5eb471db146905393601d6b3077ccb97863da5e690e206d2fa26533a4c204f",
+      "line_count": 213,
+      "bytes": 11532
+    },
+    {
+      "path": "strixnova/src/strixnova/recoverable_document_transaction.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/recoverable_document_transaction.py",
+      "sha256": "a825bfd48fb8c77274f291bfc590db36b762da02e8451de5fe5a4f06040ecd9e",
+      "line_count": 474,
+      "bytes": 18393
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+      "sha256": "a5f82c906c183b99da8491af3ad9a9bc4d37d01cea360391fc541fb2f1f0c1d5",
+      "line_count": 113,
+      "bytes": 3525
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+      "sha256": "a2ff1c13a0c4b4222359f2b9745adf2c1ea15d188810059885e4291346742e9e",
+      "line_count": 140,
+      "bytes": 3504
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json",
+      "sha256": "bae706c10bcc8e70b0c802fd582638b2f03c3af386c4ab7c51585bf94de252bc",
+      "line_count": 198,
+      "bytes": 4404
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/test-case-report-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/test-case-report-v1.schema.json",
+      "sha256": "5b02ab12e46a3fb51a65c424ae85bb263ea50eb29d3ba9ce2e826ec84c7df8cb",
+      "line_count": 134,
+      "bytes": 2780
+    },
+    {
+      "path": "strixnova/src/strixnova/resources/verification-summary-v1.schema.json",
+      "read_path": "inputs/files/strixnova/src/strixnova/resources/verification-summary-v1.schema.json",
+      "sha256": "fc13d70cd2b4e124cfef21ecf605d97b111e5521a5a93d26850f8dfdb780fbf8",
+      "line_count": 291,
+      "bytes": 5637
+    },
+    {
+      "path": "strixnova/src/strixnova/schema_error_reporting.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/schema_error_reporting.py",
+      "sha256": "e56e7151f1b13640cd8d157c3c6836ff50409b9b832cf8fb4dbebe061184a887",
+      "line_count": 118,
+      "bytes": 4310
+    },
+    {
+      "path": "strixnova/src/strixnova/test_case_evidence.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/test_case_evidence.py",
+      "sha256": "5d2ff99b1f63b7499681355494495ce4cd25a7226b5422ddc17544ba34e6115a",
+      "line_count": 367,
+      "bytes": 21272
+    },
+    {
+      "path": "strixnova/src/strixnova/verification_dependencies.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/verification_dependencies.py",
+      "sha256": "aa40ce909ffa55f7a0b9e32ecc69cef8169a5736e09eeeebf1391b83dc5aa1a0",
+      "line_count": 115,
+      "bytes": 7172
+    },
+    {
+      "path": "strixnova/src/strixnova/verification_runner.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/verification_runner.py",
+      "sha256": "fdf89217cd1bf384b3ffdc0c0db066f2fe7c14a370c3787a112306443563cef0",
+      "line_count": 1210,
+      "bytes": 49261
+    },
+    {
+      "path": "strixnova/src/strixnova/yaml_metadata_patch.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/yaml_metadata_patch.py",
+      "sha256": "fcd0ff9335c2a99234878c7d89a049113de632b59f72f6774f81f619a00e88d2",
+      "line_count": 417,
+      "bytes": 16648
+    },
+    {
+      "path": "tests/integration/test_local_git_lifecycle.py",
+      "read_path": "inputs/files/tests/integration/test_local_git_lifecycle.py",
+      "sha256": "30e8ff37ed8e4ea8e31fd8bc8180edc5cfdcfe1b72f80fbb4a5aa96a7912ce7c",
+      "line_count": 3152,
+      "bytes": 112170
+    },
+    {
+      "path": "tests/support/__init__.py",
+      "read_path": "inputs/files/tests/support/__init__.py",
+      "sha256": "3de8a4a2d1a7c39a39e659c040ef311e1526af24098a396468f33162bd1b2398",
+      "line_count": 1,
+      "bytes": 46
+    },
+    {
+      "path": "tests/support/behavior_examples.py",
+      "read_path": "inputs/files/tests/support/behavior_examples.py",
+      "sha256": "a17f6373d258fbe5f91dd5814a5abfc200eca5c834077625b20d000a646339b9",
+      "line_count": 42,
+      "bytes": 1815
+    },
+    {
+      "path": "tests/support/governance_assessment.py",
+      "read_path": "inputs/files/tests/support/governance_assessment.py",
+      "sha256": "5c912e2bd629b66bf8df73238d94b2da1e02bcb26541e9e7b64a857bd9407e63",
+      "line_count": 1007,
+      "bytes": 39873
+    },
+    {
+      "path": "tests/support/history_records.py",
+      "read_path": "inputs/files/tests/support/history_records.py",
+      "sha256": "3f9da9a198b32d015bcbbb0c54f548b2472b58084eb95500a870ae82d4c49604",
+      "line_count": 116,
+      "bytes": 7182
+    },
+    {
+      "path": "tests/support/implementation_alignment.py",
+      "read_path": "inputs/files/tests/support/implementation_alignment.py",
+      "sha256": "7711215903965a40507f36b9ba7050a11538d73fd708ecee402ba9c7302814f0",
+      "line_count": 110,
+      "bytes": 5344
+    },
+    {
+      "path": "tests/support/project_baseline.py",
+      "read_path": "inputs/files/tests/support/project_baseline.py",
+      "sha256": "1f729a46cd4775bc3ec64273310b5518bea3c19dec470e803c61fe15705eec97",
+      "line_count": 830,
+      "bytes": 32542
+    },
+    {
+      "path": "tests/support/project_configuration.py",
+      "read_path": "inputs/files/tests/support/project_configuration.py",
+      "sha256": "f5e31a3976bbddfbb74feccda2a1366205a83cdd031744372f81c1c617ce98ea",
+      "line_count": 51,
+      "bytes": 2373
+    },
+    {
+      "path": "tests/support/project_context.py",
+      "read_path": "inputs/files/tests/support/project_context.py",
+      "sha256": "e3dbd35ee4cdf6bd5d658319ef9b1086a88163a0506cbc6c82c5acd81e6701aa",
+      "line_count": 65,
+      "bytes": 2255
+    },
+    {
+      "path": "tests/support/review_context.py",
+      "read_path": "inputs/files/tests/support/review_context.py",
+      "sha256": "66775f3379adb6470cdae63122c9ac62ab55fa3920fd919e0ec7f86ee9c37be0",
+      "line_count": 60,
+      "bytes": 2644
+    },
+    {
+      "path": "tests/support/review_subject.py",
+      "read_path": "inputs/files/tests/support/review_subject.py",
+      "sha256": "eb5d8f4930524ef3df2cff69c87cb9c76ee944fa8d4e0a9ae0e43f02343096cb",
+      "line_count": 38,
+      "bytes": 1625
+    },
+    {
+      "path": "tests/support/verification_approval.py",
+      "read_path": "inputs/files/tests/support/verification_approval.py",
+      "sha256": "52e56793ed7d55b47cfe939d487f775b9d3c166de989cc654f0b8f970d792528",
+      "line_count": 66,
+      "bytes": 2084
+    },
+    {
+      "path": "tests/unit/test_application_delivery_snapshots.py",
+      "read_path": "inputs/files/tests/unit/test_application_delivery_snapshots.py",
+      "sha256": "505f68bb32615df2b745ebd64e795384bc6ff386d7ec8fcca34f8e3a89b8f8ab",
+      "line_count": 589,
+      "bytes": 20059
+    },
+    {
+      "path": "tests/unit/test_composite_implementation_alignment.py",
+      "read_path": "inputs/files/tests/unit/test_composite_implementation_alignment.py",
+      "sha256": "6852e1c23c92d3bdeeb353f2e296ac96b1b6fe75598fb157df931d74d7b6aae7",
+      "line_count": 85,
+      "bytes": 5334
+    },
+    {
+      "path": "tests/unit/test_git_project_reader.py",
+      "read_path": "inputs/files/tests/unit/test_git_project_reader.py",
+      "sha256": "f38ce340b7236a421da4ce3ee8e9b58a7a934f004e69607050a973eaffaa46d1",
+      "line_count": 685,
+      "bytes": 24015
+    },
+    {
+      "path": "tests/unit/test_implementation_observation_drift.py",
+      "read_path": "inputs/files/tests/unit/test_implementation_observation_drift.py",
+      "sha256": "f4fabb249ea5c41ee703fac334dac6809f6fefadecdb49dfdf731566ece9df84",
+      "line_count": 134,
+      "bytes": 5066
+    },
+    {
+      "path": "tests/unit/test_multi_repository_review_regressions.py",
+      "read_path": "inputs/files/tests/unit/test_multi_repository_review_regressions.py",
+      "sha256": "828a19ecc518fc77169665afe910209ffa9626255c6070002f4f6c4d4eb94986",
+      "line_count": 149,
+      "bytes": 9212
+    },
+    {
+      "path": "tests/unit/test_repository_document_transactions.py",
+      "read_path": "inputs/files/tests/unit/test_repository_document_transactions.py",
+      "sha256": "6b5f88637fea66e737197eb6d5269f54fd181d393d8f4e028b39a736b10af0ae",
+      "line_count": 120,
+      "bytes": 6352
+    },
+    {
+      "path": "tests/unit/test_test_case_evidence.py",
+      "read_path": "inputs/files/tests/unit/test_test_case_evidence.py",
+      "sha256": "a405d0cfe36d059db86bda29e9c1b0221c2f97ba1b00e3632b4d51eee0c6c0b0",
+      "line_count": 143,
+      "bytes": 7936
+    },
+    {
+      "path": "tests/unit/test_verification_dependencies.py",
+      "read_path": "inputs/files/tests/unit/test_verification_dependencies.py",
+      "sha256": "2ae501c50e5e57246b91f92a427884e0b0dedaaee0ef41fa1695fc15a8316a70",
+      "line_count": 56,
+      "bytes": 4002
+    },
+    {
+      "path": "tests/unit/test_verification_runner.py",
+      "read_path": "inputs/files/tests/unit/test_verification_runner.py",
+      "sha256": "9cb917418c244df8a24186dcf653c81806ca199ae70a363cc71fbf401cec2a1e",
+      "line_count": 702,
+      "bytes": 24367
+    },
+    {
+      "path": "tests/unit/test_yaml_metadata_patch.py",
+      "read_path": "inputs/files/tests/unit/test_yaml_metadata_patch.py",
+      "sha256": "fc8607479dc900e20b22312ca2745d68c7632430750d7a9bbacd442f09e0b2c6",
+      "line_count": 228,
+      "bytes": 7103
+    },
+    {
+      "path": "strixnova/src/strixnova/application_coordinator.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/application_coordinator.py",
+      "sha256": "e698cda2594d6057414fab79a74cc4f2675e2faa53e0ba2ba669b5c21ca63b75",
+      "line_count": 5586,
+      "bytes": 248645
+    },
+    {
+      "path": "tests/integration/test_multi_repository_execution.py",
+      "read_path": "inputs/files/tests/integration/test_multi_repository_execution.py",
+      "sha256": "05de2b68ab3cddae685154242723d66fca1fe89c152b25e5177edbf5a5ddf99d",
+      "line_count": 336,
+      "bytes": 24155
+    },
+    {
+      "path": "strixnova/src/strixnova/project_maintenance.py",
+      "read_path": "inputs/files/strixnova/src/strixnova/project_maintenance.py",
+      "sha256": "65fa490170379f9c2bcd32feea3b5bbeb5a4d1a1fb78be089adeff65d1d959b1",
+      "line_count": 626,
+      "bytes": 31922
+    },
+    {
+      "path": "tests/integration/test_behavior_example_cli.py",
+      "read_path": "inputs/files/tests/integration/test_behavior_example_cli.py",
+      "sha256": "d8b5629b4b43be0ecb7c39fc97ee8cf880b07a445177a9703a2a49bee6e1c56a",
+      "line_count": 146,
+      "bytes": 9441
+    }
+  ],
+  "excluded_retired_locators": [],
+  "limitations": [
+    "The old locator index is navigation only. Contracts were compared to current documents; every source/test was re-read and function line locations rebuilt.",
+    "Recorded test results prove their named assertions at the recorded time, not full semantic sufficiency. JUnit does not capture execution-time source hashes.",
+    "All real-project authorities remain draft/unconfirmed; Git baseline fields are not yet bound because the new repo is unborn. Do not fabricate Git or owner acceptance.",
+    "These targets concern current program responsibilities. Agent effectiveness, whole-project maturity and external certification are separate claims."
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "context_supplement": {
+    "kind": "verification",
+    "added_source_paths": [
+      "strixnova/src/strixnova/application_coordinator.py",
+      "tests/integration/test_multi_repository_execution.py",
+      "strixnova/src/strixnova/project_maintenance.py",
+      "tests/integration/test_behavior_example_cli.py"
+    ],
+    "additional_test_definitions": [
+      "tests/integration/test_multi_repository_execution.py::test_preparation_owns_two_worktrees_and_only_one_persisted_execution_collection",
+      "tests/integration/test_multi_repository_execution.py::test_work_area_creation_recovers_after_native_success_before_authority_writeback",
+      "tests/integration/test_multi_repository_execution.py::test_cancellation_accounts_for_unmerged_work_in_the_other_repository",
+      "tests/integration/test_multi_repository_execution.py::test_verification_writeback_recovery_does_not_run_the_command_twice",
+      "tests/integration/test_multi_repository_execution.py::test_read_only_repository_command_runs_at_the_declared_commit_without_changing_its_checkout",
+      "tests/integration/test_multi_repository_execution.py::test_commands_execute_in_their_repository_and_complete_one_combined_slice",
+      "tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order",
+      "tests/unit/test_test_case_evidence.py::test_report_from_a_different_run_or_duplicate_phase_is_rejected",
+      "tests/unit/test_test_case_evidence.py::test_case_inputs_cannot_escape_the_declared_workspace",
+      "tests/unit/test_test_case_evidence.py::test_success_claim_requires_a_complete_report_and_unchanged_inputs",
+      "tests/unit/test_test_case_evidence.py::test_xdist_loadgroup_keeps_exact_native_case_identity",
+      "tests/integration/test_behavior_example_cli.py::test_public_example_to_report_result_and_historical_artifact",
+      "tests/integration/test_behavior_example_cli.py::test_changed_uncommitted_input_returns_to_verification_without_reconfirming_direction",
+      "tests/integration/test_behavior_example_cli.py::test_case_report_is_preserved_by_maintenance_backup_and_restore"
+    ],
+    "scope": "Collaborator and assertion context only; target contracts, production ownership and previous code bytes are unchanged. A test need not be production-owned to support a boundary."
+  }
+}

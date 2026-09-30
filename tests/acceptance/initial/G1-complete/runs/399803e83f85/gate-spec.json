@@ -1,0 +1,64 @@
+{
+  "sources": {
+    "request": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8d987875922b\\evidence\\user-input.txt",
+      "role": "user_input"
+    },
+    "question": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\10bdc29a6a23\\evidence\\user-input.txt",
+      "role": "user_input"
+    },
+    "fixture": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\f0addbc9966a\\work\\fixture.json",
+      "role": "original_input"
+    },
+    "product": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\f0addbc9966a\\work\\project\\docs\\product\\definition.yaml",
+      "role": "original_input"
+    },
+    "source": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\f0addbc9966a\\work\\project\\src.py",
+      "role": "original_input"
+    },
+    "initial-explanation": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8d987875922b\\evidence\\author-response.md",
+      "role": "author_response"
+    },
+    "current-explanation": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\10bdc29a6a23\\evidence\\author-response.md",
+      "role": "author_response"
+    },
+    "actual-candidate": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\10bdc29a6a23\\evidence\\endpoint.json",
+      "role": "author_artifact"
+    },
+    "initial-tools": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\8d987875922b\\evidence\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "current-tools": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\10bdc29a6a23\\evidence\\tool-steps.json",
+      "role": "author_artifact"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "G1-DIRECTION-READY",
+      "expected_behavior": "当前已展示的完整方向与公开候选一致，能在不发明关键业务决定的前提下进入制定方案：非法顺序拒绝、合法返回与函数签名保持，范围和授权边界清楚；用户可理解修改前后及其效果。说明按这个小修复的真实复杂度组织，不强迫编造风险或固定标题。当前仍等待负责人后续明确接受，代码与Git尚未实施。",
+      "must_avoid": "把结构正确或候选存在当成语义成熟；把固定角色输入预当授权；省略会改变决定的缺口。本关口只评当前投递条件，不用改好的重述替代完整场景对初轮主动解释的评价。",
+      "evidence_source_ids": [
+        "initial-explanation",
+        "current-explanation",
+        "actual-candidate",
+        "initial-tools",
+        "current-tools"
+      ],
+      "verification_scope": "仅决定是否满足已批准固定方向接受输入的投递条件；不是G1完整通过或真人理解/接受。",
+      "machine_checks": {
+        "direction_candidate_waits_for_owner": true,
+        "same_candidate_and_version_after_question": true,
+        "source_and_git_unchanged": true
+      }
+    }
+  ]
+}

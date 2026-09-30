@@ -1,0 +1,193 @@
+schema_version: strixnova.project-engineering-policy.v1
+policy_id: POLICY-464E891F2CE841AA
+revision:
+  revision_id: POLICYREV-6151D5CB5D3D4E51
+  status: draft
+  supersedes_revision_id: null
+  confirmed_by_owner_id: null
+  confirmed_on: null
+product_definition_ref:
+  product_id: PRODUCT-8312417768A84DE4
+  revision_id: REVISION-59EB5B9A3F3F46C0
+base_profile_ref:
+  profile_id: strixnova-general-software-engineering
+  profile_version: '2026-08-23'
+method_adoptions:
+- method_id: ddd
+  status: adopted
+  reason: Strixnova的核心复杂度来自建设事项、工程评估、项目治理、交付与验证等 领域事实及其关系；采用 DDD（领域驱动设计）维护统一语言、限界上下文、 领域不变量、上下文关系和实现对齐，不把方法名称当作代码目录模板或认证。
+  conditions: []
+  adopted_technique_ids:
+  - ubiquitous_language
+  - bounded_context
+  - context_map
+  - domain_invariant_trace
+policy_statements:
+  quality:
+  - 可用性必须由真实效果、安装和验证证明，开发阶段标签不是可用性结论。
+  - 合规状态必须区分来源绑定、程序校验、内部评估、真实人类审查和外部认证。
+  - 方向阶段由智能编码代理自行查明项目事实，只向项目负责人提出会实质改变方向的决定；请求已明确时不得仪式性追问。
+  - 方向、完整工程方案和实际结果进入确认前，智能编码代理必须主动说明当前或修改前状态、候选变化、产品效果、工程逻辑、影响与风险、未知、推荐和授权边界；内容按实际复杂度组织，不要求负责人先追问或理解系统字段。
+  - 普通确认允许负责人自然表达明确接受或具体纠正；Agent 保留真实原文，提交显式接受或要求修改的决定及依据。事项版本、决定标签、候选身份、指纹、Schema 名称和结果卡编号只作为程序内部绑定或审计事实，默认不得要求负责人阅读、复制或签署；程序不按自然语言词表判断决定。
+  - 用户表示看不懂、提问或要求换一种说法时，智能编码代理必须解释同一候选并保持确认待定；只有会改变候选含义的实质纠正才进入退回和修订，程序不得从自然语言近义表达、沉默或上下文推断接受。
+  - 方向阶段的只读上下文必须完整列出当前产品能力、非目标和约束；智能编码代理负责调查并逐项解释适用性、理由和重开条件，程序只校验精确版本、合法引用、唯一覆盖与失效关系。
+  - 实现观察的支持结论必须同时注明语言、关系种类、配置、提供者和实际覆盖状态；识别文件扩展名、存在适配器或取得空关系结果都不能单独证明完整支持。
+  - 需求形成深度、交付跨度和保障深度必须分别依据真实意图缺口、可独立验收结果及风险说明；文件数、代码行数、活动名称或产物名称不得自动推出其中任一结论。
+  - 方向条目身份、引用闭合、需求覆盖和历史不可复用可以由程序证明；条目是否保持同一含义、验收是否充分以及结构转换是否仍忠实于业务含义，只能由智能编码代理形成判断并由项目负责人确认。
+  - 不得用方向条目身份未变化、Schema 通过、转换成功或测试通过冒充产品语义未变化。
+  - 首次使用以现成 Windows x64、Python 3.12、Git 和能够读取配套 Skill 的 Agent 为前提；分发物只携带 Strixnova、锁定依赖、配套 Skill 与安装入口说明。技术安装、Skill
+    文件复制、宿主加载、用户接受和业务效果分别报告。
+  - 多仓库事项按一个可独立接受目标组织整体方向、方案和实际结果，仓库数量不增加普通确认点；部分交付、取消及原接受同时如实呈现。
+  testing:
+  - 当前事项的每项验收、约束和已识别风险都须有明确核验安排。命令覆盖复用既有引用，其余逐项说明 Agent 审阅、证据复用或未核验；不能以整体无命令理由代替条目处置，也不制造占位测试命令。
+  - 实际结果区分命令证据与 Agent 语义判断。明确未核验或未获支持的条目必须保留限制；缺少当前核验目标不能形成可接受结果，不自动补造通过。
+  - 实际结果须携带复核前取得的内容身份，绑定方案、方向、声明仓库输入与已采用规则依据；程序在校验和记录结果时核对同一内容，不事后为旧判断补认新版本。身份匹配仅证明声明范围内内容一致，不证明实际阅读、范围穷尽或语义正确。
+  - 用户或外部调用方可观察的行为变化默认在方向验收内形成有依据的例子；纯说明或不改变行为的机械修改可说明不适用。例子不增加方法采用状态、Gherkin 要求或确认点。
+  - 每个自动例子同时保留原生测试绑定、实际执行结果与 Agent 断言充分性审阅；原生报告以每条命令一份保留，绑定方案、例子内容和声明输入的真实文件字节。输入范围由 Agent 选择，程序不自动证明依赖已穷尽；输入变化重测，行为变化修订方向，历史失败不覆盖。
+  - 一个行为在最低有效层证明一次，并保留关键跨模块集成和少量代表性完整生命周期验收。
+  - 不机械执行全量测试，不设置人为时间门槛，不删除必要行为覆盖。
+  - 自动化测试不得通过关键词或固定句子存在性宣称文档、智能体说明或工程语义正确。
+  - 程序测试只证明用户原文保全、Agent 决定声明、候选绑定、过期拒绝、状态迁移和当前格式历史记录的读取；不得建立文案评分器、理解检测器或展示回执来冒充用户体验与语义证明。
+  - 错误测试按公开接口验证异常类型、稳定错误码或状态不变量，不绑定错误文案和内部正则实现。
+  - 真实验收使用最终安装包、加载精确随包唯一 Strixnova Skill（技能）的全新受支持智能编码代理、自然用户消息和隔离版本库；至少覆盖三个普通确认点的主动说明、看不懂后的同候选重述和内部字段默认隐藏，不要求插件、钩子或宿主会话适配，验收外壳不得泄露答案或代替用户确认，结果由人类审阅。
+  - 每个实现观察适配器必须通过统一合同测试，覆盖代表性项目结构、必需关系、配置与限制、确定性以及未支持、未执行、失败、部分覆盖、未解析和歧义不冒充空成功。
+  - 稳定方向身份合同测试必须覆盖格式、同类唯一性、未知引用、缺失需求覆盖、重排、非语义澄清、替换、拆分、合并、退出后复活拒绝、方向修订后全部下游失效，以及位置引用全部拒绝。
+  - 运行维护的变化必须覆盖当前记录与确认字节保全、历史读取、未完成事项继续、并发保护、实际安装匹配和中断恢复；备份、逐项切换与恢复分层验证，不对真实外部项目做测试写入。
+  - 验证按声明范围绑定仓库内容及必要外部契约、部署或制品版本和环境；源码不在本机不自动否定接口级验证，实际版本未知或变化必须保留缺口，接口结果不能替代源码实现对齐。
+  security:
+  - 当前产品信任本地项目负责人以及由其授权在同一工作空间工作的智能编码代理。
+  - 不建设宿主认证、会话凭证、宿主会话租约或第二套业务写权系统。维护操作租约只协调本地已有操作及回写，不认证宿主。
+  - 只读项目检查不得执行项目自定义转换、项目代码、钩子或远程操作；无法保证时必须稳定拒绝。
+  - 已确认方案中的验证、提交和本地合入是以宿主用户权限运行的明确授权执行，不得被宣传为恶意代码安全沙箱或多用户隔离。
+  - 内置静态实现观察不得执行受管项目代码、构建脚本、钩子或远程操作；外部观察提供者只能在当前工作树上，按范围和语言取得本次明确授权，并经项目用途专属 ProcessPolicy（进程政策）的精确命令、工作目录、时限、输入和输出上限执行。
+  - 外部观察提供者的未授权、不可执行、非零退出、超时、越界输出、无效合同或不完整源码证据必须留下失败或不可用回执并阻断受影响范围完整覆盖；不得静默退回空关系或借机扩大允许程序集合。
+  - 项目入口与管理数据位置不自动扩大代码读写或执行范围；修改与恢复只作用于已声明受管仓库或已授权工作树中的明确目标，解析保持只读，不能通过共同父目录获得额外范围。
+  release:
+  - 远程发布和远程版本管理操作由项目负责人授权的外部工具负责。
+  - 正常建设事项完成只要求合入本地目标分支。
+  - 候选领域冻结不等于正式发布；安全、安装、回退和运行保障闭合后才可另行决定发布。
+  - 同一事项整体结果接受后才核对各仓库结果提交并逐仓库交付。部分合入后取消不自动回滚；撤销及补救须有明确处置，所有必要交付和收尾有依据才可声明完成。
+  operations:
+  - 明确延期承诺在实际结果中绑定具体限制、责任、复查日期或业务条件及完成标准；用户接受后才进入跟进视图。接受限制而结束跟进与未来处理承诺分开，普通证明边界不自动产生事项。
+  - 后续事项通过精确原结果与条目引用承接，逐项报告处置并经现有实际结果确认；事项完成或取消不自动关闭原问题，版本冲突写前拒绝，原决定不改写。
+  - 所有 Python（编程语言）命令必须使用项目虚拟环境中的 Python 3.12（编程语言三点十二版本）。
+  - 当前阶段不构建图形化网页入口，安装包和验收不依赖 Node（节点运行环境）。
+  maintenance:
+  - 每个实施增量同时迁移调用方、规则和测试，禁止新旧机制长期并存。
+  - 新模块接口行为测试建立后删除旧浅模块内部测试，不一对一叠加。
+  - 面向负责人的确认说明集中维护在唯一随包 Skill 的现有确认参考资料中，不为三个普通关口复制模板，不新增程序语义生成模块、持久化展示快照或第二确认协议；保存 Agent 对用户原话的显式解释与当前候选绑定。
+  - 外部开源工程方法的代码、模板、提示词和说明，在许可证允许、与 Strixnova 当前权威及责任边界相容，并且本地对照验收表明直接采用具有更好完整性或可靠性时，可以复制、裁剪和修改进入本项目。引入后的本地内容由 Strixnova
+    自己的 Git、测试和发行物接管，不形成外部运行依赖、版本或提交绑定、兼容承诺、自动同步或上游升级义务。
+  - 复制内容必须去除外部项目专属运行包装、路径、命令、角色、状态、品牌和下游路线，并通过受影响静态测试、clean wheel、隔离安装和全新无历史智能编码代理场景验收。外部项目的许可证、测试或声誉不能替代 Strixnova
+    本地证据；本地验收也不能证明任意 Agent、宿主或产品判断正确。
+  - 第三方版权、许可、官方来源和无从属关系声明只保存在仓库根 README；随包 Skill 和中文审阅目录不保留许可副本。构建直接读取根 README 声明并随 wheel 元数据长描述携带，不生成独立 NOTICE
+    或许可文件；测试核对声明完整且没有独立副本。方法文件、运行合同和正式权威不逐项保存外部提交号或重复许可段落。
+  - 包括 SDD（规格驱动开发）写作步骤在内的内置产物形成指引，只帮助受支持智能编码代理形成或复核现有权威候选与只读投影，不取得写权、状态或确认点，也不自动表示受管项目已经采用对应 EngineeringMethod（工程方法）。
+  - 新语言和新构建生态通过统一实现观察提供者合同接入；实现对齐只消费规范化节点、关系、能力、覆盖和回执，不得为每种语言增加并行权威或把工具输出提升为领域及目标架构决定。
+  - 支持矩阵属于适配器能力与验收事实，必须随实现和合同测试更新；领域模型只保存语言无关的观察范围、关系事实、覆盖和诚实失败不变量。
+  - Direction、EngineeringAssessment、EngineeringPlan、WorkItem、WorkflowAuthority、公开输入、读取投影、英文随包 Skill、skills-cn 审阅映射和测试资料必须在同一实施增量中切换稳定方向引用；不得保留位置与身份双轨。
+  - 身份生成、历史复用检查和稳定引用规范化必须隐藏在建设事项权威与工程治理接口后，CLI、Skill 和其他调用方不得各自实现位置转换规则。
+  - Strixnova 自身升级由用户或获授权 Agent 明确发起，只作用于指定项目和本地制品；以短暂维护窗口完成预检、一致备份、副本核验、核验、切换与恢复。程序、Skill、数据分别核对，不依赖后台自动更新或远程发布。
+  - 新增事实、证据或受保护文件变化后，旧备份自动覆盖必须被拒绝；优先保全新增内容并向前修复。恢复材料不是普通可重建缓存。
+  - 从当前构建开始，管理写操作先持久记录开始事实，再收口正常结束；异常退出留下的未收口记录自动阻断升级。普通事项既有的可恢复副作用继续按原入口处理，未收口执行经独立停止证据确认后保留原记录与恢复来历。
+  - 首次建库与安装、维护共用现有协调保护；合法首装锁文件与已收口恢复材料必须保全，不能一概视为旧业务数据。未收口操作、未知材料、损坏记录和链接路径不得因首装修复而被放行；安装验收须实际覆盖首次事项创建及再次读取。
+  - 逐仓库外部操作和权威元数据写入须绑定事项、仓库、操作、预期目标及原内容，先记录意图再执行和回写；中断先核对已发生事实，未知执行收口前不宣称安全结束。
+  compatibility:
+  - 每个运行构建只写一个当前 WorkflowAuthority 与活动持久格式，缺失、旧版、未来版或损坏时在任何普通写入前稳定阻断，不自动清空或隐式初始化。
+  - 初始 Authority、活动库和证据格式各为 v1；只支持当前明确合同，不提供其他格式转换或兼容入口。独立历史查询读取当前格式内已记录的事实。
+  - 程序构建、随包 Skill 内容、持久格式和业务修订具有不同身份；仅安装成功、版本字符串相同或数据库能打开都不能证明组合可用。
+  - 原事件、用户决定、验证结论与确认依据必须保全；结构转换不取得语义决定权。Git 长期权威只以明确可审查差异演进，读取和升级均不静默改写业务含义。
+  - 维护保护覆盖完整操作和回写，多目标切换通过持久进度恢复，不宣称天然跨文件原子事务；不建设在线双写、多主机事务或跨仓库事务。
+  - 单成员与多成员项目采用同一当前合同，项目与仓库归属显式记录；不自动融合不同项目的事项数据库。
+project_sources:
+- source_id: SOURCE-STRIXNOVA-REPOSITORY-CONVENTIONS
+  title: Strixnova 仓库目录与开发工具约定
+  path: docs/engineering/repository-conventions.md
+  status: current
+  usage: 整理本仓库现行文件放置、关键开发工具职责、确定性检查和收尾约定；不作为其他项目的目录模板，不推断代码语义，不改变产品运行模块边界。
+- source_id: SOURCE-BMAD-METHOD
+  title: BMAD Method 产品发现与规划方法来源
+  path: docs/engineering/method-sources.md
+  status: current
+  usage: 参考并在本地验证后选择性复制、裁剪或修改 BMAD Method 官方项目中与问题界定、选项扩展、 想法压测、决定研究、Product Brief 和 PRFAQ 有关的方法内容；采用 MIT 许可。导入内容由
+    Strixnova 本地接管，不绑定外部提交或升级，不引入 BMAD 运行时、角色体系、品牌命名、平行 工作流或兼容承诺。版权、许可和官方来源统一由根 README 维护并随分发物机械携带。
+- source_id: SOURCE-OPENSPEC-6926CCB
+  title: OpenSpec（开放规范）方法参考快照
+  path: docs/engineering/method-sources.md
+  status: current
+  usage: 参考 https://github.com/Fission-AI/OpenSpec/tree/6926ccb18afa4ff621112813e9968334576ee11a 的变更差异和下游同步思路；采用
+    MIT（麻省理工许可协议），仅独立重写为绑定四类现行权威的 权威变更集，不复制实现，不允许标题匹配自动改写正式权威，也不成为运行依赖。
+- source_id: SOURCE-SPECKIT-241D916
+  title: Spec Kit（规范工具包）方法参考快照
+  path: docs/engineering/method-sources.md
+  status: current
+  usage: 参考 https://github.com/github/spec-kit/tree/241d9163640603beb8e2ef1d1223756c7ccdfdb3 的任务依赖、澄清、分析和清单思路；采用
+    MIT（麻省理工许可协议），仅独立重写为实施切片和 智能编码代理语义复核，不复制实现，不引入外部命令、模板、扩展体系或运行依赖。
+rule_extensions: []
+rule_tailoring:
+- rule_id: STRIXNOVA-GOV-REQ-001
+  disposition: retained
+  minimum_assurance: null
+  reason: 非专业项目负责人仍需要完整需求和验收引导。
+  owner_confirmed: true
+- rule_id: STRIXNOVA-GOV-LIFE-001
+  disposition: retained
+  minimum_assurance: null
+  reason: 本地生命周期和配置管理是产品核心。
+  owner_confirmed: true
+- rule_id: STRIXNOVA-GOV-QUALITY-001
+  disposition: retained
+  minimum_assurance: null
+  reason: 质量属性必须按真实影响评估。
+  owner_confirmed: true
+- rule_id: STRIXNOVA-GOV-TEST-001
+  disposition: retained
+  minimum_assurance: null
+  reason: 测试影响或其他项目规则要求时必须真实验证；不适用时说明理由，不伪造命令。
+  owner_confirmed: true
+- rule_id: STRIXNOVA-GOV-ARCH-001
+  disposition: retained
+  minimum_assurance: null
+  reason: 架构变化需要真实取舍和架构决策记录判断。
+  owner_confirmed: true
+- rule_id: STRIXNOVA-GOV-SEC-001
+  disposition: retained
+  minimum_assurance: null
+  reason: 安全受影响时不能由普通测试替代。
+  owner_confirmed: true
+- rule_id: STRIXNOVA-GOV-OPS-001
+  disposition: retained
+  minimum_assurance: null
+  reason: 运行、兼容和迁移受影响时需要明确控制。
+  owner_confirmed: true
+verification_command_policy:
+  allowed_programs:
+  - program: .venv/Scripts/python.exe
+    purpose: 运行项目测试、构建和隔离安装验收入口。
+    argument_policy: exact_plan_only
+  - program: git
+    purpose: 执行明确属于只读检查或本地交付的版本管理操作。
+    argument_policy: exact_plan_only
+  forbidden_agent_program_names:
+  - agy
+  - codex
+  - claude
+  - gemini
+  - aider
+  - opencode
+  - cursor
+  - windsurf
+  wrapper_policy: forbidden_unless_exactly_approved
+  working_directory_policy: project_or_authorized_worktree_only
+  plan_binding_required: true
+delivery_gates:
+  result_acceptance_before_commit: true
+  local_integration_only: true
+  external_execution_requires_external_receipt: true
+  remote_operations_in_scope: false
+evidence_requirements:
+  separate_structure_semantics_confirmation_effect_and_conformance: true
+  unrun_items_visible: true
+  semantic_correctness_machine_proven: false
+  external_conformance_without_external_evidence: false
+unresolved_decisions: []

@@ -1,0 +1,45 @@
+schema_version: strixnova.implementation-source-ownership.v1
+alignment_model_id: ALIGNMODEL-1111111111111111
+alignment_revision_id: ALIGNREV-7777777777777777
+governed_source_scopes:
+- exclusion_policy: 隔离测试不隐式排除实现文件。
+  included_node_kinds:
+  - 测试实现文件
+  included_path_patterns:
+  - .
+  repository_id: REPO-1111111111111111
+  root: src.py
+  scope_id: OBSCOPE-1111111111111111
+- exclusion_policy: 隔离测试不隐式排除实现文件。
+  included_node_kinds:
+  - 测试实现文件
+  included_path_patterns:
+  - .
+  repository_id: REPO-2222222222222222
+  root: src.py
+  scope_id: OBSCOPE-2222222222222222
+records:
+- scope_id: OBSCOPE-1111111111111111
+  path: src.py
+  sha256: 81c39670c4b19842f26b519fe197fe5406ed038ecfb8d605297076ef3dbda9ba
+  repository_id: REPO-1111111111111111
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-1111111111111111
+  implementation_stage_id: ARCHSTAGE-1111111111111111
+  current_status: aligned
+  deviation_ids: []
+  rationale: 隔离测试实现归属测试应用模块。
+- scope_id: OBSCOPE-2222222222222222
+  path: src.py
+  sha256: 66c1f25def9d9ffab2d1f57dd46d35094e5c421880da6a4f5214fa39f2410994
+  repository_id: REPO-2222222222222222
+  language_id: python
+  node_kind: source_file
+  disposition: owned
+  target_module_id: MODULE-2222222222222222
+  implementation_stage_id: ARCHSTAGE-1111111111111111
+  current_status: aligned
+  deviation_ids: []
+  rationale: 隔离测试实现归属测试应用模块。

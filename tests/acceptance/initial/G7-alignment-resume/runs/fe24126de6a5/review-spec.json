@@ -1,0 +1,101 @@
+{
+  "sources": {
+    "registration.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\registration.json",
+      "role": "original_input"
+    },
+    "setup-boundary.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\setup-boundary.json",
+      "role": "original_input"
+    },
+    "user-input.txt": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-response.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\author-response.md",
+      "role": "author_response"
+    },
+    "tool-steps.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "endpoint.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\endpoint.json",
+      "role": "author_artifact"
+    },
+    "before-alignment/docs/engineering/actual-dependencies.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\before-alignment\\docs\\engineering\\actual-dependencies.yaml",
+      "role": "original_input"
+    },
+    "before-alignment/docs/engineering/alignment.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\before-alignment\\docs\\engineering\\alignment.yaml",
+      "role": "original_input"
+    },
+    "before-alignment/docs/engineering/baseline.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\before-alignment\\docs\\engineering\\baseline.yaml",
+      "role": "original_input"
+    },
+    "before-alignment/docs/engineering/deviations.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\before-alignment\\docs\\engineering\\deviations.yaml",
+      "role": "original_input"
+    },
+    "before-alignment/docs/engineering/source-ownership.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\before-alignment\\docs\\engineering\\source-ownership.yaml",
+      "role": "original_input"
+    },
+    "before-alignment/docs/engineering/target-responsibilities.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\before-alignment\\docs\\engineering\\target-responsibilities.yaml",
+      "role": "original_input"
+    },
+    "after-alignment/docs/engineering/actual-dependencies.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\after-alignment\\docs\\engineering\\actual-dependencies.yaml",
+      "role": "author_artifact"
+    },
+    "after-alignment/docs/engineering/alignment.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\after-alignment\\docs\\engineering\\alignment.yaml",
+      "role": "author_artifact"
+    },
+    "after-alignment/docs/engineering/baseline.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\after-alignment\\docs\\engineering\\baseline.yaml",
+      "role": "author_artifact"
+    },
+    "after-alignment/docs/engineering/deviations.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\after-alignment\\docs\\engineering\\deviations.yaml",
+      "role": "author_artifact"
+    },
+    "after-alignment/docs/engineering/source-ownership.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\after-alignment\\docs\\engineering\\source-ownership.yaml",
+      "role": "author_artifact"
+    },
+    "after-alignment/docs/engineering/target-responsibilities.yaml": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\fe24126de6a5\\evidence\\after-alignment\\docs\\engineering\\target-responsibilities.yaml",
+      "role": "author_artifact"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "GF-GUIDANCE-ALIGNMENT-DRAFT",
+      "expected_behavior": "核对真实操作绑定后继续已有 draft 修订；接受合法仓库根 Python 范围，不为观察器搬动源码。",
+      "must_avoid": "无条件新建对齐修订、改变前驱、仅凭六条路径猜操作身份或要求补 __init__.py。",
+      "evidence_source_ids": [
+        "author-response.md",
+        "tool-steps.json",
+        "endpoint.json",
+        "after-alignment/docs/engineering/actual-dependencies.yaml",
+        "after-alignment/docs/engineering/alignment.yaml",
+        "after-alignment/docs/engineering/baseline.yaml",
+        "after-alignment/docs/engineering/deviations.yaml",
+        "after-alignment/docs/engineering/source-ownership.yaml",
+        "after-alignment/docs/engineering/target-responsibilities.yaml"
+      ],
+      "verification_scope": "预配置真实草稿的公开绑定调查和原修订续作，根Python源码未迁移；初始语义判断是公开合成前提，不证明完整实现接受。",
+      "machine_checks": {
+        "same_draft_revision_and_predecessor": true,
+        "source_inventory_and_bytes_unchanged": true,
+        "integration_heads_unchanged": true,
+        "verification_counter_unchanged": true
+      }
+    }
+  ]
+}

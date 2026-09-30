@@ -1,0 +1,141 @@
+1: """成员服务层。
+2: 
+3: 协调身份验证、归属检查、状态检查、撤回执行和审计写入。
+4: 身份来自可信宿主会话，不信任传入角色或所有者字段。
+5: """
+6: 
+7: from __future__ import annotations
+8: 
+9: from dataclasses import dataclass
+10: from typing import Dict, Optional
+11: 
+12: from .audit import AuditEntry, AuditLog
+13: from .domain import Application, ApplicationStatus, WithdrawalResult
+14: 
+15: 
+16: @dataclass
+17: class WithdrawalResponse:
+18:     """撤回操作的响应。
+19: 
+20:     Attributes:
+21:         result: 撤回操作结果。
+22:         application_id: 被操作的申请身份。
+23:         current_status: 操作后申请的当前状态。
+24:     """
+25: 
+26:     result: WithdrawalResult
+27:     application_id: str
+28:     current_status: ApplicationStatus
+29: 
+30: 
+31: class MemberService:
+32:     """成员服务。
+33: 
+34:     管理申请存储，处理撤回请求，维护审计日志。
+35:     使用可信宿主会话中的成员身份，不信任传入参数中的角色字段。
+36:     """
+37: 
+38:     def __init__(self) -> None:
+39:         self._applications: Dict[str, Application] = {}
+40:         self._audit_log = AuditLog()
+41: 
+42:     @property
+43:     def audit_log(self) -> AuditLog:
+44:         """暴露审计日志供查询。"""
+45:         return self._audit_log
+46: 
+47:     def register_application(self, app: Application) -> None:
+48:         """注册一份申请到存储中。"""
+49:         self._applications[app.application_id] = app
+50: 
+51:     def get_application(self, application_id: str) -> Optional[Application]:
+52:         """查询申请。返回 None 表示不存在。"""
+53:         return self._applications.get(application_id)
+54: 
+55:     def withdraw(
+56:         self,
+57:         authenticated_member_id: str,
+58:         application_id: str,
+59:     ) -> WithdrawalResponse:
+60:         """处理撤回请求。
+61: 
+62:         流程：成员认证（由调用方保证）→ 校验归属 → 校验状态 → 乐观并发撤回 → 审计记录。
+63: 
+64:         Args:
+65:             authenticated_member_id: 已认证的成员身份（来自可信宿主会话）。
+66:             application_id: 要撤回的申请身份。
+67: 
+68:         Returns:
+69:             WithdrawalResponse 包含操作结果和当前状态。
+70:         """
+71:         app = self._applications.get(application_id)
+72:         if app is None:
+73:             return WithdrawalResponse(
+74:                 result=WithdrawalResult.NOT_OWNER,
+75:                 application_id=application_id,
+76:                 current_status=ApplicationStatus.PENDING,
+77:             )
+78: 
+79:         # 校验归属：一名成员只能操作本人申请
+80:         if app.owner_member_id != authenticated_member_id:
+81:             return WithdrawalResponse(
+82:                 result=WithdrawalResult.NOT_OWNER,
+83:                 application_id=application_id,
+84:                 current_status=app.status,
+85:             )
+86: 
+87:         # 幂等性：已撤回状态下重复撤回返回相同结果，不新增审计记录
+88:         if app.is_already_withdrawn():
+89:             return WithdrawalResponse(
+90:                 result=WithdrawalResult.ALREADY_WITHDRAWN,
+91:                 application_id=application_id,
+92:                 current_status=ApplicationStatus.WITHDRAWN,
+93:             )
+94: 
+95:         # 状态限制：只允许待审核状态撤回
+96:         if not app.can_withdraw():
+97:             return WithdrawalResponse(
+98:                 result=WithdrawalResult.INVALID_STATUS,
+99:                 application_id=application_id,
+100:                 current_status=app.status,
+101:             )
+102: 
+103:         # 乐观并发撤回
+104:         previous_status = app.status
+105:         expected_version = app.version
+106:         if not app.withdraw(expected_version):
+107:             return WithdrawalResponse(
+108:                 result=WithdrawalResult.CONFLICT,
+109:                 application_id=application_id,
+110:                 current_status=app.status,
+111:             )
+112: 
+113:         # 审计记录：保留操作者、原状态、新状态和操作身份
+114:         self._audit_log.record(
+115:             AuditEntry(
+116:                 operator_member_id=authenticated_member_id,
+117:                 application_id=application_id,
+118:                 previous_status=previous_status,
+119:                 new_status=ApplicationStatus.WITHDRAWN,
+120:                 action="撤回",
+121:             )
+122:         )
+123: 
+124:         return WithdrawalResponse(
+125:             result=WithdrawalResult.SUCCESS,
+126:             application_id=application_id,
+127:             current_status=ApplicationStatus.WITHDRAWN,
+128:         )
+129: 
+130:     def query_status(self, application_id: str) -> Optional[ApplicationStatus]:
+131:         """查询申请的实际当前状态。
+132: 
+133:         用于响应丢失后确认操作结果。
+134: 
+135:         Returns:
+136:             当前状态，或 None 表示申请不存在。
+137:         """
+138:         app = self._applications.get(application_id)
+139:         if app is None:
+140:             return None
+141:         return app.status

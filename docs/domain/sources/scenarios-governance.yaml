@@ -1,0 +1,366 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-F906B1A12CA44E14
+scope_fact_ids:
+- FACT-463994C54BF647D4
+- FACT-5ABABA148CFB4B87
+- FACT-5F57CFB4FDC74459
+facts:
+- fact_id: FACT-3D6EEA6DDBDD4C0A
+  status: draft
+  title: 明确想法跳过产品发现
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  scope_fact_ids:
+  - FACT-463994C54BF647D4
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-ED887913315E4A85
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-463994C54BF647D4
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 用户、问题、期望结果、关键边界和成功信号已经足以下游使用。
+    trigger: 智能编码代理判断是否仍有会改变产品方向的承重缺口。
+    steps:
+    - 智能编码代理核对用户原话、当前权威、项目事实和重大假设。
+    - 没有承重缺口时直接形成现有产品、领域、架构或方向候选，不运行完整产品发现动作。
+    - 不生成 Product Brief、PRFAQ 或非权威工作材料，并向负责人说明为何可以停止发现。
+    outcome: 明确想法直接进入现有候选形成路径，没有承担无必要的产品发现流程。
+    postconditions:
+    - 后续候选继续遵守现有权威、确认和工程保障合同。
+- fact_id: FACT-43BC6F5E5D644B37
+  status: draft
+  title: 模糊解决方案回到真实问题
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  scope_fact_ids:
+  - FACT-463994C54BF647D4
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-ED887913315E4A85
+  - FACT-ABF86B04DB1C477F
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-463994C54BF647D4
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 项目负责人只给出一个偏好功能或技术方案，真实问题和期望变化尚不清楚。
+    trigger: 智能编码代理发现直接扩写该方案会把未经验证的解法误当成需求。
+    steps:
+    - 智能编码代理先说明当前理解和决定所依赖的最大缺口。
+    - 从受影响的人、当前替代、问题代价和期望变化中选择一个最重要问题；只有相关时才区分使用者、购买者和付费者。
+    - 过早锁定方案时，扩展受众、价值机制、范围或验证方式有实质差异的备选，并允许负责人纠正问题定义。
+    outcome: 讨论从偏好方案回到真实问题和可比较选择，没有把首个方案直接扩写成需求。
+    postconditions:
+    - 受影响的产品认识和下游候选按负责人纠正重新形成。
+- fact_id: FACT-56155E419DAA48D0
+  status: draft
+  title: 核心假设不成立时停止建设
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  scope_fact_ids:
+  - FACT-463994C54BF647D4
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-ABF86B04DB1C477F
+  - FACT-0FCE425CA2D74D8C
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-463994C54BF647D4
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 产品想法依赖一个决定成败但尚未验证的核心主张。
+    trigger: 反例、项目事实或当前证据推翻该承重主张。
+    steps:
+    - 智能编码代理明确说明推翻依据、证据实际支持的范围和仍不能证明的内容。
+    - 智能编码代理给出最便宜的后续验证选择，同时说明继续建设会承担的返工风险。
+    - 项目负责人选择否定或搁置想法时，不创建虚假方向、WorkItem 或交付义务。
+    outcome: 产品发现以否定或搁置想法结束，而不是被强制推向编码。
+    postconditions:
+    - 只有负责人后来基于新证据重新开启时才继续形成建设候选。
+- fact_id: FACT-0D7A44EA56DB427E
+  status: draft
+  title: 外部证据不足时受控调查
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-D054964736FE4AE1
+  scope_fact_ids:
+  - FACT-463994C54BF647D4
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-ABF86B04DB1C477F
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-463994C54BF647D4
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 市场、法规、竞品、用户行为或技术现状会实质改变产品决定。
+    trigger: 当前项目资料和已有知识不足以支持该外部事实。
+    steps:
+    - 智能编码代理使用当前可访问来源调查，区分来源发布日期与事件日期，并说明适用范围和限制。
+    - 无法取得来源时保留明确未知；只能由真实实验判断时转为最小验证选择。
+    - Strixnova 程序只保存和校验现有合同事实，不执行研究或认证证据结论。
+    outcome: 外部未知保持可见且阻止未经证实的主张被写成当前产品事实。
+    postconditions:
+    - 取得足够证据、负责人接受不确定性或真实实验完成前，不把该主张当成已证实前提。
+- fact_id: FACT-99893ACBCF894C8F
+  status: draft
+  title: 方向正常收敛并确认
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids:
+  - FACT-5ABABA148CFB4B87
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-ED05BCEB08B94F1E
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-5ABABA148CFB4B87
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 产品或功能想法已经足以命名一个具体建设事项，项目负责人提出该事项的期望结果。
+    trigger: 智能编码代理开始判断该事项是否足以安全形成建设方向。
+    steps:
+    - 程序只读提供当前产品目的、能力目录、全部非目标与约束及其精确修订身份；无产品权威的新项目明确提供空上下文。
+    - 智能编码代理结合用户原话调查项目和环境，选择相关能力，对全部产品护栏逐项说明适用、不适用或需要重新考虑的理由，并记录假设与重开条件。
+    - 意图已经足够时直接形成方向候选；仍有真实缺口时，将真正会改变方向的问题收束到五个以内，再逐个给出推荐、影响和不处理后果；可查事实和已生效护栏不重复转嫁给负责人。
+    - 目标、范围、非目标、约束、取舍和验收方向闭合后，智能编码代理为方向需求、方向约束和验收条件形成稳定身份，明确需求到验收的覆盖，并说明相对历史方向保留、退出或使用新身份的条目；完成后停止追问。
+    - 程序校验上下文版本、合法引用、全部护栏唯一覆盖、条目身份格式与唯一性、验收到需求引用、需求覆盖、历史身份不复活和完整结构，但不判断语义连续性；项目负责人确认可理解的完整精确方向版本。
+    outcome: 已确认方向成为当前建设事项唯一方向事实，不覆盖项目长期目标。
+    postconditions:
+    - 工程评估只能引用该精确方向版本。
+- fact_id: FACT-B427CF758D0C4D11
+  status: draft
+  title: 方向确认被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids:
+  - FACT-5ABABA148CFB4B87
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-ED05BCEB08B94F1E
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-5ABABA148CFB4B87
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 存在方向草案。
+    trigger: 缺少一个会实质改变方向的决定、决定上下文过期、能力引用悬空、护栏处置遗漏重复、方向条目身份前缀错误或重复、验收引用未知需求、需求未被验收覆盖、历史退出身份复活、结构不完整，或项目负责人明确表示无法理解。
+    steps:
+    - 程序拒绝版本、引用、覆盖、条目身份、历史复用、缺失字段、矛盾状态或虚假可确认标记，但不判断相关性、语义连续性和理由是否正确。
+    - 智能编码代理改用具体场景说明当前唯一问题，不倾倒内部身份和完整结构。
+    - 无法由项目调查解决时才等待项目负责人决定。
+    outcome: 方向保持未确认，工程方案和实施不得开始。
+    postconditions:
+    - 真实阻断原因保持可见。
+- fact_id: FACT-7741DFDE49B44392
+  status: draft
+  title: 已展示方向被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids:
+  - FACT-5ABABA148CFB4B87
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-ED05BCEB08B94F1E
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-5ABABA148CFB4B87
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 方向已经展示或确认。
+    trigger: 项目负责人纠正目标或取舍，或调查发现会实质改变方向的新事实。
+    steps:
+    - 受影响的方向确认、决定上下文绑定和下游方案确认失效。
+    - 智能编码代理重新读取当前决定上下文，说明变化、影响范围、原假设是否仍成立和推荐处理。
+    - 智能编码代理逐项说明哪些方向身份因顺序调整或非语义澄清而保留，哪些因替换、拆分、合并或移除而退出并使用新身份。
+    - 修订后的完整方向重新完成身份、引用、需求覆盖、历史不可复用与结构校验，并由项目负责人重新确认；即使部分条目身份保持不变，旧工程方案也不得继续有效。
+    outcome: 新方向生效，旧方向保留历史且不能继续授权实施。
+    postconditions:
+    - 下游方案进入重新评估。
+- fact_id: FACT-27E7512EA0F44E14
+  status: draft
+  title: 方向澄清被取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-A02E89CB77574ABE
+  scope_fact_ids:
+  - FACT-5ABABA148CFB4B87
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-5ABABA148CFB4B87
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    preconditions:
+    - 方向尚未确认或负责人决定停止当前事项。
+    trigger: 项目负责人明确取消本次愿望或建设事项。
+    steps:
+    - 未确认草案不形成正式方向、工程方案或版本工作区。
+    - 已产生的普通调查材料不被伪造成受管事项结果。
+    - 取消原因和已发生的确定性事实按适用范围保留。
+    outcome: 当前方向流程停止且不产生虚假交付义务。
+    postconditions: []
+- fact_id: FACT-5C0D85151EB248C5
+  status: draft
+  title: 工程评估正常形成方案
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids:
+  - FACT-5F57CFB4FDC74459
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-A1C2E3F405162738
+  - FACT-C3E4A5061728395A
+  - FACT-B2D3F40516273849
+  - FACT-D4F5B61728395A6B
+  - FACT-7A7AD19A842140AF
+  - FACT-EECFC91CAB03476E
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-5F57CFB4FDC74459
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 建设事项方向已经确认。
+    - 既有正式项目的相关长期权威可以定位到精确版本；新项目的调查提交能证明尚无已采用项目配置和工程基线。
+    trigger: 智能编码代理开始编制当前事项的工程评估和实施增量。
+    steps:
+    - 调查真实项目影响、直接证据、目标差距、风险、工程方法和外部约束。
+    - 分别判断还需补足哪些意图缺口、最少需要几个可独立验收结果，以及每个结果需要的保障深度；文件数、代码行数和活动名称只能作为调查线索，不能代替判断。
+    - 新项目只要计划改动或交付仓库文件，就用 create_project 一次声明项目工程基线、产品定义、领域模型、目标架构、工程政策和实现对齐六个位置，并计划创建项目配置、工程基线和五类权威；若误用普通修改路线，程序在形成工程方案前返回可纠正的稳定阻断。
+    - 需要改变核心权威时，形成精确绑定产品、领域、目标架构和实现对齐四类现行基线、候选修订和全部下游处置的权威变更集；工程政策继续作为独立横向约束进入评估。
+    - 将 Product Brief、PRFAQ、PRD、SPEC、Architecture Spine、Epic 和 Story 中适用的思考方式映射到现有产品、领域、方向、目标架构、ADR、建设事项和实施切片，不建立平行权威。
+    - 智能编码代理从八个固定角度完成跨产物语义复核，检查需求、场景、验收、架构决定和实施单元是否遗漏或冲突，并解决全部高影响发现。
+    - 将每项操作和验证恰好归入有先后依赖的实施切片，并形成负责人视图。
+    - 程序校验结构、引用、声明覆盖、切片依赖与写入冲突、项目政策和确定性保障下限。
+    - 工程评估提交及方案接受前，程序按调查提交中已采用实现对齐的仓库归属与受管源码路径核对计划操作；命中该范围时必须安排实现对齐更新，不以业务含义或模块职责未变替代源码观察更新。程序不判断新的语义对齐是否正确。
+    - 项目负责人确认完整工程方案。
+    - 判断一个结果能否独立验收，明确各修改仓库、必要依赖和交付顺序；仓库拆分本身不要求拆项。
+    - 若后端确需提前独立交付，先形成独立目标与验收标准，并按方向和方案修订规则拆成独立事项。
+    outcome: 已确认工程方案精确绑定方向、长期目标、当前对齐和代码基线，可授权实施。
+    postconditions:
+    - 未被方案覆盖的实现不得作为当前事项内容进入交付。
+- fact_id: FACT-C4D7AD5F12A34050
+  status: draft
+  title: 工程方案确认被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids:
+  - FACT-5F57CFB4FDC74459
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-5F57CFB4FDC74459
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 存在工程评估候选。
+    trigger: 方向或长期目标版本过期，影响分类缺失，权威变更缺少基线或下游处置，语义复核存在未解决的高影响发现，实施切片遗漏、成环、越级或写入冲突，验证命令不符合政策，或方案扩大到未确认范围。 或方案中的仓库归属矛盾、把消费依赖当作修改授权、缺少共同验收及必要版本依据。
+    steps:
+    - 程序拒绝结构、引用、版本、声明覆盖、切片依赖和操作冲突问题，但不评价语义文字是否正确。
+    - 智能编码代理调查语义缺口，从跨产物复核中说明风险、推荐和限制。
+    - 需要改变方向或长期目标时先回到相应定档点。
+    outcome: 工程方案保持未确认，版本工作区和实施不得开始。
+    postconditions:
+    - 阻断不能通过空占位或降低保障等级绕过。
+- fact_id: FACT-FAA4C5C2CD22423A
+  status: draft
+  title: 工程评估或方案被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids:
+  - FACT-5F57CFB4FDC74459
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-5F57CFB4FDC74459
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 工程评估或方案已经展示、确认或进入实施。
+    trigger: 项目事实、影响、风险、目标版本、操作或验证计划发生实质变化。
+    steps:
+    - 旧方案确认失效，已实施内容和新计划差异保持可见。
+    - 智能编码代理重新评估全部受影响维度，更新权威变更集、跨产物语义复核、实施切片和负责人视图。
+    - 项目负责人确认修订后的完整方案后才能继续实施。
+    - 仓库范围、共同目标或交付标准实质改变时，返回相应上游修订，不能只修改仓库列表继续使用旧接受。
+    outcome: 新方案取得授权，旧方案不再为新增操作提供依据。
+    postconditions:
+    - 已发生偏差被如实记录而不是改写历史计划。
+- fact_id: FACT-5DBFF78852634620
+  status: draft
+  title: 工程方案被取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-731BB1BA932543DD
+  scope_fact_ids:
+  - FACT-5F57CFB4FDC74459
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-5F57CFB4FDC74459
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    preconditions:
+    - 方案未确认，或已确认事项尚可按当前阶段安全取消。
+    trigger: 项目负责人明确取消当前方案或建设事项。
+    steps:
+    - 未确认方案不创建版本工作区、提交或验证回执。
+    - 已发生的外部操作、代码变化和证据不得删除或伪装成未发生。
+    - 按当前生命周期执行安全清理并保留取消审计。
+    outcome: 方案停止授权后续操作，用户已有资料和历史事实得到保留。
+    postconditions: []

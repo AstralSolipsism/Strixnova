@@ -1,0 +1,353 @@
+{
+  "execution": {
+    "mechanical_passed": true,
+    "failure_layer": null,
+    "outcome": "endpoint_observed",
+    "report_valid": true
+  },
+  "cases": [
+    {
+      "case_id": "TARGET-CONSTRAINT-00C970B4CFF7412A",
+      "issues": [],
+      "limitations": [
+        "对齐合同中该约束适用的模块范围为当前可见实现及归属候选，不能推论为完整产品交付、安全沙箱认证或多用户隔离承诺。",
+        "Git只读保护依赖环境变量与配置校验，Windows环境下特定工作树与深层路径未提供全量运行时行为证据。"
+      ],
+      "reason": "作者对CONSTRAINT-00C970B4CFF7412A的评价事实成立。源码在git_project_reader.py中通过ProcessPolicy.exact精确策略设置GIT_NO_REPLACE_OBJECTS=1、GIT_NO_LAZY_FETCH=1与GIT_OPTIONAL_LOCKS=0阻断替换对象与延迟远程获取，并通过_validate_conversion_attributes拒绝filter/ident/working-tree-encoding以阻断外部转换；Coding Agent命令手册明确将只读检查承诺与宿主授权执行、外部沙箱区分开，符合架构约束要求。测试用例两轮均通过，归属候选证据与代码实现保持一致。",
+      "references": [
+        {
+          "end_line": 55,
+          "source_id": "assessment",
+          "start_line": 3,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"_run()方法以精确策略执行只读Git命令，环境变量GIT_NO_REPLACE_OBJECTS、GIT_NO_LAZY_FETCH、GIT_OPTIONAL_LOCKS强制只读语义\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/git_project_reader.py#L983-L1042\"\n        },\n        {\n          \"claim\": \"_validate_conversion_attributes()拒绝filter/ident/working-tree-encoding属性，阻断项目自定义转换\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/git_project_reader.py#L697-L719\"\n        },\n        {\n          \"claim\": \"Git版本低于2.45时检测partial clone配置并拒绝初始化，防止延迟远程取对象\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/git_project_reader.py#L209-L227\"\n        },\n        {\n          \"claim\": \"两轮执行均passed，验证GIT_NO_REPLACE_OBJECTS和GIT_OPTIONAL_LOCKS的设置\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_git_project_reader.py::test_read_only_git_commands_disable_locks_and_replace_objects\"\n        },\n        {\n          \"claim\": \"两轮执行均passed，验证工作区索引字节不被修改\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_review_context_projection.py::test_changes_leave_copied_repository_index_bytes_unchanged\"\n        },\n        {\n          \"claim\": \"两轮执行均passed，验证缺少策略时其他可用材料的保留行为\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_review_context_projection.py::test_missing_policy_keeps_other_usable_materials\"\n        }\n      ],\n      \"limitations\": [\n        \"test_read_only_git_commands_disable_locks_and_replace_objects等测试的source_at_execution_hash未独立捕获，无法确认执行时源码字节与当前文件完全一致\",\n        \"代码检查不证明在所有可能Git配置下的实际运行时语义效果，特别是Windows路径和worktree场景\",\n        \"用户文档（Coding Agent 命令手册.md）未阅读，无法核实文档区分流程防误用与安全沙箱的声明\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"git_project_reader.py中_ReadOnlyGit._run()通过ProcessPolicy.exact()构造每次Git调用的精确策略，并设置GIT_NO_REPLACE_OBJECTS=1、GIT_NO_LAZY_FETCH=1、GIT_OPTIONAL_LOCKS=0阻断替换对象和延迟远程取对象（见_run()第983-1042行）\",\n        \"_validate_conversion_attributes()静态方法检测filter、ident、working-tree-encoding属性并拒绝执行，不允许clean filter或外部转换执行（见第698-719行）\",\n        \"change_entries()在工作树diff前先对所有路径调用_validate_conversion_attributes()，阻断转换触发（见第522-589行）\",\n        \"Git2.45以下版本检测partial clone时拒绝继续以防止远程取对象（见第209-227行）\",\n        \"git_project_reader.py中FORBIDDEN_PROJECT_ROOTS冻结集合阻止.git和.strixnova作为项目文件路径根（见第26行）\",\n        \"test_read_only_git_commands_disable_locks_and_replace_objects测试两轮均通过（run_id d0856323c4b6和f5e20647248e）\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"CONSTRAINT-00C970B4CFF7412A\",\n      \"target_kind\": \"constraint\"\n    },\n",
+          "source_sha256": "9add0a55408715086be271e0ef47b4dd070ae66c4cb58461ea192521052bd23e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 74,
+          "source_id": "docs/使用说明/Coding Agent 命令手册.md",
+          "start_line": 69,
+          "original_text": "### 2.1 只读检查、授权执行与安全隔离不是一回事\n\n`next`、普通 `status` 以及长期权威只读投影不会运行项目代码、项目 Git hook、项目自定义转换或远程操作；版本库对象读取会禁止延迟远程获取，无法在旧 Git 的部分克隆中保证这一点时直接拒绝。这里的“只读”是对项目代码与项目文件副作用的承诺，不表示机器已经理解文档语义。\n\n`verify`、构建、结果提交和本地合入则是项目负责人通过已确认方案授权的本地执行。它们以当前宿主用户权限运行，验证命令、构建工具或本地 Git hook 都可能执行项目代码。Strixnova 负责校验计划、顺序、范围和回执，但不提供针对恶意仓库、恶意命令、恶意本地用户或恶意已授权代理的安全沙箱、宿主身份认证或多用户隔离；需要运行不可信项目时，应另用操作系统、容器或虚拟机隔离。\n\n",
+          "source_sha256": "092fcfee49dd1907eda9a2d44239862b5e8a3c9d0bcaa5224871aef5367e6fd1",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 719,
+          "source_id": "strixnova/src/strixnova/git_project_reader.py",
+          "start_line": 698,
+          "original_text": "    def _validate_conversion_attributes(\n        relative_path: str,\n        explicit_attributes: Mapping[str, str],\n    ) -> None:\n        unsafe_attributes = {\n            name: value\n            for name, value in explicit_attributes.items()\n            if name in {\"filter\", \"ident\", \"working-tree-encoding\"}\n        }\n        if unsafe_attributes:\n            detail = \"、\".join(\n                f\"{name}={value}\"\n                for name, value in sorted(unsafe_attributes.items())\n            )\n            raise GitProjectReaderError(\n                \"当前文件配置了Strixnova不会执行的 Git 提交转换：\"\n                f\"{relative_path}（{detail}）；\"\n                \"请先移除外部 clean filter（提交前转换器）、ident \"\n                \"（对象身份展开）或 working-tree-encoding（工作树编码转换）\",\n                code=\"git_conversion_unsafe\",\n                details={\"path\": relative_path, \"attributes\": unsafe_attributes},\n            )\n",
+          "source_sha256": "83e73350c3c2be53e8b28964d0cb33d9004eb6fce63b628c13813d3502c62433",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1014,
+          "source_id": "strixnova/src/strixnova/git_project_reader.py",
+          "start_line": 983,
+          "original_text": "    def _run(\n        self,\n        arguments: list[str],\n        *,\n        allow_failure: bool = False,\n        stdin_bytes: bytes | None = None,\n    ) -> ProcessResult:\n        environment = dict(os.environ)\n        for name in (\n            \"GIT_DIR\",\n            \"GIT_WORK_TREE\",\n            \"GIT_COMMON_DIR\",\n            \"GIT_INDEX_FILE\",\n            \"GIT_OBJECT_DIRECTORY\",\n            \"GIT_ALTERNATE_OBJECT_DIRECTORIES\",\n            \"GIT_PREFIX\",\n            \"GIT_CONFIG_PARAMETERS\",\n        ):\n            environment.pop(name, None)\n        environment.update(\n            {\n                \"GIT_CONFIG_COUNT\": \"2\",\n                \"GIT_CONFIG_KEY_0\": \"safe.directory\",\n                \"GIT_CONFIG_VALUE_0\": self.project.as_posix(),\n                \"GIT_CONFIG_KEY_1\": \"core.fsmonitor\",\n                \"GIT_CONFIG_VALUE_1\": \"false\",\n                \"GIT_NO_REPLACE_OBJECTS\": \"1\",\n                \"GIT_NO_LAZY_FETCH\": \"1\",\n                \"GIT_OPTIONAL_LOCKS\": \"0\",\n                \"GIT_TERMINAL_PROMPT\": \"0\",\n            }\n        )\n",
+          "source_sha256": "83e73350c3c2be53e8b28964d0cb33d9004eb6fce63b628c13813d3502c62433",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-178645AB839A46B1",
+      "issues": [],
+      "limitations": [
+        "评定基于当前可见的CLI、HostAdapter与ApplicationCoordinator接口实现及单元测试断言，未涵盖端到端完整生产部署。"
+      ],
+      "reason": "作者对CONSTRAINT-178645AB839A46B1的评价准确。cli.py仅导入ApplicationCoordinator并由其编排用例，未直接操作领域写接口；host_adapter.py中LocalHostAdapter持有ApplicationCoordinator实例统一调度用例，声明owns_sessions=False；application_coordinator.py采用_public_use_case统一控制入口与错误翻译，所有状态变更收口于协调器。相关单元测试两轮均通过，证据闭合。",
+      "references": [
+        {
+          "end_line": 108,
+          "source_id": "assessment",
+          "start_line": 56,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"CLI只导入ApplicationCoordinator，不直接导入领域写接口\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/cli.py#L14-L17\"\n        },\n        {\n          \"claim\": \"LocalHostAdapter通过coordinator = ApplicationCoordinator()路由所有用例，不自行编排状态变更\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/host_adapter.py#L89-L98\"\n        },\n        {\n          \"claim\": \"_public_use_case装饰器为全部公开方法提供统一错误翻译和操作准入，确认单一入口模式\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/application_coordinator.py#L225-L303\"\n        },\n        {\n          \"claim\": \"两轮执行均passed，验证CLI和Host共享一个工程评估接口\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_host_adapter.py::test_cli_and_hosts_share_one_engineering_assessment_interface\"\n        },\n        {\n          \"claim\": \"两轮执行均passed，验证Host适配器不是会话权威\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_host_adapter.py::test_host_adapter_is_explicit_intent_transport_not_session_authority\"\n        },\n        {\n          \"claim\": \"一轮执行passed，验证未计划的兄弟领域事实变更被拒绝\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_host_adapter.py::test_actual_result_rejects_an_unplanned_sibling_domain_fact_change\"\n        }\n      ],\n      \"limitations\": [\n        \"未完整阅读application_coordinator.py的全郠5587行，无法确认所有方法均通过协调器；基于装饰器模式和已阅读导入结构推断\",\n        \"行为接受验证方法所引用的test_adopted_ddd_choice仅一轮执行记录，第二轮不在记录中\",\n        \"source_at_execution_hash未独立捕获，测试源码字节与当前文件一致性不可独立验证\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"cli.py从strixnova.application_coordinator导入ApplicationCoordinator，所有命令均通过application_coordinator执行状态变更，CLI未直接操作领域写接口（见cli.py第14-17行）\",\n        \"host_adapter.py中LocalHostAdapter持有coordinator=ApplicationCoordinator实例，所有意图路由通过coordinator方法（host_adapter.py第97行）\",\n        \"application_coordinator.py中_public_use_case装饰器统一包裹所有公开用例方法，确保状态变更通过单一入口（第225-303行）\",\n        \"host_adapter.py的describe()明确返回owns_sessions=False，不作为会话权威（第116行）\",\n        \"test_cli_and_hosts_share_one_engineering_assessment_interface两轮均passed，验证CLI和Host共享同一工程评估接口\",\n        \"test_host_adapter_is_explicit_intent_transport_not_session_authority两轮均passed\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"CONSTRAINT-178645AB839A46B1\",\n      \"target_kind\": \"constraint\"\n    },\n",
+          "source_sha256": "9add0a55408715086be271e0ef47b4dd070ae66c4cb58461ea192521052bd23e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 17,
+          "source_id": "strixnova/src/strixnova/cli.py",
+          "start_line": 14,
+          "original_text": "from strixnova.application_coordinator import (\n    ApplicationCoordinator,\n    ApplicationCoordinatorError,\n)\n",
+          "source_sha256": "4590c3f3599049252c68699c4c2d31754425d4a9729c02037754493aeea43dc8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 98,
+          "source_id": "strixnova/src/strixnova/host_adapter.py",
+          "start_line": 89,
+          "original_text": "    def __init__(self, project_dir: str | Path, *, project_bindings: Mapping[str, Any] | None = None) -> None:\n        self.project = Path(project_dir).expanduser().resolve()\n        try:\n            context = WorkItemReadModel.prepare_project_context(project_dir, project_bindings) if project_bindings is not None else None\n        except ProjectContextQueryError:\n            # Explicit management binding remains usable for stored cancellation\n            # and history; ordinary coordinator operations resolve content again.\n            context = None\n        self.coordinator = ApplicationCoordinator(self.project, project_bindings=project_bindings, shared_context=context)\n        self.read_model = WorkItemReadModel(self.project, project_bindings=project_bindings, shared_context=context)\n",
+          "source_sha256": "ee4098490b2c81c4ef399ed4e26a861fd2b06de53c7b3042912bd0ab5dc5ccb7",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 119,
+          "source_id": "strixnova/src/strixnova/host_adapter.py",
+          "start_line": 107,
+          "original_text": "    def describe(self) -> dict[str, Any]:\n        return {\n            \"schema_version\": HOST_ADAPTER_SCHEMA,\n            \"adapter_id\": self.adapter_id,\n            \"transport\": \"local_explicit_intents\",\n            \"reads_current_action\": True,\n            \"accepts_coding_agent_candidates\": True,\n            \"reports_execution_facts\": True,\n            \"issues_credentials\": False,\n            \"owns_sessions\": False,\n            \"maintains_leases\": False,\n            \"controls_remote_git\": False,\n        }\n",
+          "source_sha256": "ee4098490b2c81c4ef399ed4e26a861fd2b06de53c7b3042912bd0ab5dc5ccb7",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-203BDF1C54B44E55",
+      "issues": [],
+      "limitations": [
+        "显式排除规则依赖静态对齐底账记录，对动态生成或打包资源的排除需结合各构建环节运行期验证。"
+      ],
+      "reason": "作者对CONSTRAINT-203BDF1C54B44E55的评价符合事实。project_implementation_alignment.py中的_validate_coverage方法对ownership_paths强制去重以确保单一模块归属，要求每个owned文件具有合法的target_module_id并绑定阶段，disposition字段明确区分owned与excluded，且未解释的unknown状态直接报错阻断。测试用例证明了重叠范围拒绝与无归属新文件阻断，职责支持明确。",
+      "references": [
+        {
+          "end_line": 161,
+          "source_id": "assessment",
+          "start_line": 109,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"_validate_coverage()检查ownership_paths不重复，unknown状态必须引用偏离，owned文件必须有已知target_module_id\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_implementation_alignment.py#L1109-L1151\"\n        },\n        {\n          \"claim\": \"actual_targets不等于expected_targets时报错，确保归属底账完整覆盖全部架构目标\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_implementation_alignment.py#L1244-L1247\"\n        },\n        {\n          \"claim\": \"两轮执行均passed，验证重叠受管范围被拒绝\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_implementation_alignment_support.py::test_governed_hashes_reject_overlapping_scopes_independent_of_order\"\n        },\n        {\n          \"claim\": \"两轮执行均passed，验证新文件缺少归属时阻断\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_implementation_alignment_support.py::test_refresh_rejects_new_file_without_agent_authored_ownership\"\n        },\n        {\n          \"claim\": \"三轮执行均passed，验证阶段门要求完整对齐\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_target_alignment_gate.py::test_stage_gate_enforces_confirmation_in_a_fixed_project\"\n        },\n        {\n          \"claim\": \"三轮执行均passed，验证等路径归属区分和后端漂移检测\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_composite_implementation_alignment.py::test_composite_alignment_distinguishes_equal_owned_paths_and_detects_backend_drift\"\n        }\n      ],\n      \"limitations\": [\n        \"未完整阅读implementation_alignment_preparation.py（2347行），对其归属写入逻辑的详细覆盖基于首100行和导入结构\",\n        \"source_at_execution_hash未独立捕获，无法确认测试执行时源码字节与当前文件一致\",\n        \"生成内容、打包资源和第三方内容的显式排除规则需依赖对齐底账数据内容验证，当前仅验证代码结构层面的排除机制\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"project_implementation_alignment.py中_validate_coverage()强制要求ownership_paths不重复（第1111行），确保每个路径恰好一次归属\",\n        \"actual_targets不等于expected_targets时产生错误，确保归属底账恰好覆盖全部模块、关系和约束（第1246-1247行）\",\n        \"source_ownership记录的disposition字段区分owned/excluded，明确排除非行为生产文件（第1129行）\",\n        \"deviation_ids为空时unknown状态的归属必须引用偏离（第1144-1151行），阻断无解释的排除\",\n        \"test_governed_hashes_reject_overlapping_scopes_independent_of_order两轮均passed，验证重叠范围被拒绝\",\n        \"test_refresh_rejects_new_file_without_agent_authored_ownership两轮均passed\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"CONSTRAINT-203BDF1C54B44E55\",\n      \"target_kind\": \"constraint\"\n    },\n",
+          "source_sha256": "9add0a55408715086be271e0ef47b4dd070ae66c4cb58461ea192521052bd23e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1152,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 1109,
+          "original_text": "        ownership = artifacts[\"source_ownership\"][\"records\"]\n        ownership_paths = [self._path_key(model, item) for item in ownership]\n        if len(ownership_paths) != len(set(ownership_paths)):\n            issues.append(\"受管实现文件归属路径不得重复\")\n        for record in ownership:\n            try:\n                repository_relative_path(record[\"path\"], \"source_ownership.path\")\n            except GitProjectReaderError as error:\n                issues.append(str(error))\n            scope = governed_scopes.get(record[\"scope_id\"])\n            if scope is not None and scope.get('repository_id') != record.get('repository_id'):\n                issues.append(f\"Source ownership repository does not match its scope: {record['path']}\")\n            if scope is None:\n                issues.append(\n                    f\"受管实现文件引用未知观察范围：{record['path']}\"\n                )\n            elif not _scope_contains_path(scope, record[\"path\"]):\n                issues.append(\n                    f\"受管实现文件不在声明范围或包含模式内：{record['path']}\"\n                )\n            if record[\"disposition\"] == \"owned\":\n                if record[\"target_module_id\"] not in module_ids:\n                    issues.append(\n                        f\"受管实现文件引用未知目标模块：{record['path']}\"\n                    )\n                stage = stages.get(record[\"implementation_stage_id\"])\n                if stage is None:\n                    issues.append(\n                        f\"受管实现文件引用未知实施阶段：{record['path']}\"\n                    )\n                elif record[\"target_module_id\"] not in stage[\"module_ids\"]:\n                    issues.append(\n                        \"受管实现文件实施阶段不包含其目标模块：\"\n                        + record[\"path\"]\n                    )\n            if (\n                record[\"current_status\"] == \"unknown\"\n                and not record[\"deviation_ids\"]\n            ):\n                issues.append(\n                    \"未知受管实现文件状态必须引用具体偏离和解决计划：\"\n                    + record[\"path\"]\n                )\n\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1247,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 1244,
+          "original_text": "        if len(actual_targets) != len(responsibilities):\n            issues.append(\"目标责任底账不得重复\")\n        if actual_targets != expected_targets:\n            issues.append(\"目标责任底账必须恰好覆盖全部模块、关系和约束\")\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-44EF80D2CFDF4E81",
+      "issues": [],
+      "limitations": [
+        "代码静态阻断逻辑无法代替真实Agent交互中的动态语义阻断效果，限制在程序规则执行范围内。"
+      ],
+      "reason": "作者对CONSTRAINT-44EF80D2CFDF4E81的评价真实可靠。project_implementation_alignment.py在_validate_coverage中强制要求unknown状态必须提供非空deviation_ids和解决计划，否则直接记录校验问题；在阶段完成门_stage_failures中要求状态为confirmed且无未关闭偏离与未实现责任，阻断带未知的阶段完成。测试用例验证了动态与未解析关系保持可见、不可用provider拒绝形成空成功，机制完整。",
+      "references": [
+        {
+          "end_line": 209,
+          "source_id": "assessment",
+          "start_line": 162,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"unknown状态归属必须引用具体偏离，否则视为验证错误阻断\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_implementation_alignment.py#L1144-L1151\"\n        },\n        {\n          \"claim\": \"_stage_failures()实施阶段完成门：未confirmed对齐、未complete观察覆盖、有未对齐文件等均导致失败\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_implementation_alignment.py#L1492-L1538\"\n        },\n        {\n          \"claim\": \"验证动态或未解析关系保持可见，不自动标为已解析\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_implementation_observation.py::test_dynamic_or_unresolved_relationships_remain_visible\"\n        },\n        {\n          \"claim\": \"验证不可用提供者不能形成空成功\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_implementation_observation.py::test_unavailable_provider_or_scope_never_becomes_empty_success\"\n        },\n        {\n          \"claim\": \"验证目标责任证据路径被检查，不允许证据指向不存在路径\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_implementation_observation_drift.py::test_target_responsibility_evidence_paths_are_checked\"\n        }\n      ],\n      \"limitations\": [\n        \"source_at_execution_hash未独立捕获\",\n        \"未阅读implementation_observation.py完整内容，动态关系处理的具体实现细节基于test定义名称和project_implementation_alignment.py的验证逻辑推断\",\n        \"代码检查不证明真实Agent使用时的语义阻断效果，仅验证程序机制层面的阻断逻辑\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"project_implementation_alignment.py中unknown状态归属若deviation_ids为空则报错，强制要求每个未知具有显式偏离引用（第1144-1151行）\",\n        \"drift()方法对文件缺失、新增、变化均记录failures，阻断漂移完成（第674-692行）\",\n        \"_dependency_classification_issues()对未解析和歧义关系强制使用保守分类，不得虚挂偏离（第1365-1463行）\",\n        \"阶段完成门_stage_failures()要求revision.status=confirmed且无未实现目标责任（第1492-1538行）\",\n        \"test_dynamic_or_unresolved_relationships_remain_visible验证动态关系保持可见而非被消除\",\n        \"test_unavailable_provider_or_scope_never_becomes_empty_success验证不可用提供者不能假装成功\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"CONSTRAINT-44EF80D2CFDF4E81\",\n      \"target_kind\": \"constraint\"\n    },\n",
+          "source_sha256": "9add0a55408715086be271e0ef47b4dd070ae66c4cb58461ea192521052bd23e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1151,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 1144,
+          "original_text": "            if (\n                record[\"current_status\"] == \"unknown\"\n                and not record[\"deviation_ids\"]\n            ):\n                issues.append(\n                    \"未知受管实现文件状态必须引用具体偏离和解决计划：\"\n                    + record[\"path\"]\n                )\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1538,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 1492,
+          "original_text": "    @staticmethod\n    def _stage_failures(\n        alignment: Mapping[str, Any],\n        failures: list[str],\n    ) -> None:\n        if alignment[\"revision\"][\"status\"] != \"confirmed\":\n            failures.append(\n                \"阶段完成门要求实现对齐为已确认，当前为 \"\n                + alignment[\"revision\"][\"status\"]\n            )\n        if alignment[\"observation_coverage\"][\"overall_status\"] != \"complete\":\n            failures.append(\n                \"阶段完成门要求实现观察完整，当前为 \"\n                + alignment[\"observation_coverage\"][\"overall_status\"]\n            )\n        non_aligned = [\n            item[\"path\"]\n            for item in alignment[\"source_ownership\"]\n            if item[\"disposition\"] == \"owned\"\n            and item[\"current_status\"] != \"aligned\"\n        ]\n        if non_aligned:\n            failures.append(\n                f\"阶段完成门仍有 {len(non_aligned)} 个受管实现文件未对齐\"\n            )\n        violations = [\n            item\n            for item in alignment[\"actual_dependencies\"]\n            if item[\"classification\"] not in PASSING_DEPENDENCY_CLASSIFICATIONS\n        ]\n        if violations:\n            failures.append(\n                f\"阶段完成门仍有 {len(violations)} 条实际实现关系偏离\"\n            )\n        incomplete = [\n            item\n            for item in alignment[\"target_responsibilities\"]\n            if item[\"status\"] != \"implemented\"\n        ]\n        if incomplete:\n            failures.append(\n                f\"阶段完成门仍有 {len(incomplete)} 项目标责任未实现\"\n            )\n        if alignment[\"deviations\"]:\n            failures.append(\n                f\"阶段完成门仍有 {len(alignment['deviations'])} 项已知偏离未关闭\"\n            )\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-4AB33A8FE5464062",
+      "issues": [],
+      "limitations": [
+        "_FORBIDDEN_AGENT_PROGRAM_NAMES采用硬编码静态集合，无法动态涵盖未知或新增的第三方代理名称。",
+        "进程快照检测在非支持平台下存在降级处理，不能等同于底层沙箱多用户隔离。"
+      ],
+      "reason": "作者对CONSTRAINT-4AB33A8FE5464062的评价符合源码与运行事实。process_supervisor.py定义了_FORBIDDEN_AGENT_PROGRAM_NAMES冻结集合，ProcessPolicy.validate检测直接调用与包装器脚本中的代理程序名并抛出错误，_forbidden_descendant通过快照监控子孙进程树；agent_setup.py中的install_agent_skill仅复制Skill文件，声明不修改宿主配置且不安装hook或管理会话。单元测试覆盖了包装脚本与代理程序阻断，满足约束目标。",
+      "references": [
+        {
+          "end_line": 264,
+          "source_id": "assessment",
+          "start_line": 210,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"_FORBIDDEN_AGENT_PROGRAM_NAMES包含已知智能编码代理程序名称列表\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/process_supervisor.py#L19-L30\"\n        },\n        {\n          \"claim\": \"ProcessPolicy.validate()检测直接和包装调用中的禁止代理程序名\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/process_supervisor.py#L230-L258\"\n        },\n        {\n          \"claim\": \"_forbidden_descendant()通过进程树快照检测子孙进程中的禁止代理程序\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/process_supervisor.py#L396-L443\"\n        },\n        {\n          \"claim\": \"install_agent_skill()只复制Skill文件，不启动、认证或管理代理会话\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/agent_setup.py#L54-L128\"\n        },\n        {\n          \"claim\": \"两轮执行均passed，验证代理程序和包装调用均被拒绝执行\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_verification_runner.py::test_execution_rejects_agent_program_and_wrapper\"\n        },\n        {\n          \"claim\": \"验证脚本参数中隐藏代理身份的情况被检测\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_process_supervisor.py::test_process_policy_stops_agent_identity_hidden_behind_a_script\"\n        }\n      ],\n      \"limitations\": [\n        \"_FORBIDDEN_AGENT_PROGRAM_NAMES基于硬编码列表，新代理程序不自动加入；列表覆盖范围的完整性是语义问题而非代码机制问题\",\n        \"进程快照检测依赖操作系统API，Windows下job object不可用时回退到kill+保留不确定性，此为已记录的已知局限\",\n        \"behavior_acceptance验证方法要求真实代理场景，此属真实行为验证，不由源码检查代替\",\n        \"source_at_execution_hash未独立捕获\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"process_supervisor.py中_FORBIDDEN_AGENT_PROGRAM_NAMES冻结集合包含agy、aider、claude、codex、cursor、gemini、opencode、windsurf（第19-30行）\",\n        \"ProcessPolicy.validate()检测程序名称与identity set交集，遇到禁止程序名抛出forbidden_agent_program错误（第230-258行）\",\n        \"包装器检查：命令为bash/python/sh等包装器时，也检查参数中是否出现禁止的代理程序名（第246-258行）\",\n        \"_forbidden_descendant()通过进程快照检测子孙进程中的禁止程序，发现时以forbidden_descendant_program终止进程树（第396-443行）\",\n        \"agent_setup.py中install_agent_skill()只安装Skill文件包，明确声明modifies_host_config=False、installs_hooks=False，不控制代理行为（第124-128行）\",\n        \"test_execution_rejects_agent_program_and_wrapper两轮均passed，验证代理程序和包装器被拒绝\",\n        \"test_process_policy_stops_agent_identity_hidden_behind_a_script验证脚本参数隐藏代理身份被检测\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"CONSTRAINT-4AB33A8FE5464062\",\n      \"target_kind\": \"constraint\"\n    },\n",
+          "source_sha256": "9add0a55408715086be271e0ef47b4dd070ae66c4cb58461ea192521052bd23e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 128,
+          "source_id": "strixnova/src/strixnova/agent_setup.py",
+          "start_line": 124,
+          "original_text": "        \"modifies_host_config\": False,\n        \"installs_hooks\": False,\n        \"installs_plugins\": False,\n        \"issues_credentials\": False,\n    }\n",
+          "source_sha256": "96da7c81ff16369ca06dbad9e77be87f7bc7973c44c7cafc4d65d8f9d7e127fc",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 30,
+          "source_id": "strixnova/src/strixnova/process_supervisor.py",
+          "start_line": 19,
+          "original_text": "_FORBIDDEN_AGENT_PROGRAM_NAMES = frozenset(\n    {\n        \"agy\",\n        \"aider\",\n        \"claude\",\n        \"codex\",\n        \"cursor\",\n        \"gemini\",\n        \"opencode\",\n        \"windsurf\",\n    }\n)\n",
+          "source_sha256": "00b5b41f935844c2b8761426ece225061a33af7a2f333fb082fbdffd5d9e3b96",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 258,
+          "source_id": "strixnova/src/strixnova/process_supervisor.py",
+          "start_line": 230,
+          "original_text": "    def validate(self, command: Sequence[str]) -> None:\n        selected = tuple(command)\n        if selected not in self.allowed_commands:\n            raise ProcessExecutionError(\n                \"policy_denied\",\n                \"外部程序请求不在调用方精确允许范围内\",\n                command_name=(Path(command[0]).name if command else \"\"),\n            )\n        name = Path(selected[0]).name.casefold()\n        identities = {name, Path(name).stem.casefold()}\n        if identities & self.forbidden_program_names:\n            raise ProcessExecutionError(\n                \"forbidden_agent_program\",\n                \"受限进程监督禁止启动智能编码代理程序\",\n                command_name=Path(selected[0]).name,\n            )\n        if identities & _COMMAND_WRAPPER_PROGRAM_NAMES:\n            for token in selected[1:]:\n                token_name = Path(token.strip().strip('\"')).name.casefold()\n                token_identities = {\n                    token_name,\n                    Path(token_name).stem.casefold(),\n                }\n                if token_identities & self.forbidden_program_names:\n                    raise ProcessExecutionError(\n                        \"forbidden_agent_wrapper\",\n                        \"受限进程监督禁止通过包装参数启动智能编码代理程序\",\n                        command_name=Path(selected[0]).name,\n                    )\n",
+          "source_sha256": "00b5b41f935844c2b8761426ece225061a33af7a2f333fb082fbdffd5d9e3b96",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    },
+    {
+      "case_id": "TARGET-CONSTRAINT-53C7D8360F5347AD",
+      "issues": [],
+      "limitations": [
+        "跨阶段依赖关系的全局检测部分依赖实现对齐底账的声明，受限于已阅读的对齐与架构校验逻辑。"
+      ],
+      "reason": "作者对CONSTRAINT-53C7D8360F5347AD的评价成立。project_implementation_alignment.py在_validate_coverage中验证owned文件的implementation_stage_id有效且包含该模块，_implementation_stage_issues检查未来阶段文件是否存在且具备偏离声明；project_architecture_description.py中_validate_graph强制阶段顺序连续并覆盖全部目标模块，_validate_no_current_implementation严格禁止架构描述包含当前实现路径与字段，防止掩盖越级。阶段完成门测试已确认其阻断行为。",
+      "references": [
+        {
+          "end_line": 318,
+          "source_id": "assessment",
+          "start_line": 265,
+          "original_text": "    {\n      \"deviation_ids\": [],\n      \"evidence\": [\n        {\n          \"claim\": \"owned文件的implementation_stage_id必须存在且其target_module_id必须在该阶段module_ids中\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_implementation_alignment.py#L1134-L1143\"\n        },\n        {\n          \"claim\": \"_implementation_stage_issues()检测未来阶段提前实现且无偏离记录的情况\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_implementation_alignment.py#L1465-L1490\"\n        },\n        {\n          \"claim\": \"实施阶段顺序必须连续（1..N）且必须覆盖全部目标模块\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_architecture_description.py#L453-L472\"\n        },\n        {\n          \"claim\": \"_validate_no_current_implementation()禁止目标架构中出现当前实现路径字段，防止以重标掩盖越级\",\n          \"kind\": \"source\",\n          \"ref\": \"strixnova/src/strixnova/project_architecture_description.py#L496-L511\"\n        },\n        {\n          \"claim\": \"验证架构合同拒绝含当前实现路径的目标架构\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_target_architecture_contract.py::test_architecture_contract_rejects_current_implementation_paths\"\n        },\n        {\n          \"claim\": \"三轮执行均passed，验证阶段完成门执行\",\n          \"kind\": \"test\",\n          \"ref\": \"tests/unit/test_target_alignment_gate.py::test_stage_gate_enforces_confirmation_in_a_fixed_project\"\n        }\n      ],\n      \"limitations\": [\n        \"source_at_execution_hash未独立捕获，测试执行时源码字节与当前文件一致性不可独立验证\",\n        \"project_engineering_baseline.py（阶段定位前置关系）未阅读，阶段定位细节基于project_implementation_alignment.py中的引用推断\",\n        \"跨阶段依赖声明的具体执行机制（constraint提及未声明跨阶段依赖）在已阅读文件中未找到独立的检测代码，此点有限制\"\n      ],\n      \"missing\": [],\n      \"resolution_plan\": [],\n      \"satisfied\": [\n        \"project_implementation_alignment.py中_validate_coverage()强制每个owned文件的implementation_stage_id必须存在于架构已知阶段（第1134-1143行）\",\n        \"_implementation_stage_issues()检测未来阶段文件已存在但无提前实现偏离记录时报错（第1465-1490行）\",\n        \"_stage_failures()在阶段完成门要求revision.status=confirmed，不允许机械停留（第1497行）\",\n        \"project_architecture_description.py的_validate_graph()验证实施阶段顺序连续且覆盖全部模块（第453-472行）\",\n        \"ProjectArchitectureDescription._validate_no_current_implementation()检测目标架构中是否包含当前实现路径或字段，防止越级（第496-511行）\",\n        \"test_architecture_contract_rejects_current_implementation_paths验证架构合同拒绝当前实现路径\",\n        \"test_stage_gate_enforces_confirmation_in_a_fixed_project三轮执行均passed\"\n      ],\n      \"status\": \"implemented\",\n      \"target_id\": \"CONSTRAINT-53C7D8360F5347AD\",\n      \"target_kind\": \"constraint\"\n    }\n",
+          "source_sha256": "9add0a55408715086be271e0ef47b4dd070ae66c4cb58461ea192521052bd23e",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 473,
+          "source_id": "strixnova/src/strixnova/project_architecture_description.py",
+          "start_line": 453,
+          "original_text": "        stages = artifacts[\"implementation_stages\"][\"stages\"]\n        if [item[\"order\"] for item in stages] != list(range(1, len(stages) + 1)):\n            issues.append(\"目标架构实施阶段顺序不连续\")\n        stage_ids = {item[\"stage_id\"] for item in stages}\n        order_by_id = {item[\"stage_id\"]: item[\"order\"] for item in stages}\n        covered: set[str] = set()\n        for item in stages:\n            prerequisites = set(item[\"prerequisite_stage_ids\"])\n            if not prerequisites <= stage_ids:\n                issues.append(f\"实施阶段引用未知前置阶段：{item['stage_id']}\")\n            if any(\n                order_by_id.get(identifier, item[\"order\"]) >= item[\"order\"]\n                for identifier in prerequisites\n            ):\n                issues.append(f\"实施阶段前置顺序无效：{item['stage_id']}\")\n            if not set(item[\"module_ids\"]) <= known_modules:\n                issues.append(f\"实施阶段引用未知模块：{item['stage_id']}\")\n            covered.update(item[\"module_ids\"])\n        if covered != known_modules:\n            issues.append(\"目标架构实施阶段没有覆盖全部模块\")\n\n",
+          "source_sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 512,
+          "source_id": "strixnova/src/strixnova/project_architecture_description.py",
+          "start_line": 496,
+          "original_text": "    @staticmethod\n    def _validate_no_current_implementation(\n        model: Mapping[str, Any],\n        artifacts: Mapping[str, Mapping[str, Any]],\n        issues: list[str],\n    ) -> None:\n        for label, value in [(\"目标架构\", model), *artifacts.items()]:\n            for key, child in _walk(value):\n                if key in _FORBIDDEN_TARGET_KEYS:\n                    issues.append(f\"{label} 包含当前实现字段：{key}\")\n                if isinstance(child, str) and (\n                    \"strixnova/src/\" in child\n                    or \"tests/\" in child\n                    or child.endswith(\".py\")\n                ):\n                    issues.append(f\"{label} 包含当前实现路径\")\n\n",
+          "source_sha256": "c70e6de49f880574262a43825c10595096458203f15d044793e34ca347a51a1c",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1143,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 1134,
+          "original_text": "                stage = stages.get(record[\"implementation_stage_id\"])\n                if stage is None:\n                    issues.append(\n                        f\"受管实现文件引用未知实施阶段：{record['path']}\"\n                    )\n                elif record[\"target_module_id\"] not in stage[\"module_ids\"]:\n                    issues.append(\n                        \"受管实现文件实施阶段不包含其目标模块：\"\n                        + record[\"path\"]\n                    )\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        },
+        {
+          "end_line": 1490,
+          "source_id": "strixnova/src/strixnova/project_implementation_alignment.py",
+          "start_line": 1465,
+          "original_text": "    def _implementation_stage_issues(\n        self,\n        alignment: Mapping[str, Any],\n        current_stage_id: str,\n    ) -> list[str]:\n        architecture = self.architecture.load()\n        stages = {\n            item[\"stage_id\"]: item\n            for item in architecture[\"implementation_stages\"]\n        }\n        current = stages.get(current_stage_id)\n        if current is None:\n            return [\"当前实施阶段不属于目标架构\"]\n        issues: list[str] = []\n        for record in alignment[\"source_ownership\"]:\n            if record[\"disposition\"] != \"owned\":\n                continue\n            assigned = stages[record[\"implementation_stage_id\"]]\n            if assigned[\"order\"] > current[\"order\"] and not record[\n                \"deviation_ids\"\n            ]:\n                issues.append(\n                    \"未来阶段受管实现文件已存在但没有记录提前实现偏离：\"\n                    + record[\"path\"]\n                )\n        return issues\n",
+          "source_sha256": "4647ba6b2f0f68508d01b18dbfedc0c51aa45c401bbf0667d2153695b4df8db8",
+          "source_role": "author_artifact"
+        }
+      ],
+      "verdict": "passed",
+      "verification_scope": "仅此模块当前可见实现及这些归属候选的证据评价，不是完整产品/Agent验收或外部认证。",
+      "summary": {
+        "status": "passed",
+        "failure_layer": null,
+        "machine_checks": {
+          "frozen_inputs_unchanged": true,
+          "all_requested_targets_and_sources_present": true,
+          "review_inputs_unchanged": true,
+          "references_resolved": true
+        },
+        "reviewer_verdict": "passed",
+        "semantic_content_machine_proven": false,
+        "owner_accepted": false
+      }
+    }
+  ],
+  "source_facts": {
+    "original_input_count": 2,
+    "records": [],
+    "semantic_content_machine_proven": false
+  },
+  "catalog_updated": false,
+  "semantic_content_machine_proven": false
+}

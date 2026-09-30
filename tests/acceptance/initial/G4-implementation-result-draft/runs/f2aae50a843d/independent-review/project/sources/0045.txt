@@ -1,0 +1,25 @@
+1: schema_version: strixnova.implementation-source-ownership.v1
+2: alignment_model_id: ALIGNMODEL-1111111111111111
+3: alignment_revision_id: ALIGNREV-3333333333333333
+4: governed_source_scopes:
+5: - exclusion_policy: 隔离测试不隐式排除实现文件。
+6:   included_node_kinds:
+7:   - 测试实现文件
+8:   included_path_patterns:
+9:   - .
+10:   repository_id: REPO-1111111111111111
+11:   root: src.py
+12:   scope_id: OBSCOPE-1111111111111111
+13: records:
+14: - scope_id: OBSCOPE-1111111111111111
+15:   path: src.py
+16:   sha256: 9a9927302b84e575e3a4b987819732263cc7af0c72483bed6ff3ba54d0f0ae67
+17:   repository_id: REPO-1111111111111111
+18:   language_id: python
+19:   node_kind: source_file
+20:   disposition: owned
+21:   target_module_id: MODULE-A000000000000001
+22:   implementation_stage_id: ARCHSTAGE-A000000000000001
+23:   current_status: partially_aligned
+24:   deviation_ids: []
+25:   rationale: src.py 目前只包含区间校验（duration 函数），属于申请域模块的一部分。 新增的申请实体、生命周期、撤回、审计等领域逻辑尚未实现。

@@ -1,0 +1,39 @@
+独立复核已明确指出以下评价逻辑错误。请据实际源码与合同修订评价，使用自然中文；不预设implemented，但保留状态必须有具体合同依据，不能继续把测试跳过或正常跨模块协作当缺代码。原候选/报告全部保留。
+
+[
+  {
+    "case_id": "TARGET-MODULE-992560C2560A4013",
+    "verdict": "needs_revision",
+    "reason": "作者对该模块的实现评价存在明显判定缺陷。模块源码在recoverable_document_transaction.py与yaml_metadata_patch.py中完整实现了合同所规定的原子替换、崩溃恢复、内存预演以及修改前后散列绑定等全部操作，且在_transaction_target中显式编写了针对符号链接与连接点的安全防御。然而作者仅因测试运行环境无符号链接创建权限导致测试跳过，就将该测试运行局限填入missing并据此降级判定模块为partially_implemented，混淆了环境执行证据局限与源码职责缺失，因此该评价结论不成立，需要修订。",
+    "issues": [
+      {
+        "category": "agent_output",
+        "description": "作者评价将由于Windows宿主权限不足导致符号链接测试跳过的验证环境局限，错误认定为模块代码的功能缺口（missing），并以此作为将该模块判定为partially_implemented的核心依据。实际上代码中_transaction_target已完整实现了对.git、.strixnova、仓库外路径及符号链接与连接点的校验拒绝逻辑，该评价混淆了代码职责实现与外部执行证据局限。"
+      }
+    ]
+  },
+  {
+    "case_id": "TARGET-MODULE-A94EF8E733E64205",
+    "verdict": "needs_revision",
+    "reason": "作者对模块实现评价的职责边界划分不准确。模块通过VerificationRunner实现了验证请求校验、受监督命令执行和回执汇总等公开接口，并通过随包pytest适配器及xdist controller聚合用例事实。对于输入快照，合同明确规定'共享底层内容采集而不另写快照算法'，调用方application_coordinator在调用run前后调用底层的project_content_snapshot并写入回执与执行意图，是正当的协作模式。作者将调用方的协同装配误判为本模块缺少独立实现的缺口，因此评价需要修订。",
+    "issues": [
+      {
+        "category": "agent_output",
+        "description": "作者评价认为VerificationRunner单体未设置receipt['project_input_snapshot']且application_coordinator.py不在source_paths中，据此将接口职责协同认定为模块实现缺口并判为partially_implemented。实际上application_coordinator属于上层调用方，在执行前后生成并比较项目输入快照完全符合分层架构设计与合同约定的'共享底层内容采集而不另写快照算法'边界，作者对职责归属边界的推断存在缺陷。"
+      }
+    ]
+  },
+  {
+    "case_id": "TARGET-MODULE-B558AA14F6004AC0",
+    "verdict": "needs_revision",
+    "reason": "作者对测试归属与公开接口实现判断存在明显缺陷。模块下GitProjectReader、project_content_snapshot、schema_error_reporting、test_case_evidence及verification_dependencies等源码均已完整归属并实现了合同要求的全部7项公开操作。作者在satisfied中确认了所有公开操作已实现且相关核心单元测试已通过，但在missing中仅因某些测试涉及中介模块验证且其源码不在本packet的source_paths内，就将中介模块协同断言判定为缺口并降级为partially_implemented，其评价逻辑不能成立，需要修订。",
+    "issues": [
+      {
+        "category": "agent_output",
+        "description": "作者评价将source_paths误作为测试文件必须归属的生产清单，仅因部分测试用例（如test_composite_implementation_alignment等）对应源码未列入本包source_paths且跨中介模块，就将正常的中介模块边界测试断言认定为本模块的代码缺口（missing），违反了测试通过中介模块验证边界的常态工程原则。"
+      }
+    ]
+  }
+]
+
+仅返回当前完整结构化候选，不改源码，不运行测试，不重写原始记录。真实验证局限仍在limitations中明确保留。

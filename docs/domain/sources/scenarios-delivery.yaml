@@ -1,0 +1,394 @@
+schema_version: strixnova.project-domain-source.v1
+model_id: MODEL-2F8356E6752B4CC6
+model_revision_id: MODELREV-D90FA05044CD4310
+source_id: SRC-FFBF6809E04E4814
+scope_fact_ids:
+- FACT-5CDC1574A9AC4ADB
+- FACT-0127B7C06DA94946
+- FACT-66252BA438DE4431
+facts:
+- fact_id: FACT-01351001A4CC44D6
+  status: draft
+  title: 建设事项正常实施并本地交付
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids:
+  - FACT-5CDC1574A9AC4ADB
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  - FACT-B2D3F40516273849
+  - FACT-B66A3271FAD74C65
+  - FACT-7A7AD19A842140AF
+  - FACT-ED05722401BA4708
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-5CDC1574A9AC4ADB
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 工程方案已经确认并绑定精确目标、对齐和代码基线。
+    trigger: 智能编码代理开始执行已确认实施增量。
+    steps:
+    - 对照已确认项目归属与方案识别本次修改仓库及必要依赖，单仓库事项使用同一模型。
+    - 为各修改仓库建立适合并发情况的本地版本工作空间，不自动暂存或提交；只读依赖不创建交付分支。
+    - 当前动作聚焦首个依赖已满足的实施切片，智能编码代理自行实施该切片。
+    - 只有当前切片可以运行其已选择验证；真实通过回执使后续切片依次就绪。
+    - 前后端共同实现订单取消时，在同一事项中完成各自切片及必要联合验证，向负责人展示一份整体实际结果。
+    - 智能编码代理复核实际实现前取得绑定当前方案、原始方向、声明输入及已采用规则依据的内容身份，并随结论提交；程序在接收结果时重新核对同一内容。
+    - 代码、规则或相关证据改变时，旧绑定不能用于当前结果；智能编码代理重新核对受影响内容，不得只替换身份沿用旧判断，程序不代替其判断语义正确性。
+    - 负责人接受精确整体结果后，智能编码代理才分别形成各仓库的原子结果提交。
+    - 外部版本工具按计划逐仓库完成本地合入，冲突按原生方式解决并复测后安全清理。
+    - 全部必要仓库实际落地和收尾均有依据时，才记录整项完成；调查事项继续保留无正式交付的原有路径。
+    outcome: 已接受增量在全部必要仓库进入各自本地目标版本历史，整体事项及各仓库提交、合入和清理分别可追溯。
+    postconditions:
+    - 用户未确认的结果没有被提交或合入。
+- fact_id: FACT-FFC61CF4C4B14995
+  status: draft
+  title: 建设或本地交付被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids:
+  - FACT-5CDC1574A9AC4ADB
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  - FACT-9E4CB9E89CA44AF3
+  - FACT-7A7AD19A842140AF
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-5CDC1574A9AC4ADB
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 存在待实施或待合入事项。
+    trigger: 方案未确认或过期、实施切片依赖未满足、请求越级验证、工作空间不安全、实际改动越界、结果未接受、提交来源不明确、内容冲突或复测失败。 或修改仓库归属不明、必要修改仓库不可用、试图修改另一项目仓库，或企图在同一事项中只接受并提前交付一个仓库。
+    steps:
+    - 程序拒绝不允许的状态转换、来源和清理操作。
+    - 智能编码代理保留现场，调查冲突、越界、失败和需重规划内容。
+    - 审阅之后实际内容或规则依据发生变化时，程序拒绝把旧结论登记为当前结果；代理先重新复核受影响内容，只有方案失效才转入既有重规划。
+    - 用户可见效果改变时重新展示并取得新的实际结果接受。
+    - 明确阻断所在仓库与所缺依据，保留其他仓库已经发生的成功、失败与未知事实；不要求无关仓库到齐。
+    outcome: 未满足条件的增量不被合入或清理，负面事实保持可见。
+    postconditions:
+    - 用户资料和版本历史未被破坏。
+- fact_id: FACT-A9323748487742E8
+  status: draft
+  title: 建设偏差或合入冲突被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids:
+  - FACT-5CDC1574A9AC4ADB
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-2D3C638B3E92417A
+  - FACT-B66A3271FAD74C65
+  - FACT-E793FB9BC65A4ED0
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-5CDC1574A9AC4ADB
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 实施偏离方案、基线变化或本地合入发生内容冲突。
+    trigger: 智能编码代理发现实际结果或可合入内容与已确认方案不一致。
+    steps:
+    - 区分可在原方案内纠正的问题与需要重新评估的实质变化。
+    - 在真实发生合入的目标工作空间解决冲突并运行相称复测。
+    - 已确认方向、方案或用户可见结果改变时，重新规划或重新提交实际结果供项目负责人接受。
+    - 用户可见结果未变且全部受影响验证通过时，程序绑定冲突解决后目标工作空间的精确文件快照，并在原生合入提交形成后复核同一快照。
+    - 后端已经合入而前端冲突时保留后端合入事实，按受影响内容复核前端及联合验证；未改变的整体接受不因下一仓库交付而重复确认。
+    - 外部 Git 操作完成但回写前中断时，先核对目标和实际内容，再补记或继续；未知不当成功，也不盲目重复合入。
+    outcome: 纠正后的增量保留真实冲突和复测历史，并只在满足条件后合入。
+    postconditions:
+    - 不通过自动重试或第二套冲突系统掩盖原生版本事实。
+    - 冲突解决快照只替代冲突影响的普通交付文件证据，不放宽长期权威候选快照或语义重新确认边界。
+- fact_id: FACT-DBA681F3A9484E6C
+  status: draft
+  title: 建设事项被安全取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-51FB5CB931344603
+  scope_fact_ids:
+  - FACT-5CDC1574A9AC4ADB
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  - FACT-ED05722401BA4708
+  - FACT-B66A3271FAD74C65
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-5CDC1574A9AC4ADB
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 建设事项尚未整体完成，可以包含已本地合入的仓库与尚未交付的仓库。
+    trigger: 项目负责人明确取消事项，或事项达到允许自动取消的确定性失败状态。
+    steps:
+    - 程序根据当前阶段拒绝会丢失用户资料或已发生外部事实的清理。
+    - 自身创建且可证明安全的临时资源按边界清理。
+    - 已存在提交、冲突、验证回执和取消原因保留审计。
+    - 部分合入后的整体取消依据负责人明确决定；后端已合入、前端未交付及整体已取消并列保留，失败本身不自动推断取消。
+    - 仍有执行或结果未知时先记录取消意图并停止新的建设副作用，核对与收口之后才能宣称安全结束。
+    - 取消不自动回滚；已合入部分的撤销或补救有明确后续处置，原结果接受、仓库事实和剩余责任不抹除。
+    outcome: 事项不再授权后续建设，且用户资料、历史和外部事实不被删除。
+    postconditions:
+    - 取消不能被报告为完成交付。
+- fact_id: FACT-4F0408C3B7624CA2
+  status: draft
+  title: 验证正常执行并形成证据
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids:
+  - FACT-0127B7C06DA94946
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  - FACT-B2D3F40516273849
+  - FACT-B498CB51CCB241F0
+  - FACT-E793FB9BC65A4ED0
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-0127B7C06DA94946
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 工程方案逐项安排验收、约束和风险的核验方式；选择命令时同时说明工作范围、运行种类和预期用途，其他目标说明审阅、证据复用或未核验。
+    - 命令符合项目验证政策且不是智能编码代理启动入口。
+    - 命令属于首个依赖已满足的实施切片。
+    trigger: 智能编码代理请求执行一项已计划验证。
+    steps:
+    - 程序校验命令身份、参数、工作范围、切片归属、依赖状态和政策允许性。
+    - 外部工具执行命令并返回真实环境、输出、退出状态、时间和限制。
+    - 程序保存普通回执并投影唯一验证状态。
+    - 智能编码代理解释证据支持什么、不支持什么并编入实际结果。
+    - 非命令目标逐项保存审阅或未核验结果；程序核对覆盖与引用，不运行占位命令，不判断语义充分性。
+    - 开发者只检出前端时，可按已确认核验需要使用后端测试服务；记录实际可核验的部署或制品版本、契约、环境与所覆盖目标。
+    - 接口级证据满足需要时不强制检出后端源码；源码层面的后端实现对齐仍单独报告其观察范围。
+    outcome: 可复核验证事实与语义解释分离保存，命令成功不自动变成产品正确。
+    postconditions:
+    - 回执绑定当前事项和精确验证选择。
+- fact_id: FACT-AE928511AA404D49
+  status: draft
+  title: 验证执行被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids:
+  - FACT-0127B7C06DA94946
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-B498CB51CCB241F0
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-0127B7C06DA94946
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    preconditions:
+    - 收到验证执行请求。
+    trigger: 验收、约束或风险遗漏核验安排，实际结果遗漏非命令目标处置，或命令未在方案中选择、版本或状态过期、违反验证政策、工作范围越界、尝试启动智能编码代理或无法形成真实回执。 或仅有服务地址、必要部署版本无法核验、运行期间必要版本变化，或所需源码层面证据无法取得。
+    steps:
+    - 程序在执行前拒绝可确定的不允许请求。
+    - 错误返回稳定原因和可纠正字段，不让程序推断替代命令。
+    - 智能编码代理决定修改方案、修正输入或如实记录未运行。
+    - 已发生请求和输出保留，但不能据地址可达或一次成功宣称精确内容组合完整通过；相应验收保持缺口。
+    outcome: 不允许的进程未被启动，验证状态不会伪装成通过。
+    postconditions:
+    - 阻断和未运行状态保持可见。
+- fact_id: FACT-A550C6BAE8D64E8F
+  status: draft
+  title: 验证失败或解释被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids:
+  - FACT-0127B7C06DA94946
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-2D3C638B3E92417A
+  - FACT-E793FB9BC65A4ED0
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-0127B7C06DA94946
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 已有失败、受限、过期或被错误解释的验证回执。
+    trigger: 实施被修正、运行环境变化、证据不足或结果解释与回执不一致。
+    steps:
+    - 保留旧回执而不把失败记录改写成通过。
+    - 智能编码代理判断是否需要修复、重测、补测或降低结论范围。
+    - 新运行产生独立回执并重新解释实际支持范围。
+    - 后端相关输入在联调后变化时，复核依赖它的联调证据及整体结果接受；有依据证明无关的证据可复用。
+    - 无法确定依赖范围时保持未知，不靠刷新内容指纹或回写原运行使旧测试看起来覆盖新版本。
+    outcome: 当前实际结果引用正确回执，历史失败和限制仍可追溯。
+    postconditions:
+    - 重测没有自动替代仍相关的未运行项。
+- fact_id: FACT-8FE825B2520F411E
+  status: draft
+  title: 验证运行被取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-4AAC0DAFEEDA495F
+  scope_fact_ids:
+  - FACT-0127B7C06DA94946
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-0127B7C06DA94946
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    preconditions:
+    - 验证尚未执行或正在由外部工具执行。
+    trigger: 项目负责人取消事项，智能编码代理根据安全边界停止当前验证，或外部工具报告取消。
+    steps:
+    - 未开始命令不执行；已开始命令只按真实外部取消能力处理。
+    - 已产生输出和退出事实原样保存。
+    - 实际结果明确标记取消或未运行，不伪造失败或通过。
+    - 跨仓库验证或外部服务请求仍在执行、结果未知时，保留原输出和取消意图，完成必要收口前不宣称安全停止。
+    outcome: 验证停止且当前证据边界清楚。
+    postconditions: []
+- fact_id: FACT-19598988370745DA
+  status: draft
+  title: 交付发布或运行活动正常完成
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids:
+  - FACT-66252BA438DE4431
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  content:
+    scenario_type: normal
+    capability_fact_id: FACT-66252BA438DE4431
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 活动范围、责任、授权、前置验证、外部工具、成功判断、回退和证据要求已经确认。
+    trigger: 智能编码代理请求治理一项交付、发布、部署、观测或运行维护活动。
+    steps:
+    - 程序校验活动状态、前置关口、精确目标和已确认计划。
+    - 外部工程工具执行实际操作并返回事实。
+    - 智能编码代理解释结果、限制、后续观测和未满足条件。
+    - 项目负责人按适用范围接受结果，或真实审查主体提供其结论。
+    outcome: 活动状态、外部回执、接受与合规含义分开保存且可追溯。
+    postconditions:
+    - 产品没有取代外部执行工具。
+- fact_id: FACT-EC73A00678984281
+  status: draft
+  title: 交付发布或运行活动被阻断
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids:
+  - FACT-66252BA438DE4431
+  dependency_fact_ids:
+  - FACT-DF782F3974E94BCF
+  - FACT-4FD08D68267441B6
+  - FACT-2D3C638B3E92417A
+  content:
+    scenario_type: blocking
+    capability_fact_id: FACT-66252BA438DE4431
+    actor_fact_ids:
+    - FACT-DF782F3974E94BCF
+    - FACT-4FD08D68267441B6
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 存在待执行外部工程活动。
+    trigger: 缺少授权、前置验证、回退、运行责任、目标环境、外部证据能力或当前产品阶段不支持该集成。
+    steps:
+    - 程序拒绝可确定的不满足状态和未确认计划。
+    - 智能编码代理说明缺口、风险、替代方案和不执行后果。
+    - 当前阶段没有集成能力时只记录外部计划和用户提供的真实回执，不伪造执行。
+    outcome: 活动不被宣称执行或完成，真实限制保持可见。
+    postconditions:
+    - 未授权外部状态没有被修改。
+- fact_id: FACT-EF3F770A2DD84BBD
+  status: draft
+  title: 交付发布或运行失败被纠正
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids:
+  - FACT-66252BA438DE4431
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-DF782F3974E94BCF
+  - FACT-2D3C638B3E92417A
+  content:
+    scenario_type: correction
+    capability_fact_id: FACT-66252BA438DE4431
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-DF782F3974E94BCF
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 外部活动失败、部分完成、产生运行事件或证据推翻原结论。
+    trigger: 外部工具返回失败或限制，监控事实显示异常，或项目负责人拒绝接受结果。
+    steps:
+    - 原始外部事实和受影响范围保持不变地记录。
+    - 智能编码代理判断回退、修复、重新执行、降级或停止方案并提交确认。
+    - 新外部操作产生新的事实，实际结果重新展示和接受。
+    outcome: 纠正不会抹除失败，当前活动状态与真实环境一致。
+    postconditions:
+    - 未恢复的影响和后续观测保持可见。
+- fact_id: FACT-7B63889DDB9A4A88
+  status: draft
+  title: 交付发布或运行活动被取消
+  kind: domain_scenario
+  product_capability_ids:
+  - CAPABILITY-04A78FF5E02A48CF
+  scope_fact_ids:
+  - FACT-66252BA438DE4431
+  dependency_fact_ids:
+  - FACT-C8E6F2891E194C50
+  - FACT-2D3C638B3E92417A
+  content:
+    scenario_type: cancellation
+    capability_fact_id: FACT-66252BA438DE4431
+    actor_fact_ids:
+    - FACT-C8E6F2891E194C50
+    - FACT-2D3C638B3E92417A
+    preconditions:
+    - 外部活动尚未完成。
+    trigger: 项目负责人取消活动，或确认的安全政策要求停止。
+    steps:
+    - 未授权的计划可直接取消；已授权活动在开始前取消时，记录计划中外部系统的真实取消回执，直接结束活动而不补造开始事实。
+    - 已开始活动按外部工具真实能力回退、终止或保留，并记录实际回执；只有取消意图或执行情况未知时，保留现有状态并核对外部事实。
+    - 已发生外部状态、证据和不可逆影响不得被删除或描述成未发生。
+    - 剩余风险、运行责任和后续动作明确交接。
+    outcome: 取消状态真实反映外部世界，且不被报告为成功完成。
+    postconditions: []

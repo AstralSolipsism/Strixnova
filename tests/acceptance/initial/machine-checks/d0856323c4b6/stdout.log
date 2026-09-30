@@ -1,0 +1,83 @@
+bringing up nodes...
+bringing up nodes...
+
+....................................................................... [  6%]
+........................................................................ [ 12%]
+....................s................................................... [ 18%]
+........................................................................ [ 24%]
+........................................................ss.............. [ 31%]
+........................................................................ [ 37%]
+......................................................s................. [ 43%]
+s....................................................................... [ 49%]
+........................................................................ [ 56%]
+..............................F........F..F............................. [ 62%]
+..................................F..................................... [ 68%]
+........................................................................ [ 74%]
+........................................................................ [ 81%]
+........................................................................ [ 87%]
+.....s.s................................................................ [ 93%]
+........................................s............................... [ 99%]
+...                                                                      [100%]
+================================== FAILURES ===================================
+_____ test_baseline_does_not_load_or_validate_downstream_authority_bodies _____
+[gw7] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\unit\test_project_engineering_baseline.py:95: in test_baseline_does_not_load_or_validate_downstream_authority_bodies
+    baseline = ProjectEngineeringBaseline(tmp_path).load(
+strixnova\src\strixnova\project_engineering_baseline.py:184: in load
+    return self.validate(
+strixnova\src\strixnova\project_engineering_baseline.py:328: in validate
+    raise ProjectEngineeringBaselineError(issues)
+E   strixnova.project_engineering_baseline.ProjectEngineeringBaselineError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+______________ test_select_exposes_only_narrow_baseline_sections ______________
+[gw7] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\unit\test_project_engineering_baseline.py:225: in test_select_exposes_only_narrow_baseline_sections
+    selected = reader.select(["authority_refs", "review_state"])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+strixnova\src\strixnova\project_engineering_baseline.py:336: in select
+    baseline = self.load(required=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+strixnova\src\strixnova\project_engineering_baseline.py:184: in load
+    return self.validate(
+strixnova\src\strixnova\project_engineering_baseline.py:328: in validate
+    raise ProjectEngineeringBaselineError(issues)
+E   strixnova.project_engineering_baseline.ProjectEngineeringBaselineError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+______ test_repository_baseline_contains_only_adoption_and_review_facts _______
+[gw1] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\unit\test_project_engineering_baseline.py:39: in test_repository_baseline_contains_only_adoption_and_review_facts
+    baseline = ProjectEngineeringBaseline(PROJECT_ROOT).load(
+strixnova\src\strixnova\project_engineering_baseline.py:184: in load
+    return self.validate(
+strixnova\src\strixnova\project_engineering_baseline.py:328: in validate
+    raise ProjectEngineeringBaselineError(issues)
+E   strixnova.project_engineering_baseline.ProjectEngineeringBaselineError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+_____ test_candidate_baseline_can_expose_upstream_authority_under_review ______
+[gw0] win32 -- Python 3.12.12 D:\AboutDEV\Strixnova\.venv\Scripts\python.exe
+tests\unit\test_project_engineering_baseline.py:177: in test_candidate_baseline_can_expose_upstream_authority_under_review
+    candidate = ProjectEngineeringBaseline(tmp_path).load(
+strixnova\src\strixnova\project_engineering_baseline.py:184: in load
+    return self.validate(
+strixnova\src\strixnova\project_engineering_baseline.py:328: in validate
+    raise ProjectEngineeringBaselineError(issues)
+E   strixnova.project_engineering_baseline.ProjectEngineeringBaselineError: 项目工程基线 code_version.repositories.0.base_commit 不符合当前结构合同：值类型必须是文本
+============================ slowest 15 durations =============================
+697.97s call     tests/integration/test_local_git_lifecycle.py::test_add_capability_records_public_interface_and_adr_through_full_lifecycle
+656.01s call     tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[authorities_first_conflict_second]
+638.45s call     tests/integration/test_local_git_lifecycle.py::test_plain_language_work_item_completes_a_formal_domain_fact_change
+625.89s call     tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[finish]
+562.99s call     tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[conflict_first]
+556.68s call     tests/integration/test_local_git_lifecycle.py::test_two_non_overlapping_work_items_complete_from_parallel_worktrees
+542.42s call     tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[cancel_after_first]
+519.99s call     tests/integration/test_multi_repository_replanning.py::test_partial_delivery_can_replan_and_modify_the_integrated_repository_again
+485.05s call     tests/integration/test_local_git_lifecycle.py::test_new_project_baseline_and_adr_survive_the_complete_git_lifecycle
+414.90s call     tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order[conflict_second]
+281.54s call     tests/integration/test_multi_repository_execution.py::test_commands_execute_in_their_repository_and_complete_one_combined_slice
+259.66s call     tests/integration/test_local_git_lifecycle.py::test_complete_flow_tests_before_confirmation_then_commits_and_merges
+212.79s call     tests/integration/test_local_git_lifecycle.py::test_conflict_reverification_waits_for_the_agent_merge_commit
+125.56s call     tests/integration/test_multi_repository_execution.py::test_read_only_repository_command_runs_at_the_declared_commit_without_changing_its_checkout
+121.08s call     tests/integration/test_local_git_lifecycle.py::test_cancel_cleans_only_safe_empty_work_and_preserves_dirty_work
+=========================== short test summary info ===========================
+FAILED tests/unit/test_project_engineering_baseline.py::test_baseline_does_not_load_or_validate_downstream_authority_bodies
+FAILED tests/unit/test_project_engineering_baseline.py::test_select_exposes_only_narrow_baseline_sections
+FAILED tests/unit/test_project_engineering_baseline.py::test_repository_baseline_contains_only_adoption_and_review_facts
+FAILED tests/unit/test_project_engineering_baseline.py::test_candidate_baseline_can_expose_upstream_authority_under_review
+4 failed, 1143 passed, 8 skipped in 1529.08s (0:25:29)

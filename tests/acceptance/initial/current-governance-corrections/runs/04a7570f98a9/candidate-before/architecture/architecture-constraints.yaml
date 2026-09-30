@@ -1,0 +1,36 @@
+schema_version: strixnova.architecture-constraints.v1
+architecture_id: ARCH-1111111111111111
+architecture_revision_id: ARCHREV-2222222222222222
+constraints:
+  - constraint_id: CONSTRAINT-A000000000000001
+    title: 身份来源约束
+    statement: >-
+      操作者身份只从可信宿主会话获取，任何模块不得信任请求中
+      传入的角色或所有者字段。
+    applies_to_module_ids:
+      - MODULE-A000000000000002
+      - MODULE-A000000000000003
+      - MODULE-A000000000000004
+    verification_methods:
+      - method_type: behavior_acceptance
+        description: 验证使用传入角色字段的操作被拒绝。
+
+  - constraint_id: CONSTRAINT-A000000000000002
+    title: 并发安全约束
+    statement: >-
+      对同一申请的并发状态转换只允许一个版本成功。
+    applies_to_module_ids:
+      - MODULE-A000000000000001
+    verification_methods:
+      - method_type: behavior_acceptance
+        description: 验证并发撤回与审批只有一个成功。
+
+  - constraint_id: CONSTRAINT-A000000000000003
+    title: 本地终端约束
+    statement: >-
+      界面限定为本地终端交互，不增加网页或网络服务。
+    applies_to_module_ids:
+      - MODULE-A000000000000004
+    verification_methods:
+      - method_type: manual_review
+        description: 审查实现不包含 HTTP 服务或网页资源。

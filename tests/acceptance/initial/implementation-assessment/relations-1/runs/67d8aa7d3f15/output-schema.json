@@ -1,0 +1,183 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "$defs": {
+    "optional_text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "ref",
+        "claim"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "source",
+            "test",
+            "artifact",
+            "command",
+            "inspection"
+          ]
+        },
+        "ref": {
+          "$ref": "#/$defs/text"
+        },
+        "claim": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "deviation_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/deviation_id"
+      }
+    },
+    "deviation_id": {
+      "type": "string",
+      "pattern": "^DEVIATION-[0-9A-F]{16}$"
+    }
+  },
+  "required": [
+    "assessments",
+    "source_ownership",
+    "owner_accepted",
+    "semantic_content_machine_proven"
+  ],
+  "properties": {
+    "assessments": {
+      "type": "array",
+      "minItems": 12,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "target_kind",
+          "target_id",
+          "status",
+          "satisfied",
+          "missing",
+          "evidence",
+          "deviation_ids",
+          "resolution_plan",
+          "limitations"
+        ],
+        "properties": {
+          "target_kind": {
+            "type": "string",
+            "enum": [
+              "relationship"
+            ]
+          },
+          "target_id": {
+            "type": "string",
+            "enum": [
+              "RELATION-16A5E4BCC740B914",
+              "RELATION-0389E61D4802458D",
+              "RELATION-0B25821AEEBF4F9F",
+              "RELATION-0EF98DF7967649B7",
+              "RELATION-1597DAB805DD4D9A",
+              "RELATION-1C1BD6484A9F40D3",
+              "RELATION-1C7C6D41D61F4FD8",
+              "RELATION-21CC4F7956D247A4",
+              "RELATION-2489A0CE47D1409D",
+              "RELATION-31FB4E98BE2448D2",
+              "RELATION-3368698C069547C6",
+              "RELATION-34F18B226D894C2E"
+            ]
+          },
+          "status": {
+            "enum": [
+              "implemented",
+              "partially_implemented",
+              "not_implemented",
+              "drifted",
+              "unknown"
+            ]
+          },
+          "satisfied": {
+            "$ref": "#/$defs/optional_text_list"
+          },
+          "missing": {
+            "$ref": "#/$defs/optional_text_list"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/evidence"
+            },
+            "minItems": 1
+          },
+          "deviation_ids": {
+            "$ref": "#/$defs/deviation_id_list"
+          },
+          "resolution_plan": {
+            "$ref": "#/$defs/optional_text_list"
+          },
+          "limitations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "implemented"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "missing": {
+                  "maxItems": 0
+                }
+              }
+            },
+            "else": {
+              "properties": {
+                "missing": {
+                  "minItems": 1
+                },
+                "resolution_plan": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "source_ownership": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 0,
+      "items": {
+        "type": "object"
+      }
+    },
+    "owner_accepted": {
+      "const": false
+    },
+    "semantic_content_machine_proven": {
+      "const": false
+    }
+  }
+}

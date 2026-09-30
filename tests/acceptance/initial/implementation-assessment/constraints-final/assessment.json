@@ -1,0 +1,525 @@
+{
+  "assessments": [
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "capabilities() 硬编码 executes_external_activities=False 和 external_execution_required=True",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/delivery_activity.py#L290-L297"
+        },
+        {
+          "claim": "authorize 要求 actual_result_accepted=True",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/delivery_activity.py#L386-L390"
+        },
+        {
+          "claim": "record_external_receipt 校验 external_system_id 一致性",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/delivery_activity.py#L448-L453"
+        },
+        {
+          "claim": "collect_dependency_evidence 从 stdout 采集并保留 source_code_coverage_proven=False 和 semantic_content_machine_proven=False",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/verification_dependencies.py#L37-L78"
+        },
+        {
+          "claim": "断言 executes_external_activities=False 且 external_execution_required=True；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_delivery_activity.py::test_activity_capability_never_claims_external_execution"
+        },
+        {
+          "claim": "三参数化用例覆盖 completed/failed/canceled 外部回执驱动生命周期；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_delivery_activity.py::test_external_receipts_drive_the_real_activity_lifecycle"
+        },
+        {
+          "claim": "端到端验证活动绑定事项接受并通过 CLI 记录外部回执且 external_execution_performed_by_strixnova=False；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_delivery_activity.py::test_application_coordinator_binds_activity_to_work_item_acceptance"
+        }
+      ],
+      "limitations": [
+        "source_at_execution_hash 未独立捕获，JUnit 结果不能确认运行时源码与冻结副本完全一致",
+        "实现观察 ExternalObservationProvider 的外部执行路径未在本约束测试集中直接覆盖，仅从源码 execution_mode 逻辑推断",
+        "behavior_acceptance 验证方法要求的真实 Agent 行为场景无法由代码检查证明"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "DeliveryActivityAuthority.capabilities() 在 L290-297 硬编码 executes_external_activities=False 和 external_execution_required=True，程序层面永远不声明自己执行外部操作",
+        "authorize() 在 L386-390 要求 actual_result_accepted=True 才能授权外部活动，绑定接受前置条件",
+        "record_external_receipt() 在 L417-472 校验 external_system_id 与计划一致、event_kind 状态机、回执不重复，只记录外部回执不自行执行",
+        "cancel_planned() 在 L474-503 只允许 planned 状态无回执取消，authorized/running 必须有外部回执",
+        "implementation_observation.py ExternalObservationProvider 声明 execution_mode 区分 not_run/authorized_tool，只在明确授权后调用 run_process 并由 ProcessPolicy 约束",
+        "verification_dependencies.py collect_dependency_evidence() 从 stdout 标记行采集外部观察、比对 version/contract_sha256/environment 并保留 source_code_coverage_proven=False",
+        "CLI activity 命令输出 capability_notice 包含「不执行」说明（测试 L532）"
+      ],
+      "status": "implemented",
+      "target_id": "CONSTRAINT-F1C702A492724B6E",
+      "target_kind": "constraint"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "确认动作 instructions 要求先展示候选到用户可决策、不要求固定口令、用户看不懂继续解释不调用 confirm、user_confirmation 逐字复制用户新消息",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/public_input_contract.py#L358-L386"
+        },
+        {
+          "claim": "权威确认包允许集中展示各类候选并一次逐类决定",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/public_input_contract.py#L441-L448"
+        },
+        {
+          "claim": "confirmation_input_schema 只暴露 candidate_fingerprint const、user_confirmation 和 agent_decision 结构",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/confirmation_protocol.py#L127-L167"
+        },
+        {
+          "claim": "confirmation_record_from_input 保留用户原话并设置 semantic_content_machine_proven=False",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/confirmation_protocol.py#L172-L214"
+        },
+        {
+          "claim": "3 参数化用例验证三种确认的 instructions 不含系统字段且指出授权边界；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_public_input_contract.py::test_confirmation_contract_guides_decision_ready_explanation_without_system_fields"
+        },
+        {
+          "claim": "验证候选展示与确认绑定分离；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_current_action.py::test_current_action_separates_candidate_presentation_from_bundle_confirmation"
+        },
+        {
+          "claim": "验证每种输入类型恰好有一个直接引导路由；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_public_input_contract.py::test_every_current_input_kind_has_one_direct_guidance_route"
+        }
+      ],
+      "limitations": [
+        "该约束的核心是加载随包 Skill 的真实 Agent 行为；代码只提供 instructions 和 schema 约束，真实 Agent 是否遵循这些指令无法由代码检查证明",
+        "behavior_acceptance 方法要求在全新受支持智能编码代理中验证，当前仅有程序机制和测试覆盖",
+        "用户表示看不懂后 Agent 是否真的继续解释同一候选取决于 Agent 运行时行为，不由程序保证"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "public_input_contract.py _contract_schema_for() 为每种 action_type 生成精确的 specific_instructions，包括确认动作要求先展示候选、用自然语言询问、不要求固定口令（L379-386）",
+        "确认 schema（confirmation_input_schema）只要求 candidate_fingerprint/user_confirmation/agent_decision 三个字段，不暴露内部 Schema 名称或决定标签",
+        "confirmation_protocol.py confirmation_record_from_input() 保留用户原话 user_confirmation，只记录 Agent 的 accept/request_changes 判断",
+        "instructions 明确禁止倾倒系统字段、要求按复杂度调整篇幅、不生成语义评分（L379-386）",
+        "authority_confirmation_bundle 允许集中展示并一次逐类决定（L441-448），不把独立身份转换成重复对话",
+        "current_action.py 分离候选展示和确认绑定（test_current_action_separates_candidate_presentation_from_bundle_confirmation 覆盖）"
+      ],
+      "status": "implemented",
+      "target_id": "CONSTRAINT-FB4D1ACCCD784006",
+      "target_kind": "constraint"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "验证分离入口保持一个事项、一个方案确认然后提供准备；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_planning.py::test_separated_entry_keeps_one_item_and_one_plan_confirmation_then_offers_preparation"
+        },
+        {
+          "claim": "验证整体接受核对双仓库后按计划顺序交付；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order"
+        },
+        {
+          "claim": "验证准备拥有两个工作树但只有一个持久化执行集合；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_execution.py::test_preparation_owns_two_worktrees_and_only_one_persisted_execution_collection"
+        },
+        {
+          "claim": "验证重新规划改变责任并拒绝旧确认；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_planning.py::test_replanning_changes_responsibilities_and_rejects_the_previous_confirmation"
+        },
+        {
+          "claim": "ApplicationCoordinator 协调事项、方案、结果接受的单一权威",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/application_coordinator.py"
+        },
+        {
+          "claim": "confirmation_challenge_for 绑定 work_item_id + work_item_version + action_type 到唯一候选指纹",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/confirmation_protocol.py#L74-L124"
+        }
+      ],
+      "limitations": [
+        "集成测试覆盖了多仓库计划和执行路径，但 source_at_execution_hash 未独立捕获",
+        "并发过期回写场景主要由程序设计保证而非显式测试覆盖",
+        "manual_review 要求复核已确认领域含义与来源限制，代码检查不能代替"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "整体方向、工程方案和实际结果共用一份事项权威——workflow_authority 的状态机确保一个 work_item_id 只有一份方向、一份工程方案和一份实际结果",
+        "仓库交付从属于同一事项——test_separated_entry_keeps_one_item_and_one_plan_confirmation_then_offers_preparation 验证分离入口保持一个事项和一个方案确认",
+        "整体结果接受后才逐仓库交付——test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order 验证整体接受后按计划顺序交付",
+        "提前独立交付需先按独立目标拆项——test_replanning_changes_responsibilities_and_rejects_the_previous_confirmation 验证重新规划改变责任并拒绝旧确认",
+        "正常进入下一仓库不重复确认——test_commands_execute_in_their_repository_and_complete_one_combined_slice 验证命令在各自仓库执行完成一个组合切片"
+      ],
+      "status": "implemented",
+      "target_id": "CONSTRAINT-04375F7A76854A93",
+      "target_kind": "constraint"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "normalize_dependency_checks 要求 dependency_id/kind/expected_version/expected_contract_sha256/environment/max_age_seconds 全部明确",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/verification_dependencies.py#L14-L34"
+        },
+        {
+          "claim": "collect_dependency_evidence 比对三个字段并保留 source_code_coverage_proven=False 和 semantic_content_machine_proven=False",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/verification_dependencies.py#L37-L78"
+        },
+        {
+          "claim": "dependency_evidence_stale 根据 max_age_seconds 和 observed_at 判断过期",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/verification_dependencies.py#L101-L115"
+        },
+        {
+          "claim": "验证服务证据要求实际 version/contract/environment 匹配且过期检测正确；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_verification_dependencies.py::test_service_evidence_requires_actual_version_contract_and_environment"
+        },
+        {
+          "claim": "验证外部仓库是依赖而非交付归属；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_planning.py::test_external_repository_is_a_dependency_without_delivery_ownership"
+        },
+        {
+          "claim": "验证领域事实位置包含权威仓库；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_planning.py::test_domain_fact_location_includes_its_authority_repository"
+        }
+      ],
+      "limitations": [
+        "地址可达或请求成功不证明运行版本——程序通过 contract_sha256 和 version 比对处理此要求，但未在测试中模拟实际的版本变化场景（尽管 test 中通过修改 state 字典模拟了变化）",
+        "接口证据不代替对端源码对齐——代码保留 source_code_coverage_proven=False 标记但无法证明真实对齐",
+        "manual_review 要求复核已确认领域含义与来源限制，代码检查不能代替"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "verification_dependencies.py normalize_dependency_checks() 要求每个依赖检查提供 expected_version、expected_contract_sha256、environment 和 max_age_seconds",
+        "collect_dependency_evidence() 比对 version/contract_sha256/environment 三项，不匹配标记 mismatch，缺失标记 missing，保留 source_code_coverage_proven=False",
+        "dependency_evidence_stale() 根据 max_age_seconds 判断版本观察是否过期",
+        "多仓库计划测试验证外部仓库是依赖而非交付归属（test_external_repository_is_a_dependency_without_delivery_ownership）",
+        "验证输入仓库必须明确且不能省略执行源（test_verification_input_repositories_are_explicit_and_cannot_omit_the_execution_source）"
+      ],
+      "status": "implemented",
+      "target_id": "CONSTRAINT-22AEADF3D7FA42C1",
+      "target_kind": "constraint"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "_scoped_target 拒绝链接/联接点并校验 allowed_targets",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/recoverable_document_transaction.py#L74-L82"
+        },
+        {
+          "claim": "replace_documents 逐项绑定目标、原字节和待写字节到日志并在失败时恢复",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/recoverable_document_transaction.py#L332-L467"
+        },
+        {
+          "claim": "recover_document_transactions 恢复时逐项核对并拒绝第三方变化",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/recoverable_document_transaction.py#L294-L329"
+        },
+        {
+          "claim": "验证 YAML 事务绑定同名路径到不同仓库根；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_repository_document_transactions.py::test_yaml_transaction_binds_equal_paths_to_exact_repository_roots"
+        },
+        {
+          "claim": "验证分离文档恢复要求原始明确目标清单；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_repository_document_transactions.py::test_separated_document_recovery_requires_the_original_explicit_targets"
+        },
+        {
+          "claim": "定义了外部符号链接拒绝测试但两次运行均 skipped",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_external_symlink"
+        },
+        {
+          "claim": "定义了内部符号链接拒绝测试但两次运行均 skipped",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_yaml_metadata_patch.py::test_yaml_patch_transaction_rejects_internal_symlink"
+        }
+      ],
+      "limitations": [
+        "符号链接拒绝路径的代码逻辑存在于 _scoped_target 和 yaml_metadata_patch 中，但对应测试在两次运行中均被 skipped",
+        "跨盘事务测试 test_document_replacement_and_rollback_work_across_real_volumes 未列入本约束测试集但存在于文件中",
+        "恢复承诺的范围边界（不扩大为跨仓库 Git 事务）依赖于 replace_documents 不调用 Git 的代码结构，未由独立测试断言"
+      ],
+      "missing": [
+        "test_yaml_patch_transaction_rejects_external_symlink 和 test_yaml_patch_transaction_rejects_internal_symlink 在两次运行中均 skipped（原因：当前宿主不允许创建符号链接），符号链接拒绝路径未被运行验证"
+      ],
+      "resolution_plan": [
+        "两个符号链接拒绝测试因宿主环境限制被跳过，无法确认符号链接路径安全在运行时得到验证；应在支持符号链接的环境中运行或提供替代验证"
+      ],
+      "satisfied": [
+        "recoverable_document_transaction.py replace_documents() 逐项绑定目标路径、原字节 SHA-256 和待写字节 SHA-256 到日志",
+        "_scoped_target() 拒绝经过链接/联接点的路径且校验 allowed_targets 范围",
+        "recover_document_transactions() 恢复时逐项核对原字节/替换字节一致性，第三方变化拒绝覆盖",
+        "yaml_metadata_patch 测试验证跨仓库根目录绑定（test_yaml_transaction_binds_equal_paths_to_exact_repository_roots）",
+        "test_separated_document_recovery_requires_the_original_explicit_targets 验证恢复要求原始明确目标清单",
+        "test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal 验证恢复遵守明确目标并保留被拒绝的日志",
+        "test_confirmation_recovers_after_files_were_written_before_decision_record 验证确认恢复"
+      ],
+      "status": "partially_implemented",
+      "target_id": "CONSTRAINT-3FA770501B6147B4",
+      "target_kind": "constraint"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "验证提交前文件交换被拒绝；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_application_delivery_snapshots.py::test_actual_result_snapshot_rejects_file_swap_before_commit"
+        },
+        {
+          "claim": "验证不可变结果提交必须等于展示的文件快照；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_application_delivery_snapshots.py::test_immutable_result_commit_must_equal_the_presented_file_snapshot"
+        },
+        {
+          "claim": "验证执行材料保留源文本和未解决发现；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_execution_context.py::test_execution_material_preserves_source_text_and_unresolved_findings"
+        },
+        {
+          "claim": "验证计划变更改变执行源身份；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_execution_context.py::test_recorded_plan_change_changes_the_execution_source_identity"
+        },
+        {
+          "claim": "验证后续切片变更不使前置切片输入失效；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_repository_evidence_boundaries.py::test_later_slice_changes_do_not_invalidate_preceding_slice_inputs"
+        },
+        {
+          "claim": "验证结果引用使用计划仓库；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_repository_evidence_boundaries.py::test_result_references_use_the_planned_repository_even_with_equal_paths"
+        },
+        {
+          "claim": "验证重新规划不能丢弃有未关闭工作的仓库；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_repository_evidence_boundaries.py::test_replan_cannot_drop_a_repository_with_unclosed_work"
+        }
+      ],
+      "limitations": [
+        "多个最新分支不自动构成已验证整体的约束依赖于程序设计和测试边界，未由独立的负面测试完全覆盖",
+        "原快照不回写的约束通过 immutable_result_commit 测试间接验证，但未有独立的回写检测测试",
+        "manual_review 要求复核已确认领域含义与来源限制，代码检查不能代替"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_content_snapshot 按仓库、权威和实际内容分别记录采集快照",
+        "actual_result 校验通过 review_subject_ref 绑定提交前内容快照（test_actual_result_snapshot_rejects_file_swap_before_commit, test_immutable_result_commit_must_equal_the_presented_file_snapshot）",
+        "execution_context 保留源文本和未解决发现（test_execution_material_preserves_source_text_and_unresolved_findings）",
+        "plan 变更改变执行源身份（test_recorded_plan_change_changes_the_execution_source_identity）",
+        "后续切片变更不使前置切片输入失效（test_later_slice_changes_do_not_invalidate_preceding_slice_inputs）",
+        "结果引用使用计划仓库而非同名路径（test_result_references_use_the_planned_repository_even_with_equal_paths）",
+        "重新规划不能丢弃有未关闭工作的仓库（test_replan_cannot_drop_a_repository_with_unclosed_work）",
+        "验证回写恢复不重复执行命令（test_verification_writeback_recovery_does_not_run_the_command_twice）"
+      ],
+      "status": "implemented",
+      "target_id": "CONSTRAINT-671EC292D1E141AD",
+      "target_kind": "constraint"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "验证原生成功后权威回写前中断的工作区创建恢复；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_execution.py::test_work_area_creation_recovers_after_native_success_before_authority_writeback"
+        },
+        {
+          "claim": "验证验证回写恢复不重复执行命令；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_execution.py::test_verification_writeback_recovery_does_not_run_the_command_twice"
+        },
+        {
+          "claim": "验证取消考虑另一仓库的未合并工作；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_execution.py::test_cancellation_accounts_for_unmerged_work_in_the_other_repository"
+        },
+        {
+          "claim": "验证部分交付后可重新规划并再次修改已集成仓库；两次运行 d0856323c4b6 passed（2参数化行）、f5e20647248e passed（1行）",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_replanning.py::test_partial_delivery_can_replan_and_modify_the_integrated_repository_again"
+        },
+        {
+          "claim": "验证整体接受核对双仓库后按计划顺序交付；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_execution.py::test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order"
+        },
+        {
+          "claim": "验证只读仓库命令在声明提交运行不改变检出；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_multi_repository_execution.py::test_read_only_repository_command_runs_at_the_declared_commit_without_changing_its_checkout"
+        }
+      ],
+      "limitations": [
+        "执行未知收口前不宣称安全终止——此行为约束依赖于程序在中断时保留 pending_effect 的设计，由恢复测试间接验证",
+        "取消不自动回滚——程序设计不调用 git reset/revert，但无独立负面测试断言此行为",
+        "manual_review 要求复核已确认领域含义与来源限制，代码检查不能代替"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "合入与清理请求绑定事项、仓库、操作——集成测试验证命令在各自仓库执行并完成组合切片",
+        "先记录意图再执行及回写——test_work_area_creation_recovers_after_native_success_before_authority_writeback 验证工作区创建恢复",
+        "恢复核对实际外部事实不盲目重复——test_verification_writeback_recovery_does_not_run_the_command_twice 验证验证回写恢复不重复执行",
+        "部分合入可取消并保留已交付——test_cancellation_accounts_for_unmerged_work_in_the_other_repository 验证取消考虑另一仓库的未合并工作",
+        "部分交付可重新规划——test_partial_delivery_can_replan_and_modify_the_integrated_repository_again 验证部分交付后可重新规划",
+        "整体完成须全部必要交付——test_overall_acceptance_checks_both_repositories_then_delivers_in_planned_order 验证整体接受核对双仓库"
+      ],
+      "status": "implemented",
+      "target_id": "CONSTRAINT-73FD747C76A44544",
+      "target_kind": "constraint"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "repository() 区分 for_modification 并拒绝 external_dependency 修改",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L216-L233"
+        },
+        {
+          "claim": "_ordinary_binding 拒绝经过符号链接或联接点的路径",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L150-L168"
+        },
+        {
+          "claim": "同 git_common_dir 的多个身份绑定被标记为 conflict",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L536-L544"
+        },
+        {
+          "claim": "view() 声明身份来自本次明确声明、本地 Git 核对不证明全机唯一性",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L286-L289"
+        },
+        {
+          "claim": "验证外部依赖可读但不属于修改范围；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_context.py::test_external_dependency_can_be_read_but_is_not_a_modification_scope"
+        },
+        {
+          "claim": "验证链接在绑定中被拒绝；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_context.py::test_link_in_binding_is_rejected_even_before_parent_traversal"
+        },
+        {
+          "claim": "验证继承的 GIT_DIR 环境变量不能重定向仓库读取；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_context.py::test_inherited_git_directory_selectors_cannot_redirect_repository_reads"
+        },
+        {
+          "claim": "验证绑定摘要包含解析后的基路径；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_context.py::test_binding_digest_includes_the_resolved_base_of_relative_paths"
+        }
+      ],
+      "limitations": [
+        "无法确定时报告已核对范围与未知——view() 的 limitations 字段声明此行为但无测试断言其内容",
+        "manual_review 要求复核已确认领域含义与来源限制，代码检查不能代替"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_context.py RepositoryContext 区分 repository_id（稳定身份）、checkout_path（本机位置）和 scope（精确内容范围包含 git_common_dir）",
+        "repository() 方法在 for_modification=True 时拒绝 external_dependency 成员（L223-227），消费接口不授予修改归属",
+        "_ordinary_binding() 拒绝经过符号链接或联接点的路径（L156-161）",
+        "同名路径、同 git_common_dir 检测为冲突（L536-544），两个身份绑定到同一 Git 仓库都标记为 conflict",
+        "view() 声明限制：身份来自明确声明，本地 Git 核对不证明全机唯一性或用户授权",
+        "集成测试验证外部仓库是依赖而非交付归属（test_external_repository_is_a_dependency_without_delivery_ownership）",
+        "测试验证链接在绑定中被拒绝（test_link_in_binding_is_rejected_even_before_parent_traversal）"
+      ],
+      "status": "implemented",
+      "target_id": "CONSTRAINT-773E501C7BE448EF",
+      "target_kind": "constraint"
+    },
+    {
+      "deviation_ids": [],
+      "evidence": [
+        {
+          "claim": "read_project_configuration 只读取定位声明，不加载基线或初始化管理数据",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L54-L106"
+        },
+        {
+          "claim": "view() 声明 declaration_adopted=False 和 writes_performed=False",
+          "kind": "source",
+          "ref": "inputs/files/strixnova/src/strixnova/project_context.py#L274-L290"
+        },
+        {
+          "claim": "6 参数化用例验证无效声明被拒绝且 tmp_path 为空；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_context.py::test_invalid_declarations_are_rejected_without_creating_state"
+        },
+        {
+          "claim": "验证未采用状态不创建配置管理目录；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_configured_project_context.py::test_unadopted_status_does_not_create_the_configured_management_directory"
+        },
+        {
+          "claim": "验证分离权威使用一个上下文和精确独立提交且 tree_bytes 不变；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_configured_project_context.py::test_split_authorities_use_one_context_and_exact_independent_commits"
+        },
+        {
+          "claim": "验证公开项目状态读取分离权威不创建状态；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/integration/test_configured_project_context.py::test_public_project_status_reads_separated_authorities_without_creating_state"
+        },
+        {
+          "claim": "验证缺失或未绑定的其他成员不阻断可用读取；两次运行均 passed",
+          "kind": "test",
+          "ref": "inputs/files/tests/unit/test_project_context.py::test_missing_or_unbound_other_member_does_not_block_available_read"
+        }
+      ],
+      "limitations": [
+        "静态关系检查证明启动依赖无环——代码结构（project_context 不 import workflow_authority 等）支持此结论，但无自动化的依赖环检查工具结果",
+        "底层读取不回调项目解析——依赖于 git_project_reader 的接口设计，无反向依赖测试",
+        "manual_review 要求复核已确认领域含义与来源限制，代码检查不能代替"
+      ],
+      "missing": [],
+      "resolution_plan": [],
+      "satisfied": [
+        "project_context.py read_project_configuration() 只从调用方已选内容范围读取 strixnova-project.yaml 定位声明，不加载基线、不推断仓库成员、不采用配置（docstring L57-62）",
+        "ProjectContextResolver.resolve() 只消费最小定位声明和明确本机绑定形成一致上下文，不初始化管理数据（view() 声明 declaration_adopted=False, writes_performed=False）",
+        "底层 GitProjectReader 不回调项目解析——git_project_reader 提供 RepositoryReadScope 只读接口",
+        "配置上下文入口 configured() 保持只读，不创建管理目录（test_unadopted_status_does_not_create_the_configured_management_directory）",
+        "无效声明被拒绝且不创建状态（test_invalid_declarations_are_rejected_without_creating_state）",
+        "分离权威使用一个上下文和精确独立提交（test_split_authorities_use_one_context_and_exact_independent_commits）"
+      ],
+      "status": "implemented",
+      "target_id": "CONSTRAINT-A1D7C29B7D604635",
+      "target_kind": "constraint"
+    }
+  ],
+  "owner_accepted": false,
+  "semantic_content_machine_proven": false,
+  "source_ownership": []
+}

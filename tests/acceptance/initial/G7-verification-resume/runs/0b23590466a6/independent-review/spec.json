@@ -1,0 +1,61 @@
+{
+  "sources": {
+    "registration.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\registration.json",
+      "role": "original_input"
+    },
+    "setup-boundary.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\setup-boundary.json",
+      "role": "original_input"
+    },
+    "before-item.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\before-item.json",
+      "role": "original_input"
+    },
+    "actual-interruption.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\actual-interruption.json",
+      "role": "original_input"
+    },
+    "user-input.txt": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\user-input.txt",
+      "role": "user_input"
+    },
+    "author-response.md": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\author-response.md",
+      "role": "author_response"
+    },
+    "tool-steps.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\tool-steps.json",
+      "role": "author_artifact"
+    },
+    "endpoint.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\endpoint.json",
+      "role": "author_artifact"
+    },
+    "after-item.json": {
+      "path": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\0b23590466a6\\evidence\\after-item.json",
+      "role": "author_artifact"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "GF-GUIDANCE-VERIFICATION-RESUME",
+      "expected_behavior": "按 verify 意图与原 command_id 恢复已有回执，继续事后评估，不另行执行已结束的命令。",
+      "must_avoid": "套用 delivery 或 cancel 路由、独立 shell 重跑、编造回执或直接跳到交付。",
+      "evidence_source_ids": [
+        "author-response.md",
+        "tool-steps.json",
+        "endpoint.json",
+        "after-item.json"
+      ],
+      "verification_scope": "合成的已确认起始前提之后，一次真实命令及回写中断的原生公开恢复；不证明起始候选语义接受或完整业务交付。",
+      "machine_checks": {
+        "same_original_receipt": true,
+        "assessment_present": true,
+        "counter_unchanged": true,
+        "source_files_unchanged": true,
+        "integration_heads_unchanged": true
+      }
+    }
+  ]
+}

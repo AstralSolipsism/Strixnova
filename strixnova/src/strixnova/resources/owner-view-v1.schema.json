@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.owner-view.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "decision_support",
+    "engineering_context",
+    "current_decision",
+    "semantic_content_machine_proven"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.owner-view.v1"
+    },
+    "decision_support": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "current_problem",
+        "why_it_matters",
+        "impact",
+        "recommendation",
+        "alternatives",
+        "no_action_consequence",
+        "next_step",
+        "necessary_questions"
+      ],
+      "properties": {
+        "current_problem": {
+          "type": "string",
+          "minLength": 1
+        },
+        "why_it_matters": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impact": {
+          "type": "string",
+          "minLength": 1
+        },
+        "recommendation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "alternatives": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "no_action_consequence": {
+          "type": "string",
+          "minLength": 1
+        },
+        "next_step": {
+          "type": "string",
+          "minLength": 1
+        },
+        "necessary_questions": {
+          "type": "array",
+          "maxItems": 5,
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "engineering_context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "product_and_domain_change",
+        "architecture_responsibilities",
+        "implementation_order",
+        "highest_impact_risks",
+        "verification_and_observation",
+        "uncertainties"
+      ],
+      "properties": {
+        "product_and_domain_change": {
+          "type": "string",
+          "minLength": 1
+        },
+        "architecture_responsibilities": {
+          "type": "string",
+          "minLength": 1
+        },
+        "implementation_order": {
+          "type": "string",
+          "minLength": 1
+        },
+        "highest_impact_risks": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verification_and_observation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uncertainties": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "current_decision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "semantic_content_machine_proven": {
+      "const": false
+    }
+  }
+}

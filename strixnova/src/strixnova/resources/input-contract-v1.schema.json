@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.input-contract.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "contract_ref",
+    "action_type",
+    "input_kind",
+    "intent",
+    "command",
+    "payload_schema",
+    "referenced_schemas",
+    "recovery_routes",
+    "instructions"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.input-contract.v1"
+    },
+    "contract_ref": {
+      "type": "string",
+      "pattern": "^input\\.contract:[a-z][a-z0-9_]*$"
+    },
+    "action_type": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "input_kind": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "intent": {
+      "enum": [
+        "submit",
+        "confirm",
+        "delivery",
+        "verify",
+        "cancel",
+        "authority"
+      ]
+    },
+    "command": {
+      "enum": [
+        "submit",
+        "confirm",
+        "delivery",
+        "verify",
+        "cancel",
+        "authority"
+      ]
+    },
+    "payload_schema": {
+      "type": "object"
+    },
+    "referenced_schemas": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      }
+    },
+    "recovery_routes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "trigger_code",
+          "command",
+          "payload_schema",
+          "instructions"
+        ],
+        "properties": {
+          "trigger_code": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "command": {
+            "enum": [
+              "submit",
+              "confirm",
+              "delivery",
+              "verify",
+              "cancel",
+              "authority"
+            ]
+          },
+          "payload_schema": {
+            "type": "object"
+          },
+          "instructions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "instructions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }
+}

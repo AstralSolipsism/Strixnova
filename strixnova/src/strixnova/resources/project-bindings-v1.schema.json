@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-bindings.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "project_id",
+    "configuration",
+    "repositories"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.project-bindings.v1"
+    },
+    "project_id": {
+      "type": "string",
+      "pattern": "^PROJECT-[0-9A-F]{16}$"
+    },
+    "configuration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "repository_id"
+      ],
+      "properties": {
+        "repository_id": {
+          "$ref": "#/$defs/repository_id"
+        },
+        "path": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "repositories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "repository_id",
+          "path"
+        ],
+        "properties": {
+          "repository_id": {
+            "$ref": "#/$defs/repository_id"
+          },
+          "path": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "management_root": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "$defs": {
+    "repository_id": {
+      "type": "string",
+      "pattern": "^REPO-[0-9A-F]{16}$"
+    }
+  }
+}

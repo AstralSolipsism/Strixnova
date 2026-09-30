@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.implementation-alignment-candidate-decisions.v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "preparation_ref",
+    "decisions",
+    "deviations",
+    "unresolved_items"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "strixnova.implementation-alignment-candidate-decisions.v1"
+    },
+    "preparation_ref": {
+      "$ref": "#/$defs/preparation_ref"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      }
+    },
+    "deviations": {
+      "type": "array",
+      "items": {
+        "$ref": "project-implementation-alignment-v1.schema.json#/$defs/deviation"
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "items": {
+        "$ref": "project-implementation-alignment-v1.schema.json#/$defs/model/properties/unresolved_items/items"
+      }
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "preparation_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "artifact_kind",
+        "artifact_id",
+        "path",
+        "content_sha256"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.implementation-alignment-preparation-ref.v1"
+        },
+        "artifact_kind": {
+          "const": "preparations"
+        },
+        "artifact_id": {
+          "type": "string",
+          "pattern": "^ALIGNPREP-[0-9A-F]{16}$"
+        },
+        "path": {
+          "type": "string",
+          "pattern": "^\\.strixnova/artifacts/implementation-alignment/preparations/[0-9a-f]{64}\\.json$"
+        },
+        "content_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "decision_ref",
+        "value"
+      ],
+      "properties": {
+        "decision_ref": {
+          "type": "string",
+          "pattern": "^ALIGNDECISION-[0-9A-F]{16}$"
+        },
+        "value": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

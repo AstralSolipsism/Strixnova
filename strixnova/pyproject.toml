@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools==83.0.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "strixnova"
+version = "0.1.0.dev0"
+description = "帮助非专业项目负责人做好本地软件工程全链路治理的工具"
+readme = "README.md"
+license-files = []
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "click>=8.1,<9",
+    "jsonschema>=4.23,<5",
+    "pyyaml>=6,<7",
+]
+
+[project.scripts]
+strixnova = "strixnova.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+exclude = ["tests", "tests.*"]
+
+[tool.setuptools.package-data]
+"strixnova.resources" = [
+    "*.json",
+    "case-adapters/*.py",
+    "agent-skill/**/*",
+]

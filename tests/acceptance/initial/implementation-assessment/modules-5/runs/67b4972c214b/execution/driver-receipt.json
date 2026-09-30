@@ -1,0 +1,833 @@
+{
+  "outcome": "endpoint_observed",
+  "exit_code": 0,
+  "forced_termination": false,
+  "duration_seconds": 325.41,
+  "verdict": {
+    "turn_returned": true,
+    "tool_flow_complete": true,
+    "tool_steps": [
+      {
+        "conversation_id": "4706ac56-10b0-44dd-a2f6-f4e8d4ea8165",
+        "step_index": 45,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e4c30f13e9d3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\application_coordinator.py"
+          },
+          "output": "5587 lines, 248645 bytes"
+        },
+        "duration_seconds": 0.1181889
+      },
+      {
+        "conversation_id": "4706ac56-10b0-44dd-a2f6-f4e8d4ea8165",
+        "step_index": 47,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e4c30f13e9d3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\resources\\case-adapters\\strixnova_builtin_pytest_cases.py"
+          },
+          "output": "114 lines, 3525 bytes"
+        },
+        "duration_seconds": 1.1820956
+      },
+      {
+        "conversation_id": "4706ac56-10b0-44dd-a2f6-f4e8d4ea8165",
+        "step_index": 48,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e4c30f13e9d3\\work\\project\\inputs\\files\\tests\\unit\\test_test_case_evidence.py"
+          },
+          "output": "144 lines, 7936 bytes"
+        },
+        "duration_seconds": 0.1195694
+      },
+      {
+        "conversation_id": "4706ac56-10b0-44dd-a2f6-f4e8d4ea8165",
+        "step_index": 50,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "run_command",
+        "tool_info": {
+          "name": "run_command",
+          "parameters": {
+            "CommandLine": "D:\\AboutDEV\\Strixnova\\.venv\\Scripts\\python.exe -c \"import subprocess, re; result = open(r'D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e4c30f13e9d3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\application_coordinator.py', encoding='utf-8').read(); lines = result.splitlines(); matches = [(i+1, l) for i, l in enumerate(lines) if '_verification_input_snapshot' in l]; print('\\n'.join(f'{n}: {l}' for n, l in matches[:20]))\""
+          },
+          "output": "1227:     def _verification_input_snapshot(self, current: Mapping[str, Any], command: Mapping[str, Any]) -> dict[str, Any]:\r\n1267:                     live = self._verification_input_snapshot(current, command)\r\n2638:         input_snapshot = self._verification_input_snapshot(current, selected)\r\n2685:             receipt[\"inputs_changed_during_execution\"] = self._verification_input_snapshot(current, selected) != input_snapshot\r\n"
+        },
+        "duration_seconds": 0.5575044
+      },
+      {
+        "conversation_id": "4706ac56-10b0-44dd-a2f6-f4e8d4ea8165",
+        "step_index": 52,
+        "state": "DONE",
+        "step_type": "tool",
+        "tool_name": "view_file",
+        "tool_info": {
+          "name": "view_file",
+          "parameters": {
+            "AbsolutePath": "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\e4c30f13e9d3\\work\\project\\inputs\\files\\strixnova\\src\\strixnova\\application_coordinator.py"
+          },
+          "output": "5587 lines, 248645 bytes"
+        },
+        "duration_seconds": 1.7494958
+      }
+    ],
+    "terminal_protocol_steps": [],
+    "unsettled_steps": [],
+    "failed_steps": [],
+    "wait_tool_errors": [],
+    "recovered_read_errors": [],
+    "recovered_output_prechecks": [],
+    "recovered_finish_errors": [],
+    "scenario_endpoint_reached": true,
+    "scenario_passed": true
+  },
+  "final_observation": {
+    "reached": true,
+    "frozen_inputs_unchanged": true
+  },
+  "observations": [
+    {
+      "elapsed": 323.954000000027,
+      "reached": true,
+      "frozen_inputs_unchanged": true
+    }
+  ],
+  "continuations": [],
+  "human_business_intervention": false,
+  "semantic_review": "pending",
+  "protocol_errors": [],
+  "last_result": {
+    "conversation_id": "4706ac56-10b0-44dd-a2f6-f4e8d4ea8165",
+    "status": "SUCCESS",
+    "response": "疑点1の調査のため `application_coordinator.py` の該当箇所を読みます。\n疑点1が確認できました。`application_coordinator.py:2683` が `receipt[\"project_input_snapshot\"] = input_snapshot` を設定しています。疑点2のxdist動作を確認します。\nxdist の実際の動作が確認できました。疑点2についての重要な追加情報：worker は `pytest_sessionfinish` で `workeroutput[\"strixnova_case_collection\"]` に collected/deselected/errors を書き、`pytest_runtest_logreport` で results を `_state[\"results\"]` に格納。controller 側では `pytest_testnodedown` が workeroutput から collection を取り込み、`pytest_runtest_logreport` が各テスト結果を受信（xdist は controller で logreport を中継する）。`test_xdist_controller_owns_one_complete_report` が `-n 2` で passed を確認しています。これは前回の評価の誤解で、xdist results は worker からではなく **controller 自身の pytest_runtest_logreport** で受信される（xdist プロトコル）。\n\n続けて `_verification_input_snapshot` の実装を確認します。\n疑点1と疑点3の核心的な事実が確認できました。`project_input_snapshot` は **`application_coordinator.py:2683`** で `receipt[\"project_input_snapshot\"] = input_snapshot` として設定されており、これは `VerificationRunner.run()` の **呼び出し元** である `application_coordinator` の責任です。`VerificationRunner` 自体は `project_content_snapshot.py` の関数を直接知らず、設計上それを呼ぶことは `application_coordinator` の役割。\n\nこれで全疑点を整理できました。最終評価を提出します。{\"assessments\":[{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"replace_documents() が日誌→バックアップ→置換→commit→崩溃恢復の完全フローを実装\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/recoverable_document_transaction.py#L332-L467\"},{\"claim\":\"_recover_one() が allowed_targets 範囲核対・第三方変化での拒絶・逆順復元を実装\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/recoverable_document_transaction.py#L190-L291\"},{\"claim\":\"recover_document_transactions() が allowed_targets 限定で全 txn-* ディレクトリを恢復\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/recoverable_document_transaction.py#L294-L329\"},{\"claim\":\"render_yaml_value_patches() が純メモリで YAML 値ノードのみ置換し回読検証、ファイル書込なし\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/yaml_metadata_patch.py#L127-L183\"},{\"claim\":\"build_yaml_patch_transaction() が before/after SHA-256 バインドで精確元数据事務を構築\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/yaml_metadata_patch.py#L222-L278\"},{\"claim\":\"apply_yaml_patch_transaction() がべき等適用・失敗時ロールバックを実装\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/yaml_metadata_patch.py#L281-L388\"},{\"claim\":\"_transaction_target() が .git/.strixnova/symlink/非正規化パスを拒絶\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/yaml_metadata_patch.py#L186-L219\"},{\"claim\":\"restore_yaml_patch_originals() が第三方変化時に現場保留（after_sha256 と不一致 → 拒絶）\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/yaml_metadata_patch.py#L391-L406\"},{\"claim\":\"test_patch_yaml_values_changes_only_selected_metadata_spans passed (run_id d0856323c4b6, f5e20647248e) — コメント・フォーマット保持、指定値のみ変更\",\"kind\":\"test\",\"ref\":\"tests/unit/test_yaml_metadata_patch.py#L16-L54\"},{\"claim\":\"test_yaml_patch_transaction_recovers_after_one_file_was_already_written passed (両 run_id) — べき等恢復\",\"kind\":\"test\",\"ref\":\"tests/unit/test_yaml_metadata_patch.py#L72-L101\"},{\"claim\":\"test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails passed (両 run_id) — code=yaml_transaction_write_failed_rolled_back\",\"kind\":\"test\",\"ref\":\"tests/unit/test_yaml_metadata_patch.py#L104-L142\"},{\"claim\":\"test_yaml_patch_transaction_rejects_internal_symlink: skipped 両 run_id（宿主 symlink 権限不足）— コードパス _transaction_target() L204-L210 は存在する\",\"kind\":\"test\",\"ref\":\"tests/unit/test_yaml_metadata_patch.py#L189-L206\"},{\"claim\":\"test_yaml_patch_transaction_rejects_external_symlink: skipped 両 run_id（宿主 symlink 権限不足）— コードパス _transaction_target() L208-L218 は存在する\",\"kind\":\"test\",\"ref\":\"tests/unit/test_yaml_metadata_patch.py#L209-L228\"},{\"claim\":\"test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths passed 6 ケース (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_yaml_metadata_patch.py#L145-L164\"},{\"claim\":\"test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_repository_document_transactions.py#L16-L48\"},{\"claim\":\"test_document_replacement_and_rollback_work_across_real_volumes passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_repository_document_transactions.py#L102-L121\"},{\"claim\":\"test_separated_document_recovery_requires_the_original_explicit_targets passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_repository_document_transactions.py#L67-L99\"},{\"claim\":\"test_yaml_transaction_binds_equal_paths_to_exact_repository_roots passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_repository_document_transactions.py#L51-L64\"}],\"limitations\":[\"全 JUnit 記録の source_at_execution_hash が 'not independently captured by the JUnit receipt' であり、passed 結果が現ファイルの精確バイトバージョンに対応することを独立検証できない\",\"symlink 拒絶テスト 2 件は両実行で skipped（宿主 symlink 作成権限不足）。ソースコードの _transaction_target() に実装は存在するが、実行レベルの動作証拠がない。これは証拠局限であり、コードの実装欠如ではない\",\"apply_yaml_patch_transaction は atomic_write_bytes を使用する独立路径であり、recoverable_document_transaction の日誌路径とは設計上並行して存在する。合同は両路径を要求しており、排他的な統合要件は存在しない\",\"評価は静的ソース検査と JUnit 摘要に基づく候補評価であり、独立復核が必要\"],\"missing\":[\"symlink 拒絶テスト 2 件が両実行で skipped のため実行レベルの動作証拠がない（証拠局限。実装コードは存在する）\"],\"resolution_plan\":[\"symlink 拒絶テスト 2 件を symlink 作成権限のある CI 宿主で実行し実行レベルの証拠を取得する\"],\"satisfied\":[\"recoverable_document_transaction.py の replace_documents() が「原子応用或恢復事務」の核心機構を実装：書前散列核対（expected_originals）、逐文件バックアップ、持久日誌（journal.json）、os.replace 原子置換、跨卷 tempfile fallback、崩溃恢復（_recover_one）\",\"recover_document_transactions() が allowed_targets 明確範囲での恢復と、第三方変化時の保留現場・拒絶覆蓋を実装\",\"yaml_metadata_patch.py の build_yaml_patch_transaction() が「構建精確元数据事務」を実装：before/after SHA-256 バインド、対象ノードのみ置換\",\"apply_yaml_patch_transaction() が YAML 層での「原子応用或恢復」を実装：べき等スキップ、失敗時ロールバック。これは recoverable_document_transaction とは独立した合同上の実装路径\",\"render_yaml_value_patches() が「预演授権元数据変化」を実装：純メモリレンダリング、対象ノードのみ書換、回読検証、ファイル書込なし\",\"restore_yaml_patch_originals() が第三方変化時の現場保留（after_sha256 と不一致 → 拒絶）と before バイト復元を実装\",\"_transaction_target() が .git/.strixnova・シンボリックリンク・非正規化パスを拒絶（コードパス存在確認、symlink は実行証拠局限あり）\",\"JUnit passed: test_patch_yaml_values_changes_only_selected_metadata_spans (両 run_id)\",\"JUnit passed: test_atomic_replacement_preserves_existing_file_mode (両 run_id)\",\"JUnit passed: test_yaml_patch_transaction_recovers_after_one_file_was_already_written (両 run_id)\",\"JUnit passed: test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails (両 run_id)\",\"JUnit passed: test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths 6 ケース (両 run_id)\",\"JUnit passed: test_yaml_patch_transaction_rejects_case_aliases_of_one_target (両 run_id, Windows-only)\",\"JUnit passed: test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal (両 run_id)\",\"JUnit passed: test_document_replacement_and_rollback_work_across_real_volumes (両 run_id)\",\"JUnit passed: test_separated_document_recovery_requires_the_original_explicit_targets (両 run_id)\",\"JUnit passed: test_yaml_transaction_binds_equal_paths_to_exact_repository_roots (両 run_id)\"],\"status\":\"partially_implemented\",\"target_id\":\"MODULE-992560C2560A4013\",\"target_kind\":\"module\"},{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"_approved_command() がスキーマ/plan/policy/forbidden_program を完全核対\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/verification_runner.py#L955-L1138\"},{\"claim\":\"run() が精確コマンドを実行し完全な生命周期事実を記録\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/verification_runner.py#L582-L690\"},{\"claim\":\"coverage_status() が真実の回執から唯一の verification_status を生成\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/verification_runner.py#L814-L912\"},{\"claim\":\"save_receipt() が同一 receipt_id への重複書込を拒絶\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/verification_runner.py#L702-L715\"},{\"claim\":\"application_coordinator.py:2638 が runner.run() 呼び出し前に _verification_input_snapshot() を呼び出し、L2649 で execution_intent に持久化、L2683 で receipt['project_input_snapshot'] = input_snapshot を設定、L2685 で実行後変化を比較する。project_input_snapshot の設定は呼び出し元 application_coordinator の確立した責任\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/application_coordinator.py#L2638-L2692\"},{\"claim\":\"_verification_input_snapshot() が project_content_snapshot.compose_content_snapshot() と capture_repository_content() を使って入力スナップショットを構築\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/application_coordinator.py#L1227-L1245\"},{\"claim\":\"adapter_environment() が PYTEST_PLUGINS で随包報告器を注入\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/test_case_evidence.py#L181-L195\"},{\"claim\":\"pytest_runtest_logreport(L48-L54) が全フェーズ結果を _state['results'] に収集。xdist 環境では xdist が controller に logreport を中継するため controller の _state['results'] に集積する。pytest_testnodedown(L64-L73) が worker の workeroutput から collection メタデータを取得。pytest_sessionfinish の worker 分岐(L79-L85) が collected/deselected/errors を workeroutput に書出し。controller 分岐(L86-L113) が _state['results'] をレポート JSON に書出す。test_xdist_controller_owns_one_complete_report が -n 2 で passed\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py#L48-L113\"},{\"claim\":\"CaseExecution.finish() がレポートを読込み adapter_sha256/run_id/exit_status を核対\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/test_case_evidence.py#L283-L324\"},{\"claim\":\"collect_dependency_evidence()/validate_dependency_evidence()/dependency_evidence_stale() が依存証拠採集・核対・時効チェックを実装\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/verification_dependencies.py#L37-L115\"},{\"claim\":\"回執構造 Schema が approval_ref/limitations/allOf 条件（not_run/execution_evidence_unavailable）を定義\",\"kind\":\"artifact\",\"ref\":\"strixnova/src/strixnova/resources/verification-summary-v1.schema.json#L1-L291\"},{\"claim\":\"test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_verification_runner.py#L50-L62\"},{\"claim\":\"test_deduplicates_only_by_argv_cwd_and_run_kind passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_verification_runner.py#L65-L89\"},{\"claim\":\"test_verification_timeout_rejects_non_finite_numbers passed nan/inf/-inf (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_verification_runner.py#L96-L101\"},{\"claim\":\"test_code_change_assessment_rejects_unknown_semantic_fields passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_verification_runner.py#L104-L119\"},{\"claim\":\"test_xdist_controller_owns_one_complete_report passed (両 run_id) — -n 2 で唯一の .cases.json が生成されることを断言\",\"kind\":\"test\",\"ref\":\"tests/unit/test_test_case_evidence.py#L84-L90\"},{\"claim\":\"test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_test_case_evidence.py#L29-L48\"}],\"limitations\":[\"全 JUnit 記録の source_at_execution_hash が未独立捕獲のため、passed 結果が現ファイルの精確バイトに対応することを独立検証できない\",\"project_input_snapshot の設定は application_coordinator の責任であり VerificationRunner.run() 内部には存在しない。これは設計上の分担であり VerificationRunner の未実装ではない。ただし application_coordinator.py は本モジュールの source_paths に含まれないため、application_coordinator の実装を本モジュールの実装証拠として計上することは帰属上の注意が必要\",\"code_change_assessment は設計上 Agent が run() 後に填写するもの（L677-L679）であり、Agent 判断の品質は本モジュールの観察可能な職責外\",\"integration/test_local_git_lifecycle.py の tests は複数モジュール協作を含む統合テストであり本モジュール単体の職責を個別に証明するものではない\",\"評価は静的ソース検査と JUnit 摘要に基づく候補評価であり、独立復核が必要\"],\"missing\":[\"application_coordinator.py が project_input_snapshot の設定を担う呼び出し元であることが確認できたが、application_coordinator は本モジュール(MODULE-A94EF8E733E64205)の source_paths に含まれない。VerificationRunner 単体で呼び出した場合（本モジュールの公開インターフェースを単独使用する場合）は receipt['project_input_snapshot'] が設定されない。合同が「本モジュール単独で project_input_snapshot を必要とするか、呼び出し元の責任で設定することを許容するか」の境界が source_paths の範囲内のソースでは確定できない\"],\"resolution_plan\":[\"application_coordinator.py を MODULE-A94EF8E733E64205 または別モジュールの source_paths に明示的に追加し、project_input_snapshot 設定責任の帰属を合同上明確にする。あるいは、VerificationRunner の受入インターフェースとして project_input_snapshot を呼び出し元が設定することを合同テキストで明記する\"],\"satisfied\":[\"VerificationRunner._approved_command() が「校験執行請求」を実装：schema_version/work_item_id/version/plan_id/plan_confirmation/policy_decision の完全核対、forbidden_agent_program_names チェック、approved_program.argument_policy=exact_plan_only 確認（L955-L1138）\",\"VerificationRunner.run() が「運行已批准験証」を実装：run_process() 経由で精確コマンドを実行、started_at/duration_seconds/exit_code/result/output_summary/raw_output_refs を完全記録（L582-L690）\",\"VerificationRunner.coverage_status() が「汇総験証回執」を実装：真実の回執のみから verification_status を生成、業務正確への拡大なし（L814-L912）\",\"save_receipt() が同一 receipt_id への重複書込を拒絶（内容比較後に VerificationRunnerError）\",\"recover_receipt() が中断後の blocked 回執を生成し execution_evidence_unavailable=True で実行証拠なしを明示（L717-L742）\",\"test_case_evidence.py の adapter_environment() が PYTEST_PLUGINS/STRIXNOVA_CASE_REPORT_PATH/STRIXNOVA_CASE_RUN_ID を注入して随包報告器をロード（L181-L195）\",\"strixnova_builtin_pytest_cases.py が pytest_runtest_logreport で全テスト結果を収集（xdist 環境では controller が全 worker の logreport を受信するため controller の _state['results'] に集積）し、pytest_testnodedown で worker の collection メタデータを取得し、controller の pytest_sessionfinish で strixnova.test-case-report.v1 形式を原子書込。Strixnova コード import なし\",\"CaseExecution.finish() がレポートを読込み adapter_sha256/run_id/exit_status を核対し例子バインドを検証（L283-L324）\",\"report_results() が原生用例・報告身份・例子バインド・input_snapshot を核対（L198-L255）\",\"verification_dependencies.py が collect_dependency_evidence()/validate_dependency_evidence()/dependency_evidence_stale() を実装\",\"verification-summary-v1.schema.json が回執構造制約を定義\",\"application_coordinator.py が project_input_snapshot の採集（L2638）・実行意図への持久化（L2649）・受取に設定（L2683）・実行後変化比較（L2685）を担う呼び出し元として実装している。project_content_snapshot.py の compose_content_snapshot/capture_repository_content が採集ロジックを提供\"],\"status\":\"partially_implemented\",\"target_id\":\"MODULE-A94EF8E733E64205\",\"target_kind\":\"module\"},{\"deviation_ids\":[],\"evidence\":[{\"claim\":\"GitProjectReader が読取当前/精確版本文件・批量読取・バージョン解析・仓库バインドを実装（L1083-L1534）\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/git_project_reader.py#L1083-L1534\"},{\"claim\":\"_ReadOnlyGit が精確版本読取・blob バッチ・worktree パス列挙・読取専用 Git 実行分離を実装（L165-L590）\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/git_project_reader.py#L165-L590\"},{\"claim\":\"repository_relative_path() がパス規範化と安全検査（.git/.strixnova/../シンボリックリンク拒絶）を実装\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/git_project_reader.py#L1044-L1072\"},{\"claim\":\"_ReadOnlyGit._run() が GIT_NO_LAZY_FETCH 等でネットワーク・ロックを無効化\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/git_project_reader.py#L983-L1042\"},{\"claim\":\"schema_error_message() が JSON Schema エラーを中文説明に変換（15 種）\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/schema_error_reporting.py#L51-L115\"},{\"claim\":\"capture_repository_content()/compose_content_snapshot()/verification_snapshot_matches() がコンテンツ指紋採集・スナップショット構築・比対を実装\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/project_content_snapshot.py#L127-L213\"},{\"claim\":\"input_snapshot()/snapshot_matches()/validate_evidence()/CaseExecution が宣言済み入力ファイルのバイト指紋と現状比対を実装\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/test_case_evidence.py#L137-L367\"},{\"claim\":\"pytest 適配器が striznovaコード非依存で striznovatest-case-report.v1 形式を原子書込（全ファイル読取済み）\",\"kind\":\"source\",\"ref\":\"strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py#L1-L113\"},{\"claim\":\"3 JSON Schema が case_report 設定・用例証拠・pytest 報告構造を定義\",\"kind\":\"artifact\",\"ref\":\"strixnova/src/strixnova/resources/test-case-config-v1.schema.json\"},{\"claim\":\"test_git_for_windows_cmd_wrapper_resolves_to_direct_binary passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_git_project_reader.py::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary\"},{\"claim\":\"test_unbound_directory_read_does_not_adopt_its_parent_repository passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_git_project_reader.py::test_unbound_directory_read_does_not_adopt_its_parent_repository\"},{\"claim\":\"test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits passed (両 run_id) — evidence と report の JSON Schema 検証含む\",\"kind\":\"test\",\"ref\":\"tests/unit/test_test_case_evidence.py#L29-L48\"},{\"claim\":\"test_skip_xfail_xpass_and_missing_case_never_count_as_passed passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_test_case_evidence.py#L51-L65\"},{\"claim\":\"test_xdist_controller_owns_one_complete_report passed (両 run_id) — -n 2 で唯一の .cases.json 断言\",\"kind\":\"test\",\"ref\":\"tests/unit/test_test_case_evidence.py#L84-L90\"},{\"claim\":\"test_xdist_loadgroup_keeps_exact_native_case_identity passed (両 run_id) — @receivers グループ ID 保持\",\"kind\":\"test\",\"ref\":\"tests/unit/test_test_case_evidence.py#L137-L143\"},{\"claim\":\"test_service_evidence_requires_actual_version_contract_and_environment passed (両 run_id)\",\"kind\":\"test\",\"ref\":\"tests/unit/test_verification_dependencies.py::test_service_evidence_requires_actual_version_contract_and_environment\"}],\"limitations\":[\"全 JUnit 記録の source_at_execution_hash が未独立捕獲のため、passed 結果が現ファイルの精確バイトに対応することを独立検証できない\",\"test_composite_implementation_alignment.py（2 件）と test_implementation_observation_drift.py（5 件）が packet の test_definition_ids に列挙されているが、対応ソースファイル（composite_implementation_alignment.py 等）は本 packet の source_paths に含まれない。これらのテストが中介モジュールを通じて本モジュールの境界を検証する正常な統合テストである可能性があるが、対応するソースが source_paths にないため本評価での直接確認は不完全\",\"test_multi_repository_review_regressions.py（5 件）は project_content_snapshot.py の continued_verification_paths/verification_snapshot_matches を中介する統合テストである可能性が高いが、テストファイル本体を本会話で完全読取していないため具体的断言を確認できていない\",\"評価は静的ソース検査と JUnit 摘要に基づく候補評価であり、独立復核が必要\"],\"missing\":[\"packet の test_definition_ids に test_composite_implementation_alignment.py（2 件）と test_implementation_observation_drift.py（5 件）が列挙されているが、対応ソースファイルが source_paths に不在のため、これらのテストが本モジュールのどの公開インターフェースを検証するか静的検査では特定できない（中介モジュール経由の正常な統合テストである可能性は否定しないが現時点で確認不完全）\"],\"resolution_plan\":[\"composite_implementation_alignment.py および implementation_observation_drift 関連のソースファイルを source_paths に追加するか、または対応する test_definition_ids を正しいモジュールに帰属させ、test_multi_repository_review_regressions.py の断言内容を読取り project_content_snapshot.py との対応を確認する\"],\"satisfied\":[\"GitProjectReader.tracked_paths()/read_bytes()/read_text()/load_yaml()/exists() が「読取当前項目文件」を実装：バインド済み単仓库範囲内で作業木コンテンツを返却\",\"GitProjectReader（observed_ref 有り）が「読取精確版本文件」を実装：不変 Git 提交から blob を読取\",\"_ReadOnlyGit.read_files_at()/prefetch()/iter_canonical_files() が「批量読取精確版本文件」を実装：bounded one-shot batches\",\"_ReadOnlyGit.resolve_commit() が「解析精確版本」を実装：参照を不変 commit hash に解決\",\"schema_error_reporting.py の schema_error_message() が「呈現構造校験錯誤」を実装：JSON Schema エラーを中文説明に変換\",\"project_content_snapshot.py の capture_repository_content()/compose_content_snapshot()/verification_snapshot_matches() が「采集与比対声明内容組合」を実装\",\"test_case_evidence.py の input_snapshot()/snapshot_matches()/validate_evidence()/CaseExecution が「校験声明入力和已記録証拠」を実装\",\"_ReadOnlyGit._run() が GIT_NO_LAZY_FETCH/GIT_OPTIONAL_LOCKS/GIT_TERMINAL_PROMPT でネットワーク・ロックを無効化\",\"repository_relative_path() が .git/.strixnova/絶対パス/../シンボリックリンクを拒絶\",\"GitProjectReader.repository_scope()/bind_repository() が仓库身份バインドと再チェックを実装\",\"GitProjectReader.content_window() が境界付きバイト窓・digest バインド・シンボリックリンク拒絶を実装\",\"verification_dependencies.py が外部依存バージョン証拠の採集・核対・時効チェックを実装\",\"strixnova_builtin_pytest_cases.py が striznovaコード非依存で pytest_runtest_logreport（全フェーズ結果収集）、pytest_testnodedown（worker collection メタデータ取得）、worker の pytest_sessionfinish（collection メタデータ書出）、controller の pytest_sessionfinish（レポート原子書込）を実装。test_xdist_controller_owns_one_complete_report が -n 2 で passed を確認\",\"3 JSON Schema が case_report 設定・用例証拠・pytest 報告構造を定義\",\"JUnit passed: test_git_for_windows_cmd_wrapper_resolves_to_direct_binary (両 run_id)\",\"JUnit passed: test_read_only_reader_distinguishes_ancestor_from_descendant (両 run_id)\",\"JUnit passed: test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files (両 run_id)\",\"JUnit passed: test_unbound_directory_read_does_not_adopt_its_parent_repository (両 run_id)\",\"JUnit passed: test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits (両 run_id)\",\"JUnit passed: test_skip_xfail_xpass_and_missing_case_never_count_as_passed (両 run_id)\",\"JUnit passed: test_selection_and_teardown_errors_are_observed_separately (両 run_id)\",\"JUnit passed: test_xdist_controller_owns_one_complete_report (両 run_id)\",\"JUnit passed: test_xdist_loadgroup_keeps_exact_native_case_identity (両 run_id)\",\"JUnit passed: test_service_evidence_requires_actual_version_contract_and_environment (両 run_id)\"],\"status\":\"partially_implemented\",\"target_id\":\"MODULE-B558AA14F6004AC0\",\"target_kind\":\"module\"}],\"owner_accepted\":false,\"semantic_content_machine_proven\":false,\"source_ownership\":[{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/recoverable_document_transaction.py\",\"rationale\":\"ファイルが replace_documents()/recover_document_transactions() を通じてモジュール合同の「原子応用或恢復事務」と「替換精確文档組合」の底層崩溃恢復機構を完全に実装。公開インターフェース・エラークラス・散列バインドが合同と一致。越権や漂移の明確な兆候なし\",\"target_module_id\":\"MODULE-992560C2560A4013\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/yaml_metadata_patch.py\",\"rationale\":\"ファイルが build_yaml_patch_transaction()/apply_yaml_patch_transaction()/render_yaml_value_patches()/restore_yaml_patch_originals() を通じて「構建精確元数据事務」「预演授權元数据変化」「原子応用或恢復」の YAML 層実装を提供。apply_yaml_patch_transaction が atomic_write_bytes を使用するのは YAML 事務の独立実装路径であり合同範囲内。git_project_reader.repository_relative_path への依存は明示的パス検証のため\",\"target_module_id\":\"MODULE-992560C2560A4013\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/resources/verification-summary-v1.schema.json\",\"rationale\":\"Schema が verification_runner.py の _validated_receipt() で使用される回執構造制約を定義。approval_ref/limitations/result/code_change_assessment/allOf 条件が実装コードと一致\",\"target_module_id\":\"MODULE-A94EF8E733E64205\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/verification_runner.py\",\"rationale\":\"ファイルがモジュール合同の「校験執行請求」「運行已批准験証」「汇総験証回執」の 3 公開操作を VerificationRunner クラスとして実装。Agent プログラム禁止・仓库範囲検証・依存証拠採集を含む。project_input_snapshot の設定は application_coordinator が担う呼び出し元の責任であり（application_coordinator.py:2683 で確認）、VerificationRunner 自体の設計上の分担と一致する\",\"target_module_id\":\"MODULE-A94EF8E733E64205\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/git_project_reader.py\",\"rationale\":\"ファイルが GitProjectReader/_ReadOnlyGit を通じてモジュール合同の「読取当前/精確版本文件」「批量読取」「解析精確版本」を実装。読取専用 Git 実行分離・パス安全検査・仓库身份バインドが合同制約と一致\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/project_content_snapshot.py\",\"rationale\":\"ファイルが「采集与比対声明内容組合」を capture_repository_content()/compose_content_snapshot()/verification_snapshot_matches() で実装。プロジェクトファイル書込なし・宣言依拠のみ組合せ・サービス探知なし。合同制約と一致\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py\",\"rationale\":\"ファイルが striznovaコードを一切 import せず pytest hook のみで striznovatest-case-report.v1 形式の JSON を原子書込。pytest_runtest_logreport が全フェーズ結果を収集（xdist では controller が全 worker の logreport を受信）、pytest_testnodedown が worker の collection メタデータを取得、worker の pytest_sessionfinish が collection メタデータを workeroutput に書出。adapter_sha256 の自己ハッシュ設計確認済み。test_xdist_controller_owns_one_complete_report が -n 2 で passed を確認\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/resources/test-case-config-v1.schema.json\",\"rationale\":\"Schema の定義（adapter/test_root/input_paths/bindings/example_fingerprints）が test_case_evidence.py の normalize_config() で使用するフィールド集と一致\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json\",\"rationale\":\"Schema の定義（input_snapshot/example_results/adapter_sha256/status 等）が test_case_evidence.py の validate_evidence() および verification_runner.py の _validated_receipt() で使用するフィールド集と一致\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/resources/test-case-report-v1.schema.json\",\"rationale\":\"Schema の定義（schema_version/run_id/adapter/collected_test_ids/results 等）が test_case_evidence.py の report_results() および striznovabuiltin_pytest_cases.py の出力 JSON と一致\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/schema_error_reporting.py\",\"rationale\":\"ファイルが「呈現構造校験錯誤」を schema_error_message()/one_of_branch_errors() で実装。JSON Schema エラーを中文説明に変換、プロジェクト語義は解釈しない。合同制約と一致\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/test_case_evidence.py\",\"rationale\":\"ファイルが「校験声明入力和已記録証拠」を input_snapshot()/snapshot_matches()/validate_evidence()/CaseExecution で実装。ビジネスファイル書込なし・断言充分性の判断なし。合同制約と一致\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"},{\"current_status\":\"aligned\",\"path\":\"strixnova/src/strixnova/verification_dependencies.py\",\"rationale\":\"ファイルが外部依存バージョン証拠の採集（collect_dependency_evidence）・核対（validate_dependency_evidence）・時効チェック（dependency_evidence_stale）を実装。「校験声明入力和已記録証拠」の外部依存サブセットとして合同と一致\",\"target_module_id\":\"MODULE-B558AA14F6004AC0\"}],\"toolAction\":\"Submitting revised assessment\",\"toolSummary\":\"Final revised assessment\"}\n",
+    "duration_seconds": 2231.267043,
+    "num_turns": 4,
+    "structured_output": {
+      "assessments": [
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "replace_documents() が日誌→バックアップ→置換→commit→崩溃恢復の完全フローを実装",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/recoverable_document_transaction.py#L332-L467"
+            },
+            {
+              "claim": "_recover_one() が allowed_targets 範囲核対・第三方変化での拒絶・逆順復元を実装",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/recoverable_document_transaction.py#L190-L291"
+            },
+            {
+              "claim": "recover_document_transactions() が allowed_targets 限定で全 txn-* ディレクトリを恢復",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/recoverable_document_transaction.py#L294-L329"
+            },
+            {
+              "claim": "render_yaml_value_patches() が純メモリで YAML 値ノードのみ置換し回読検証、ファイル書込なし",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L127-L183"
+            },
+            {
+              "claim": "build_yaml_patch_transaction() が before/after SHA-256 バインドで精確元数据事務を構築",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L222-L278"
+            },
+            {
+              "claim": "apply_yaml_patch_transaction() がべき等適用・失敗時ロールバックを実装",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L281-L388"
+            },
+            {
+              "claim": "_transaction_target() が .git/.strixnova/symlink/非正規化パスを拒絶",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L186-L219"
+            },
+            {
+              "claim": "restore_yaml_patch_originals() が第三方変化時に現場保留（after_sha256 と不一致 → 拒絶）",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/yaml_metadata_patch.py#L391-L406"
+            },
+            {
+              "claim": "test_patch_yaml_values_changes_only_selected_metadata_spans passed (run_id d0856323c4b6, f5e20647248e) — コメント・フォーマット保持、指定値のみ変更",
+              "kind": "test",
+              "ref": "tests/unit/test_yaml_metadata_patch.py#L16-L54"
+            },
+            {
+              "claim": "test_yaml_patch_transaction_recovers_after_one_file_was_already_written passed (両 run_id) — べき等恢復",
+              "kind": "test",
+              "ref": "tests/unit/test_yaml_metadata_patch.py#L72-L101"
+            },
+            {
+              "claim": "test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails passed (両 run_id) — code=yaml_transaction_write_failed_rolled_back",
+              "kind": "test",
+              "ref": "tests/unit/test_yaml_metadata_patch.py#L104-L142"
+            },
+            {
+              "claim": "test_yaml_patch_transaction_rejects_internal_symlink: skipped 両 run_id（宿主 symlink 権限不足）— コードパス _transaction_target() L204-L210 は存在する",
+              "kind": "test",
+              "ref": "tests/unit/test_yaml_metadata_patch.py#L189-L206"
+            },
+            {
+              "claim": "test_yaml_patch_transaction_rejects_external_symlink: skipped 両 run_id（宿主 symlink 権限不足）— コードパス _transaction_target() L208-L218 は存在する",
+              "kind": "test",
+              "ref": "tests/unit/test_yaml_metadata_patch.py#L209-L228"
+            },
+            {
+              "claim": "test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths passed 6 ケース (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_yaml_metadata_patch.py#L145-L164"
+            },
+            {
+              "claim": "test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_repository_document_transactions.py#L16-L48"
+            },
+            {
+              "claim": "test_document_replacement_and_rollback_work_across_real_volumes passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_repository_document_transactions.py#L102-L121"
+            },
+            {
+              "claim": "test_separated_document_recovery_requires_the_original_explicit_targets passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_repository_document_transactions.py#L67-L99"
+            },
+            {
+              "claim": "test_yaml_transaction_binds_equal_paths_to_exact_repository_roots passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_repository_document_transactions.py#L51-L64"
+            }
+          ],
+          "limitations": [
+            "全 JUnit 記録の source_at_execution_hash が 'not independently captured by the JUnit receipt' であり、passed 結果が現ファイルの精確バイトバージョンに対応することを独立検証できない",
+            "symlink 拒絶テスト 2 件は両実行で skipped（宿主 symlink 作成権限不足）。ソースコードの _transaction_target() に実装は存在するが、実行レベルの動作証拠がない。これは証拠局限であり、コードの実装欠如ではない",
+            "apply_yaml_patch_transaction は atomic_write_bytes を使用する独立路径であり、recoverable_document_transaction の日誌路径とは設計上並行して存在する。合同は両路径を要求しており、排他的な統合要件は存在しない",
+            "評価は静的ソース検査と JUnit 摘要に基づく候補評価であり、独立復核が必要"
+          ],
+          "missing": [
+            "symlink 拒絶テスト 2 件が両実行で skipped のため実行レベルの動作証拠がない（証拠局限。実装コードは存在する）"
+          ],
+          "resolution_plan": [
+            "symlink 拒絶テスト 2 件を symlink 作成権限のある CI 宿主で実行し実行レベルの証拠を取得する"
+          ],
+          "satisfied": [
+            "recoverable_document_transaction.py の replace_documents() が「原子応用或恢復事務」の核心機構を実装：書前散列核対（expected_originals）、逐文件バックアップ、持久日誌（journal.json）、os.replace 原子置換、跨卷 tempfile fallback、崩溃恢復（_recover_one）",
+            "recover_document_transactions() が allowed_targets 明確範囲での恢復と、第三方変化時の保留現場・拒絶覆蓋を実装",
+            "yaml_metadata_patch.py の build_yaml_patch_transaction() が「構建精確元数据事務」を実装：before/after SHA-256 バインド、対象ノードのみ置換",
+            "apply_yaml_patch_transaction() が YAML 層での「原子応用或恢復」を実装：べき等スキップ、失敗時ロールバック。これは recoverable_document_transaction とは独立した合同上の実装路径",
+            "render_yaml_value_patches() が「预演授権元数据変化」を実装：純メモリレンダリング、対象ノードのみ書換、回読検証、ファイル書込なし",
+            "restore_yaml_patch_originals() が第三方変化時の現場保留（after_sha256 と不一致 → 拒絶）と before バイト復元を実装",
+            "_transaction_target() が .git/.strixnova・シンボリックリンク・非正規化パスを拒絶（コードパス存在確認、symlink は実行証拠局限あり）",
+            "JUnit passed: test_patch_yaml_values_changes_only_selected_metadata_spans (両 run_id)",
+            "JUnit passed: test_atomic_replacement_preserves_existing_file_mode (両 run_id)",
+            "JUnit passed: test_yaml_patch_transaction_recovers_after_one_file_was_already_written (両 run_id)",
+            "JUnit passed: test_yaml_patch_transaction_rolls_back_prior_files_when_later_write_fails (両 run_id)",
+            "JUnit passed: test_yaml_patch_transaction_rejects_internal_and_noncanonical_paths 6 ケース (両 run_id)",
+            "JUnit passed: test_yaml_patch_transaction_rejects_case_aliases_of_one_target (両 run_id, Windows-only)",
+            "JUnit passed: test_current_recovery_obeys_explicit_targets_and_preserves_rejected_journal (両 run_id)",
+            "JUnit passed: test_document_replacement_and_rollback_work_across_real_volumes (両 run_id)",
+            "JUnit passed: test_separated_document_recovery_requires_the_original_explicit_targets (両 run_id)",
+            "JUnit passed: test_yaml_transaction_binds_equal_paths_to_exact_repository_roots (両 run_id)"
+          ],
+          "status": "partially_implemented",
+          "target_id": "MODULE-992560C2560A4013",
+          "target_kind": "module"
+        },
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "_approved_command() がスキーマ/plan/policy/forbidden_program を完全核対",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/verification_runner.py#L955-L1138"
+            },
+            {
+              "claim": "run() が精確コマンドを実行し完全な生命周期事実を記録",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/verification_runner.py#L582-L690"
+            },
+            {
+              "claim": "coverage_status() が真実の回執から唯一の verification_status を生成",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/verification_runner.py#L814-L912"
+            },
+            {
+              "claim": "save_receipt() が同一 receipt_id への重複書込を拒絶",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/verification_runner.py#L702-L715"
+            },
+            {
+              "claim": "application_coordinator.py:2638 が runner.run() 呼び出し前に _verification_input_snapshot() を呼び出し、L2649 で execution_intent に持久化、L2683 で receipt['project_input_snapshot'] = input_snapshot を設定、L2685 で実行後変化を比較する。project_input_snapshot の設定は呼び出し元 application_coordinator の確立した責任",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/application_coordinator.py#L2638-L2692"
+            },
+            {
+              "claim": "_verification_input_snapshot() が project_content_snapshot.compose_content_snapshot() と capture_repository_content() を使って入力スナップショットを構築",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/application_coordinator.py#L1227-L1245"
+            },
+            {
+              "claim": "adapter_environment() が PYTEST_PLUGINS で随包報告器を注入",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/test_case_evidence.py#L181-L195"
+            },
+            {
+              "claim": "pytest_runtest_logreport(L48-L54) が全フェーズ結果を _state['results'] に収集。xdist 環境では xdist が controller に logreport を中継するため controller の _state['results'] に集積する。pytest_testnodedown(L64-L73) が worker の workeroutput から collection メタデータを取得。pytest_sessionfinish の worker 分岐(L79-L85) が collected/deselected/errors を workeroutput に書出し。controller 分岐(L86-L113) が _state['results'] をレポート JSON に書出す。test_xdist_controller_owns_one_complete_report が -n 2 で passed",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py#L48-L113"
+            },
+            {
+              "claim": "CaseExecution.finish() がレポートを読込み adapter_sha256/run_id/exit_status を核対",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/test_case_evidence.py#L283-L324"
+            },
+            {
+              "claim": "collect_dependency_evidence()/validate_dependency_evidence()/dependency_evidence_stale() が依存証拠採集・核対・時効チェックを実装",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/verification_dependencies.py#L37-L115"
+            },
+            {
+              "claim": "回執構造 Schema が approval_ref/limitations/allOf 条件（not_run/execution_evidence_unavailable）を定義",
+              "kind": "artifact",
+              "ref": "strixnova/src/strixnova/resources/verification-summary-v1.schema.json#L1-L291"
+            },
+            {
+              "claim": "test_unclosed_process_cleanup_does_not_become_a_completed_blocked_receipt passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_verification_runner.py#L50-L62"
+            },
+            {
+              "claim": "test_deduplicates_only_by_argv_cwd_and_run_kind passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_verification_runner.py#L65-L89"
+            },
+            {
+              "claim": "test_verification_timeout_rejects_non_finite_numbers passed nan/inf/-inf (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_verification_runner.py#L96-L101"
+            },
+            {
+              "claim": "test_code_change_assessment_rejects_unknown_semantic_fields passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_verification_runner.py#L104-L119"
+            },
+            {
+              "claim": "test_xdist_controller_owns_one_complete_report passed (両 run_id) — -n 2 で唯一の .cases.json が生成されることを断言",
+              "kind": "test",
+              "ref": "tests/unit/test_test_case_evidence.py#L84-L90"
+            },
+            {
+              "claim": "test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_test_case_evidence.py#L29-L48"
+            }
+          ],
+          "limitations": [
+            "全 JUnit 記録の source_at_execution_hash が未独立捕獲のため、passed 結果が現ファイルの精確バイトに対応することを独立検証できない",
+            "project_input_snapshot の設定は application_coordinator の責任であり VerificationRunner.run() 内部には存在しない。これは設計上の分担であり VerificationRunner の未実装ではない。ただし application_coordinator.py は本モジュールの source_paths に含まれないため、application_coordinator の実装を本モジュールの実装証拠として計上することは帰属上の注意が必要",
+            "code_change_assessment は設計上 Agent が run() 後に填写するもの（L677-L679）であり、Agent 判断の品質は本モジュールの観察可能な職責外",
+            "integration/test_local_git_lifecycle.py の tests は複数モジュール協作を含む統合テストであり本モジュール単体の職責を個別に証明するものではない",
+            "評価は静的ソース検査と JUnit 摘要に基づく候補評価であり、独立復核が必要"
+          ],
+          "missing": [
+            "application_coordinator.py が project_input_snapshot の設定を担う呼び出し元であることが確認できたが、application_coordinator は本モジュール(MODULE-A94EF8E733E64205)の source_paths に含まれない。VerificationRunner 単体で呼び出した場合（本モジュールの公開インターフェースを単独使用する場合）は receipt['project_input_snapshot'] が設定されない。合同が「本モジュール単独で project_input_snapshot を必要とするか、呼び出し元の責任で設定することを許容するか」の境界が source_paths の範囲内のソースでは確定できない"
+          ],
+          "resolution_plan": [
+            "application_coordinator.py を MODULE-A94EF8E733E64205 または別モジュールの source_paths に明示的に追加し、project_input_snapshot 設定責任の帰属を合同上明確にする。あるいは、VerificationRunner の受入インターフェースとして project_input_snapshot を呼び出し元が設定することを合同テキストで明記する"
+          ],
+          "satisfied": [
+            "VerificationRunner._approved_command() が「校験執行請求」を実装：schema_version/work_item_id/version/plan_id/plan_confirmation/policy_decision の完全核対、forbidden_agent_program_names チェック、approved_program.argument_policy=exact_plan_only 確認（L955-L1138）",
+            "VerificationRunner.run() が「運行已批准験証」を実装：run_process() 経由で精確コマンドを実行、started_at/duration_seconds/exit_code/result/output_summary/raw_output_refs を完全記録（L582-L690）",
+            "VerificationRunner.coverage_status() が「汇総験証回執」を実装：真実の回執のみから verification_status を生成、業務正確への拡大なし（L814-L912）",
+            "save_receipt() が同一 receipt_id への重複書込を拒絶（内容比較後に VerificationRunnerError）",
+            "recover_receipt() が中断後の blocked 回執を生成し execution_evidence_unavailable=True で実行証拠なしを明示（L717-L742）",
+            "test_case_evidence.py の adapter_environment() が PYTEST_PLUGINS/STRIXNOVA_CASE_REPORT_PATH/STRIXNOVA_CASE_RUN_ID を注入して随包報告器をロード（L181-L195）",
+            "strixnova_builtin_pytest_cases.py が pytest_runtest_logreport で全テスト結果を収集（xdist 環境では controller が全 worker の logreport を受信するため controller の _state['results'] に集積）し、pytest_testnodedown で worker の collection メタデータを取得し、controller の pytest_sessionfinish で strixnova.test-case-report.v1 形式を原子書込。Strixnova コード import なし",
+            "CaseExecution.finish() がレポートを読込み adapter_sha256/run_id/exit_status を核対し例子バインドを検証（L283-L324）",
+            "report_results() が原生用例・報告身份・例子バインド・input_snapshot を核対（L198-L255）",
+            "verification_dependencies.py が collect_dependency_evidence()/validate_dependency_evidence()/dependency_evidence_stale() を実装",
+            "verification-summary-v1.schema.json が回執構造制約を定義",
+            "application_coordinator.py が project_input_snapshot の採集（L2638）・実行意図への持久化（L2649）・受取に設定（L2683）・実行後変化比較（L2685）を担う呼び出し元として実装している。project_content_snapshot.py の compose_content_snapshot/capture_repository_content が採集ロジックを提供"
+          ],
+          "status": "partially_implemented",
+          "target_id": "MODULE-A94EF8E733E64205",
+          "target_kind": "module"
+        },
+        {
+          "deviation_ids": [],
+          "evidence": [
+            {
+              "claim": "GitProjectReader が読取当前/精確版本文件・批量読取・バージョン解析・仓库バインドを実装（L1083-L1534）",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/git_project_reader.py#L1083-L1534"
+            },
+            {
+              "claim": "_ReadOnlyGit が精確版本読取・blob バッチ・worktree パス列挙・読取専用 Git 実行分離を実装（L165-L590）",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/git_project_reader.py#L165-L590"
+            },
+            {
+              "claim": "repository_relative_path() がパス規範化と安全検査（.git/.strixnova/../シンボリックリンク拒絶）を実装",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/git_project_reader.py#L1044-L1072"
+            },
+            {
+              "claim": "_ReadOnlyGit._run() が GIT_NO_LAZY_FETCH 等でネットワーク・ロックを無効化",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/git_project_reader.py#L983-L1042"
+            },
+            {
+              "claim": "schema_error_message() が JSON Schema エラーを中文説明に変換（15 種）",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/schema_error_reporting.py#L51-L115"
+            },
+            {
+              "claim": "capture_repository_content()/compose_content_snapshot()/verification_snapshot_matches() がコンテンツ指紋採集・スナップショット構築・比対を実装",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/project_content_snapshot.py#L127-L213"
+            },
+            {
+              "claim": "input_snapshot()/snapshot_matches()/validate_evidence()/CaseExecution が宣言済み入力ファイルのバイト指紋と現状比対を実装",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/test_case_evidence.py#L137-L367"
+            },
+            {
+              "claim": "pytest 適配器が striznovaコード非依存で striznovatest-case-report.v1 形式を原子書込（全ファイル読取済み）",
+              "kind": "source",
+              "ref": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py#L1-L113"
+            },
+            {
+              "claim": "3 JSON Schema が case_report 設定・用例証拠・pytest 報告構造を定義",
+              "kind": "artifact",
+              "ref": "strixnova/src/strixnova/resources/test-case-config-v1.schema.json"
+            },
+            {
+              "claim": "test_git_for_windows_cmd_wrapper_resolves_to_direct_binary passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_git_project_reader.py::test_git_for_windows_cmd_wrapper_resolves_to_direct_binary"
+            },
+            {
+              "claim": "test_unbound_directory_read_does_not_adopt_its_parent_repository passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_git_project_reader.py::test_unbound_directory_read_does_not_adopt_its_parent_repository"
+            },
+            {
+              "claim": "test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits passed (両 run_id) — evidence と report の JSON Schema 検証含む",
+              "kind": "test",
+              "ref": "tests/unit/test_test_case_evidence.py#L29-L48"
+            },
+            {
+              "claim": "test_skip_xfail_xpass_and_missing_case_never_count_as_passed passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_test_case_evidence.py#L51-L65"
+            },
+            {
+              "claim": "test_xdist_controller_owns_one_complete_report passed (両 run_id) — -n 2 で唯一の .cases.json 断言",
+              "kind": "test",
+              "ref": "tests/unit/test_test_case_evidence.py#L84-L90"
+            },
+            {
+              "claim": "test_xdist_loadgroup_keeps_exact_native_case_identity passed (両 run_id) — @receivers グループ ID 保持",
+              "kind": "test",
+              "ref": "tests/unit/test_test_case_evidence.py#L137-L143"
+            },
+            {
+              "claim": "test_service_evidence_requires_actual_version_contract_and_environment passed (両 run_id)",
+              "kind": "test",
+              "ref": "tests/unit/test_verification_dependencies.py::test_service_evidence_requires_actual_version_contract_and_environment"
+            }
+          ],
+          "limitations": [
+            "全 JUnit 記録の source_at_execution_hash が未独立捕獲のため、passed 結果が現ファイルの精確バイトに対応することを独立検証できない",
+            "test_composite_implementation_alignment.py（2 件）と test_implementation_observation_drift.py（5 件）が packet の test_definition_ids に列挙されているが、対応ソースファイル（composite_implementation_alignment.py 等）は本 packet の source_paths に含まれない。これらのテストが中介モジュールを通じて本モジュールの境界を検証する正常な統合テストである可能性があるが、対応するソースが source_paths にないため本評価での直接確認は不完全",
+            "test_multi_repository_review_regressions.py（5 件）は project_content_snapshot.py の continued_verification_paths/verification_snapshot_matches を中介する統合テストである可能性が高いが、テストファイル本体を本会話で完全読取していないため具体的断言を確認できていない",
+            "評価は静的ソース検査と JUnit 摘要に基づく候補評価であり、独立復核が必要"
+          ],
+          "missing": [
+            "packet の test_definition_ids に test_composite_implementation_alignment.py（2 件）と test_implementation_observation_drift.py（5 件）が列挙されているが、対応ソースファイルが source_paths に不在のため、これらのテストが本モジュールのどの公開インターフェースを検証するか静的検査では特定できない（中介モジュール経由の正常な統合テストである可能性は否定しないが現時点で確認不完全）"
+          ],
+          "resolution_plan": [
+            "composite_implementation_alignment.py および implementation_observation_drift 関連のソースファイルを source_paths に追加するか、または対応する test_definition_ids を正しいモジュールに帰属させ、test_multi_repository_review_regressions.py の断言内容を読取り project_content_snapshot.py との対応を確認する"
+          ],
+          "satisfied": [
+            "GitProjectReader.tracked_paths()/read_bytes()/read_text()/load_yaml()/exists() が「読取当前項目文件」を実装：バインド済み単仓库範囲内で作業木コンテンツを返却",
+            "GitProjectReader（observed_ref 有り）が「読取精確版本文件」を実装：不変 Git 提交から blob を読取",
+            "_ReadOnlyGit.read_files_at()/prefetch()/iter_canonical_files() が「批量読取精確版本文件」を実装：bounded one-shot batches",
+            "_ReadOnlyGit.resolve_commit() が「解析精確版本」を実装：参照を不変 commit hash に解決",
+            "schema_error_reporting.py の schema_error_message() が「呈現構造校験錯誤」を実装：JSON Schema エラーを中文説明に変換",
+            "project_content_snapshot.py の capture_repository_content()/compose_content_snapshot()/verification_snapshot_matches() が「采集与比対声明内容組合」を実装",
+            "test_case_evidence.py の input_snapshot()/snapshot_matches()/validate_evidence()/CaseExecution が「校験声明入力和已記録証拠」を実装",
+            "_ReadOnlyGit._run() が GIT_NO_LAZY_FETCH/GIT_OPTIONAL_LOCKS/GIT_TERMINAL_PROMPT でネットワーク・ロックを無効化",
+            "repository_relative_path() が .git/.strixnova/絶対パス/../シンボリックリンクを拒絶",
+            "GitProjectReader.repository_scope()/bind_repository() が仓库身份バインドと再チェックを実装",
+            "GitProjectReader.content_window() が境界付きバイト窓・digest バインド・シンボリックリンク拒絶を実装",
+            "verification_dependencies.py が外部依存バージョン証拠の採集・核対・時効チェックを実装",
+            "strixnova_builtin_pytest_cases.py が striznovaコード非依存で pytest_runtest_logreport（全フェーズ結果収集）、pytest_testnodedown（worker collection メタデータ取得）、worker の pytest_sessionfinish（collection メタデータ書出）、controller の pytest_sessionfinish（レポート原子書込）を実装。test_xdist_controller_owns_one_complete_report が -n 2 で passed を確認",
+            "3 JSON Schema が case_report 設定・用例証拠・pytest 報告構造を定義",
+            "JUnit passed: test_git_for_windows_cmd_wrapper_resolves_to_direct_binary (両 run_id)",
+            "JUnit passed: test_read_only_reader_distinguishes_ancestor_from_descendant (両 run_id)",
+            "JUnit passed: test_worktree_paths_use_git_ignore_and_include_nonignored_untracked_files (両 run_id)",
+            "JUnit passed: test_unbound_directory_read_does_not_adopt_its_parent_repository (両 run_id)",
+            "JUnit passed: test_real_pytest_report_covers_exact_parameter_cases_and_detects_later_edits (両 run_id)",
+            "JUnit passed: test_skip_xfail_xpass_and_missing_case_never_count_as_passed (両 run_id)",
+            "JUnit passed: test_selection_and_teardown_errors_are_observed_separately (両 run_id)",
+            "JUnit passed: test_xdist_controller_owns_one_complete_report (両 run_id)",
+            "JUnit passed: test_xdist_loadgroup_keeps_exact_native_case_identity (両 run_id)",
+            "JUnit passed: test_service_evidence_requires_actual_version_contract_and_environment (両 run_id)"
+          ],
+          "status": "partially_implemented",
+          "target_id": "MODULE-B558AA14F6004AC0",
+          "target_kind": "module"
+        }
+      ],
+      "owner_accepted": false,
+      "semantic_content_machine_proven": false,
+      "source_ownership": [
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/recoverable_document_transaction.py",
+          "rationale": "ファイルが replace_documents()/recover_document_transactions() を通じてモジュール合同の「原子応用或恢復事務」と「替換精確文档組合」の底層崩溃恢復機構を完全に実装。公開インターフェース・エラークラス・散列バインドが合同と一致。越権や漂移の明確な兆候なし",
+          "target_module_id": "MODULE-992560C2560A4013"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/yaml_metadata_patch.py",
+          "rationale": "ファイルが build_yaml_patch_transaction()/apply_yaml_patch_transaction()/render_yaml_value_patches()/restore_yaml_patch_originals() を通じて「構建精確元数据事務」「预演授權元数据変化」「原子応用或恢復」の YAML 層実装を提供。apply_yaml_patch_transaction が atomic_write_bytes を使用するのは YAML 事務の独立実装路径であり合同範囲内。git_project_reader.repository_relative_path への依存は明示的パス検証のため",
+          "target_module_id": "MODULE-992560C2560A4013"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/resources/verification-summary-v1.schema.json",
+          "rationale": "Schema が verification_runner.py の _validated_receipt() で使用される回執構造制約を定義。approval_ref/limitations/result/code_change_assessment/allOf 条件が実装コードと一致",
+          "target_module_id": "MODULE-A94EF8E733E64205"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/verification_runner.py",
+          "rationale": "ファイルがモジュール合同の「校験執行請求」「運行已批准験証」「汇総験証回執」の 3 公開操作を VerificationRunner クラスとして実装。Agent プログラム禁止・仓库範囲検証・依存証拠採集を含む。project_input_snapshot の設定は application_coordinator が担う呼び出し元の責任であり（application_coordinator.py:2683 で確認）、VerificationRunner 自体の設計上の分担と一致する",
+          "target_module_id": "MODULE-A94EF8E733E64205"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/git_project_reader.py",
+          "rationale": "ファイルが GitProjectReader/_ReadOnlyGit を通じてモジュール合同の「読取当前/精確版本文件」「批量読取」「解析精確版本」を実装。読取専用 Git 実行分離・パス安全検査・仓库身份バインドが合同制約と一致",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/project_content_snapshot.py",
+          "rationale": "ファイルが「采集与比対声明内容組合」を capture_repository_content()/compose_content_snapshot()/verification_snapshot_matches() で実装。プロジェクトファイル書込なし・宣言依拠のみ組合せ・サービス探知なし。合同制約と一致",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+          "rationale": "ファイルが striznovaコードを一切 import せず pytest hook のみで striznovatest-case-report.v1 形式の JSON を原子書込。pytest_runtest_logreport が全フェーズ結果を収集（xdist では controller が全 worker の logreport を受信）、pytest_testnodedown が worker の collection メタデータを取得、worker の pytest_sessionfinish が collection メタデータを workeroutput に書出。adapter_sha256 の自己ハッシュ設計確認済み。test_xdist_controller_owns_one_complete_report が -n 2 で passed を確認",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+          "rationale": "Schema の定義（adapter/test_root/input_paths/bindings/example_fingerprints）が test_case_evidence.py の normalize_config() で使用するフィールド集と一致",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json",
+          "rationale": "Schema の定義（input_snapshot/example_results/adapter_sha256/status 等）が test_case_evidence.py の validate_evidence() および verification_runner.py の _validated_receipt() で使用するフィールド集と一致",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/resources/test-case-report-v1.schema.json",
+          "rationale": "Schema の定義（schema_version/run_id/adapter/collected_test_ids/results 等）が test_case_evidence.py の report_results() および striznovabuiltin_pytest_cases.py の出力 JSON と一致",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/schema_error_reporting.py",
+          "rationale": "ファイルが「呈現構造校験錯誤」を schema_error_message()/one_of_branch_errors() で実装。JSON Schema エラーを中文説明に変換、プロジェクト語義は解釈しない。合同制約と一致",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/test_case_evidence.py",
+          "rationale": "ファイルが「校験声明入力和已記録証拠」を input_snapshot()/snapshot_matches()/validate_evidence()/CaseExecution で実装。ビジネスファイル書込なし・断言充分性の判断なし。合同制約と一致",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        },
+        {
+          "current_status": "aligned",
+          "path": "strixnova/src/strixnova/verification_dependencies.py",
+          "rationale": "ファイルが外部依存バージョン証拠の採集（collect_dependency_evidence）・核対（validate_dependency_evidence）・時効チェック（dependency_evidence_stale）を実装。「校験声明入力和已記録証拠」の外部依存サブセットとして合同と一致",
+          "target_module_id": "MODULE-B558AA14F6004AC0"
+        }
+      ]
+    },
+    "json_schema": {
+      "type": "object",
+      "additionalProperties": false,
+      "$defs": {
+        "optional_text_list": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/text"
+          }
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "ref",
+            "claim"
+          ],
+          "properties": {
+            "kind": {
+              "enum": [
+                "source",
+                "test",
+                "artifact",
+                "command",
+                "inspection"
+              ]
+            },
+            "ref": {
+              "$ref": "#/$defs/text"
+            },
+            "claim": {
+              "$ref": "#/$defs/text"
+            }
+          }
+        },
+        "deviation_id_list": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/deviation_id"
+          }
+        },
+        "deviation_id": {
+          "type": "string",
+          "pattern": "^DEVIATION-[0-9A-F]{16}$"
+        }
+      },
+      "required": [
+        "assessments",
+        "source_ownership",
+        "owner_accepted",
+        "semantic_content_machine_proven"
+      ],
+      "properties": {
+        "assessments": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "target_kind",
+              "target_id",
+              "status",
+              "satisfied",
+              "missing",
+              "evidence",
+              "deviation_ids",
+              "resolution_plan",
+              "limitations"
+            ],
+            "properties": {
+              "target_kind": {
+                "type": "string",
+                "enum": [
+                  "module"
+                ]
+              },
+              "target_id": {
+                "type": "string",
+                "enum": [
+                  "MODULE-992560C2560A4013",
+                  "MODULE-A94EF8E733E64205",
+                  "MODULE-B558AA14F6004AC0"
+                ]
+              },
+              "status": {
+                "enum": [
+                  "implemented",
+                  "partially_implemented",
+                  "not_implemented",
+                  "drifted",
+                  "unknown"
+                ]
+              },
+              "satisfied": {
+                "$ref": "#/$defs/optional_text_list"
+              },
+              "missing": {
+                "$ref": "#/$defs/optional_text_list"
+              },
+              "evidence": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/evidence"
+                },
+                "minItems": 1
+              },
+              "deviation_ids": {
+                "$ref": "#/$defs/deviation_id_list"
+              },
+              "resolution_plan": {
+                "$ref": "#/$defs/optional_text_list"
+              },
+              "limitations": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "status": {
+                      "const": "implemented"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "missing": {
+                      "maxItems": 0
+                    }
+                  }
+                },
+                "else": {
+                  "properties": {
+                    "missing": {
+                      "minItems": 1
+                    },
+                    "resolution_plan": {
+                      "minItems": 1
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        "source_ownership": {
+          "type": "array",
+          "minItems": 13,
+          "maxItems": 13,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "path",
+              "target_module_id",
+              "current_status",
+              "rationale"
+            ],
+            "properties": {
+              "path": {
+                "type": "string",
+                "enum": [
+                  "strixnova/src/strixnova/recoverable_document_transaction.py",
+                  "strixnova/src/strixnova/yaml_metadata_patch.py",
+                  "strixnova/src/strixnova/resources/verification-summary-v1.schema.json",
+                  "strixnova/src/strixnova/verification_runner.py",
+                  "strixnova/src/strixnova/git_project_reader.py",
+                  "strixnova/src/strixnova/project_content_snapshot.py",
+                  "strixnova/src/strixnova/resources/case-adapters/strixnova_builtin_pytest_cases.py",
+                  "strixnova/src/strixnova/resources/test-case-config-v1.schema.json",
+                  "strixnova/src/strixnova/resources/test-case-evidence-v1.schema.json",
+                  "strixnova/src/strixnova/resources/test-case-report-v1.schema.json",
+                  "strixnova/src/strixnova/schema_error_reporting.py",
+                  "strixnova/src/strixnova/test_case_evidence.py",
+                  "strixnova/src/strixnova/verification_dependencies.py"
+                ]
+              },
+              "target_module_id": {
+                "type": "string",
+                "enum": [
+                  "MODULE-992560C2560A4013",
+                  "MODULE-A94EF8E733E64205",
+                  "MODULE-B558AA14F6004AC0"
+                ]
+              },
+              "current_status": {
+                "type": "string",
+                "enum": [
+                  "aligned",
+                  "partially_aligned",
+                  "drifted",
+                  "unknown",
+                  "not_applicable"
+                ]
+              },
+              "rationale": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        },
+        "owner_accepted": {
+          "const": false
+        },
+        "semantic_content_machine_proven": {
+          "const": false
+        }
+      }
+    },
+    "usage": {
+      "input_tokens": 383177,
+      "output_tokens": 50210,
+      "thinking_tokens": 0,
+      "cache_read_tokens": 1474574,
+      "total_tokens": 433387
+    }
+  },
+  "model": "claude-sonnet-4-6",
+  "argv": [
+    "C:\\Users\\柳州局\\AppData\\Local\\agy\\bin\\agy.exe",
+    "--conversation",
+    "4706ac56-10b0-44dd-a2f6-f4e8d4ea8165",
+    "--model",
+    "claude-sonnet-4-6",
+    "--input-format",
+    "stream-json",
+    "--output-format",
+    "stream-json",
+    "--print-timeout",
+    "900s",
+    "--log-file",
+    "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\67b4972c214b\\evidence\\execution\\host.log",
+    "--dangerously-skip-permissions",
+    "--json-schema",
+    "D:\\AboutDEV\\Strixnova\\.artifacts\\validation\\67b4972c214b\\evidence\\execution\\response-schema.json"
+  ],
+  "requested_effort": "host_default",
+  "permission_mode": "auto_approve",
+  "os_isolation_verified": false,
+  "mechanical_passed": true,
+  "failure_layer": null
+}

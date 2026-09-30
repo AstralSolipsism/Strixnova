@@ -1,0 +1,1331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "strixnova.project-implementation-alignment-artifact.v1",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/model"
+    },
+    {
+      "$ref": "#/$defs/source_ownership_catalog"
+    },
+    {
+      "$ref": "#/$defs/dependency_catalog"
+    },
+    {
+      "$ref": "#/$defs/responsibility_catalog"
+    },
+    {
+      "$ref": "#/$defs/deviation_catalog"
+    }
+  ],
+  "$defs": {
+    "text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "text_list": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "optional_text_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/text"
+      }
+    },
+    "alignment_id": {
+      "type": "string",
+      "pattern": "^ALIGNMODEL-[0-9A-F]{16}$"
+    },
+    "alignment_revision_id": {
+      "type": "string",
+      "pattern": "^ALIGNREV-[0-9A-F]{16}$"
+    },
+    "architecture_id": {
+      "type": "string",
+      "pattern": "^ARCH-[0-9A-F]{16}$"
+    },
+    "architecture_revision_id": {
+      "type": "string",
+      "pattern": "^ARCHREV-[0-9A-F]{16}$"
+    },
+    "model_id": {
+      "type": "string",
+      "pattern": "^MODEL-[0-9A-F]{16}$"
+    },
+    "model_revision_id": {
+      "type": "string",
+      "pattern": "^MODELREV-[0-9A-F]{16}$"
+    },
+    "module_id": {
+      "type": "string",
+      "pattern": "^MODULE-[0-9A-F]{16}$"
+    },
+    "relationship_id": {
+      "type": "string",
+      "pattern": "^RELATION-[0-9A-F]{16}$"
+    },
+    "constraint_id": {
+      "type": "string",
+      "pattern": "^CONSTRAINT-[0-9A-F]{16}$"
+    },
+    "stage_id": {
+      "type": "string",
+      "pattern": "^ARCHSTAGE-[0-9A-F]{16}$"
+    },
+    "deviation_id": {
+      "type": "string",
+      "pattern": "^DEVIATION-[0-9A-F]{16}$"
+    },
+    "deviation_id_list": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/deviation_id"
+      }
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "implementation_node_id": {
+      "type": "string",
+      "pattern": "^IMPLNODE-[0-9A-F]{16}$"
+    },
+    "commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40,64}$"
+    },
+    "revision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "revision_id",
+        "status",
+        "supersedes_revision_id",
+        "confirmed_by_owner_id",
+        "confirmed_on"
+      ],
+      "properties": {
+        "revision_id": {
+          "$ref": "#/$defs/alignment_revision_id"
+        },
+        "status": {
+          "enum": [
+            "draft",
+            "ready_for_confirmation",
+            "confirmed"
+          ]
+        },
+        "supersedes_revision_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/alignment_revision_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_by_owner_id": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^OWNER-[0-9A-F]{16}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "confirmed_on": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "confirmed"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "confirmed_by_owner_id": {
+                "type": "string"
+              },
+              "confirmed_on": {
+                "type": "string"
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "confirmed_by_owner_id": {
+                "type": "null"
+              },
+              "confirmed_on": {
+                "type": "null"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "domain_model_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_id",
+        "revision_id"
+      ],
+      "properties": {
+        "model_id": {
+          "$ref": "#/$defs/model_id"
+        },
+        "revision_id": {
+          "$ref": "#/$defs/model_revision_id"
+        }
+      }
+    },
+    "architecture_ref": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "architecture_id",
+        "revision_id"
+      ],
+      "properties": {
+        "architecture_id": {
+          "$ref": "#/$defs/architecture_id"
+        },
+        "revision_id": {
+          "$ref": "#/$defs/architecture_revision_id"
+        }
+      }
+    },
+    "scope_id": {
+      "type": "string",
+      "pattern": "^OBSCOPE-[0-9A-F]{16}$"
+    },
+    "language_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9+.#_-]*$"
+    },
+    "provider_option": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "integer"
+        },
+        {
+          "$ref": "#/$defs/optional_text_list"
+        }
+      ]
+    },
+    "observation_scope": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/observation_scope_input"
+        },
+        {
+          "required": [
+            "repository_id"
+          ]
+        }
+      ]
+    },
+    "observation_gap": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "code",
+        "message",
+        "paths",
+        "relation_kind"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/text"
+        },
+        "message": {
+          "$ref": "#/$defs/text"
+        },
+        "paths": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "relation_kind": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      }
+    },
+    "observation_coverage_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_id",
+        "language_id",
+        "provider_id",
+        "provider_version",
+        "status",
+        "execution_mode",
+        "configurations",
+        "required_relation_kinds",
+        "supported_relation_kinds",
+        "observed_relation_kinds",
+        "source_file_count",
+        "relation_count",
+        "limitations",
+        "gaps",
+        "repository_id"
+      ],
+      "properties": {
+        "scope_id": {
+          "$ref": "#/$defs/scope_id"
+        },
+        "language_id": {
+          "$ref": "#/$defs/language_id"
+        },
+        "provider_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provider_version": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "partial",
+            "unavailable",
+            "failed"
+          ]
+        },
+        "execution_mode": {
+          "enum": [
+            "builtin_static",
+            "authorized_tool",
+            "not_run"
+          ]
+        },
+        "configurations": {
+          "$ref": "#/$defs/text_list"
+        },
+        "required_relation_kinds": {
+          "$ref": "#/$defs/text_list"
+        },
+        "supported_relation_kinds": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "observed_relation_kinds": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "source_file_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "relation_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "limitations": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/observation_gap"
+          }
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "provider_receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_id",
+        "language_id",
+        "provider_id",
+        "provider_version",
+        "execution_mode",
+        "status",
+        "result_sha256",
+        "repository_id"
+      ],
+      "properties": {
+        "scope_id": {
+          "$ref": "#/$defs/scope_id"
+        },
+        "language_id": {
+          "$ref": "#/$defs/language_id"
+        },
+        "provider_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "provider_version": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "execution_mode": {
+          "enum": [
+            "builtin_static",
+            "authorized_tool",
+            "not_run"
+          ]
+        },
+        "status": {
+          "enum": [
+            "complete",
+            "partial",
+            "unavailable",
+            "failed"
+          ]
+        },
+        "result_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "policy_id": {
+          "$ref": "#/$defs/text"
+        },
+        "command_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "request_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "observation_coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contract_version",
+        "overall_status",
+        "source_manifest_sha256",
+        "observation_snapshot_sha256",
+        "observed_paths",
+        "records",
+        "provider_receipts"
+      ],
+      "properties": {
+        "contract_version": {
+          "const": "strixnova.project-implementation-observation.v1"
+        },
+        "overall_status": {
+          "enum": [
+            "complete",
+            "partial",
+            "unavailable",
+            "failed"
+          ]
+        },
+        "source_manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "observation_snapshot_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "observed_paths": {
+          "type": "object",
+          "propertyNames": {
+            "$ref": "#/$defs/text"
+          },
+          "additionalProperties": {
+            "$ref": "#/$defs/sha256"
+          }
+        },
+        "records": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/observation_coverage_record"
+          }
+        },
+        "provider_receipts": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/provider_receipt"
+          }
+        }
+      }
+    },
+    "code_snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "governed_source_manifest_sha256",
+        "observed_on",
+        "repositories"
+      ],
+      "properties": {
+        "governed_source_manifest_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "observed_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "repositories": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "repository_id",
+              "base_commit",
+              "worktree_state"
+            ],
+            "properties": {
+              "repository_id": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "pattern": "^REPO-[0-9A-F]{16}$"
+              },
+              "base_commit": {
+                "$ref": "#/$defs/commit"
+              },
+              "worktree_state": {
+                "enum": [
+                  "clean",
+                  "dirty"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "artifact_paths": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_ownership",
+        "actual_dependencies",
+        "target_responsibilities",
+        "deviations"
+      ],
+      "properties": {
+        "source_ownership": {
+          "$ref": "#/$defs/text"
+        },
+        "actual_dependencies": {
+          "$ref": "#/$defs/text"
+        },
+        "target_responsibilities": {
+          "$ref": "#/$defs/text"
+        },
+        "deviations": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "alignment_model_id",
+        "revision",
+        "domain_model_ref",
+        "architecture_ref",
+        "code_snapshot",
+        "observation_scopes",
+        "observation_coverage",
+        "artifact_paths",
+        "unresolved_items"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.project-implementation-alignment.v1"
+        },
+        "alignment_model_id": {
+          "$ref": "#/$defs/alignment_id"
+        },
+        "revision": {
+          "$ref": "#/$defs/revision"
+        },
+        "domain_model_ref": {
+          "$ref": "#/$defs/domain_model_ref"
+        },
+        "architecture_ref": {
+          "$ref": "#/$defs/architecture_ref"
+        },
+        "code_snapshot": {
+          "$ref": "#/$defs/code_snapshot"
+        },
+        "observation_scopes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/observation_scope"
+          }
+        },
+        "observation_coverage": {
+          "$ref": "#/$defs/observation_coverage"
+        },
+        "artifact_paths": {
+          "$ref": "#/$defs/artifact_paths"
+        },
+        "unresolved_items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "item_id",
+              "statement",
+              "resolution_plan"
+            ],
+            "properties": {
+              "item_id": {
+                "type": "string",
+                "pattern": "^UNKNOWN-[0-9A-F]{16}$"
+              },
+              "statement": {
+                "$ref": "#/$defs/text"
+              },
+              "resolution_plan": {
+                "$ref": "#/$defs/text_list"
+              }
+            }
+          }
+        }
+      }
+    },
+    "governed_source_scope": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/governed_source_scope_input"
+        },
+        {
+          "required": [
+            "repository_id"
+          ]
+        }
+      ]
+    },
+    "source_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_id",
+        "path",
+        "sha256",
+        "language_id",
+        "node_kind",
+        "disposition",
+        "target_module_id",
+        "implementation_stage_id",
+        "current_status",
+        "deviation_ids",
+        "rationale",
+        "repository_id"
+      ],
+      "properties": {
+        "scope_id": {
+          "$ref": "#/$defs/scope_id"
+        },
+        "path": {
+          "$ref": "#/$defs/text"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "language_id": {
+          "$ref": "#/$defs/language_id"
+        },
+        "node_kind": {
+          "enum": [
+            "source_file",
+            "runtime_schema",
+            "agent_guidance",
+            "package_metadata",
+            "documentation",
+            "generated",
+            "external_interface",
+            "other"
+          ]
+        },
+        "disposition": {
+          "enum": [
+            "owned",
+            "excluded"
+          ]
+        },
+        "target_module_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/module_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "implementation_stage_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/stage_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "current_status": {
+          "enum": [
+            "aligned",
+            "partially_aligned",
+            "drifted",
+            "unknown",
+            "not_applicable"
+          ]
+        },
+        "deviation_ids": {
+          "$ref": "#/$defs/deviation_id_list"
+        },
+        "rationale": {
+          "$ref": "#/$defs/text"
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "disposition": {
+                "const": "owned"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "target_module_id": {
+                "type": "string"
+              },
+              "implementation_stage_id": {
+                "type": "string"
+              },
+              "current_status": {
+                "enum": [
+                  "aligned",
+                  "partially_aligned",
+                  "drifted",
+                  "unknown"
+                ]
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "target_module_id": {
+                "type": "null"
+              },
+              "implementation_stage_id": {
+                "type": "null"
+              },
+              "current_status": {
+                "const": "not_applicable"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "source_ownership_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "alignment_model_id",
+        "alignment_revision_id",
+        "governed_source_scopes",
+        "records"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.implementation-source-ownership.v1"
+        },
+        "alignment_model_id": {
+          "$ref": "#/$defs/alignment_id"
+        },
+        "alignment_revision_id": {
+          "$ref": "#/$defs/alignment_revision_id"
+        },
+        "governed_source_scopes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/governed_source_scope"
+          }
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/source_record"
+          }
+        }
+      }
+    },
+    "dependency_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_id",
+        "provider_id",
+        "source_node_id",
+        "source_node_kind",
+        "source_path",
+        "source_external_name",
+        "target_node_id",
+        "target_node_kind",
+        "target_path",
+        "target_external_name",
+        "observed_names",
+        "relation_kind",
+        "resolution_status",
+        "conditions",
+        "source_module_id",
+        "target_module_id",
+        "classification",
+        "target_relationship_id",
+        "deviation_ids",
+        "rationale",
+        "repository_id"
+      ],
+      "properties": {
+        "scope_id": {
+          "$ref": "#/$defs/scope_id"
+        },
+        "provider_id": {
+          "$ref": "#/$defs/text"
+        },
+        "source_node_id": {
+          "$ref": "#/$defs/implementation_node_id"
+        },
+        "source_node_kind": {
+          "$ref": "#/$defs/text"
+        },
+        "source_path": {
+          "$ref": "#/$defs/text"
+        },
+        "source_external_name": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_node_id": {
+          "$ref": "#/$defs/implementation_node_id"
+        },
+        "target_node_kind": {
+          "$ref": "#/$defs/text"
+        },
+        "target_path": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "target_external_name": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/text"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "observed_names": {
+          "$ref": "#/$defs/text_list"
+        },
+        "relation_kind": {
+          "$ref": "#/$defs/text"
+        },
+        "resolution_status": {
+          "enum": [
+            "resolved_internal",
+            "external",
+            "unresolved",
+            "ambiguous"
+          ]
+        },
+        "conditions": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "source_module_id": {
+          "$ref": "#/$defs/module_id"
+        },
+        "target_module_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/module_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "classification": {
+          "enum": [
+            "internal_same_module",
+            "allowed_direct",
+            "allowed_read_only",
+            "requires_mediator_but_direct",
+            "forbidden",
+            "undeclared",
+            "unowned_endpoint",
+            "external_observed",
+            "unresolved_observation",
+            "ambiguous_observation"
+          ]
+        },
+        "target_relationship_id": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/relationship_id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "deviation_ids": {
+          "$ref": "#/$defs/deviation_id_list"
+        },
+        "rationale": {
+          "$ref": "#/$defs/text"
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "dependency_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "alignment_model_id",
+        "alignment_revision_id",
+        "observation_contract_version",
+        "records"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.implementation-actual-dependencies.v1"
+        },
+        "alignment_model_id": {
+          "$ref": "#/$defs/alignment_id"
+        },
+        "alignment_revision_id": {
+          "$ref": "#/$defs/alignment_revision_id"
+        },
+        "observation_contract_version": {
+          "const": "strixnova.project-implementation-observation.v1"
+        },
+        "records": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/dependency_record"
+          }
+        }
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "ref",
+        "claim"
+      ],
+      "properties": {
+        "kind": {
+          "enum": [
+            "source",
+            "test",
+            "artifact",
+            "command",
+            "inspection"
+          ]
+        },
+        "ref": {
+          "$ref": "#/$defs/text"
+        },
+        "claim": {
+          "$ref": "#/$defs/text"
+        }
+      }
+    },
+    "responsibility_record": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_kind",
+        "target_id",
+        "status",
+        "satisfied",
+        "missing",
+        "evidence",
+        "deviation_ids",
+        "resolution_plan"
+      ],
+      "properties": {
+        "target_kind": {
+          "enum": [
+            "module",
+            "relationship",
+            "constraint"
+          ]
+        },
+        "target_id": {
+          "$ref": "#/$defs/text"
+        },
+        "status": {
+          "enum": [
+            "implemented",
+            "partially_implemented",
+            "not_implemented",
+            "drifted",
+            "unknown"
+          ]
+        },
+        "satisfied": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "missing": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/evidence"
+          }
+        },
+        "deviation_ids": {
+          "$ref": "#/$defs/deviation_id_list"
+        },
+        "resolution_plan": {
+          "$ref": "#/$defs/optional_text_list"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "implemented"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "missing": {
+                "maxItems": 0
+              }
+            }
+          },
+          "else": {
+            "properties": {
+              "missing": {
+                "minItems": 1
+              },
+              "resolution_plan": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "responsibility_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "alignment_model_id",
+        "alignment_revision_id",
+        "records"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.implementation-target-responsibilities.v1"
+        },
+        "alignment_model_id": {
+          "$ref": "#/$defs/alignment_id"
+        },
+        "alignment_revision_id": {
+          "$ref": "#/$defs/alignment_revision_id"
+        },
+        "records": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/responsibility_record"
+          }
+        }
+      }
+    },
+    "deviation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "deviation_id",
+        "priority",
+        "kind",
+        "title",
+        "statement",
+        "affected_paths",
+        "affected_target_ids",
+        "required_action",
+        "closure_evidence"
+      ],
+      "properties": {
+        "deviation_id": {
+          "$ref": "#/$defs/deviation_id"
+        },
+        "priority": {
+          "enum": [
+            "critical",
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "kind": {
+          "enum": [
+            "authority",
+            "responsibility",
+            "dependency",
+            "execution_boundary",
+            "coverage",
+            "legacy",
+            "interface"
+          ]
+        },
+        "title": {
+          "$ref": "#/$defs/text"
+        },
+        "statement": {
+          "$ref": "#/$defs/text"
+        },
+        "affected_paths": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "affected_target_ids": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "required_action": {
+          "$ref": "#/$defs/text_list"
+        },
+        "closure_evidence": {
+          "$ref": "#/$defs/text_list"
+        }
+      }
+    },
+    "deviation_catalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "alignment_model_id",
+        "alignment_revision_id",
+        "deviations"
+      ],
+      "properties": {
+        "schema_version": {
+          "const": "strixnova.implementation-deviations.v1"
+        },
+        "alignment_model_id": {
+          "$ref": "#/$defs/alignment_id"
+        },
+        "alignment_revision_id": {
+          "$ref": "#/$defs/alignment_revision_id"
+        },
+        "deviations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/deviation"
+          }
+        }
+      }
+    },
+    "observation_scope_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_id",
+        "root",
+        "languages",
+        "required_relation_kinds",
+        "configurations",
+        "exclusions",
+        "provider_options"
+      ],
+      "properties": {
+        "scope_id": {
+          "$ref": "#/$defs/scope_id"
+        },
+        "root": {
+          "$ref": "#/$defs/text"
+        },
+        "languages": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/language_id"
+          }
+        },
+        "required_relation_kinds": {
+          "$ref": "#/$defs/text_list"
+        },
+        "configurations": {
+          "$ref": "#/$defs/text_list"
+        },
+        "exclusions": {
+          "$ref": "#/$defs/optional_text_list"
+        },
+        "provider_options": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/provider_option"
+          }
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        }
+      }
+    },
+    "governed_source_scope_input": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scope_id",
+        "root",
+        "included_path_patterns",
+        "included_node_kinds",
+        "exclusion_policy"
+      ],
+      "properties": {
+        "scope_id": {
+          "$ref": "#/$defs/scope_id"
+        },
+        "root": {
+          "$ref": "#/$defs/text"
+        },
+        "included_path_patterns": {
+          "$ref": "#/$defs/text_list"
+        },
+        "included_node_kinds": {
+          "$ref": "#/$defs/text_list"
+        },
+        "exclusion_policy": {
+          "$ref": "#/$defs/text"
+        },
+        "repository_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^REPO-[0-9A-F]{16}$"
+        }
+      }
+    }
+  }
+}
